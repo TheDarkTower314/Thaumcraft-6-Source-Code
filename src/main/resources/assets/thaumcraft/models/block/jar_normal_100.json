@@ -1,0 +1,79 @@
+{
+    "parent": "thaumcraft:block/jar_normal",
+    "elements": [
+        {
+            "from": [4,1,4],
+            "to": [12,11,12],
+            "faces": {
+                "up": {
+                    "texture": "#fluid", "tintindex": 1
+                },
+                "down": {
+                    "texture": "#fluid", "tintindex": 1
+                },
+                "west": {
+                    "texture": "#fluid", "tintindex": 1
+                },
+                "east": {
+                    "texture": "#fluid", "tintindex": 1
+                },
+                "north": {
+                    "texture": "#fluid", "tintindex": 1
+                },
+                "south": {
+                    "texture": "#fluid", "tintindex": 1
+                }
+            }
+        },
+        {
+            "from": [3,0,3],
+            "to": [13,12,13],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "down": {
+                    "texture": "#bottom",
+                    "cullface": "down"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        },
+        
+        {
+            "from": [5,12,5],
+            "to": [11,14,11],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "down": {
+                    "texture": "#top"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        }
+    ]
+}

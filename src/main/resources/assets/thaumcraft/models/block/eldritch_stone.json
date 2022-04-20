@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "thaumcraft:blocks/eldritch_stone_1",
+        "up": "thaumcraft:blocks/eldritch_stone_1",
+        "down": "thaumcraft:blocks/eldritch_stone_1",
+        "east": "thaumcraft:blocks/eldritch_stone_2",
+        "west": "thaumcraft:blocks/eldritch_stone_2",
+        "north": "thaumcraft:blocks/eldritch_stone_3",
+        "south": "thaumcraft:blocks/eldritch_stone_3"
+    }
+}

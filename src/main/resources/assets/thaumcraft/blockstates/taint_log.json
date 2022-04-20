@@ -1,0 +1,41 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "cube_all",
+        "textures": { "all": "thaumcraft:blocks/log_taintwood_1" },
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "inventory":[{"model": "thaumcraft:log_taintwood"}],
+        "axis=x": [ 
+            { "model": "thaumcraft:log_taintwood", "textures": {"north": "thaumcraft:blocks/log_taintwood_1"}, "x": 90, "y": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"south": "thaumcraft:blocks/log_taintwood_1"}, "x": 90, "y": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"east": "thaumcraft:blocks/log_taintwood_1"}, "x": 90, "y": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"west": "thaumcraft:blocks/log_taintwood_1"}, "x": 90, "y": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"north": "thaumcraft:blocks/log_taintwood_2"}, "x": 90, "y": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"south": "thaumcraft:blocks/log_taintwood_2"}, "x": 90, "y": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"east": "thaumcraft:blocks/log_taintwood_2"}, "x": 90, "y": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"west": "thaumcraft:blocks/log_taintwood_2"}, "x": 90, "y": 90 }
+        ],
+        "axis=y": [
+            { "model": "thaumcraft:log_taintwood", "textures": {"north": "thaumcraft:blocks/log_taintwood_1"} },
+            { "model": "thaumcraft:log_taintwood", "textures": {"south": "thaumcraft:blocks/log_taintwood_1"} },
+            { "model": "thaumcraft:log_taintwood", "textures": {"east": "thaumcraft:blocks/log_taintwood_1"} },
+            { "model": "thaumcraft:log_taintwood", "textures": {"west": "thaumcraft:blocks/log_taintwood_1"} },
+            { "model": "thaumcraft:log_taintwood", "textures": {"north": "thaumcraft:blocks/log_taintwood_2"} },
+            { "model": "thaumcraft:log_taintwood", "textures": {"south": "thaumcraft:blocks/log_taintwood_2"} },
+            { "model": "thaumcraft:log_taintwood", "textures": {"east": "thaumcraft:blocks/log_taintwood_2"} },
+            { "model": "thaumcraft:log_taintwood", "textures": {"west": "thaumcraft:blocks/log_taintwood_2"} }
+        ],
+        "axis=z": [
+            { "model": "thaumcraft:log_taintwood", "textures": {"north": "thaumcraft:blocks/log_taintwood_1"}, "x": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"south": "thaumcraft:blocks/log_taintwood_1"}, "x": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"east": "thaumcraft:blocks/log_taintwood_1"}, "x": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"west": "thaumcraft:blocks/log_taintwood_1"}, "x": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"north": "thaumcraft:blocks/log_taintwood_2"}, "x": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"south": "thaumcraft:blocks/log_taintwood_2"}, "x": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"east": "thaumcraft:blocks/log_taintwood_2"}, "x": 90 },
+            { "model": "thaumcraft:log_taintwood", "textures": {"west": "thaumcraft:blocks/log_taintwood_2"}, "x": 90 }
+        ]
+    }
+}

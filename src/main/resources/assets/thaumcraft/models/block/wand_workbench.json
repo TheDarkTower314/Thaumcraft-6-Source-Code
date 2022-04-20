@@ -1,0 +1,9 @@
+{
+    "parent": "thaumcraft:block/arcane_workbench",
+    "textures": {
+        "particle": "thaumcraft:blocks/wand_workbench_side",
+        "top": "thaumcraft:blocks/wand_workbench_top",
+        "side": "thaumcraft:blocks/wand_workbench_side",
+        "bottom": "thaumcraft:blocks/base_stone"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:centrifuge",
+        "textures": {
+            "particle": "thaumcraft:blocks/centrifuge",
+            "side": "thaumcraft:blocks/centrifuge"
+        },
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "inventory": [{}], "normal": [{}]
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "ambientocclusion": false,
+    "textures": {        
+        "under": "thaumcraft:blocks/inlay_connect_under",
+        "under2": "thaumcraft:blocks/inlay_connect_under2",
+        "particle": "thaumcraft:blocks/inlay_connect_under"        
+    },
+    "elements": [
+        {   "from": [ 0, 0.175, 0 ],
+            "to": [ 16, 0.175, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 16], "texture": "#over", "tintindex": 0 }
+            }
+        },
+        {   "from": [ 0, 0.15, 0 ],
+            "to": [ 16, 0.15, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 16 ], "texture": "#under" }
+            }
+        },
+        {   "from": [ 0, 0.05, 0 ],
+            "to": [ 16, 0.05, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 16 ], "texture": "#under2" }
+            }
+        }
+        
+    ]
+}

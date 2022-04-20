@@ -1,0 +1,34 @@
+{
+
+    "forge_marker": 1,
+    "variants": {
+        "arcane": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/curio_arcane" }
+        },
+        "preserved": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/curio_preserved" }
+        },
+        "ancient": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/curio_ancient" }
+        },
+        "knowledge": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/curio_knowledge" }
+        },
+        "twisted": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/curio_twisted" }
+        },
+        "eldritch": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/curio_eldritch" }
+        },
+        "rites": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/crimson_rites" }
+        }
+    }
+}

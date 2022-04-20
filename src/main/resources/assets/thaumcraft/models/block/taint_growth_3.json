@@ -1,0 +1,38 @@
+{
+    "textures": {
+        "sde": "thaumcraft:blocks/taint_growth_3"
+    },
+    "elements": [
+        {
+            "from": [4,0,4],
+            "to": [12,5,12],
+            "faces": {
+                "up": {
+                    "uv": [8,8,16,16],
+                    "texture": "#sde"
+                },
+                "down": {
+                    "uv": [8,8,16,16],
+                    "texture": "#sde",
+                    "cullface": "down"
+                },
+                "west": {
+                    "uv": [0,0,8,5],
+                    "texture": "#sde"
+                },
+                "east": {
+                    "uv": [0,0,8,5],
+                    "texture": "#sde"
+                },
+                "north": {
+                    "uv": [0,0,8,5],
+                    "texture": "#sde"
+                },
+                "south": {
+                    "uv": [0,0,8,5],
+                    "texture": "#sde"
+                }
+            }
+        }
+    ]
+}

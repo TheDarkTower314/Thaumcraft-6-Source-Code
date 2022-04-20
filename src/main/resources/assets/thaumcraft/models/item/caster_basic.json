@@ -1,0 +1,13 @@
+{
+    "parent": "item/generated",    
+    "overrides": [
+        {
+            "predicate": { "focus": 0 },
+            "model": "thaumcraft:item/caster_basic_model"
+        },
+        {
+            "predicate": { "focus": 1 },
+            "model": "thaumcraft:item/caster_basic_focus_model"
+        }
+    ]
+}

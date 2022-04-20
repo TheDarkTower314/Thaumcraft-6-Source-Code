@@ -1,0 +1,61 @@
+{
+    "textures": {
+        "particle": "thaumcraft:blocks/taint_growth_5",
+        "side1": "thaumcraft:blocks/taint_growth_5",
+        "side2": "thaumcraft:blocks/taint_growth_3"
+    },
+    "elements": [
+        {
+            "from": [2,0,3],
+            "to": [10,8,11],
+            "faces": {
+                "up": {
+                    "uv": [8,8,16,16],
+                    "texture": "#side2"
+                },
+                "west": {
+                    "uv": [8,8,16,16],
+                    "texture": "#side2"
+                },
+                "east": {
+                    "uv": [8,8,16,16],
+                    "texture": "#side2"
+                },
+                "north": {
+                    "uv": [8,8,16,16],
+                    "texture": "#side2"
+                },
+                "south": {
+                    "uv": [8,8,16,16],
+                    "texture": "#side2"
+                }
+            }
+        },
+        {
+            "from": [8,0,7],
+            "to": [14,6,13],
+            "faces": {
+                "up": {
+                    "uv": [10,0,16,6],
+                    "texture": "#side1"
+                },
+                "west": {
+                    "uv": [10,0,16,6],
+                    "texture": "#side1"
+                },
+                "east": {
+                    "uv": [10,0,16,6],
+                    "texture": "#side1"
+                },
+                "north": {
+                    "uv": [10,0,16,6],
+                    "texture": "#side1"
+                },
+                "south": {
+                    "uv": [10,0,16,6],
+                    "texture": "#side1"
+                }
+            }
+        }
+    ]
+}

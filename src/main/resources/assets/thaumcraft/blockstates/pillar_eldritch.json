@@ -1,0 +1,10 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "inventory": [{ "transform": "forge:default-block", "model": "thaumcraft:pillar.obj", "textures": {"#texture": "thaumcraft:blocks/pillar_eldritch"}}],        
+        "facing=north": { "model": "thaumcraft:pillar.obj", "textures": {"#texture": "thaumcraft:blocks/pillar_eldritch"}},
+        "facing=south": { "model": "thaumcraft:pillar.obj", "y": 180, "textures": {"#texture": "thaumcraft:blocks/pillar_eldritch"}},
+        "facing=east": { "model": "thaumcraft:pillar.obj", "y": 90, "textures": {"#texture": "thaumcraft:blocks/pillar_eldritch"}},
+        "facing=west": { "model": "thaumcraft:pillar.obj", "y": 270, "textures": {"#texture": "thaumcraft:blocks/pillar_eldritch"}}
+    }
+}

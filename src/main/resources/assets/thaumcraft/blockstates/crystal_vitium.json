@@ -1,0 +1,14 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "builtin/generated", 
+        "textures": {"all": "thaumcraft:blocks/empty"}
+    }
+    ,
+    "variants": {     
+        "size": {"0": {},"1": {},"2": {},"3": {}},
+        "gen": {"1": {},"2": {},"3": {},"4": {}}
+    }
+}
+

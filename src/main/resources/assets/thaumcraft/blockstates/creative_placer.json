@@ -1,0 +1,18 @@
+{
+
+    "forge_marker": 1,
+    "variants": {
+        "caster": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/creative_caster" }
+        },
+        "node": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/creative_node" }
+        },
+        "obelisk": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/creative_obelisk" }
+        }
+    }
+}

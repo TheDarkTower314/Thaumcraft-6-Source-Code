@@ -1,0 +1,10 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "inventory": { "model": "thaumcraft:research_table", "transform": "forge:default-block" },      
+        "facing=east":    { "model": "thaumcraft:research_table", "y": 90 },
+        "facing=west":    { "model": "thaumcraft:research_table", "y": 270 },
+        "facing=north":   { "model": "thaumcraft:research_table" },
+        "facing=south":   { "model": "thaumcraft:research_table", "y": 180 }
+    }
+}

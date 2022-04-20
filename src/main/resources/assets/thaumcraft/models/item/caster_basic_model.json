@@ -1,0 +1,6 @@
+{
+    "parent": "thaumcraft:item/caster_gauntlet",
+    "textures": {
+        "skin": "thaumcraft:entity/armor/caster_basic"
+    }
+}

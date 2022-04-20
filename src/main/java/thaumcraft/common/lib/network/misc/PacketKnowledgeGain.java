@@ -1,0 +1,67 @@
+// 
+// Decompiled by Procyon v0.6.0
+// 
+
+package thaumcraft.common.lib.network.misc;
+
+import thaumcraft.api.research.ResearchCategory;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.SoundCategory;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.client.lib.events.HudHandler;
+import thaumcraft.client.lib.events.RenderEventHandler;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.capabilities.IPlayerKnowledge;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import io.netty.buffer.ByteBuf;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+
+public class PacketKnowledgeGain implements IMessage, IMessageHandler<PacketKnowledgeGain, IMessage>
+{
+    private byte type;
+    private String cat;
+    
+    public PacketKnowledgeGain() {
+    }
+    
+    public PacketKnowledgeGain(final byte type, final String value) {
+        this.type = type;
+        this.cat = ((value == null) ? "" : value);
+    }
+    
+    public void toBytes(final ByteBuf buffer) {
+        buffer.writeByte(this.type);
+        ByteBufUtils.writeUTF8String(buffer, this.cat);
+    }
+    
+    public void fromBytes(final ByteBuf buffer) {
+        this.type = buffer.readByte();
+        this.cat = ByteBufUtils.readUTF8String(buffer);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public IMessage onMessage(final PacketKnowledgeGain message, final MessageContext ctx) {
+        Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+            @Override
+            public void run() {
+                PacketKnowledgeGain.this.processMessage(message);
+            }
+        });
+        return null;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    void processMessage(final PacketKnowledgeGain message) {
+        final EntityPlayer p = Minecraft.getMinecraft().player;
+        final IPlayerKnowledge.EnumKnowledgeType type = IPlayerKnowledge.EnumKnowledgeType.values()[message.type];
+        final ResearchCategory cat = (message.cat.length() > 0) ? ResearchCategories.getResearchCategory(message.cat) : null;
+        final RenderEventHandler instance = RenderEventHandler.INSTANCE;
+        RenderEventHandler.hudHandler.knowledgeGainTrackers.add(new HudHandler.KnowledgeGainTracker(type, cat, 40 + p.world.rand.nextInt(20), p.world.rand.nextLong()));
+        p.world.playSound(p.posX, p.posY, p.posZ, SoundsTC.learn, SoundCategory.AMBIENT, 1.0f, 1.0f, false);
+    }
+}

@@ -1,0 +1,110 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "particle": "thaumcraft:blocks/jar_side",
+        "side": "thaumcraft:blocks/jar_side",
+        "bottom": "thaumcraft:blocks/jar_bottom",
+        "top": "thaumcraft:blocks/jar_top",
+        "brain": "thaumcraft:blocks/flesh",
+        "brine": "thaumcraft:blocks/jar_brine"
+    },
+    "elements": [
+        {
+            "from": [6,4,5],
+            "to": [10,8,11],
+            "faces": {
+                "up": {
+                    "texture": "#brain"
+                },
+                "down": {
+                    "texture": "#brain"
+                },
+                "west": {
+                    "texture": "#brain"
+                },
+                "east": {
+                    "texture": "#brain"
+                },
+                "north": {
+                    "texture": "#brain"
+                },
+                "south": {
+                    "texture": "#brain"
+                }
+            }
+        },
+        {
+            "from": [4,1,4],
+            "to": [12,11,12],
+            "faces": {
+                "up": {
+                    "texture": "#brine"
+                },
+                "down": {
+                    "texture": "#brine"
+                },
+                "west": {
+                    "texture": "#brine"
+                },
+                "east": {
+                    "texture": "#brine"
+                },
+                "north": {
+                    "texture": "#brine"
+                },
+                "south": {
+                    "texture": "#brine"
+                }
+            }
+        },
+        {
+            "from": [3,0,3],
+            "to": [13,12,13],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "down": {
+                    "texture": "#bottom",
+                    "cullface": "down"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [5,12,5],
+            "to": [11,14,11],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "down": {
+                    "texture": "#top"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        }
+    ]
+}

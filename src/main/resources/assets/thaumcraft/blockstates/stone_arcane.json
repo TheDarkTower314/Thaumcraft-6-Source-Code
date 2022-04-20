@@ -1,0 +1,15 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:arcane_stone",
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "normal": [
+                { "model": "thaumcraft:arcane_stone" },
+                { "model": "thaumcraft:arcane_stone", "x": 90 },
+                { "model": "thaumcraft:arcane_stone", "y": 90 },
+                { "model": "thaumcraft:arcane_stone", "x": 90, "y": 90 }
+        ], "inventory": [{}]
+    }
+}

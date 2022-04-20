@@ -1,0 +1,24 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "over": "thaumcraft:blocks/inlay_rune_half",
+        "particle": "thaumcraft:blocks/inlay_under_half",
+        "under": "thaumcraft:blocks/inlay_under_half"
+    },
+    "elements": [
+        {   "from": [ 0, 0.15, 16 ],
+            "to": [ 16, 0.15, 24 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 8 ], "texture": "#over", "tintindex": 0 }
+            }
+        },
+        {   "from": [ 0, 0.1, 16 ],
+            "to": [ 16, 0.1, 24 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 0, 16, 8 ], "texture": "#under" }
+            }
+        }
+    ]
+}

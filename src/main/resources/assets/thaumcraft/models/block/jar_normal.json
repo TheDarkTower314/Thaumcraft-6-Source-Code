@@ -1,0 +1,83 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "side": "thaumcraft:blocks/jar_side",
+        "bottom": "thaumcraft:blocks/jar_bottom",
+        "top": "thaumcraft:blocks/jar_top",
+        "particle": "thaumcraft:blocks/jar_side",
+        "fluid": "thaumcraft:blocks/animatedglow"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 30, 135, 0 ],
+            "translation": [ 0, 1, 0],
+            "scale":[ 0.75, 0.75, 0.75 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 90, 0 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 0.625, 0.625, 0.625 ]
+        },
+        "ground": {
+            "translation": [ 0, 2, 0],
+            "scale": [ 0.625, 0.625, 0.625 ]
+        },
+        "thirdperson_lefthand": {
+            "scale": [ 0.625, 0.625, 0.625 ]
+        },
+        "thirdperson_righthand": {
+            "scale": [ 0.625, 0.625, 0.625 ]
+        }
+    },
+    "elements": [
+        {
+            "from": [3,0,3],
+            "to": [13,12,13],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "down": {
+                    "texture": "#bottom",
+                    "cullface": "down"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [5,12,5],
+            "to": [11,14,11],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "down": {
+                    "texture": "#top"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        }
+    ]
+}

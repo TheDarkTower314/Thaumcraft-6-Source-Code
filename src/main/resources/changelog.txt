@@ -1,0 +1,377 @@
+6.1.BETA26 hotfix1
+- fix altar particle related crash on servers
+
+6.1.BETA26
+- API: deprecated IStabilizable
+- API: added IGogglesDisplay
+- API: added oredict support in json research entries for required_item and required_craft. 
+- fix for crash related to the latest versions of forge (14.23.5.2768)
+- infusion instability mechanics have been completely reworked. Check your thaumonomicon. TLDR version, stabilizers simply add a lot of stability to infusion now, but when paired with redstone inlay can do other fancy things. They no longer use RF.
+- added advanced break seal
+
+6.1.BETA25
+- golem press will now properly consume crafting components
+- more fixes to seal & logistics GUI's
+- custom thaumcraft shaders should once again work
+- buffer will no longer draw essentia from adjacent blocks if that side has been disconnected
+- added Lamplighter infusion enchantment
+- I now prevent most thaumcraft UI elements from overlapping
+- when riding a minecart the arcane bore will not switch off if there are no tracks below (for whatever reason) 
+- tainted animals & critters will now do damage instead of just aggressive nudging
+- changed the way itemstacks sync to clients which should get rid of a lot of odd behaviour in certain gui's
+- greatwood trees now require 4 saplings to grow like large vanilla trees. They drop more saplings to account for this change.
+- thaumatorium should now display all recipes (occasionally a recipe would be lost, like the spiritus vis crystal recipe)
+- thaumatorium recipes are now sorted alphabetically
+- cultist armor now have their own material types
+- made many thaumcraft blocks rotateble with modded wrenches that allow it
+- entity aspects can now be viewed through the thaumometer
+- empty & provider seal should no longer cause golems to drop items on ground when picking up something new
+- water jar can now fill vanilla cauldrons & glass bottles again
+
+6.1.BETA24
+- fixed several focal manipulator ui issues
+- golem press now checks adjacent inventories for crafting materials as well
+- golem appearance should now sync more consistently on servers
+- provide and empty seals will no longer cause items to drop on the ground if the target inventory (as set by stock, fill, etc) is full
+- stock seals will now check if the target inventory has room before creating a task
+- greatly improved flying golem movement
+- improved golem responsiveness
+
+6.1.BETA23
+- fixed banner server crash
+- fixed crafting recipe for primal crusher
+- added console command to revoke specific research from a player instead of resetting it all. Format: /thaumcraft research <player> revoke <research>. This will also remove any research that relies on the revoked research.
+- tweaked infusion crafting instability so that instability added is on a sliding scale - the higher the instability, the less chance it has of becoming worse. 
+- the amount by which infusion crafting stability increases after instability occurs has been increased.
+- added aspect names to display name of vis crystals and essentia phials
+- fix soft-crash when you tried to craft a multiblock by clicking on the top or bottom face of a block with salis mundus
+
+6.1.BETA22
+- fixed a major bug that was causing you to only gain progress in the 'blue' theorycraft categories instead of all of them. Rounding is awesome!
+- fixed void siphon crash on dedicated servers
+- fixed stabilizer particles... again
+- rebelanced some crafting recipes
+- cloudstepper ring should now properly negate fall damage when double jumping and will not do silly things when you are underwater
+- items with sounding effect will now only trigger it if sneak + right clicked instead of the other way around
+- primal crusher recipe now accepts broken tools as ingredients
+- rebalanced flux condenser essentia cost
+
+6.1.BETA21
+- API: fixed the AspectRegistryEvent to use a proxy object (register) that contains the actual registration methods. This was done to prevent some ASM related issues.
+- fix for thaumotorium not syncing in MP
+- fire bats once again cause mob damage
+
+6.1.BETA20
+- FORGE: Updated to Forge version 14.23.4.2705
+- API: Certain mods that define their own item aspects have been accidentally doing so in the 'wrong' place. To prevent this I will now wipe all item aspects registration that occurs before TC defines the core item aspects. 
+- API: Additionally I have added an event mods can subscribe to that would be the correct place to define item aspects. The existing aspect definition methods will be deprecated and eventually will only be accessible through this event.
+- API: Added events when a player gains knowledge or progresses research. See thaumcraft.api.research.ResearchEvent. The events can be cancelled. 
+- improved thaumatorium GUI
+- harvesting golems will now try and right-click a crop first before trying to break it
+- increased the knowledge gained from curios 
+- rebalanced some base item aspects and added a couple of alternate sources for hard to get aspects
+- thaumium smelter is now 90% efficient instead of 85%
+- improved arcane bore interaction with infusion enchantments like destructive
+- fixed enchantment detection during research
+
+6.1.BETA19
+- fixed triple meat treat recipe
+- improved foci radial menu animation and unlinked it from fps
+- fixed certain foci in radial menu not showing up if they are too similar to other foci
+- you can now only have one scatter modifier per focus
+- prevent crash with focus pouch if you click on it while it's inventory is open 
+- arcane workbench should properly choose the correct crystals to use between similar recipes
+- to make early game mistakes a bit more forgiving the crucible will only turn 25% of spilled essentia into flux instead of the current 50%-75%
+- added a 'noSleep' config option so you can get the salis mundus recipe book without having to sleep first
+- fixed eldritch crab rendering when 'mounted'
+
+6.1.BETA18
+- fixed the mod interaction bug with the hats mod
+- fix out of bounds condenser crash
+- increased condenser essentia suction 
+- flux generators now produce up to 20 rf/tick. The vis cost is still the same (1 vis = 1000 rf).
+- flux stabiliser can now accept power from all sides except the front. This means 5 flux generators will be able to fully power a stabiliser as it can accept up to 100 rf/tick max.
+- candles and other items are now slightly more effective during infusion and you can have up to 12 (up from 10) - a much more symmetrical number
+- improved detection of enchanted books in research and recipes
+- arcane ear now supports new instrument types
+- scanning inventories with a thaumometer is now limited to the first 100 items to prevent lag spikes with massive inventories
+- thaumcraft leaves will no longer decay if placed by a player
+- entities ridden by a player can now pass through warding barriers
+- fixed warded jar contents display in inventory
+- warded jars crafted into void jars now retain their contents, labels, etc.
+- arcane workbench now actually checks if you have the proper research
+- added first bits of eldritch tier research. Much more to come
+
+6.1.BETA17
+- everful urns now act as water tanks that contain up to 1 bucket volume of water and can interact with piping systems.
+- switched liquid death and purifying fluid to use the forge universal bucket. Existing buckets will no longer be valid
+- fix for stabilizer server crash
+- allow traveller boots and cloud ring falling damage reduction to stack with other falling reduction items and each other
+- improved thaumometer performance
+- fix for pedestals incorrectly allowing more than one item to be placed in them via automation
+- fix datamanager declarations for some thaumcraft entities that was causing mod interaction issues
+- vis crystal growth, shrinking, and spread no longer causes flux as a side-effect. Flux crystals now properly grow and shrink based on flux instead of vis.
+- improved recipe recursion checking to better account for container items
+- flux rifts once again close when they spawn taint seeds, but the larger they are, the more potent the spawned seed is
+- added a way to manage flux & flux rifts. This is still WIP and will be expanded and balanced in future updates
+
+6.1.BETA16
+- fix for clientside particle crash
+- fix for aura chunk related crash & cascading worldgen
+- arcane workbench should now be able to craft vanilla recipes without the presence of crystals
+
+6.1.BETA15
+- fix for chunk loading errors on server start
+- fix for seeking projectiles causing client crash
+- possible fix for pedestal desync issues during infusion
+- fixed moon phase descriptions
+- alembic can once again be emptied on shift-right click with an empty hand
+- creative flux sponge can now also remove flux rifts
+- fixed armor dyes
+- fixed arcane bore dupe bug and made its digger radius a bit more accurate when stationary
+- vis batteries will now drop when harvested
+- pattern crafter now removes the proper amount of items
+- fixed possible dupe bug with certain mods combined with arcane bore, seals and breaker focus
+
+6.1.BETA14
+- new stuff: vis batteries, vis generator, stabilizer, stock seal
+- fixed arcane pattern crafter
+- relaxed nbt checking in crucible recipes, infusion recipes and research hand ins to account for other mods that add custom nbt tags
+- fixed mod compatibility load order
+- fixed an edge case bug where custom recipes from other mods could cause strange results in the arcane workbench
+- tweaked amber block/brick recipes
+- fixed seal filters to allow non-standard stack sizes. You might want to check all your seal filters to make sure they behave as they should
+- API: seal filters now store stack sizes independently of the itemstacks themselves. New methods added to get and set those numbers.
+- increased experimentation inspiration cost to 2, but also increased the amount of progress it gives
+- fixed custom gui toggle buttons
+- seeking focus projectiles are now 56% more seeky
+- bouncing focus projectiles can now only bounce off solid blocks
+- revamped infusion crafting stability mechanics
+- infusion recipes now properly recognize damaged items and will transfer the damage to crafting results where appropriate
+- toned down taint poison spawned by certain things
+- loads of balance tweaks
+
+6.1.BETA13
+- fix some random infusion altar crashes
+- fixed thaumatorium crafting that involves the same catalyst being able to craft multiple different results (for example vis crystal recipes)
+- arcane bore properly ejects items into adjacent containers now
+- fix for automated crossbows crashing servers when looking for arrows
+- fixed arcane workbench using the wrong crystals
+- improved grapple gun projectile and increased the range it functions at
+
+6.1.BETA12
+- API: changed how item aspects are stored to improve performance and reduce memory when players have a lot of mods
+- fix thaumatorium, infusion crafting and golem builder not working
+- crucible and infusion recipes are now properly nbt sensitive - fixes lots of issues where items with nbt wasn't properly recognized
+- fixed various arcane workbench related issues 
+- fixed various focus manipulater gui bugs
+- foci now work in other dimensions
+- reduced casting times for high complexity foci
+- fixed crash when trying to determine owner/caster of focus effect
+- fixed crash with exchange focus
+- fix banner crafting recipes
+- rift no longer damage players in creative mode
+- items should now be scannable in all inventory types
+- focus pouch should be 97% less crashy
+- fix filling buckets from everful urn
+- fixed some mirror and hand mirror bugs
+- fixed crashes related to cultist loot assignments
+- cleaned up infernal furnace item handling code. It will also no longer destroy smeltable items if its internal inventory is full. The items will just sit on top till space opens up. Non-smeltable items are still destroyed.
+- infernal furnace can now benefit from 4 bellows (up from 3), but there is diminishing returns for each bellows after the first. but 3 bellows are now worse than they used to be (54 tick reduction now vs. 60 previously), but 4 bellows are better than 3 used to be (68 ticks vs. 60)
+- crimson rites will now be properly used up if used
+- removed crafting mossy cobblestone as a requirement for hedge alchemy. I removed the recipe since there is now a vanilla recipes, but forgot to update the research entry
+- fixed derpiness and item duplication caused by provider seals
+- pech can now be traded with again
+
+6.1.BETA11
+- fixed recipe related crashes
+- fixed crucible crafting
+- various other smaller bugfixes
+- arcane workbench can once again craft vanilla recipes and will now properly count the local aura
+- changed flux and flux event mechanics. This is still a work in progress and only some of the the mechanics are in place atm. 
+- instead of flux events happening directly, rifts will spawn that cause all manner of strangeness (including taint). Ways to deal with these will come soon.
+
+6.1.BETA10
+- stellar scanning quadrant is now based on cardinal directions and not relative to the sun/moon at all.
+- fix crash with crimson cult loot drops
+- remove references and recipes for thaumcraft iron nuggets. They will still exist ingame for now, but since vanilla has them now there is no more need for them.
+- fixed aspect calculation for crucible and infusion recipes
+- fixed magic forest biome generation
+- thaumonomicon is once again craftable
+- crucible properly empties buckets when filled with water
+- fixed cloudstepper ring
+
+6.1.BETA9
+- converted to MC 1.12.2
+- WARNING: Worlds using TC6 in MC 1.10.2 will not be compatible with this version
+- pre-flattened blocks and items to future proof them for the eventual MC 1.13 update
+- switched to using the new forge annotated config system
+- API: fixed IMC listener
+- API: switched to forge registry system. This significantly changes several api methods, especially those involving recipes
+- API: switched recipes to use the new Ingredient system. 
+- moon phases not only effect the vis replenishment of the aura, but they now also change the max vis levels. 
+- changed jar capacity to 250 instead of 256 to keep it a nice round number 
+- pechs should be less crashy
+- fix for moon scanning on servers
+- removed chargable item hud by popular demand. Minor fps gains for all!
+- removed various gear types and replaced with simple and complex arcane mechanisms
+
+6.0.BETA8
+- completely revamped focus system - all your old foci will become invalid and disappear after updating
+- various minor bugfixes
+- removed epiphanies. They are a pointless hurdle to research atm and the original idea I had for them is not really relevant within the current system
+- grapple?
+- prettied up thaumcraft keybindings
+- removed the crafting requirement from basic auromancy final stage. Depending on your mod setup the NBT tags could differ for some strange reason.
+- potion sprayer should now drop correct block when harvested or 'picked' in creative
+- sneak clicking on a jar while emptying a phial into it will no longer empty the jar as well
+- nerfed liquid death. With the increase in essentia contained in mobs and items this has been dropping way too many crystals
+- collector & essense harvester infusion enchants should work more reliably now
+- grapple!
+- warp event frequency will once again correctly taper off over time as long as no new warp is gained
+- it is once again possible to get rid of the unnatural hunger warp effect a bit sooner
+
+6.0.BETA7
+- API: removed crystal shard ore dictionary entries for now. Turns out forge oredict doesn't account for nbt data.
+- dioptra can now be toggled between showing vis and flux and improved the comparator output as well. I forgot to add this to the beta 6 patch notes when it was actually changed
+- added potion sprayer
+- rebalanced focus medium vis values slightly
+- fixed focus bolt fx
+- re-added the quicken focus mod which mysteriously dissapeared from my code at some point
+- chain focus mod and arcing enchantment will no longer target things you are riding or players and creatures on your team or that you own. They may still hit something by mistake if it is in the way
+- prevent onBlockHarvested from being called twice by golems and break focus which was causing a dupe bug on some blocks like skulls
+- everfull urn is now obtainable much earlier
+- triple meat treat regen effect now last the proper amount of time
+- infusion is now unlocked as its own research and not part of unlocking artifice anymore. 
+- many theorycraft cards that consumed items no longer do so.
+- rebalanced theorycards in general so that there are easy, medium and hard choices - easy choices have no requisites, but give little progress (~10). Medium gives better progress (~25), but requires something simple to do. Hard choices give a lot of progress (~30-50), but also requires more effort
+- instead of the highest category in theorycrafting getting a bonus, all other categories now get a penalty instead
+
+6.0.BETA6
+- potions and related items now have most of their aspects calculated from the ingredients used to craft them
+- fixed dust crafting related crash with crucibles
+- golem logistics can now be completed with unfilled map
+- crafting the fire focus now properly completes basic auromancy
+
+6.0.BETA5
+- The full, not fractional amount of observations, theories and epiphanies are now spent when completing research. Oops.
+- golems now operate within 32 blocks instead of 16.
+- provider seals no longer require golems to be especially smart to listen to them, but they still require biothaumic mind research
+- fixed focus crash in NEI
+- fixed wrong import causing crash during focus creation for those without the correct java library
+- fixed "phantom" taint seed issue
+- fixed crash when placing arcane bore
+- research entries requiring enchantments are now a lot less picky
+- loads of other small tweaks and bugfixes
+
+6.0.BETA4
+- workbench charger can now be placed on a focal manipulator as well
+- changed the way and exact point when vis consumption is calculated for foci. Vis should no longer be consumed if an effect does not trigger.
+- added 'Burst'focus modifier
+- added 'Plan' focus medium
+- added 'Quicken'focus medium
+- completely overhauled the way foci effect links are created and managed behind the scenes. Much more interesting combos are now possible. Chaining+Bursting+Scattering Fireballs anyone? 
+- API: Caster focus API has undergone massive changes, but it should be a lot easier to create focus effects now. Much of the grunt work is handled by the casting engine behind the scenes instead of having to be coded per effect.
+- increased focus effect damage across the board to be more inline with vanilla damage numbers
+- break focus will no longer break unbreakable blocks clientside
+- 'break' focus effect now takes block hardness into account and will take longer to break harder blocks. Potency increases the breaking speed.
+- fixed shardFire oredictionary entry to actually refer to fire crystals and not air crystals
+- theorycrafting research entry now has two stages as intended.
+- added a 'scrap theory' button to research table if you want to start from scratch 
+- fixed a few theorycraft cards that could give infinite draws or progress
+- rebalanced theorycraft cards with item costs so they offer greater rewards 
+- jars can now be filled all the way from alembics
+- arcane ear (toggle) should now be craftable
+- fixed various broken research entries
+- fixed researches requiring thaumium to be unlocked  
+- improved the range of the touch focus
+- sword of the zephyr once again has the winds effect
+- improved taint fibre hitboxes
+- fixed taint fibres having a 50% chance to spread even if no flux was present in aura
+- all types of taint growth now costs a tiny amount of flux to occur. 
+- taint seeds will now take damage if no flux is present
+- rebalanced the way aura and flux spreads between chunks. The math was a bit off and could force too much vis into a chunk which in turn caused flux.
+- added functionality that will automatically throttle the number of particles thaumcraft generates when fps drops below 30
+
+6.0.BETA3
+- fixed a major bug that was causing certain items (usually vis crystals) to have their stack size set to 1 the first time their aspect values where calculated.
+- fixed gauntlet moddel clipping issues
+- wand hud element should no longer be upside down if shown on the bottom of the screen
+- fixed research page formatting so that elements like line breaks, page breaks, etc. are properly rendered on all machines. For lots of people it was just displaying walls of unformatted text.
+- removed a few possible infinite loops causing research to freeze and eventually crash the client
+- fixed occasional text overlap on knowledge types research entry
+- fix for boss health bars not displaying during fight and only appearing after death
+- fix vis discount items in the newer bauble slots not being counted
+- essentia in crucibles will now keep slowly dissolving if no heat is applied
+- fixed custom armor model rotation points
+- fixed arcane ear note display and added another version of the arcane ear that toggles on / off instead of sending a pulse
+- removing a focus with sneak+f while wearing a focus pouch in your belt slot will now properly update the pouch contents clientside
+- fixed flux research entry so you can progress to stage two
+- fixed exchange focus localization and spam casting that occurred when you selected a block
+
+6.0.BETA2
+- fixed Unlock Alchemy research entry so all the text is displayed in research step 2
+- fixed a few more missing research entries referring to thaumaturgy instead of auromancy
+- fixed chrash when golems harvested blocks
+- when completing a research stage all the pages for the next stage should be shown
+
+6.0.BETA1
+- WARNING: I'm splitting all the various tc stone blocks (arcane, eldritch, ancient,etc), into their own blocks. This is to make certain worldgen things easier to code and as preparation for the 'great flattening' coming with MC 1.13. This will probably break things in your world so be prepared. Sorry about that.
+- added missing theorycraft cards for Infusion
+- auromancy should now be unlockable again.  
+- using curios during theorycrafting will no longer consume the entire stack
+- made silverwood trees outside magical forest biomes a bit more common
+- improved fps around tainted areas
+- granted golems the ability to walk again and be picked up
+
+---- MAJOR CHANGES ----
+GENERAL
+- rebalanced aspect values significantly
+- tweaked some aspect colors to differentiate them from each other a bit more
+- re-added the old praecantatio aspect
+- added alkimia, the alchemy aspect.
+- rebalanced essentia amounts in items. Everything has a lot more essentia (roughly 5x previous versions), but all recipes are more expensive to compensate. This is to improve the essentia calculation algorithm and to make costing and balancing easier and more granular. 
+- rebalanced armor values to incorporate the new toughness stat 
+- removed haste and repair vanilla enchants. Haste is now an infusion enchant and repair has been dropped in favor of the vanilla enchant
+- added quartz ore spawns to overworld. They are much rarer than ore spawns in the nether however.
+- added ability for OP's to view a players known research
+- added support for the Chisel ConnectedTexturesMod (https://minecraft.curseforge.com/projects/ctm). This mod is NOT required, but certain textures will be enhanced by using this.
+- probably loads of other things I missed
+
+ITEMS / BLOCKS
+- Added casting gauntlets and focus crafting mechanic that replaces wands
+- Goggles can now also be placed in the 'headgear' baubles slot
+- traveller boots now require charge to function
+- added arcane activator rails. They allow the activation and deactivation of things like automated crossbow turrets that pass over them.
+- The arcane bore is now a placable entity much like automated turrets. Like many entities they can ride empty mine carts. Have fun with that :)
+- Dowsing ability will now display a particle effect for an entire ore vein and not each block. Effect is also color coded for most common ore types.
+
+RESEARCH
+- Players are now eased into Thaumcraft more organically just by playing the game. No wiki or forum post required to take your first steps. 
+- scanning is now much more integral to research.
+- scanning things now generates various types of notes, observation and similar things. These will later be used for purchasing research.
+- scanning inventories now also scans their contents as well
+- split artifice research tree into artifice and infusion enchantment. Some of the changed associated with this might break saves a bit, so be prepared.
+- Thaumaturgy tree renamed to Auromancy. It never made much sense that one of the trees was named after the mod itself. vOv
+
+AURA
+- Aura and vis is no longer separated into aspects. Vis now represents raw magical energy.
+- Vis and flux is now mutually exclusive. In practical terms what happens is that within a chunk the aura has a fixed capacity. For this example lets use 50. Vis in a chunk will replenish itself back to this number over time.
+- adding flux to the aura counts against this total however. If the flux + vis total exceeds this number, then some of the vis will slowly disappear or be pushed into adjacent chunks (if the have capacity) until the total drops down to 50. This means that polluting a chunk too much may result in it having no vis, just flux.  
+- Aura Nodes removed. Their role was fairly limited within the current aura system and the performance hit they caused (even if minor) was not worth it for the limited content they added. I may revisit adding back later if I can find a reason to.
+- aura replenishes itself based on moonphase and other natural factors
+- arcane crafting modified to draw vis directly from aura. Crystals are required for many arcane crafting recipes. Crystals are placed in the slots surrounding the main crafting grid.
+- auras will no longer tick while game is paused in SP
+= taint now spreads from taint seeds. They are immobile entities and there are eggs for them if you want to spawn some. Taint grows out from these 'seeds' and grows a lot faster than in TC5.
+- taint can only spread within a limited radius of a seed and will die if there is no seed within this radius. There is a small chance for new seeds to spawn at the outer rim of this radius.
+- taint spread is no longer linked to flux, however high flux levels will increase the distance taint can grow from a seed. 
+- put together this means taint can spread faster and even into non-polluted areas, but to get rid of it you only need to get rid of the seeds. Easier said than done though.
+
+API
+- lots of additions and changes to give modders access to the new systems in TC 6
+- IPlayerKnowledge is now the main repository for all things research and knowledge related. It uses the forge capability system and can be obtained via the getKnowledge(EntityPlayer player) method in ThaumcraftApi
+- research data is now located in .json files that can modified by resource packs 
+- made significant changes to IRechargable making it more generic
+- changed IScanThing.getResearchKey to also accept the passed in player and scanned object
+- added IScanThing.onSuccess to allow performing something when a scan succeeds
+

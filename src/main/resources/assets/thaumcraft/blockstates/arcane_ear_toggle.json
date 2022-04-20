@@ -1,0 +1,23 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:arcane_ear_off",
+        "textures": {"side": "thaumcraft:blocks/arcane_ear_toggle_off"},
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "inventory": [{}], "normal": [{}],        
+        "enabled=false,facing=down":    { "model": "thaumcraft:arcane_ear_off", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_off","side": "thaumcraft:blocks/arcane_ear_toggle_off"}, "x": 180 },
+        "enabled=false,facing=up":      { "model": "thaumcraft:arcane_ear_off", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_off","side": "thaumcraft:blocks/arcane_ear_toggle_off"} },
+        "enabled=false,facing=east":    { "model": "thaumcraft:arcane_ear_off", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_off","side": "thaumcraft:blocks/arcane_ear_toggle_off"}, "y": 90, "x": 90 },
+        "enabled=false,facing=west":    { "model": "thaumcraft:arcane_ear_off", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_off","side": "thaumcraft:blocks/arcane_ear_toggle_off"}, "y": 270, "x": 90 },
+        "enabled=false,facing=north":   { "model": "thaumcraft:arcane_ear_off", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_off","side": "thaumcraft:blocks/arcane_ear_toggle_off"}, "x": 90 },
+        "enabled=false,facing=south":   { "model": "thaumcraft:arcane_ear_off", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_off","side": "thaumcraft:blocks/arcane_ear_toggle_off"}, "y": 180, "x": 90 },
+        "enabled=true,facing=down":     { "model": "thaumcraft:arcane_ear_on", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_on","side": "thaumcraft:blocks/arcane_ear_toggle_on"}, "x": 180 },
+        "enabled=true,facing=up":       { "model": "thaumcraft:arcane_ear_on", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_on","side": "thaumcraft:blocks/arcane_ear_toggle_on"} },
+        "enabled=true,facing=east":     { "model": "thaumcraft:arcane_ear_on", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_on","side": "thaumcraft:blocks/arcane_ear_toggle_on"}, "y": 90, "x": 90 },
+        "enabled=true,facing=west":     { "model": "thaumcraft:arcane_ear_on", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_on","side": "thaumcraft:blocks/arcane_ear_toggle_on"}, "y": 270, "x": 90 },
+        "enabled=true,facing=north":    { "model": "thaumcraft:arcane_ear_on", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_on","side": "thaumcraft:blocks/arcane_ear_toggle_on"}, "x": 90 },
+        "enabled=true,facing=south":    { "model": "thaumcraft:arcane_ear_on", "textures": {"particle": "thaumcraft:blocks/arcane_ear_toggle_on","side": "thaumcraft:blocks/arcane_ear_toggle_on"}, "y": 180, "x": 90 }
+    }
+}

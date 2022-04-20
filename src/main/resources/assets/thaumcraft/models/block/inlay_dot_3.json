@@ -1,0 +1,6 @@
+{
+    "parent": "thaumcraft:block/inlay_dot",
+    "textures": {
+        "over": "thaumcraft:blocks/inlay_connect3"
+    }
+}

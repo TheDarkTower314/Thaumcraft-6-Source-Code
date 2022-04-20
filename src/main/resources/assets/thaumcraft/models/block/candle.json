@@ -1,0 +1,63 @@
+{
+    "elements": [
+        {   "from": [ 6, 0, 6 ],
+            "to": [ 10, 8, 10 ],
+            "faces": {
+                "down":  { "texture": "#all", "cullface": "down", "tintindex": 0 },
+                "up":    { "texture": "#all", "tintindex": 0 },
+                "north": { "texture": "#all", "tintindex": 0 },
+                "south": { "texture": "#all", "tintindex": 0 },
+                "west":  { "texture": "#all", "tintindex": 0 },
+                "east":  { "texture": "#all", "tintindex": 0 }
+            }
+        },
+        {   "from": [ 5, 0, 7 ],
+            "to": [ 6, 1, 9 ],
+            "faces": {
+                "down":  { "texture": "#all", "cullface": "down", "tintindex": 0 },
+                "up":    { "texture": "#all", "tintindex": 0 },
+                "north": { "texture": "#all", "tintindex": 0 },
+                "south": { "texture": "#all", "tintindex": 0 },
+                "west":  { "texture": "#all", "tintindex": 0 },
+                "east":  { "texture": "#all", "tintindex": 0 }
+            }
+        },
+        {   "from": [ 10, 0, 7 ],
+            "to": [ 11, 2, 8 ],
+            "faces": {
+                "down":  { "texture": "#all", "cullface": "down", "tintindex": 0 },
+                "up":    { "texture": "#all", "tintindex": 0 },
+                "north": { "texture": "#all", "tintindex": 0 },
+                "south": { "texture": "#all", "tintindex": 0 },
+                "west":  { "texture": "#all", "tintindex": 0 },
+                "east":  { "texture": "#all", "tintindex": 0 }
+            }
+        },
+        {   "from": [ 7, 0, 10 ],
+            "to": [ 8, 1, 11 ],
+            "faces": {
+                "down":  { "texture": "#all", "cullface": "down", "tintindex": 0 },
+                "up":    { "texture": "#all", "tintindex": 0 },
+                "north": { "texture": "#all", "tintindex": 0 },
+                "south": { "texture": "#all", "tintindex": 0 },
+                "west":  { "texture": "#all", "tintindex": 0 },
+                "east":  { "texture": "#all", "tintindex": 0 }
+            }
+        },
+        {   "from": [ 7.5, 8, 7.5 ],
+            "to": [ 8.5, 10, 8.5 ],
+            "faces": {
+                "up":    { "texture": "#stub" },
+                "north": { "texture": "#stub" },
+                "south": { "texture": "#stub" },
+                "west":  { "texture": "#stub" },
+                "east":  { "texture": "#stub" }
+            }
+        }
+    ],    
+    "textures": {
+        "all": "thaumcraft:blocks/candle",
+        "stub": "thaumcraft:blocks/candlestub",
+        "particle": "thaumcraft:blocks/candle"
+    }
+}

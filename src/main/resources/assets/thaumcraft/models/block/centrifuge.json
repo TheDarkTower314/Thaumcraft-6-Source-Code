@@ -1,0 +1,173 @@
+{
+    "__createdwith": "opl's Model Creator",
+    "ambientocclusion": false,
+    "textures": {
+        "side": "thaumcraft:blocks/centrifuge"
+    },
+    "elements": [
+        {
+            "from": [4,12,4],
+            "to": [12,16,12],
+            "faces": {
+                "up": {
+                    "uv": [8,0,16,8],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [8,0,16,8],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [8,9,16,13],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [8,9,16,13],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [8,9,16,13],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [8,9,16,13],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [4,0,4],
+            "to": [12,4,12],
+            "faces": {
+                "up": {
+                    "uv": [8,0,16,8],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [8,0,16,8],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [8,9,16,13],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [8,9,16,13],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [8,9,16,13],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [8,9,16,13],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [6.5,4,6.5],
+            "to": [9.5,12,9.5],
+            "faces": {
+                "west": {
+                    "uv": [0,4,3,12],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [0,4,3,12],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [0,4,3,12],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [0,4,3,12],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [12,5,6],
+            "to": [16,11,10],
+            "faces": {
+                "up": {
+                    "uv": [4,0,8,4],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [4,0,8,4],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [4,5,8,11],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [4,5,8,11],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [4,5,8,11],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [4,5,8,11],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [0,5,6],
+            "to": [4,11,10],
+            "faces": {
+                "up": {
+                    "uv": [4,0,8,4],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [4,0,8,4],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [4,5,8,11],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [4,5,8,11],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [4,5,8,11],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [4,5,8,11],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [4,7,7],
+            "to": [12,9,9],
+            "faces": {
+                "up": {
+                    "uv": [3,14,10,16],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [3,14,10,16],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [3,14,10,16],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [3,14,10,16],
+                    "texture": "#side"
+                }
+            }
+        }
+    ]
+}

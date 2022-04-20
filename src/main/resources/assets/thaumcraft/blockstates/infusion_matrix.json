@@ -1,0 +1,14 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:infusion_matrix",
+        "textures": {
+            "particle": "thaumcraft:blocks/infuser_normal",
+            "side": "thaumcraft:blocks/infuser_normal"
+        },
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "inventory": [{}], "normal": [{}]
+    }
+}

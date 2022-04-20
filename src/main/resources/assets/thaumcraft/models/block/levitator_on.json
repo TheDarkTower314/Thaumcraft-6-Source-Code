@@ -1,0 +1,34 @@
+{
+    "textures": {
+        "particle": "thaumcraft:blocks/levitator_top_off",
+        "top": "thaumcraft:blocks/levitator_top_on",
+        "side": "thaumcraft:blocks/levitator_side_on",
+        "bottom": "thaumcraft:blocks/levitator_bottom"
+    },
+    "elements": [
+        {
+            "from": [0,2,0],
+            "to": [16,16,16],
+            "faces": {
+                "up": {"texture": "#top", "cullface": "up"},
+                "down": {"texture": "#bottom"},
+                "west": {"texture": "#side", "cullface": "west"},
+                "east": {"texture": "#side", "cullface": "east"},
+                "north": {"texture": "#side", "cullface": "north"},
+                "south": {"texture": "#side", "cullface": "south"}
+            }
+        },
+        {
+            "from": [6,1,6],
+            "to": [10,2,10],
+            "faces": {
+                
+                "down": {"texture": "#bottom"},
+                "west": {"texture": "#side"},
+                "east": {"texture": "#side"},
+                "north": {"texture": "#side"},
+                "south": {"texture": "#side"}
+            }
+        }
+    ]
+}

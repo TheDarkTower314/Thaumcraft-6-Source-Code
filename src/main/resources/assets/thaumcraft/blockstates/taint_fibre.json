@@ -1,0 +1,37 @@
+{
+    "multipart": [
+        {   "when": { "north": true },
+            "apply": { "model": "thaumcraft:taint_fibre", "y": 180, "x": 90 }
+        },        
+        {   "when": { "south": true },
+            "apply": { "model": "thaumcraft:taint_fibre", "x": 90 }
+        },
+        {   "when": { "east": true },
+            "apply": { "model": "thaumcraft:taint_fibre", "y": 270, "x": 90 }
+        },
+        {   "when": { "west": true },
+            "apply": { "model": "thaumcraft:taint_fibre", "y": 90, "x": 90 }
+        },
+        {   "when": { "up": true },
+            "apply": { "model": "thaumcraft:taint_fibre", "x": 180 }
+        },
+        {   "when": { "down": true },
+            "apply": { "model": "thaumcraft:taint_fibre" }
+        },
+        {   "when": { "growth1": true },
+            "apply": { "model": "thaumcraft:taint_growth_1" }
+        },
+        {   "when": { "growth2": true },
+            "apply": { "model": "thaumcraft:taint_growth_2" }
+        },
+        {   "when": { "growth3": true },
+            "apply": { "model": "thaumcraft:taint_growth_3" }
+        },
+        {   "when": { "growth4": true },
+            "apply": { "model": "thaumcraft:taint_growth_4" }
+        }
+    ]
+}
+
+
+

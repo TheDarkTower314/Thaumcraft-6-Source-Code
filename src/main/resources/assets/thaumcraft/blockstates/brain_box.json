@@ -1,0 +1,16 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:brain_box",
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "inventory":[{}], "normal": [{}],      
+        "facing=up":    { "model": "thaumcraft:brain_box", "x": 180 },
+        "facing=down":  { "model": "thaumcraft:brain_box" },
+        "facing=west":  { "model": "thaumcraft:brain_box", "y": 90, "x": 90 },
+        "facing=east":  { "model": "thaumcraft:brain_box", "y": 270, "x": 90 },
+        "facing=south": { "model": "thaumcraft:brain_box", "x": 90 },
+        "facing=north": { "model": "thaumcraft:brain_box", "y": 180, "x": 90 }
+    }
+}

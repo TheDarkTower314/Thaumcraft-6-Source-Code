@@ -1,0 +1,12 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "cross",
+        "textures": { "cross": "thaumcraft:blocks/cinderpearl" },
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "normal": [{}], "inventory": [{"model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:blocks/cinderpearl" }}]
+    }
+}

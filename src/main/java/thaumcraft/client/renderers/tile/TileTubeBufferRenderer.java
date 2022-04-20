@@ -1,0 +1,68 @@
+// 
+// Decompiled by Procyon v0.6.0
+// 
+
+package thaumcraft.client.renderers.tile;
+
+import net.minecraft.tileentity.TileEntity;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.ThaumcraftApiHelper;
+import net.minecraft.util.EnumFacing;
+import thaumcraft.common.tiles.essentia.TileTubeBuffer;
+import net.minecraft.util.ResourceLocation;
+import thaumcraft.client.renderers.models.block.ModelTubeValve;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+
+public class TileTubeBufferRenderer extends TileEntitySpecialRenderer
+{
+    private ModelTubeValve model;
+    private static final ResourceLocation TEX_VALVE;
+    
+    public TileTubeBufferRenderer() {
+        this.model = new ModelTubeValve();
+    }
+    
+    public void renderEntityAt(final TileTubeBuffer buffer, final double x, final double y, final double z, final float fq) {
+        this.bindTexture(TileTubeBufferRenderer.TEX_VALVE);
+        if (buffer.getWorld() != null) {
+            for (final EnumFacing dir : EnumFacing.VALUES) {
+                if (buffer.chokedSides[dir.ordinal()] != 0 && buffer.openSides[dir.ordinal()]) {
+                    if (ThaumcraftApiHelper.getConnectableTile(buffer.getWorld(), buffer.getPos(), dir) != null) {
+                        GL11.glPushMatrix();
+                        GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
+                        if (dir.getOpposite().getFrontOffsetY() == 0) {
+                            GL11.glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+                        }
+                        else {
+                            GL11.glRotatef(90.0f, -1.0f, 0.0f, 0.0f);
+                            GL11.glRotatef(90.0f, (float)dir.getOpposite().getFrontOffsetY(), 0.0f, 0.0f);
+                        }
+                        GL11.glRotatef(90.0f, (float)dir.getOpposite().getFrontOffsetX(), (float)dir.getOpposite().getFrontOffsetY(), (float)dir.getOpposite().getFrontOffsetZ());
+                        GL11.glPushMatrix();
+                        if (buffer.chokedSides[dir.ordinal()] == 2) {
+                            GL11.glColor3f(1.0f, 0.3f, 0.3f);
+                        }
+                        else {
+                            GL11.glColor3f(0.3f, 0.3f, 1.0f);
+                        }
+                        GL11.glScaled(2.0, 1.0, 2.0);
+                        GL11.glTranslated(0.0, -0.5, 0.0);
+                        this.model.renderRod();
+                        GL11.glPopMatrix();
+                        GL11.glColor3f(1.0f, 1.0f, 1.0f);
+                        GL11.glPopMatrix();
+                    }
+                }
+            }
+        }
+    }
+    
+    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+        super.render(te, x, y, z, partialTicks, destroyStage, alpha);
+        this.renderEntityAt((TileTubeBuffer)te, x, y, z, partialTicks);
+    }
+    
+    static {
+        TEX_VALVE = new ResourceLocation("thaumcraft", "textures/models/valve.png");
+    }
+}

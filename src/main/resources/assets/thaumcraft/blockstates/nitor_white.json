@@ -1,0 +1,15 @@
+{
+    "forge_marker": 1,
+    "defaults":
+    {
+        "model": "thaumcraft:empty",
+        "textures": {
+            "particle": "thaumcraft:blocks/nitor",
+            "all": "thaumcraft:blocks/nitor"
+        },
+        "transform": "forge:default-block"
+    },
+    "variants": {
+        "normal": [{}], "inventory": [{}]
+    }
+}

@@ -1,0 +1,418 @@
+{
+    "entries" :[
+        {
+        "key": "BASEAUROMANCY",    
+        "name": "research.BASEAUROMANCY.title",
+        "icons": [ "thaumcraft:textures/research/cat_auromancy.png" ],
+        "category": "AUROMANCY", "location": [ 0,0 ], 
+        "parents": [ "UNLOCKAUROMANCY" ],        
+        "meta": [ "ROUND" , "HIDDEN" ],        
+        "stages": [
+                {
+                    "text": "research.BASEAUROMANCY.stage.1",
+                    "recipes":["thaumcraft:vis_resonator","thaumcraft:caster_basic","thaumcraft:focus_1"],
+                    "required_craft":["thaumcraft:focus_1"]
+                },
+                {
+                    "text": "research.BASEAUROMANCY.stage.2",
+                    "recipes":["thaumcraft:vis_resonator","thaumcraft:caster_basic","thaumcraft:focus_1","thaumcraft:tablestone","thaumcraft:wand_workbench"],
+                    "required_research":["f_onfire"],
+                    "required_craft":["thaumcraft:wand_workbench"]
+                },
+                {
+                    "text": "research.BASEAUROMANCY.stage.3",
+                    "recipes":["thaumcraft:vis_resonator","thaumcraft:caster_basic","thaumcraft:focus_1","thaumcraft:tablestone","thaumcraft:wand_workbench"]
+                }
+            ]
+        },
+        {
+        "key": "FOCUSADVANCED",    
+        "name": "research.FOCUSADVANCED.title",
+        "icons": [ "thaumcraft:focus_2" ],
+        "category": "AUROMANCY", "location": [ 0,-2 ], 
+        "parents": [ "BASEAUROMANCY", "INFUSION" ],       
+        "stages": [
+                {
+                    "text": "research.FOCUSADVANCED.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;1"],
+                    "recipes":["thaumcraft:focus_2"],
+                    "required_craft":["thaumcraft:focus_2"]
+                },
+                {
+                    "text": "research.FOCUSADVANCED.stage.2",
+                    "recipes":["thaumcraft:focus_2"]
+                }
+            ]
+        },
+        {
+        "key": "FOCUSGREATER",    
+        "name": "research.FOCUSGREATER.title",
+        "icons": [ "thaumcraft:focus_3" ],
+        "category": "AUROMANCY", "location": [ 0,-4 ], 
+        "parents": [ "FOCUSADVANCED", "PRIMPEARL" ],       
+        "stages": [
+                {
+                    "text": "research.FOCUSGREATER.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;1"],
+                    "required_research":["f_onfire"],
+                    "recipes":["thaumcraft:focus_3"],
+                    "required_craft":["thaumcraft:focus_3"]
+                },
+                {
+                    "text": "research.FOCUSGREATER.stage.2",
+                    "recipes":["thaumcraft:focus_3"]
+                }
+            ]
+        },
+        {
+        "key": "FOCUSELEMENTAL",    
+        "name": "research.FOCUSELEMENTAL.title",
+        "icons": [ "focus:thaumcraft.AIR", "focus:thaumcraft.FROST", "focus:thaumcraft.EARTH" ],
+        "category": "AUROMANCY", "location": [ 0,2 ], 
+        "parents": [ "BASEAUROMANCY" ],       
+        "stages": [
+                {
+                    "text": "research.FOCUSELEMENTAL.stage.1",
+                    "required_knowledge":["OBSERVATION;AUROMANCY;1"],
+                    "required_research":["!aer","!gelum","!terra"]
+                },
+                {
+                    "text": "research.FOCUSELEMENTAL.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "FOCUSFLUX",    
+        "name": "research.FOCUSFLUX.title",
+        "icons": [ "focus:thaumcraft.FLUX" ],
+        "category": "AUROMANCY", "location": [ 0,4 ], 
+        "parents": [ "FOCUSELEMENTAL" ],        
+        "stages": [
+                {
+                    "text": "research.FOCUSFLUX.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;1"],
+                    "required_research":["!vitium"]
+                }
+            ]
+        },
+        {
+        "key": "FOCUSHEAL",    
+        "name": "research.FOCUSHEAL.title",
+        "icons": [ "focus:thaumcraft.HEAL" ],
+        "category": "AUROMANCY", "location": [ 0,7 ], 
+        "parents": [ "FOCUSFLUX" ],        
+        "stages": [
+                {
+                    "text": "research.FOCUSHEAL.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;1"],
+                    "required_research":["!victus"]
+                }
+            ]
+        },
+        {
+        "key": "FOCUSCURSE",    
+        "name": "research.FOCUSCURSE.title",
+        "icons": [ "focus:thaumcraft.CURSE" ],
+        "category": "AUROMANCY", "location": [ -2,6 ], 
+        "parents": [ "FOCUSFLUX", "!Pechwand" ],     
+        "meta": [ "HIDDEN", "REVERSE" ],          
+        "stages": [
+                {
+                    "text": "research.FOCUSCURSE.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;1"],
+                    "required_research":["!mortuus"]
+                },
+                {
+                    "text": "research.FOCUSCURSE.stage.2",
+                    "warp": 2
+                }
+            ]
+        },
+        {
+        "key": "FOCUSBREAK",    
+        "name": "research.FOCUSBREAK.title",
+        "icons": [ "focus:thaumcraft.BREAK" ],
+        "category": "AUROMANCY", "location": [ 2,6 ], 
+        "parents": [ "FOCUSFLUX" ],        
+        "meta": [ "REVERSE" ],        
+        "stages": [
+                {
+                    "text": "research.FOCUSBREAK.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;1"],
+                    "required_research":["!perditio"],
+                    "required_item":["thaumcraft:enchanted_placeholder;1;0;{ench:[{id:33s,lvl:1s}]}",
+                                     "thaumcraft:enchanted_placeholder;1;0;{ench:[{id:35s,lvl:1s}]}"]
+                },
+                {
+                    "text": "research.FOCUSBREAK.stage.2"
+                }                
+            ]
+        },
+        {
+        "key": "FOCUSEXCHANGE",    
+        "name": "research.FOCUSEXCHANGE.title",
+        "icons": [ "focus:thaumcraft.EXCHANGE" ],
+        "category": "AUROMANCY", "location": [ 2,4 ], 
+        "parents": [ "FOCUSFLUX" ],        
+        "stages": [
+                {
+                    "text": "research.FOCUSEXCHANGE.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;1"],
+                    "required_research":["!permutatio"]
+                },
+                {
+                    "text": "research.FOCUSEXCHANGE.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "FOCUSPLAN",    
+        "name": "research.FOCUSPLAN.title",
+        "icons": [ "focus:thaumcraft.PLAN" ],
+        "category": "AUROMANCY", "location": [ 3,2 ], 
+        "parents": [ "FOCUSEXCHANGE", "FOCUSPROJECTILE" ],        
+        "stages": [
+                {
+                    "text": "research.FOCUSPLAN.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;1"],
+                    "required_research":["!fabrico"]
+                },
+                {
+                    "text": "research.FOCUSPLAN.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "FOCUSRIFT",    
+        "name": "research.FOCUSRIFT.title",
+        "icons": [ "focus:thaumcraft.RIFT" ],
+        "category": "AUROMANCY", "location": [ 4,5 ], 
+        "parents": [ "FOCUSBREAK", "FOCUSEXCHANGE" ],        
+        "meta": [ "HIDDEN" ],        
+        "stages": [
+                {
+                    "text": "research.FOCUSRIFT.stage.1",
+                    "required_knowledge":["OBSERVATION;ELDRITCH;1","THEORY;AUROMANCY;1"],
+                    "required_research":["!vacuos"],
+                    "warp": 2
+                },
+                {
+                    "text": "research.FOCUSRIFT.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "FOCUSPROJECTILE",    
+        "name": "research.FOCUSPROJECTILE.title",
+        "icons": [ "focus:thaumcraft.PROJECTILE" ],
+        "category": "AUROMANCY", "location": [ 3,0 ], 
+        "parents": [ "BASEAUROMANCY" ],        
+        "stages": [
+                {
+                    "text": "research.FOCUSPROJECTILE.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;1"],
+                    "required_research":["!motus"]
+                },
+                {
+                    "text": "research.FOCUSPROJECTILE.stage.2",
+                    "required_research":["f_arrow","f_fireball","f_spit"]
+                },
+                {
+                    "text": "research.FOCUSPROJECTILE.stage.3"
+                }
+            ]
+        },
+        {
+        "key": "FOCUSBOLT",    
+        "name": "research.FOCUSBOLT.title",
+        "icons": [ "focus:thaumcraft.BOLT" ],
+        "category": "AUROMANCY", "location": [ 7,0 ], 
+        "parents": [ "FOCUSPROJECTILE@2" ],       
+        "stages": [
+                {
+                    "text": "research.FOCUSBOLT.stage.1",
+                    "required_knowledge":["OBSERVATION;AUROMANCY;1","THEORY;AUROMANCY;1"],
+                    "required_research":["!potentia"]
+                },
+                {
+                    "text": "research.FOCUSBOLT.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "FOCUSSCATTER",    
+        "name": "research.FOCUSSCATTER.title",
+        "icons": [ "focus:thaumcraft.SCATTER" ],
+        "category": "AUROMANCY", "location": [ 5,-1 ], 
+        "parents": [ "FOCUSBOLT","FOCUSPROJECTILE" ],        
+        "meta": [ "HIDDEN", "REVERSE" ],        
+        "stages": [
+                {
+                    "text": "research.FOCUSSCATTER.stage.1",
+                    "required_knowledge":["OBSERVATION;AUROMANCY;1","THEORY;AUROMANCY;1"]
+                },
+                {
+                    "text": "research.FOCUSSCATTER.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "FOCUSMINE",    
+        "name": "research.FOCUSMINE.title",
+        "icons": [ "focus:thaumcraft.MINE" ],
+        "category": "AUROMANCY", "location": [ 5,2 ], 
+        "parents": [ "FOCUSPROJECTILE" ],     
+        "stages": [
+                {
+                    "text": "research.FOCUSMINE.stage.1",
+                    "required_knowledge":["THEORY;ARTIFICE;1", "THEORY;AUROMANCY;1"],
+                    "required_item":["minecraft:tripwire_hook"],
+                    "required_research":["!vinculum"]
+                },
+                {
+                    "text": "research.FOCUSMINE.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "FOCUSSPELLBAT",    
+        "name": "research.FOCUSSPELLBAT.title",
+        "icons": [ "focus:thaumcraft.SPELLBAT" ],
+        "category": "AUROMANCY", "location": [ 7,4 ], 
+        "parents": [ "FOCUSMINE", "f_BAT", "!Firebat" ],    
+        "meta": [ "REVERSE" ],      
+        "stages": [
+                {
+                    "text": "research.FOCUSSPELLBAT.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;1","THEORY;ELDRITCH;1"],
+                    "required_research":["!bestia"]
+                },
+                {
+                    "text": "research.FOCUSSPELLBAT.stage.2",
+                    "warp": 2
+                }
+            ]
+        },
+        {
+        "key": "FOCUSCLOUD",    
+        "name": "research.FOCUSCLOUD.title",
+        "icons": [ "focus:thaumcraft.CLOUD" ],
+        "category": "AUROMANCY", "location": [ 7,2 ], 
+        "parents": [ "FOCUSMINE","!DRAGONBREATH" ],     
+        "meta": [ "HIDDEN" ],     
+        "stages": [
+                {
+                    "text": "research.FOCUSCLOUD.stage.1",
+                    "required_knowledge":["THEORY;ALCHEMY;1", "THEORY;AUROMANCY;1"],
+                    "required_item":["minecraft:dragon_breath"],
+                    "required_research":["!alkimia"]
+                },
+                {
+                    "text": "research.FOCUSCLOUD.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "FOCUSSPLIT",    
+        "name": "research.FOCUSSPLIT.title",
+        "icons": [ "focus:thaumcraft.SPLITTARGET","focus:thaumcraft.SPLITTRAJECTORY" ],
+        "category": "AUROMANCY", "location": [ 5,-3 ], 
+        "parents": [ "FOCUSSCATTER" ],           
+        "stages": [
+                {
+                    "text": "research.FOCUSSPLIT.stage.1",
+                    "required_knowledge":["OBSERVATION;AUROMANCY;1","THEORY;AUROMANCY;1"]
+                },
+                {
+                    "text": "research.FOCUSSPLIT.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "RECHARGEPEDESTAL",    
+        "name": "research.RECHARGEPEDESTAL.title",
+        "icons": [ "thaumcraft:recharge_pedestal" ],
+        "category": "AUROMANCY", "location": [ -3,2 ], 
+        "parents": [ "BASEAUROMANCY" ],        
+        "stages": [
+                {
+                    "text": "research.RECHARGEPEDESTAL.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;1"]
+                },
+                {
+                    "text": "research.RECHARGEPEDESTAL.stage.2",  
+                    "recipes": ["thaumcraft:rechargepedestal"]
+                }
+            ]
+        },
+        {
+        "key": "VISAMULET",    
+        "name": "research.VISAMULET.title",
+        "icons": [ "thaumcraft:amulet_vis;1;1" ],
+        "category": "AUROMANCY", "location": [ -5,4 ], 
+        "parents": [ "RECHARGEPEDESTAL", "INFUSION" ],        
+        "stages": [
+                {
+                    "text": "research.VISAMULET.stage.1",
+                    "required_knowledge":["THEORY;AUROMANCY;2"]
+                },
+                {
+                    "text": "research.VISAMULET.stage.2",  
+                    "recipes": ["thaumcraft:VisAmulet"]
+                }
+            ]
+        },
+        {
+        "key": "WORKBENCHCHARGER",    
+        "name": "research.WORKBENCHCHARGER.title",
+        "icons": [ "thaumcraft:arcane_workbench_charger" ],
+        "category": "AUROMANCY", "location": [ -3,4 ], 
+        "parents": [ "RECHARGEPEDESTAL" ],        
+        "stages": [
+                {
+                    "text": "research.WORKBENCHCHARGER.stage.1",
+                    "required_knowledge":["OBSERVATION;AUROMANCY;1","THEORY;AUROMANCY;1"]
+                },
+                {
+                    "text": "research.WORKBENCHCHARGER.stage.2",  
+                    "recipes": ["thaumcraft:workbenchcharger"]
+                }
+            ]
+        },
+        {
+        "key": "FOCUSPOUCH",    
+        "name": "research.FOCUSPOUCH.title",
+        "icons": [ "thaumcraft:focus_pouch" ],
+        "category": "AUROMANCY", "location": [ -2,-1 ], 
+        "parents": [ "BASEAUROMANCY" ],        
+        "stages": [
+                {
+                    "text": "research.FOCUSPOUCH.stage.1",
+                    "required_knowledge":["OBSERVATION;AUROMANCY;1","OBSERVATION;ARTIFICE;1"]
+                },
+                {
+                    "text": "research.FOCUSPOUCH.stage.2",  
+                    "recipes": ["thaumcraft:FocusPouch"]
+                }
+            ]
+        },
+        {
+        "key": "VISBATTERY",    
+        "name": "research.VISBATTERY.title",
+        "icons": [ "thaumcraft:vis_battery" ],
+        "category": "AUROMANCY", "location": [ -5, 0 ], 
+        "parents": [ "RECHARGEPEDESTAL", "CRYSTALFARMER" ],        
+        "stages": [
+                {
+                    "text": "research.VISBATTERY.stage.1",
+                    "required_knowledge":["OBSERVATION;AUROMANCY;1","OBSERVATION;ARTIFICE;1"]
+                },
+                {
+                    "text": "research.VISBATTERY.stage.2",  
+                    "recipes": ["thaumcraft:VisBattery"]
+                }
+            ]
+        }
+    ]
+}
+    

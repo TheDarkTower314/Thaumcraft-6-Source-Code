@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {          
+        "north": "thaumcraft:blocks/smelter_basic_front_on",  
+        "south": "thaumcraft:blocks/smelter_basic_side",      
+        "east": "thaumcraft:blocks/smelter_basic_side",
+        "west": "thaumcraft:blocks/smelter_basic_side",
+        "particle": "thaumcraft:blocks/smelter_basic_side",   
+        "up": "thaumcraft:blocks/smelter_top",
+        "down": "blocks/furnace_top"
+    }
+}

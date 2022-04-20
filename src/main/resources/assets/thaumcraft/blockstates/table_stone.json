@@ -1,0 +1,10 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:table_stone",
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "normal": [{}], "inventory": [{}]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "basic": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/turret_basic" }
+        },
+        "advanced": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/turret_advanced" }
+        },
+        "bore": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/turret_bore" }
+        }
+    }
+}

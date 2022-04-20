@@ -1,0 +1,40 @@
+{
+    "__createdwith": "opl's Model Creator",
+    "ambientocclusion": false,
+    "textures": {
+        "side": "thaumcraft:blocks/tube",
+        "particle": "thaumcraft:blocks/base_metal"
+    },
+    "elements": [
+        {
+            "from": [6.5,6.5,6.5],
+            "to": [9.5,9.5,9.5],
+            "faces": {
+                "up": {
+                    "uv": [9.5,4,11.5,6],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [9.5,4,11.5,6],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [9.5,4,11.5,6],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [9.5,4,11.5,6],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [9.5,4,11.5,6],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [9.5,4,11.5,6],
+                    "texture": "#side"
+                }
+            }
+        }
+    ]
+}

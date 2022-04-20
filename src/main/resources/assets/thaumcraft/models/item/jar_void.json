@@ -1,0 +1,26 @@
+{
+    "parent": "thaumcraft:block/jar_void",
+    
+    "overrides": [
+        {
+            "predicate": { "fill": 0 },
+            "model": "thaumcraft:block/jar_void"
+        },
+        {
+            "predicate": { "fill": 1 },
+            "model": "thaumcraft:block/jar_void_25"
+        },
+        {
+            "predicate": { "fill": 2 },
+            "model": "thaumcraft:block/jar_void_50"
+        },
+        {
+            "predicate": { "fill": 3 },
+            "model": "thaumcraft:block/jar_void_75"
+        },
+        {
+            "predicate": { "fill": 4 },
+            "model": "thaumcraft:block/jar_void_100"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "cube_all"
+     },
+    "variants": {
+        "normal": [
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_0"}, "weight": 8 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_0"}, "weight": 8, "x": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_0"}, "weight": 8, "y": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_0"}, "weight": 8, "x": 90, "y": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_1"} },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_1"}, "x": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_1"}, "y": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_1"}, "x": 90, "y": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_2"} },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_2"}, "x": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_2"}, "y": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_2"}, "x": 90, "y": 90 }], 
+        "inventory": [{"model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_crust_0"}}]
+    }    
+}
+

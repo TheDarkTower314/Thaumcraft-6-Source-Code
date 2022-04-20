@@ -1,0 +1,410 @@
+{
+    "entries" :[    
+        {
+        "key": "BASEGOLEMANCY",    
+        "name": "research.BASEGOLEMANCY.title",
+        "icons": [ "thaumcraft:textures/research/cat_golemancy.png" ],
+        "category": "GOLEMANCY", "location": [ 0,-1 ], 
+        "parents": [ "UNLOCKGOLEMANCY" ],        
+        "meta": [ "ROUND" , "HIDDEN" ],        
+        "stages": [
+                {
+                    "text": "research.BASEGOLEMANCY.stage.1"
+                }
+            ]
+        },
+        {
+        "key": "JARBRAIN",    
+        "name": "research.JARBRAIN.title",
+        "icons": [ "thaumcraft:jar_brain" ],
+        "category": "GOLEMANCY", "location": [ 2,1 ], 
+        "parents": [ "BASEGOLEMANCY", "WARDEDJARS", "INFUSION" ],    
+        "stages": [
+                {
+                    "text": "research.JARBRAIN.stage.1",  
+                    "required_knowledge":["OBSERVATION;GOLEMANCY;1","THEORY;GOLEMANCY;1"],  
+                    "required_research":["f_BRAIN"], "required_item":["thaumcraft:brain"]
+                },
+                {
+                    "text": "research.JARBRAIN.stage.2",  
+                    "recipes": ["thaumcraft:JarBrain"], 
+                    "warp": 3
+                }
+            ]
+        },
+        {
+        "key": "MATSTUDWOOD", "name": "research.MATSTUDWOOD.title",  
+        "icons": [ "thaumcraft:log_greatwood" ], "category": "GOLEMANCY", "location": [ -2, 0 ], 
+        "meta": [ "HIDDEN", "REVERSE","ROUND" ], "stages": [ { "text": "research.MATSTUDWOOD.stage.1" } ]
+        },
+        {
+        "key": "MATSTUDIRON", "name": "research.MATSTUDIRON.title",
+        "icons": [ "thaumcraft:plate;1;1" ], "category": "GOLEMANCY", "location": [ -3, -1 ], 
+        "parents": [ "MATSTUDWOOD" ], "meta": [ "REVERSE","ROUND" ],    
+        "stages": [ { "text": "research.MATSTUDIRON.stage.1", "required_research":["f_MATIRON"] } ]
+        },
+        {
+        "key": "MATSTUDCLAY", "name": "research.MATSTUDCLAY.title",
+        "icons": [ "minecraft:hardened_clay" ], "category": "GOLEMANCY", "location": [ -4, 0 ], 
+        "parents": [ "MATSTUDIRON" ],  "meta": [ "ROUND" ],     
+        "stages": [ { "text": "research.MATSTUDCLAY.stage.1", "required_research":["f_MATCLAY"] } ]
+        },
+        {
+        "key": "MATSTUDBRASS", "name": "research.MATSTUDBRASS.title",
+        "icons": [ "thaumcraft:plate" ], "category": "GOLEMANCY", "location": [ -4, -2 ], 
+        "parents": [ "MATSTUDIRON", "METALLURGY@2" ], "meta": [ "REVERSE", "ROUND","HIDDEN" ],     
+        "stages": [ { "text": "research.MATSTUDBRASS.stage.1", "required_research":["f_MATBRASS"] } ]
+        },
+        {
+        "key": "MATSTUDTHAUMIUM", "name": "research.MATSTUDTHAUMIUM.title",
+        "icons": [ "thaumcraft:plate;1;2" ], "category": "GOLEMANCY", "location": [ -5, -1 ], 
+        "parents": [ "MATSTUDBRASS", "METALLURGY@3" ], "meta": [ "ROUND","HIDDEN" ],    
+        "stages": [ { "text": "research.MATSTUDTHAUMIUM.stage.1", "required_research":["f_MATTHAUMIUM"] } ]
+        },
+        {
+        "key": "MATSTUDVOID", "name": "research.MATSTUDVOID.title",
+        "icons": [ "thaumcraft:plate;1;3" ], "category": "GOLEMANCY", "location": [ -6, 0 ], 
+        "parents": [ "MATSTUDTHAUMIUM", "BASEELDRITCH" ], "meta": [ "ROUND","HIDDEN" ],    
+        "stages": [ { "text": "research.MATSTUDVOID.stage.1", "required_research":["f_MATVOID"] } ]
+        },
+        {
+        "key": "MINDCLOCKWORK", "name": "research.MINDCLOCKWORK.title",
+        "icons": [ "thaumcraft:mind" ], "category": "GOLEMANCY", "location": [ 0, 3 ], 
+        "parents": [ "BASEGOLEMANCY","ESSENTIASMELTER","HEDGEALCHEMY" ],  
+        "siblings": [ "CONTROLSEALS", "MATSTUDWOOD" ],
+        "meta": [ "REVERSE" ],
+        "stages": [
+                {
+                    "text": "research.MINDCLOCKWORK.stage.1",
+                    "required_knowledge":["OBSERVATION;GOLEMANCY;1"],
+                    "required_research":["!cognitio","!victus"]
+                },
+                {
+                    "text": "research.MINDCLOCKWORK.stage.2",
+                    "required_knowledge":["THEORY;ARTIFICE;1", "THEORY;GOLEMANCY;1"],  
+                    "recipes": ["thaumcraft:MindClockwork"]
+                },
+                {
+                    "text": "research.MINDCLOCKWORK.stage.3",  
+                    "recipes": ["thaumcraft:MindClockwork","thaumcraft:GolemPress"]
+                }
+            ]
+        },
+        {
+        "key": "CONTROLSEALS", "name": "research.CONTROLSEALS.title",
+        "icons": [ "thaumcraft:seal" ], "category": "GOLEMANCY", "location": [ -2, 5 ], 
+        "parents": [ "MINDCLOCKWORK" ],  "siblings": [ "SEALCOLLECT" ],
+        "meta": [ "ROUND","HIDDEN" ],
+        "stages": [
+                {
+                    "text": "research.CONTROLSEALS.stage.1",  
+                    "recipes": ["thaumcraft:GolemBell","thaumcraft:SealBlank"]
+                }
+            ]
+        },
+        {
+        "key": "GOLEMDIRECT", "name": "research.GOLEMDIRECT.title",
+        "icons": [ "thaumcraft:textures/misc/golem/head_basic.png" ], "category": "GOLEMANCY", "location": [ 1, 4 ], 
+        "parents": [ "MINDCLOCKWORK" ],  "meta": [ "ROUND" ],
+        "stages": [            
+                {
+                    "text": "research.GOLEMDIRECT.stage.1",
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.GOLEMDIRECT.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "GOLEMLOGISTICS", "name": "research.GOLEMLOGISTICS.title",
+        "icons": [ "thaumcraft:textures/research/golem_logistics.png" ], "category": "GOLEMANCY", "location": [ 3, 4 ], 
+        "parents": [ "~SEALPROVIDE", "GOLEMDIRECT" ], 
+        "stages": [            
+                {
+                    "text": "research.GOLEMLOGISTICS.stage.1",
+                    "required_knowledge":["OBSERVATION;BASICS;1","OBSERVATION;GOLEMANCY;1"],
+                    "required_item":["minecraft:map","minecraft:ender_eye"]
+                },
+                {
+                    "text": "research.GOLEMLOGISTICS.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "MINDBIOTHAUMIC", "name": "research.MINDBIOTHAUMIC.title",
+        "icons": [ "thaumcraft:mind;1;1" ], "category": "GOLEMANCY", "location": [ 0, 7 ], 
+        "parents": [ "MINDCLOCKWORK","INFUSION" ],  "meta": [ "HIDDEN" ],
+        "stages": [
+                 {
+                    "text": "research.MINDBIOTHAUMIC.stage.1",
+                    "required_knowledge":["THEORY;GOLEMANCY;1","OBSERVATION;ARTIFICE;1"],
+                    "required_research":["f_BRAIN"]
+                 },
+                 {
+                    "text": "research.MINDBIOTHAUMIC.stage.2", 
+                    "recipes":["thaumcraft:MindBiothaumic"],
+                    "warp": 3
+                 }
+            ]
+        },
+        {
+        "key": "SEALCOLLECT", "name": "research.SEALCOLLECT.title",
+        "icons": [ "thaumcraft:textures/items/seals/seal_pickup.png" ], "category": "GOLEMANCY", "location": [ -4, 4 ], 
+        "parents": [ "CONTROLSEALS" ], "meta": [ "ROUND" ], "siblings": [ "SEALSTORE" ],
+        "stages": [            
+                {
+                    "text": "research.SEALCOLLECT.stage.1",
+                    "recipes":["thaumcraft:SealCollect"]
+                }
+            ],            
+         "addenda": [{ "text": "research.SEALCOLLECT.stage.ADV",  
+                        "recipes": ["thaumcraft:SealCollectAdv"],  
+                        "required_research":["MINDBIOTHAUMIC"] }]
+        },
+        {
+        "key": "SEALSTORE", "name": "research.SEALSTORE.title",
+        "icons": [ "thaumcraft:textures/items/seals/seal_fill.png" ], "category": "GOLEMANCY", "location": [ -6, 4 ], 
+        "parents": [ "SEALCOLLECT" ], 
+        "stages": [            
+                {
+                    "text": "research.SEALSTORE.stage.1",
+                    "recipes":["thaumcraft:SealStore"]
+                }
+            ],            
+         "addenda": [{ "text": "research.SEALSTORE.stage.ADV",  
+                        "recipes": ["thaumcraft:SealStoreAdv"],  
+                        "required_research":["MINDBIOTHAUMIC"] }]
+        },
+        {
+        "key": "SEALEMPTY", "name": "research.SEALEMPTY.title",
+        "icons": [ "thaumcraft:textures/items/seals/seal_empty.png" ], "category": "GOLEMANCY", "location": [ -8, 4 ], 
+        "parents": [ "SEALSTORE" ], 
+        "stages": [            
+                {
+                    "text": "research.SEALEMPTY.stage.1",
+                    "required_research":["!vacuos"], 
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.SEALEMPTY.stage.2", 
+                    "recipes":["thaumcraft:SealEmpty"]
+                }
+            ],            
+         "addenda": [{ "text": "research.SEALEMPTY.stage.ADV",  
+                        "recipes": ["thaumcraft:SealEmptyAdv"],  
+                        "required_research":["MINDBIOTHAUMIC"] }]
+        },
+        {
+        "key": "SEALPROVIDE", "name": "research.SEALPROVIDE.title",
+        "icons": [ "thaumcraft:textures/items/seals/seal_provider.png" ], "category": "GOLEMANCY", "location": [ -7, 6 ], 
+        "parents": [ "SEALEMPTY","MINDBIOTHAUMIC" ], 
+        "stages": [            
+                {
+                    "text": "research.SEALPROVIDE.stage.1",
+                    "required_research":["!desiderium"], 
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.SEALPROVIDE.stage.2", 
+                    "recipes":["thaumcraft:SealProvide"]
+                }
+            ]
+        },
+        {
+        "key": "SEALSTOCK", "name": "research.SEALSTOCK.title",
+        "icons": [ "thaumcraft:textures/items/seals/seal_stock.png" ], "category": "GOLEMANCY", "location": [ -6, 8 ], 
+        "parents": [ "SEALPROVIDE" ], 
+        "stages": [            
+                {
+                    "text": "research.SEALSTOCK.stage.1",
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.SEALSTOCK.stage.2", 
+                    "recipes":["thaumcraft:SealStock"]
+                }
+            ]
+        },
+        {
+        "key": "SEALGUARD", "name": "research.SEALGUARD.title",
+        "icons": [ "thaumcraft:textures/items/seals/seal_guard.png" ], "category": "GOLEMANCY", "location": [ -12, 4 ], 
+        "parents": [ "CONTROLSEALS" ], 
+        "stages": [            
+                {
+                    "text": "research.SEALGUARD.stage.1",
+                    "required_research":["!mortuus"], 
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.SEALGUARD.stage.2", 
+                    "recipes":["thaumcraft:SealGuard","thaumcraft:modaggression"],
+                    "warp": 1
+                }
+            ],            
+         "addenda": [{ "text": "research.SEALGUARD.stage.ADV",  
+                        "recipes": ["thaumcraft:SealGuardAdv"],  
+                        "required_research":["MINDBIOTHAUMIC"] }]
+        },
+        {
+        "key": "SEALBUTCHER", "name": "research.SEALBUTCHER.title",
+        "icons": [ "thaumcraft:textures/items/seals/seal_butcher.png" ], "category": "GOLEMANCY", "location": [ -11, 6 ], 
+        "parents": [ "SEALGUARD","INFUSION","MINDBIOTHAUMIC" ], 
+        "stages": [            
+                {
+                    "text": "research.SEALBUTCHER.stage.1",
+                    "required_research":["!bestia"], 
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.SEALBUTCHER.stage.2", 
+                    "recipes":["thaumcraft:SealButcher"],
+                    "warp": 1
+                }
+            ]
+        },
+        {
+        "key": "SEALUSE", "name": "research.SEALUSE.title",
+        "icons": [ "thaumcraft:textures/items/seals/seal_use.png" ], "category": "GOLEMANCY", "location": [ -3, 6 ], 
+        "parents": [ "CONTROLSEALS","INFUSION","MINDBIOTHAUMIC" ], 
+        "stages": [            
+                {
+                    "text": "research.SEALUSE.stage.1",
+                    "required_research":["!instrumentum"], 
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.SEALUSE.stage.2", 
+                    "recipes":["thaumcraft:SealUse"]
+                }
+            ]
+        },
+        {
+        "key": "SEALHARVEST", "name": "research.SEALHARVEST.title",
+        "icons": [ "thaumcraft:textures/items/seals/seal_harvest.png" ], "category": "GOLEMANCY", "location": [ -5, 6 ], 
+        "parents": [ "SEALUSE" ], 
+        "stages": [            
+                {
+                    "text": "research.SEALHARVEST.stage.1",
+                    "required_research":["!herba"], 
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.SEALHARVEST.stage.2", 
+                    "recipes":["thaumcraft:SealHarvest"]
+                }
+            ]
+        },
+        {
+        "key": "SEALBREAK", "name": "research.SEALBREAK.title",
+        "icons": [ "thaumcraft:textures/items/seals/seal_breaker.png" ], "category": "GOLEMANCY", "location": [ -10, 4 ], 
+        "parents": [ "CONTROLSEALS","INFUSION","GOLEMBREAKER" ], 
+        "stages": [            
+                {
+                    "text": "research.SEALBREAK.stage.1",
+                    "required_research":["!perditio"], 
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.SEALBREAK.stage.2", 
+                    "recipes":["thaumcraft:SealBreak"]
+                }
+            ],            
+             "addenda": [{ "text": "research.SEALBREAK.stage.ADV",  
+                            "recipes": ["thaumcraft:SealBreakAdv"],  
+                            "required_research":["MINDBIOTHAUMIC"] }]
+        },
+        {
+        "key": "SEALLUMBER", "name": "research.SEALLUMBER.title",
+        "icons": [ "thaumcraft:textures/items/seals/seal_lumber.png" ], "category": "GOLEMANCY", "location": [ -9, 6 ], 
+        "parents": [ "SEALBREAK","MINDBIOTHAUMIC" ], 
+        "stages": [            
+                {
+                    "text": "research.SEALLUMBER.stage.1",
+                    "required_research":["!herba"], 
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.SEALLUMBER.stage.2", 
+                    "recipes":["thaumcraft:SealLumber"]
+                }
+            ]
+        },
+        {
+        "key": "GOLEMVISION", "name": "research.GOLEMVISION.title",
+        "icons": [ "thaumcraft:module" ], "category": "GOLEMANCY", "location": [ -2, 2 ], 
+        "parents": [ "MINDCLOCKWORK" ], 
+        "stages": [            
+                {
+                    "text": "research.GOLEMVISION.stage.1",
+                    "required_research":["!sensus"], "required_item":["minecraft:fermented_spider_eye"],
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.GOLEMVISION.stage.2", 
+                    "recipes":["thaumcraft:modvision"]
+                }
+            ]
+        },
+        {
+        "key": "GOLEMCLIMBER", "name": "research.GOLEMCLIMBER.title",
+        "icons": [ "thaumcraft:textures/misc/golem/legs_climber.png" ], "category": "GOLEMANCY", "location": [ -4, 2 ], 
+        "parents": [ "MINDCLOCKWORK" ], 
+        "stages": [            
+                {
+                    "text": "research.GOLEMCLIMBER.stage.1",
+                    "required_research":["f_SPIDER"], "required_item":["minecraft:flint"],
+                    "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.GOLEMCLIMBER.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "GOLEMFLYER", "name": "research.GOLEMFLYER.title",
+        "icons": [ "thaumcraft:textures/misc/golem/legs_flyer.png" ], "category": "GOLEMANCY", "location": [ -6, 2 ], 
+        "parents": [ "GOLEMCLIMBER","LEVITATOR" ], 
+        "stages": [            
+                {
+                    "text": "research.GOLEMFLYER.stage.1",
+                    "required_research":["f_FLY"], "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.GOLEMFLYER.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "GOLEMBREAKER", "name": "research.GOLEMBREAKER.title",
+        "icons": [ "thaumcraft:textures/misc/golem/arms_breakers.png" ], "category": "GOLEMANCY", "location": [ -8, 2 ], 
+        "parents": [ "MINDCLOCKWORK" ], 
+        "stages": [            
+                {
+                    "text": "research.GOLEMBREAKER.stage.1",
+                    "required_item":["minecraft:diamond","minecraft:piston"], "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.GOLEMBREAKER.stage.2"
+                }
+            ]
+        },
+        {
+        "key": "GOLEMCOMBATADV", "name": "research.GOLEMCOMBATADV.title",
+        "icons": [ "thaumcraft:textures/misc/golem/addon_fighter.png" ], "category": "GOLEMANCY", "location": [ -12, 2 ], 
+        "parents": [ "SEALGUARD" ], 
+        "stages": [            
+                {
+                    "text": "research.GOLEMCOMBATADV.stage.1",
+                    "required_item":["minecraft:arrow","minecraft:shears"], 
+                    "required_research":["!aversio","f_DISPENSER"], "required_knowledge":["THEORY;GOLEMANCY;1"]
+                },
+                {
+                    "text": "research.GOLEMCOMBATADV.stage.2"
+                }
+            ]
+        }
+    
+    ]
+}
+    

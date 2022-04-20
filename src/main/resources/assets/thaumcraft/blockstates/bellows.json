@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:bellows",
+        "textures": {
+            "particle": "thaumcraft:blocks/bellows",
+            "side": "thaumcraft:blocks/bellows"
+        },
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "inventory": [{}], "normal": [{}],        
+        "enabled=false,facing=up":    { "model": "thaumcraft:bellows"},
+        "enabled=true,facing=up":    { "model": "thaumcraft:bellows"},        
+        "enabled=false,facing=down":    { "model": "thaumcraft:bellows"},
+        "enabled=true,facing=down":    { "model": "thaumcraft:bellows"},        
+        "enabled=false,facing=west":    { "model": "thaumcraft:bellows"},
+        "enabled=true,facing=west":    { "model": "thaumcraft:bellows"},        
+        "enabled=false,facing=south":    { "model": "thaumcraft:bellows"},
+        "enabled=true,facing=south":    { "model": "thaumcraft:bellows"},        
+        "enabled=false,facing=north":    { "model": "thaumcraft:bellows"},
+        "enabled=true,facing=north":    { "model": "thaumcraft:bellows"},        
+        "enabled=false,facing=east":    { "model": "thaumcraft:bellows"},
+        "enabled=true,facing=east":    { "model": "thaumcraft:bellows"}
+    }
+}

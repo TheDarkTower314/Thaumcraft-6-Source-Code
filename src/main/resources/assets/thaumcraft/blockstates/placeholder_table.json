@@ -1,0 +1,10 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "cube_all", "textures": {"all": "thaumcraft:blocks/base_stone"},
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "normal": [{}], "inventory": [{}]
+    }
+}

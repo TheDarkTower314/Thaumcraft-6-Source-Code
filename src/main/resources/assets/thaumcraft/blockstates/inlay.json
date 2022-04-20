@@ -1,0 +1,57 @@
+{
+    "multipart": [
+        {   "when": { "OR": [
+                {"north": "none", "east": "none", "south": "none", "west": "none"},
+                {"north": "side|ext", "east": "side|ext" },
+                {"east": "side|ext", "south": "side|ext" },
+                {"south": "side|ext", "west": "side|ext"},
+                {"west": "side|ext", "north": "side|ext"}
+            ]},
+            "apply": [
+                { "model": "thaumcraft:inlay_dot_0" },
+                { "model": "thaumcraft:inlay_dot_1" },
+                { "model": "thaumcraft:inlay_dot_2" },
+                { "model": "thaumcraft:inlay_dot_3" }
+            ]
+        },
+        {   "when": { "OR": [
+                { "north": "side|ext" },
+                { "north": "none", "east": "none", "south": "side|ext", "west": "none" }
+            ]},
+            "apply": [{ "model": "thaumcraft:inlay_side0" },{ "model": "thaumcraft:inlay_side1" }]
+        },
+        {   "when": { "OR": [
+                { "south": "side|ext" },
+                { "north": "side|ext", "east": "none", "south": "none", "west": "none" }
+            ]},
+            "apply": [{ "model": "thaumcraft:inlay_side_alt0" },{ "model": "thaumcraft:inlay_side_alt1" }]
+        },
+        {   "when": { "OR": [
+                { "east": "side|ext" },
+                { "north": "none", "east": "none", "south": "none", "west": "side|ext" }
+            ]},
+            "apply": [{ "model": "thaumcraft:inlay_side_alt0", "y": 270 }, { "model": "thaumcraft:inlay_side_alt1", "y": 270 }]
+        },
+        {   "when": { "OR": [
+                { "west": "side|ext" },
+                { "north": "none", "east": "side|ext", "south": "none", "west": "none" }
+            ]},
+            "apply": [{ "model": "thaumcraft:inlay_side0", "y": 270 },{ "model": "thaumcraft:inlay_side1", "y": 270 }]
+        }
+        
+        
+        ,
+        {   "when": { "north": "ext" },
+            "apply": { "model": "thaumcraft:inlay_extend", "y": 180 }
+        },
+        {   "when": { "south": "ext" },
+            "apply": { "model": "thaumcraft:inlay_extend" }
+        },
+        {   "when": { "east": "ext" },
+            "apply": { "model": "thaumcraft:inlay_extend", "y": 270 }
+        },
+        {   "when": { "west": "ext" },
+            "apply": { "model": "thaumcraft:inlay_extend", "y": 90 }
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:dioptra",
+        "textures": {
+            "particle": "thaumcraft:blocks/dioptra_side_on",
+            "side": "thaumcraft:blocks/dioptra_side_on",
+            "top": "thaumcraft:blocks/dioptra_top",
+            "bottom": "thaumcraft:blocks/arcane_stone_1"
+        },
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "enabled=false": [{
+            "textures": {
+                "particle": "thaumcraft:blocks/dioptra_side_off",
+                "top": "thaumcraft:blocks/dioptra_top",
+                "side": "thaumcraft:blocks/dioptra_side_off",
+                "bottom": "thaumcraft:blocks/arcane_stone_1"
+            }}], 
+        "enabled=true": [{}], 
+        "inventory": [{}]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:thaumatorium.obj", 
+        "textures": {"#texture": "thaumcraft:blocks/thaumatorium"},
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "inventory": [{"transform": {       
+                "gui": { "translation": [0, -0.25, 0], "scale": 0.65, "rotation": [{ "x": 300 },{ "z": 45 }] }
+            }}], 
+        "normal": [{}],        
+        "facing=up":    { "model": "thaumcraft:thaumatorium.obj", "x": 90}, 
+        "facing=down":    { "model": "thaumcraft:thaumatorium.obj", "x": 90},   
+        "facing=west":    { "model": "thaumcraft:thaumatorium.obj", "x": 90},    
+        "facing=south":    { "model": "thaumcraft:thaumatorium.obj", "y": 270, "x": 90},    
+        "facing=north":    { "model": "thaumcraft:thaumatorium.obj", "y": 90, "x": 90},   
+        "facing=east":    { "model": "thaumcraft:thaumatorium.obj", "y": 180, "x": 90}
+    }
+      
+    
+}

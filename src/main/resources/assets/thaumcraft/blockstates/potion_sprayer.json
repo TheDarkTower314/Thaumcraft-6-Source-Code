@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "cube_bottom_top",
+        "transform": "forge:default-block",
+        "textures": {
+            "bottom": "thaumcraft:blocks/potion_sprayer_bottom",
+            "top": "thaumcraft:blocks/potion_sprayer_top",
+            "side": "thaumcraft:blocks/potion_sprayer_side"}
+     },
+    "variants": {
+        "inventory": [{}], "normal": [{}],        
+        "enabled=false,facing=down":    { "model": "cube_bottom_top","x": 180 },
+        "enabled=false,facing=up":      { "model": "cube_bottom_top"},
+        "enabled=false,facing=east":    { "model": "cube_bottom_top","y": 90, "x": 90 },
+        "enabled=false,facing=west":    { "model": "cube_bottom_top","y": 270, "x": 90 },
+        "enabled=false,facing=north":   { "model": "cube_bottom_top","x": 90 },
+        "enabled=false,facing=south":   { "model": "cube_bottom_top","y": 180, "x": 90 },
+        "enabled=true,facing=down":     { "model": "cube_bottom_top","x": 180 },
+        "enabled=true,facing=up":       { "model": "cube_bottom_top"},
+        "enabled=true,facing=east":     { "model": "cube_bottom_top","y": 90, "x": 90 },
+        "enabled=true,facing=west":     { "model": "cube_bottom_top","y": 270, "x": 90 },
+        "enabled=true,facing=north":    { "model": "cube_bottom_top","x": 90 },
+        "enabled=true,facing=south":    { "model": "cube_bottom_top","y": 180, "x": 90 }
+    }
+}

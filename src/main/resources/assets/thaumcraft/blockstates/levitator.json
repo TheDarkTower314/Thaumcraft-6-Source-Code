@@ -1,0 +1,22 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:levitator_off",
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "inventory": [{}], "normal": [{}],        
+        "enabled=false,facing=down":    { "model": "thaumcraft:levitator_off", "x": 180 },
+        "enabled=false,facing=up":      { "model": "thaumcraft:levitator_off" },
+        "enabled=false,facing=east":    { "model": "thaumcraft:levitator_off", "y": 90, "x": 90 },
+        "enabled=false,facing=west":    { "model": "thaumcraft:levitator_off", "y": 270, "x": 90 },
+        "enabled=false,facing=north":   { "model": "thaumcraft:levitator_off", "x": 90 },
+        "enabled=false,facing=south":   { "model": "thaumcraft:levitator_off", "y": 180, "x": 90 },
+        "enabled=true,facing=down":     { "model": "thaumcraft:levitator_on", "x": 180 },
+        "enabled=true,facing=up":       { "model": "thaumcraft:levitator_on" },
+        "enabled=true,facing=east":     { "model": "thaumcraft:levitator_on", "y": 90, "x": 90 },
+        "enabled=true,facing=west":     { "model": "thaumcraft:levitator_on", "y": 270, "x": 90 },
+        "enabled=true,facing=north":    { "model": "thaumcraft:levitator_on", "x": 90 },
+        "enabled=true,facing=south":    { "model": "thaumcraft:levitator_on", "y": 180, "x": 90 }
+    }
+}

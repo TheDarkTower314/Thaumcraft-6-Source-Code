@@ -1,0 +1,14 @@
+{
+    "forge_marker": 1,
+    "defaults":
+    {
+        "transform": "forge:default-block",
+        "model": "leaves",
+        "textures": { "all": "thaumcraft:blocks/leaves_silverwood" }
+    },
+    "variants": {     
+        "normal": [{}], "inventory": [{}],   
+        "check_decay": { "true": {}, "false": {} },
+        "decayable": { "true": {}, "false": {} }
+    }        
+}

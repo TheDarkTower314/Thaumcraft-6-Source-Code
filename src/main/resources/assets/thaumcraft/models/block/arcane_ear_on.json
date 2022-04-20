@@ -1,0 +1,100 @@
+{
+    "textures": {
+        "particle": "thaumcraft:blocks/arcane_ear_on",
+        "side": "thaumcraft:blocks/arcane_ear_on",
+        "top": "thaumcraft:blocks/base_wood"
+    },
+    "elements": [
+        {
+            "from": [3,0,3],
+            "to": [13,3,13],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "down": {
+                    "texture": "#top",
+                    "cullface": "down"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [6,3,6],
+            "to": [10,4,10],
+            "faces": {
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [5,4,5],
+            "to": [11,5,11],
+            "faces": {
+                "down": {
+                    "uv": [9,2,14,8],
+                    "texture": "#side"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [4,5,4],
+            "to": [12,7,12],
+            "faces": {
+                "up": {
+                    "uv": [0,1,8,9],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [8,1,16,9],
+                    "texture": "#side"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        }
+    ]
+}

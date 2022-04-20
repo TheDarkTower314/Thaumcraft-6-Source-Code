@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "thaumcraft:blocks/ancient_stone_0",
+        "up": "thaumcraft:blocks/ancient_stone_0",
+        "down": "thaumcraft:blocks/ancient_stone_1",
+        "east": "thaumcraft:blocks/ancient_stone_2",
+        "west": "thaumcraft:blocks/ancient_stone_3",
+        "north": "thaumcraft:blocks/ancient_stone_4",
+        "south": "thaumcraft:blocks/ancient_stone_5"
+    }
+}

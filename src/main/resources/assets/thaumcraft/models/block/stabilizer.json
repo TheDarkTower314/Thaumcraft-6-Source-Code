@@ -1,0 +1,179 @@
+{
+    "__createdwith": "opl's Model Creator",
+    "ambientocclusion": false,
+    "textures": {
+        "side": "thaumcraft:blocks/stabilizer",
+        "particle": "thaumcraft:blocks/arcane_stone_1"
+    },
+    "elements": [
+        {
+            "from": [5,8,5],
+            "to": [11,16,11],
+            "faces": {
+                "up": {
+                    "uv": [13,4.5,16,7.5],
+                    "texture": "#side",
+                    "tintindex": 0
+                },
+                "west": {
+                    "uv": [13,0,16,4],
+                    "texture": "#side",
+                    "tintindex": 0
+                },
+                "east": {
+                    "uv": [13,0,16,4],
+                    "texture": "#side",
+                    "tintindex": 0
+                },
+                "north": {
+                    "uv": [13,0,16,4],
+                    "texture": "#side",
+                    "tintindex": 0
+                },
+                "south": {
+                    "uv": [13,0,16,4],
+                    "texture": "#side",
+                    "tintindex": 0
+                }
+            }
+        },
+        {
+            "from": [3,4,3],
+            "to": [13,8,13],
+            "faces": {
+                "up": {
+                    "uv": [7.5,0,12.5,5],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [7.5,5.5,12.5,7.5],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [7.5,5.5,12.5,7.5],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [7.5,5.5,12.5,7.5],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [7.5,5.5,12.5,7.5],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [3,11,3],
+            "to": [13,13,13],
+            "faces": {
+                "up": {
+                    "uv": [7.5,0,12.5,5],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [7.5,0,12.5,5],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [7.5,8,12.5,9],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [7.5,8,12.5,9],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [7.5,8,12.5,9],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [7.5,8,12.5,9],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [1,0,1],
+            "to": [15,4,15],
+            "faces": {
+                "up": {
+                    "uv": [0,0,7,7],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [0,0,7,7],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [0,7.5,7,9.5],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [0,7.5,7,9.5],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [0,7.5,7,9.5],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [0,7.5,7,9.5],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [1,0,1],
+            "to": [15,4,15],
+            "faces": {
+                "west": {
+                    "uv": [0,10,7,12],
+                    "texture": "#side",
+                    "tintindex": 0
+                },
+                "east": {
+                    "uv": [0,10,7,12],
+                    "texture": "#side",
+                    "tintindex": 0
+                },
+                "north": {
+                    "uv": [0,10,7,12],
+                    "texture": "#side",
+                    "tintindex": 0
+                },
+                "south": {
+                    "uv": [0,10,7,12],
+                    "texture": "#side",
+                    "tintindex": 0
+                }
+            }
+        },
+        {
+            "from": [5,8,5],
+            "to": [11,16,11],
+            "faces": {
+                "up": {
+                    "uv": [13,12.5,16,15.5],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [13,8,16,12],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [13,8,16,12],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [13,8,16,12],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [13,8,16,12],
+                    "texture": "#side"
+                }
+            }
+        }
+    ]
+}

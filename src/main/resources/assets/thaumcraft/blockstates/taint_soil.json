@@ -1,0 +1,25 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "cube_all"
+     },
+    "variants": {
+        "normal": [
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_0"}, "weight": 16 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_0"}, "weight": 16, "x": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_0"}, "weight": 16, "y": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_0"}, "weight": 16, "x": 90, "y": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_1"} },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_1"}, "x": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_1"}, "y": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_1"}, "x": 90, "y": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_2"} },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_2"}, "x": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_2"}, "y": 90 },
+            { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_2"}, "x": 90, "y": 90 }
+            ], 
+        "inventory": [{"model": "cube_all", "textures": {"all": "thaumcraft:blocks/taint_soil_0"}}]
+    }    
+}
+

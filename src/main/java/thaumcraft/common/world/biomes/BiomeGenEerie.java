@@ -1,0 +1,61 @@
+// 
+// Decompiled by Procyon v0.6.0
+// 
+
+package thaumcraft.common.world.biomes;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.math.BlockPos;
+import thaumcraft.common.entities.monster.EntityEldritchGuardian;
+import thaumcraft.common.entities.monster.EntityWisp;
+import thaumcraft.common.entities.monster.EntityGiantBrainyZombie;
+import thaumcraft.common.entities.monster.EntityBrainyZombie;
+import thaumcraft.common.config.ModConfig;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityWitch;
+import net.minecraft.entity.passive.EntityBat;
+import net.minecraft.world.biome.Biome;
+
+public class BiomeGenEerie extends Biome
+{
+    public BiomeGenEerie(final Biome.BiomeProperties par1) {
+        super(par1);
+        this.setRegistryName("thaumcraft", "eerie");
+        this.spawnableCreatureList.clear();
+        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityBat.class, 3, 1, 1));
+        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWitch.class, 8, 1, 1));
+        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEnderman.class, 4, 1, 1));
+        if (ModConfig.CONFIG_WORLD.allowSpawnAngryZombie) {
+            this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityBrainyZombie.class, 32, 1, 1));
+            this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityGiantBrainyZombie.class, 8, 1, 1));
+        }
+        if (ModConfig.CONFIG_WORLD.allowSpawnWisp) {
+            this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWisp.class, 3, 1, 1));
+        }
+        if (ModConfig.CONFIG_WORLD.allowSpawnElder) {
+            this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEldritchGuardian.class, 1, 1, 1));
+        }
+        this.decorator.treesPerChunk = 2;
+        this.decorator.flowersPerChunk = 1;
+        this.decorator.grassPerChunk = 2;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public int getGrassColorAtPos(final BlockPos p_180627_1_) {
+        return 4212800;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public int getFoliageColorAtPos(final BlockPos p_180625_1_) {
+        return 4212800;
+    }
+    
+    public int getSkyColorByTemp(final float par1) {
+        return 2237081;
+    }
+    
+    public int getWaterColorMultiplier() {
+        return 3035999;
+    }
+}

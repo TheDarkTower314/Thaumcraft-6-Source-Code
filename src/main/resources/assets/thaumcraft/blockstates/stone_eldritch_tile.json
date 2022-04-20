@@ -1,0 +1,15 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:eldritch_stone",
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "normal": [
+                { "model": "thaumcraft:eldritch_stone" },
+                { "model": "thaumcraft:eldritch_stone", "x": 90 },
+                { "model": "thaumcraft:eldritch_stone", "y": 90 },
+                { "model": "thaumcraft:eldritch_stone", "x": 90, "y": 90 }
+        ], "inventory": [{}]
+    }
+}

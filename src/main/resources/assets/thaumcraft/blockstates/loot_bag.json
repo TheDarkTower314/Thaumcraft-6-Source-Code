@@ -1,0 +1,18 @@
+{
+
+    "forge_marker": 1,
+    "variants": {
+        "common": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/loot_bag_common" }
+        },
+        "uncommon": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/loot_bag_uncommon" }
+        },
+        "rare": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/loot_bag_rare" }
+        }
+    }
+}

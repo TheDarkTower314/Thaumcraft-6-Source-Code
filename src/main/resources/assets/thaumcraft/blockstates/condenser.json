@@ -1,0 +1,13 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "thaumcraft:condenser"
+     },
+     "variants": {
+        "normal": [{}], "inventory": [{}],
+        "enabled=false": { "model": "thaumcraft:condenser", "textures": {"side": "thaumcraft:blocks/condenser_off"} },
+        "enabled=true":  { "model": "thaumcraft:condenser" }
+    }
+
+}

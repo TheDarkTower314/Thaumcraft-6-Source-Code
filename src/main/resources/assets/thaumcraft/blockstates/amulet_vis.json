@@ -1,0 +1,13 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "found": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/amulet_vis_stone" }
+        },
+        "crafted": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/amulet_vis" }
+        }
+    }
+}

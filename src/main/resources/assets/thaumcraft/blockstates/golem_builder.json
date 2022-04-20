@@ -1,0 +1,20 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:golembuilder.obj", 
+        "textures": {"#texture": "thaumcraft:blocks/golembuilder"},
+        "transform": "forge:default-block"
+     },
+    "variants": {
+        "inventory": [{"transform": {       
+                "gui": { "translation": [0, -0.125, 0], "scale": 0.4, "rotation": [{ "x": 30 },{ "y": 45 }] }
+            }}], "normal": [{}],        
+        "facing=up":    { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/base_stone"}},
+        "facing=down":  { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/base_stone"}},
+        "facing=west":  { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/base_stone"}},
+        "facing=south": { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/base_stone"}},
+        "facing=north": { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/base_stone"}},
+        "facing=east":  { "model": "cube_all", "textures": {"all": "thaumcraft:blocks/base_stone"}}  
+    }
+    
+}

@@ -1,0 +1,14 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "inventory": { "model": "thaumcraft:pattern_crafter_inv", "transform": "forge:default-block" },      
+        "enabled=false,facing=east":    { "model": "thaumcraft:pattern_crafter", "y": 90 },
+        "enabled=false,facing=west":    { "model": "thaumcraft:pattern_crafter", "y": 270 },
+        "enabled=false,facing=north":   { "model": "thaumcraft:pattern_crafter" },
+        "enabled=false,facing=south":   { "model": "thaumcraft:pattern_crafter", "y": 180 },
+        "enabled=true,facing=east":    { "model": "thaumcraft:pattern_crafter", "y": 90 },
+        "enabled=true,facing=west":    { "model": "thaumcraft:pattern_crafter", "y": 270 },
+        "enabled=true,facing=north":   { "model": "thaumcraft:pattern_crafter" },
+        "enabled=true,facing=south":   { "model": "thaumcraft:pattern_crafter", "y": 180 }
+    }
+}

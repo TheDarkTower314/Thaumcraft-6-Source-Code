@@ -1,0 +1,16 @@
+[
+{
+  "modid": "thaumcraft",
+  "name": "Thaumcraft 6",
+  "description": "Recompiled Thaumcraft 6",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Azanor", "GrigLog"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

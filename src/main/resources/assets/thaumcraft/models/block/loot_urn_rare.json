@@ -1,0 +1,7 @@
+{
+    "parent": "thaumcraft:block/loot_urn_common",
+    "textures": {
+        "side": "thaumcraft:blocks/loot_urn_side_2",
+        "particle": "thaumcraft:blocks/loot_urn_side_2"
+    }
+}

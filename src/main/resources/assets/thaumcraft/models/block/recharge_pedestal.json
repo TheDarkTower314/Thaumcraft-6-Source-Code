@@ -1,0 +1,67 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "side": "thaumcraft:blocks/recharge_pedestal_side",
+        "top": "thaumcraft:blocks/recharge_pedestal_top",
+        "gem": "thaumcraft:blocks/recharge_pedestal_gem",
+        "bottom": "thaumcraft:blocks/pedestal_top",
+        "particle": "thaumcraft:blocks/recharge_pedestal_side"
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 4, 16 ],
+            "faces": {
+                "down":  { "texture": "#bottom", "cullface": "down" },
+                "up":    { "texture": "#bottom" },
+                "north": { "texture": "#side", "cullface": "north" },
+                "south": { "texture": "#side", "cullface": "south" },
+                "west":  { "texture": "#side", "cullface": "west" },
+                "east":  { "texture": "#side", "cullface": "east" }
+            }
+        },
+        {   "from": [ 2, 4, 2 ],
+            "to": [ 14, 8, 14 ],
+            "faces": {
+                "down":  { "texture": "#bottom" },
+                "up":    { "texture": "#bottom" },
+                "north": { "texture": "#side" },
+                "south": { "texture": "#side" },
+                "west":  { "texture": "#side" },
+                "east":  { "texture": "#side" }
+            }
+        },
+        {   "from": [ 4, 8, 4 ],
+            "to": [ 12, 16, 12 ],
+            "faces": {
+                "down":  { "texture": "#bottom" },
+                "up":    { "texture": "#top" },
+                "north": { "texture": "#side" },
+                "south": { "texture": "#side" },
+                "west":  { "texture": "#side" },
+                "east":  { "texture": "#side" }
+            }
+        },
+        {   "from": [ 7, 10, 3 ],
+            "to": [ 9, 12, 13 ],
+            "faces": {
+                "down":  { "texture": "#gem" },
+                "up":    { "texture": "#gem" },
+                "north": { "texture": "#gem" },
+                "south": { "texture": "#gem" },
+                "west":  { "texture": "#gem" },
+                "east":  { "texture": "#gem" }
+            }
+        },
+        {   "from": [ 3, 10, 7 ],
+            "to": [ 13, 12, 9 ],
+            "faces": {
+                "down":  { "texture": "#gem" },
+                "up":    { "texture": "#gem" },
+                "north": { "texture": "#gem" },
+                "south": { "texture": "#gem" },
+                "west":  { "texture": "#gem" },
+                "east":  { "texture": "#gem" }
+            }
+        }
+    ]     
+}

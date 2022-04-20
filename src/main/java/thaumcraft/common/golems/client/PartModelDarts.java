@@ -1,0 +1,40 @@
+// 
+// Decompiled by Procyon v0.6.0
+// 
+
+package thaumcraft.common.golems.client;
+
+import thaumcraft.api.golems.IGolemAPI;
+import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.golems.parts.PartModel;
+
+public class PartModelDarts extends PartModel
+{
+    public PartModelDarts(final ResourceLocation objModel, final ResourceLocation objTexture, final EnumAttachPoint attachPoint) {
+        super(objModel, objTexture, attachPoint);
+    }
+    
+    @Override
+    public float preRenderArmRotationX(final IGolemAPI golem, final float partialTicks, final EnumLimbSide side, float inputRot) {
+        if (golem.isInCombat()) {
+            inputRot = 90.0f - golem.getGolemEntity().prevRotationPitch + inputRot / 10.0f;
+        }
+        return inputRot;
+    }
+    
+    @Override
+    public float preRenderArmRotationY(final IGolemAPI golem, final float partialTicks, final EnumLimbSide side, float inputRot) {
+        if (golem.isInCombat()) {
+            inputRot /= 10.0f;
+        }
+        return inputRot;
+    }
+    
+    @Override
+    public float preRenderArmRotationZ(final IGolemAPI golem, final float partialTicks, final EnumLimbSide side, float inputRot) {
+        if (golem.isInCombat()) {
+            inputRot /= 10.0f;
+        }
+        return inputRot;
+    }
+}

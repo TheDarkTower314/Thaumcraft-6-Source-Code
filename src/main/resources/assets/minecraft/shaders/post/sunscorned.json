@@ -1,0 +1,17 @@
+{
+    "targets": [
+        "swap"
+    ],
+    "passes": [
+        {
+            "name": "bloomcolor",
+            "intarget": "minecraft:main",
+            "outtarget": "swap"
+        },
+        {
+            "name": "bloom2",
+            "intarget": "swap",
+            "outtarget": "minecraft:main"
+        }
+    ]
+}

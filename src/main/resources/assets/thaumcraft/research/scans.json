@@ -1,0 +1,88 @@
+{
+    "entries" :[
+        {
+        "key": "!Wisp",     
+        "name": "entity.Wisp.name",
+        "icons": [ "thaumcraft:textures/research/r_wisp.png" ],
+        "category": "BASICS", "location": [ -7,0 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.Wisp.stage.1"}]
+        },
+        {
+        "key": "!Pech",    
+        "name": "research.Pech.title",
+        "icons": [ "thaumcraft:textures/research/r_pech.png" ],
+        "category": "BASICS", "location": [ -8,0 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.Pech.stage.1"}]
+        },
+        {
+        "key": "!ThaumSlime",    
+        "name": "entity.ThaumSlime.name",
+        "icons": [ "thaumcraft:textures/research/r_thaumslime.png" ],
+        "category": "BASICS", "location": [ -9,0 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.ThaumSlime.stage.1"}]
+        },
+        {
+        "key": "!Firebat",    
+        "name": "entity.Firebat.name",
+        "icons": [ "thaumcraft:textures/research/r_firebat.png" ],
+        "category": "BASICS", "location": [ -10,0 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.Firebat.stage.1"}]
+        },
+        {
+        "key": "!TaintSeed",    
+        "name": "entity.TaintSeed.name",
+        "icons": [ "thaumcraft:textures/research/r_taintseed.png" ],
+        "category": "BASICS", "location": [ -7,1 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.TaintSeed.stage.1"}]
+        },
+        {
+        "key": "!TaintCrawler",    
+        "name": "entity.TaintCrawler.name",
+        "icons": [ "thaumcraft:textures/research/r_taintcrawler.png" ],
+        "category": "BASICS", "location": [ -8,1 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.TaintCrawler.stage.1"}]
+        },
+        {
+        "key": "!Taintacle",    
+        "name": "entity.Taintacle.name",
+        "icons": [ "thaumcraft:textures/research/r_taintacle.png" ],
+        "category": "BASICS", "location": [ -9,1 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.Taintacle.stage.1"}]
+        },
+        {
+        "key": "!TaintSwarm",    
+        "name": "entity.TaintSwarm.name",
+        "icons": [ "thaumcraft:textures/research/r_taintswarm.png" ],
+        "category": "BASICS", "location": [ -10,1 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.TaintSwarm.stage.1"}]
+        },
+        {
+        "key": "!CrimsonCultist",    
+        "name": "research.CrimsonCultist.title",
+        "icons": [ "thaumcraft:textures/research/r_cultist.png" ],
+        "category": "BASICS", "location": [ -7,2 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.CrimsonCultist.stage.1"}]
+        },        
+        {
+        "key": "!BrainyZombie",    
+        "name": "entity.BrainyZombie.name",
+        "icons": [ "thaumcraft:textures/research/r_angryzombie.png" ],
+        "category": "BASICS", "location": [ -8,2 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.BrainyZombie.stage.1"}]
+        },
+        {
+        "key": "!EldritchGuardian",    
+        "name": "entity.EldritchGuardian.name",
+        "icons": [ "thaumcraft:textures/research/r_eldritchguardian.png" ],
+        "category": "BASICS", "location": [ -9,2 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.EldritchGuardian.stage.1"}]
+        },
+        {
+        "key": "!EldritchCrab",    
+        "name": "entity.EldritchCrab.name",
+        "icons": [ "thaumcraft:textures/research/r_crab.png" ],
+        "category": "BASICS", "location": [ -10,2 ], "meta": [ "HEX","HIDDEN" ],     
+        "stages": [{"text": "research.EldritchCrab.stage.1"}]
+        }
+    ]
+}

@@ -1,0 +1,140 @@
+{
+    "__createdwith": "opl's Model Creator",
+    "ambientocclusion": false,
+    "textures": {
+        "side": "thaumcraft:blocks/infernal_furnace",
+        "core": "blocks/lava_still",
+        "fire": "blocks/fire_layer_0"
+    },
+    "elements": [
+        
+        {
+            "from": [16,-16,-16],
+            "to": [32,32,32],
+            "faces": {
+                "up": {
+                    "uv": [4,0,6,6],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [4,0,6,6],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [16,10,10,16],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [0,0,6,6],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [0,0,2,6],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [12,0,14,6],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [-16,-16,-16],
+            "to": [0,32,32],
+            "faces": {
+                "up": {
+                    "uv": [0,0,2,6],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [0,0,2,6],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [0,0,6,6],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [10,10,16,16],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [4,0,6,6],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [8,0,10,6],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [0,-16,-16],
+            "to": [16,0,32],
+            "faces": {
+                "up": {
+                    "uv": [6,4,8,10],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [2,0,4,6],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [2,4,4,6],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [10,4,12,6],
+                    "texture": "#side"
+                }
+            }
+        },        
+        {
+            "from": [0,0,17], "to": [16,16,18], "faces": { "south": { "uv": [14,8,16,10], "texture": "#side"} }
+        },
+        {
+            "from": [0,0,16], "to": [16,16,17], "shade": false, "faces": { "south": { "texture": "#fire" } }
+        },
+        {
+            "from": [0,0,0], "to": [16,16,16], "shade": false, "faces": { "up": { "texture": "#core" }, "south": { "texture": "#core" } }
+        },
+        {
+            "from": [0,16,16],
+            "to": [16,32,32],
+            "faces": {
+                "up": {
+                    "uv": [2,4,4,6],
+                    "texture": "#side"
+                },
+                "down": {
+                    "uv": [2,16,4,14],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [12,10,14,12],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [10,0,12,2],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [0,0,-16],
+            "to": [16,32,0],
+            "faces": {
+                "up": {
+                    "uv": [2,0,4,2],"texture": "#side"
+                },
+                "north": {
+                    "uv": [2,0,4,3.875],"texture": "#side"
+                },
+                "south": {
+                    "uv": [12,10,14,14],"texture": "#side"
+                }
+            }
+        }
+    ]
+}

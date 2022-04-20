@@ -1,0 +1,24 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "thaumcraft:scanner.obj", 
+        "textures": {"#body": "thaumcraft:items/scanner","#pane": "thaumcraft:items/scanscreen"},
+        "custom": { "flip-v": true }
+     },
+    "variants": {
+        "inventory":[],
+        "normal": [{
+            "transform": {                
+                "firstperson": { "translation": [-0.06, 0.006, -0.4], "rotation": [{ "x": 90 }] },
+                "firstperson_lefthand": { "translation": [-1.06, 0.006, -0.4], "rotation": [{ "x": 90 }] },
+                
+                "thirdperson": { "translation": [0, 0, -0.1], "scale": 0.2, "rotation": [{ "y": 90 }, { "x": 90 } ] },
+                "thirdperson_lefthand": { "translation": [0, -0.1, 0], "scale": 0.2, "rotation": [{ "y": 90 }, { "x": 90 } ] },
+                                
+                "gui": { "translation": [0.175, -0.175, 0], "scale": 0.35, "rotation": [{ "x": 90 }] },
+                "ground": { "translation": [0.1, 0.1, 0.1], "scale": 0.2, "rotation": [{ "x": 90 }] },
+                "fixed": { "translation": [0.2, 0.2, -0.17], "scale": 0.4, "rotation": [{ "x": -90 }] }
+            }
+        }]
+    }
+}

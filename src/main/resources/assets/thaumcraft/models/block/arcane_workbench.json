@@ -1,0 +1,75 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "particle": "thaumcraft:blocks/arcane_workbench_side",
+        "top": "thaumcraft:blocks/arcane_workbench_top",
+        "side": "thaumcraft:blocks/arcane_workbench_side",
+        "bottom": "thaumcraft:blocks/base_wood_grain"
+    },
+    "elements": [
+        {
+            "from": [0,8,0],
+            "to": [16,16,16],
+            "faces": {
+                "up": {"texture": "#top","cullface": "up"},
+                "down": {"texture": "#bottom"},
+                "west": {"texture": "#side","cullface": "west"},
+                "east": {"texture": "#side","cullface": "east"},
+                "north": {"texture": "#side","cullface": "north"},
+                "south": {"texture": "#side","cullface": "south"}
+            }
+        },
+        {
+            "from": [11,4,1],
+            "to": [15,8,5],
+            "faces": {
+                "west": {"texture": "#side"},
+                "east": {"texture": "#side"},
+                "north": {"texture": "#side"},
+                "south": {"texture": "#side"}
+            }
+        },
+        {
+            "from": [11,4,11],
+            "to": [15,8,15],
+            "faces": {
+                "west": {"texture": "#side"},
+                "east": {"texture": "#side"},
+                "north": {"texture": "#side"},
+                "south": {"texture": "#side"}
+            }
+        },
+        {
+            "from": [1,4,11],
+            "to": [5,8,15],
+            "faces": {
+                "west": {"texture": "#side"},
+                "east": {"texture": "#side"},
+                "north": {"texture": "#side"},
+                "south": {"texture": "#side"}
+            }
+        },
+        {
+            "from": [1,4,1],
+            "to": [5,8,5],
+            "faces": {
+                "west": {"texture": "#side"},
+                "east": {"texture": "#side"},
+                "north": {"texture": "#side"},
+                "south": {"texture": "#side"}
+            }
+        },
+        {
+            "from": [0,0,0],
+            "to": [16,4,16],
+            "faces": {
+                "up": {"texture": "#bottom"},
+                "down": {"texture": "#bottom","cullface": "down"},
+                "west": {"texture": "#side","cullface": "west"},
+                "east": {"texture": "#side","cullface": "east"},
+                "north": {"texture": "#side","cullface": "north"},
+                "south": {"texture": "#side","cullface": "south"}
+            }
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "inventory": [{"model": "thaumcraft:candle"}], 
+        "normal": [
+            { "model": "thaumcraft:candle" },
+            { "model": "thaumcraft:candle", "y": 90 },
+            { "model": "thaumcraft:candle", "y": 180 },
+            { "model": "thaumcraft:candle", "y": 270 }]
+    }
+}

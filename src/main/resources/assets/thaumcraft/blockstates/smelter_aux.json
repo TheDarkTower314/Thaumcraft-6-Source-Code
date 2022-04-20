@@ -1,0 +1,15 @@
+{
+    "forge_marker": 1,
+    "defaults":
+    {
+        "model": "thaumcraft:smelter_aux",
+        "transform": "forge:default-block"
+    },
+    "variants": {
+        "inventory":[{}],
+        "facing=north":    { "model": "thaumcraft:smelter_aux" },
+        "facing=south":    { "model": "thaumcraft:smelter_aux", "y": 180 },
+        "facing=east":     { "model": "thaumcraft:smelter_aux", "y": 90 },
+        "facing=west":     { "model": "thaumcraft:smelter_aux", "y": 270 }
+    }
+}

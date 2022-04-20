@@ -1,0 +1,11 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block", 
+        "model": "thaumcraft:arcane_workbench_charger.obj", 
+        "textures": {"#texture": "thaumcraft:blocks/arcane_workbench_charger"}
+     },
+    "variants": {
+        "inventory": [{}], "normal": [{}]
+    }
+}

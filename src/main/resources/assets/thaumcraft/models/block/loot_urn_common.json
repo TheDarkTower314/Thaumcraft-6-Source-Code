@@ -1,0 +1,84 @@
+{
+    "textures": {
+        "side": "thaumcraft:blocks/loot_urn_side_0",
+        "bottom": "thaumcraft:blocks/loot_urn_top",
+        "top": "thaumcraft:blocks/loot_urn_top",
+        "particle": "thaumcraft:blocks/loot_urn_side_0"
+    },
+    "elements": [
+        {
+            "from": [3,0,3],
+            "to": [13,1,13],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "down": {
+                    "texture": "#bottom",
+                    "cullface": "down"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [2,1,2],
+            "to": [14,13,14],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "down": {
+                    "texture": "#bottom"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [4,13,4],
+            "to": [12,16,12],
+            "faces": {
+                "up": {
+                    "texture": "#top",
+                    "cullface": "up"
+                },
+                "down": {
+                    "texture": "#bottom"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        }
+    ]
+}

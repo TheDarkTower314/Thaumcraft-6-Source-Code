@@ -1,0 +1,7 @@
+{
+    "repo": "https://dl.dropboxusercontent.com/u/47135879/",
+    "file": "Baubles-1.12.2-1.5.2.jar",
+    "dev": "Baubles-1.12.2-1.5.2-deobf.jar",
+    "class": "baubles.common.Baubles",
+    "version": "1.5.2"
+} 

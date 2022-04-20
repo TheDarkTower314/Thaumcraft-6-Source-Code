@@ -1,0 +1,6 @@
+{
+    "parent": "thaumcraft:block/inlay_side_alt",
+    "textures": {
+        "over": "thaumcraft:blocks/inlay_rune0"
+    }
+}

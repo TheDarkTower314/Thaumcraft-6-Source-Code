@@ -1,0 +1,30 @@
+{
+
+    "forge_marker": 1,
+    "variants": {
+        "rabbit": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/chunk_rabbit" }
+        },
+        "pork": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/chunk_pork" }
+        },
+        "mutton": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/chunk_mutton" }
+        },
+        "fish": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/chunk_fish" }
+        },
+        "chicken": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/chunk_chicken" }
+        },
+        "beef": {
+            "model": "forge:item-layer", "transform": "forge:default-item",
+            "textures": { "layer0": "thaumcraft:items/chunk_beef" }
+        }
+    }
+}

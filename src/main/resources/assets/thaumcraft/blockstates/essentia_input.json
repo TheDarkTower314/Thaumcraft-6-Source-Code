@@ -1,0 +1,12 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "inventory": { "model": "thaumcraft:essentia_input", "transform": "forge:default-block" },      
+        "facing=down":    { "model": "thaumcraft:essentia_input", "x": 180 },
+        "facing=up":      { "model": "thaumcraft:essentia_input" },
+        "facing=east":    { "model": "thaumcraft:essentia_input", "y": 90, "x": 90 },
+        "facing=west":    { "model": "thaumcraft:essentia_input", "y": 270, "x": 90 },
+        "facing=north":   { "model": "thaumcraft:essentia_input", "x": 90 },
+        "facing=south":   { "model": "thaumcraft:essentia_input", "y": 180, "x": 90 }
+    }
+}

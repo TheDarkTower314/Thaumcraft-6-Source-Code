@@ -1,0 +1,35 @@
+{
+    "textures": {
+        "side": "thaumcraft:blocks/loot_crate_side_0",
+        "bottom": "thaumcraft:blocks/loot_crate_top",
+        "top": "thaumcraft:blocks/loot_crate_top",
+        "particle": "thaumcraft:blocks/loot_crate_side_0"
+    },
+    "elements": [
+        {
+            "from": [1,0,1],
+            "to": [15,14,15],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "down": {
+                    "texture": "#bottom",
+                    "cullface": "down"
+                },
+                "west": {
+                    "texture": "#side"
+                },
+                "east": {
+                    "texture": "#side"
+                },
+                "north": {
+                    "texture": "#side"
+                },
+                "south": {
+                    "texture": "#side"
+                }
+            }
+        }
+    ]
+}

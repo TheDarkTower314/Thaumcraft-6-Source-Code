@@ -1,0 +1,23 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "particle": "thaumcraft:blocks/inlay_under",
+        "under": "thaumcraft:blocks/inlay_under"
+    },
+    "elements": [
+        {   "from": [ 0, 0.125, 8 ],
+            "to": [ 16, 0.125, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 8, 16, 16 ], "texture": "#over", "tintindex": 0 }
+            }
+        },
+        {   "from": [ 0, 0.1, 8 ],
+            "to": [ 16, 0.1, 16 ],
+            "shade": false,
+            "faces": {
+                "up": { "uv": [ 0, 8, 16, 16 ], "texture": "#under" }
+            }
+        }
+    ]
+}

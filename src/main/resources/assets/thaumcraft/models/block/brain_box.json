@@ -1,0 +1,69 @@
+{
+    "__createdwith": "opl's Model Creator",
+    "ambientocclusion": false,
+    "textures": {
+        "particle": "thaumcraft:blocks/brain_box",
+        "box": "thaumcraft:blocks/brain_box"
+    },
+    "elements": [
+        {
+            "from": [3,3,3],
+            "to": [13,13,13],
+            "faces": {
+                "up": {
+                    "uv": [0,16,10,6],
+                    "texture": "#box"
+                },
+                "down": {
+                    "uv": [0,6,10,16],
+                    "texture": "#box"
+                },
+                "west": {
+                    "uv": [0,6,10,16],
+                    "texture": "#box",
+                    "rotation": 180
+                },
+                "east": {
+                    "uv": [0,6,10,16],
+                    "texture": "#box"
+                },
+                "north": {
+                    "uv": [0,6,10,16],
+                    "texture": "#box",
+                    "rotation": 90
+                },
+                "south": {
+                    "uv": [0,6,10,16],
+                    "texture": "#box",
+                    "rotation": 270
+                }
+            }
+        },
+        {
+            "from": [5,0,5],
+            "to": [11,3,11],
+            "faces": {
+                "down": {
+                    "uv": [10,0,16,6],
+                    "texture": "#box"
+                },
+                "west": {
+                    "uv": [10,13,16,16],
+                    "texture": "#box"
+                },
+                "east": {
+                    "uv": [10,13,16,16],
+                    "texture": "#box"
+                },
+                "north": {
+                    "uv": [10,13,16,16],
+                    "texture": "#box"
+                },
+                "south": {
+                    "uv": [10,13,16,16],
+                    "texture": "#box"
+                }
+            }
+        }
+    ]
+}

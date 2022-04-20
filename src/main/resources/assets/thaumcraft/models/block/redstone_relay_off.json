@@ -1,0 +1,120 @@
+{
+    "textures": {
+        "particle": "thaumcraft:blocks/redstone_relay_off",
+        "torch": "blocks/redstone_torch_off",
+        "slab": "blocks/stone_slab_top",
+        "top": "thaumcraft:blocks/redstone_relay_off",
+        "side": "thaumcraft:blocks/levitator_side_off"
+    },
+    "elements": [
+        {
+            "from": [0,0,0],
+            "to": [16,2,16],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "down": {
+                    "texture": "#slab",
+                    "cullface": "down"
+                },
+                "west": {
+                    "texture": "#slab",
+                    "cullface": "west"
+                },
+                "east": {
+                    "texture": "#slab",
+                    "cullface": "east"
+                },
+                "north": {
+                    "texture": "#slab",
+                    "cullface": "north"
+                },
+                "south": {
+                    "texture": "#slab",
+                    "cullface": "south"
+                }
+            }
+        },
+        {
+            "from": [7,2,3],
+            "to": [9,7,5],
+            "faces": {
+                "up": {
+                    "uv": [7,6,9,8],
+                    "texture": "#torch"
+                },
+                "down": {
+                    "uv": [7,13,9,15],
+                    "texture": "#torch"
+                },
+                "west": {
+                    "uv": [7,6,9,11],
+                    "texture": "#torch"
+                },
+                "east": {
+                    "uv": [7,6,9,11],
+                    "texture": "#torch"
+                },
+                "north": {
+                    "uv": [7,6,9,11],
+                    "texture": "#torch"
+                },
+                "south": {
+                    "uv": [7,6,9,11],
+                    "texture": "#torch"
+                }
+            }
+        },
+        {
+            "from": [2,2,2],
+            "to": [6,4,6],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "west": {
+                    "uv": [6,16,10,14],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [6,16,10,14],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [6,16,10,14],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [6,16,10,14],
+                    "texture": "#side"
+                }
+            }
+        },
+        {
+            "from": [6,2,10],
+            "to": [10,4,14],
+            "faces": {
+                "up": {
+                    "texture": "#top"
+                },
+                "west": {
+                    "uv": [6,16,10,14],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [6,16,10,14],
+                    "texture": "#side"
+                },
+                "north": {
+                    "uv": [6,16,10,14],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [6,16,10,14],
+                    "texture": "#side"
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,65 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "cube_all"
+     },
+    "variants": {
+        "inventory": [{"model": "thaumcraft:taint_orb_0"}],
+        "facing=down":    [
+            { "model": "thaumcraft:taint_orb_0", "x": 180 },
+            { "model": "thaumcraft:taint_orb_1", "x": 180 },
+            { "model": "thaumcraft:taint_orb_2", "x": 180 },
+            { "model": "thaumcraft:taint_orb_0", "x": 180, "y": 90 },
+            { "model": "thaumcraft:taint_orb_1", "x": 180, "y": 90 },
+            { "model": "thaumcraft:taint_orb_2", "x": 180, "y": 90 },
+            { "model": "thaumcraft:taint_orb_0", "x": 180, "y": 180 },
+            { "model": "thaumcraft:taint_orb_1", "x": 180, "y": 180 },
+            { "model": "thaumcraft:taint_orb_2", "x": 180, "y": 180 }
+        ],
+        "facing=up":      [
+            { "model": "thaumcraft:taint_orb_0" },
+            { "model": "thaumcraft:taint_orb_1" },
+            { "model": "thaumcraft:taint_orb_2" },
+            { "model": "thaumcraft:taint_orb_0", "y": 90 },
+            { "model": "thaumcraft:taint_orb_1", "y": 90 },
+            { "model": "thaumcraft:taint_orb_2", "y": 90 },
+            { "model": "thaumcraft:taint_orb_0", "y": 180 },
+            { "model": "thaumcraft:taint_orb_1", "y": 180 },
+            { "model": "thaumcraft:taint_orb_2", "y": 180 }
+        ],
+        "facing=east":    [
+            { "model": "thaumcraft:taint_orb_0", "y": 90, "x": 90 },
+            { "model": "thaumcraft:taint_orb_1", "y": 90, "x": 90 },
+            { "model": "thaumcraft:taint_orb_2", "y": 90, "x": 90 },
+            { "model": "thaumcraft:taint_orb_0", "y": 270, "x": 270 },
+            { "model": "thaumcraft:taint_orb_1", "y": 270, "x": 270 },
+            { "model": "thaumcraft:taint_orb_2", "y": 270, "x": 270 }
+            
+        ],
+        "facing=west":    [
+            { "model": "thaumcraft:taint_orb_0", "y": 270, "x": 90 },
+            { "model": "thaumcraft:taint_orb_1", "y": 270, "x": 90 },
+            { "model": "thaumcraft:taint_orb_2", "y": 270, "x": 90 },
+            { "model": "thaumcraft:taint_orb_0", "y": 90, "x": 270 },
+            { "model": "thaumcraft:taint_orb_1", "y": 90, "x": 270 },
+            { "model": "thaumcraft:taint_orb_2", "y": 90, "x": 270 }
+        ],
+        "facing=north":   [
+            { "model": "thaumcraft:taint_orb_0", "x": 90 },
+            { "model": "thaumcraft:taint_orb_1", "x": 90 },
+            { "model": "thaumcraft:taint_orb_2", "x": 90 },
+            { "model": "thaumcraft:taint_orb_0", "x": 270, "y": 180 },
+            { "model": "thaumcraft:taint_orb_1", "x": 270, "y": 180 },
+            { "model": "thaumcraft:taint_orb_2", "x": 270, "y": 180 }
+        ],
+        "facing=south":   [
+            { "model": "thaumcraft:taint_orb_0", "y": 180, "x": 90 },
+            { "model": "thaumcraft:taint_orb_1", "y": 180, "x": 90 },
+            { "model": "thaumcraft:taint_orb_2", "y": 180, "x": 90 },
+            { "model": "thaumcraft:taint_orb_0", "x": 270 },
+            { "model": "thaumcraft:taint_orb_1", "x": 270 },
+            { "model": "thaumcraft:taint_orb_2", "x": 270 }
+        ]
+    }
+}
