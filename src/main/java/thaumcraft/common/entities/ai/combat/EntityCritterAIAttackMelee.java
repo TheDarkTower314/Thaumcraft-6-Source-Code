@@ -24,11 +24,11 @@ public class EntityCritterAIAttackMelee extends EntityAIAttackMelee
     }
     
     protected void checkAndPerformAttack(final EntityLivingBase target, final double range) {
-        final double d0 = this.getAttackReachSqr(target);
-        if (range <= d0 && this.attackTick <= 0) {
-            this.attackTick = 20;
-            this.attacker.swingArm(EnumHand.MAIN_HAND);
-            this.attackEntityAsMob(this.attacker, target);
+        final double d0 = getAttackReachSqr(target);
+        if (range <= d0 && attackTick <= 0) {
+            attackTick = 20;
+            attacker.swingArm(EnumHand.MAIN_HAND);
+            attackEntityAsMob(attacker, target);
         }
     }
     

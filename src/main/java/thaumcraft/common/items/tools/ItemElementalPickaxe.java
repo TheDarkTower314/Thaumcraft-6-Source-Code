@@ -26,9 +26,9 @@ public class ItemElementalPickaxe extends ItemPickaxe implements IThaumcraftItem
 {
     public ItemElementalPickaxe(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("elemental_pick");
-        this.setUnlocalizedName("elemental_pick");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("elemental_pick");
+        setUnlocalizedName("elemental_pick");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

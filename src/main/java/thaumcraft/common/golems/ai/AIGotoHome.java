@@ -19,47 +19,47 @@ public class AIGotoHome extends EntityAIBase
     protected int idleCounter;
     
     public AIGotoHome(final EntityThaumcraftGolem g) {
-        this.idleCounter = 10;
-        this.golem = g;
-        this.setMutexBits(5);
+        idleCounter = 10;
+        golem = g;
+        setMutexBits(5);
     }
     
     public boolean shouldExecute() {
-        if (this.idleCounter > 0) {
-            --this.idleCounter;
+        if (idleCounter > 0) {
+            --idleCounter;
             return false;
         }
-        this.idleCounter = 50;
-        final double dd = this.golem.getDistanceSqToCenter(this.golem.getHomePosition());
+        idleCounter = 50;
+        final double dd = golem.getDistanceSqToCenter(golem.getHomePosition());
         if (dd < 5.0) {
             return false;
         }
         if (dd <= 1024.0) {
-            this.movePosX = this.golem.getHomePosition().getX();
-            this.movePosY = this.golem.getHomePosition().getY();
-            this.movePosZ = this.golem.getHomePosition().getZ();
+            movePosX = golem.getHomePosition().getX();
+            movePosY = golem.getHomePosition().getY();
+            movePosZ = golem.getHomePosition().getZ();
             return true;
         }
-        final Vec3d vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this.golem, 16, 7, new Vec3d(this.golem.getHomePosition().getX(), this.golem.getHomePosition().getY(), this.golem.getHomePosition().getZ()));
+        final Vec3d vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(golem, 16, 7, new Vec3d(golem.getHomePosition().getX(), golem.getHomePosition().getY(), golem.getHomePosition().getZ()));
         if (vec3 == null) {
             return false;
         }
-        this.movePosX = vec3.x;
-        this.movePosY = vec3.y;
-        this.movePosZ = vec3.z;
+        movePosX = vec3.x;
+        movePosY = vec3.y;
+        movePosZ = vec3.z;
         return true;
     }
     
     public void startExecuting() {
-        this.golem.getNavigator().tryMoveToXYZ(this.movePosX, this.movePosY, this.movePosZ, this.golem.getGolemMoveSpeed());
+        golem.getNavigator().tryMoveToXYZ(movePosX, movePosY, movePosZ, golem.getGolemMoveSpeed());
     }
     
     public boolean shouldContinueExecuting() {
-        return this.golem.getTask() == null && !this.golem.getNavigator().noPath() && this.golem.getDistanceSqToCenter(this.golem.getHomePosition()) > 3.0;
+        return golem.getTask() == null && !golem.getNavigator().noPath() && golem.getDistanceSqToCenter(golem.getHomePosition()) > 3.0;
     }
     
     public void resetTask() {
-        this.idleCounter = 50;
-        this.golem.getNavigator().clearPath();
+        idleCounter = 50;
+        golem.getNavigator().clearPath();
     }
 }

@@ -32,21 +32,21 @@ public class PacketFXZap implements IMessage, IMessageHandler<PacketFXZap, IMess
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeDouble(this.source.x);
-        buffer.writeDouble(this.source.y);
-        buffer.writeDouble(this.source.z);
-        buffer.writeDouble(this.target.x);
-        buffer.writeDouble(this.target.y);
-        buffer.writeDouble(this.target.z);
-        buffer.writeInt(this.color);
-        buffer.writeFloat(this.width);
+        buffer.writeDouble(source.x);
+        buffer.writeDouble(source.y);
+        buffer.writeDouble(source.z);
+        buffer.writeDouble(target.x);
+        buffer.writeDouble(target.y);
+        buffer.writeDouble(target.z);
+        buffer.writeInt(color);
+        buffer.writeFloat(width);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.source = new Vec3d(buffer.readDouble(), buffer.readDouble(), buffer.readDouble());
-        this.target = new Vec3d(buffer.readDouble(), buffer.readDouble(), buffer.readDouble());
-        this.color = buffer.readInt();
-        this.width = buffer.readFloat();
+        source = new Vec3d(buffer.readDouble(), buffer.readDouble(), buffer.readDouble());
+        target = new Vec3d(buffer.readDouble(), buffer.readDouble(), buffer.readDouble());
+        color = buffer.readInt();
+        width = buffer.readFloat();
     }
     
     @SideOnly(Side.CLIENT)

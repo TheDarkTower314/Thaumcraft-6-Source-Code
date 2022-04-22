@@ -32,14 +32,14 @@ public abstract class Transformation extends ITransformation<Vector3, Transforma
     @Override
     public boolean load() {
         CCRenderState.pipeline.addRequirement(CCRenderState.normalAttrib.operationID());
-        return !this.isRedundant();
+        return !isRedundant();
     }
     
     @Override
     public void operate() {
-        this.apply(CCRenderState.vert.vec);
+        apply(CCRenderState.vert.vec);
         if (CCRenderState.normalAttrib.active) {
-            this.applyN(CCRenderState.normal);
+            applyN(CCRenderState.normal);
         }
     }
     

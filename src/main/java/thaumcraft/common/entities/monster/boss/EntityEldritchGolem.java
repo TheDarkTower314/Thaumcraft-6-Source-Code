@@ -62,66 +62,66 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
     
     public EntityEldritchGolem(final World p_i1745_1_) {
         super(p_i1745_1_);
-        this.beamCharge = 0;
-        this.chargingBeam = false;
-        this.arcing = 0;
-        this.ax = 0;
-        this.ay = 0;
-        this.az = 0;
-        this.setSize(1.75f, 3.5f);
-        this.isImmuneToFire = true;
+        beamCharge = 0;
+        chargingBeam = false;
+        arcing = 0;
+        ax = 0;
+        ay = 0;
+        az = 0;
+        setSize(1.75f, 3.5f);
+        isImmuneToFire = true;
     }
     
     protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.1, false));
-        this.tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.8));
-        this.tasks.addTask(7, new EntityAIWander(this, 0.8));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(3, new EntityAIAttackMelee(this, 1.1, false));
+        tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.8));
+        tasks.addTask(7, new EntityAIWander(this, 0.8));
+        tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
+        tasks.addTask(8, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
     
     @Override
     public void generateName() {
-        final int t = (int)this.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
+        final int t = (int) getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
         if (t >= 0) {
-            this.setCustomNameTag(String.format(I18n.translateToLocal("entity.Thaumcraft.EldritchGolem.name.custom"), ChampionModifier.mods[t].getModNameLocalized()));
+            setCustomNameTag(String.format(I18n.translateToLocal("entity.Thaumcraft.EldritchGolem.name.custom"), ChampionModifier.mods[t].getModNameLocalized()));
         }
     }
     
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register(EntityEldritchGolem.HEADLESS, false);
+        getDataManager().register(EntityEldritchGolem.HEADLESS, false);
     }
     
     public boolean isHeadless() {
-        return (boolean)this.getDataManager().get((DataParameter)EntityEldritchGolem.HEADLESS);
+        return (boolean) getDataManager().get((DataParameter)EntityEldritchGolem.HEADLESS);
     }
     
     public void setHeadless(final boolean par1) {
-        this.getDataManager().set(EntityEldritchGolem.HEADLESS, par1);
+        getDataManager().set(EntityEldritchGolem.HEADLESS, par1);
     }
     
     @Override
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setBoolean("headless", this.isHeadless());
+        nbt.setBoolean("headless", isHeadless());
     }
     
     @Override
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        this.setHeadless(nbt.getBoolean("headless"));
-        if (this.isHeadless()) {
-            this.makeHeadless();
+        setHeadless(nbt.getBoolean("headless"));
+        if (isHeadless()) {
+            makeHeadless();
         }
     }
     
     public float getEyeHeight() {
-        return this.isHeadless() ? 3.33f : 3.0f;
+        return isHeadless() ? 3.33f : 3.0f;
     }
     
     public int getTotalArmorValue() {
@@ -131,9 +131,9 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10.0);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(400.0);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(400.0);
     }
     
     protected SoundEvent getHurtSound(final DamageSource damageSourceIn) {
@@ -145,118 +145,118 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
     }
     
     protected void playStepSound(final BlockPos p_180429_1_, final Block p_180429_2_) {
-        this.playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0f, 1.0f);
+        playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0f, 1.0f);
     }
     
     @Override
     public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
-        this.spawnTimer = 100;
+        spawnTimer = 100;
         return super.onInitialSpawn(diff, data);
     }
     
     public void onLivingUpdate() {
         super.onLivingUpdate();
-        if (this.attackTimer > 0) {
-            --this.attackTimer;
+        if (attackTimer > 0) {
+            --attackTimer;
         }
-        if (this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7 && this.rand.nextInt(5) == 0) {
-            final IBlockState bs = this.world.getBlockState(this.getPosition());
+        if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7 && rand.nextInt(5) == 0) {
+            final IBlockState bs = world.getBlockState(getPosition());
             if (bs.getMaterial() != Material.AIR) {
-                this.world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX + (this.rand.nextFloat() - 0.5) * this.width, this.getEntityBoundingBox().minY + 0.1, this.posZ + (this.rand.nextFloat() - 0.5) * this.width, 4.0 * (this.rand.nextFloat() - 0.5), 0.5, (this.rand.nextFloat() - 0.5) * 4.0, Block.getStateId(bs));
+                world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextFloat() - 0.5) * width, getEntityBoundingBox().minY + 0.1, posZ + (rand.nextFloat() - 0.5) * width, 4.0 * (rand.nextFloat() - 0.5), 0.5, (rand.nextFloat() - 0.5) * 4.0, Block.getStateId(bs));
             }
-            if (!this.world.isRemote && bs.getBlock() instanceof BlockLoot) {
-                this.world.destroyBlock(this.getPosition(), true);
+            if (!world.isRemote && bs.getBlock() instanceof BlockLoot) {
+                world.destroyBlock(getPosition(), true);
             }
         }
-        if (!this.world.isRemote) {
-            final IBlockState bs = this.world.getBlockState(this.getPosition());
-            final float h = bs.getBlockHardness(this.world, this.getPosition());
+        if (!world.isRemote) {
+            final IBlockState bs = world.getBlockState(getPosition());
+            final float h = bs.getBlockHardness(world, getPosition());
             if (h >= 0.0f && h <= 0.15f) {
-                this.world.destroyBlock(this.getPosition(), true);
+                world.destroyBlock(getPosition(), true);
             }
         }
     }
     
     @Override
     public boolean attackEntityFrom(final DamageSource source, final float damage) {
-        if (!this.world.isRemote && damage > this.getHealth() && !this.isHeadless()) {
-            this.setHeadless(true);
-            this.spawnTimer = 100;
-            final double xx = MathHelper.cos(this.rotationYaw % 360.0f / 180.0f * 3.1415927f) * 0.75f;
-            final double zz = MathHelper.sin(this.rotationYaw % 360.0f / 180.0f * 3.1415927f) * 0.75f;
-            this.world.createExplosion(this, this.posX + xx, this.posY + this.getEyeHeight(), this.posZ + zz, 2.0f, false);
-            this.makeHeadless();
+        if (!world.isRemote && damage > getHealth() && !isHeadless()) {
+            setHeadless(true);
+            spawnTimer = 100;
+            final double xx = MathHelper.cos(rotationYaw % 360.0f / 180.0f * 3.1415927f) * 0.75f;
+            final double zz = MathHelper.sin(rotationYaw % 360.0f / 180.0f * 3.1415927f) * 0.75f;
+            world.createExplosion(this, posX + xx, posY + getEyeHeight(), posZ + zz, 2.0f, false);
+            makeHeadless();
             return false;
         }
         return super.attackEntityFrom(source, damage);
     }
     
     void makeHeadless() {
-        this.tasks.addTask(2, new AILongRangeAttack(this, 3.0, 1.0, 5, 5, 24.0f));
+        tasks.addTask(2, new AILongRangeAttack(this, 3.0, 1.0, 5, 5, 24.0f));
     }
     
     public boolean attackEntityAsMob(final Entity target) {
-        if (this.attackTimer > 0) {
+        if (attackTimer > 0) {
             return false;
         }
-        this.attackTimer = 10;
-        this.world.setEntityState(this, (byte)4);
-        final boolean flag = target.attackEntityFrom(DamageSource.causeMobDamage(this), (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * 0.75f);
+        attackTimer = 10;
+        world.setEntityState(this, (byte)4);
+        final boolean flag = target.attackEntityFrom(DamageSource.causeMobDamage(this), (float) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * 0.75f);
         if (flag) {
             target.motionY += 0.2000000059604645;
-            if (this.isHeadless()) {
-                target.addVelocity(-MathHelper.sin(this.rotationYaw * 3.1415927f / 180.0f) * 1.5f, 0.1, MathHelper.cos(this.rotationYaw * 3.1415927f / 180.0f) * 1.5f);
+            if (isHeadless()) {
+                target.addVelocity(-MathHelper.sin(rotationYaw * 3.1415927f / 180.0f) * 1.5f, 0.1, MathHelper.cos(rotationYaw * 3.1415927f / 180.0f) * 1.5f);
             }
         }
         return flag;
     }
     
     public void attackEntityWithRangedAttack(final EntityLivingBase entitylivingbase, final float f) {
-        if (this.canEntityBeSeen(entitylivingbase) && !this.chargingBeam && this.beamCharge > 0) {
-            this.beamCharge -= 15 + this.rand.nextInt(5);
-            this.getLookHelper().setLookPosition(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY + entitylivingbase.height / 2.0f, entitylivingbase.posZ, 30.0f, 30.0f);
-            final Vec3d v = this.getLook(1.0f);
+        if (canEntityBeSeen(entitylivingbase) && !chargingBeam && beamCharge > 0) {
+            beamCharge -= 15 + rand.nextInt(5);
+            getLookHelper().setLookPosition(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY + entitylivingbase.height / 2.0f, entitylivingbase.posZ, 30.0f, 30.0f);
+            final Vec3d v = getLook(1.0f);
             final EntityGolemOrb entityGolemOrb;
-            final EntityGolemOrb blast = entityGolemOrb = new EntityGolemOrb(this.world, this, entitylivingbase, false);
+            final EntityGolemOrb blast = entityGolemOrb = new EntityGolemOrb(world, this, entitylivingbase, false);
             entityGolemOrb.posX += v.x;
             final EntityGolemOrb entityGolemOrb2 = blast;
             entityGolemOrb2.posZ += v.z;
             blast.setPosition(blast.posX, blast.posY, blast.posZ);
-            final double d0 = entitylivingbase.posX + entitylivingbase.motionX - this.posX;
-            final double d2 = entitylivingbase.posY - this.posY - entitylivingbase.height / 2.0f;
-            final double d3 = entitylivingbase.posZ + entitylivingbase.motionZ - this.posZ;
+            final double d0 = entitylivingbase.posX + entitylivingbase.motionX - posX;
+            final double d2 = entitylivingbase.posY - posY - entitylivingbase.height / 2.0f;
+            final double d3 = entitylivingbase.posZ + entitylivingbase.motionZ - posZ;
             blast.shoot(d0, d2, d3, 0.66f, 5.0f);
-            this.playSound(SoundsTC.egattack, 1.0f, 1.0f + this.rand.nextFloat() * 0.1f);
-            this.world.spawnEntity(blast);
+            playSound(SoundsTC.egattack, 1.0f, 1.0f + rand.nextFloat() * 0.1f);
+            world.spawnEntity(blast);
         }
     }
     
     @SideOnly(Side.CLIENT)
     public void handleStatusUpdate(final byte p_70103_1_) {
         if (p_70103_1_ == 4) {
-            this.attackTimer = 10;
-            this.playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0f, 1.0f);
+            attackTimer = 10;
+            playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0f, 1.0f);
         }
         else if (p_70103_1_ == 18) {
-            this.spawnTimer = 150;
+            spawnTimer = 150;
         }
         else if (p_70103_1_ == 19) {
-            if (this.arcing == 0) {
-                final float radius = 2.0f + this.rand.nextFloat() * 2.0f;
-                final double radians = Math.toRadians(this.rand.nextInt(360));
+            if (arcing == 0) {
+                final float radius = 2.0f + rand.nextFloat() * 2.0f;
+                final double radians = Math.toRadians(rand.nextInt(360));
                 final double deltaX = radius * Math.cos(radians);
                 final double deltaZ = radius * Math.sin(radians);
-                final int bx = MathHelper.floor(this.posX + deltaX);
-                int by = MathHelper.floor(this.posY);
-                final int bz = MathHelper.floor(this.posZ + deltaZ);
+                final int bx = MathHelper.floor(posX + deltaX);
+                int by = MathHelper.floor(posY);
+                final int bz = MathHelper.floor(posZ + deltaZ);
                 final BlockPos bp = new BlockPos(bx, by, bz);
-                for (int c = 0; c < 5 && this.world.isAirBlock(bp); ++c, --by) {}
-                if (this.world.isAirBlock(bp.up()) && !this.world.isAirBlock(bp)) {
-                    this.ax = bx;
-                    this.ay = by;
-                    this.az = bz;
-                    this.arcing = 8 + this.rand.nextInt(5);
-                    this.playSound(SoundsTC.jacobs, 0.8f, 1.0f + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.05f);
+                for (int c = 0; c < 5 && world.isAirBlock(bp); ++c, --by) {}
+                if (world.isAirBlock(bp.up()) && !world.isAirBlock(bp)) {
+                    ax = bx;
+                    ay = by;
+                    az = bz;
+                    arcing = 8 + rand.nextInt(5);
+                    playSound(SoundsTC.jacobs, 0.8f, 1.0f + (rand.nextFloat() - rand.nextFloat()) * 0.05f);
                 }
             }
         }
@@ -267,42 +267,42 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
     
     @Override
     public void onUpdate() {
-        if (this.getSpawnTimer() == 150) {
-            this.world.setEntityState(this, (byte)18);
+        if (getSpawnTimer() == 150) {
+            world.setEntityState(this, (byte)18);
         }
-        if (this.getSpawnTimer() > 0) {
-            this.heal(2.0f);
+        if (getSpawnTimer() > 0) {
+            heal(2.0f);
         }
         super.onUpdate();
-        if (this.world.isRemote) {
-            if (this.isHeadless()) {
-                this.rotationPitch = 0.0f;
-                final float f1 = MathHelper.cos(-this.renderYawOffset * 0.017453292f - 3.1415927f);
-                final float f2 = MathHelper.sin(-this.renderYawOffset * 0.017453292f - 3.1415927f);
-                final float f3 = -MathHelper.cos(-this.rotationPitch * 0.017453292f);
-                final float f4 = MathHelper.sin(-this.rotationPitch * 0.017453292f);
+        if (world.isRemote) {
+            if (isHeadless()) {
+                rotationPitch = 0.0f;
+                final float f1 = MathHelper.cos(-renderYawOffset * 0.017453292f - 3.1415927f);
+                final float f2 = MathHelper.sin(-renderYawOffset * 0.017453292f - 3.1415927f);
+                final float f3 = -MathHelper.cos(-rotationPitch * 0.017453292f);
+                final float f4 = MathHelper.sin(-rotationPitch * 0.017453292f);
                 final Vec3d v = new Vec3d(f2 * f3, f4, f1 * f3);
-                if (this.rand.nextInt(20) == 0) {
-                    final float a = (this.rand.nextFloat() - this.rand.nextFloat()) / 3.0f;
-                    final float b = (this.rand.nextFloat() - this.rand.nextFloat()) / 3.0f;
-                    FXDispatcher.INSTANCE.spark((float)(this.posX + v.x + a), (float)this.posY + this.getEyeHeight() - 0.75f, (float)(this.posZ + v.z + b), 3.0f, 0.65f + this.rand.nextFloat() * 0.1f, 1.0f, 1.0f, 0.8f);
+                if (rand.nextInt(20) == 0) {
+                    final float a = (rand.nextFloat() - rand.nextFloat()) / 3.0f;
+                    final float b = (rand.nextFloat() - rand.nextFloat()) / 3.0f;
+                    FXDispatcher.INSTANCE.spark((float)(posX + v.x + a), (float) posY + getEyeHeight() - 0.75f, (float)(posZ + v.z + b), 3.0f, 0.65f + rand.nextFloat() * 0.1f, 1.0f, 1.0f, 0.8f);
                 }
-                FXDispatcher.INSTANCE.drawVentParticles((float)this.posX + v.x * 0.4, (float)this.posY + this.getEyeHeight() - 1.25f, (float)this.posZ + v.z * 0.4, 0.0, 0.001, 0.0, 5592405, 4.0f);
-                if (this.arcing > 0) {
-                    FXDispatcher.INSTANCE.arcLightning(this.posX, this.posY + this.height / 2.0f, this.posZ, this.ax + 0.5, this.ay + 1, this.az + 0.5, 0.65f + this.rand.nextFloat() * 0.1f, 1.0f, 1.0f, 1.0f - this.arcing / 10.0f);
-                    --this.arcing;
+                FXDispatcher.INSTANCE.drawVentParticles((float) posX + v.x * 0.4, (float) posY + getEyeHeight() - 1.25f, (float) posZ + v.z * 0.4, 0.0, 0.001, 0.0, 5592405, 4.0f);
+                if (arcing > 0) {
+                    FXDispatcher.INSTANCE.arcLightning(posX, posY + height / 2.0f, posZ, ax + 0.5, ay + 1, az + 0.5, 0.65f + rand.nextFloat() * 0.1f, 1.0f, 1.0f, 1.0f - arcing / 10.0f);
+                    --arcing;
                 }
             }
         }
         else {
-            if (this.isHeadless() && this.beamCharge <= 0) {
-                this.chargingBeam = true;
+            if (isHeadless() && beamCharge <= 0) {
+                chargingBeam = true;
             }
-            if (this.isHeadless() && this.chargingBeam) {
-                ++this.beamCharge;
-                this.world.setEntityState(this, (byte)19);
-                if (this.beamCharge == 150) {
-                    this.chargingBeam = false;
+            if (isHeadless() && chargingBeam) {
+                ++beamCharge;
+                world.setEntityState(this, (byte)19);
+                if (beamCharge == 150) {
+                    chargingBeam = false;
                 }
             }
         }
@@ -310,7 +310,7 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
     
     @SideOnly(Side.CLIENT)
     public int getAttackTimer() {
-        return this.attackTimer;
+        return attackTimer;
     }
     
     public void setSwingingArms(final boolean swingingArms) {

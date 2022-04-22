@@ -21,9 +21,9 @@ public class ItemGenericEssentiaContainer extends Item implements IEssentiaConta
     {
         super();
         this.base = base;
-        this.setMaxStackSize(64);
-        this.setHasSubtypes(true);
-        this.setMaxDamage(0);
+        setMaxStackSize(64);
+        setHasSubtypes(true);
+        setMaxDamage(0);
         
     }	
 	
@@ -33,7 +33,7 @@ public class ItemGenericEssentiaContainer extends Item implements IEssentiaConta
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
     	for (Aspect tag:Aspect.aspects.values()) {
     		ItemStack i = new ItemStack(this);
-    		this.setAspects(i, new AspectList().add(tag, base));
+    		setAspects(i, new AspectList().add(tag, base));
     		items.add(i);
 		}
 	}
@@ -62,7 +62,7 @@ public class ItemGenericEssentiaContainer extends Item implements IEssentiaConta
 	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
 		if (!world.isRemote && !stack.hasTagCompound()) {
 			Aspect[] displayAspects = Aspect.aspects.values().toArray(new Aspect[]{});
-			this.setAspects(stack, new AspectList().add(displayAspects[world.rand.nextInt(displayAspects.length)], base));
+			setAspects(stack, new AspectList().add(displayAspects[world.rand.nextInt(displayAspects.length)], base));
 		}
 		super.onUpdate(stack, world, entity, par4, par5);
 	}
@@ -71,7 +71,7 @@ public class ItemGenericEssentiaContainer extends Item implements IEssentiaConta
 	public void onCreated(ItemStack stack, World world, EntityPlayer player) {
 		if (!world.isRemote && !stack.hasTagCompound()) {
 			Aspect[] displayAspects = Aspect.aspects.values().toArray(new Aspect[]{});
-			this.setAspects(stack, new AspectList().add(displayAspects[world.rand.nextInt(displayAspects.length)], base));
+			setAspects(stack, new AspectList().add(displayAspects[world.rand.nextInt(displayAspects.length)], base));
 		}
 	}
 }

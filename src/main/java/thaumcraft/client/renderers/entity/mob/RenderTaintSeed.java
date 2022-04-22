@@ -45,18 +45,18 @@ public class RenderTaintSeed extends RenderLiving<EntityTaintSeed>
         }
         GlStateManager.pushMatrix();
         GlStateManager.disableCull();
-        this.mainModel.swingProgress = this.getSwingProgress(entity, partialTicks);
+        mainModel.swingProgress = getSwingProgress(entity, partialTicks);
         final boolean shouldSit = entity.isRiding() && entity.getRidingEntity() != null && entity.getRidingEntity().shouldRiderSit();
-        this.mainModel.isRiding = shouldSit;
-        this.mainModel.isChild = entity.isChild();
+        mainModel.isRiding = shouldSit;
+        mainModel.isChild = entity.isChild();
         try {
             GlStateManager.pushMatrix();
             final float f = 0.0f;
             final float f2 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
-            this.renderLivingAt(entity, x, y, z);
-            final float f3 = this.handleRotationFloat(entity, partialTicks);
-            this.applyRotations(entity, f3, f, partialTicks);
-            final float f4 = this.prepareScale(entity, partialTicks);
+            renderLivingAt(entity, x, y, z);
+            final float f3 = handleRotationFloat(entity, partialTicks);
+            applyRotations(entity, f3, f, partialTicks);
+            final float f4 = prepareScale(entity, partialTicks);
             float f5 = 0.0f;
             float f6 = 0.0f;
             f5 = entity.prevLimbSwingAmount + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * partialTicks;
@@ -65,30 +65,30 @@ public class RenderTaintSeed extends RenderLiving<EntityTaintSeed>
                 f5 = 1.0f;
             }
             GlStateManager.enableAlpha();
-            this.mainModel.setLivingAnimations(entity, f6, f5, partialTicks);
-            this.mainModel.setRotationAngles(f6, f5, f3, f, f2, f4, entity);
-            if (this.renderOutlines) {
-                final boolean flag1 = this.setScoreTeamColor(entity);
+            mainModel.setLivingAnimations(entity, f6, f5, partialTicks);
+            mainModel.setRotationAngles(f6, f5, f3, f, f2, f4, entity);
+            if (renderOutlines) {
+                final boolean flag1 = setScoreTeamColor(entity);
                 GlStateManager.enableColorMaterial();
-                GlStateManager.enableOutlineMode(this.getTeamColor(entity));
-                if (!this.renderMarker) {
-                    this.renderModel(entity, f6, f5, f3, f, f2, f4);
+                GlStateManager.enableOutlineMode(getTeamColor(entity));
+                if (!renderMarker) {
+                    renderModel(entity, f6, f5, f3, f, f2, f4);
                 }
-                this.renderLayers(entity, f6, f5, partialTicks, f3, f, f2, f4);
+                renderLayers(entity, f6, f5, partialTicks, f3, f, f2, f4);
                 GlStateManager.disableOutlineMode();
                 GlStateManager.disableColorMaterial();
                 if (flag1) {
-                    this.unsetScoreTeamColor();
+                    unsetScoreTeamColor();
                 }
             }
             else {
-                final boolean flag2 = this.setDoRenderBrightness(entity, partialTicks);
-                this.renderModel(entity, f6, f5, f3, f, f2, f4);
+                final boolean flag2 = setDoRenderBrightness(entity, partialTicks);
+                renderModel(entity, f6, f5, f3, f, f2, f4);
                 if (flag2) {
-                    this.unsetBrightness();
+                    unsetBrightness();
                 }
                 GlStateManager.depthMask(true);
-                this.renderLayers(entity, f6, f5, partialTicks, f3, f, f2, f4);
+                renderLayers(entity, f6, f5, partialTicks, f3, f, f2, f4);
             }
             GlStateManager.popMatrix();
             GlStateManager.disableRescaleNormal();
@@ -99,8 +99,8 @@ public class RenderTaintSeed extends RenderLiving<EntityTaintSeed>
         GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
         GlStateManager.enableCull();
         GlStateManager.popMatrix();
-        if (!this.renderOutlines) {
-            this.renderName(entity, x, y, z);
+        if (!renderOutlines) {
+            renderName(entity, x, y, z);
         }
         MinecraftForge.EVENT_BUS.post(new RenderLivingEvent.Post(entity, this, x, y, z));
     }

@@ -31,31 +31,31 @@ public class CardInfuse extends TheorycraftCard
     static ItemStack[] options;
     
     public CardInfuse() {
-        this.stack = ItemStack.EMPTY;
+        stack = ItemStack.EMPTY;
     }
     
     @Override
     public NBTTagCompound serialize() {
         final NBTTagCompound nbt = super.serialize();
-        nbt.setString("aspect", this.aspect.getTag());
-        nbt.setTag("stack", this.stack.serializeNBT());
+        nbt.setString("aspect", aspect.getTag());
+        nbt.setTag("stack", stack.serializeNBT());
         return nbt;
     }
     
     @Override
     public void deserialize(final NBTTagCompound nbt) {
         super.deserialize(nbt);
-        this.aspect = Aspect.getAspect(nbt.getString("aspect"));
-        this.stack = new ItemStack(nbt.getCompoundTag("stack"));
+        aspect = Aspect.getAspect(nbt.getString("aspect"));
+        stack = new ItemStack(nbt.getCompoundTag("stack"));
     }
     
     @Override
     public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(this.getSeed());
+        final Random r = new Random(getSeed());
         final int num = r.nextInt(Aspect.getCompoundAspects().size());
-        this.aspect = Aspect.getCompoundAspects().get(num);
-        this.stack = CardInfuse.options[r.nextInt(CardInfuse.options.length)].copy();
-        return this.aspect != null && this.stack != null;
+        aspect = Aspect.getCompoundAspects().get(num);
+        stack = CardInfuse.options[r.nextInt(CardInfuse.options.length)].copy();
+        return aspect != null && stack != null;
     }
     
     @Override
@@ -75,13 +75,13 @@ public class CardInfuse extends TheorycraftCard
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.infuse.text", TextFormatting.BOLD + this.aspect.getName() + TextFormatting.RESET, this.stack.getDisplayName(), this.getVal()).getFormattedText();
+        return new TextComponentTranslation("card.infuse.text", TextFormatting.BOLD + aspect.getName() + TextFormatting.RESET, stack.getDisplayName(), getVal()).getFormattedText();
     }
     
     private int getVal() {
         int q = 10;
         try {
-            q += (int)(Math.sqrt(ThaumcraftCraftingManager.getObjectTags(this.stack).visSize()) * 1.5);
+            q += (int)(Math.sqrt(ThaumcraftCraftingManager.getObjectTags(stack).visSize()) * 1.5);
         }
         catch (final Exception ex) {}
         return q;
@@ -89,7 +89,7 @@ public class CardInfuse extends TheorycraftCard
     
     @Override
     public ItemStack[] getRequiredItems() {
-        return new ItemStack[] { this.stack, ItemPhial.makeFilledPhial(this.aspect) };
+        return new ItemStack[] { stack, ItemPhial.makeFilledPhial(aspect) };
     }
     
     @Override
@@ -99,7 +99,7 @@ public class CardInfuse extends TheorycraftCard
     
     @Override
     public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        data.addTotal(this.getResearchCategory(), this.getVal());
+        data.addTotal(getResearchCategory(), getVal());
         return true;
     }
     

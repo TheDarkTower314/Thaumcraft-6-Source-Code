@@ -96,54 +96,54 @@ public class RenderCubes
     private static RenderCubes instance;
     
     public RenderCubes(final IBlockAccess p_i1251_1_) {
-        this.useInventoryTint = true;
-        this.renderFromInside = false;
-        this.blockAccess = p_i1251_1_;
-        this.field_152631_f = false;
-        this.flipTexture = false;
-        this.minecraftRB = Minecraft.getMinecraft();
+        useInventoryTint = true;
+        renderFromInside = false;
+        blockAccess = p_i1251_1_;
+        field_152631_f = false;
+        flipTexture = false;
+        minecraftRB = Minecraft.getMinecraft();
     }
     
     public RenderCubes() {
-        this.useInventoryTint = true;
-        this.renderFromInside = false;
-        this.minecraftRB = Minecraft.getMinecraft();
+        useInventoryTint = true;
+        renderFromInside = false;
+        minecraftRB = Minecraft.getMinecraft();
     }
     
     public void setRenderBounds(final double p_147782_1_, final double p_147782_3_, final double p_147782_5_, final double p_147782_7_, final double p_147782_9_, final double p_147782_11_) {
-        if (!this.lockBlockBounds) {
-            this.renderMinX = p_147782_1_;
-            this.renderMaxX = p_147782_7_;
-            this.renderMinY = p_147782_3_;
-            this.renderMaxY = p_147782_9_;
-            this.renderMinZ = p_147782_5_;
-            this.renderMaxZ = p_147782_11_;
-            this.partialRenderBounds = (this.minecraftRB.gameSettings.ambientOcclusion >= 2 && (this.renderMinX > 0.0 || this.renderMaxX < 1.0 || this.renderMinY > 0.0 || this.renderMaxY < 1.0 || this.renderMinZ > 0.0 || this.renderMaxZ < 1.0));
+        if (!lockBlockBounds) {
+            renderMinX = p_147782_1_;
+            renderMaxX = p_147782_7_;
+            renderMinY = p_147782_3_;
+            renderMaxY = p_147782_9_;
+            renderMinZ = p_147782_5_;
+            renderMaxZ = p_147782_11_;
+            partialRenderBounds = (minecraftRB.gameSettings.ambientOcclusion >= 2 && (renderMinX > 0.0 || renderMaxX < 1.0 || renderMinY > 0.0 || renderMaxY < 1.0 || renderMinZ > 0.0 || renderMaxZ < 1.0));
         }
     }
     
     public void overrideBlockBounds(final double p_147770_1_, final double p_147770_3_, final double p_147770_5_, final double p_147770_7_, final double p_147770_9_, final double p_147770_11_) {
-        this.renderMinX = p_147770_1_;
-        this.renderMaxX = p_147770_7_;
-        this.renderMinY = p_147770_3_;
-        this.renderMaxY = p_147770_9_;
-        this.renderMinZ = p_147770_5_;
-        this.renderMaxZ = p_147770_11_;
-        this.lockBlockBounds = true;
-        this.partialRenderBounds = (this.minecraftRB.gameSettings.ambientOcclusion >= 2 && (this.renderMinX > 0.0 || this.renderMaxX < 1.0 || this.renderMinY > 0.0 || this.renderMaxY < 1.0 || this.renderMinZ > 0.0 || this.renderMaxZ < 1.0));
+        renderMinX = p_147770_1_;
+        renderMaxX = p_147770_7_;
+        renderMinY = p_147770_3_;
+        renderMaxY = p_147770_9_;
+        renderMinZ = p_147770_5_;
+        renderMaxZ = p_147770_11_;
+        lockBlockBounds = true;
+        partialRenderBounds = (minecraftRB.gameSettings.ambientOcclusion >= 2 && (renderMinX > 0.0 || renderMaxX < 1.0 || renderMinY > 0.0 || renderMaxY < 1.0 || renderMinZ > 0.0 || renderMaxZ < 1.0));
     }
     
     public void renderFaceYNeg(final Block p_147768_1_, final double p_147768_2_, final double p_147768_4_, final double p_147768_6_, final TextureAtlasSprite p_147768_8_, final float red, final float green, final float blue, final int bright) {
         final Tessellator tessellator = Tessellator.getInstance();
-        double d3 = p_147768_8_.getInterpolatedU(this.renderMinX * 16.0);
-        double d4 = p_147768_8_.getInterpolatedU(this.renderMaxX * 16.0);
-        double d5 = p_147768_8_.getInterpolatedV(this.renderMinZ * 16.0);
-        double d6 = p_147768_8_.getInterpolatedV(this.renderMaxZ * 16.0);
-        if (this.renderMinX < 0.0 || this.renderMaxX > 1.0) {
+        double d3 = p_147768_8_.getInterpolatedU(renderMinX * 16.0);
+        double d4 = p_147768_8_.getInterpolatedU(renderMaxX * 16.0);
+        double d5 = p_147768_8_.getInterpolatedV(renderMinZ * 16.0);
+        double d6 = p_147768_8_.getInterpolatedV(renderMaxZ * 16.0);
+        if (renderMinX < 0.0 || renderMaxX > 1.0) {
             d3 = p_147768_8_.getMinU();
             d4 = p_147768_8_.getMaxU();
         }
-        if (this.renderMinZ < 0.0 || this.renderMaxZ > 1.0) {
+        if (renderMinZ < 0.0 || renderMaxZ > 1.0) {
             d5 = p_147768_8_.getMinV();
             d6 = p_147768_8_.getMaxV();
         }
@@ -151,11 +151,11 @@ public class RenderCubes
         double d8 = d3;
         double d9 = d5;
         double d10 = d6;
-        if (this.uvRotateBottom == 2) {
-            d3 = p_147768_8_.getInterpolatedU(this.renderMinZ * 16.0);
-            d5 = p_147768_8_.getInterpolatedV(16.0 - this.renderMaxX * 16.0);
-            d4 = p_147768_8_.getInterpolatedU(this.renderMaxZ * 16.0);
-            d6 = p_147768_8_.getInterpolatedV(16.0 - this.renderMinX * 16.0);
+        if (uvRotateBottom == 2) {
+            d3 = p_147768_8_.getInterpolatedU(renderMinZ * 16.0);
+            d5 = p_147768_8_.getInterpolatedV(16.0 - renderMaxX * 16.0);
+            d4 = p_147768_8_.getInterpolatedU(renderMaxZ * 16.0);
+            d6 = p_147768_8_.getInterpolatedV(16.0 - renderMinX * 16.0);
             d9 = d5;
             d10 = d6;
             d7 = d3;
@@ -163,11 +163,11 @@ public class RenderCubes
             d5 = d6;
             d6 = d9;
         }
-        else if (this.uvRotateBottom == 1) {
-            d3 = p_147768_8_.getInterpolatedU(16.0 - this.renderMaxZ * 16.0);
-            d5 = p_147768_8_.getInterpolatedV(this.renderMinX * 16.0);
-            d4 = p_147768_8_.getInterpolatedU(16.0 - this.renderMinZ * 16.0);
-            d6 = p_147768_8_.getInterpolatedV(this.renderMaxX * 16.0);
+        else if (uvRotateBottom == 1) {
+            d3 = p_147768_8_.getInterpolatedU(16.0 - renderMaxZ * 16.0);
+            d5 = p_147768_8_.getInterpolatedV(renderMinX * 16.0);
+            d4 = p_147768_8_.getInterpolatedU(16.0 - renderMinZ * 16.0);
+            d6 = p_147768_8_.getInterpolatedV(renderMaxX * 16.0);
             d7 = d4;
             d8 = d3;
             d3 = d4;
@@ -175,24 +175,24 @@ public class RenderCubes
             d9 = d6;
             d10 = d5;
         }
-        else if (this.uvRotateBottom == 3) {
-            d3 = p_147768_8_.getInterpolatedU(16.0 - this.renderMinX * 16.0);
-            d4 = p_147768_8_.getInterpolatedU(16.0 - this.renderMaxX * 16.0);
-            d5 = p_147768_8_.getInterpolatedV(16.0 - this.renderMinZ * 16.0);
-            d6 = p_147768_8_.getInterpolatedV(16.0 - this.renderMaxZ * 16.0);
+        else if (uvRotateBottom == 3) {
+            d3 = p_147768_8_.getInterpolatedU(16.0 - renderMinX * 16.0);
+            d4 = p_147768_8_.getInterpolatedU(16.0 - renderMaxX * 16.0);
+            d5 = p_147768_8_.getInterpolatedV(16.0 - renderMinZ * 16.0);
+            d6 = p_147768_8_.getInterpolatedV(16.0 - renderMaxZ * 16.0);
             d7 = d4;
             d8 = d3;
             d9 = d5;
             d10 = d6;
         }
-        double d11 = p_147768_2_ + this.renderMinX;
-        double d12 = p_147768_2_ + this.renderMaxX;
-        final double d13 = p_147768_4_ + this.renderMinY;
-        final double d14 = p_147768_6_ + this.renderMinZ;
-        final double d15 = p_147768_6_ + this.renderMaxZ;
-        if (this.renderFromInside) {
-            d11 = p_147768_2_ + this.renderMaxX;
-            d12 = p_147768_2_ + this.renderMinX;
+        double d11 = p_147768_2_ + renderMinX;
+        double d12 = p_147768_2_ + renderMaxX;
+        final double d13 = p_147768_4_ + renderMinY;
+        final double d14 = p_147768_6_ + renderMinZ;
+        final double d15 = p_147768_6_ + renderMaxZ;
+        if (renderFromInside) {
+            d11 = p_147768_2_ + renderMaxX;
+            d12 = p_147768_2_ + renderMinX;
         }
         final int i = bright;
         final int j = i >> 16 & 0xFFFF;
@@ -205,15 +205,15 @@ public class RenderCubes
     
     public void renderFaceYPos(final Block p_147806_1_, final double p_147806_2_, final double p_147806_4_, final double p_147806_6_, final TextureAtlasSprite p_147806_8_, final float red, final float green, final float blue, final int bright) {
         final Tessellator tessellator = Tessellator.getInstance();
-        double d3 = p_147806_8_.getInterpolatedU(this.renderMinX * 16.0);
-        double d4 = p_147806_8_.getInterpolatedU(this.renderMaxX * 16.0);
-        double d5 = p_147806_8_.getInterpolatedV(this.renderMinZ * 16.0);
-        double d6 = p_147806_8_.getInterpolatedV(this.renderMaxZ * 16.0);
-        if (this.renderMinX < 0.0 || this.renderMaxX > 1.0) {
+        double d3 = p_147806_8_.getInterpolatedU(renderMinX * 16.0);
+        double d4 = p_147806_8_.getInterpolatedU(renderMaxX * 16.0);
+        double d5 = p_147806_8_.getInterpolatedV(renderMinZ * 16.0);
+        double d6 = p_147806_8_.getInterpolatedV(renderMaxZ * 16.0);
+        if (renderMinX < 0.0 || renderMaxX > 1.0) {
             d3 = p_147806_8_.getMinU();
             d4 = p_147806_8_.getMaxU();
         }
-        if (this.renderMinZ < 0.0 || this.renderMaxZ > 1.0) {
+        if (renderMinZ < 0.0 || renderMaxZ > 1.0) {
             d5 = p_147806_8_.getMinV();
             d6 = p_147806_8_.getMaxV();
         }
@@ -221,11 +221,11 @@ public class RenderCubes
         double d8 = d3;
         double d9 = d5;
         double d10 = d6;
-        if (this.uvRotateTop == 1) {
-            d3 = p_147806_8_.getInterpolatedU(this.renderMinZ * 16.0);
-            d5 = p_147806_8_.getInterpolatedV(16.0 - this.renderMaxX * 16.0);
-            d4 = p_147806_8_.getInterpolatedU(this.renderMaxZ * 16.0);
-            d6 = p_147806_8_.getInterpolatedV(16.0 - this.renderMinX * 16.0);
+        if (uvRotateTop == 1) {
+            d3 = p_147806_8_.getInterpolatedU(renderMinZ * 16.0);
+            d5 = p_147806_8_.getInterpolatedV(16.0 - renderMaxX * 16.0);
+            d4 = p_147806_8_.getInterpolatedU(renderMaxZ * 16.0);
+            d6 = p_147806_8_.getInterpolatedV(16.0 - renderMinX * 16.0);
             d9 = d5;
             d10 = d6;
             d7 = d3;
@@ -233,11 +233,11 @@ public class RenderCubes
             d5 = d6;
             d6 = d9;
         }
-        else if (this.uvRotateTop == 2) {
-            d3 = p_147806_8_.getInterpolatedU(16.0 - this.renderMaxZ * 16.0);
-            d5 = p_147806_8_.getInterpolatedV(this.renderMinX * 16.0);
-            d4 = p_147806_8_.getInterpolatedU(16.0 - this.renderMinZ * 16.0);
-            d6 = p_147806_8_.getInterpolatedV(this.renderMaxX * 16.0);
+        else if (uvRotateTop == 2) {
+            d3 = p_147806_8_.getInterpolatedU(16.0 - renderMaxZ * 16.0);
+            d5 = p_147806_8_.getInterpolatedV(renderMinX * 16.0);
+            d4 = p_147806_8_.getInterpolatedU(16.0 - renderMinZ * 16.0);
+            d6 = p_147806_8_.getInterpolatedV(renderMaxX * 16.0);
             d7 = d4;
             d8 = d3;
             d3 = d4;
@@ -245,24 +245,24 @@ public class RenderCubes
             d9 = d6;
             d10 = d5;
         }
-        else if (this.uvRotateTop == 3) {
-            d3 = p_147806_8_.getInterpolatedU(16.0 - this.renderMinX * 16.0);
-            d4 = p_147806_8_.getInterpolatedU(16.0 - this.renderMaxX * 16.0);
-            d5 = p_147806_8_.getInterpolatedV(16.0 - this.renderMinZ * 16.0);
-            d6 = p_147806_8_.getInterpolatedV(16.0 - this.renderMaxZ * 16.0);
+        else if (uvRotateTop == 3) {
+            d3 = p_147806_8_.getInterpolatedU(16.0 - renderMinX * 16.0);
+            d4 = p_147806_8_.getInterpolatedU(16.0 - renderMaxX * 16.0);
+            d5 = p_147806_8_.getInterpolatedV(16.0 - renderMinZ * 16.0);
+            d6 = p_147806_8_.getInterpolatedV(16.0 - renderMaxZ * 16.0);
             d7 = d4;
             d8 = d3;
             d9 = d5;
             d10 = d6;
         }
-        double d11 = p_147806_2_ + this.renderMinX;
-        double d12 = p_147806_2_ + this.renderMaxX;
-        final double d13 = p_147806_4_ + this.renderMaxY;
-        final double d14 = p_147806_6_ + this.renderMinZ;
-        final double d15 = p_147806_6_ + this.renderMaxZ;
-        if (this.renderFromInside) {
-            d11 = p_147806_2_ + this.renderMaxX;
-            d12 = p_147806_2_ + this.renderMinX;
+        double d11 = p_147806_2_ + renderMinX;
+        double d12 = p_147806_2_ + renderMaxX;
+        final double d13 = p_147806_4_ + renderMaxY;
+        final double d14 = p_147806_6_ + renderMinZ;
+        final double d15 = p_147806_6_ + renderMaxZ;
+        if (renderFromInside) {
+            d11 = p_147806_2_ + renderMaxX;
+            d12 = p_147806_2_ + renderMinX;
         }
         final int i = bright;
         final int j = i >> 16 & 0xFFFF;
@@ -275,24 +275,24 @@ public class RenderCubes
     
     public void renderFaceZNeg(final Block p_147761_1_, final double p_147761_2_, final double p_147761_4_, final double p_147761_6_, final TextureAtlasSprite p_147761_8_, final float red, final float green, final float blue, final int bright) {
         final Tessellator tessellator = Tessellator.getInstance();
-        double d3 = p_147761_8_.getInterpolatedU(this.renderMinX * 16.0);
-        double d4 = p_147761_8_.getInterpolatedU(this.renderMaxX * 16.0);
-        if (this.field_152631_f) {
-            d4 = p_147761_8_.getInterpolatedU((1.0 - this.renderMinX) * 16.0);
-            d3 = p_147761_8_.getInterpolatedU((1.0 - this.renderMaxX) * 16.0);
+        double d3 = p_147761_8_.getInterpolatedU(renderMinX * 16.0);
+        double d4 = p_147761_8_.getInterpolatedU(renderMaxX * 16.0);
+        if (field_152631_f) {
+            d4 = p_147761_8_.getInterpolatedU((1.0 - renderMinX) * 16.0);
+            d3 = p_147761_8_.getInterpolatedU((1.0 - renderMaxX) * 16.0);
         }
-        double d5 = p_147761_8_.getInterpolatedV(16.0 - this.renderMaxY * 16.0);
-        double d6 = p_147761_8_.getInterpolatedV(16.0 - this.renderMinY * 16.0);
-        if (this.flipTexture) {
+        double d5 = p_147761_8_.getInterpolatedV(16.0 - renderMaxY * 16.0);
+        double d6 = p_147761_8_.getInterpolatedV(16.0 - renderMinY * 16.0);
+        if (flipTexture) {
             final double d7 = d3;
             d3 = d4;
             d4 = d7;
         }
-        if (this.renderMinX < 0.0 || this.renderMaxX > 1.0) {
+        if (renderMinX < 0.0 || renderMaxX > 1.0) {
             d3 = p_147761_8_.getMinU();
             d4 = p_147761_8_.getMaxU();
         }
-        if (this.renderMinY < 0.0 || this.renderMaxY > 1.0) {
+        if (renderMinY < 0.0 || renderMaxY > 1.0) {
             d5 = p_147761_8_.getMinV();
             d6 = p_147761_8_.getMaxV();
         }
@@ -300,11 +300,11 @@ public class RenderCubes
         double d8 = d3;
         double d9 = d5;
         double d10 = d6;
-        if (this.uvRotateEast == 2) {
-            d3 = p_147761_8_.getInterpolatedU(this.renderMinY * 16.0);
-            d4 = p_147761_8_.getInterpolatedU(this.renderMaxY * 16.0);
-            d5 = p_147761_8_.getInterpolatedV(16.0 - this.renderMinX * 16.0);
-            d6 = p_147761_8_.getInterpolatedV(16.0 - this.renderMaxX * 16.0);
+        if (uvRotateEast == 2) {
+            d3 = p_147761_8_.getInterpolatedU(renderMinY * 16.0);
+            d4 = p_147761_8_.getInterpolatedU(renderMaxY * 16.0);
+            d5 = p_147761_8_.getInterpolatedV(16.0 - renderMinX * 16.0);
+            d6 = p_147761_8_.getInterpolatedV(16.0 - renderMaxX * 16.0);
             d9 = d5;
             d10 = d6;
             d7 = d3;
@@ -312,11 +312,11 @@ public class RenderCubes
             d5 = d6;
             d6 = d9;
         }
-        else if (this.uvRotateEast == 1) {
-            d3 = p_147761_8_.getInterpolatedU(16.0 - this.renderMaxY * 16.0);
-            d4 = p_147761_8_.getInterpolatedU(16.0 - this.renderMinY * 16.0);
-            d5 = p_147761_8_.getInterpolatedV(this.renderMaxX * 16.0);
-            d6 = p_147761_8_.getInterpolatedV(this.renderMinX * 16.0);
+        else if (uvRotateEast == 1) {
+            d3 = p_147761_8_.getInterpolatedU(16.0 - renderMaxY * 16.0);
+            d4 = p_147761_8_.getInterpolatedU(16.0 - renderMinY * 16.0);
+            d5 = p_147761_8_.getInterpolatedV(renderMaxX * 16.0);
+            d6 = p_147761_8_.getInterpolatedV(renderMinX * 16.0);
             d7 = d4;
             d8 = d3;
             d3 = d4;
@@ -324,24 +324,24 @@ public class RenderCubes
             d9 = d6;
             d10 = d5;
         }
-        else if (this.uvRotateEast == 3) {
-            d3 = p_147761_8_.getInterpolatedU(16.0 - this.renderMinX * 16.0);
-            d4 = p_147761_8_.getInterpolatedU(16.0 - this.renderMaxX * 16.0);
-            d5 = p_147761_8_.getInterpolatedV(this.renderMaxY * 16.0);
-            d6 = p_147761_8_.getInterpolatedV(this.renderMinY * 16.0);
+        else if (uvRotateEast == 3) {
+            d3 = p_147761_8_.getInterpolatedU(16.0 - renderMinX * 16.0);
+            d4 = p_147761_8_.getInterpolatedU(16.0 - renderMaxX * 16.0);
+            d5 = p_147761_8_.getInterpolatedV(renderMaxY * 16.0);
+            d6 = p_147761_8_.getInterpolatedV(renderMinY * 16.0);
             d7 = d4;
             d8 = d3;
             d9 = d5;
             d10 = d6;
         }
-        double d11 = p_147761_2_ + this.renderMinX;
-        double d12 = p_147761_2_ + this.renderMaxX;
-        final double d13 = p_147761_4_ + this.renderMinY;
-        final double d14 = p_147761_4_ + this.renderMaxY;
-        final double d15 = p_147761_6_ + this.renderMinZ;
-        if (this.renderFromInside) {
-            d11 = p_147761_2_ + this.renderMaxX;
-            d12 = p_147761_2_ + this.renderMinX;
+        double d11 = p_147761_2_ + renderMinX;
+        double d12 = p_147761_2_ + renderMaxX;
+        final double d13 = p_147761_4_ + renderMinY;
+        final double d14 = p_147761_4_ + renderMaxY;
+        final double d15 = p_147761_6_ + renderMinZ;
+        if (renderFromInside) {
+            d11 = p_147761_2_ + renderMaxX;
+            d12 = p_147761_2_ + renderMinX;
         }
         final int i = bright;
         final int j = i >> 16 & 0xFFFF;
@@ -354,20 +354,20 @@ public class RenderCubes
     
     public void renderFaceZPos(final Block p_147734_1_, final double p_147734_2_, final double p_147734_4_, final double p_147734_6_, final TextureAtlasSprite p_147734_8_, final float red, final float green, final float blue, final int bright) {
         final Tessellator tessellator = Tessellator.getInstance();
-        double d3 = p_147734_8_.getInterpolatedU(this.renderMinX * 16.0);
-        double d4 = p_147734_8_.getInterpolatedU(this.renderMaxX * 16.0);
-        double d5 = p_147734_8_.getInterpolatedV(16.0 - this.renderMaxY * 16.0);
-        double d6 = p_147734_8_.getInterpolatedV(16.0 - this.renderMinY * 16.0);
-        if (this.flipTexture) {
+        double d3 = p_147734_8_.getInterpolatedU(renderMinX * 16.0);
+        double d4 = p_147734_8_.getInterpolatedU(renderMaxX * 16.0);
+        double d5 = p_147734_8_.getInterpolatedV(16.0 - renderMaxY * 16.0);
+        double d6 = p_147734_8_.getInterpolatedV(16.0 - renderMinY * 16.0);
+        if (flipTexture) {
             final double d7 = d3;
             d3 = d4;
             d4 = d7;
         }
-        if (this.renderMinX < 0.0 || this.renderMaxX > 1.0) {
+        if (renderMinX < 0.0 || renderMaxX > 1.0) {
             d3 = p_147734_8_.getMinU();
             d4 = p_147734_8_.getMaxU();
         }
-        if (this.renderMinY < 0.0 || this.renderMaxY > 1.0) {
+        if (renderMinY < 0.0 || renderMaxY > 1.0) {
             d5 = p_147734_8_.getMinV();
             d6 = p_147734_8_.getMaxV();
         }
@@ -375,22 +375,22 @@ public class RenderCubes
         double d8 = d3;
         double d9 = d5;
         double d10 = d6;
-        if (this.uvRotateWest == 1) {
-            d3 = p_147734_8_.getInterpolatedU(this.renderMinY * 16.0);
-            d6 = p_147734_8_.getInterpolatedV(16.0 - this.renderMinX * 16.0);
-            d4 = p_147734_8_.getInterpolatedU(this.renderMaxY * 16.0);
-            d5 = (d9 = p_147734_8_.getInterpolatedV(16.0 - this.renderMaxX * 16.0));
+        if (uvRotateWest == 1) {
+            d3 = p_147734_8_.getInterpolatedU(renderMinY * 16.0);
+            d6 = p_147734_8_.getInterpolatedV(16.0 - renderMinX * 16.0);
+            d4 = p_147734_8_.getInterpolatedU(renderMaxY * 16.0);
+            d5 = (d9 = p_147734_8_.getInterpolatedV(16.0 - renderMaxX * 16.0));
             d10 = d6;
             d7 = d3;
             d8 = d4;
             d5 = d6;
             d6 = d9;
         }
-        else if (this.uvRotateWest == 2) {
-            d3 = p_147734_8_.getInterpolatedU(16.0 - this.renderMaxY * 16.0);
-            d5 = p_147734_8_.getInterpolatedV(this.renderMinX * 16.0);
-            d4 = p_147734_8_.getInterpolatedU(16.0 - this.renderMinY * 16.0);
-            d6 = p_147734_8_.getInterpolatedV(this.renderMaxX * 16.0);
+        else if (uvRotateWest == 2) {
+            d3 = p_147734_8_.getInterpolatedU(16.0 - renderMaxY * 16.0);
+            d5 = p_147734_8_.getInterpolatedV(renderMinX * 16.0);
+            d4 = p_147734_8_.getInterpolatedU(16.0 - renderMinY * 16.0);
+            d6 = p_147734_8_.getInterpolatedV(renderMaxX * 16.0);
             d7 = d4;
             d8 = d3;
             d3 = d4;
@@ -398,24 +398,24 @@ public class RenderCubes
             d9 = d6;
             d10 = d5;
         }
-        else if (this.uvRotateWest == 3) {
-            d3 = p_147734_8_.getInterpolatedU(16.0 - this.renderMinX * 16.0);
-            d4 = p_147734_8_.getInterpolatedU(16.0 - this.renderMaxX * 16.0);
-            d5 = p_147734_8_.getInterpolatedV(this.renderMaxY * 16.0);
-            d6 = p_147734_8_.getInterpolatedV(this.renderMinY * 16.0);
+        else if (uvRotateWest == 3) {
+            d3 = p_147734_8_.getInterpolatedU(16.0 - renderMinX * 16.0);
+            d4 = p_147734_8_.getInterpolatedU(16.0 - renderMaxX * 16.0);
+            d5 = p_147734_8_.getInterpolatedV(renderMaxY * 16.0);
+            d6 = p_147734_8_.getInterpolatedV(renderMinY * 16.0);
             d7 = d4;
             d8 = d3;
             d9 = d5;
             d10 = d6;
         }
-        double d11 = p_147734_2_ + this.renderMinX;
-        double d12 = p_147734_2_ + this.renderMaxX;
-        final double d13 = p_147734_4_ + this.renderMinY;
-        final double d14 = p_147734_4_ + this.renderMaxY;
-        final double d15 = p_147734_6_ + this.renderMaxZ;
-        if (this.renderFromInside) {
-            d11 = p_147734_2_ + this.renderMaxX;
-            d12 = p_147734_2_ + this.renderMinX;
+        double d11 = p_147734_2_ + renderMinX;
+        double d12 = p_147734_2_ + renderMaxX;
+        final double d13 = p_147734_4_ + renderMinY;
+        final double d14 = p_147734_4_ + renderMaxY;
+        final double d15 = p_147734_6_ + renderMaxZ;
+        if (renderFromInside) {
+            d11 = p_147734_2_ + renderMaxX;
+            d12 = p_147734_2_ + renderMinX;
         }
         final int i = bright;
         final int j = i >> 16 & 0xFFFF;
@@ -428,20 +428,20 @@ public class RenderCubes
     
     public void renderFaceXNeg(final Block p_147798_1_, final double p_147798_2_, final double p_147798_4_, final double p_147798_6_, final TextureAtlasSprite p_147798_8_, final float red, final float green, final float blue, final int bright) {
         final Tessellator tessellator = Tessellator.getInstance();
-        double d3 = p_147798_8_.getInterpolatedU(this.renderMinZ * 16.0);
-        double d4 = p_147798_8_.getInterpolatedU(this.renderMaxZ * 16.0);
-        double d5 = p_147798_8_.getInterpolatedV(16.0 - this.renderMaxY * 16.0);
-        double d6 = p_147798_8_.getInterpolatedV(16.0 - this.renderMinY * 16.0);
-        if (this.flipTexture) {
+        double d3 = p_147798_8_.getInterpolatedU(renderMinZ * 16.0);
+        double d4 = p_147798_8_.getInterpolatedU(renderMaxZ * 16.0);
+        double d5 = p_147798_8_.getInterpolatedV(16.0 - renderMaxY * 16.0);
+        double d6 = p_147798_8_.getInterpolatedV(16.0 - renderMinY * 16.0);
+        if (flipTexture) {
             final double d7 = d3;
             d3 = d4;
             d4 = d7;
         }
-        if (this.renderMinZ < 0.0 || this.renderMaxZ > 1.0) {
+        if (renderMinZ < 0.0 || renderMaxZ > 1.0) {
             d3 = p_147798_8_.getMinU();
             d4 = p_147798_8_.getMaxU();
         }
-        if (this.renderMinY < 0.0 || this.renderMaxY > 1.0) {
+        if (renderMinY < 0.0 || renderMaxY > 1.0) {
             d5 = p_147798_8_.getMinV();
             d6 = p_147798_8_.getMaxV();
         }
@@ -449,11 +449,11 @@ public class RenderCubes
         double d8 = d3;
         double d9 = d5;
         double d10 = d6;
-        if (this.uvRotateNorth == 1) {
-            d3 = p_147798_8_.getInterpolatedU(this.renderMinY * 16.0);
-            d5 = p_147798_8_.getInterpolatedV(16.0 - this.renderMaxZ * 16.0);
-            d4 = p_147798_8_.getInterpolatedU(this.renderMaxY * 16.0);
-            d6 = p_147798_8_.getInterpolatedV(16.0 - this.renderMinZ * 16.0);
+        if (uvRotateNorth == 1) {
+            d3 = p_147798_8_.getInterpolatedU(renderMinY * 16.0);
+            d5 = p_147798_8_.getInterpolatedV(16.0 - renderMaxZ * 16.0);
+            d4 = p_147798_8_.getInterpolatedU(renderMaxY * 16.0);
+            d6 = p_147798_8_.getInterpolatedV(16.0 - renderMinZ * 16.0);
             d9 = d5;
             d10 = d6;
             d7 = d3;
@@ -461,11 +461,11 @@ public class RenderCubes
             d5 = d6;
             d6 = d9;
         }
-        else if (this.uvRotateNorth == 2) {
-            d3 = p_147798_8_.getInterpolatedU(16.0 - this.renderMaxY * 16.0);
-            d5 = p_147798_8_.getInterpolatedV(this.renderMinZ * 16.0);
-            d4 = p_147798_8_.getInterpolatedU(16.0 - this.renderMinY * 16.0);
-            d6 = p_147798_8_.getInterpolatedV(this.renderMaxZ * 16.0);
+        else if (uvRotateNorth == 2) {
+            d3 = p_147798_8_.getInterpolatedU(16.0 - renderMaxY * 16.0);
+            d5 = p_147798_8_.getInterpolatedV(renderMinZ * 16.0);
+            d4 = p_147798_8_.getInterpolatedU(16.0 - renderMinY * 16.0);
+            d6 = p_147798_8_.getInterpolatedV(renderMaxZ * 16.0);
             d7 = d4;
             d8 = d3;
             d3 = d4;
@@ -473,24 +473,24 @@ public class RenderCubes
             d9 = d6;
             d10 = d5;
         }
-        else if (this.uvRotateNorth == 3) {
-            d3 = p_147798_8_.getInterpolatedU(16.0 - this.renderMinZ * 16.0);
-            d4 = p_147798_8_.getInterpolatedU(16.0 - this.renderMaxZ * 16.0);
-            d5 = p_147798_8_.getInterpolatedV(this.renderMaxY * 16.0);
-            d6 = p_147798_8_.getInterpolatedV(this.renderMinY * 16.0);
+        else if (uvRotateNorth == 3) {
+            d3 = p_147798_8_.getInterpolatedU(16.0 - renderMinZ * 16.0);
+            d4 = p_147798_8_.getInterpolatedU(16.0 - renderMaxZ * 16.0);
+            d5 = p_147798_8_.getInterpolatedV(renderMaxY * 16.0);
+            d6 = p_147798_8_.getInterpolatedV(renderMinY * 16.0);
             d7 = d4;
             d8 = d3;
             d9 = d5;
             d10 = d6;
         }
-        final double d11 = p_147798_2_ + this.renderMinX;
-        final double d12 = p_147798_4_ + this.renderMinY;
-        final double d13 = p_147798_4_ + this.renderMaxY;
-        double d14 = p_147798_6_ + this.renderMinZ;
-        double d15 = p_147798_6_ + this.renderMaxZ;
-        if (this.renderFromInside) {
-            d14 = p_147798_6_ + this.renderMaxZ;
-            d15 = p_147798_6_ + this.renderMinZ;
+        final double d11 = p_147798_2_ + renderMinX;
+        final double d12 = p_147798_4_ + renderMinY;
+        final double d13 = p_147798_4_ + renderMaxY;
+        double d14 = p_147798_6_ + renderMinZ;
+        double d15 = p_147798_6_ + renderMaxZ;
+        if (renderFromInside) {
+            d14 = p_147798_6_ + renderMaxZ;
+            d15 = p_147798_6_ + renderMinZ;
         }
         final int i = bright;
         final int j = i >> 16 & 0xFFFF;
@@ -503,24 +503,24 @@ public class RenderCubes
     
     public void renderFaceXPos(final Block p_147764_1_, final double p_147764_2_, final double p_147764_4_, final double p_147764_6_, final TextureAtlasSprite p_147764_8_, final float red, final float green, final float blue, final int bright) {
         final Tessellator tessellator = Tessellator.getInstance();
-        double d3 = p_147764_8_.getInterpolatedU(this.renderMinZ * 16.0);
-        double d4 = p_147764_8_.getInterpolatedU(this.renderMaxZ * 16.0);
-        if (this.field_152631_f) {
-            d4 = p_147764_8_.getInterpolatedU((1.0 - this.renderMinZ) * 16.0);
-            d3 = p_147764_8_.getInterpolatedU((1.0 - this.renderMaxZ) * 16.0);
+        double d3 = p_147764_8_.getInterpolatedU(renderMinZ * 16.0);
+        double d4 = p_147764_8_.getInterpolatedU(renderMaxZ * 16.0);
+        if (field_152631_f) {
+            d4 = p_147764_8_.getInterpolatedU((1.0 - renderMinZ) * 16.0);
+            d3 = p_147764_8_.getInterpolatedU((1.0 - renderMaxZ) * 16.0);
         }
-        double d5 = p_147764_8_.getInterpolatedV(16.0 - this.renderMaxY * 16.0);
-        double d6 = p_147764_8_.getInterpolatedV(16.0 - this.renderMinY * 16.0);
-        if (this.flipTexture) {
+        double d5 = p_147764_8_.getInterpolatedV(16.0 - renderMaxY * 16.0);
+        double d6 = p_147764_8_.getInterpolatedV(16.0 - renderMinY * 16.0);
+        if (flipTexture) {
             final double d7 = d3;
             d3 = d4;
             d4 = d7;
         }
-        if (this.renderMinZ < 0.0 || this.renderMaxZ > 1.0) {
+        if (renderMinZ < 0.0 || renderMaxZ > 1.0) {
             d3 = p_147764_8_.getMinU();
             d4 = p_147764_8_.getMaxU();
         }
-        if (this.renderMinY < 0.0 || this.renderMaxY > 1.0) {
+        if (renderMinY < 0.0 || renderMaxY > 1.0) {
             d5 = p_147764_8_.getMinV();
             d6 = p_147764_8_.getMaxV();
         }
@@ -528,11 +528,11 @@ public class RenderCubes
         double d8 = d3;
         double d9 = d5;
         double d10 = d6;
-        if (this.uvRotateSouth == 2) {
-            d3 = p_147764_8_.getInterpolatedU(this.renderMinY * 16.0);
-            d5 = p_147764_8_.getInterpolatedV(16.0 - this.renderMinZ * 16.0);
-            d4 = p_147764_8_.getInterpolatedU(this.renderMaxY * 16.0);
-            d6 = p_147764_8_.getInterpolatedV(16.0 - this.renderMaxZ * 16.0);
+        if (uvRotateSouth == 2) {
+            d3 = p_147764_8_.getInterpolatedU(renderMinY * 16.0);
+            d5 = p_147764_8_.getInterpolatedV(16.0 - renderMinZ * 16.0);
+            d4 = p_147764_8_.getInterpolatedU(renderMaxY * 16.0);
+            d6 = p_147764_8_.getInterpolatedV(16.0 - renderMaxZ * 16.0);
             d9 = d5;
             d10 = d6;
             d7 = d3;
@@ -540,11 +540,11 @@ public class RenderCubes
             d5 = d6;
             d6 = d9;
         }
-        else if (this.uvRotateSouth == 1) {
-            d3 = p_147764_8_.getInterpolatedU(16.0 - this.renderMaxY * 16.0);
-            d5 = p_147764_8_.getInterpolatedV(this.renderMaxZ * 16.0);
-            d4 = p_147764_8_.getInterpolatedU(16.0 - this.renderMinY * 16.0);
-            d6 = p_147764_8_.getInterpolatedV(this.renderMinZ * 16.0);
+        else if (uvRotateSouth == 1) {
+            d3 = p_147764_8_.getInterpolatedU(16.0 - renderMaxY * 16.0);
+            d5 = p_147764_8_.getInterpolatedV(renderMaxZ * 16.0);
+            d4 = p_147764_8_.getInterpolatedU(16.0 - renderMinY * 16.0);
+            d6 = p_147764_8_.getInterpolatedV(renderMinZ * 16.0);
             d7 = d4;
             d8 = d3;
             d3 = d4;
@@ -552,24 +552,24 @@ public class RenderCubes
             d9 = d6;
             d10 = d5;
         }
-        else if (this.uvRotateSouth == 3) {
-            d3 = p_147764_8_.getInterpolatedU(16.0 - this.renderMinZ * 16.0);
-            d4 = p_147764_8_.getInterpolatedU(16.0 - this.renderMaxZ * 16.0);
-            d5 = p_147764_8_.getInterpolatedV(this.renderMaxY * 16.0);
-            d6 = p_147764_8_.getInterpolatedV(this.renderMinY * 16.0);
+        else if (uvRotateSouth == 3) {
+            d3 = p_147764_8_.getInterpolatedU(16.0 - renderMinZ * 16.0);
+            d4 = p_147764_8_.getInterpolatedU(16.0 - renderMaxZ * 16.0);
+            d5 = p_147764_8_.getInterpolatedV(renderMaxY * 16.0);
+            d6 = p_147764_8_.getInterpolatedV(renderMinY * 16.0);
             d7 = d4;
             d8 = d3;
             d9 = d5;
             d10 = d6;
         }
-        final double d11 = p_147764_2_ + this.renderMaxX;
-        final double d12 = p_147764_4_ + this.renderMinY;
-        final double d13 = p_147764_4_ + this.renderMaxY;
-        double d14 = p_147764_6_ + this.renderMinZ;
-        double d15 = p_147764_6_ + this.renderMaxZ;
-        if (this.renderFromInside) {
-            d14 = p_147764_6_ + this.renderMaxZ;
-            d15 = p_147764_6_ + this.renderMinZ;
+        final double d11 = p_147764_2_ + renderMaxX;
+        final double d12 = p_147764_4_ + renderMinY;
+        final double d13 = p_147764_4_ + renderMaxY;
+        double d14 = p_147764_6_ + renderMinZ;
+        double d15 = p_147764_6_ + renderMaxZ;
+        if (renderFromInside) {
+            d14 = p_147764_6_ + renderMaxZ;
+            d15 = p_147764_6_ + renderMinZ;
         }
         final int i = bright;
         final int j = i >> 16 & 0xFFFF;

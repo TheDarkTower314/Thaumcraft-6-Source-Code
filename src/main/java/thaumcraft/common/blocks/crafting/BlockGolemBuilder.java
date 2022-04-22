@@ -32,8 +32,8 @@ public class BlockGolemBuilder extends BlockTCDevice implements IBlockFacingHori
     
     public BlockGolemBuilder() {
         super(Material.ROCK, TileGolemBuilder.class, "golem_builder");
-        this.setSoundType(SoundType.STONE);
-        this.setCreativeTab(null);
+        setSoundType(SoundType.STONE);
+        setCreativeTab(null);
     }
     
     @Override

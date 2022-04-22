@@ -31,35 +31,35 @@ public class PacketSealFilterToClient implements IMessage, IMessageHandler<Packe
     }
     
     public PacketSealFilterToClient(final ISealEntity se) {
-        this.pos = se.getSealPos().pos;
-        this.face = se.getSealPos().face;
+        pos = se.getSealPos().pos;
+        face = se.getSealPos().face;
         if (se.getSeal() != null && se.getSeal() instanceof ISealConfigFilter) {
             final ISealConfigFilter cp = (ISealConfigFilter)se.getSeal();
-            this.filtersize = (byte)cp.getFilterSize();
-            this.filter = cp.getInv();
-            this.filterStackSize = cp.getSizes();
+            filtersize = (byte)cp.getFilterSize();
+            filter = cp.getInv();
+            filterStackSize = cp.getSizes();
         }
     }
     
     public void toBytes(final ByteBuf dos) {
-        dos.writeLong(this.pos.toLong());
-        dos.writeByte(this.face.ordinal());
-        dos.writeByte(this.filtersize);
-        for (int a = 0; a < this.filtersize; ++a) {
-            Utils.writeItemStackToBuffer(dos, this.filter.get(a));
-            dos.writeShort(this.filterStackSize.get(a));
+        dos.writeLong(pos.toLong());
+        dos.writeByte(face.ordinal());
+        dos.writeByte(filtersize);
+        for (int a = 0; a < filtersize; ++a) {
+            Utils.writeItemStackToBuffer(dos, filter.get(a));
+            dos.writeShort(filterStackSize.get(a));
         }
     }
     
     public void fromBytes(final ByteBuf dat) {
-        this.pos = BlockPos.fromLong(dat.readLong());
-        this.face = EnumFacing.VALUES[dat.readByte()];
-        this.filtersize = dat.readByte();
-        this.filter = NonNullList.withSize(this.filtersize, ItemStack.EMPTY);
-        this.filterStackSize = NonNullList.withSize(this.filtersize, 0);
-        for (int a = 0; a < this.filtersize; ++a) {
-            this.filter.set(a, Utils.readItemStackFromBuffer(dat));
-            this.filterStackSize.set(a, (int)dat.readShort());
+        pos = BlockPos.fromLong(dat.readLong());
+        face = EnumFacing.VALUES[dat.readByte()];
+        filtersize = dat.readByte();
+        filter = NonNullList.withSize(filtersize, ItemStack.EMPTY);
+        filterStackSize = NonNullList.withSize(filtersize, 0);
+        for (int a = 0; a < filtersize; ++a) {
+            filter.set(a, Utils.readItemStackFromBuffer(dat));
+            filterStackSize.set(a, (int)dat.readShort());
         }
     }
     

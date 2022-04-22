@@ -35,11 +35,11 @@ public class CrystalModel implements IBakedModel
     TextureAtlasSprite tex;
     
     public CrystalModel(final TextureAtlasSprite tex2) {
-        this.model = new ResourceLocation("thaumcraft", "models/obj/crystal.obj");
-        this.tex = tex2;
+        model = new ResourceLocation("thaumcraft", "models/obj/crystal.obj");
+        tex = tex2;
         try {
-            this.sourceMesh = new MeshLoader().loadFromResource(this.model);
-            for (final MeshPart mp : this.sourceMesh.parts) {
+            sourceMesh = new MeshLoader().loadFromResource(model);
+            for (final MeshPart mp : sourceMesh.parts) {
                 mp.tintIndex = 0;
             }
         }
@@ -53,7 +53,7 @@ public class CrystalModel implements IBakedModel
             final List<BakedQuad> ret = new ArrayList<BakedQuad>();
             final IExtendedBlockState es = (IExtendedBlockState)state;
             final int m = ((BlockCrystal)state.getBlock()).getGrowth(state) + 1;
-            final MeshModel mm = this.sourceMesh.clone();
+            final MeshModel mm = sourceMesh.clone();
             try {
                 if (es != null) {
                     if (!(boolean)es.getValue(BlockCrystal.UP) || !(boolean)es.getValue(BlockCrystal.DOWN) || !(boolean)es.getValue(BlockCrystal.EAST) || !(boolean)es.getValue(BlockCrystal.WEST) || !(boolean)es.getValue(BlockCrystal.NORTH) || !(boolean)es.getValue(BlockCrystal.SOUTH)) {
@@ -62,11 +62,11 @@ public class CrystalModel implements IBakedModel
                             Collections.shuffle(c, new Random(rand));
                             mm.parts.clear();
                             for (int a = 0; a < m; ++a) {
-                                mm.parts.add(this.sourceMesh.parts.get(c.get(a)));
+                                mm.parts.add(sourceMesh.parts.get(c.get(a)));
                             }
                             final MeshModel mod = mm.clone();
                             mod.rotate(Math.toRadians(180.0), new Vector3(1.0, 0.0, 0.0), new Vector3(0.0, 1.0, 1.0));
-                            for (final BakedQuad quad : mod.bakeModel(this.getParticleTexture())) {
+                            for (final BakedQuad quad : mod.bakeModel(getParticleTexture())) {
                                 ret.add(quad);
                             }
                         }
@@ -75,9 +75,9 @@ public class CrystalModel implements IBakedModel
                             Collections.shuffle(c, new Random(rand + 5L));
                             mm.parts.clear();
                             for (int a = 0; a < m; ++a) {
-                                mm.parts.add(this.sourceMesh.parts.get(c.get(a)));
+                                mm.parts.add(sourceMesh.parts.get(c.get(a)));
                             }
-                            for (final BakedQuad quad2 : mm.bakeModel(this.getParticleTexture())) {
+                            for (final BakedQuad quad2 : mm.bakeModel(getParticleTexture())) {
                                 ret.add(quad2);
                             }
                         }
@@ -86,12 +86,12 @@ public class CrystalModel implements IBakedModel
                             Collections.shuffle(c, new Random(rand + 10L));
                             mm.parts.clear();
                             for (int a = 0; a < m; ++a) {
-                                mm.parts.add(this.sourceMesh.parts.get(c.get(a)));
+                                mm.parts.add(sourceMesh.parts.get(c.get(a)));
                             }
                             final MeshModel mod = mm.clone();
                             mod.rotate(Math.toRadians(90.0), new Vector3(1.0, 0.0, 0.0), new Vector3(0.0, 0.0, 0.0));
                             mod.rotate(Math.toRadians(270.0), new Vector3(0.0, 1.0, 0.0), new Vector3(1.0, 1.0, 0.0));
-                            for (final BakedQuad quad : mod.bakeModel(this.getParticleTexture())) {
+                            for (final BakedQuad quad : mod.bakeModel(getParticleTexture())) {
                                 ret.add(quad);
                             }
                         }
@@ -100,12 +100,12 @@ public class CrystalModel implements IBakedModel
                             Collections.shuffle(c, new Random(rand + 15L));
                             mm.parts.clear();
                             for (int a = 0; a < m; ++a) {
-                                mm.parts.add(this.sourceMesh.parts.get(c.get(a)));
+                                mm.parts.add(sourceMesh.parts.get(c.get(a)));
                             }
                             final MeshModel mod = mm.clone();
                             mod.rotate(Math.toRadians(90.0), new Vector3(1.0, 0.0, 0.0), new Vector3(0.0, 0.0, 0.0));
                             mod.rotate(Math.toRadians(90.0), new Vector3(0.0, 1.0, 0.0), new Vector3(0.0, 1.0, 1.0));
-                            for (final BakedQuad quad : mod.bakeModel(this.getParticleTexture())) {
+                            for (final BakedQuad quad : mod.bakeModel(getParticleTexture())) {
                                 ret.add(quad);
                             }
                         }
@@ -114,11 +114,11 @@ public class CrystalModel implements IBakedModel
                             Collections.shuffle(c, new Random(rand + 20L));
                             mm.parts.clear();
                             for (int a = 0; a < m; ++a) {
-                                mm.parts.add(this.sourceMesh.parts.get(c.get(a)));
+                                mm.parts.add(sourceMesh.parts.get(c.get(a)));
                             }
                             final MeshModel mod = mm.clone();
                             mod.rotate(Math.toRadians(90.0), new Vector3(1.0, 0.0, 0.0), new Vector3(0.0, 1.0, 0.0));
-                            for (final BakedQuad quad : mod.bakeModel(this.getParticleTexture())) {
+                            for (final BakedQuad quad : mod.bakeModel(getParticleTexture())) {
                                 ret.add(quad);
                             }
                         }
@@ -127,12 +127,12 @@ public class CrystalModel implements IBakedModel
                             Collections.shuffle(c, new Random(rand + 25L));
                             mm.parts.clear();
                             for (int a = 0; a < m; ++a) {
-                                mm.parts.add(this.sourceMesh.parts.get(c.get(a)));
+                                mm.parts.add(sourceMesh.parts.get(c.get(a)));
                             }
                             final MeshModel mod = mm.clone();
                             mod.rotate(Math.toRadians(90.0), new Vector3(1.0, 0.0, 0.0), new Vector3(0.0, 0.0, 0.0));
                             mod.rotate(Math.toRadians(180.0), new Vector3(0.0, 1.0, 0.0), new Vector3(1.0, 1.0, 1.0));
-                            for (final BakedQuad quad : mod.bakeModel(this.getParticleTexture())) {
+                            for (final BakedQuad quad : mod.bakeModel(getParticleTexture())) {
                                 ret.add(quad);
                             }
                         }
@@ -158,7 +158,7 @@ public class CrystalModel implements IBakedModel
     }
     
     public TextureAtlasSprite getParticleTexture() {
-        return this.tex;
+        return tex;
     }
     
     public ItemCameraTransforms getItemCameraTransforms() {

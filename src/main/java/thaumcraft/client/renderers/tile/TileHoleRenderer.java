@@ -23,7 +23,7 @@ public class TileHoleRenderer extends TileEntitySpecialRenderer
     private static final ResourceLocation starsTexture;
     
     public TileHoleRenderer() {
-        this.shaderCallback = new ShaderCallback() {
+        shaderCallback = new ShaderCallback() {
             @Override
             public void call(final int shader) {
                 final Minecraft mc = Minecraft.getMinecraft();
@@ -38,8 +38,8 @@ public class TileHoleRenderer extends TileEntitySpecialRenderer
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         GL11.glPushMatrix();
-        this.bindTexture(TileHoleRenderer.starsTexture);
-        ShaderHelper.useShader(ShaderHelper.endShader, this.shaderCallback);
+        bindTexture(TileHoleRenderer.starsTexture);
+        ShaderHelper.useShader(ShaderHelper.endShader, shaderCallback);
         GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
         for (final EnumFacing face : EnumFacing.values()) {
             final IBlockState bs = te.getWorld().getBlockState(te.getPos().offset(face));

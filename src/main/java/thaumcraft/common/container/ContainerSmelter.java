@@ -29,107 +29,107 @@ public class ContainerSmelter extends Container
     private int lastFlux;
     
     public ContainerSmelter(final InventoryPlayer par1InventoryPlayer, final TileSmelter tileEntity) {
-        this.furnace = tileEntity;
-        this.addSlotToContainer(new SlotLimitedHasAspects(tileEntity, 0, 80, 8));
-        this.addSlotToContainer(new Slot(tileEntity, 1, 80, 48));
+        furnace = tileEntity;
+        addSlotToContainer(new SlotLimitedHasAspects(tileEntity, 0, 80, 8));
+        addSlotToContainer(new Slot(tileEntity, 1, 80, 48));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
+            addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
         }
     }
     
     public void addListener(final IContainerListener listener) {
         super.addListener(listener);
-        listener.sendAllWindowProperties(this, this.furnace);
-        listener.sendWindowProperty(this, 0, this.furnace.furnaceCookTime);
-        listener.sendWindowProperty(this, 1, this.furnace.furnaceBurnTime);
-        listener.sendWindowProperty(this, 2, this.furnace.currentItemBurnTime);
-        listener.sendWindowProperty(this, 3, this.furnace.vis);
-        listener.sendWindowProperty(this, 4, this.furnace.smeltTime);
+        listener.sendAllWindowProperties(this, furnace);
+        listener.sendWindowProperty(this, 0, furnace.furnaceCookTime);
+        listener.sendWindowProperty(this, 1, furnace.furnaceBurnTime);
+        listener.sendWindowProperty(this, 2, furnace.currentItemBurnTime);
+        listener.sendWindowProperty(this, 3, furnace.vis);
+        listener.sendWindowProperty(this, 4, furnace.smeltTime);
     }
     
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (int i = 0; i < this.listeners.size(); ++i) {
-            final IContainerListener icrafting = this.listeners.get(i);
-            if (this.lastCookTime != this.furnace.furnaceCookTime) {
-                icrafting.sendWindowProperty(this, 0, this.furnace.furnaceCookTime);
+        for (int i = 0; i < listeners.size(); ++i) {
+            final IContainerListener icrafting = listeners.get(i);
+            if (lastCookTime != furnace.furnaceCookTime) {
+                icrafting.sendWindowProperty(this, 0, furnace.furnaceCookTime);
             }
-            if (this.lastBurnTime != this.furnace.furnaceBurnTime) {
-                icrafting.sendWindowProperty(this, 1, this.furnace.furnaceBurnTime);
+            if (lastBurnTime != furnace.furnaceBurnTime) {
+                icrafting.sendWindowProperty(this, 1, furnace.furnaceBurnTime);
             }
-            if (this.lastItemBurnTime != this.furnace.currentItemBurnTime) {
-                icrafting.sendWindowProperty(this, 2, this.furnace.currentItemBurnTime);
+            if (lastItemBurnTime != furnace.currentItemBurnTime) {
+                icrafting.sendWindowProperty(this, 2, furnace.currentItemBurnTime);
             }
-            if (this.lastVis != this.furnace.vis) {
-                icrafting.sendWindowProperty(this, 3, this.furnace.vis);
+            if (lastVis != furnace.vis) {
+                icrafting.sendWindowProperty(this, 3, furnace.vis);
             }
-            if (this.lastSmelt != this.furnace.smeltTime) {
-                icrafting.sendWindowProperty(this, 4, this.furnace.smeltTime);
+            if (lastSmelt != furnace.smeltTime) {
+                icrafting.sendWindowProperty(this, 4, furnace.smeltTime);
             }
         }
-        this.lastCookTime = this.furnace.furnaceCookTime;
-        this.lastBurnTime = this.furnace.furnaceBurnTime;
-        this.lastItemBurnTime = this.furnace.currentItemBurnTime;
-        this.lastVis = this.furnace.vis;
-        this.lastSmelt = this.furnace.smeltTime;
+        lastCookTime = furnace.furnaceCookTime;
+        lastBurnTime = furnace.furnaceBurnTime;
+        lastItemBurnTime = furnace.currentItemBurnTime;
+        lastVis = furnace.vis;
+        lastSmelt = furnace.smeltTime;
     }
     
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(final int par1, final int par2) {
         if (par1 == 0) {
-            this.furnace.furnaceCookTime = par2;
+            furnace.furnaceCookTime = par2;
         }
         if (par1 == 1) {
-            this.furnace.furnaceBurnTime = par2;
+            furnace.furnaceBurnTime = par2;
         }
         if (par1 == 2) {
-            this.furnace.currentItemBurnTime = par2;
+            furnace.currentItemBurnTime = par2;
         }
         if (par1 == 3) {
-            this.furnace.vis = par2;
+            furnace.vis = par2;
         }
         if (par1 == 4) {
-            this.furnace.smeltTime = par2;
+            furnace.smeltTime = par2;
         }
     }
     
     public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
-        return this.furnace.isUsableByPlayer(par1EntityPlayer);
+        return furnace.isUsableByPlayer(par1EntityPlayer);
     }
     
     public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int par2) {
         ItemStack itemstack = ItemStack.EMPTY;
-        final Slot slot = this.inventorySlots.get(par2);
+        final Slot slot = inventorySlots.get(par2);
         if (slot != null && slot.getHasStack()) {
             final ItemStack itemstack2 = slot.getStack();
             itemstack = itemstack2.copy();
             if (par2 != 1 && par2 != 0) {
                 final AspectList al = ThaumcraftCraftingManager.getObjectTags(itemstack2);
                 if (TileSmelter.isItemFuel(itemstack2)) {
-                    if (!this.mergeItemStack(itemstack2, 1, 2, false) && !this.mergeItemStack(itemstack2, 0, 1, false)) {
+                    if (!mergeItemStack(itemstack2, 1, 2, false) && !mergeItemStack(itemstack2, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
                 else if (al != null && al.size() > 0) {
-                    if (!this.mergeItemStack(itemstack2, 0, 1, false)) {
+                    if (!mergeItemStack(itemstack2, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
                 else if (par2 >= 2 && par2 < 29) {
-                    if (!this.mergeItemStack(itemstack2, 29, 38, false)) {
+                    if (!mergeItemStack(itemstack2, 29, 38, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
-                else if (par2 >= 29 && par2 < 38 && !this.mergeItemStack(itemstack2, 2, 29, false)) {
+                else if (par2 >= 29 && par2 < 38 && !mergeItemStack(itemstack2, 2, 29, false)) {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.mergeItemStack(itemstack2, 2, 38, false)) {
+            else if (!mergeItemStack(itemstack2, 2, 38, false)) {
                 return ItemStack.EMPTY;
             }
             if (itemstack2.getCount() == 0) {

@@ -86,7 +86,7 @@ public class ScanSky implements IScanThing
             else {
                 player.sendStatusMessage(new TextComponentTranslation("tc.celestial.fail.2", ""), true);
             }
-            this.cleanResearch(player, pk);
+            cleanResearch(player, pk);
         }
         else {
             if (!night) {
@@ -110,7 +110,7 @@ public class ScanSky implements IScanThing
             else {
                 player.sendStatusMessage(new TextComponentTranslation("tc.celestial.fail.2", ""), true);
             }
-            this.cleanResearch(player, pk2);
+            cleanResearch(player, pk2);
         }
     }
     

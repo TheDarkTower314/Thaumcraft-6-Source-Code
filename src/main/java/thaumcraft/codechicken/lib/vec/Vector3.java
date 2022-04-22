@@ -32,15 +32,15 @@ public class Vector3 implements Copyable<Vector3>
     }
     
     public Vector3(final double d, final double d1, final double d2) {
-        this.x = d;
-        this.y = d1;
-        this.z = d2;
+        x = d;
+        y = d1;
+        z = d2;
     }
     
     public Vector3(final Vector3 vec) {
-        this.x = vec.x;
-        this.y = vec.y;
-        this.z = vec.z;
+        x = vec.x;
+        y = vec.y;
+        z = vec.z;
     }
     
     public Vector3(final double[] da) {
@@ -48,21 +48,21 @@ public class Vector3 implements Copyable<Vector3>
     }
     
     public Vector3(final Vec3d vec) {
-        this.x = vec.x;
-        this.y = vec.y;
-        this.z = vec.z;
+        x = vec.x;
+        y = vec.y;
+        z = vec.z;
     }
     
     public Vector3(final BlockCoord coord) {
-        this.x = coord.x;
-        this.y = coord.y;
-        this.z = coord.z;
+        x = coord.x;
+        y = coord.y;
+        z = coord.z;
     }
     
     public Vector3(final BlockPos pos) {
-        this.x = pos.getX();
-        this.y = pos.getY();
-        this.z = pos.getZ();
+        x = pos.getX();
+        y = pos.getY();
+        z = pos.getZ();
     }
     
     @Override
@@ -91,16 +91,16 @@ public class Vector3 implements Copyable<Vector3>
     }
     
     public Vector3 set(final double d, final double d1, final double d2) {
-        this.x = d;
-        this.y = d1;
-        this.z = d2;
+        x = d;
+        y = d1;
+        z = d2;
         return this;
     }
     
     public Vector3 set(final Vector3 vec) {
-        this.x = vec.x;
-        this.y = vec.y;
-        this.z = vec.z;
+        x = vec.x;
+        y = vec.y;
+        z = vec.z;
         return this;
     }
     
@@ -108,15 +108,15 @@ public class Vector3 implements Copyable<Vector3>
         switch (side) {
             case 0:
             case 1: {
-                return this.y;
+                return y;
             }
             case 2:
             case 3: {
-                return this.z;
+                return z;
             }
             case 4:
             case 5: {
-                return this.x;
+                return x;
             }
             default: {
                 throw new IndexOutOfBoundsException("Switch Falloff");
@@ -128,17 +128,17 @@ public class Vector3 implements Copyable<Vector3>
         switch (s) {
             case 0:
             case 1: {
-                this.y = v;
+                y = v;
                 break;
             }
             case 2:
             case 3: {
-                this.z = v;
+                z = v;
                 break;
             }
             case 4:
             case 5: {
-                this.x = v;
+                x = v;
                 break;
             }
             default: {
@@ -149,7 +149,7 @@ public class Vector3 implements Copyable<Vector3>
     }
     
     public double dotProduct(final Vector3 vec) {
-        double d = vec.x * this.x + vec.y * this.y + vec.z * this.z;
+        double d = vec.x * x + vec.y * y + vec.z * z;
         if (d > 1.0 && d < 1.00001) {
             d = 1.0;
         }
@@ -160,88 +160,88 @@ public class Vector3 implements Copyable<Vector3>
     }
     
     public double dotProduct(final double d, final double d1, final double d2) {
-        return d * this.x + d1 * this.y + d2 * this.z;
+        return d * x + d1 * y + d2 * z;
     }
     
     public Vector3 crossProduct(final Vector3 vec) {
-        final double d = this.y * vec.z - this.z * vec.y;
-        final double d2 = this.z * vec.x - this.x * vec.z;
-        final double d3 = this.x * vec.y - this.y * vec.x;
-        this.x = d;
-        this.y = d2;
-        this.z = d3;
+        final double d = y * vec.z - z * vec.y;
+        final double d2 = z * vec.x - x * vec.z;
+        final double d3 = x * vec.y - y * vec.x;
+        x = d;
+        y = d2;
+        z = d3;
         return this;
     }
     
     public Vector3 add(final double d, final double d1, final double d2) {
-        this.x += d;
-        this.y += d1;
-        this.z += d2;
+        x += d;
+        y += d1;
+        z += d2;
         return this;
     }
     
     public Vector3 add(final Vector3 vec) {
-        this.x += vec.x;
-        this.y += vec.y;
-        this.z += vec.z;
+        x += vec.x;
+        y += vec.y;
+        z += vec.z;
         return this;
     }
     
     public Vector3 add(final double d) {
-        return this.add(d, d, d);
+        return add(d, d, d);
     }
     
     public Vector3 sub(final Vector3 vec) {
-        return this.subtract(vec);
+        return subtract(vec);
     }
     
     public Vector3 subtract(final Vector3 vec) {
-        this.x -= vec.x;
-        this.y -= vec.y;
-        this.z -= vec.z;
+        x -= vec.x;
+        y -= vec.y;
+        z -= vec.z;
         return this;
     }
     
     public Vector3 negate(final Vector3 vec) {
-        this.x = -this.x;
-        this.y = -this.y;
-        this.z = -this.z;
+        x = -x;
+        y = -y;
+        z = -z;
         return this;
     }
     
     public Vector3 multiply(final double d) {
-        this.x *= d;
-        this.y *= d;
-        this.z *= d;
+        x *= d;
+        y *= d;
+        z *= d;
         return this;
     }
     
     public Vector3 multiply(final Vector3 f) {
-        this.x *= f.x;
-        this.y *= f.y;
-        this.z *= f.z;
+        x *= f.x;
+        y *= f.y;
+        z *= f.z;
         return this;
     }
     
     public Vector3 multiply(final double fx, final double fy, final double fz) {
-        this.x *= fx;
-        this.y *= fy;
-        this.z *= fz;
+        x *= fx;
+        y *= fy;
+        z *= fz;
         return this;
     }
     
     public double mag() {
-        return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+        return Math.sqrt(x * x + y * y + z * z);
     }
     
     public double magSquared() {
-        return this.x * this.x + this.y * this.y + this.z * this.z;
+        return x * x + y * y + z * z;
     }
     
     public Vector3 normalize() {
-        final double d = this.mag();
+        final double d = mag();
         if (d != 0.0) {
-            this.multiply(1.0 / d);
+            multiply(1.0 / d);
         }
         return this;
     }
@@ -249,40 +249,40 @@ public class Vector3 implements Copyable<Vector3>
     @Override
     public String toString() {
         final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
-        return "Vector3(" + new BigDecimal(this.x, cont) + ", " + new BigDecimal(this.y, cont) + ", " + new BigDecimal(this.z, cont) + ")";
+        return "Vector3(" + new BigDecimal(x, cont) + ", " + new BigDecimal(y, cont) + ", " + new BigDecimal(z, cont) + ")";
     }
     
     public Vector3 perpendicular() {
-        if (this.z == 0.0) {
-            return this.zCrossProduct();
+        if (z == 0.0) {
+            return zCrossProduct();
         }
-        return this.xCrossProduct();
+        return xCrossProduct();
     }
     
     public Vector3 xCrossProduct() {
-        final double d = this.z;
-        final double d2 = -this.y;
-        this.x = 0.0;
-        this.y = d;
-        this.z = d2;
+        final double d = z;
+        final double d2 = -y;
+        x = 0.0;
+        y = d;
+        z = d2;
         return this;
     }
     
     public Vector3 zCrossProduct() {
-        final double d = this.y;
-        final double d2 = -this.x;
-        this.x = d;
-        this.y = d2;
-        this.z = 0.0;
+        final double d = y;
+        final double d2 = -x;
+        x = d;
+        y = d2;
+        z = 0.0;
         return this;
     }
     
     public Vector3 yCrossProduct() {
-        final double d = -this.z;
-        final double d2 = this.x;
-        this.x = d;
-        this.y = 0.0;
-        this.z = d2;
+        final double d = -z;
+        final double d2 = x;
+        x = d;
+        y = 0.0;
+        z = d2;
         return this;
     }
     
@@ -297,100 +297,100 @@ public class Vector3 implements Copyable<Vector3>
     }
     
     public Vec3d vec3() {
-        return new Vec3d(this.x, this.y, this.z);
+        return new Vec3d(x, y, z);
     }
     
     public double angle(final Vector3 vec) {
-        return Math.acos(this.copy().normalize().dotProduct(vec.copy().normalize()));
+        return Math.acos(copy().normalize().dotProduct(vec.copy().normalize()));
     }
     
     public boolean isZero() {
-        return this.x == 0.0 && this.y == 0.0 && this.z == 0.0;
+        return x == 0.0 && y == 0.0 && z == 0.0;
     }
     
     public boolean isAxial() {
-        return (this.x == 0.0) ? (this.y == 0.0 || this.z == 0.0) : (this.y == 0.0 && this.z == 0.0);
+        return (x == 0.0) ? (y == 0.0 || z == 0.0) : (y == 0.0 && z == 0.0);
     }
     
     @SideOnly(Side.CLIENT)
     public Vector3f vector3f() {
-        return new Vector3f((float)this.x, (float)this.y, (float)this.z);
+        return new Vector3f((float) x, (float) y, (float) z);
     }
     
     @SideOnly(Side.CLIENT)
     public Vector4f vector4f() {
-        return new Vector4f((float)this.x, (float)this.y, (float)this.z, 1.0f);
+        return new Vector4f((float) x, (float) y, (float) z, 1.0f);
     }
     
     @SideOnly(Side.CLIENT)
     public void glVertex() {
-        GL11.glVertex3d(this.x, this.y, this.z);
+        GL11.glVertex3d(x, y, z);
     }
     
     public Vector3 YZintercept(final Vector3 end, final double px) {
-        final double dx = end.x - this.x;
-        final double dy = end.y - this.y;
-        final double dz = end.z - this.z;
+        final double dx = end.x - x;
+        final double dy = end.y - y;
+        final double dz = end.z - z;
         if (dx == 0.0) {
             return null;
         }
-        final double d = (px - this.x) / dx;
+        final double d = (px - x) / dx;
         if (MathHelper.between(-1.0E-5, d, 1.0E-5)) {
             return this;
         }
         if (!MathHelper.between(0.0, d, 1.0)) {
             return null;
         }
-        this.x = px;
-        this.y += d * dy;
-        this.z += d * dz;
+        x = px;
+        y += d * dy;
+        z += d * dz;
         return this;
     }
     
     public Vector3 XZintercept(final Vector3 end, final double py) {
-        final double dx = end.x - this.x;
-        final double dy = end.y - this.y;
-        final double dz = end.z - this.z;
+        final double dx = end.x - x;
+        final double dy = end.y - y;
+        final double dz = end.z - z;
         if (dy == 0.0) {
             return null;
         }
-        final double d = (py - this.y) / dy;
+        final double d = (py - y) / dy;
         if (MathHelper.between(-1.0E-5, d, 1.0E-5)) {
             return this;
         }
         if (!MathHelper.between(0.0, d, 1.0)) {
             return null;
         }
-        this.x += d * dx;
-        this.y = py;
-        this.z += d * dz;
+        x += d * dx;
+        y = py;
+        z += d * dz;
         return this;
     }
     
     public Vector3 XYintercept(final Vector3 end, final double pz) {
-        final double dx = end.x - this.x;
-        final double dy = end.y - this.y;
-        final double dz = end.z - this.z;
+        final double dx = end.x - x;
+        final double dy = end.y - y;
+        final double dz = end.z - z;
         if (dz == 0.0) {
             return null;
         }
-        final double d = (pz - this.z) / dz;
+        final double d = (pz - z) / dz;
         if (MathHelper.between(-1.0E-5, d, 1.0E-5)) {
             return this;
         }
         if (!MathHelper.between(0.0, d, 1.0)) {
             return null;
         }
-        this.x += d * dx;
-        this.y += d * dy;
-        this.z = pz;
+        x += d * dx;
+        y += d * dy;
+        z = pz;
         return this;
     }
     
     public Vector3 negate() {
-        this.x = -this.x;
-        this.y = -this.y;
-        this.z = -this.z;
+        x = -x;
+        y = -y;
+        z = -z;
         return this;
     }
     
@@ -400,17 +400,17 @@ public class Vector3 implements Copyable<Vector3>
     
     public double scalarProject(final Vector3 b) {
         final double l = b.mag();
-        return (l == 0.0) ? 0.0 : (this.dotProduct(b) / l);
+        return (l == 0.0) ? 0.0 : (dotProduct(b) / l);
     }
     
     public Vector3 project(final Vector3 b) {
         final double l = b.magSquared();
         if (l == 0.0) {
-            this.set(0.0, 0.0, 0.0);
+            set(0.0, 0.0, 0.0);
             return this;
         }
-        final double m = this.dotProduct(b) / l;
-        this.set(b).multiply(m);
+        final double m = dotProduct(b) / l;
+        set(b).multiply(m);
         return this;
     }
     
@@ -420,11 +420,11 @@ public class Vector3 implements Copyable<Vector3>
             return false;
         }
         final Vector3 v = (Vector3)o;
-        return this.x == v.x && this.y == v.y && this.z == v.z;
+        return x == v.x && y == v.y && z == v.z;
     }
     
     public boolean equalsT(final Vector3 v) {
-        return MathHelper.between(this.x - 1.0E-5, v.x, this.x + 1.0E-5) && MathHelper.between(this.y - 1.0E-5, v.y, this.y + 1.0E-5) && MathHelper.between(this.z - 1.0E-5, v.z, this.z + 1.0E-5);
+        return MathHelper.between(x - 1.0E-5, v.x, x + 1.0E-5) && MathHelper.between(y - 1.0E-5, v.y, y + 1.0E-5) && MathHelper.between(z - 1.0E-5, v.z, z + 1.0E-5);
     }
     
     public Vector3 apply(final Transformation t) {
@@ -433,35 +433,35 @@ public class Vector3 implements Copyable<Vector3>
     }
     
     public Vector3 $tilde() {
-        return this.normalize();
+        return normalize();
     }
     
     public Vector3 unary_$tilde() {
-        return this.normalize();
+        return normalize();
     }
     
     public Vector3 $plus(final Vector3 v) {
-        return this.add(v);
+        return add(v);
     }
     
     public Vector3 $minus(final Vector3 v) {
-        return this.subtract(v);
+        return subtract(v);
     }
     
     public Vector3 $times(final double d) {
-        return this.multiply(d);
+        return multiply(d);
     }
     
     public Vector3 $div(final double d) {
-        return this.multiply(1.0 / d);
+        return multiply(1.0 / d);
     }
     
     public Vector3 $times(final Vector3 v) {
-        return this.crossProduct(v);
+        return crossProduct(v);
     }
     
     public double $dot$times(final Vector3 v) {
-        return this.dotProduct(v);
+        return dotProduct(v);
     }
     
     static {

@@ -27,8 +27,8 @@ public class RenderHomingShard extends Render
     
     public RenderHomingShard(final RenderManager rm) {
         super(rm);
-        this.random = new Random();
-        this.shadowSize = 0.0f;
+        random = new Random();
+        shadowSize = 0.0f;
     }
     
     public void renderEntityAt(final EntityHomingShard entity, final double x, final double y, final double z, final float fq, final float pticks) {
@@ -37,7 +37,7 @@ public class RenderHomingShard extends Render
         GL11.glDepthMask(false);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 1);
-        this.bindTexture(ParticleEngine.particleTexture);
+        bindTexture(ParticleEngine.particleTexture);
         final float f2 = (8 + entity.ticksExisted % 8) / 64.0f;
         final float f3 = f2 + 0.015625f;
         final float f4 = 0.0625f;
@@ -48,8 +48,8 @@ public class RenderHomingShard extends Render
         GL11.glColor4f(0.9f, 0.075f, 0.9525f, 1.0f);
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, z);
-        GL11.glRotatef(180.0f - this.renderManager.playerViewY, 0.0f, 1.0f, 0.0f);
-        GL11.glRotatef(-this.renderManager.playerViewX, 1.0f, 0.0f, 0.0f);
+        GL11.glRotatef(180.0f - renderManager.playerViewY, 0.0f, 1.0f, 0.0f);
+        GL11.glRotatef(-renderManager.playerViewX, 1.0f, 0.0f, 0.0f);
         GL11.glScalef(0.4f + 0.1f * entity.getStrength(), 0.4f + 0.1f * entity.getStrength(), 0.4f + 0.1f * entity.getStrength());
         tessellator.getBuffer().begin(7, UtilsFX.VERTEXFORMAT_POS_TEX_CO_LM_NO);
         final int i = 240;
@@ -63,7 +63,7 @@ public class RenderHomingShard extends Render
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glBlendFunc(770, 1);
-        this.bindTexture(RenderHomingShard.beamTexture);
+        bindTexture(RenderHomingShard.beamTexture);
         final Minecraft mc = Minecraft.getMinecraft();
         final EntityPlayerSP p = mc.player;
         final double doubleX = p.lastTickPosX + (p.posX - p.lastTickPosX) * pticks;
@@ -97,7 +97,7 @@ public class RenderHomingShard extends Render
     }
     
     public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
-        this.renderEntityAt((EntityHomingShard)entity, d, d1, d2, f, f1);
+        renderEntityAt((EntityHomingShard)entity, d, d1, d2, f, f1);
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {

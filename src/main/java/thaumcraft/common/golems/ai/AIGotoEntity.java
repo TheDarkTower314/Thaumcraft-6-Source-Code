@@ -25,28 +25,28 @@ public class AIGotoEntity extends AIGoto
     @Override
     public void updateTask() {
         super.updateTask();
-        if (this.golem.getLookHelper() != null && this.golem.getTask() != null && this.golem.getTask().getEntity() != null) {
-            this.golem.getLookHelper().setLookPositionWithEntity(this.golem.getTask().getEntity(), 10.0f, (float)this.golem.getVerticalFaceSpeed());
+        if (golem.getLookHelper() != null && golem.getTask() != null && golem.getTask().getEntity() != null) {
+            golem.getLookHelper().setLookPositionWithEntity(golem.getTask().getEntity(), 10.0f, (float) golem.getVerticalFaceSpeed());
         }
     }
     
     @Override
     protected void moveTo() {
-        if (this.golem.getNavigator() != null && this.golem.getTask() != null && this.golem.getTask().getEntity() != null) {
-            this.golem.getNavigator().tryMoveToEntityLiving(this.golem.getTask().getEntity(), this.golem.getGolemMoveSpeed());
+        if (golem.getNavigator() != null && golem.getTask() != null && golem.getTask().getEntity() != null) {
+            golem.getNavigator().tryMoveToEntityLiving(golem.getTask().getEntity(), golem.getGolemMoveSpeed());
         }
     }
     
     @Override
     protected boolean findDestination() {
-        final ArrayList<Task> list = TaskHandler.getEntityTasksSorted(this.golem.world.provider.getDimension(), this.golem.getUniqueID(), this.golem);
+        final ArrayList<Task> list = TaskHandler.getEntityTasksSorted(golem.world.provider.getDimension(), golem.getUniqueID(), golem);
         for (final Task ticket : list) {
-            if (this.areGolemTagsValidForTask(ticket) && ticket.canGolemPerformTask(this.golem) && this.golem.isWithinHomeDistanceFromPosition(ticket.getEntity().getPosition()) && this.isValidDestination(this.golem.world, ticket.getEntity().getPosition()) && this.canEasilyReach(ticket.getEntity())) {
-                this.golem.setTask(ticket);
-                this.golem.getTask().setReserved(true);
-                this.minDist = 3.5 + this.golem.getTask().getEntity().width / 2.0f * (this.golem.getTask().getEntity().width / 2.0f);
+            if (areGolemTagsValidForTask(ticket) && ticket.canGolemPerformTask(golem) && golem.isWithinHomeDistanceFromPosition(ticket.getEntity().getPosition()) && isValidDestination(golem.world, ticket.getEntity().getPosition()) && canEasilyReach(ticket.getEntity())) {
+                golem.setTask(ticket);
+                golem.getTask().setReserved(true);
+                minDist = 3.5 + golem.getTask().getEntity().width / 2.0f * (golem.getTask().getEntity().width / 2.0f);
                 if (ModConfig.CONFIG_GRAPHICS.showGolemEmotes) {
-                    this.golem.world.setEntityState(this.golem, (byte)5);
+                    golem.world.setEntityState(golem, (byte)5);
                 }
                 return true;
             }
@@ -55,10 +55,10 @@ public class AIGotoEntity extends AIGoto
     }
     
     private boolean canEasilyReach(final Entity e) {
-        if (this.golem.getDistanceSq(e) < this.minDist) {
+        if (golem.getDistanceSq(e) < minDist) {
             return true;
         }
-        final Path pathentity = this.golem.getNavigator().getPathToEntityLiving(e);
+        final Path pathentity = golem.getNavigator().getPathToEntityLiving(e);
         if (pathentity == null) {
             return false;
         }
@@ -68,6 +68,6 @@ public class AIGotoEntity extends AIGoto
         }
         final int i = pathpoint.x - MathHelper.floor(e.posX);
         final int j = pathpoint.z - MathHelper.floor(e.posZ);
-        return i * i + j * j < this.minDist;
+        return i * i + j * j < minDist;
     }
 }

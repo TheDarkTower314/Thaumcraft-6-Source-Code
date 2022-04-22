@@ -23,17 +23,17 @@ public class ContainerTurretBasic extends Container
     private final World theWorld;
     
     public ContainerTurretBasic(final InventoryPlayer par1InventoryPlayer, final World par3World, final EntityTurretCrossbow ent) {
-        this.turret = ent;
-        this.theWorld = par3World;
-        this.player = par1InventoryPlayer.player;
-        this.addSlotToContainer(new SlotTurretBasic(this.turret, 0, 80, 29));
+        turret = ent;
+        theWorld = par3World;
+        player = par1InventoryPlayer.player;
+        addSlotToContainer(new SlotTurretBasic(turret, 0, 80, 29));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
+            addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
         }
     }
     
@@ -51,16 +51,16 @@ public class ContainerTurretBasic extends Container
     
     public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = this.inventorySlots.get(slot);
+        final Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
             final ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot == 0) {
-                if (!this.mergeItemStack(stackInSlot, 1, this.inventorySlots.size(), true)) {
+                if (!mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.mergeItemStack(stackInSlot, 0, 1, false)) {
+            else if (!mergeItemStack(stackInSlot, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
             if (stackInSlot.getCount() == 0) {

@@ -50,13 +50,13 @@ public class EntityCultistPortalGreater extends EntityMob
     
     public EntityCultistPortalGreater(final World par1World) {
         super(par1World);
-        this.bossInfo = (BossInfoServer)new BossInfoServer(this.getDisplayName(), BossInfo.Color.RED, BossInfo.Overlay.NOTCHED_6).setDarkenSky(true);
-        this.stage = 0;
-        this.stagecounter = 200;
-        this.pulse = 0;
-        this.isImmuneToFire = true;
-        this.experienceValue = 30;
-        this.setSize(1.5f, 3.0f);
+        bossInfo = (BossInfoServer)new BossInfoServer(getDisplayName(), BossInfo.Color.RED, BossInfo.Overlay.NOTCHED_6).setDarkenSky(true);
+        stage = 0;
+        stagecounter = 200;
+        pulse = 0;
+        isImmuneToFire = true;
+        experienceValue = 30;
+        setSize(1.5f, 3.0f);
     }
     
     public int getTotalArmorValue() {
@@ -69,19 +69,19 @@ public class EntityCultistPortalGreater extends EntityMob
     
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setInteger("stage", this.stage);
+        nbt.setInteger("stage", stage);
     }
     
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        this.stage = nbt.getInteger("stage");
+        stage = nbt.getInteger("stage");
     }
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(500.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(0.0);
-        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(500.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(0.0);
+        getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0);
     }
     
     public boolean canBeCollidedWith() {
@@ -113,15 +113,15 @@ public class EntityCultistPortalGreater extends EntityMob
     
     public void onUpdate() {
         super.onUpdate();
-        if (!this.world.isRemote) {
-            if (this.stagecounter > 0) {
-                --this.stagecounter;
-                if (this.stagecounter == 160 && this.stage == 0) {
-                    this.world.setEntityState(this, (byte)16);
+        if (!world.isRemote) {
+            if (stagecounter > 0) {
+                --stagecounter;
+                if (stagecounter == 160 && stage == 0) {
+                    world.setEntityState(this, (byte)16);
                     for (final EnumFacing dir : EnumFacing.HORIZONTALS) {
-                        final BlockPos bp = new BlockPos((int)this.posX - dir.getFrontOffsetX() * 6, (int)this.posY, (int)this.posZ + dir.getFrontOffsetZ() * 6);
-                        this.world.setBlockState(bp, BlocksTC.bannerCrimsonCult.getDefaultState(), 3);
-                        final TileEntity te = this.world.getTileEntity(new BlockPos((int)this.posX - dir.getFrontOffsetX() * 6, (int)this.posY, (int)this.posZ + dir.getFrontOffsetZ() * 6));
+                        final BlockPos bp = new BlockPos((int) posX - dir.getFrontOffsetX() * 6, (int) posY, (int) posZ + dir.getFrontOffsetZ() * 6);
+                        world.setBlockState(bp, BlocksTC.bannerCrimsonCult.getDefaultState(), 3);
+                        final TileEntity te = world.getTileEntity(new BlockPos((int) posX - dir.getFrontOffsetX() * 6, (int) posY, (int) posZ + dir.getFrontOffsetZ() * 6));
                         if (te != null && te instanceof TileBanner) {
                             int face = 0;
                             switch (dir.ordinal()) {
@@ -143,18 +143,18 @@ public class EntityCultistPortalGreater extends EntityMob
                                 }
                             }
                             ((TileBanner)te).setBannerFacing((byte)face);
-                            PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockArc(new BlockPos((int)this.posX - dir.getFrontOffsetX() * 6, (int)this.posY, (int)this.posZ + dir.getFrontOffsetZ() * 6), this, 0.5f + this.rand.nextFloat() * 0.2f, 0.0f, 0.0f), new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.posX, this.posY, this.posZ, 32.0));
-                            this.playSound(SoundsTC.wandfail, 1.0f, 1.0f);
+                            PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockArc(new BlockPos((int) posX - dir.getFrontOffsetX() * 6, (int) posY, (int) posZ + dir.getFrontOffsetZ() * 6), this, 0.5f + rand.nextFloat() * 0.2f, 0.0f, 0.0f), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 32.0));
+                            playSound(SoundsTC.wandfail, 1.0f, 1.0f);
                         }
                     }
                 }
-                if (this.stagecounter > 20 && this.stagecounter < 150 && this.stage == 0 && this.stagecounter % 13 == 0) {
-                    final int a = (int)this.posX + this.rand.nextInt(5) - this.rand.nextInt(5);
-                    final int b = (int)this.posZ + this.rand.nextInt(5) - this.rand.nextInt(5);
-                    final BlockPos bp2 = new BlockPos(a, (int)this.posY, b);
-                    if (a != (int)this.posX && b != (int)this.posZ && this.world.isAirBlock(bp2)) {
-                        this.world.setEntityState(this, (byte)16);
-                        final float rr = this.world.rand.nextFloat();
+                if (stagecounter > 20 && stagecounter < 150 && stage == 0 && stagecounter % 13 == 0) {
+                    final int a = (int) posX + rand.nextInt(5) - rand.nextInt(5);
+                    final int b = (int) posZ + rand.nextInt(5) - rand.nextInt(5);
+                    final BlockPos bp2 = new BlockPos(a, (int) posY, b);
+                    if (a != (int) posX && b != (int) posZ && world.isAirBlock(bp2)) {
+                        world.setEntityState(this, (byte)16);
+                        final float rr = world.rand.nextFloat();
                         final int md = (rr < 0.05f) ? 2 : ((rr < 0.2f) ? 1 : 0);
                         Block bb = BlocksTC.lootCrateCommon;
                         switch (md) {
@@ -167,87 +167,87 @@ public class EntityCultistPortalGreater extends EntityMob
                                 break;
                             }
                         }
-                        this.world.setBlockState(bp2, bb.getDefaultState());
-                        PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockArc(new BlockPos(a, (int)this.posY, b), this, 0.5f + this.rand.nextFloat() * 0.2f, 0.0f, 0.0f), new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.posX, this.posY, this.posZ, 32.0));
-                        this.playSound(SoundsTC.wandfail, 1.0f, 1.0f);
+                        world.setBlockState(bp2, bb.getDefaultState());
+                        PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockArc(new BlockPos(a, (int) posY, b), this, 0.5f + rand.nextFloat() * 0.2f, 0.0f, 0.0f), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 32.0));
+                        playSound(SoundsTC.wandfail, 1.0f, 1.0f);
                     }
                 }
             }
-            else if (this.world.getClosestPlayerToEntity(this, 48.0) != null) {
-                this.world.setEntityState(this, (byte)16);
-                switch (this.stage) {
+            else if (world.getClosestPlayerToEntity(this, 48.0) != null) {
+                world.setEntityState(this, (byte)16);
+                switch (stage) {
                     case 0:
                     case 1:
                     case 2:
                     case 3:
                     case 4: {
-                        this.stagecounter = 15 + this.rand.nextInt(10 - this.stage) - this.stage;
-                        this.spawnMinions();
+                        stagecounter = 15 + rand.nextInt(10 - stage) - stage;
+                        spawnMinions();
                         break;
                     }
                     case 12: {
-                        this.stagecounter = 50 + this.getTiming() * 2 + this.rand.nextInt(50);
-                        this.spawnBoss();
+                        stagecounter = 50 + getTiming() * 2 + rand.nextInt(50);
+                        spawnBoss();
                         break;
                     }
                     default: {
-                        final int t = this.getTiming();
-                        this.stagecounter = t + this.rand.nextInt(5 + t / 3);
-                        this.spawnMinions();
+                        final int t = getTiming();
+                        stagecounter = t + rand.nextInt(5 + t / 3);
+                        spawnMinions();
                         break;
                     }
                 }
-                ++this.stage;
+                ++stage;
             }
             else {
-                this.stagecounter = 30 + this.rand.nextInt(30);
+                stagecounter = 30 + rand.nextInt(30);
             }
-            if (this.stage < 12) {
-                this.heal(1.0f);
+            if (stage < 12) {
+                heal(1.0f);
             }
         }
-        if (this.pulse > 0) {
-            --this.pulse;
+        if (pulse > 0) {
+            --pulse;
         }
     }
     
     int getTiming() {
-        final List<EntityCultist> l = EntityUtils.getEntitiesInRange(this.world, this.posX, this.posY, this.posZ, this, EntityCultist.class, 32.0);
+        final List<EntityCultist> l = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityCultist.class, 32.0);
         return l.size() * 20;
     }
     
     void spawnMinions() {
         EntityCultist cultist = null;
-        if (this.rand.nextFloat() > 0.33) {
-            cultist = new EntityCultistKnight(this.world);
+        if (rand.nextFloat() > 0.33) {
+            cultist = new EntityCultistKnight(world);
         }
         else {
-            cultist = new EntityCultistCleric(this.world);
+            cultist = new EntityCultistCleric(world);
         }
-        cultist.setPosition(this.posX + this.rand.nextFloat() - this.rand.nextFloat(), this.posY + 0.25, this.posZ + this.rand.nextFloat() - this.rand.nextFloat());
-        cultist.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(cultist.getPosition())), null);
-        cultist.setHomePosAndDistance(this.getPosition(), 32);
-        this.world.spawnEntity(cultist);
+        cultist.setPosition(posX + rand.nextFloat() - rand.nextFloat(), posY + 0.25, posZ + rand.nextFloat() - rand.nextFloat());
+        cultist.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(cultist.getPosition())), null);
+        cultist.setHomePosAndDistance(getPosition(), 32);
+        world.spawnEntity(cultist);
         cultist.spawnExplosionParticle();
         cultist.playSound(SoundsTC.wandfail, 1.0f, 1.0f);
-        if (this.stage > 12) {
-            this.attackEntityFrom(DamageSource.OUT_OF_WORLD, (float)(5 + this.rand.nextInt(5)));
+        if (stage > 12) {
+            attackEntityFrom(DamageSource.OUT_OF_WORLD, (float)(5 + rand.nextInt(5)));
         }
     }
     
     void spawnBoss() {
-        final EntityCultistLeader cultist = new EntityCultistLeader(this.world);
-        cultist.setPosition(this.posX + this.rand.nextFloat() - this.rand.nextFloat(), this.posY + 0.25, this.posZ + this.rand.nextFloat() - this.rand.nextFloat());
-        cultist.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(cultist.getPosition())), null);
-        cultist.setHomePosAndDistance(this.getPosition(), 32);
-        this.world.spawnEntity(cultist);
+        final EntityCultistLeader cultist = new EntityCultistLeader(world);
+        cultist.setPosition(posX + rand.nextFloat() - rand.nextFloat(), posY + 0.25, posZ + rand.nextFloat() - rand.nextFloat());
+        cultist.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(cultist.getPosition())), null);
+        cultist.setHomePosAndDistance(getPosition(), 32);
+        world.spawnEntity(cultist);
         cultist.spawnExplosionParticle();
         cultist.playSound(SoundsTC.wandfail, 1.0f, 1.0f);
     }
     
     public void onCollideWithPlayer(final EntityPlayer p) {
-        if (this.getDistanceSq(p) < 3.0 && p.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this), 8.0f)) {
-            this.playSound(SoundsTC.zap, 1.0f, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1f + 1.0f);
+        if (getDistanceSq(p) < 3.0 && p.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this), 8.0f)) {
+            playSound(SoundsTC.zap, 1.0f, (rand.nextFloat() - rand.nextFloat()) * 0.1f + 1.0f);
         }
     }
     
@@ -276,13 +276,13 @@ public class EntityCultistPortalGreater extends EntityMob
     }
     
     protected void dropFewItems(final boolean flag, final int fortune) {
-        EntityUtils.entityDropSpecialItem(this, new ItemStack(ItemsTC.primordialPearl), this.height / 2.0f);
+        EntityUtils.entityDropSpecialItem(this, new ItemStack(ItemsTC.primordialPearl), height / 2.0f);
     }
     
     @SideOnly(Side.CLIENT)
     public void handleStatusUpdate(final byte msg) {
         if (msg == 16) {
-            this.pulse = 10;
+            pulse = 10;
         }
         else {
             super.handleStatusUpdate(msg);
@@ -296,20 +296,20 @@ public class EntityCultistPortalGreater extends EntityMob
     }
     
     public void onDeath(final DamageSource p_70645_1_) {
-        if (!this.world.isRemote) {
-            this.world.newExplosion(this, this.posX, this.posY, this.posZ, 2.0f, false, false);
+        if (!world.isRemote) {
+            world.newExplosion(this, posX, posY, posZ, 2.0f, false, false);
         }
         super.onDeath(p_70645_1_);
     }
     
     public void removeTrackingPlayer(final EntityPlayerMP player) {
         super.removeTrackingPlayer(player);
-        this.bossInfo.removePlayer(player);
+        bossInfo.removePlayer(player);
     }
     
     public void addTrackingPlayer(final EntityPlayerMP player) {
         super.addTrackingPlayer(player);
-        this.bossInfo.addPlayer(player);
+        bossInfo.addPlayer(player);
     }
     
     public boolean isNonBoss() {
@@ -318,6 +318,6 @@ public class EntityCultistPortalGreater extends EntityMob
     
     protected void updateAITasks() {
         super.updateAITasks();
-        this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
+        bossInfo.setPercent(getHealth() / getMaxHealth());
     }
 }

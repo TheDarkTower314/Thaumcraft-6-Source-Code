@@ -28,11 +28,11 @@ public class ChampionModifier
         this.id = id;
         this.type = type;
         this.effect = effect;
-        this.attributeMod = new AttributeModifier(iud, name, id + 2, 0);
+        attributeMod = new AttributeModifier(iud, name, id + 2, 0);
     }
     
     public String getModNameLocalized() {
-        return I18n.translateToLocal("champion.mod." + this.name);
+        return I18n.translateToLocal("champion.mod." + name);
     }
     
     static {

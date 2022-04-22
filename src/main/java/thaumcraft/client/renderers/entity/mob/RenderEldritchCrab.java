@@ -34,7 +34,7 @@ public class RenderEldritchCrab extends RenderLiving
     }
     
     public void doRender(final EntityLiving par1Entity, final double par2, final double par4, final double par6, final float par8, final float par9) {
-        this.renderCrab(par1Entity, par2, par4, par6, par8, par9);
+        renderCrab(par1Entity, par2, par4, par6, par8, par9);
     }
     
     protected void preRenderCallback(final EntityLivingBase entitylivingbaseIn, final float partialTickTime) {

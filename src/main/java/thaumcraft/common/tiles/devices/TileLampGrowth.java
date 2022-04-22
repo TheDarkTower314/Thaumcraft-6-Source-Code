@@ -48,103 +48,103 @@ public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport
     int drawDelay;
     
     public TileLampGrowth() {
-        this.reserve = false;
-        this.charges = -1;
-        this.maxCharges = 20;
-        this.lx = 0;
-        this.ly = 0;
-        this.lz = 0;
-        this.lid = Blocks.AIR;
-        this.lmd = 0;
-        this.checklist = new ArrayList<BlockPos>();
-        this.drawDelay = 0;
+        reserve = false;
+        charges = -1;
+        maxCharges = 20;
+        lx = 0;
+        ly = 0;
+        lz = 0;
+        lid = Blocks.AIR;
+        lmd = 0;
+        checklist = new ArrayList<BlockPos>();
+        drawDelay = 0;
     }
     
     @Override
     public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
-        if (this.world != null && this.world.isRemote) {
-            this.world.checkLightFor(EnumSkyBlock.BLOCK, this.getPos());
+        if (world != null && world.isRemote) {
+            world.checkLightFor(EnumSkyBlock.BLOCK, getPos());
         }
     }
     
     public void update() {
-        if (!this.world.isRemote) {
-            if (this.charges <= 0) {
-                if (this.reserve) {
-                    this.charges = this.maxCharges;
-                    this.reserve = false;
-                    this.markDirty();
-                    this.syncTile(true);
+        if (!world.isRemote) {
+            if (charges <= 0) {
+                if (reserve) {
+                    charges = maxCharges;
+                    reserve = false;
+                    markDirty();
+                    syncTile(true);
                 }
-                else if (this.drawEssentia()) {
-                    this.charges = this.maxCharges;
-                    this.markDirty();
-                    this.syncTile(true);
+                else if (drawEssentia()) {
+                    charges = maxCharges;
+                    markDirty();
+                    syncTile(true);
                 }
-                if (this.charges <= 0) {
-                    if (BlockStateUtils.isEnabled(this.getBlockMetadata())) {
-                        this.world.setBlockState(this.pos, this.world.getBlockState(this.getPos()).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false), 3);
+                if (charges <= 0) {
+                    if (BlockStateUtils.isEnabled(getBlockMetadata())) {
+                        world.setBlockState(pos, world.getBlockState(getPos()).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false), 3);
                     }
                 }
-                else if (!this.gettingPower() && !BlockStateUtils.isEnabled(this.getBlockMetadata())) {
-                    this.world.setBlockState(this.pos, this.world.getBlockState(this.getPos()).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)true), 3);
+                else if (!gettingPower() && !BlockStateUtils.isEnabled(getBlockMetadata())) {
+                    world.setBlockState(pos, world.getBlockState(getPos()).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)true), 3);
                 }
             }
-            if (!this.reserve && this.drawEssentia()) {
-                this.reserve = true;
+            if (!reserve && drawEssentia()) {
+                reserve = true;
             }
-            if (this.charges == 0) {
-                this.charges = -1;
-                this.syncTile(true);
+            if (charges == 0) {
+                charges = -1;
+                syncTile(true);
             }
-            if (!this.gettingPower() && this.charges > 0) {
-                this.updatePlant();
+            if (!gettingPower() && charges > 0) {
+                updatePlant();
             }
         }
     }
     
     boolean isPlant(final BlockPos bp) {
-        final IBlockState b = this.world.getBlockState(bp);
+        final IBlockState b = world.getBlockState(bp);
         final boolean flag = b.getBlock() instanceof IGrowable;
         final Material mat = b.getMaterial();
         return (flag || mat == Material.CACTUS || mat == Material.PLANTS) && mat != Material.GRASS;
     }
     
     private void updatePlant() {
-        final IBlockState bs = this.world.getBlockState(new BlockPos(this.lx, this.ly, this.lz));
-        if (this.lid != bs.getBlock() || this.lmd != bs.getBlock().getMetaFromState(bs)) {
-            final EntityPlayer p = this.world.getClosestPlayer(this.lx, this.ly, this.lz, 32.0, false);
+        final IBlockState bs = world.getBlockState(new BlockPos(lx, ly, lz));
+        if (lid != bs.getBlock() || lmd != bs.getBlock().getMetaFromState(bs)) {
+            final EntityPlayer p = world.getClosestPlayer(lx, ly, lz, 32.0, false);
             if (p != null) {
-                PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockMist(new BlockPos(this.lx, this.ly, this.lz), 4259648), new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.lx, this.ly, this.lz, 32.0));
+                PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockMist(new BlockPos(lx, ly, lz), 4259648), new NetworkRegistry.TargetPoint(world.provider.getDimension(), lx, ly, lz, 32.0));
             }
-            this.lid = bs.getBlock();
-            this.lmd = bs.getBlock().getMetaFromState(bs);
+            lid = bs.getBlock();
+            lmd = bs.getBlock().getMetaFromState(bs);
         }
         final int distance = 6;
-        if (this.checklist.size() == 0) {
+        if (checklist.size() == 0) {
             for (int a = -distance; a <= distance; ++a) {
                 for (int b = -distance; b <= distance; ++b) {
-                    this.checklist.add(this.getPos().add(a, distance, b));
+                    checklist.add(getPos().add(a, distance, b));
                 }
             }
-            Collections.shuffle(this.checklist, this.world.rand);
+            Collections.shuffle(checklist, world.rand);
         }
-        final int x = this.checklist.get(0).getX();
-        int y = this.checklist.get(0).getY();
-        final int z = this.checklist.get(0).getZ();
-        this.checklist.remove(0);
-        while (y >= this.pos.getY() - distance) {
+        final int x = checklist.get(0).getX();
+        int y = checklist.get(0).getY();
+        final int z = checklist.get(0).getZ();
+        checklist.remove(0);
+        while (y >= pos.getY() - distance) {
             final BlockPos bp = new BlockPos(x, y, z);
-            if (!this.world.isAirBlock(bp) && this.isPlant(bp) && this.getDistanceSq(x + 0.5, y + 0.5, z + 0.5) < distance * distance && !CropUtils.isGrownCrop(this.world, bp) && CropUtils.doesLampGrow(this.world, bp)) {
-                --this.charges;
-                this.lx = x;
-                this.ly = y;
-                this.lz = z;
-                final IBlockState bs2 = this.world.getBlockState(bp);
-                this.lid = bs2.getBlock();
-                this.lmd = bs2.getBlock().getMetaFromState(bs2);
-                this.world.scheduleUpdate(bp, this.lid, 1);
+            if (!world.isAirBlock(bp) && isPlant(bp) && getDistanceSq(x + 0.5, y + 0.5, z + 0.5) < distance * distance && !CropUtils.isGrownCrop(world, bp) && CropUtils.doesLampGrow(world, bp)) {
+                --charges;
+                lx = x;
+                ly = y;
+                lz = z;
+                final IBlockState bs2 = world.getBlockState(bp);
+                lid = bs2.getBlock();
+                lmd = bs2.getBlock().getMetaFromState(bs2);
+                world.scheduleUpdate(bp, lid, 1);
                 return;
             }
             --y;
@@ -153,28 +153,28 @@ public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
-        this.reserve = nbttagcompound.getBoolean("reserve");
-        this.charges = nbttagcompound.getInteger("charges");
+        reserve = nbttagcompound.getBoolean("reserve");
+        charges = nbttagcompound.getInteger("charges");
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
-        nbttagcompound.setBoolean("reserve", this.reserve);
-        nbttagcompound.setInteger("charges", this.charges);
+        nbttagcompound.setBoolean("reserve", reserve);
+        nbttagcompound.setInteger("charges", charges);
         return nbttagcompound;
     }
     
     boolean drawEssentia() {
-        if (++this.drawDelay % 5 != 0) {
+        if (++drawDelay % 5 != 0) {
             return false;
         }
-        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(this.world, this.getPos(), BlockStateUtils.getFacing(this.getBlockMetadata()));
+        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), BlockStateUtils.getFacing(getBlockMetadata()));
         if (te != null) {
             final IEssentiaTransport ic = (IEssentiaTransport)te;
-            if (!ic.canOutputTo(BlockStateUtils.getFacing(this.getBlockMetadata()).getOpposite())) {
+            if (!ic.canOutputTo(BlockStateUtils.getFacing(getBlockMetadata()).getOpposite())) {
                 return false;
             }
-            if (ic.getSuctionAmount(BlockStateUtils.getFacing(this.getBlockMetadata()).getOpposite()) < this.getSuctionAmount(BlockStateUtils.getFacing(this.getBlockMetadata())) && ic.takeEssentia(Aspect.PLANT, 1, BlockStateUtils.getFacing(this.getBlockMetadata()).getOpposite()) == 1) {
+            if (ic.getSuctionAmount(BlockStateUtils.getFacing(getBlockMetadata()).getOpposite()) < getSuctionAmount(BlockStateUtils.getFacing(getBlockMetadata())) && ic.takeEssentia(Aspect.PLANT, 1, BlockStateUtils.getFacing(getBlockMetadata()).getOpposite()) == 1) {
                 return true;
             }
         }
@@ -183,12 +183,12 @@ public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport
     
     @Override
     public boolean isConnectable(final EnumFacing face) {
-        return face == BlockStateUtils.getFacing(this.getBlockMetadata());
+        return face == BlockStateUtils.getFacing(getBlockMetadata());
     }
     
     @Override
     public boolean canInputFrom(final EnumFacing face) {
-        return face == BlockStateUtils.getFacing(this.getBlockMetadata());
+        return face == BlockStateUtils.getFacing(getBlockMetadata());
     }
     
     @Override
@@ -212,7 +212,7 @@ public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport
     
     @Override
     public int getSuctionAmount(final EnumFacing face) {
-        return (face == BlockStateUtils.getFacing(this.getBlockMetadata()) && (!this.reserve || this.charges <= 0)) ? 128 : 0;
+        return (face == BlockStateUtils.getFacing(getBlockMetadata()) && (!reserve || charges <= 0)) ? 128 : 0;
     }
     
     @Override

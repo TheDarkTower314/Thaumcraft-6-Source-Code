@@ -116,7 +116,7 @@ public class ResearchStage {
 	 * @param research the research to set
 	 */
 	public void setResearchIcon(String[] research) {
-		this.researchIcon = research;
+		researchIcon = research;
 	}
 	
 	/**
@@ -141,7 +141,7 @@ public class ResearchStage {
 			super();
 			this.type = type;
 			this.category = category;
-			this.amount = num;
+			amount = num;
 		}
 
 		public static Knowledge parse(String text) {

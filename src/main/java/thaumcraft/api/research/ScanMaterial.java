@@ -11,7 +11,7 @@ public class ScanMaterial implements IScanThing {
 	
 	public ScanMaterial(Material mat) {
 		research = "!"+mat.getClass().getTypeName();
-		this.mats = new Material[] {mat};
+		mats = new Material[] {mat};
 	}
 
 	public ScanMaterial(String research, Material ... mats) {

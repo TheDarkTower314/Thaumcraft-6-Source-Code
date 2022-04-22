@@ -24,12 +24,12 @@ public class InfusionRecipe implements IThaumcraftRecipe
 	public int instability;
 	
 	public InfusionRecipe(String research, Object outputResult, int inst, AspectList aspects2, Object centralItem, Object ... recipe) {
-		this.name="";
+		name="";
 		this.research = research;
-		this.recipeOutput = outputResult;
-		this.aspects = aspects2;
-		this.instability = inst;		
-		this.sourceInput = ThaumcraftApiHelper.getIngredient(centralItem);
+		recipeOutput = outputResult;
+		aspects = aspects2;
+		instability = inst;
+		sourceInput = ThaumcraftApiHelper.getIngredient(centralItem);
 		if (sourceInput==null) {
 			String ret = "Invalid infusion central item: "+centralItem;
             throw new RuntimeException(ret);
@@ -60,7 +60,7 @@ public class InfusionRecipe implements IThaumcraftRecipe
 		if (!ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(research)) {
     		return false;
     	}		
-		return (getRecipeInput()==Ingredient.EMPTY || this.getRecipeInput().apply(central)) && RecipeMatcher.findMatches(input, getComponents()) != null;
+		return (getRecipeInput()==Ingredient.EMPTY || getRecipeInput().apply(central)) && RecipeMatcher.findMatches(input, getComponents()) != null;
     }
     
 	@Override
@@ -104,7 +104,7 @@ public class InfusionRecipe implements IThaumcraftRecipe
 	}
 	
 	public InfusionRecipe setGroup(ResourceLocation s) {
-		this.group=s.toString();
+		group=s.toString();
 		return this;
 	}
 }

@@ -50,7 +50,7 @@ public class FocusEffectRift extends FocusEffect
     
     @Override
     public int getComplexity() {
-        return 3 + this.getSettingValue("duration") / 2 + this.getSettingValue("depth") / 4;
+        return 3 + getSettingValue("duration") / 2 + getSettingValue("depth") / 4;
     }
     
     @Override
@@ -58,25 +58,25 @@ public class FocusEffectRift extends FocusEffect
         if (target.typeOfHit != RayTraceResult.Type.BLOCK) {
             return false;
         }
-        if (this.getPackage().world.provider.getDimension() == ModConfig.CONFIG_WORLD.dimensionOuterId) {
-            this.getPackage().world.playSound(null, target.getBlockPos().getX() + 0.5, target.getBlockPos().getY() + 0.5, target.getBlockPos().getZ() + 0.5, SoundsTC.wandfail, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        if (getPackage().world.provider.getDimension() == ModConfig.CONFIG_WORLD.dimensionOuterId) {
+            getPackage().world.playSound(null, target.getBlockPos().getX() + 0.5, target.getBlockPos().getY() + 0.5, target.getBlockPos().getZ() + 0.5, SoundsTC.wandfail, SoundCategory.PLAYERS, 1.0f, 1.0f);
             return false;
         }
-        final float maxdis = this.getSettingValue("depth") * finalPower;
-        final int dur = 20 * this.getSettingValue("duration");
+        final float maxdis = getSettingValue("depth") * finalPower;
+        final int dur = 20 * getSettingValue("duration");
         int distance = 0;
         BlockPos pos = new BlockPos(target.getBlockPos());
         for (distance = 0; distance < maxdis; ++distance) {
-            final IBlockState bi = this.getPackage().world.getBlockState(pos);
-            if (BlockUtils.isPortableHoleBlackListed(bi) || bi.getBlock() == Blocks.BEDROCK || bi.getBlock() == BlocksTC.hole || bi.getBlock().isAir(bi, this.getPackage().world, pos)) {
+            final IBlockState bi = getPackage().world.getBlockState(pos);
+            if (BlockUtils.isPortableHoleBlackListed(bi) || bi.getBlock() == Blocks.BEDROCK || bi.getBlock() == BlocksTC.hole || bi.getBlock().isAir(bi, getPackage().world, pos)) {
                 break;
             }
-            if (bi.getBlockHardness(this.getPackage().world, pos) == -1.0f) {
+            if (bi.getBlockHardness(getPackage().world, pos) == -1.0f) {
                 break;
             }
             pos = pos.offset(target.sideHit.getOpposite());
         }
-        createHole(this.getPackage().world, target.getBlockPos(), target.sideHit, (byte)Math.round((float)(distance + 1)), dur);
+        createHole(getPackage().world, target.getBlockPos(), target.sideHit, (byte)Math.round((float)(distance + 1)), dur);
         return true;
     }
     

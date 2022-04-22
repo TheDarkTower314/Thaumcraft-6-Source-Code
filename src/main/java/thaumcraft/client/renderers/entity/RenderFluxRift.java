@@ -29,9 +29,9 @@ public class RenderFluxRift extends Render
     
     public RenderFluxRift(final RenderManager rm) {
         super(rm);
-        this.gle = new CoreGLE();
-        this.shadowSize = 0.0f;
-        this.shaderCallback = new ShaderCallback() {
+        gle = new CoreGLE();
+        shadowSize = 0.0f;
+        shaderCallback = new ShaderCallback() {
             @Override
             public void call(final int shader) {
                 final Minecraft mc = Minecraft.getMinecraft();
@@ -47,8 +47,8 @@ public class RenderFluxRift extends Render
         final EntityFluxRift rift = (EntityFluxRift)entity;
         final boolean goggles = EntityUtils.hasGoggles(Minecraft.getMinecraft().player);
         GL11.glPushMatrix();
-        this.bindTexture(RenderFluxRift.starsTexture);
-        ShaderHelper.useShader(ShaderHelper.endShader, this.shaderCallback);
+        bindTexture(RenderFluxRift.starsTexture);
+        ShaderHelper.useShader(ShaderHelper.endShader, shaderCallback);
         final float amp = 1.0f;
         final float stab = MathHelper.clamp(1.0f - rift.getRiftStability() / 50.0f, 0.0f, 1.5f);
         GL11.glEnable(3042);
@@ -83,9 +83,9 @@ public class RenderFluxRift extends Render
                     final double w = 1.0 - Math.sin(var / 8.0f * amp) * 0.10000000149011612 * stab;
                     radii[a] = rift.pointsWidth.get(a) * w * ((q < 3) ? (1.25f + 0.5f * q) : 1.0f);
                 }
-                this.gle.set_POLYCYL_TESS(6);
-                this.gle.gleSetJoinStyle(1026);
-                this.gle.glePolyCone(pp.length, pp, colours, radii, 1.0f, 0.0f);
+                gle.set_POLYCYL_TESS(6);
+                gle.gleSetJoinStyle(1026);
+                gle.glePolyCone(pp.length, pp, colours, radii, 1.0f, 0.0f);
                 GL11.glPopMatrix();
             }
             if (q < 3) {

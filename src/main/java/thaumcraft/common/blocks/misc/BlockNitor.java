@@ -27,9 +27,9 @@ public class BlockNitor extends BlockTC implements ITileEntityProvider
     
     public BlockNitor(final String name, final EnumDyeColor dye) {
         super(Material.CIRCUITS, name);
-        this.setHardness(0.1f);
-        this.setSoundType(SoundType.CLOTH);
-        this.setLightLevel(1.0f);
+        setHardness(0.1f);
+        setSoundType(SoundType.CLOTH);
+        setLightLevel(1.0f);
         this.dye = dye;
     }
     
@@ -42,7 +42,7 @@ public class BlockNitor extends BlockTC implements ITileEntityProvider
     }
     
     public MapColor getMapColor(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
-        return MapColor.getBlockColor(this.dye);
+        return MapColor.getBlockColor(dye);
     }
     
     public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {

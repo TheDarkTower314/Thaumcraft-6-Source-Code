@@ -31,9 +31,9 @@ public class ItemCreativeFluxSponge extends ItemTCBase
 {
     public ItemCreativeFluxSponge() {
         super("creative_flux_sponge");
-        this.setMaxStackSize(1);
-        this.setHasSubtypes(false);
-        this.setMaxDamage(0);
+        setMaxStackSize(1);
+        setHasSubtypes(false);
+        setMaxDamage(0);
     }
     
     @SideOnly(Side.CLIENT)

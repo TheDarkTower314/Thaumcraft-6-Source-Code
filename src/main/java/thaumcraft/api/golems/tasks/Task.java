@@ -35,22 +35,22 @@ public class Task {
 		this.sealPos = sealPos;
 		this.pos = pos;
 		if (sealPos==null) {
-			this.id = (System.currentTimeMillis()+"/BNPOS/"+pos.toString()).hashCode();
+			id = (System.currentTimeMillis()+"/BNPOS/"+pos.toString()).hashCode();
 		} else
-			this.id = (System.currentTimeMillis()+"/B/"+sealPos.face.toString()+"/"+sealPos.pos.toString()+"/"+pos.toString()).hashCode();
-		this.type = 0;
-		this.lifespan = 300;
+			id = (System.currentTimeMillis()+"/B/"+sealPos.face.toString()+"/"+sealPos.pos.toString()+"/"+pos.toString()).hashCode();
+		type = 0;
+		lifespan = 300;
 	}
 	
 	public Task(SealPos sealPos, Entity entity) {
 		this.sealPos = sealPos;
 		this.entity = entity;
 		if (sealPos==null) {
-			this.id = (System.currentTimeMillis()+"/ENPOS/"+entity.getEntityId()).hashCode();
+			id = (System.currentTimeMillis()+"/ENPOS/"+entity.getEntityId()).hashCode();
 		} else
-			this.id = (System.currentTimeMillis()+"/E/"+sealPos.face.toString()+"/"+sealPos.pos.toString()+"/"+entity.getEntityId()).hashCode();
-		this.type = 1;
-		this.lifespan = 300;
+			id = (System.currentTimeMillis()+"/E/"+sealPos.face.toString()+"/"+sealPos.pos.toString()+"/"+entity.getEntityId()).hashCode();
+		type = 1;
+		lifespan = 300;
 	}	
 
 	public byte getPriority() {
@@ -66,8 +66,8 @@ public class Task {
 	}
 
 	public void setCompletion(boolean fulfilled) {
-		this.completed = fulfilled;
-		this.lifespan += 1;
+		completed = fulfilled;
+		lifespan += 1;
 	}
 
 	public UUID getGolemUUID() {
@@ -99,8 +99,8 @@ public class Task {
 	}
 
 	public void setReserved(boolean res) {
-		this.reserved = res;
-		this.lifespan += 120;
+		reserved = res;
+		lifespan += 120;
 	}
 
 	public boolean isSuspended() {
@@ -108,7 +108,7 @@ public class Task {
 	}
 
 	public void setSuspended(boolean suspended) {
-		this.setLinkedProvision(null);
+		setLinkedProvision(null);
 		this.suspended = suspended;
 	}
 
@@ -125,7 +125,7 @@ public class Task {
         else
         {
         	Task t = (Task)o;
-            return t.id == this.id;
+            return t.id == id;
         }
     }
 
@@ -134,11 +134,11 @@ public class Task {
 	}
 	
 	public void setLifespan(short ls) {
-		this.lifespan = ls;
+		lifespan = ls;
 	}
 
 	public boolean canGolemPerformTask(IGolemAPI golem) {
-		ISealEntity se = GolemHelper.getSealEntity(golem.getGolemWorld().provider.getDimension(), this.sealPos);
+		ISealEntity se = GolemHelper.getSealEntity(golem.getGolemWorld().provider.getDimension(), sealPos);
 		if (se!=null) {
 			if (golem.getGolemColor()>0 && se.getColor()>0 && golem.getGolemColor() != se.getColor()) return false;
 			return se.getSeal().canGolemPerformTask(golem,this);

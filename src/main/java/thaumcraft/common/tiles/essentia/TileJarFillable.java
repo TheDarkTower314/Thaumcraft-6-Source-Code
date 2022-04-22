@@ -24,49 +24,49 @@ public class TileJarFillable extends TileJar implements IAspectSource, IEssentia
     int count;
     
     public TileJarFillable() {
-        this.aspect = null;
-        this.aspectFilter = null;
-        this.amount = 0;
-        this.facing = 2;
-        this.blocked = false;
-        this.count = 0;
+        aspect = null;
+        aspectFilter = null;
+        amount = 0;
+        facing = 2;
+        blocked = false;
+        count = 0;
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
-        this.aspect = Aspect.getAspect(nbttagcompound.getString("Aspect"));
-        this.aspectFilter = Aspect.getAspect(nbttagcompound.getString("AspectFilter"));
-        this.amount = nbttagcompound.getShort("Amount");
-        this.facing = nbttagcompound.getByte("facing");
-        this.blocked = nbttagcompound.getBoolean("blocked");
+        aspect = Aspect.getAspect(nbttagcompound.getString("Aspect"));
+        aspectFilter = Aspect.getAspect(nbttagcompound.getString("AspectFilter"));
+        amount = nbttagcompound.getShort("Amount");
+        facing = nbttagcompound.getByte("facing");
+        blocked = nbttagcompound.getBoolean("blocked");
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
-        if (this.aspect != null) {
-            nbttagcompound.setString("Aspect", this.aspect.getTag());
+        if (aspect != null) {
+            nbttagcompound.setString("Aspect", aspect.getTag());
         }
-        if (this.aspectFilter != null) {
-            nbttagcompound.setString("AspectFilter", this.aspectFilter.getTag());
+        if (aspectFilter != null) {
+            nbttagcompound.setString("AspectFilter", aspectFilter.getTag());
         }
-        nbttagcompound.setShort("Amount", (short)this.amount);
-        nbttagcompound.setByte("facing", (byte)this.facing);
-        nbttagcompound.setBoolean("blocked", this.blocked);
+        nbttagcompound.setShort("Amount", (short) amount);
+        nbttagcompound.setByte("facing", (byte) facing);
+        nbttagcompound.setBoolean("blocked", blocked);
         return nbttagcompound;
     }
     
     public AspectList getAspects() {
         final AspectList al = new AspectList();
-        if (this.aspect != null && this.amount > 0) {
-            al.add(this.aspect, this.amount);
+        if (aspect != null && amount > 0) {
+            al.add(aspect, amount);
         }
         return al;
     }
     
     public void setAspects(final AspectList aspects) {
         if (aspects != null && aspects.size() > 0) {
-            this.aspect = aspects.getAspectsSortedByAmount()[0];
-            this.amount = aspects.getAmount(aspects.getAspectsSortedByAmount()[0]);
+            aspect = aspects.getAspectsSortedByAmount()[0];
+            amount = aspects.getAmount(aspects.getAspectsSortedByAmount()[0]);
         }
     }
     
@@ -74,26 +74,26 @@ public class TileJarFillable extends TileJar implements IAspectSource, IEssentia
         if (am == 0) {
             return am;
         }
-        if ((this.amount < 250 && tt == this.aspect) || this.amount == 0) {
-            this.aspect = tt;
-            final int added = Math.min(am, 250 - this.amount);
-            this.amount += added;
+        if ((amount < 250 && tt == aspect) || amount == 0) {
+            aspect = tt;
+            final int added = Math.min(am, 250 - amount);
+            amount += added;
             am -= added;
         }
-        this.syncTile(false);
-        this.markDirty();
+        syncTile(false);
+        markDirty();
         return am;
     }
     
     public boolean takeFromContainer(final Aspect tt, final int am) {
-        if (this.amount >= am && tt == this.aspect) {
-            this.amount -= am;
-            if (this.amount <= 0) {
-                this.aspect = null;
-                this.amount = 0;
+        if (amount >= am && tt == aspect) {
+            amount -= am;
+            if (amount <= 0) {
+                aspect = null;
+                amount = 0;
             }
-            this.syncTile(false);
-            this.markDirty();
+            syncTile(false);
+            markDirty();
             return true;
         }
         return false;
@@ -104,12 +104,12 @@ public class TileJarFillable extends TileJar implements IAspectSource, IEssentia
     }
     
     public boolean doesContainerContainAmount(final Aspect tag, final int amt) {
-        return this.amount >= amt && tag == this.aspect;
+        return amount >= amt && tag == aspect;
     }
     
     public boolean doesContainerContain(final AspectList ot) {
         for (final Aspect tt : ot.getAspects()) {
-            if (this.amount > 0 && tt == this.aspect) {
+            if (amount > 0 && tt == aspect) {
                 return true;
             }
         }
@@ -117,14 +117,14 @@ public class TileJarFillable extends TileJar implements IAspectSource, IEssentia
     }
     
     public int containerContains(final Aspect tag) {
-        if (tag == this.aspect) {
-            return this.amount;
+        if (tag == aspect) {
+            return amount;
         }
         return 0;
     }
     
     public boolean doesContainerAccept(final Aspect tag) {
-        return this.aspectFilter == null || tag.equals(this.aspectFilter);
+        return aspectFilter == null || tag.equals(aspectFilter);
     }
     
     @Override
@@ -148,20 +148,20 @@ public class TileJarFillable extends TileJar implements IAspectSource, IEssentia
     
     @Override
     public int getMinimumSuction() {
-        return (this.aspectFilter != null) ? 64 : 32;
+        return (aspectFilter != null) ? 64 : 32;
     }
     
     @Override
     public Aspect getSuctionType(final EnumFacing loc) {
-        return (this.aspectFilter != null) ? this.aspectFilter : this.aspect;
+        return (aspectFilter != null) ? aspectFilter : aspect;
     }
     
     @Override
     public int getSuctionAmount(final EnumFacing loc) {
-        if (this.amount >= 250) {
+        if (amount >= 250) {
             return 0;
         }
-        if (this.aspectFilter != null) {
+        if (aspectFilter != null) {
             return 64;
         }
         return 32;
@@ -169,56 +169,56 @@ public class TileJarFillable extends TileJar implements IAspectSource, IEssentia
     
     @Override
     public Aspect getEssentiaType(final EnumFacing loc) {
-        return this.aspect;
+        return aspect;
     }
     
     @Override
     public int getEssentiaAmount(final EnumFacing loc) {
-        return this.amount;
+        return amount;
     }
     
     @Override
     public int takeEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
-        return (this.canOutputTo(face) && this.takeFromContainer(aspect, amount)) ? amount : 0;
+        return (canOutputTo(face) && takeFromContainer(aspect, amount)) ? amount : 0;
     }
     
     @Override
     public int addEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
-        return this.canInputFrom(face) ? (amount - this.addToContainer(aspect, amount)) : 0;
+        return canInputFrom(face) ? (amount - addToContainer(aspect, amount)) : 0;
     }
     
     @Override
     public void update() {
-        if (!this.world.isRemote && ++this.count % 5 == 0 && this.amount < 250) {
-            this.fillJar();
+        if (!world.isRemote && ++count % 5 == 0 && amount < 250) {
+            fillJar();
         }
     }
     
     void fillJar() {
-        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(this.world, this.pos, EnumFacing.UP);
+        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, pos, EnumFacing.UP);
         if (te != null) {
             final IEssentiaTransport ic = (IEssentiaTransport)te;
             if (!ic.canOutputTo(EnumFacing.DOWN)) {
                 return;
             }
             Aspect ta = null;
-            if (this.aspectFilter != null) {
-                ta = this.aspectFilter;
+            if (aspectFilter != null) {
+                ta = aspectFilter;
             }
-            else if (this.aspect != null && this.amount > 0) {
-                ta = this.aspect;
+            else if (aspect != null && amount > 0) {
+                ta = aspect;
             }
-            else if (ic.getEssentiaAmount(EnumFacing.DOWN) > 0 && ic.getSuctionAmount(EnumFacing.DOWN) < this.getSuctionAmount(EnumFacing.UP) && this.getSuctionAmount(EnumFacing.UP) >= ic.getMinimumSuction()) {
+            else if (ic.getEssentiaAmount(EnumFacing.DOWN) > 0 && ic.getSuctionAmount(EnumFacing.DOWN) < getSuctionAmount(EnumFacing.UP) && getSuctionAmount(EnumFacing.UP) >= ic.getMinimumSuction()) {
                 ta = ic.getEssentiaType(EnumFacing.DOWN);
             }
-            if (ta != null && ic.getSuctionAmount(EnumFacing.DOWN) < this.getSuctionAmount(EnumFacing.UP)) {
-                this.addToContainer(ta, ic.takeEssentia(ta, 1, EnumFacing.DOWN));
+            if (ta != null && ic.getSuctionAmount(EnumFacing.DOWN) < getSuctionAmount(EnumFacing.UP)) {
+                addToContainer(ta, ic.takeEssentia(ta, 1, EnumFacing.DOWN));
             }
         }
     }
     
     @Override
     public boolean isBlocked() {
-        return this.blocked;
+        return blocked;
     }
 }

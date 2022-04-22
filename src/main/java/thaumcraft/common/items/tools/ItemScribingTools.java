@@ -11,8 +11,8 @@ public class ItemScribingTools extends ItemTCBase implements IScribeTools
 {
     public ItemScribingTools() {
         super("scribing_tools");
-        this.maxStackSize = 1;
-        this.setMaxDamage(100);
-        this.setHasSubtypes(false);
+        maxStackSize = 1;
+        setMaxDamage(100);
+        setHasSubtypes(false);
     }
 }

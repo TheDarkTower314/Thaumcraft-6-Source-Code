@@ -52,7 +52,7 @@ public class BlockBannerTCItem extends ItemBlock
         if (worldIn.isRemote) {
             return EnumActionResult.FAIL;
         }
-        worldIn.setBlockState(pos, this.block.getDefaultState(), 3);
+        worldIn.setBlockState(pos, block.getDefaultState(), 3);
         final TileBanner tile = (TileBanner)worldIn.getTileEntity(pos);
         if (tile != null) {
             if (side == EnumFacing.UP) {
@@ -77,7 +77,7 @@ public class BlockBannerTCItem extends ItemBlock
                 tile.setAspect(Aspect.getAspect(player.getHeldItem(hand).getTagCompound().getString("aspect")));
             }
             tile.markDirty();
-            worldIn.markAndNotifyBlock(pos, worldIn.getChunkFromBlockCoords(pos), this.block.getDefaultState(), this.block.getDefaultState(), 3);
+            worldIn.markAndNotifyBlock(pos, worldIn.getChunkFromBlockCoords(pos), block.getDefaultState(), block.getDefaultState(), 3);
         }
         player.getHeldItem(hand).shrink(1);
         return EnumActionResult.SUCCESS;

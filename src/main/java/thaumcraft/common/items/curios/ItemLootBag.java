@@ -26,7 +26,7 @@ public class ItemLootBag extends ItemTCBase
 {
     public ItemLootBag() {
         super("loot_bag", "common", "uncommon", "rare");
-        this.setMaxStackSize(16);
+        setMaxStackSize(16);
     }
     
     public EnumRarity getRarity(final ItemStack stack) {

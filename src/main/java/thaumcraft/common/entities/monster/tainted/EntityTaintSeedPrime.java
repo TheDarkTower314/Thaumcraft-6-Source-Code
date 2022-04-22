@@ -12,8 +12,8 @@ public class EntityTaintSeedPrime extends EntityTaintSeed
 {
     public EntityTaintSeedPrime(final World par1World) {
         super(par1World);
-        this.setSize(2.0f, 2.0f);
-        this.experienceValue = 12;
+        setSize(2.0f, 2.0f);
+        experienceValue = 12;
     }
     
     @Override
@@ -24,19 +24,19 @@ public class EntityTaintSeedPrime extends EntityTaintSeed
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(150.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(150.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.0);
     }
     
     @Override
     protected void dropFewItems(final boolean flag, final int i) {
-        this.entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), this.height / 2.0f);
-        if (this.rand.nextBoolean()) {
-            this.entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), this.height / 2.0f);
+        entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), height / 2.0f);
+        if (rand.nextBoolean()) {
+            entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), height / 2.0f);
         }
-        if (this.rand.nextBoolean()) {
-            this.entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), this.height / 2.0f);
+        if (rand.nextBoolean()) {
+            entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), height / 2.0f);
         }
     }
 }

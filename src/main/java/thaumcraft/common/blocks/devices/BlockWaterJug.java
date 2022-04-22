@@ -40,7 +40,7 @@ public class BlockWaterJug extends BlockTCDevice
 {
     public BlockWaterJug() {
         super(Material.ROCK, TileWaterJug.class, "everfull_urn");
-        this.setSoundType(SoundType.STONE);
+        setSoundType(SoundType.STONE);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {

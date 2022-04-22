@@ -31,17 +31,17 @@ public class PacketKnowledgeGain implements IMessage, IMessageHandler<PacketKnow
     
     public PacketKnowledgeGain(final byte type, final String value) {
         this.type = type;
-        this.cat = ((value == null) ? "" : value);
+        cat = ((value == null) ? "" : value);
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeByte(this.type);
-        ByteBufUtils.writeUTF8String(buffer, this.cat);
+        buffer.writeByte(type);
+        ByteBufUtils.writeUTF8String(buffer, cat);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.type = buffer.readByte();
-        this.cat = ByteBufUtils.readUTF8String(buffer);
+        type = buffer.readByte();
+        cat = ByteBufUtils.readUTF8String(buffer);
     }
     
     @SideOnly(Side.CLIENT)
@@ -49,7 +49,7 @@ public class PacketKnowledgeGain implements IMessage, IMessageHandler<PacketKnow
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                PacketKnowledgeGain.this.processMessage(message);
+                processMessage(message);
             }
         });
         return null;

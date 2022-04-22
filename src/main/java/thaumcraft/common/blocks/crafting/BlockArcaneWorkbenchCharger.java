@@ -27,9 +27,9 @@ public class BlockArcaneWorkbenchCharger extends BlockTC
 {
     public BlockArcaneWorkbenchCharger() {
         super(Material.WOOD, "arcane_workbench_charger");
-        this.setSoundType(SoundType.WOOD);
-        this.setHardness(1.25f);
-        this.setResistance(10.0f);
+        setSoundType(SoundType.WOOD);
+        setHardness(1.25f);
+        setResistance(10.0f);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {
@@ -61,7 +61,7 @@ public class BlockArcaneWorkbenchCharger extends BlockTC
     
     public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
         if (worldIn.getBlockState(pos.down()).getBlock() != BlocksTC.arcaneWorkbench && worldIn.getBlockState(pos.down()).getBlock() != BlocksTC.wandWorkbench) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }

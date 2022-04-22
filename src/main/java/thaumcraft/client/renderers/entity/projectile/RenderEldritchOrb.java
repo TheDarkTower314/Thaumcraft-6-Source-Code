@@ -21,13 +21,13 @@ public class RenderEldritchOrb extends Render
     
     public RenderEldritchOrb(final RenderManager renderManager) {
         super(renderManager);
-        this.random = new Random();
-        this.shadowSize = 0.0f;
+        random = new Random();
+        shadowSize = 0.0f;
     }
     
     public void renderEntityAt(final Entity entity, final double x, final double y, final double z, final float fq, final float pticks) {
         final Tessellator tessellator = Tessellator.getInstance();
-        this.random.setSeed(187L);
+        random.setSeed(187L);
         GL11.glPushMatrix();
         RenderHelper.disableStandardItemLighting();
         final float f1 = entity.ticksExisted / 80.0f;
@@ -43,15 +43,15 @@ public class RenderEldritchOrb extends Render
         GL11.glDepthMask(false);
         GL11.glPushMatrix();
         for (int i = 0; i < 12; ++i) {
-            GL11.glRotatef(this.random.nextFloat() * 360.0f, 1.0f, 0.0f, 0.0f);
-            GL11.glRotatef(this.random.nextFloat() * 360.0f, 0.0f, 1.0f, 0.0f);
-            GL11.glRotatef(this.random.nextFloat() * 360.0f, 0.0f, 0.0f, 1.0f);
-            GL11.glRotatef(this.random.nextFloat() * 360.0f, 1.0f, 0.0f, 0.0f);
-            GL11.glRotatef(this.random.nextFloat() * 360.0f, 0.0f, 1.0f, 0.0f);
-            GL11.glRotatef(this.random.nextFloat() * 360.0f + f1 * 360.0f, 0.0f, 0.0f, 1.0f);
+            GL11.glRotatef(random.nextFloat() * 360.0f, 1.0f, 0.0f, 0.0f);
+            GL11.glRotatef(random.nextFloat() * 360.0f, 0.0f, 1.0f, 0.0f);
+            GL11.glRotatef(random.nextFloat() * 360.0f, 0.0f, 0.0f, 1.0f);
+            GL11.glRotatef(random.nextFloat() * 360.0f, 1.0f, 0.0f, 0.0f);
+            GL11.glRotatef(random.nextFloat() * 360.0f, 0.0f, 1.0f, 0.0f);
+            GL11.glRotatef(random.nextFloat() * 360.0f + f1 * 360.0f, 0.0f, 0.0f, 1.0f);
             tessellator.getBuffer().begin(6, DefaultVertexFormats.POSITION_COLOR);
-            float fa = this.random.nextFloat() * 20.0f + 5.0f + f3 * 10.0f;
-            float f4 = this.random.nextFloat() * 2.0f + 1.0f + f3 * 2.0f;
+            float fa = random.nextFloat() * 20.0f + 5.0f + f3 * 10.0f;
+            float f4 = random.nextFloat() * 2.0f + 1.0f + f3 * 2.0f;
             fa /= 30.0f / (Math.min(entity.ticksExisted, 10) / 10.0f);
             f4 /= 30.0f / (Math.min(entity.ticksExisted, 10) / 10.0f);
             tessellator.getBuffer().pos(0.0, 0.0, 0.0).color(1.0f, 1.0f, 1.0f, 1.0f - f3).endVertex();
@@ -76,7 +76,7 @@ public class RenderEldritchOrb extends Render
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         GL11.glDepthMask(false);
-        this.bindTexture(ParticleEngine.particleTexture);
+        bindTexture(ParticleEngine.particleTexture);
         f3 = entity.ticksExisted % 13 / 64.0f;
         f2 = f3 + 0.015625f;
         final float f5 = 0.046875f;
@@ -85,8 +85,8 @@ public class RenderEldritchOrb extends Render
         final float f8 = 0.5f;
         final float f9 = 0.5f;
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        GL11.glRotatef(180.0f - this.renderManager.playerViewY, 0.0f, 1.0f, 0.0f);
-        GL11.glRotatef(-this.renderManager.playerViewX, 1.0f, 0.0f, 0.0f);
+        GL11.glRotatef(180.0f - renderManager.playerViewY, 0.0f, 1.0f, 0.0f);
+        GL11.glRotatef(-renderManager.playerViewX, 1.0f, 0.0f, 0.0f);
         GL11.glScaled(0.75, 0.75, 0.75);
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
         tessellator.getBuffer();
@@ -103,7 +103,7 @@ public class RenderEldritchOrb extends Render
     }
     
     public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
-        this.renderEntityAt(entity, d, d1, d2, f, f1);
+        renderEntityAt(entity, d, d1, d2, f, f1);
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {

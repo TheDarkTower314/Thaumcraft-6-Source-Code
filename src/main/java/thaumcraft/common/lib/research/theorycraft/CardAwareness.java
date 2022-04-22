@@ -36,7 +36,7 @@ public class CardAwareness extends TheorycraftCard
     
     @Override
     public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        data.addTotal(this.getResearchCategory(), 20);
+        data.addTotal(getResearchCategory(), 20);
         if (player.getRNG().nextFloat() < 0.33) {
             data.addTotal("ELDRITCH", MathHelper.getInt(player.getRNG(), 1, 5));
             ThaumcraftApi.internalMethods.addWarpToPlayer(player, 1, IPlayerWarp.EnumWarpType.NORMAL);

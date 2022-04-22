@@ -24,42 +24,42 @@ public class TileRedstoneRelay extends TileThaumcraft
     private int out;
     
     public TileRedstoneRelay() {
-        this.in = 1;
-        this.out = 15;
+        in = 1;
+        out = 15;
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbt) {
-        this.setIn(nbt.getByte("in"));
-        this.setOut(nbt.getByte("out"));
+        setIn(nbt.getByte("in"));
+        setOut(nbt.getByte("out"));
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbt) {
-        nbt.setByte("in", (byte)this.getIn());
-        nbt.setByte("out", (byte)this.getOut());
+        nbt.setByte("in", (byte) getIn());
+        nbt.setByte("out", (byte) getOut());
         return nbt;
     }
     
     public void increaseIn() {
-        if (!this.world.isRemote) {
-            this.setIn(this.getIn() + 1);
-            if (this.getIn() > 15) {
-                this.setIn(1);
+        if (!world.isRemote) {
+            setIn(getIn() + 1);
+            if (getIn() > 15) {
+                setIn(1);
             }
-            this.markDirty();
-            this.syncTile(false);
+            markDirty();
+            syncTile(false);
         }
     }
     
     public void increaseOut() {
-        if (!this.world.isRemote) {
-            this.setOut(this.getOut() + 1);
-            if (this.getOut() > 15) {
-                this.setOut(1);
+        if (!world.isRemote) {
+            setOut(getOut() + 1);
+            if (getOut() > 15) {
+                setOut(1);
             }
-            this.markDirty();
-            this.syncTile(false);
+            markDirty();
+            syncTile(false);
         }
     }
     
@@ -68,9 +68,9 @@ public class TileRedstoneRelay extends TileThaumcraft
     }
     
     public void addTraceableCuboids(final List<IndexedCuboid6> cuboids) {
-        final EnumFacing facing = BlockStateUtils.getFacing(this.getBlockMetadata());
-        cuboids.add(new IndexedCuboid6(0, this.getCuboid0(facing)));
-        cuboids.add(new IndexedCuboid6(1, this.getCuboid1(facing)));
+        final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
+        cuboids.add(new IndexedCuboid6(0, getCuboid0(facing)));
+        cuboids.add(new IndexedCuboid6(1, getCuboid1(facing)));
     }
     
     public Cuboid6 getCuboid0(final EnumFacing facing) {
@@ -89,7 +89,7 @@ public class TileRedstoneRelay extends TileThaumcraft
                 break;
             }
         }
-        return new Cuboid6(-0.375, 0.0625, -0.375, -0.125, 0.25, -0.125).apply(rot).add(new Vector3(this.getPos().getX() + 0.5, this.getPos().getY(), this.getPos().getZ() + 0.5));
+        return new Cuboid6(-0.375, 0.0625, -0.375, -0.125, 0.25, -0.125).apply(rot).add(new Vector3(getPos().getX() + 0.5, getPos().getY(), getPos().getZ() + 0.5));
     }
     
     public Cuboid6 getCuboid1(final EnumFacing facing) {
@@ -108,11 +108,11 @@ public class TileRedstoneRelay extends TileThaumcraft
                 break;
             }
         }
-        return new Cuboid6(-0.125, 0.0625, 0.125, 0.125, 0.25, 0.375).apply(rot).add(new Vector3(this.getPos().getX() + 0.5, this.getPos().getY(), this.getPos().getZ() + 0.5));
+        return new Cuboid6(-0.125, 0.0625, 0.125, 0.125, 0.25, 0.375).apply(rot).add(new Vector3(getPos().getX() + 0.5, getPos().getY(), getPos().getZ() + 0.5));
     }
     
     public int getOut() {
-        return this.out;
+        return out;
     }
     
     public void setOut(final int out) {
@@ -120,7 +120,7 @@ public class TileRedstoneRelay extends TileThaumcraft
     }
     
     public int getIn() {
-        return this.in;
+        return in;
     }
     
     public void setIn(final int in) {

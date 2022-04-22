@@ -14,29 +14,29 @@ public class ModelBrain extends ModelBase
     ModelRenderer Shape3;
     
     public ModelBrain() {
-        this.textureWidth = 128;
-        this.textureHeight = 64;
-        (this.Shape1 = new ModelRenderer(this, 0, 0)).addBox(0.0f, 0.0f, 0.0f, 12, 10, 16);
-        this.Shape1.setRotationPoint(-6.0f, 8.0f, -8.0f);
-        this.Shape1.setTextureSize(128, 64);
-        this.Shape1.mirror = true;
-        this.setRotation(this.Shape1, 0.0f, 0.0f, 0.0f);
-        (this.Shape2 = new ModelRenderer(this, 64, 0)).addBox(0.0f, 0.0f, 0.0f, 8, 3, 7);
-        this.Shape2.setRotationPoint(-4.0f, 18.0f, 0.0f);
-        this.Shape2.setTextureSize(128, 64);
-        this.Shape2.mirror = true;
-        this.setRotation(this.Shape2, 0.0f, 0.0f, 0.0f);
-        (this.Shape3 = new ModelRenderer(this, 0, 32)).addBox(0.0f, 0.0f, 0.0f, 2, 6, 2);
-        this.Shape3.setRotationPoint(-1.0f, 18.0f, -2.0f);
-        this.Shape3.setTextureSize(128, 64);
-        this.Shape3.mirror = true;
-        this.setRotation(this.Shape3, 0.4089647f, 0.0f, 0.0f);
+        textureWidth = 128;
+        textureHeight = 64;
+        (Shape1 = new ModelRenderer(this, 0, 0)).addBox(0.0f, 0.0f, 0.0f, 12, 10, 16);
+        Shape1.setRotationPoint(-6.0f, 8.0f, -8.0f);
+        Shape1.setTextureSize(128, 64);
+        Shape1.mirror = true;
+        setRotation(Shape1, 0.0f, 0.0f, 0.0f);
+        (Shape2 = new ModelRenderer(this, 64, 0)).addBox(0.0f, 0.0f, 0.0f, 8, 3, 7);
+        Shape2.setRotationPoint(-4.0f, 18.0f, 0.0f);
+        Shape2.setTextureSize(128, 64);
+        Shape2.mirror = true;
+        setRotation(Shape2, 0.0f, 0.0f, 0.0f);
+        (Shape3 = new ModelRenderer(this, 0, 32)).addBox(0.0f, 0.0f, 0.0f, 2, 6, 2);
+        Shape3.setRotationPoint(-1.0f, 18.0f, -2.0f);
+        Shape3.setTextureSize(128, 64);
+        Shape3.mirror = true;
+        setRotation(Shape3, 0.4089647f, 0.0f, 0.0f);
     }
     
     public void render() {
-        this.Shape1.render(0.0625f);
-        this.Shape2.render(0.0625f);
-        this.Shape3.render(0.0625f);
+        Shape1.render(0.0625f);
+        Shape2.render(0.0625f);
+        Shape3.render(0.0625f);
     }
     
     private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {

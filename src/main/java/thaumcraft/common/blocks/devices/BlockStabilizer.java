@@ -24,7 +24,7 @@ public class BlockStabilizer extends BlockTCDevice implements IInfusionStabilise
 {
     public BlockStabilizer() {
         super(Material.ROCK, TileStabilizer.class, "stabilizer");
-        this.setSoundType(SoundType.STONE);
+        setSoundType(SoundType.STONE);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {

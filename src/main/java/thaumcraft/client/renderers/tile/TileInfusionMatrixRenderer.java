@@ -34,8 +34,8 @@ public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileIn
     private static final ResourceLocation tex3;
     
     public TileInfusionMatrixRenderer() {
-        this.model = new ModelCube(0);
-        this.model_over = new ModelCube(32);
+        model = new ModelCube(0);
+        model_over = new ModelCube(32);
     }
     
     private void drawHalo(final TileEntity is, final double x, final double y, final double z, final float par8, final int count) {
@@ -115,9 +115,9 @@ public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileIn
             active = is.active;
             crafting = is.crafting;
         }
-        this.bindTexture(t);
+        bindTexture(t);
         if (destroyStage >= 0) {
-            this.bindTexture(TileInfusionMatrixRenderer.DESTROY_STAGES[destroyStage]);
+            bindTexture(TileInfusionMatrixRenderer.DESTROY_STAGES[destroyStage]);
             GlStateManager.matrixMode(5890);
             GlStateManager.pushMatrix();
             GlStateManager.scale(4.0f, 4.0f, 1.0f);
@@ -154,7 +154,7 @@ public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileIn
                         GL11.glRotatef(90.0f, 0.0f, 0.0f, (float)c);
                     }
                     GL11.glScaled(0.45, 0.45, 0.45);
-                    this.model.render();
+                    model.render();
                     GL11.glPopMatrix();
                 }
             }
@@ -190,7 +190,7 @@ public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileIn
                         final int l = j / 65536;
                         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0f, l / 1.0f);
                         GL11.glColor4f(0.8f, 0.1f, 1.0f, (MathHelper.sin((ticks + a * 2 + b4 * 3 + c * 4) / 4.0f) * 0.1f + 0.2f) * startup);
-                        this.model_over.render();
+                        model_over.render();
                         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                         GL11.glPopMatrix();
                     }
@@ -208,14 +208,14 @@ public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileIn
         }
         GL11.glPopMatrix();
         if (crafting) {
-            this.drawHalo(is, par2, par4, par6, par8, craftcount);
+            drawHalo(is, par2, par4, par6, par8, craftcount);
         }
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
     
     public void render(final TileInfusionMatrix te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderInfusionMatrix(te, x, y, z, partialTicks, destroyStage);
+        renderInfusionMatrix(te, x, y, z, partialTicks, destroyStage);
     }
     
     static {

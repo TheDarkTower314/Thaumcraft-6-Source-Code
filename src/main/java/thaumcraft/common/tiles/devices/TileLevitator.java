@@ -37,36 +37,36 @@ public class TileLevitator extends TileThaumcraft implements ITickable
     private int vis;
     
     public TileLevitator() {
-        this.ranges = new int[] { 4, 8, 16, 32 };
-        this.range = 1;
-        this.rangeActual = 0;
-        this.counter = 0;
-        this.vis = 0;
+        ranges = new int[] { 4, 8, 16, 32 };
+        range = 1;
+        rangeActual = 0;
+        counter = 0;
+        vis = 0;
     }
     
     public void update() {
-        final EnumFacing facing = BlockStateUtils.getFacing(this.getBlockMetadata());
-        if (this.rangeActual > this.ranges[this.range]) {
-            this.rangeActual = 0;
+        final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
+        if (rangeActual > ranges[range]) {
+            rangeActual = 0;
         }
-        final int p = this.counter % this.ranges[this.range];
-        if (this.world.getBlockState(this.pos.offset(facing, 1 + p)).isOpaqueCube()) {
-            if (1 + p < this.rangeActual) {
-                this.rangeActual = 1 + p;
+        final int p = counter % ranges[range];
+        if (world.getBlockState(pos.offset(facing, 1 + p)).isOpaqueCube()) {
+            if (1 + p < rangeActual) {
+                rangeActual = 1 + p;
             }
-            this.counter = -1;
+            counter = -1;
         }
-        else if (1 + p > this.rangeActual) {
-            this.rangeActual = 1 + p;
+        else if (1 + p > rangeActual) {
+            rangeActual = 1 + p;
         }
-        ++this.counter;
-        if (!this.world.isRemote && this.vis < 10) {
-            this.vis += (int)(AuraHelper.drainVis(this.world, this.getPos(), 1.0f, false) * 1200.0f);
-            this.markDirty();
-            this.syncTile(false);
+        ++counter;
+        if (!world.isRemote && vis < 10) {
+            vis += (int)(AuraHelper.drainVis(world, getPos(), 1.0f, false) * 1200.0f);
+            markDirty();
+            syncTile(false);
         }
-        if (this.rangeActual > 0 && this.vis > 0 && BlockStateUtils.isEnabled(this.getBlockMetadata())) {
-            final List<Entity> targets = this.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(this.pos.getX() - ((facing.getFrontOffsetX() < 0) ? this.rangeActual : 0), this.pos.getY() - ((facing.getFrontOffsetY() < 0) ? this.rangeActual : 0), this.pos.getZ() - ((facing.getFrontOffsetZ() < 0) ? this.rangeActual : 0), this.pos.getX() + 1 + ((facing.getFrontOffsetX() > 0) ? this.rangeActual : 0), this.pos.getY() + 1 + ((facing.getFrontOffsetY() > 0) ? this.rangeActual : 0), this.pos.getZ() + 1 + ((facing.getFrontOffsetZ() > 0) ? this.rangeActual : 0)));
+        if (rangeActual > 0 && vis > 0 && BlockStateUtils.isEnabled(getBlockMetadata())) {
+            final List<Entity> targets = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.getX() - ((facing.getFrontOffsetX() < 0) ? rangeActual : 0), pos.getY() - ((facing.getFrontOffsetY() < 0) ? rangeActual : 0), pos.getZ() - ((facing.getFrontOffsetZ() < 0) ? rangeActual : 0), pos.getX() + 1 + ((facing.getFrontOffsetX() > 0) ? rangeActual : 0), pos.getY() + 1 + ((facing.getFrontOffsetY() > 0) ? rangeActual : 0), pos.getZ() + 1 + ((facing.getFrontOffsetZ() > 0) ? rangeActual : 0)));
             boolean lifted = false;
             if (targets.size() > 0) {
                 for (final Entity e : targets) {
@@ -74,8 +74,8 @@ public class TileLevitator extends TileThaumcraft implements ITickable
                         continue;
                     }
                     lifted = true;
-                    this.drawFXAt(e);
-                    this.drawFX(facing, 0.6);
+                    drawFXAt(e);
+                    drawFX(facing, 0.6);
                     if (e.isSneaking() && facing == EnumFacing.UP) {
                         if (e.motionY < 0.0) {
                             final Entity entity = e;
@@ -117,64 +117,64 @@ public class TileLevitator extends TileThaumcraft implements ITickable
                         }
                     }
                     e.fallDistance = 0.0f;
-                    this.vis -= this.getCost();
-                    if (this.vis <= 0) {
+                    vis -= getCost();
+                    if (vis <= 0) {
                         break;
                     }
                 }
             }
-            this.drawFX(facing, 0.1);
-            if (lifted && !this.world.isRemote && this.counter % 20 == 0) {
-                this.markDirty();
+            drawFX(facing, 0.1);
+            if (lifted && !world.isRemote && counter % 20 == 0) {
+                markDirty();
             }
         }
     }
     
     private void drawFX(final EnumFacing facing, final double c) {
-        if (this.world.isRemote && this.world.rand.nextFloat() < c) {
-            final float x = this.pos.getX() + 0.25f + this.world.rand.nextFloat() * 0.5f;
-            final float y = this.pos.getY() + 0.25f + this.world.rand.nextFloat() * 0.5f;
-            final float z = this.pos.getZ() + 0.25f + this.world.rand.nextFloat() * 0.5f;
+        if (world.isRemote && world.rand.nextFloat() < c) {
+            final float x = pos.getX() + 0.25f + world.rand.nextFloat() * 0.5f;
+            final float y = pos.getY() + 0.25f + world.rand.nextFloat() * 0.5f;
+            final float z = pos.getZ() + 0.25f + world.rand.nextFloat() * 0.5f;
             FXDispatcher.INSTANCE.drawLevitatorParticles(x, y, z, facing.getFrontOffsetX() / 50.0, facing.getFrontOffsetY() / 50.0, facing.getFrontOffsetZ() / 50.0);
         }
     }
     
     private void drawFXAt(final Entity e) {
-        if (this.world.isRemote && this.world.rand.nextFloat() < 0.1f) {
-            final float x = (float)(e.posX + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * e.width);
-            final float y = (float)(e.posY + this.world.rand.nextFloat() * e.height);
-            final float z = (float)(e.posZ + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * e.width);
-            FXDispatcher.INSTANCE.drawLevitatorParticles(x, y, z, (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.01, (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.01, (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.01);
+        if (world.isRemote && world.rand.nextFloat() < 0.1f) {
+            final float x = (float)(e.posX + (world.rand.nextFloat() - world.rand.nextFloat()) * e.width);
+            final float y = (float)(e.posY + world.rand.nextFloat() * e.height);
+            final float z = (float)(e.posZ + (world.rand.nextFloat() - world.rand.nextFloat()) * e.width);
+            FXDispatcher.INSTANCE.drawLevitatorParticles(x, y, z, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.01, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.01, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.01);
         }
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbt) {
-        this.range = nbt.getByte("range");
-        this.vis = nbt.getInteger("vis");
+        range = nbt.getByte("range");
+        vis = nbt.getInteger("vis");
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbt) {
-        nbt.setByte("range", (byte)this.range);
-        nbt.setInteger("vis", this.vis);
+        nbt.setByte("range", (byte) range);
+        nbt.setInteger("vis", vis);
         return nbt;
     }
     
     public int getCost() {
-        return this.ranges[this.range] * 2;
+        return ranges[range] * 2;
     }
     
     public void increaseRange(final EntityPlayer playerIn) {
-        this.rangeActual = 0;
-        if (!this.world.isRemote) {
-            ++this.range;
-            if (this.range >= this.ranges.length) {
-                this.range = 0;
+        rangeActual = 0;
+        if (!world.isRemote) {
+            ++range;
+            if (range >= ranges.length) {
+                range = 0;
             }
-            this.markDirty();
-            this.syncTile(false);
-            playerIn.sendMessage(new TextComponentString(String.format(I18n.translateToLocal("tc.levitator"), this.ranges[this.range], this.getCost())));
+            markDirty();
+            syncTile(false);
+            playerIn.sendMessage(new TextComponentString(String.format(I18n.translateToLocal("tc.levitator"), ranges[range], getCost())));
         }
     }
     
@@ -183,8 +183,8 @@ public class TileLevitator extends TileThaumcraft implements ITickable
     }
     
     public void addTraceableCuboids(final List<IndexedCuboid6> cuboids) {
-        final EnumFacing facing = BlockStateUtils.getFacing(this.getBlockMetadata());
-        cuboids.add(new IndexedCuboid6(0, this.getCuboidByFacing(facing).add(new Vector3(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ()))));
+        final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
+        cuboids.add(new IndexedCuboid6(0, getCuboidByFacing(facing).add(new Vector3(getPos().getX(), getPos().getY(), getPos().getZ()))));
     }
     
     public Cuboid6 getCuboidByFacing(final EnumFacing facing) {

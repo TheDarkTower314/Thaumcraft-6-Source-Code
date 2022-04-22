@@ -22,7 +22,7 @@ public class BlockPotionSprayer extends BlockTCDevice implements IBlockFacing, I
 {
     public BlockPotionSprayer() {
         super(Material.IRON, TilePotionSprayer.class, "potion_sprayer");
-        this.setSoundType(SoundType.METAL);
+        setSoundType(SoundType.METAL);
     }
     
     public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {

@@ -78,81 +78,81 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
     
     public EntityEldritchWarden(final World p_i1745_1_) {
         super(p_i1745_1_);
-        this.bossInfo2 = new BossInfoServer(new TextComponentString(""), BossInfo.Color.BLUE, BossInfo.Overlay.NOTCHED_10);
-        this.titles = new String[] { "Aphoom-Zhah", "Basatan", "Chaugnar Faugn", "Mnomquah", "Nyogtha", "Oorn", "Shaikorth", "Rhan-Tegoth", "Rhogog", "Shudde M'ell", "Vulthoom", "Yag-Kosha", "Yibb-Tstll", "Zathog", "Zushakon" };
-        this.fieldFrenzy = false;
-        this.fieldFrenzyCounter = 0;
-        this.lastBlast = false;
-        this.armLiftL = 0.0f;
-        this.armLiftR = 0.0f;
-        this.setSize(1.5f, 3.5f);
+        bossInfo2 = new BossInfoServer(new TextComponentString(""), BossInfo.Color.BLUE, BossInfo.Overlay.NOTCHED_10);
+        titles = new String[] { "Aphoom-Zhah", "Basatan", "Chaugnar Faugn", "Mnomquah", "Nyogtha", "Oorn", "Shaikorth", "Rhan-Tegoth", "Rhogog", "Shudde M'ell", "Vulthoom", "Yag-Kosha", "Yibb-Tstll", "Zathog", "Zushakon" };
+        fieldFrenzy = false;
+        fieldFrenzyCounter = 0;
+        lastBlast = false;
+        armLiftL = 0.0f;
+        armLiftR = 0.0f;
+        setSize(1.5f, 3.5f);
     }
     
     @Override
     public void removeTrackingPlayer(final EntityPlayerMP player) {
         super.removeTrackingPlayer(player);
-        this.bossInfo2.removePlayer(player);
+        bossInfo2.removePlayer(player);
     }
     
     @Override
     public void addTrackingPlayer(final EntityPlayerMP player) {
         super.addTrackingPlayer(player);
-        this.bossInfo2.addPlayer(player);
+        bossInfo2.addPlayer(player);
     }
     
     protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(2, new AILongRangeAttack(this, 3.0, 1.0, 20, 40, 24.0f));
-        this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.1, false));
-        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.8));
-        this.tasks.addTask(7, new EntityAIWander(this, 1.0));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCultist.class, true));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(2, new AILongRangeAttack(this, 3.0, 1.0, 20, 40, 24.0f));
+        tasks.addTask(3, new EntityAIAttackMelee(this, 1.1, false));
+        tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.8));
+        tasks.addTask(7, new EntityAIWander(this, 1.0));
+        tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
+        tasks.addTask(8, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCultist.class, true));
     }
     
     @Override
     public void generateName() {
-        final int t = (int)this.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
+        final int t = (int) getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
         if (t >= 0) {
-            this.setCustomNameTag(String.format(I18n.translateToLocal("entity.Thaumcraft.EldritchWarden.name.custom"), this.getTitle(), ChampionModifier.mods[t].getModNameLocalized()));
+            setCustomNameTag(String.format(I18n.translateToLocal("entity.Thaumcraft.EldritchWarden.name.custom"), getTitle(), ChampionModifier.mods[t].getModNameLocalized()));
         }
     }
     
     private String getTitle() {
-        return this.titles[(byte)this.getDataManager().get((DataParameter)EntityEldritchWarden.NAME)];
+        return titles[(byte) getDataManager().get((DataParameter)EntityEldritchWarden.NAME)];
     }
     
     private void setTitle(final int title) {
-        this.getDataManager().set(EntityEldritchWarden.NAME, (byte)title);
+        getDataManager().set(EntityEldritchWarden.NAME, (byte)title);
     }
     
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(400.0);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.33);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(400.0);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.33);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10.0);
     }
     
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register((DataParameter)EntityEldritchWarden.NAME, 0);
+        getDataManager().register((DataParameter)EntityEldritchWarden.NAME, 0);
     }
     
     @Override
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setByte("title", (byte)this.getDataManager().get((DataParameter)EntityEldritchWarden.NAME));
+        nbt.setByte("title", (byte) getDataManager().get((DataParameter)EntityEldritchWarden.NAME));
     }
     
     @Override
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        this.setTitle(nbt.getByte("title"));
+        setTitle(nbt.getByte("title"));
     }
     
     public int getTotalArmorValue() {
@@ -161,36 +161,36 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
     
     @Override
     protected void updateAITasks() {
-        if (this.fieldFrenzyCounter == 0) {
+        if (fieldFrenzyCounter == 0) {
             super.updateAITasks();
         }
-        final int bh = (int)(this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() * 0.66);
-        if (this.hurtResistantTime <= 0 && this.ticksExisted % 25 == 0 && this.getAbsorptionAmount() < bh) {
-            this.setAbsorptionAmount(this.getAbsorptionAmount() + 1.0f);
+        final int bh = (int)(getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() * 0.66);
+        if (hurtResistantTime <= 0 && ticksExisted % 25 == 0 && getAbsorptionAmount() < bh) {
+            setAbsorptionAmount(getAbsorptionAmount() + 1.0f);
         }
-        this.bossInfo2.setPercent(this.getAbsorptionAmount() / bh);
+        bossInfo2.setPercent(getAbsorptionAmount() / bh);
     }
     
     @Override
     public void onUpdate() {
-        if (this.getSpawnTimer() == 150) {
-            this.world.setEntityState(this, (byte)18);
+        if (getSpawnTimer() == 150) {
+            world.setEntityState(this, (byte)18);
         }
         super.onUpdate();
-        if (this.world.isRemote) {
-            if (this.armLiftL > 0.0f) {
-                this.armLiftL -= 0.05f;
+        if (world.isRemote) {
+            if (armLiftL > 0.0f) {
+                armLiftL -= 0.05f;
             }
-            if (this.armLiftR > 0.0f) {
-                this.armLiftR -= 0.05f;
+            if (armLiftR > 0.0f) {
+                armLiftR -= 0.05f;
             }
-            final float x = (float)(this.posX + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2f);
-            final float z = (float)(this.posZ + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2f);
-            FXDispatcher.INSTANCE.wispFXEG(x, (float)(this.posY + 0.25 * this.height), z, this);
-            if (this.spawnTimer > 0) {
-                final float he = Math.max(1.0f, this.height * ((150 - this.spawnTimer) / 150.0f));
+            final float x = (float)(posX + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
+            final float z = (float)(posZ + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
+            FXDispatcher.INSTANCE.wispFXEG(x, (float)(posY + 0.25 * height), z, this);
+            if (spawnTimer > 0) {
+                final float he = Math.max(1.0f, height * ((150 - spawnTimer) / 150.0f));
                 for (int a = 0; a < 33; ++a) {
-                    FXDispatcher.INSTANCE.smokeSpiral(this.posX, this.getEntityBoundingBox().minY + he / 2.0f, this.posZ, he, this.rand.nextInt(360), MathHelper.floor(this.getEntityBoundingBox().minY) - 1, 2232623);
+                    FXDispatcher.INSTANCE.smokeSpiral(posX, getEntityBoundingBox().minY + he / 2.0f, posZ, he, rand.nextInt(360), MathHelper.floor(getEntityBoundingBox().minY) - 1, 2232623);
                 }
             }
         }
@@ -198,132 +198,132 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
     
     public void onLivingUpdate() {
         super.onLivingUpdate();
-        int i = MathHelper.floor(this.posX);
-        int j = MathHelper.floor(this.posY);
-        int k = MathHelper.floor(this.posZ);
+        int i = MathHelper.floor(posX);
+        int j = MathHelper.floor(posY);
+        int k = MathHelper.floor(posZ);
         for (int l = 0; l < 4; ++l) {
-            i = MathHelper.floor(this.posX + (l % 2 * 2 - 1) * 0.25f);
-            j = MathHelper.floor(this.posY);
-            k = MathHelper.floor(this.posZ + (l / 2 % 2 * 2 - 1) * 0.25f);
+            i = MathHelper.floor(posX + (l % 2 * 2 - 1) * 0.25f);
+            j = MathHelper.floor(posY);
+            k = MathHelper.floor(posZ + (l / 2 % 2 * 2 - 1) * 0.25f);
             final BlockPos bp = new BlockPos(i, j, k);
-            if (this.world.isAirBlock(bp) && BlocksTC.effectSap != null) {
-                this.world.setBlockState(bp, BlocksTC.effectSap.getDefaultState());
+            if (world.isAirBlock(bp) && BlocksTC.effectSap != null) {
+                world.setBlockState(bp, BlocksTC.effectSap.getDefaultState());
             }
         }
-        if (!this.world.isRemote && this.fieldFrenzyCounter > 0) {
-            if (this.fieldFrenzyCounter == 150) {
-                this.teleportHome();
+        if (!world.isRemote && fieldFrenzyCounter > 0) {
+            if (fieldFrenzyCounter == 150) {
+                teleportHome();
             }
-            this.performFieldFrenzy();
+            performFieldFrenzy();
         }
     }
     
     private void performFieldFrenzy() {
-        if (this.fieldFrenzyCounter < 121 && this.fieldFrenzyCounter % 10 == 0) {
-            this.world.setEntityState(this, (byte)17);
-            final double radius = (150 - this.fieldFrenzyCounter) / 8.0;
-            final int d = 1 + this.fieldFrenzyCounter / 8;
-            final int i = MathHelper.floor(this.posX);
-            final int j = MathHelper.floor(this.posY);
-            final int k = MathHelper.floor(this.posZ);
+        if (fieldFrenzyCounter < 121 && fieldFrenzyCounter % 10 == 0) {
+            world.setEntityState(this, (byte)17);
+            final double radius = (150 - fieldFrenzyCounter) / 8.0;
+            final int d = 1 + fieldFrenzyCounter / 8;
+            final int i = MathHelper.floor(posX);
+            final int j = MathHelper.floor(posY);
+            final int k = MathHelper.floor(posZ);
             for (int q = 0; q < 180 / d; ++q) {
                 final double radians = Math.toRadians(q * 2 * d);
                 final int deltaX = (int)(radius * Math.cos(radians));
                 final int deltaZ = (int)(radius * Math.sin(radians));
                 final BlockPos bp = new BlockPos(i + deltaX, j, k + deltaZ);
-                if (this.world.isAirBlock(bp) && this.world.isBlockNormalCube(bp.down(), false)) {
-                    this.world.setBlockState(bp, BlocksTC.effectSap.getDefaultState());
-                    this.world.scheduleUpdate(bp, BlocksTC.effectSap, 250 + this.rand.nextInt(150));
-                    if (this.rand.nextFloat() < 0.3f) {
-                        PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockArc(bp, this, 0.5f + this.rand.nextFloat() * 0.2f, 0.0f, 0.5f + this.rand.nextFloat() * 0.2f), new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.posX, this.posY, this.posZ, 32.0));
+                if (world.isAirBlock(bp) && world.isBlockNormalCube(bp.down(), false)) {
+                    world.setBlockState(bp, BlocksTC.effectSap.getDefaultState());
+                    world.scheduleUpdate(bp, BlocksTC.effectSap, 250 + rand.nextInt(150));
+                    if (rand.nextFloat() < 0.3f) {
+                        PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockArc(bp, this, 0.5f + rand.nextFloat() * 0.2f, 0.0f, 0.5f + rand.nextFloat() * 0.2f), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 32.0));
                     }
                 }
             }
-            this.playSound(SoundsTC.zap, 1.0f, 0.9f + this.rand.nextFloat() * 0.1f);
+            playSound(SoundsTC.zap, 1.0f, 0.9f + rand.nextFloat() * 0.1f);
         }
-        --this.fieldFrenzyCounter;
+        --fieldFrenzyCounter;
     }
     
     protected void teleportHome() {
-        final EnderTeleportEvent event = new EnderTeleportEvent(this, this.getHomePosition().getX(), this.getHomePosition().getY(), this.getHomePosition().getZ(), 0.0f);
+        final EnderTeleportEvent event = new EnderTeleportEvent(this, getHomePosition().getX(), getHomePosition().getY(), getHomePosition().getZ(), 0.0f);
         if (MinecraftForge.EVENT_BUS.post(event)) {
             return;
         }
-        final double d3 = this.posX;
-        final double d4 = this.posY;
-        final double d5 = this.posZ;
-        this.posX = event.getTargetX();
-        this.posY = event.getTargetY();
-        this.posZ = event.getTargetZ();
+        final double d3 = posX;
+        final double d4 = posY;
+        final double d5 = posZ;
+        posX = event.getTargetX();
+        posY = event.getTargetY();
+        posZ = event.getTargetZ();
         boolean flag = false;
-        int i = MathHelper.floor(this.posX);
-        final int j = MathHelper.floor(this.posY);
-        int k = MathHelper.floor(this.posZ);
+        int i = MathHelper.floor(posX);
+        final int j = MathHelper.floor(posY);
+        int k = MathHelper.floor(posZ);
         BlockPos bp = new BlockPos(i, j, k);
-        if (this.world.isBlockLoaded(bp)) {
+        if (world.isBlockLoaded(bp)) {
             bp = new BlockPos(i, j, k);
             boolean flag2 = false;
             int tries = 20;
             while (!flag2 && tries > 0) {
-                final IBlockState block = this.world.getBlockState(bp.down());
-                final IBlockState block2 = this.world.getBlockState(bp);
+                final IBlockState block = world.getBlockState(bp.down());
+                final IBlockState block2 = world.getBlockState(bp);
                 if (block.getMaterial().blocksMovement() && !block2.getMaterial().blocksMovement()) {
                     flag2 = true;
                 }
                 else {
-                    i = MathHelper.floor(this.posX) + this.rand.nextInt(8) - this.rand.nextInt(8);
-                    k = MathHelper.floor(this.posZ) + this.rand.nextInt(8) - this.rand.nextInt(8);
+                    i = MathHelper.floor(posX) + rand.nextInt(8) - rand.nextInt(8);
+                    k = MathHelper.floor(posZ) + rand.nextInt(8) - rand.nextInt(8);
                     --tries;
                 }
             }
             if (flag2) {
-                this.setPosition(i + 0.5, j + 0.1, k + 0.5);
-                if (this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty()) {
+                setPosition(i + 0.5, j + 0.1, k + 0.5);
+                if (world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty()) {
                     flag = true;
                 }
             }
         }
         if (!flag) {
-            this.setPosition(d3, d4, d5);
+            setPosition(d3, d4, d5);
             return;
         }
         final short short1 = 128;
         for (int l = 0; l < short1; ++l) {
             final double d6 = l / (short1 - 1.0);
-            final float f = (this.rand.nextFloat() - 0.5f) * 0.2f;
-            final float f2 = (this.rand.nextFloat() - 0.5f) * 0.2f;
-            final float f3 = (this.rand.nextFloat() - 0.5f) * 0.2f;
-            final double d7 = d3 + (this.posX - d3) * d6 + (this.rand.nextDouble() - 0.5) * this.width * 2.0;
-            final double d8 = d4 + (this.posY - d4) * d6 + this.rand.nextDouble() * this.height;
-            final double d9 = d5 + (this.posZ - d5) * d6 + (this.rand.nextDouble() - 0.5) * this.width * 2.0;
-            this.world.spawnParticle(EnumParticleTypes.PORTAL, d7, d8, d9, f, f2, f3);
+            final float f = (rand.nextFloat() - 0.5f) * 0.2f;
+            final float f2 = (rand.nextFloat() - 0.5f) * 0.2f;
+            final float f3 = (rand.nextFloat() - 0.5f) * 0.2f;
+            final double d7 = d3 + (posX - d3) * d6 + (rand.nextDouble() - 0.5) * width * 2.0;
+            final double d8 = d4 + (posY - d4) * d6 + rand.nextDouble() * height;
+            final double d9 = d5 + (posZ - d5) * d6 + (rand.nextDouble() - 0.5) * width * 2.0;
+            world.spawnParticle(EnumParticleTypes.PORTAL, d7, d8, d9, f, f2, f3);
         }
-        this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0f, 1.0f);
+        playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0f, 1.0f);
     }
     
     @Override
     public boolean isEntityInvulnerable(final DamageSource ds) {
-        return this.fieldFrenzyCounter > 0 || super.isEntityInvulnerable(ds);
+        return fieldFrenzyCounter > 0 || super.isEntityInvulnerable(ds);
     }
     
     @Override
     public boolean attackEntityFrom(final DamageSource source, final float damage) {
-        if (this.isEntityInvulnerable(source) || source == DamageSource.DROWN || source == DamageSource.WITHER) {
+        if (isEntityInvulnerable(source) || source == DamageSource.DROWN || source == DamageSource.WITHER) {
             return false;
         }
         final boolean aef = super.attackEntityFrom(source, damage);
-        if (!this.world.isRemote && aef && !this.fieldFrenzy && this.getAbsorptionAmount() <= 0.0f) {
-            this.fieldFrenzy = true;
-            this.fieldFrenzyCounter = 150;
+        if (!world.isRemote && aef && !fieldFrenzy && getAbsorptionAmount() <= 0.0f) {
+            fieldFrenzy = true;
+            fieldFrenzyCounter = 150;
         }
         return aef;
     }
     
     @Override
     public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
-        this.spawnTimer = 150;
-        this.setTitle(this.rand.nextInt(this.titles.length));
-        this.setAbsorptionAmount((float)(this.getAbsorptionAmount() + this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() * 0.66));
+        spawnTimer = 150;
+        setTitle(rand.nextInt(titles.length));
+        setAbsorptionAmount((float)(getAbsorptionAmount() + getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() * 0.66));
         return super.onInitialSpawn(diff, data);
     }
     
@@ -332,51 +332,51 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
     }
     
     public void attackEntityWithRangedAttack(final EntityLivingBase entitylivingbase, final float f) {
-        if (this.rand.nextFloat() > 0.2f) {
-            final EntityEldritchOrb blast = new EntityEldritchOrb(this.world, this);
-            this.lastBlast = !this.lastBlast;
-            this.world.setEntityState(this, (byte)(this.lastBlast ? 16 : 15));
-            final int rr = this.lastBlast ? 90 : 180;
-            final double xx = MathHelper.cos((this.rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
+        if (rand.nextFloat() > 0.2f) {
+            final EntityEldritchOrb blast = new EntityEldritchOrb(world, this);
+            lastBlast = !lastBlast;
+            world.setEntityState(this, (byte)(lastBlast ? 16 : 15));
+            final int rr = lastBlast ? 90 : 180;
+            final double xx = MathHelper.cos((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
             final double yy = 0.13;
-            final double zz = MathHelper.sin((this.rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
+            final double zz = MathHelper.sin((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
             blast.setPosition(blast.posX - xx, blast.posY - yy, blast.posZ - zz);
-            final double d0 = entitylivingbase.posX + entitylivingbase.motionX - this.posX;
-            final double d2 = entitylivingbase.posY - this.posY - entitylivingbase.height / 2.0f;
-            final double d3 = entitylivingbase.posZ + entitylivingbase.motionZ - this.posZ;
+            final double d0 = entitylivingbase.posX + entitylivingbase.motionX - posX;
+            final double d2 = entitylivingbase.posY - posY - entitylivingbase.height / 2.0f;
+            final double d3 = entitylivingbase.posZ + entitylivingbase.motionZ - posZ;
             blast.shoot(d0, d2, d3, 1.0f, 2.0f);
-            this.playSound(SoundsTC.egattack, 2.0f, 1.0f + this.rand.nextFloat() * 0.1f);
-            this.world.spawnEntity(blast);
+            playSound(SoundsTC.egattack, 2.0f, 1.0f + rand.nextFloat() * 0.1f);
+            world.spawnEntity(blast);
         }
-        else if (this.canEntityBeSeen(entitylivingbase)) {
-            PacketHandler.INSTANCE.sendToAllAround(new PacketFXSonic(this.getEntityId()), new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.posX, this.posY, this.posZ, 32.0));
-            entitylivingbase.addVelocity(-MathHelper.sin(this.rotationYaw * 3.1415927f / 180.0f) * 1.5f, 0.1, MathHelper.cos(this.rotationYaw * 3.1415927f / 180.0f) * 1.5f);
+        else if (canEntityBeSeen(entitylivingbase)) {
+            PacketHandler.INSTANCE.sendToAllAround(new PacketFXSonic(getEntityId()), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 32.0));
+            entitylivingbase.addVelocity(-MathHelper.sin(rotationYaw * 3.1415927f / 180.0f) * 1.5f, 0.1, MathHelper.cos(rotationYaw * 3.1415927f / 180.0f) * 1.5f);
             try {
                 entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.WITHER, 400, 0));
                 entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 400, 0));
             }
             catch (final Exception ex) {}
             if (entitylivingbase instanceof EntityPlayer) {
-                ThaumcraftApi.internalMethods.addWarpToPlayer((EntityPlayer)entitylivingbase, 3 + this.world.rand.nextInt(3), IPlayerWarp.EnumWarpType.TEMPORARY);
+                ThaumcraftApi.internalMethods.addWarpToPlayer((EntityPlayer)entitylivingbase, 3 + world.rand.nextInt(3), IPlayerWarp.EnumWarpType.TEMPORARY);
             }
-            this.playSound(SoundsTC.egscreech, 4.0f, 1.0f + this.rand.nextFloat() * 0.1f);
+            playSound(SoundsTC.egscreech, 4.0f, 1.0f + rand.nextFloat() * 0.1f);
         }
     }
     
     @SideOnly(Side.CLIENT)
     public void handleStatusUpdate(final byte p_70103_1_) {
         if (p_70103_1_ == 15) {
-            this.armLiftL = 0.5f;
+            armLiftL = 0.5f;
         }
         else if (p_70103_1_ == 16) {
-            this.armLiftR = 0.5f;
+            armLiftR = 0.5f;
         }
         else if (p_70103_1_ == 17) {
-            this.armLiftL = 0.9f;
-            this.armLiftR = 0.9f;
+            armLiftL = 0.9f;
+            armLiftR = 0.9f;
         }
         else if (p_70103_1_ == 18) {
-            this.spawnTimer = 150;
+            spawnTimer = 150;
         }
         else {
             super.handleStatusUpdate(p_70103_1_);

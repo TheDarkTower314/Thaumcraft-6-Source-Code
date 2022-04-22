@@ -33,20 +33,20 @@ public class PacketFXWispZap implements IMessage, IMessageHandler<PacketFXWispZa
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.source);
-        buffer.writeInt(this.target);
+        buffer.writeInt(source);
+        buffer.writeInt(target);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.source = buffer.readInt();
-        this.target = buffer.readInt();
+        source = buffer.readInt();
+        target = buffer.readInt();
     }
     
     public IMessage onMessage(final PacketFXWispZap message, final MessageContext ctx) {
         final Minecraft mc = FMLClientHandler.instance().getClient();
         final WorldClient world = mc.world;
-        final Entity var2 = this.getEntityByID(message.source, mc, world);
-        final Entity var3 = this.getEntityByID(message.target, mc, world);
+        final Entity var2 = getEntityByID(message.source, mc, world);
+        final Entity var3 = getEntityByID(message.target, mc, world);
         if (var2 != null && var3 != null) {
             float r = 1.0f;
             float g = 1.0f;

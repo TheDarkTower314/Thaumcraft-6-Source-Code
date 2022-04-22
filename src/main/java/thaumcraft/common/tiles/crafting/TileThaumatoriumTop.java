@@ -22,29 +22,29 @@ public class TileThaumatoriumTop extends TileThaumcraft implements IAspectContai
     public TileThaumatorium thaumatorium;
     
     public TileThaumatoriumTop() {
-        this.thaumatorium = null;
+        thaumatorium = null;
     }
     
     public void update() {
-        if (this.thaumatorium == null) {
-            final TileEntity tile = this.world.getTileEntity(this.pos.down());
+        if (thaumatorium == null) {
+            final TileEntity tile = world.getTileEntity(pos.down());
             if (tile != null && tile instanceof TileThaumatorium) {
-                this.thaumatorium = (TileThaumatorium)tile;
+                thaumatorium = (TileThaumatorium)tile;
             }
         }
     }
     
     @Override
     public int addToContainer(final Aspect tt, final int am) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return am;
         }
-        return this.thaumatorium.addToContainer(tt, am);
+        return thaumatorium.addToContainer(tt, am);
     }
     
     @Override
     public boolean takeFromContainer(final Aspect tt, final int am) {
-        return this.thaumatorium != null && this.thaumatorium.takeFromContainer(tt, am);
+        return thaumatorium != null && thaumatorium.takeFromContainer(tt, am);
     }
     
     @Override
@@ -59,15 +59,15 @@ public class TileThaumatoriumTop extends TileThaumcraft implements IAspectContai
     
     @Override
     public boolean doesContainerContainAmount(final Aspect tt, final int am) {
-        return this.thaumatorium != null && this.thaumatorium.doesContainerContainAmount(tt, am);
+        return thaumatorium != null && thaumatorium.doesContainerContainAmount(tt, am);
     }
     
     @Override
     public int containerContains(final Aspect tt) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return 0;
         }
-        return this.thaumatorium.containerContains(tt);
+        return thaumatorium.containerContains(tt);
     }
     
     @Override
@@ -77,12 +77,12 @@ public class TileThaumatoriumTop extends TileThaumcraft implements IAspectContai
     
     @Override
     public boolean isConnectable(final EnumFacing face) {
-        return this.thaumatorium != null && this.thaumatorium.isConnectable(face);
+        return thaumatorium != null && thaumatorium.isConnectable(face);
     }
     
     @Override
     public boolean canInputFrom(final EnumFacing face) {
-        return this.thaumatorium != null && this.thaumatorium.canInputFrom(face);
+        return thaumatorium != null && thaumatorium.canInputFrom(face);
     }
     
     @Override
@@ -92,26 +92,26 @@ public class TileThaumatoriumTop extends TileThaumcraft implements IAspectContai
     
     @Override
     public void setSuction(final Aspect aspect, final int amount) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return;
         }
-        this.thaumatorium.setSuction(aspect, amount);
+        thaumatorium.setSuction(aspect, amount);
     }
     
     @Override
     public Aspect getSuctionType(final EnumFacing loc) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return null;
         }
-        return this.thaumatorium.getSuctionType(loc);
+        return thaumatorium.getSuctionType(loc);
     }
     
     @Override
     public int getSuctionAmount(final EnumFacing loc) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return 0;
         }
-        return this.thaumatorium.getSuctionAmount(loc);
+        return thaumatorium.getSuctionAmount(loc);
     }
     
     @Override
@@ -126,18 +126,18 @@ public class TileThaumatoriumTop extends TileThaumcraft implements IAspectContai
     
     @Override
     public int takeEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return 0;
         }
-        return this.thaumatorium.takeEssentia(aspect, amount, face);
+        return thaumatorium.takeEssentia(aspect, amount, face);
     }
     
     @Override
     public int addEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return 0;
         }
-        return this.thaumatorium.addEssentia(aspect, amount, face);
+        return thaumatorium.addEssentia(aspect, amount, face);
     }
     
     @Override
@@ -147,18 +147,18 @@ public class TileThaumatoriumTop extends TileThaumcraft implements IAspectContai
     
     @Override
     public AspectList getAspects() {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return null;
         }
-        return this.thaumatorium.essentia;
+        return thaumatorium.essentia;
     }
     
     @Override
     public void setAspects(final AspectList aspects) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return;
         }
-        this.thaumatorium.setAspects(aspects);
+        thaumatorium.setAspects(aspects);
     }
     
     public int getSizeInventory() {
@@ -166,31 +166,31 @@ public class TileThaumatoriumTop extends TileThaumcraft implements IAspectContai
     }
     
     public ItemStack getStackInSlot(final int par1) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return ItemStack.EMPTY;
         }
-        return this.thaumatorium.getStackInSlot(par1);
+        return thaumatorium.getStackInSlot(par1);
     }
     
     public ItemStack decrStackSize(final int par1, final int par2) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return ItemStack.EMPTY;
         }
-        return this.thaumatorium.decrStackSize(par1, par2);
+        return thaumatorium.decrStackSize(par1, par2);
     }
     
     public ItemStack removeStackFromSlot(final int par1) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return ItemStack.EMPTY;
         }
-        return this.thaumatorium.removeStackFromSlot(par1);
+        return thaumatorium.removeStackFromSlot(par1);
     }
     
     public void setInventorySlotContents(final int par1, final ItemStack stack2) {
-        if (this.thaumatorium == null) {
+        if (thaumatorium == null) {
             return;
         }
-        this.thaumatorium.setInventorySlotContents(par1, stack2);
+        thaumatorium.setInventorySlotContents(par1, stack2);
     }
     
     public int getInventoryStackLimit() {
@@ -198,7 +198,7 @@ public class TileThaumatoriumTop extends TileThaumcraft implements IAspectContai
     }
     
     public boolean isUsableByPlayer(final EntityPlayer par1EntityPlayer) {
-        return this.world.getTileEntity(this.pos) == this && par1EntityPlayer.getDistanceSqToCenter(this.pos) <= 64.0;
+        return world.getTileEntity(pos) == this && par1EntityPlayer.getDistanceSqToCenter(pos) <= 64.0;
     }
     
     public boolean isItemValidForSlot(final int par1, final ItemStack stack2) {
@@ -235,7 +235,7 @@ public class TileThaumatoriumTop extends TileThaumcraft implements IAspectContai
     }
     
     public void clear() {
-        this.thaumatorium.clear();
+        thaumatorium.clear();
     }
     
     public String getName() {
@@ -251,6 +251,6 @@ public class TileThaumatoriumTop extends TileThaumcraft implements IAspectContai
     }
     
     public boolean isEmpty() {
-        return this.thaumatorium.isEmpty();
+        return thaumatorium.isEmpty();
     }
 }

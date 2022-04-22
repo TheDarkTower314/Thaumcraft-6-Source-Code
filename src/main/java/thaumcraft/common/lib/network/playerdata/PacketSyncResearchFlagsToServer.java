@@ -25,17 +25,17 @@ public class PacketSyncResearchFlagsToServer implements IMessage, IMessageHandle
     
     public PacketSyncResearchFlagsToServer(final EntityPlayer player, final String key) {
         this.key = key;
-        this.flags = Utils.pack(ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.PAGE), ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.POPUP), ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.RESEARCH));
+        flags = Utils.pack(ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.PAGE), ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.POPUP), ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.RESEARCH));
     }
     
     public void toBytes(final ByteBuf buffer) {
-        ByteBufUtils.writeUTF8String(buffer, this.key);
-        buffer.writeByte(this.flags);
+        ByteBufUtils.writeUTF8String(buffer, key);
+        buffer.writeByte(flags);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.key = ByteBufUtils.readUTF8String(buffer);
-        this.flags = buffer.readByte();
+        key = ByteBufUtils.readUTF8String(buffer);
+        flags = buffer.readByte();
     }
     
     public IMessage onMessage(final PacketSyncResearchFlagsToServer message, final MessageContext ctx) {

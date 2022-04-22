@@ -34,11 +34,11 @@ public class SealEmpty extends SealFiltered
     protected ISealConfigToggles.SealToggle[] props;
     
     public SealEmpty() {
-        this.delay = new Random(System.nanoTime()).nextInt(30);
-        this.filterInc = 0;
-        this.cache = new HashMap<Integer, ItemStack>();
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_empty");
-        this.props = new ISealConfigToggles.SealToggle[] { new ISealConfigToggles.SealToggle(true, "pmeta", "golem.prop.meta"), new ISealConfigToggles.SealToggle(true, "pnbt", "golem.prop.nbt"), new ISealConfigToggles.SealToggle(false, "pore", "golem.prop.ore"), new ISealConfigToggles.SealToggle(false, "pmod", "golem.prop.mod"), new ISealConfigToggles.SealToggle(false, "pcycle", "golem.prop.cycle"), new ISealConfigToggles.SealToggle(false, "pleave", "golem.prop.leave") };
+        delay = new Random(System.nanoTime()).nextInt(30);
+        filterInc = 0;
+        cache = new HashMap<Integer, ItemStack>();
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_empty");
+        props = new ISealConfigToggles.SealToggle[] { new ISealConfigToggles.SealToggle(true, "pmeta", "golem.prop.meta"), new ISealConfigToggles.SealToggle(true, "pnbt", "golem.prop.nbt"), new ISealConfigToggles.SealToggle(false, "pore", "golem.prop.ore"), new ISealConfigToggles.SealToggle(false, "pmod", "golem.prop.mod"), new ISealConfigToggles.SealToggle(false, "pcycle", "golem.prop.cycle"), new ISealConfigToggles.SealToggle(false, "pleave", "golem.prop.leave") };
     }
     
     @Override
@@ -48,8 +48,8 @@ public class SealEmpty extends SealFiltered
     
     @Override
     public void tickSeal(final World world, final ISealEntity seal) {
-        if (this.delay % 100 == 0) {
-            final Iterator<Integer> it = this.cache.keySet().iterator();
+        if (delay % 100 == 0) {
+            final Iterator<Integer> it = cache.keySet().iterator();
             while (it.hasNext()) {
                 final Task t = TaskHandler.getTask(world.provider.getDimension(), it.next());
                 if (t == null) {
@@ -57,31 +57,31 @@ public class SealEmpty extends SealFiltered
                 }
             }
         }
-        if (this.delay++ % 20 != 0) {
+        if (delay++ % 20 != 0) {
             return;
         }
-        final ItemStack stack = InventoryUtils.findFirstMatchFromFilter(this.getInv(this.filterInc), this.isBlacklist(), ThaumcraftInvHelper.getItemHandlerAt(world, seal.getSealPos().pos, seal.getSealPos().face), seal.getSealPos().face, new ThaumcraftInvHelper.InvFilter(!this.props[0].value, !this.props[1].value, this.props[2].value, this.props[3].value), this.props[5].value);
+        final ItemStack stack = InventoryUtils.findFirstMatchFromFilter(getInv(filterInc), isBlacklist(), ThaumcraftInvHelper.getItemHandlerAt(world, seal.getSealPos().pos, seal.getSealPos().face), seal.getSealPos().face, new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value), props[5].value);
         if (stack != null && !stack.isEmpty()) {
             final Task task = new Task(seal.getSealPos(), seal.getSealPos().pos);
             task.setPriority(seal.getPriority());
             task.setLifespan((short)5);
             TaskHandler.addTask(world.provider.getDimension(), task);
-            this.cache.put(task.getId(), stack);
+            cache.put(task.getId(), stack);
         }
     }
     
     @Override
     public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
-        ItemStack stack = this.cache.get(task.getId());
-        final int sa = ThaumcraftInvHelper.countTotalItemsIn(world, task.getSealPos().pos, task.getSealPos().face, stack, new ThaumcraftInvHelper.InvFilter(!this.props[0].value, !this.props[1].value, this.props[2].value, this.props[3].value));
-        if (stack != null && !stack.isEmpty() && this.props[5].value && sa <= stack.getCount()) {
+        ItemStack stack = cache.get(task.getId());
+        final int sa = ThaumcraftInvHelper.countTotalItemsIn(world, task.getSealPos().pos, task.getSealPos().face, stack, new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
+        if (stack != null && !stack.isEmpty() && props[5].value && sa <= stack.getCount()) {
             stack = stack.copy();
             stack.setCount(sa - 1);
         }
         if (stack != null && !stack.isEmpty()) {
             final int limit = golem.canCarryAmount(stack);
             if (limit > 0) {
-                final ItemStack s = golem.holdItem(InventoryUtils.removeStackFrom(world, task.getSealPos().pos, task.getSealPos().face, InventoryUtils.copyLimitedStack(stack, limit), new ThaumcraftInvHelper.InvFilter(!this.props[0].value, !this.props[1].value, this.props[2].value, this.props[3].value), false));
+                final ItemStack s = golem.holdItem(InventoryUtils.removeStackFrom(world, task.getSealPos().pos, task.getSealPos().face, InventoryUtils.copyLimitedStack(stack, limit), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value), false));
                 if (!s.isEmpty()) {
                     InventoryUtils.ejectStackAt(world, task.getSealPos().pos.offset(task.getSealPos().face), task.getSealPos().face.getOpposite(), s);
                 }
@@ -89,15 +89,15 @@ public class SealEmpty extends SealFiltered
                 golem.swingArm();
             }
         }
-        this.cache.remove(task.getId());
-        ++this.filterInc;
+        cache.remove(task.getId());
+        ++filterInc;
         task.setSuspended(true);
         return true;
     }
     
     @Override
     public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
-        final ItemStack stack = this.cache.get(task.getId());
+        final ItemStack stack = cache.get(task.getId());
         return stack != null && !stack.isEmpty() && golem.canCarry(stack, true);
     }
     
@@ -113,7 +113,7 @@ public class SealEmpty extends SealFiltered
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override
@@ -137,7 +137,7 @@ public class SealEmpty extends SealFiltered
     
     @Override
     public void onTaskSuspension(final World world, final Task task) {
-        this.cache.remove(task.getId());
+        cache.remove(task.getId());
     }
     
     @Override

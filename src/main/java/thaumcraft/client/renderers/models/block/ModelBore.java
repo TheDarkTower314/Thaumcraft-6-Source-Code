@@ -17,52 +17,52 @@ public class ModelBore extends ModelBase
     ModelRenderer NozMid;
     
     public ModelBore() {
-        this.textureWidth = 128;
-        this.textureHeight = 64;
-        (this.Base = new ModelRenderer(this, 0, 32)).addBox(-6.0f, 0.0f, -6.0f, 12, 2, 12);
-        this.Base.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.Base.setTextureSize(64, 32);
-        this.Base.mirror = true;
-        this.setRotation(this.Base, 0.0f, 0.0f, 0.0f);
-        (this.Side1 = new ModelRenderer(this, 0, 0)).addBox(-2.0f, 2.0f, -5.5f, 4, 8, 1);
-        this.Side1.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.Side1.setTextureSize(64, 32);
-        this.Side1.mirror = true;
-        this.setRotation(this.Side1, 0.0f, 0.0f, 0.0f);
-        (this.Side2 = new ModelRenderer(this, 0, 0)).addBox(-2.0f, 2.0f, 4.5f, 4, 8, 1);
-        this.Side2.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.Side2.setTextureSize(64, 32);
-        this.Side2.mirror = true;
-        this.setRotation(this.Side2, 0.0f, 0.0f, 0.0f);
-        (this.NozCrossbar = new ModelRenderer(this, 0, 48)).addBox(-1.0f, -1.0f, -6.0f, 2, 2, 12);
-        this.NozCrossbar.setRotationPoint(0.0f, 8.0f, 0.0f);
-        this.NozCrossbar.setTextureSize(64, 32);
-        this.NozCrossbar.mirror = true;
-        this.setRotation(this.NozCrossbar, 0.0f, 0.0f, 0.0f);
-        (this.NozFront = new ModelRenderer(this, 30, 14)).addBox(4.0f, -2.5f, -2.5f, 4, 5, 5);
-        this.NozFront.setRotationPoint(0.0f, 8.0f, 0.0f);
-        this.NozFront.setTextureSize(64, 32);
-        this.NozFront.mirror = true;
-        this.setRotation(this.NozFront, 0.0f, 0.0f, 0.0f);
-        (this.NozMid = new ModelRenderer(this, 0, 14)).addBox(-2.0f, -4.0f, -4.0f, 6, 8, 8);
-        this.NozMid.setRotationPoint(0.0f, 8.0f, 0.0f);
-        this.NozMid.setTextureSize(64, 32);
-        this.NozMid.mirror = true;
-        this.setRotation(this.NozMid, 0.0f, 0.0f, 0.0f);
+        textureWidth = 128;
+        textureHeight = 64;
+        (Base = new ModelRenderer(this, 0, 32)).addBox(-6.0f, 0.0f, -6.0f, 12, 2, 12);
+        Base.setRotationPoint(0.0f, 0.0f, 0.0f);
+        Base.setTextureSize(64, 32);
+        Base.mirror = true;
+        setRotation(Base, 0.0f, 0.0f, 0.0f);
+        (Side1 = new ModelRenderer(this, 0, 0)).addBox(-2.0f, 2.0f, -5.5f, 4, 8, 1);
+        Side1.setRotationPoint(0.0f, 0.0f, 0.0f);
+        Side1.setTextureSize(64, 32);
+        Side1.mirror = true;
+        setRotation(Side1, 0.0f, 0.0f, 0.0f);
+        (Side2 = new ModelRenderer(this, 0, 0)).addBox(-2.0f, 2.0f, 4.5f, 4, 8, 1);
+        Side2.setRotationPoint(0.0f, 0.0f, 0.0f);
+        Side2.setTextureSize(64, 32);
+        Side2.mirror = true;
+        setRotation(Side2, 0.0f, 0.0f, 0.0f);
+        (NozCrossbar = new ModelRenderer(this, 0, 48)).addBox(-1.0f, -1.0f, -6.0f, 2, 2, 12);
+        NozCrossbar.setRotationPoint(0.0f, 8.0f, 0.0f);
+        NozCrossbar.setTextureSize(64, 32);
+        NozCrossbar.mirror = true;
+        setRotation(NozCrossbar, 0.0f, 0.0f, 0.0f);
+        (NozFront = new ModelRenderer(this, 30, 14)).addBox(4.0f, -2.5f, -2.5f, 4, 5, 5);
+        NozFront.setRotationPoint(0.0f, 8.0f, 0.0f);
+        NozFront.setTextureSize(64, 32);
+        NozFront.mirror = true;
+        setRotation(NozFront, 0.0f, 0.0f, 0.0f);
+        (NozMid = new ModelRenderer(this, 0, 14)).addBox(-2.0f, -4.0f, -4.0f, 6, 8, 8);
+        NozMid.setRotationPoint(0.0f, 8.0f, 0.0f);
+        NozMid.setTextureSize(64, 32);
+        NozMid.mirror = true;
+        setRotation(NozMid, 0.0f, 0.0f, 0.0f);
     }
     
     public void renderBase() {
         final float f5 = 0.0625f;
-        this.Base.render(f5);
-        this.Side1.render(f5);
-        this.Side2.render(f5);
-        this.NozCrossbar.render(f5);
+        Base.render(f5);
+        Side1.render(f5);
+        Side2.render(f5);
+        NozCrossbar.render(f5);
     }
     
     public void renderNozzle() {
         final float f5 = 0.0625f;
-        this.NozFront.render(f5);
-        this.NozMid.render(f5);
+        NozFront.render(f5);
+        NozMid.render(f5);
     }
     
     private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {

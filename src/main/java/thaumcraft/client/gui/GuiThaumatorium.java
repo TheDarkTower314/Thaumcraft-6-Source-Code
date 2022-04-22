@@ -45,69 +45,69 @@ public class GuiThaumatorium extends GuiContainer
     
     public GuiThaumatorium(final InventoryPlayer par1InventoryPlayer, final TileThaumatorium par2TileEntityFurnace) {
         super(new ContainerThaumatorium(par1InventoryPlayer, par2TileEntityFurnace));
-        this.container = null;
-        this.index = 0;
-        this.lastSize = 0;
-        this.player = null;
-        this.tex = new ResourceLocation("thaumcraft", "textures/gui/gui_thaumatorium.png");
-        this.hashList = new ArrayList<Integer>();
-        this.lastHLUpdate = 0L;
-        this.xSize = 175;
-        this.ySize = 216;
-        this.inventory = par2TileEntityFurnace;
-        this.container = (ContainerThaumatorium)this.inventorySlots;
-        this.player = par1InventoryPlayer.player;
-        this.inventory.updateRecipes(this.player);
-        this.lastSize = this.hashList.size();
+        container = null;
+        index = 0;
+        lastSize = 0;
+        player = null;
+        tex = new ResourceLocation("thaumcraft", "textures/gui/gui_thaumatorium.png");
+        hashList = new ArrayList<Integer>();
+        lastHLUpdate = 0L;
+        xSize = 175;
+        ySize = 216;
+        inventory = par2TileEntityFurnace;
+        container = (ContainerThaumatorium) inventorySlots;
+        player = par1InventoryPlayer.player;
+        inventory.updateRecipes(player);
+        lastSize = hashList.size();
     }
     
     public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
-        this.drawDefaultBackground();
+        drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.renderHoveredToolTip(mouseX, mouseY);
+        renderHoveredToolTip(mouseX, mouseY);
     }
     
     protected void drawGuiContainerBackgroundLayer(final float par1, final int mx, final int my) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.mc.renderEngine.bindTexture(this.tex);
-        final int k = (this.width - this.xSize) / 2;
-        final int l = (this.height - this.ySize) / 2;
+        mc.renderEngine.bindTexture(tex);
+        final int k = (width - xSize) / 2;
+        final int l = (height - ySize) / 2;
         GL11.glEnable(3042);
-        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+        drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
         final long t = System.currentTimeMillis();
-        if (t > this.lastHLUpdate) {
-            this.hashList.clear();
-            this.hashList = this.inventory.generateRecipeHashlist();
-            this.lastHLUpdate = t + 500L;
+        if (t > lastHLUpdate) {
+            hashList.clear();
+            hashList = inventory.generateRecipeHashlist();
+            lastHLUpdate = t + 500L;
         }
-        if (this.hashList.size() > 0) {
-            if (this.index > this.hashList.size() / 2) {
-                this.index = this.hashList.size() / 2;
+        if (hashList.size() > 0) {
+            if (index > hashList.size() / 2) {
+                index = hashList.size() / 2;
             }
-            if (this.index < 0 || this.hashList.size() <= 6) {
-                this.index = 0;
+            if (index < 0 || hashList.size() <= 6) {
+                index = 0;
             }
-            if (this.hashList.size() > 6) {
-                if (this.index > 0) {
-                    this.drawTexturedModalRect(k + 82, l + 56, 176, 56, 8, 11);
+            if (hashList.size() > 6) {
+                if (index > 0) {
+                    drawTexturedModalRect(k + 82, l + 56, 176, 56, 8, 11);
                 }
-                if (this.index < this.hashList.size() / 2.0f - 3.0f) {
-                    this.drawTexturedModalRect(k + 82, l + 93, 176, 93, 8, 11);
+                if (index < hashList.size() / 2.0f - 3.0f) {
+                    drawTexturedModalRect(k + 82, l + 93, 176, 93, 8, 11);
                 }
             }
         }
-        this.drawAspects(k, l, t);
-        if (this.inventory.maxRecipes > 1) {
+        drawAspects(k, l, t);
+        if (inventory.maxRecipes > 1) {
             GL11.glPushMatrix();
             GL11.glTranslatef((float)(k + 64), (float)(l + 48), 0.0f);
             GL11.glScalef(0.5f, 0.5f, 0.0f);
-            final String text = this.inventory.recipeHash.size() + "/" + this.inventory.maxRecipes;
-            final int ll = this.fontRenderer.getStringWidth(text) / 2;
-            this.fontRenderer.drawString(text, -ll, 0, 16777215);
+            final String text = inventory.recipeHash.size() + "/" + inventory.maxRecipes;
+            final int ll = fontRenderer.getStringWidth(text) / 2;
+            fontRenderer.drawString(text, -ll, 0, 16777215);
             GL11.glScalef(1.0f, 1.0f, 1.0f);
             GL11.glPopMatrix();
         }
-        this.drawOutput(k, l, mx, my, t);
+        drawOutput(k, l, mx, my, t);
     }
     
     private static CrucibleRecipe getRecipeCached(final int hash) {
@@ -122,15 +122,15 @@ public class GuiThaumatorium extends GuiContainer
     }
     
     private void drawAspects(final int k, final int l, final long time) {
-        if (this.inventory.recipeHash.size() <= 0) {
+        if (inventory.recipeHash.size() <= 0) {
             return;
         }
         int count = 0;
         int px = 0;
         int py = 0;
         GL11.glEnable(3042);
-        final int hash = this.inventory.recipeHash.get((int)(time / 1000L % this.inventory.recipeHash.size()));
-        if (this.inventory.recipeHash.contains(hash)) {
+        final int hash = inventory.recipeHash.get((int)(time / 1000L % inventory.recipeHash.size()));
+        if (inventory.recipeHash.contains(hash)) {
             final CrucibleRecipe cr = getRecipeCached(hash);
             if (cr == null) {
                 return;
@@ -138,11 +138,11 @@ public class GuiThaumatorium extends GuiContainer
             for (final Aspect aspect : cr.getAspects().getAspectsSortedByName()) {
                 GL11.glPushMatrix();
                 GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-                this.drawTexturedModalRect(k + 98 + 16 * px, l + 40 + 20 * py, 176, 4, 12, 3);
-                final int i1 = (int)(this.inventory.essentia.getAmount(aspect) / (float)cr.getAspects().getAmount(aspect) * 12.0f);
+                drawTexturedModalRect(k + 98 + 16 * px, l + 40 + 20 * py, 176, 4, 12, 3);
+                final int i1 = (int)(inventory.essentia.getAmount(aspect) / (float)cr.getAspects().getAmount(aspect) * 12.0f);
                 final Color c = new Color(aspect.getColor());
                 GL11.glColor4f(c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f, 1.0f);
-                this.drawTexturedModalRect(k + 98 + 16 * px, l + 40 + 20 * py, 176, 0, i1, 3);
+                drawTexturedModalRect(k + 98 + 16 * px, l + 40 + 20 * py, 176, 0, i1, 3);
                 GL11.glPopMatrix();
                 if (++px > 1) {
                     px = 0;
@@ -156,7 +156,7 @@ public class GuiThaumatorium extends GuiContainer
             px = 0;
             py = 0;
             for (final Aspect aspect : cr.getAspects().getAspectsSortedByName()) {
-                UtilsFX.drawTag(k + 96 + 16 * px, l + 24 + 20 * py, aspect, (float)cr.getAspects().getAmount(aspect), 0, this.zLevel);
+                UtilsFX.drawTag(k + 96 + 16 * px, l + 24 + 20 * py, aspect, (float)cr.getAspects().getAmount(aspect), 0, zLevel);
                 if (++px > 1) {
                     px = 0;
                     ++py;
@@ -174,15 +174,15 @@ public class GuiThaumatorium extends GuiContainer
         int py = 0;
         int q = 0;
         int idx = 0;
-        for (final int hash : this.hashList) {
-            if (q++ < this.index * 2) {
+        for (final int hash : hashList) {
+            if (q++ < index * 2) {
                 continue;
             }
             final CrucibleRecipe cr = getRecipeCached(hash);
             if (cr == null) {
                 continue;
             }
-            this.drawOutputIcon(x + 48 + px * 16, y + 56 + py * 16, getRecipeCached(hash), time);
+            drawOutputIcon(x + 48 + px * 16, y + 56 + py * 16, getRecipeCached(hash), time);
             if (++px > 1) {
                 px = 0;
                 ++py;
@@ -195,8 +195,8 @@ public class GuiThaumatorium extends GuiContainer
         py = 0;
         q = 0;
         idx = 0;
-        for (final int hash : this.hashList) {
-            if (q++ < this.index * 2) {
+        for (final int hash : hashList) {
+            if (q++ < index * 2) {
                 continue;
             }
             final CrucibleRecipe cr = getRecipeCached(hash);
@@ -206,7 +206,7 @@ public class GuiThaumatorium extends GuiContainer
             final int xx = mx - (x + 48 + px * 16);
             final int yy = my - (y + 56 + py * 16);
             if (xx >= 0 && yy >= 0 && xx < 16 && yy < 16) {
-                this.renderToolTip(cr.getRecipeOutput(), mx, my);
+                renderToolTip(cr.getRecipeOutput(), mx, my);
                 break;
             }
             if (++px > 1) {
@@ -223,15 +223,15 @@ public class GuiThaumatorium extends GuiContainer
     }
     
     private void drawOutputIcon(final int x, final int y, final CrucibleRecipe cr, final long time) {
-        if (this.inventory.recipeHash.contains(cr.hash)) {
-            final int hash = this.inventory.recipeHash.get((int)(time / 1000L % this.inventory.recipeHash.size()));
-            this.mc.renderEngine.bindTexture(this.tex);
+        if (inventory.recipeHash.contains(cr.hash)) {
+            final int hash = inventory.recipeHash.get((int)(time / 1000L % inventory.recipeHash.size()));
+            mc.renderEngine.bindTexture(tex);
             GL11.glPushMatrix();
             GL11.glEnable(3042);
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.7f);
-            this.drawTexturedModalRect(x, y, 176, 8, 16, 16);
-            if (this.inventory.recipeHash.size() > 1 && hash == cr.hash) {
-                this.drawTexturedModalRect(x, y, 176, 8, 16, 16);
+            drawTexturedModalRect(x, y, 176, 8, 16, 16);
+            if (inventory.recipeHash.size() > 1 && hash == cr.hash) {
+                drawTexturedModalRect(x, y, 176, 8, 16, 16);
             }
             GL11.glDisable(3042);
             GL11.glPopMatrix();
@@ -242,24 +242,24 @@ public class GuiThaumatorium extends GuiContainer
         GlStateManager.enableRescaleNormal();
         GlStateManager.enableColorMaterial();
         GlStateManager.enableLighting();
-        this.itemRender.zLevel = 100.0f;
-        this.itemRender.renderItemAndEffectIntoGUI(cr.getRecipeOutput(), x, y);
-        this.itemRender.renderItemOverlays(this.fontRenderer, cr.getRecipeOutput(), x, y);
-        this.itemRender.zLevel = 0.0f;
+        itemRender.zLevel = 100.0f;
+        itemRender.renderItemAndEffectIntoGUI(cr.getRecipeOutput(), x, y);
+        itemRender.renderItemOverlays(fontRenderer, cr.getRecipeOutput(), x, y);
+        itemRender.zLevel = 0.0f;
         GlStateManager.disableLighting();
         GlStateManager.popMatrix();
     }
     
     protected void mouseClicked(final int mx, final int my, final int par3) throws IOException {
         super.mouseClicked(mx, my, par3);
-        final int gx = (this.width - this.xSize) / 2;
-        final int gy = (this.height - this.ySize) / 2;
+        final int gx = (width - xSize) / 2;
+        final int gy = (height - ySize) / 2;
         int px = 0;
         int py = 0;
         int q = 0;
         int idx = 0;
-        for (final int hash : this.hashList) {
-            if (q++ < this.index * 2) {
+        for (final int hash : hashList) {
+            if (q++ < index * 2) {
                 continue;
             }
             final CrucibleRecipe cr = getRecipeCached(hash);
@@ -269,9 +269,9 @@ public class GuiThaumatorium extends GuiContainer
             final int x = mx - (gx + 48 + px * 16);
             final int y = my - (gy + 56 + py * 16);
             if (x >= 0 && y >= 0 && x < 16 && y < 16) {
-                PacketHandler.INSTANCE.sendToServer(new PacketSelectThaumotoriumRecipeToServer(this.player, this.inventory.getPos(), hash));
-                this.playButtonSelect();
-                this.lastHLUpdate = 0L;
+                PacketHandler.INSTANCE.sendToServer(new PacketSelectThaumotoriumRecipeToServer(player, inventory.getPos(), hash));
+                playButtonSelect();
+                lastHLUpdate = 0L;
                 break;
             }
             if (++px > 1) {
@@ -282,34 +282,34 @@ public class GuiThaumatorium extends GuiContainer
                 break;
             }
         }
-        if (this.hashList.size() > 6) {
-            if (this.index > 0) {
+        if (hashList.size() > 6) {
+            if (index > 0) {
                 final int x2 = mx - (gx + 82);
                 final int y2 = my - (gy + 56);
                 if (x2 >= 0 && y2 >= 0 && x2 < 8 && y2 < 11) {
-                    --this.index;
-                    this.playButtonClick();
-                    this.lastHLUpdate = 0L;
+                    --index;
+                    playButtonClick();
+                    lastHLUpdate = 0L;
                 }
             }
-            if (this.index < this.hashList.size() / 2.0f - 3.0f) {
+            if (index < hashList.size() / 2.0f - 3.0f) {
                 final int x2 = mx - (gx + 82);
                 final int y2 = my - (gy + 93);
                 if (x2 >= 0 && y2 >= 0 && x2 < 8 && y2 < 11) {
-                    ++this.index;
-                    this.playButtonClick();
-                    this.lastHLUpdate = 0L;
+                    ++index;
+                    playButtonClick();
+                    lastHLUpdate = 0L;
                 }
             }
         }
     }
     
     private void playButtonSelect() {
-        this.mc.getRenderViewEntity().playSound(SoundsTC.hhon, 0.3f, 1.0f);
+        mc.getRenderViewEntity().playSound(SoundsTC.hhon, 0.3f, 1.0f);
     }
     
     private void playButtonClick() {
-        this.mc.getRenderViewEntity().playSound(SoundsTC.clack, 0.4f, 1.0f);
+        mc.getRenderViewEntity().playSound(SoundsTC.clack, 0.4f, 1.0f);
     }
     
     static {

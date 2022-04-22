@@ -28,11 +28,11 @@ public class PacketFocusChangeToServer implements IMessage, IMessageHandler<Pack
     }
     
     public void toBytes(final ByteBuf buffer) {
-        ByteBufUtils.writeUTF8String(buffer, this.focus);
+        ByteBufUtils.writeUTF8String(buffer, focus);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.focus = ByteBufUtils.readUTF8String(buffer);
+        focus = ByteBufUtils.readUTF8String(buffer);
     }
     
     public IMessage onMessage(final PacketFocusChangeToServer message, final MessageContext ctx) {

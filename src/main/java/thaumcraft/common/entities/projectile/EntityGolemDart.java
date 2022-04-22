@@ -14,17 +14,17 @@ public class EntityGolemDart extends EntityArrow
 {
     public EntityGolemDart(final World par1World) {
         super(par1World);
-        this.setSize(0.2f, 0.2f);
+        setSize(0.2f, 0.2f);
     }
     
     public EntityGolemDart(final World par1World, final double par2, final double par4, final double par6) {
         super(par1World, par2, par4, par6);
-        this.setSize(0.2f, 0.2f);
+        setSize(0.2f, 0.2f);
     }
     
     public EntityGolemDart(final World par1World, final EntityLivingBase par2EntityLivingBase) {
         super(par1World, par2EntityLivingBase);
-        this.setSize(0.2f, 0.2f);
+        setSize(0.2f, 0.2f);
     }
     
     protected ItemStack getArrowStack() {

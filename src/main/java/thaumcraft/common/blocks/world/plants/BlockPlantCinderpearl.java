@@ -24,11 +24,11 @@ public class BlockPlantCinderpearl extends BlockBush
 {
     public BlockPlantCinderpearl() {
         super(Material.PLANTS);
-        this.setUnlocalizedName("cinderpearl");
-        this.setRegistryName("thaumcraft", "cinderpearl");
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setSoundType(SoundType.PLANT);
-        this.setLightLevel(0.5f);
+        setUnlocalizedName("cinderpearl");
+        setRegistryName("thaumcraft", "cinderpearl");
+        setCreativeTab(ConfigItems.TABTC);
+        setSoundType(SoundType.PLANT);
+        setLightLevel(0.5f);
     }
     
     protected boolean canSustainBush(final IBlockState state) {

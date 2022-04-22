@@ -20,44 +20,44 @@ public class TileHole extends TileMemory implements ITickable
     public EnumFacing direction;
     
     public TileHole() {
-        this.countdown = 0;
-        this.countdownmax = 120;
-        this.count = 0;
-        this.direction = null;
+        countdown = 0;
+        countdownmax = 120;
+        count = 0;
+        direction = null;
     }
     
     public TileHole(final IBlockState bi, final short max, final byte count, final EnumFacing direction) {
         super(bi);
-        this.countdown = 0;
-        this.countdownmax = 120;
+        countdown = 0;
+        countdownmax = 120;
         this.count = 0;
         this.direction = null;
         this.count = count;
-        this.countdownmax = max;
+        countdownmax = max;
         this.direction = direction;
     }
     
     public TileHole(final byte count) {
-        this.countdown = 0;
-        this.countdownmax = 120;
+        countdown = 0;
+        countdownmax = 120;
         this.count = 0;
-        this.direction = null;
+        direction = null;
         this.count = count;
     }
     
     public void update() {
-        if (this.world.isRemote) {
+        if (world.isRemote) {
             for (int a = 0; a < 2; ++a) {
-                this.surroundwithsparkles();
+                surroundwithsparkles();
             }
         }
         else {
-            if (this.countdown == 0 && this.count > 1 && this.direction != null) {
-                switch (this.direction.getAxis()) {
+            if (countdown == 0 && count > 1 && direction != null) {
+                switch (direction.getAxis()) {
                     case Y: {
                         for (int a = 0; a < 9; ++a) {
                             if (a / 3 != 1 || a % 3 != 1) {
-                                FocusEffectRift.createHole(this.world, this.getPos().add(-1 + a / 3, 0, -1 + a % 3), null, (byte)1, this.countdownmax);
+                                FocusEffectRift.createHole(world, getPos().add(-1 + a / 3, 0, -1 + a % 3), null, (byte)1, countdownmax);
                             }
                         }
                         break;
@@ -65,7 +65,7 @@ public class TileHole extends TileMemory implements ITickable
                     case Z: {
                         for (int a = 0; a < 9; ++a) {
                             if (a / 3 != 1 || a % 3 != 1) {
-                                FocusEffectRift.createHole(this.world, this.getPos().add(-1 + a / 3, -1 + a % 3, 0), null, (byte)1, this.countdownmax);
+                                FocusEffectRift.createHole(world, getPos().add(-1 + a / 3, -1 + a % 3, 0), null, (byte)1, countdownmax);
                             }
                         }
                         break;
@@ -73,32 +73,32 @@ public class TileHole extends TileMemory implements ITickable
                     case X: {
                         for (int a = 0; a < 9; ++a) {
                             if (a / 3 != 1 || a % 3 != 1) {
-                                FocusEffectRift.createHole(this.world, this.getPos().add(0, -1 + a / 3, -1 + a % 3), null, (byte)1, this.countdownmax);
+                                FocusEffectRift.createHole(world, getPos().add(0, -1 + a / 3, -1 + a % 3), null, (byte)1, countdownmax);
                             }
                         }
                         break;
                     }
                 }
-                if (!FocusEffectRift.createHole(this.world, this.getPos().offset(this.direction.getOpposite()), this.direction, (byte)(this.count - 1), this.countdownmax)) {
-                    this.count = 0;
+                if (!FocusEffectRift.createHole(world, getPos().offset(direction.getOpposite()), direction, (byte)(count - 1), countdownmax)) {
+                    count = 0;
                 }
             }
-            ++this.countdown;
-            if (this.countdown % 20 == 0) {
-                this.markDirty();
+            ++countdown;
+            if (countdown % 20 == 0) {
+                markDirty();
             }
-            if (this.countdown >= this.countdownmax) {
-                this.world.setBlockState(this.getPos(), this.oldblock, 3);
+            if (countdown >= countdownmax) {
+                world.setBlockState(getPos(), oldblock, 3);
             }
         }
     }
     
     private void surroundwithsparkles() {
         for (final EnumFacing d1 : EnumFacing.values()) {
-            final IBlockState b1 = this.world.getBlockState(this.getPos().offset(d1));
+            final IBlockState b1 = world.getBlockState(getPos().offset(d1));
             if (b1.getBlock() != BlocksTC.hole && !b1.isOpaqueCube()) {
                 for (final EnumFacing d2 : EnumFacing.values()) {
-                    if (d1.getAxis() != d2.getAxis() && (this.world.getBlockState(this.getPos().offset(d2)).isOpaqueCube() || this.world.getBlockState(this.getPos().offset(d1).offset(d2)).isOpaqueCube())) {
+                    if (d1.getAxis() != d2.getAxis() && (world.getBlockState(getPos().offset(d2)).isOpaqueCube() || world.getBlockState(getPos().offset(d1).offset(d2)).isOpaqueCube())) {
                         float sx = 0.5f * d1.getFrontOffsetX();
                         float sy = 0.5f * d1.getFrontOffsetY();
                         float sz = 0.5f * d1.getFrontOffsetZ();
@@ -112,24 +112,24 @@ public class TileHole extends TileMemory implements ITickable
                             sz = 0.5f * d2.getFrontOffsetZ();
                         }
                         if (sx == 0.0f) {
-                            sx = this.world.rand.nextFloat();
+                            sx = world.rand.nextFloat();
                         }
                         else {
                             sx += 0.5f;
                         }
                         if (sy == 0.0f) {
-                            sy = this.world.rand.nextFloat();
+                            sy = world.rand.nextFloat();
                         }
                         else {
                             sy += 0.5f;
                         }
                         if (sz == 0.0f) {
-                            sz = this.world.rand.nextFloat();
+                            sz = world.rand.nextFloat();
                         }
                         else {
                             sz += 0.5f;
                         }
-                        FXDispatcher.INSTANCE.sparkle(this.getPos().getX() + sx, this.getPos().getY() + sy, this.getPos().getZ() + sz, 0.25f, 0.25f, 1.0f);
+                        FXDispatcher.INSTANCE.sparkle(getPos().getX() + sx, getPos().getY() + sy, getPos().getZ() + sz, 0.25f, 0.25f, 1.0f);
                     }
                 }
             }
@@ -139,20 +139,20 @@ public class TileHole extends TileMemory implements ITickable
     @Override
     public void readFromNBT(final NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
-        this.countdown = nbttagcompound.getShort("countdown");
-        this.countdownmax = nbttagcompound.getShort("countdownmax");
-        this.count = nbttagcompound.getByte("count");
+        countdown = nbttagcompound.getShort("countdown");
+        countdownmax = nbttagcompound.getShort("countdownmax");
+        count = nbttagcompound.getByte("count");
         final byte db = nbttagcompound.getByte("direction");
-        this.direction = ((db >= 0) ? EnumFacing.values()[db] : null);
+        direction = ((db >= 0) ? EnumFacing.values()[db] : null);
     }
     
     @Override
     public NBTTagCompound writeToNBT(final NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
-        nbttagcompound.setShort("countdown", this.countdown);
-        nbttagcompound.setShort("countdownmax", this.countdownmax);
-        nbttagcompound.setByte("count", this.count);
-        nbttagcompound.setByte("direction", (this.direction == null) ? -1 : ((byte)this.direction.ordinal()));
+        nbttagcompound.setShort("countdown", countdown);
+        nbttagcompound.setShort("countdownmax", countdownmax);
+        nbttagcompound.setByte("count", count);
+        nbttagcompound.setByte("direction", (direction == null) ? -1 : ((byte) direction.ordinal()));
         return nbttagcompound;
     }
 }

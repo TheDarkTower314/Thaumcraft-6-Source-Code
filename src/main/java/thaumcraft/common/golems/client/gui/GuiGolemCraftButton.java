@@ -19,24 +19,24 @@ public class GuiGolemCraftButton extends GuiButton
     }
     
     public void drawButton(final Minecraft mc, final int xx, final int yy, final float partialTicks) {
-        if (this.visible) {
+        if (visible) {
             final FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiGolemCraftButton.tex);
             GlStateManager.color(0.9f, 0.9f, 0.9f, 0.9f);
-            this.hovered = (xx >= this.x && yy >= this.y && xx < this.x + this.width && yy < this.y + this.height);
-            final int k = this.getHoverState(this.hovered);
+            hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);
+            final int k = getHoverState(hovered);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.blendFunc(770, 771);
-            if (this.enabled && k == 2) {
+            if (enabled && k == 2) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             }
-            this.drawTexturedModalRect(this.x, this.y, 216, 64, 24, 16);
-            if (!this.enabled) {
-                this.drawTexturedModalRect(this.x, this.y, 216, 40, 24, 16);
+            drawTexturedModalRect(x, y, 216, 64, 24, 16);
+            if (!enabled) {
+                drawTexturedModalRect(x, y, 216, 40, 24, 16);
             }
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            this.mouseDragged(mc, xx, yy);
+            mouseDragged(mc, xx, yy);
         }
     }
     

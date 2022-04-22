@@ -24,17 +24,17 @@ public class TileThaumcraft extends TileEntity
 {
     public final void sendMessageToClient(final NBTTagCompound nbt, @Nullable final EntityPlayerMP player) {
         if (player == null) {
-            if (this.getWorld() != null) {
-                PacketHandler.INSTANCE.sendToAllAround(new PacketTileToClient(this.getPos(), nbt), new NetworkRegistry.TargetPoint(this.getWorld().provider.getDimension(), this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5, 128.0));
+            if (getWorld() != null) {
+                PacketHandler.INSTANCE.sendToAllAround(new PacketTileToClient(getPos(), nbt), new NetworkRegistry.TargetPoint(getWorld().provider.getDimension(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 128.0));
             }
         }
         else {
-            PacketHandler.INSTANCE.sendTo(new PacketTileToClient(this.getPos(), nbt), player);
+            PacketHandler.INSTANCE.sendTo(new PacketTileToClient(getPos(), nbt), player);
         }
     }
     
     public final void sendMessageToServer(final NBTTagCompound nbt) {
-        PacketHandler.INSTANCE.sendToServer(new PacketTileToServer(this.getPos(), nbt));
+        PacketHandler.INSTANCE.sendToServer(new PacketTileToServer(getPos(), nbt));
     }
     
     public void messageFromServer(final NBTTagCompound nbt) {
@@ -45,14 +45,14 @@ public class TileThaumcraft extends TileEntity
     
     public void readFromNBT(final NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        this.readSyncNBT(nbt);
+        readSyncNBT(nbt);
     }
     
     public void readSyncNBT(final NBTTagCompound nbt) {
     }
     
     public NBTTagCompound writeToNBT(final NBTTagCompound nbt) {
-        return this.writeSyncNBT(super.writeToNBT(nbt));
+        return writeSyncNBT(super.writeToNBT(nbt));
     }
     
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbt) {
@@ -60,21 +60,21 @@ public class TileThaumcraft extends TileEntity
     }
     
     public void syncTile(final boolean rerender) {
-        final IBlockState state = this.world.getBlockState(this.pos);
-        this.world.notifyBlockUpdate(this.pos, state, state, 2 + (rerender ? 4 : 0));
+        final IBlockState state = world.getBlockState(pos);
+        world.notifyBlockUpdate(pos, state, state, 2 + (rerender ? 4 : 0));
     }
     
     @Nullable
     public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(this.pos, -9, this.getUpdateTag());
+        return new SPacketUpdateTileEntity(pos, -9, getUpdateTag());
     }
     
     public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
-        this.readSyncNBT(pkt.getNbtCompound());
+        readSyncNBT(pkt.getNbtCompound());
     }
     
     public NBTTagCompound getUpdateTag() {
-        return this.writeSyncNBT(this.setupNbt());
+        return writeSyncNBT(setupNbt());
     }
     
     private NBTTagCompound setupNbt() {
@@ -90,7 +90,7 @@ public class TileThaumcraft extends TileEntity
     
     public EnumFacing getFacing() {
         try {
-            return EnumFacing.getFront(this.getBlockMetadata() & 0x7);
+            return EnumFacing.getFront(getBlockMetadata() & 0x7);
         }
         catch (final Exception ex) {
             return EnumFacing.UP;
@@ -98,6 +98,6 @@ public class TileThaumcraft extends TileEntity
     }
     
     public boolean gettingPower() {
-        return this.world.isBlockPowered(this.getPos());
+        return world.isBlockPowered(getPos());
     }
 }

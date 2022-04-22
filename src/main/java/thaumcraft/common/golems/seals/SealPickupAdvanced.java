@@ -13,7 +13,7 @@ public class SealPickupAdvanced extends SealPickup implements ISealConfigToggles
     ResourceLocation icon;
     
     public SealPickupAdvanced() {
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_pickup_advanced");
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_pickup_advanced");
     }
     
     @Override
@@ -28,7 +28,7 @@ public class SealPickupAdvanced extends SealPickup implements ISealConfigToggles
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override
@@ -43,11 +43,11 @@ public class SealPickupAdvanced extends SealPickup implements ISealConfigToggles
     
     @Override
     public SealToggle[] getToggles() {
-        return this.props;
+        return props;
     }
     
     @Override
     public void setToggle(final int indx, final boolean value) {
-        this.props[indx].setValue(value);
+        props[indx].setValue(value);
     }
 }

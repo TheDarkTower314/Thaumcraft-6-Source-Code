@@ -28,31 +28,31 @@ public class AIGotoBlock extends AIGoto
     @Override
     public void updateTask() {
         super.updateTask();
-        if (this.golem.getLookHelper() != null) {
-            this.golem.getLookHelper().setLookPosition(this.golem.getTask().getPos().getX() + 0.5, this.golem.getTask().getPos().getY() + 0.5, this.golem.getTask().getPos().getZ() + 0.5, 10.0f, (float)this.golem.getVerticalFaceSpeed());
+        if (golem.getLookHelper() != null) {
+            golem.getLookHelper().setLookPosition(golem.getTask().getPos().getX() + 0.5, golem.getTask().getPos().getY() + 0.5, golem.getTask().getPos().getZ() + 0.5, 10.0f, (float) golem.getVerticalFaceSpeed());
         }
     }
     
     @Override
     protected void moveTo() {
-        if (this.targetBlock != null) {
-            this.golem.getNavigator().tryMoveToXYZ(this.targetBlock.getX() + 0.5, this.targetBlock.getY() + 0.5, this.targetBlock.getZ() + 0.5, this.golem.getGolemMoveSpeed());
+        if (targetBlock != null) {
+            golem.getNavigator().tryMoveToXYZ(targetBlock.getX() + 0.5, targetBlock.getY() + 0.5, targetBlock.getZ() + 0.5, golem.getGolemMoveSpeed());
         }
         else {
-            this.golem.getNavigator().tryMoveToXYZ(this.golem.getTask().getPos().getX() + 0.5, this.golem.getTask().getPos().getY() + 0.5, this.golem.getTask().getPos().getZ() + 0.5, this.golem.getGolemMoveSpeed());
+            golem.getNavigator().tryMoveToXYZ(golem.getTask().getPos().getX() + 0.5, golem.getTask().getPos().getY() + 0.5, golem.getTask().getPos().getZ() + 0.5, golem.getGolemMoveSpeed());
         }
     }
     
     @Override
     protected boolean findDestination() {
-        final ArrayList<Task> list = TaskHandler.getBlockTasksSorted(this.golem.world.provider.getDimension(), this.golem.getUniqueID(), this.golem);
+        final ArrayList<Task> list = TaskHandler.getBlockTasksSorted(golem.world.provider.getDimension(), golem.getUniqueID(), golem);
         for (final Task ticket : list) {
-            if (this.areGolemTagsValidForTask(ticket) && ticket.canGolemPerformTask(this.golem) && this.golem.isWithinHomeDistanceFromPosition(ticket.getPos()) && this.isValidDestination(this.golem.world, ticket.getPos()) && this.canEasilyReach(ticket.getPos())) {
-                this.targetBlock = this.getAdjacentSpace(ticket.getPos());
-                this.golem.setTask(ticket);
-                this.golem.getTask().setReserved(true);
+            if (areGolemTagsValidForTask(ticket) && ticket.canGolemPerformTask(golem) && golem.isWithinHomeDistanceFromPosition(ticket.getPos()) && isValidDestination(golem.world, ticket.getPos()) && canEasilyReach(ticket.getPos())) {
+                targetBlock = getAdjacentSpace(ticket.getPos());
+                golem.setTask(ticket);
+                golem.getTask().setReserved(true);
                 if (ModConfig.CONFIG_GRAPHICS.showGolemEmotes) {
-                    this.golem.world.setEntityState(this.golem, (byte)5);
+                    golem.world.setEntityState(golem, (byte)5);
                 }
                 return true;
             }
@@ -64,9 +64,9 @@ public class AIGotoBlock extends AIGoto
         double d = Double.MAX_VALUE;
         BlockPos closest = null;
         for (final EnumFacing face : EnumFacing.HORIZONTALS) {
-            final IBlockState block = this.golem.world.getBlockState(pos.offset(face));
+            final IBlockState block = golem.world.getBlockState(pos.offset(face));
             if (!block.getMaterial().blocksMovement()) {
-                final double dist = pos.offset(face).distanceSqToCenter(this.golem.posX, this.golem.posY, this.golem.posZ);
+                final double dist = pos.offset(face).distanceSqToCenter(golem.posX, golem.posY, golem.posZ);
                 if (dist < d) {
                     closest = pos.offset(face);
                     d = dist;
@@ -77,10 +77,10 @@ public class AIGotoBlock extends AIGoto
     }
     
     private boolean canEasilyReach(final BlockPos pos) {
-        if (this.golem.getDistanceSqToCenter(pos) < this.minDist) {
+        if (golem.getDistanceSqToCenter(pos) < minDist) {
             return true;
         }
-        final Path pathentity = this.golem.getNavigator().getPathToXYZ(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+        final Path pathentity = golem.getNavigator().getPathToXYZ(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
         if (pathentity == null) {
             return false;
         }

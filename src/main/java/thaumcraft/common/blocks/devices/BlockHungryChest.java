@@ -47,13 +47,13 @@ public class BlockHungryChest extends BlockContainer
     
     public BlockHungryChest() {
         super(Material.WOOD);
-        this.rand = new Random();
-        this.setUnlocalizedName("hungry_chest");
-        this.setRegistryName("thaumcraft", "hungry_chest");
-        this.setDefaultState(this.blockState.getBaseState().withProperty((IProperty)BlockHungryChest.FACING, (Comparable)EnumFacing.NORTH));
-        this.setHardness(2.5f);
-        this.setSoundType(SoundType.WOOD);
-        this.setCreativeTab(ConfigItems.TABTC);
+        rand = new Random();
+        setUnlocalizedName("hungry_chest");
+        setRegistryName("thaumcraft", "hungry_chest");
+        setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockHungryChest.FACING, (Comparable)EnumFacing.NORTH));
+        setHardness(2.5f);
+        setSoundType(SoundType.WOOD);
+        setCreativeTab(ConfigItems.TABTC);
     }
     
     public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
@@ -85,7 +85,7 @@ public class BlockHungryChest extends BlockContainer
     }
     
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        return this.getDefaultState().withProperty((IProperty)BlockHungryChest.FACING, (Comparable)placer.getHorizontalFacing());
+        return getDefaultState().withProperty((IProperty)BlockHungryChest.FACING, (Comparable)placer.getHorizontalFacing());
     }
     
     public void onBlockPlacedBy(final World worldIn, final BlockPos pos, IBlockState state, final EntityLivingBase placer, final ItemStack stack) {
@@ -165,7 +165,7 @@ public class BlockHungryChest extends BlockContainer
         if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
             enumfacing = EnumFacing.NORTH;
         }
-        return this.getDefaultState().withProperty((IProperty)BlockHungryChest.FACING, (Comparable)enumfacing);
+        return getDefaultState().withProperty((IProperty)BlockHungryChest.FACING, (Comparable)enumfacing);
     }
     
     public int getMetaFromState(final IBlockState state) {

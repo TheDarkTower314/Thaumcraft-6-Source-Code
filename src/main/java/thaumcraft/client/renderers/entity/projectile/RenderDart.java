@@ -26,12 +26,12 @@ public class RenderDart extends Render
     
     public RenderDart(final RenderManager renderManager) {
         super(renderManager);
-        this.size1 = 0;
-        this.size2 = 0;
+        size1 = 0;
+        size2 = 0;
     }
     
     public void renderArrow(final EntityArrow arrow, final double x, final double y, final double z, final float ns, final float prt) {
-        this.bindEntityTexture(arrow);
+        bindEntityTexture(arrow);
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
@@ -87,7 +87,7 @@ public class RenderDart extends Render
         GL11.glDisable(3042);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
-        this.bindTexture(ParticleEngine.particleTexture);
+        bindTexture(ParticleEngine.particleTexture);
         GL11.glPopMatrix();
     }
     
@@ -96,11 +96,11 @@ public class RenderDart extends Render
     }
     
     protected ResourceLocation getEntityTexture(final Entity par1Entity) {
-        return this.getArrowTextures((EntityArrow)par1Entity);
+        return getArrowTextures((EntityArrow)par1Entity);
     }
     
     public void doRender(final Entity par1Entity, final double par2, final double par4, final double par6, final float par8, final float par9) {
-        this.renderArrow((EntityArrow)par1Entity, par2, par4, par6, par8, par9);
+        renderArrow((EntityArrow)par1Entity, par2, par4, par6, par8, par9);
     }
     
     static {

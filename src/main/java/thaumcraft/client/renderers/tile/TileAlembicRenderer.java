@@ -25,7 +25,7 @@ public class TileAlembicRenderer extends TileEntitySpecialRenderer
     private static final ResourceLocation TEX_BORE;
     
     public TileAlembicRenderer() {
-        this.modelBore = new ModelBoreBase();
+        modelBore = new ModelBoreBase();
     }
     
     public void renderTileEntityAt(final TileAlembic tile, final double x, final double y, final double z, final float f) {
@@ -63,7 +63,7 @@ public class TileAlembicRenderer extends TileEntitySpecialRenderer
         }
         if (tile.getWorld() != null) {
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-            this.bindTexture(TileAlembicRenderer.TEX_BORE);
+            bindTexture(TileAlembicRenderer.TEX_BORE);
             for (final EnumFacing dir : EnumFacing.HORIZONTALS) {
                 if (tile.canOutputTo(dir)) {
                     final TileEntity te = ThaumcraftApiHelper.getConnectableTile(tile.getWorld(), tile.getPos(), dir);
@@ -98,7 +98,7 @@ public class TileAlembicRenderer extends TileEntitySpecialRenderer
                                 break;
                             }
                         }
-                        this.modelBore.renderNozzle();
+                        modelBore.renderNozzle();
                         GL11.glPopMatrix();
                     }
                 }
@@ -108,7 +108,7 @@ public class TileAlembicRenderer extends TileEntitySpecialRenderer
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderTileEntityAt((TileAlembic)te, x, y, z, partialTicks);
+        renderTileEntityAt((TileAlembic)te, x, y, z, partialTicks);
     }
     
     static {

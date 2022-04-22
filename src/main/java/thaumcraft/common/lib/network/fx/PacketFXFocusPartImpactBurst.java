@@ -42,24 +42,24 @@ public class PacketFXFocusPartImpactBurst implements IMessage, IMessageHandler<P
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeFloat((float)this.x);
-        buffer.writeFloat((float)this.y);
-        buffer.writeFloat((float)this.z);
-        ByteBufUtils.writeUTF8String(buffer, this.parts);
+        buffer.writeFloat((float) x);
+        buffer.writeFloat((float) y);
+        buffer.writeFloat((float) z);
+        ByteBufUtils.writeUTF8String(buffer, parts);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.x = buffer.readFloat();
-        this.y = buffer.readFloat();
-        this.z = buffer.readFloat();
-        this.parts = ByteBufUtils.readUTF8String(buffer);
+        x = buffer.readFloat();
+        y = buffer.readFloat();
+        z = buffer.readFloat();
+        parts = ByteBufUtils.readUTF8String(buffer);
     }
     
     public IMessage onMessage(final PacketFXFocusPartImpactBurst message, final MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                PacketFXFocusPartImpactBurst.this.processMessage(message);
+                processMessage(message);
             }
         });
         return null;

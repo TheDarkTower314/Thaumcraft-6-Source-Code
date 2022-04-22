@@ -74,11 +74,11 @@ public class BlockTube extends BlockTCDevice
     
     public BlockTube(final Class tile, final String name) {
         super(Material.IRON, tile, name);
-        this.rayTracer = new RayTracer();
-        this.setHardness(0.5f);
-        this.setResistance(5.0f);
-        this.setSoundType(SoundType.METAL);
-        this.setDefaultState(this.blockState.getBaseState().withProperty((IProperty)BlockTube.NORTH, (Comparable)false).withProperty((IProperty)BlockTube.EAST, (Comparable)false).withProperty((IProperty)BlockTube.SOUTH, (Comparable)false).withProperty((IProperty)BlockTube.WEST, (Comparable)false).withProperty((IProperty)BlockTube.UP, (Comparable)false).withProperty((IProperty)BlockTube.DOWN, (Comparable)false));
+        rayTracer = new RayTracer();
+        setHardness(0.5f);
+        setResistance(5.0f);
+        setSoundType(SoundType.METAL);
+        setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockTube.NORTH, (Comparable)false).withProperty((IProperty)BlockTube.EAST, (Comparable)false).withProperty((IProperty)BlockTube.SOUTH, (Comparable)false).withProperty((IProperty)BlockTube.WEST, (Comparable)false).withProperty((IProperty)BlockTube.UP, (Comparable)false).withProperty((IProperty)BlockTube.DOWN, (Comparable)false));
     }
     
     public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
@@ -113,7 +113,7 @@ public class BlockTube extends BlockTCDevice
     }
     
     public IBlockState getActualState(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
-        final Boolean[] cons = this.makeConnections(state, worldIn, pos);
+        final Boolean[] cons = makeConnections(state, worldIn, pos);
         return state.withProperty((IProperty)BlockTube.DOWN, (Comparable)cons[0]).withProperty((IProperty)BlockTube.UP, (Comparable)cons[1]).withProperty((IProperty)BlockTube.NORTH, (Comparable)cons[2]).withProperty((IProperty)BlockTube.SOUTH, (Comparable)cons[3]).withProperty((IProperty)BlockTube.WEST, (Comparable)cons[4]).withProperty((IProperty)BlockTube.EAST, (Comparable)cons[5]);
     }
     
@@ -292,7 +292,7 @@ public class BlockTube extends BlockTCDevice
             ((TileTubeBuffer)tile).addTraceableCuboids(cuboids);
         }
         final ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
-        this.rayTracer.rayTraceCuboids(new Vector3(start), new Vector3(end), cuboids, new BlockCoord(pos), this, list);
+        rayTracer.rayTraceCuboids(new Vector3(start), new Vector3(end), cuboids, new BlockCoord(pos), this, list);
         return (list.size() > 0) ? list.get(0) : super.collisionRayTrace(state, world, pos, start, end);
     }
     

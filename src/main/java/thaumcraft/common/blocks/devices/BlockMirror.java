@@ -36,12 +36,12 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
 {
     public BlockMirror(final Class cls, final String name) {
         super(Material.IRON, cls, name);
-        this.setSoundType(SoundsTC.JAR);
-        this.setHardness(0.1f);
-        this.setHarvestLevel(null, 0);
-        final IBlockState bs = this.blockState.getBaseState();
+        setSoundType(SoundsTC.JAR);
+        setHardness(0.1f);
+        setHarvestLevel(null, 0);
+        final IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)EnumFacing.UP);
-        this.setDefaultState(bs);
+        setDefaultState(bs);
     }
     
     public SoundType getSoundType() {
@@ -76,7 +76,7 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
     
     @Override
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)facing);
         return bs;
     }
@@ -89,7 +89,7 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
     public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
         final EnumFacing d = BlockStateUtils.getFacing(state);
         if (!worldIn.getBlockState(pos.offset(d.getOpposite())).isSideSolid(worldIn, pos.offset(d.getOpposite()), d)) {
-            this.dropBlockAsItem(worldIn, pos, this.getDefaultState(), 0);
+            dropBlockAsItem(worldIn, pos, getDefaultState(), 0);
             worldIn.setBlockToAir(pos);
         }
     }
@@ -129,7 +129,7 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
     public void dropBlockAsItemWithChance(final World worldIn, final BlockPos pos, final IBlockState state, final float chance, final int fortune) {
         final TileEntity te = worldIn.getTileEntity(pos);
         if (te instanceof TileMirror || te instanceof TileMirrorEssentia) {
-            this.dropMirror(worldIn, pos, state, te);
+            dropMirror(worldIn, pos, state, te);
         }
         else {
             super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
@@ -138,7 +138,7 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
     
     public void harvestBlock(final World worldIn, final EntityPlayer player, final BlockPos pos, final IBlockState state, final TileEntity te, final ItemStack stack) {
         if (te instanceof TileMirror || te instanceof TileMirrorEssentia) {
-            this.dropMirror(worldIn, pos, state, te);
+            dropMirror(worldIn, pos, state, te);
         }
         else {
             super.harvestBlock(worldIn, player, pos, state, null, stack);
@@ -146,7 +146,7 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
     }
     
     public void dropMirror(final World world, final BlockPos pos, final IBlockState state, final TileEntity te) {
-        if (this.tileClass == TileMirror.class) {
+        if (tileClass == TileMirror.class) {
             final TileMirror tm = (TileMirror)te;
             final ItemStack drop = new ItemStack(this, 1, 0);
             if (tm != null && tm instanceof TileMirror) {
@@ -179,7 +179,7 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
     }
     
     public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
-        if (!world.isRemote && this.tileClass == TileMirror.class && entity instanceof EntityItem && !entity.isDead && entity.timeUntilPortal == 0) {
+        if (!world.isRemote && tileClass == TileMirror.class && entity instanceof EntityItem && !entity.isDead && entity.timeUntilPortal == 0) {
             final TileMirror taf = (TileMirror)world.getTileEntity(pos);
             if (taf != null) {
                 taf.transport((EntityItem)entity);

@@ -48,14 +48,14 @@ public class WavefrontObject implements IModelCustom
     private String fileName;
     
     public WavefrontObject(final ResourceLocation resource) throws ModelFormatException {
-        this.vertices = new ArrayList<Vertex>();
-        this.vertexNormals = new ArrayList<Vertex>();
-        this.textureCoordinates = new ArrayList<TextureCoordinate>();
-        this.groupObjects = new ArrayList<GroupObject>();
-        this.fileName = resource.toString();
+        vertices = new ArrayList<Vertex>();
+        vertexNormals = new ArrayList<Vertex>();
+        textureCoordinates = new ArrayList<TextureCoordinate>();
+        groupObjects = new ArrayList<GroupObject>();
+        fileName = resource.toString();
         try {
             final IResource res = Minecraft.getMinecraft().getResourceManager().getResource(resource);
-            this.loadObjModel(res.getInputStream());
+            loadObjModel(res.getInputStream());
         }
         catch (final IOException e) {
             throw new ModelFormatException("IO Exception reading model format", e);
@@ -63,12 +63,12 @@ public class WavefrontObject implements IModelCustom
     }
     
     public WavefrontObject(final String filename, final InputStream inputStream) throws ModelFormatException {
-        this.vertices = new ArrayList<Vertex>();
-        this.vertexNormals = new ArrayList<Vertex>();
-        this.textureCoordinates = new ArrayList<TextureCoordinate>();
-        this.groupObjects = new ArrayList<GroupObject>();
-        this.fileName = filename;
-        this.loadObjModel(inputStream);
+        vertices = new ArrayList<Vertex>();
+        vertexNormals = new ArrayList<Vertex>();
+        textureCoordinates = new ArrayList<TextureCoordinate>();
+        groupObjects = new ArrayList<GroupObject>();
+        fileName = filename;
+        loadObjModel(inputStream);
     }
     
     private void loadObjModel(final InputStream inputStream) throws ModelFormatException {
@@ -85,49 +85,49 @@ public class WavefrontObject implements IModelCustom
                         continue;
                     }
                     if (currentLine.startsWith("v ")) {
-                        final Vertex vertex = this.parseVertex(currentLine, lineCount);
+                        final Vertex vertex = parseVertex(currentLine, lineCount);
                         if (vertex == null) {
                             continue;
                         }
-                        this.vertices.add(vertex);
+                        vertices.add(vertex);
                     }
                     else if (currentLine.startsWith("vn ")) {
-                        final Vertex vertex = this.parseVertexNormal(currentLine, lineCount);
+                        final Vertex vertex = parseVertexNormal(currentLine, lineCount);
                         if (vertex == null) {
                             continue;
                         }
-                        this.vertexNormals.add(vertex);
+                        vertexNormals.add(vertex);
                     }
                     else if (currentLine.startsWith("vt ")) {
-                        final TextureCoordinate textureCoordinate = this.parseTextureCoordinate(currentLine, lineCount);
+                        final TextureCoordinate textureCoordinate = parseTextureCoordinate(currentLine, lineCount);
                         if (textureCoordinate == null) {
                             continue;
                         }
-                        this.textureCoordinates.add(textureCoordinate);
+                        textureCoordinates.add(textureCoordinate);
                     }
                     else if (currentLine.startsWith("f ")) {
-                        if (this.currentGroupObject == null) {
-                            this.currentGroupObject = new GroupObject("Default");
+                        if (currentGroupObject == null) {
+                            currentGroupObject = new GroupObject("Default");
                         }
-                        final Face face = this.parseFace(currentLine, lineCount);
+                        final Face face = parseFace(currentLine, lineCount);
                         if (face == null) {
                             continue;
                         }
-                        this.currentGroupObject.faces.add(face);
+                        currentGroupObject.faces.add(face);
                     }
                     else {
                         if (!(currentLine.startsWith("g ") | currentLine.startsWith("o "))) {
                             continue;
                         }
-                        final GroupObject group = this.parseGroupObject(currentLine, lineCount);
-                        if (group != null && this.currentGroupObject != null) {
-                            this.groupObjects.add(this.currentGroupObject);
+                        final GroupObject group = parseGroupObject(currentLine, lineCount);
+                        if (group != null && currentGroupObject != null) {
+                            groupObjects.add(currentGroupObject);
                         }
-                        this.currentGroupObject = group;
+                        currentGroupObject = group;
                     }
                 }
             }
-            this.groupObjects.add(this.currentGroupObject);
+            groupObjects.add(currentGroupObject);
         }
         catch (final IOException e) {
             throw new ModelFormatException("IO Exception reading model format", e);
@@ -148,19 +148,19 @@ public class WavefrontObject implements IModelCustom
     @Override
     public void renderAll() {
         final Tessellator tessellator = Tessellator.getInstance();
-        if (this.currentGroupObject != null) {
-            tessellator.getBuffer().begin(this.currentGroupObject.glDrawingMode, DefaultVertexFormats.POSITION_TEX_NORMAL);
+        if (currentGroupObject != null) {
+            tessellator.getBuffer().begin(currentGroupObject.glDrawingMode, DefaultVertexFormats.POSITION_TEX_NORMAL);
         }
         else {
             tessellator.getBuffer().begin(4, DefaultVertexFormats.POSITION_TEX_NORMAL);
         }
-        this.tessellateAll(tessellator);
+        tessellateAll(tessellator);
         tessellator.draw();
     }
     
     @SideOnly(Side.CLIENT)
     public void tessellateAll(final Tessellator tessellator) {
-        for (final GroupObject groupObject : this.groupObjects) {
+        for (final GroupObject groupObject : groupObjects) {
             groupObject.render(tessellator);
         }
     }
@@ -168,7 +168,7 @@ public class WavefrontObject implements IModelCustom
     @SideOnly(Side.CLIENT)
     @Override
     public void renderOnly(final String... groupNames) {
-        for (final GroupObject groupObject : this.groupObjects) {
+        for (final GroupObject groupObject : groupObjects) {
             for (final String groupName : groupNames) {
                 if (groupName.equalsIgnoreCase(groupObject.name)) {
                     groupObject.render();
@@ -179,7 +179,7 @@ public class WavefrontObject implements IModelCustom
     
     @SideOnly(Side.CLIENT)
     public void tessellateOnly(final Tessellator tessellator, final String... groupNames) {
-        for (final GroupObject groupObject : this.groupObjects) {
+        for (final GroupObject groupObject : groupObjects) {
             for (final String groupName : groupNames) {
                 if (groupName.equalsIgnoreCase(groupObject.name)) {
                     groupObject.render(tessellator);
@@ -192,7 +192,7 @@ public class WavefrontObject implements IModelCustom
     @Override
     public String[] getPartNames() {
         final ArrayList<String> l = new ArrayList<String>();
-        for (final GroupObject groupObject : this.groupObjects) {
+        for (final GroupObject groupObject : groupObjects) {
             l.add(groupObject.name);
         }
         return l.toArray(new String[0]);
@@ -201,7 +201,7 @@ public class WavefrontObject implements IModelCustom
     @SideOnly(Side.CLIENT)
     @Override
     public void renderPart(final String partName) {
-        for (final GroupObject groupObject : this.groupObjects) {
+        for (final GroupObject groupObject : groupObjects) {
             if (partName.equalsIgnoreCase(groupObject.name)) {
                 groupObject.render();
             }
@@ -210,7 +210,7 @@ public class WavefrontObject implements IModelCustom
     
     @SideOnly(Side.CLIENT)
     public void tessellatePart(final Tessellator tessellator, final String partName) {
-        for (final GroupObject groupObject : this.groupObjects) {
+        for (final GroupObject groupObject : groupObjects) {
             if (partName.equalsIgnoreCase(groupObject.name)) {
                 groupObject.render(tessellator);
             }
@@ -220,7 +220,7 @@ public class WavefrontObject implements IModelCustom
     @SideOnly(Side.CLIENT)
     @Override
     public void renderAllExcept(final String... excludedGroupNames) {
-        for (final GroupObject groupObject : this.groupObjects) {
+        for (final GroupObject groupObject : groupObjects) {
             boolean skipPart = false;
             for (final String excludedGroupName : excludedGroupNames) {
                 if (excludedGroupName.equalsIgnoreCase(groupObject.name)) {
@@ -235,7 +235,7 @@ public class WavefrontObject implements IModelCustom
     
     @SideOnly(Side.CLIENT)
     public void tessellateAllExcept(final Tessellator tessellator, final String... excludedGroupNames) {
-        for (final GroupObject groupObject : this.groupObjects) {
+        for (final GroupObject groupObject : groupObjects) {
             boolean exclude = false;
             for (final String excludedGroupName : excludedGroupNames) {
                 if (excludedGroupName.equalsIgnoreCase(groupObject.name)) {
@@ -266,7 +266,7 @@ public class WavefrontObject implements IModelCustom
             }
             return vertex;
         }
-        throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + this.fileName + "' - Incorrect format");
+        throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + fileName + "' - Incorrect format");
     }
     
     private Vertex parseVertexNormal(String line, final int lineCount) throws ModelFormatException {
@@ -284,7 +284,7 @@ public class WavefrontObject implements IModelCustom
             }
             return vertexNormal;
         }
-        throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + this.fileName + "' - Incorrect format");
+        throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + fileName + "' - Incorrect format");
     }
     
     private TextureCoordinate parseTextureCoordinate(String line, final int lineCount) throws ModelFormatException {
@@ -305,7 +305,7 @@ public class WavefrontObject implements IModelCustom
             }
             return textureCoordinate;
         }
-        throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + this.fileName + "' - Incorrect format");
+        throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + fileName + "' - Incorrect format");
     }
     
     private Face parseFace(final String line, final int lineCount) throws ModelFormatException {
@@ -316,19 +316,19 @@ public class WavefrontObject implements IModelCustom
             final String[] tokens = trimmedLine.split(" ");
             String[] subTokens = null;
             if (tokens.length == 3) {
-                if (this.currentGroupObject.glDrawingMode == -1) {
-                    this.currentGroupObject.glDrawingMode = 4;
+                if (currentGroupObject.glDrawingMode == -1) {
+                    currentGroupObject.glDrawingMode = 4;
                 }
-                else if (this.currentGroupObject.glDrawingMode != 4) {
-                    throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + this.fileName + "' - Invalid number of points for face (expected 4, found " + tokens.length + ")");
+                else if (currentGroupObject.glDrawingMode != 4) {
+                    throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + fileName + "' - Invalid number of points for face (expected 4, found " + tokens.length + ")");
                 }
             }
             else if (tokens.length == 4) {
-                if (this.currentGroupObject.glDrawingMode == -1) {
-                    this.currentGroupObject.glDrawingMode = 7;
+                if (currentGroupObject.glDrawingMode == -1) {
+                    currentGroupObject.glDrawingMode = 7;
                 }
-                else if (this.currentGroupObject.glDrawingMode != 7) {
-                    throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + this.fileName + "' - Invalid number of points for face (expected 3, found " + tokens.length + ")");
+                else if (currentGroupObject.glDrawingMode != 7) {
+                    throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + fileName + "' - Invalid number of points for face (expected 3, found " + tokens.length + ")");
                 }
             }
             if (isValidFace_V_VT_VN_Line(line)) {
@@ -337,9 +337,9 @@ public class WavefrontObject implements IModelCustom
                 face.vertexNormals = new Vertex[tokens.length];
                 for (int i = 0; i < tokens.length; ++i) {
                     subTokens = tokens[i].split("/");
-                    face.vertices[i] = this.vertices.get(Integer.parseInt(subTokens[0]) - 1);
-                    face.textureCoordinates[i] = this.textureCoordinates.get(Integer.parseInt(subTokens[1]) - 1);
-                    face.vertexNormals[i] = this.vertexNormals.get(Integer.parseInt(subTokens[2]) - 1);
+                    face.vertices[i] = vertices.get(Integer.parseInt(subTokens[0]) - 1);
+                    face.textureCoordinates[i] = textureCoordinates.get(Integer.parseInt(subTokens[1]) - 1);
+                    face.vertexNormals[i] = vertexNormals.get(Integer.parseInt(subTokens[2]) - 1);
                 }
                 face.faceNormal = face.calculateFaceNormal();
             }
@@ -348,8 +348,8 @@ public class WavefrontObject implements IModelCustom
                 face.textureCoordinates = new TextureCoordinate[tokens.length];
                 for (int i = 0; i < tokens.length; ++i) {
                     subTokens = tokens[i].split("/");
-                    face.vertices[i] = this.vertices.get(Integer.parseInt(subTokens[0]) - 1);
-                    face.textureCoordinates[i] = this.textureCoordinates.get(Integer.parseInt(subTokens[1]) - 1);
+                    face.vertices[i] = vertices.get(Integer.parseInt(subTokens[0]) - 1);
+                    face.textureCoordinates[i] = textureCoordinates.get(Integer.parseInt(subTokens[1]) - 1);
                 }
                 face.faceNormal = face.calculateFaceNormal();
             }
@@ -358,24 +358,24 @@ public class WavefrontObject implements IModelCustom
                 face.vertexNormals = new Vertex[tokens.length];
                 for (int i = 0; i < tokens.length; ++i) {
                     subTokens = tokens[i].split("//");
-                    face.vertices[i] = this.vertices.get(Integer.parseInt(subTokens[0]) - 1);
-                    face.vertexNormals[i] = this.vertexNormals.get(Integer.parseInt(subTokens[1]) - 1);
+                    face.vertices[i] = vertices.get(Integer.parseInt(subTokens[0]) - 1);
+                    face.vertexNormals[i] = vertexNormals.get(Integer.parseInt(subTokens[1]) - 1);
                 }
                 face.faceNormal = face.calculateFaceNormal();
             }
             else {
                 if (!isValidFace_V_Line(line)) {
-                    throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + this.fileName + "' - Incorrect format");
+                    throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + fileName + "' - Incorrect format");
                 }
                 face.vertices = new Vertex[tokens.length];
                 for (int i = 0; i < tokens.length; ++i) {
-                    face.vertices[i] = this.vertices.get(Integer.parseInt(tokens[i]) - 1);
+                    face.vertices[i] = vertices.get(Integer.parseInt(tokens[i]) - 1);
                 }
                 face.faceNormal = face.calculateFaceNormal();
             }
             return face;
         }
-        throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + this.fileName + "' - Incorrect format");
+        throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + fileName + "' - Incorrect format");
     }
     
     private GroupObject parseGroupObject(final String line, final int lineCount) throws ModelFormatException {
@@ -387,7 +387,7 @@ public class WavefrontObject implements IModelCustom
             }
             return group;
         }
-        throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + this.fileName + "' - Incorrect format");
+        throw new ModelFormatException("Error parsing entry ('" + line + "', line " + lineCount + ") in file '" + fileName + "' - Incorrect format");
     }
     
     private static boolean isValidVertexLine(final String line) {
@@ -500,45 +500,45 @@ public class WavefrontObject implements IModelCustom
         
         @SideOnly(Side.CLIENT)
         public void addFaceForRender(final Tessellator tessellator) {
-            this.addFaceForRender(tessellator, 5.0E-4f);
+            addFaceForRender(tessellator, 5.0E-4f);
         }
         
         @SideOnly(Side.CLIENT)
         public void addFaceForRender(final Tessellator tessellator, final float textureOffset) {
-            if (this.faceNormal == null) {
-                this.faceNormal = this.calculateFaceNormal();
+            if (faceNormal == null) {
+                faceNormal = calculateFaceNormal();
             }
             float averageU = 0.0f;
             float averageV = 0.0f;
-            if (this.textureCoordinates != null && this.textureCoordinates.length > 0) {
-                for (int i = 0; i < this.textureCoordinates.length; ++i) {
-                    averageU += this.textureCoordinates[i].u;
-                    averageV += this.textureCoordinates[i].v;
+            if (textureCoordinates != null && textureCoordinates.length > 0) {
+                for (int i = 0; i < textureCoordinates.length; ++i) {
+                    averageU += textureCoordinates[i].u;
+                    averageV += textureCoordinates[i].v;
                 }
-                averageU /= this.textureCoordinates.length;
-                averageV /= this.textureCoordinates.length;
+                averageU /= textureCoordinates.length;
+                averageV /= textureCoordinates.length;
             }
-            for (int j = 0; j < this.vertices.length; ++j) {
-                if (this.textureCoordinates != null && this.textureCoordinates.length > 0) {
+            for (int j = 0; j < vertices.length; ++j) {
+                if (textureCoordinates != null && textureCoordinates.length > 0) {
                     float offsetU = textureOffset;
                     float offsetV = textureOffset;
-                    if (this.textureCoordinates[j].u > averageU) {
+                    if (textureCoordinates[j].u > averageU) {
                         offsetU = -offsetU;
                     }
-                    if (this.textureCoordinates[j].v > averageV) {
+                    if (textureCoordinates[j].v > averageV) {
                         offsetV = -offsetV;
                     }
-                    tessellator.getBuffer().pos(this.vertices[j].x, this.vertices[j].y, this.vertices[j].z).tex(this.textureCoordinates[j].u + offsetU, this.textureCoordinates[j].v + offsetV).normal(this.faceNormal.x, this.faceNormal.y, this.faceNormal.z).endVertex();
+                    tessellator.getBuffer().pos(vertices[j].x, vertices[j].y, vertices[j].z).tex(textureCoordinates[j].u + offsetU, textureCoordinates[j].v + offsetV).normal(faceNormal.x, faceNormal.y, faceNormal.z).endVertex();
                 }
                 else {
-                    tessellator.getBuffer().pos(this.vertices[j].x, this.vertices[j].y, this.vertices[j].z).normal(this.faceNormal.x, this.faceNormal.y, this.faceNormal.z).endVertex();
+                    tessellator.getBuffer().pos(vertices[j].x, vertices[j].y, vertices[j].z).normal(faceNormal.x, faceNormal.y, faceNormal.z).endVertex();
                 }
             }
         }
         
         public Vertex calculateFaceNormal() {
-            final Vec3d v1 = new Vec3d(this.vertices[1].x - this.vertices[0].x, this.vertices[1].y - this.vertices[0].y, this.vertices[1].z - this.vertices[0].z);
-            final Vec3d v2 = new Vec3d(this.vertices[2].x - this.vertices[0].x, this.vertices[2].y - this.vertices[0].y, this.vertices[2].z - this.vertices[0].z);
+            final Vec3d v1 = new Vec3d(vertices[1].x - vertices[0].x, vertices[1].y - vertices[0].y, vertices[1].z - vertices[0].z);
+            final Vec3d v2 = new Vec3d(vertices[2].x - vertices[0].x, vertices[2].y - vertices[0].y, vertices[2].z - vertices[0].z);
             Vec3d normalVector = null;
             normalVector = v1.crossProduct(v2).normalize();
             return new Vertex((float)normalVector.x, (float)normalVector.y, (float)normalVector.z);
@@ -560,7 +560,7 @@ public class WavefrontObject implements IModelCustom
         }
         
         public GroupObject(final String name, final int glDrawingMode) {
-            this.faces = new ArrayList<Face>();
+            faces = new ArrayList<Face>();
             this.name = name;
             this.glDrawingMode = glDrawingMode;
         }
@@ -568,18 +568,18 @@ public class WavefrontObject implements IModelCustom
 
         @SideOnly(Side.CLIENT)
         public void render() {
-            if (this.faces.size() > 0) {
+            if (faces.size() > 0) {
                 final Tessellator tessellator = Tessellator.getInstance();
-                tessellator.getBuffer().begin(this.glDrawingMode, DefaultVertexFormats.POSITION_TEX_NORMAL);
-                this.render(tessellator);
+                tessellator.getBuffer().begin(glDrawingMode, DefaultVertexFormats.POSITION_TEX_NORMAL);
+                render(tessellator);
                 tessellator.draw();
             }
         }
         
         @SideOnly(Side.CLIENT)
         public void render(final Tessellator tessellator) {
-            if (this.faces.size() > 0) {
-                for (final Face face : this.faces) {
+            if (faces.size() > 0) {
+                for (final Face face : faces) {
                     face.addFaceForRender(tessellator);
                 }
             }

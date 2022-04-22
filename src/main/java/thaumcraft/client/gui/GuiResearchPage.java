@@ -157,180 +157,180 @@ public class GuiResearchPage extends GuiScreen
     public HashMap<Integer, String> keyCache;
     
     public GuiResearchPage(final ResearchEntry research, final ResourceLocation recipe, final double x, final double y) {
-        this.paneWidth = 256;
-        this.paneHeight = 181;
-        this.mouseX = 0;
-        this.mouseY = 0;
-        this.currentStage = 0;
-        this.lastStage = 0;
-        this.hold = false;
-        this.page = 0;
-        this.maxPages = 0;
-        this.maxAspectPages = 0;
-        this.rhash = 0;
-        this.transX = 0.0f;
-        this.transY = 0.0f;
-        this.rotX = 0.0f;
-        this.rotY = 0.0f;
-        this.rotZ = 0.0f;
-        this.lastCheck = 0L;
-        this.tex1 = new ResourceLocation("thaumcraft", "textures/gui/gui_researchbook.png");
-        this.tex2 = new ResourceLocation("thaumcraft", "textures/gui/gui_researchbook_overlay.png");
-        this.tex3 = new ResourceLocation("thaumcraft", "textures/aspects/_back.png");
-        this.tex4 = new ResourceLocation("thaumcraft", "textures/gui/paper.png");
-        this.dummyResearch = new ResourceLocation("thaumcraft", "textures/aspects/_unknown.png");
-        this.dummyMap = new ResourceLocation("thaumcraft", "textures/research/rd_map.png");
-        this.dummyFlask = new ResourceLocation("thaumcraft", "textures/research/rd_flask.png");
-        this.dummyChest = new ResourceLocation("thaumcraft", "textures/research/rd_chest.png");
-        this.hrx = 0;
-        this.hry = 0;
-        this.recipePage = 0;
-        this.recipePageMax = 0;
-        this.lastCycle = 0L;
-        this.showingAspects = false;
-        this.showingKnowledge = false;
-        this.recipeLists = new LinkedHashMap<ResourceLocation, ArrayList>();
-        this.recipeOutputs = new LinkedHashMap<ResourceLocation, ArrayList>();
-        this.drilldownLists = new LinkedHashMap<ResourceLocation, ArrayList>();
-        this.renderingCompound = false;
-        this.blockAccess = null;
-        this.blockAccessIcons = new HashMap<ResourceLocation, BlueprintBlockAccess>();
-        this.reference = new ArrayList<List>();
-        this.cycle = -1;
-        this.allowWithPagePopup = false;
-        this.tipText = null;
-        this.pages = new ArrayList<Page>();
-        this.isComplete = false;
-        this.hasAllRequisites = false;
-        this.hasItem = null;
-        this.hasCraft = null;
-        this.hasResearch = null;
-        this.hasKnow = null;
-        this.hasStats = null;
-        this.keyCache = new HashMap<Integer, String>();
+        paneWidth = 256;
+        paneHeight = 181;
+        mouseX = 0;
+        mouseY = 0;
+        currentStage = 0;
+        lastStage = 0;
+        hold = false;
+        page = 0;
+        maxPages = 0;
+        maxAspectPages = 0;
+        rhash = 0;
+        transX = 0.0f;
+        transY = 0.0f;
+        rotX = 0.0f;
+        rotY = 0.0f;
+        rotZ = 0.0f;
+        lastCheck = 0L;
+        tex1 = new ResourceLocation("thaumcraft", "textures/gui/gui_researchbook.png");
+        tex2 = new ResourceLocation("thaumcraft", "textures/gui/gui_researchbook_overlay.png");
+        tex3 = new ResourceLocation("thaumcraft", "textures/aspects/_back.png");
+        tex4 = new ResourceLocation("thaumcraft", "textures/gui/paper.png");
+        dummyResearch = new ResourceLocation("thaumcraft", "textures/aspects/_unknown.png");
+        dummyMap = new ResourceLocation("thaumcraft", "textures/research/rd_map.png");
+        dummyFlask = new ResourceLocation("thaumcraft", "textures/research/rd_flask.png");
+        dummyChest = new ResourceLocation("thaumcraft", "textures/research/rd_chest.png");
+        hrx = 0;
+        hry = 0;
+        recipePage = 0;
+        recipePageMax = 0;
+        lastCycle = 0L;
+        showingAspects = false;
+        showingKnowledge = false;
+        recipeLists = new LinkedHashMap<ResourceLocation, ArrayList>();
+        recipeOutputs = new LinkedHashMap<ResourceLocation, ArrayList>();
+        drilldownLists = new LinkedHashMap<ResourceLocation, ArrayList>();
+        renderingCompound = false;
+        blockAccess = null;
+        blockAccessIcons = new HashMap<ResourceLocation, BlueprintBlockAccess>();
+        reference = new ArrayList<List>();
+        cycle = -1;
+        allowWithPagePopup = false;
+        tipText = null;
+        pages = new ArrayList<Page>();
+        isComplete = false;
+        hasAllRequisites = false;
+        hasItem = null;
+        hasCraft = null;
+        hasResearch = null;
+        hasKnow = null;
+        hasStats = null;
+        keyCache = new HashMap<Integer, String>();
         this.research = research;
-        this.guiMapX = x;
-        this.guiMapY = y;
-        this.mc = Minecraft.getMinecraft();
-        this.playerKnowledge = ThaumcraftCapabilities.getKnowledge(this.mc.player);
-        this.parsePages();
-        this.knownPlayerAspects = new AspectList();
+        guiMapX = x;
+        guiMapY = y;
+        mc = Minecraft.getMinecraft();
+        playerKnowledge = ThaumcraftCapabilities.getKnowledge(mc.player);
+        parsePages();
+        knownPlayerAspects = new AspectList();
         for (final Aspect a : Aspect.aspects.values()) {
-            if (ThaumcraftCapabilities.knowsResearch(this.mc.player, "!" + a.getTag().toLowerCase())) {
-                this.knownPlayerAspects.add(a, 1);
+            if (ThaumcraftCapabilities.knowsResearch(mc.player, "!" + a.getTag().toLowerCase())) {
+                knownPlayerAspects.add(a, 1);
             }
         }
-        this.maxAspectPages = ((this.knownPlayerAspects != null) ? MathHelper.ceil(this.knownPlayerAspects.size() / 5.0f) : 0);
-        this.page = 0;
+        maxAspectPages = ((knownPlayerAspects != null) ? MathHelper.ceil(knownPlayerAspects.size() / 5.0f) : 0);
+        page = 0;
         if (recipe != null) {
             GuiResearchPage.shownRecipe = recipe;
         }
     }
     
     public void initGui() {
-        this.rotX = 25.0f;
-        this.rotY = -45.0f;
+        rotX = 25.0f;
+        rotY = -45.0f;
     }
     
     public void drawScreen(final int par1, final int par2, final float par3) {
-        this.hasRecipePages = false;
+        hasRecipePages = false;
         final long nano = System.nanoTime();
-        if (nano > this.lastCheck) {
-            this.parsePages();
-            if (this.hold) {
-                this.lastCheck = nano + 250000000L;
+        if (nano > lastCheck) {
+            parsePages();
+            if (hold) {
+                lastCheck = nano + 250000000L;
             }
             else {
-                this.lastCheck = nano + 2000000000L;
+                lastCheck = nano + 2000000000L;
             }
-            if (this.currentStage > this.lastStage) {
-                this.hold = false;
+            if (currentStage > lastStage) {
+                hold = false;
             }
         }
-        this.pt = par3;
-        this.drawDefaultBackground();
-        this.genResearchBackground(par1, par2, par3);
-        final int sw = (this.width - this.paneWidth) / 2;
-        final int sh = (this.height - this.paneHeight) / 2;
+        pt = par3;
+        drawDefaultBackground();
+        genResearchBackground(par1, par2, par3);
+        final int sw = (width - paneWidth) / 2;
+        final int sh = (height - paneHeight) / 2;
         if (!GuiResearchPage.history.isEmpty()) {
             final int mx = par1 - (sw + 118);
             final int my = par2 - (sh + 190);
             if (mx >= 0 && my >= 0 && mx < 20 && my < 12) {
-                this.mc.fontRenderer.drawStringWithShadow(I18n.translateToLocal("recipe.return"), (float)par1, (float)par2, 16777215);
+                mc.fontRenderer.drawStringWithShadow(I18n.translateToLocal("recipe.return"), (float)par1, (float)par2, 16777215);
             }
         }
     }
     
     protected void genResearchBackground(final int par1, final int par2, final float par3) {
-        final int sw = (this.width - this.paneWidth) / 2;
-        final int sh = (this.height - this.paneHeight) / 2;
-        final float var10 = (this.width - this.paneWidth * 1.3f) / 2.0f;
-        final float var11 = (this.height - this.paneHeight * 1.3f) / 2.0f;
+        final int sw = (width - paneWidth) / 2;
+        final int sh = (height - paneHeight) / 2;
+        final float var10 = (width - paneWidth * 1.3f) / 2.0f;
+        final float var11 = (height - paneHeight * 1.3f) / 2.0f;
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.mc.renderEngine.bindTexture(this.tex1);
+        mc.renderEngine.bindTexture(tex1);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
         GL11.glPushMatrix();
         GL11.glTranslatef(var10, var11, 0.0f);
         GL11.glScalef(1.3f, 1.3f, 1.0f);
-        this.drawTexturedModalRect(0, 0, 0, 0, this.paneWidth, this.paneHeight);
+        drawTexturedModalRect(0, 0, 0, 0, paneWidth, paneHeight);
         GL11.glPopMatrix();
-        this.reference.clear();
+        reference.clear();
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
         int current = 0;
-        for (int a = 0; a < this.pages.size(); ++a) {
-            if ((current == this.page || current == this.page + 1) && current < this.maxPages) {
-                this.drawPage(this.pages.get(a), current % 2, sw, sh - 10, par1, par2);
+        for (int a = 0; a < pages.size(); ++a) {
+            if ((current == page || current == page + 1) && current < maxPages) {
+                drawPage(pages.get(a), current % 2, sw, sh - 10, par1, par2);
             }
-            if (++current > this.page + 1) {
+            if (++current > page + 1) {
                 break;
             }
         }
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.mc.renderEngine.bindTexture(this.tex1);
-        final float bob = MathHelper.sin(this.mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
+        mc.renderEngine.bindTexture(tex1);
+        final float bob = MathHelper.sin(mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
         if (!GuiResearchPage.history.isEmpty()) {
-            this.drawTexturedModalRectScaled(sw + 118, sh + 190, 38, 202, 20, 12, bob);
+            drawTexturedModalRectScaled(sw + 118, sh + 190, 38, 202, 20, 12, bob);
         }
-        if (this.page > 0 && GuiResearchPage.shownRecipe == null) {
-            this.drawTexturedModalRectScaled(sw - 16, sh + 190, 0, 184, 12, 8, bob);
+        if (page > 0 && GuiResearchPage.shownRecipe == null) {
+            drawTexturedModalRectScaled(sw - 16, sh + 190, 0, 184, 12, 8, bob);
         }
-        if (this.page < this.maxPages - 2 && GuiResearchPage.shownRecipe == null) {
-            this.drawTexturedModalRectScaled(sw + 262, sh + 190, 12, 184, 12, 8, bob);
+        if (page < maxPages - 2 && GuiResearchPage.shownRecipe == null) {
+            drawTexturedModalRectScaled(sw + 262, sh + 190, 12, 184, 12, 8, bob);
         }
-        if (this.tipText != null) {
-            UtilsFX.drawCustomTooltip(this, this.mc.fontRenderer, this.tipText, par1, par2 + 12, 11);
-            this.tipText = null;
+        if (tipText != null) {
+            UtilsFX.drawCustomTooltip(this, mc.fontRenderer, tipText, par1, par2 + 12, 11);
+            tipText = null;
         }
     }
     
     private void drawPage(final Page pageParm, final int side, final int x, int y, final int mx, final int my) {
-        if (this.lastCycle < System.currentTimeMillis()) {
-            ++this.cycle;
-            this.lastCycle = System.currentTimeMillis() + 1000L;
-            if (GuiResearchPage.cycleMultiblockLines && this.blockAccess != null) {
+        if (lastCycle < System.currentTimeMillis()) {
+            ++cycle;
+            lastCycle = System.currentTimeMillis() + 1000L;
+            if (GuiResearchPage.cycleMultiblockLines && blockAccess != null) {
                 final BlueprintBlockAccess blockAccess = this.blockAccess;
                 ++blockAccess.sliceLine;
             }
         }
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
-        if (this.page == 0 && side == 0) {
-            this.drawTexturedModalRect(x + 4, y - 7, 24, 184, 96, 4);
-            this.drawTexturedModalRect(x + 4, y + 10, 24, 184, 96, 4);
-            final int offset = this.mc.fontRenderer.getStringWidth(this.research.getLocalizedName());
+        if (page == 0 && side == 0) {
+            drawTexturedModalRect(x + 4, y - 7, 24, 184, 96, 4);
+            drawTexturedModalRect(x + 4, y + 10, 24, 184, 96, 4);
+            final int offset = mc.fontRenderer.getStringWidth(research.getLocalizedName());
             if (offset <= 140) {
-                this.mc.fontRenderer.drawString(this.research.getLocalizedName(), x - 15 + 140 / 2 - offset / 2, y, 2105376);
+                mc.fontRenderer.drawString(research.getLocalizedName(), x - 15 + 140 / 2 - offset / 2, y, 2105376);
             }
             else {
                 final float vv = 140.0f / offset;
                 GL11.glPushMatrix();
                 GL11.glTranslatef(x - 15 + 140 / 2 - offset / 2 * vv, y + 1.0f * vv, 0.0f);
                 GL11.glScalef(vv, vv, vv);
-                this.mc.fontRenderer.drawString(this.research.getLocalizedName(), 0, 0, 2105376);
+                mc.fontRenderer.drawString(research.getLocalizedName(), 0, 0, 2105376);
                 GL11.glPopMatrix();
             }
             y += 28;
@@ -341,12 +341,12 @@ public class GuiResearchPage extends GuiScreen
             if (content instanceof String) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                 final String ss = ((String)content).replace("~B", "");
-                this.mc.fontRenderer.drawString(ss, x - 15 + side * 152, y - 6, 0);
-                y += this.mc.fontRenderer.FONT_HEIGHT;
+                mc.fontRenderer.drawString(ss, x - 15 + side * 152, y - 6, 0);
+                y += mc.fontRenderer.FONT_HEIGHT;
                 if (!((String)content).endsWith("~B")) {
                     continue;
                 }
-                y += (int)(this.mc.fontRenderer.FONT_HEIGHT * 0.66);
+                y += (int)(mc.fontRenderer.FONT_HEIGHT * 0.66);
             }
             else {
                 if (!(content instanceof PageImage)) {
@@ -355,82 +355,82 @@ public class GuiResearchPage extends GuiScreen
                 final PageImage pi = (PageImage)content;
                 GL11.glPushMatrix();
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                this.mc.renderEngine.bindTexture(pi.loc);
+                mc.renderEngine.bindTexture(pi.loc);
                 final int pad = (140 - pi.aw) / 2;
                 GL11.glTranslatef((float)(x - 15 + side * 152 + pad), (float)(y - 5), 0.0f);
                 GL11.glScalef(pi.scale, pi.scale, pi.scale);
-                this.drawTexturedModalRect(0, 0, pi.x, pi.y, pi.w, pi.h);
+                drawTexturedModalRect(0, 0, pi.x, pi.y, pi.w, pi.h);
                 GL11.glPopMatrix();
                 y += pi.ah + 2;
             }
         }
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
-        if (this.playerKnowledge.isResearchComplete("FIRSTSTEPS")) {
-            y = (this.height - this.paneHeight) / 2 + 9;
-            this.mc.renderEngine.bindTexture(this.tex1);
-            final int le = this.mouseInside(x - 48, y, 25, 16, mx, my) ? 0 : 3;
+        if (playerKnowledge.isResearchComplete("FIRSTSTEPS")) {
+            y = (height - paneHeight) / 2 + 9;
+            mc.renderEngine.bindTexture(tex1);
+            final int le = mouseInside(x - 48, y, 25, 16, mx, my) ? 0 : 3;
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            this.drawPopupAt(x - 48, y, 25, 16, mx, my, "tc.aspect.name");
-            this.drawTexturedModalRect(x - 48 + le, y, 76, 232, 24 - le, 16);
-            this.drawTexturedModalRect(x - 28, y, 100, 232, 4, 16);
+            drawPopupAt(x - 48, y, 25, 16, mx, my, "tc.aspect.name");
+            drawTexturedModalRect(x - 48 + le, y, 76, 232, 24 - le, 16);
+            drawTexturedModalRect(x - 28, y, 100, 232, 4, 16);
         }
-        if (this.playerKnowledge.isResearchComplete("KNOWLEDGETYPES") && !this.research.getKey().equals("KNOWLEDGETYPES")) {
-            y = (this.height - this.paneHeight) / 2 + 32;
-            this.mc.renderEngine.bindTexture(this.tex1);
-            final int le = this.mouseInside(x - 48, y, 25, 16, mx, my) ? 0 : 3;
+        if (playerKnowledge.isResearchComplete("KNOWLEDGETYPES") && !research.getKey().equals("KNOWLEDGETYPES")) {
+            y = (height - paneHeight) / 2 + 32;
+            mc.renderEngine.bindTexture(tex1);
+            final int le = mouseInside(x - 48, y, 25, 16, mx, my) ? 0 : 3;
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            this.drawPopupAt(x - 48, y, 25, 16, mx, my, "tc.knowledge.name");
-            this.drawTexturedModalRect(x - 49 + le, y, 44, 232, 24 - le, 16);
-            this.drawTexturedModalRect(x - 29, y, 100, 232, 4, 16);
+            drawPopupAt(x - 48, y, 25, 16, mx, my, "tc.knowledge.name");
+            drawTexturedModalRect(x - 49 + le, y, 44, 232, 24 - le, 16);
+            drawTexturedModalRect(x - 29, y, 100, 232, 4, 16);
         }
-        final ResearchStage stage = this.research.getStages()[this.currentStage];
+        final ResearchStage stage = research.getStages()[currentStage];
         if (stage.getRecipes() != null) {
-            this.drawRecipeBookmarks(x, mx, my, stage);
+            drawRecipeBookmarks(x, mx, my, stage);
         }
-        if (this.page == 0 && side == 0 && !this.isComplete) {
-            this.drawRequirements(x, mx, my, stage);
+        if (page == 0 && side == 0 && !isComplete) {
+            drawRequirements(x, mx, my, stage);
         }
-        if (this.playerKnowledge.isResearchComplete("KNOWLEDGETYPES") && this.research.getKey().equals("KNOWLEDGETYPES")) {
-            this.drawKnowledges(x, (this.height - this.paneHeight) / 2 - 16 + 210, mx, my, true);
+        if (playerKnowledge.isResearchComplete("KNOWLEDGETYPES") && research.getKey().equals("KNOWLEDGETYPES")) {
+            drawKnowledges(x, (height - paneHeight) / 2 - 16 + 210, mx, my, true);
         }
-        this.renderingCompound = false;
-        if (this.showingAspects) {
-            this.drawAspectsInsert(mx, my);
+        renderingCompound = false;
+        if (showingAspects) {
+            drawAspectsInsert(mx, my);
         }
-        else if (this.showingKnowledge) {
-            this.drawKnowledgesInsert(mx, my);
+        else if (showingKnowledge) {
+            drawKnowledgesInsert(mx, my);
         }
         else if (GuiResearchPage.shownRecipe != null) {
-            this.drawRecipe(mx, my);
+            drawRecipe(mx, my);
         }
-        else if (stage.getWarp() > 0 && !this.isComplete) {
+        else if (stage.getWarp() > 0 && !isComplete) {
             int warp = stage.getWarp();
             if (warp > 5) {
                 warp = 5;
             }
             GuiResearchBrowser.drawForbidden(x - 57, y - 40);
             final String s = I18n.translateToLocal("tc.forbidden.level." + warp);
-            this.mc.fontRenderer.drawString(s, x - 56 - this.mc.fontRenderer.getStringWidth(s) / 2, y - 43, 11180543);
+            mc.fontRenderer.drawString(s, x - 56 - mc.fontRenderer.getStringWidth(s) / 2, y - 43, 11180543);
             final String text = I18n.translateToLocal("tc.warp.warn");
-            this.drawPopupAt(x - 67, y - 50, 20, 20, mx, my, text.replaceAll("%n", s));
+            drawPopupAt(x - 67, y - 50, 20, 20, mx, my, text.replaceAll("%n", s));
         }
     }
     
     private void drawKnowledgesInsert(final int mx, final int my) {
-        this.allowWithPagePopup = true;
+        allowWithPagePopup = true;
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        this.mc.renderEngine.bindTexture(this.tex4);
-        final int x = (this.width - 256) / 2;
-        final int y = (this.height - 256) / 2;
+        mc.renderEngine.bindTexture(tex4);
+        final int x = (width - 256) / 2;
+        final int y = (height - 256) / 2;
         GlStateManager.disableDepth();
-        this.drawTexturedModalRect(x, y, 0, 0, 255, 255);
+        drawTexturedModalRect(x, y, 0, 0, 255, 255);
         GlStateManager.enableDepth();
         GL11.glPushMatrix();
-        this.drawKnowledges(x + 60, (this.height - this.paneHeight) / 2 + 75, mx, my, false);
+        drawKnowledges(x + 60, (height - paneHeight) / 2 + 75, mx, my, false);
         GL11.glPopMatrix();
-        this.mc.renderEngine.bindTexture(this.tex1);
-        this.allowWithPagePopup = false;
+        mc.renderEngine.bindTexture(tex1);
+        allowWithPagePopup = false;
     }
     
     private void drawKnowledges(final int x, int y, final int mx, final int my, final boolean inpage) {
@@ -448,42 +448,42 @@ public class GuiResearchPage extends GuiScreen
                 if (!type.hasFields() && category != null) {
                     continue;
                 }
-                amt = this.playerKnowledge.getKnowledge(type, category);
-                par = this.playerKnowledge.getKnowledgeRaw(type, category) % type.getProgression();
+                amt = playerKnowledge.getKnowledge(type, category);
+                par = playerKnowledge.getKnowledgeRaw(type, category) % type.getProgression();
                 if (amt <= 0 && par <= 0) {
                     continue;
                 }
                 drewSomething = true;
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                 GL11.glPushMatrix();
-                this.mc.renderEngine.bindTexture(HudHandler.KNOW_TYPE[type.ordinal()]);
+                mc.renderEngine.bindTexture(HudHandler.KNOW_TYPE[type.ordinal()]);
                 GL11.glTranslatef((float)(x - 10 + (inpage ? 18 : hs) * fc), (float)(y - tc * (inpage ? 20 : 28)), 0.0f);
                 GL11.glScaled(0.0625, 0.0625, 0.0625);
-                this.drawTexturedModalRect(0, 0, 0, 0, 255, 255);
+                drawTexturedModalRect(0, 0, 0, 0, 255, 255);
                 if (type.hasFields() && category != null) {
                     GlStateManager.color(1.0f, 1.0f, 1.0f, 0.75f);
-                    this.mc.renderEngine.bindTexture(category.icon);
+                    mc.renderEngine.bindTexture(category.icon);
                     GL11.glTranslatef(0.0f, 0.0f, 1.0f);
                     GL11.glScaled(0.66, 0.66, 0.66);
-                    this.drawTexturedModalRect(66, 66, 0, 0, 255, 255);
+                    drawTexturedModalRect(66, 66, 0, 0, 255, 255);
                 }
                 GL11.glPopMatrix();
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                 GL11.glTranslatef(0.0f, 0.0f, 5.0f);
                 String s = "" + amt;
-                final int m = this.mc.fontRenderer.getStringWidth(s);
-                this.mc.fontRenderer.drawStringWithShadow(s, (float)(x - 10 + 16 - m + (inpage ? 18 : hs) * fc), (float)(y - tc * (inpage ? 20 : 28) + 8), 16777215);
+                final int m = mc.fontRenderer.getStringWidth(s);
+                mc.fontRenderer.drawStringWithShadow(s, (float)(x - 10 + 16 - m + (inpage ? 18 : hs) * fc), (float)(y - tc * (inpage ? 20 : 28) + 8), 16777215);
                 s = I18n.translateToLocal("tc.type." + type.toString().toLowerCase());
                 if (type.hasFields() && category != null) {
                     s = s + ": " + ResearchCategories.getCategoryName(category.key);
                 }
-                this.drawPopupAt(x - 10 + (inpage ? 18 : hs) * fc, y - tc * (inpage ? 20 : 28), mx, my, s);
+                drawPopupAt(x - 10 + (inpage ? 18 : hs) * fc, y - tc * (inpage ? 20 : 28), mx, my, s);
                 if (par > 0) {
                     GlStateManager.color(1.0f, 1.0f, 1.0f, 0.75f);
-                    this.mc.renderEngine.bindTexture(this.tex1);
+                    mc.renderEngine.bindTexture(tex1);
                     final int l = (int)(par / (float)type.getProgression() * 16.0f);
-                    this.drawTexturedModalRect(x - 10 + (inpage ? 18 : hs) * fc, y + 17 - tc * (inpage ? 20 : 28), 0, 232, l, 2);
-                    this.drawTexturedModalRect(x - 10 + (inpage ? 18 : hs) * fc + l, y + 17 - tc * (inpage ? 20 : 28), l, 234, 16 - l, 2);
+                    drawTexturedModalRect(x - 10 + (inpage ? 18 : hs) * fc, y + 17 - tc * (inpage ? 20 : 28), 0, 232, l, 2);
+                    drawTexturedModalRect(x - 10 + (inpage ? 18 : hs) * fc + l, y + 17 - tc * (inpage ? 20 : 28), l, 234, 16 - l, 2);
                 }
                 GL11.glTranslatef(0.0f, 0.0f, -5.0f);
                 ++fc;
@@ -495,13 +495,13 @@ public class GuiResearchPage extends GuiScreen
         }
         if (inpage && drewSomething) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            this.mc.renderEngine.bindTexture(this.tex1);
-            this.drawTexturedModalRect(x + 4, y - tc * (inpage ? 20 : 28) + 12, 24, 184, 96, 8);
+            mc.renderEngine.bindTexture(tex1);
+            drawTexturedModalRect(x + 4, y - tc * (inpage ? 20 : 28) + 12, 24, 184, 96, 8);
         }
     }
     
     private void drawRequirements(final int x, final int mx, final int my, final ResearchStage stage) {
-        int y = (this.height - this.paneHeight) / 2 - 16 + 210;
+        int y = (height - paneHeight) / 2 - 16 + 210;
         GL11.glPushMatrix();
         boolean b = false;
         if (stage.getResearch() != null) {
@@ -509,13 +509,13 @@ public class GuiResearchPage extends GuiScreen
             b = true;
             int shift = 24;
             GlStateManager.color(1.0f, 1.0f, 1.0f, 0.25f);
-            this.mc.renderEngine.bindTexture(this.tex1);
-            this.drawTexturedModalRect(x - 12, y - 1, 200, 232, 56, 16);
-            this.drawPopupAt(x - 15, y, mx, my, "tc.need.research");
+            mc.renderEngine.bindTexture(tex1);
+            drawTexturedModalRect(x - 12, y - 1, 200, 232, 56, 16);
+            drawPopupAt(x - 15, y, mx, my, "tc.need.research");
             Object loc = null;
-            if (this.hasResearch != null) {
-                if (this.hasResearch.length != stage.getResearch().length) {
-                    this.hasResearch = new boolean[stage.getResearch().length];
+            if (hasResearch != null) {
+                if (hasResearch.length != stage.getResearch().length) {
+                    hasResearch = new boolean[stage.getResearch().length];
                 }
                 int ss = 18;
                 if (stage.getResearch().length > 6) {
@@ -523,7 +523,7 @@ public class GuiResearchPage extends GuiScreen
                 }
                 for (int a = 0; a < stage.getResearch().length; ++a) {
                     final String key = stage.getResearch()[a];
-                    loc = ((stage.getResearchIcon()[a] != null) ? new ResourceLocation(stage.getResearchIcon()[a]) : this.dummyResearch);
+                    loc = ((stage.getResearchIcon()[a] != null) ? new ResourceLocation(stage.getResearchIcon()[a]) : dummyResearch);
                     String text = I18n.translateToLocal("research." + key + ".text");
                     if (key.startsWith("!")) {
                         final String k = key.replaceAll("!", "");
@@ -541,13 +541,13 @@ public class GuiResearchPage extends GuiScreen
                         text = re.getLocalizedName();
                     }
                     else if (key.startsWith("m_")) {
-                        loc = this.dummyMap;
+                        loc = dummyMap;
                     }
                     else if (key.startsWith("c_")) {
-                        loc = this.dummyChest;
+                        loc = dummyChest;
                     }
                     else if (key.startsWith("f_")) {
-                        loc = this.dummyFlask;
+                        loc = dummyFlask;
                     }
                     else {
                         GlStateManager.color(0.5f, 0.75f, 1.0f, 1.0f);
@@ -556,14 +556,14 @@ public class GuiResearchPage extends GuiScreen
                     GL11.glEnable(3042);
                     GL11.glBlendFunc(770, 771);
                     if (loc instanceof Aspect) {
-                        this.mc.renderEngine.bindTexture(((Aspect)loc).getImage());
+                        mc.renderEngine.bindTexture(((Aspect)loc).getImage());
                         final Color cc = new Color(((Aspect)loc).getColor());
                         GlStateManager.color(cc.getRed() / 255.0f, cc.getGreen() / 255.0f, cc.getBlue() / 255.0f, 1.0f);
-                        UtilsFX.drawTexturedQuadFull((float)(x - 15 + shift), (float)y, this.zLevel);
+                        UtilsFX.drawTexturedQuadFull((float)(x - 15 + shift), (float)y, zLevel);
                     }
                     else if (loc instanceof ResourceLocation) {
-                        this.mc.renderEngine.bindTexture((ResourceLocation)loc);
-                        UtilsFX.drawTexturedQuadFull((float)(x - 15 + shift), (float)y, this.zLevel);
+                        mc.renderEngine.bindTexture((ResourceLocation)loc);
+                        UtilsFX.drawTexturedQuadFull((float)(x - 15 + shift), (float)y, zLevel);
                     }
                     else if (loc instanceof ItemStack) {
                         RenderHelper.enableGUIStandardItemLighting();
@@ -571,20 +571,20 @@ public class GuiResearchPage extends GuiScreen
                         GL11.glEnable(32826);
                         GL11.glEnable(2903);
                         GL11.glEnable(2896);
-                        this.itemRender.renderItemAndEffectIntoGUI(InventoryUtils.cycleItemStack(loc), x - 15 + shift, y);
+                        itemRender.renderItemAndEffectIntoGUI(InventoryUtils.cycleItemStack(loc), x - 15 + shift, y);
                         GL11.glDisable(2896);
                         GL11.glDepthMask(true);
                         GL11.glEnable(2929);
                     }
                     GL11.glPopMatrix();
-                    if (this.hasResearch[a]) {
+                    if (hasResearch[a]) {
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                        this.mc.renderEngine.bindTexture(this.tex1);
+                        mc.renderEngine.bindTexture(tex1);
                         GlStateManager.disableDepth();
-                        this.drawTexturedModalRect(x - 15 + shift + 8, y, 159, 207, 10, 10);
+                        drawTexturedModalRect(x - 15 + shift + 8, y, 159, 207, 10, 10);
                         GlStateManager.enableDepth();
                     }
-                    this.drawPopupAt(x - 15 + shift, y, mx, my, text);
+                    drawPopupAt(x - 15 + shift, y, mx, my, text);
                     shift += ss;
                 }
             }
@@ -594,13 +594,13 @@ public class GuiResearchPage extends GuiScreen
             b = true;
             int shift = 24;
             GlStateManager.color(1.0f, 1.0f, 1.0f, 0.25f);
-            this.mc.renderEngine.bindTexture(this.tex1);
-            this.drawTexturedModalRect(x - 12, y - 1, 200, 216, 56, 16);
-            this.drawPopupAt(x - 15, y, mx, my, "tc.need.obtain");
+            mc.renderEngine.bindTexture(tex1);
+            drawTexturedModalRect(x - 12, y - 1, 200, 216, 56, 16);
+            drawPopupAt(x - 15, y, mx, my, "tc.need.obtain");
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            if (this.hasItem != null) {
-                if (this.hasItem.length != stage.getObtain().length) {
-                    this.hasItem = new boolean[stage.getObtain().length];
+            if (hasItem != null) {
+                if (hasItem.length != stage.getObtain().length) {
+                    hasItem = new boolean[stage.getObtain().length];
                 }
                 int ss2 = 18;
                 if (stage.getObtain().length > 6) {
@@ -608,12 +608,12 @@ public class GuiResearchPage extends GuiScreen
                 }
                 for (int idx2 = 0; idx2 < stage.getObtain().length; ++idx2) {
                     final ItemStack stack = InventoryUtils.cycleItemStack(stage.getObtain()[idx2], idx2);
-                    this.drawStackAt(stack, x - 15 + shift, y, mx, my, true);
-                    if (this.hasItem[idx2]) {
+                    drawStackAt(stack, x - 15 + shift, y, mx, my, true);
+                    if (hasItem[idx2]) {
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                        this.mc.renderEngine.bindTexture(this.tex1);
+                        mc.renderEngine.bindTexture(tex1);
                         GlStateManager.disableDepth();
-                        this.drawTexturedModalRect(x - 15 + shift + 8, y, 159, 207, 10, 10);
+                        drawTexturedModalRect(x - 15 + shift + 8, y, 159, 207, 10, 10);
                         GlStateManager.enableDepth();
                     }
                     shift += ss2;
@@ -625,13 +625,13 @@ public class GuiResearchPage extends GuiScreen
             b = true;
             int shift = 24;
             GlStateManager.color(1.0f, 1.0f, 1.0f, 0.25f);
-            this.mc.renderEngine.bindTexture(this.tex1);
-            this.drawTexturedModalRect(x - 12, y - 1, 200, 200, 56, 16);
-            this.drawPopupAt(x - 15, y, mx, my, "tc.need.craft");
+            mc.renderEngine.bindTexture(tex1);
+            drawTexturedModalRect(x - 12, y - 1, 200, 200, 56, 16);
+            drawPopupAt(x - 15, y, mx, my, "tc.need.craft");
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            if (this.hasCraft != null) {
-                if (this.hasCraft.length != stage.getCraft().length) {
-                    this.hasCraft = new boolean[stage.getCraft().length];
+            if (hasCraft != null) {
+                if (hasCraft.length != stage.getCraft().length) {
+                    hasCraft = new boolean[stage.getCraft().length];
                 }
                 int ss2 = 18;
                 if (stage.getCraft().length > 6) {
@@ -639,12 +639,12 @@ public class GuiResearchPage extends GuiScreen
                 }
                 for (int idx2 = 0; idx2 < stage.getCraft().length; ++idx2) {
                     final ItemStack stack = InventoryUtils.cycleItemStack(stage.getCraft()[idx2], idx2);
-                    this.drawStackAt(stack, x - 15 + shift, y, mx, my, true);
-                    if (this.hasCraft[idx2]) {
+                    drawStackAt(stack, x - 15 + shift, y, mx, my, true);
+                    if (hasCraft[idx2]) {
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                        this.mc.renderEngine.bindTexture(this.tex1);
+                        mc.renderEngine.bindTexture(tex1);
                         GlStateManager.disableDepth();
-                        this.drawTexturedModalRect(x - 15 + shift + 8, y, 159, 207, 10, 10);
+                        drawTexturedModalRect(x - 15 + shift + 8, y, 159, 207, 10, 10);
                         GlStateManager.enableDepth();
                     }
                     shift += ss2;
@@ -656,13 +656,13 @@ public class GuiResearchPage extends GuiScreen
             b = true;
             int shift = 24;
             GlStateManager.color(1.0f, 1.0f, 1.0f, 0.25f);
-            this.mc.renderEngine.bindTexture(this.tex1);
-            this.drawTexturedModalRect(x - 12, y - 1, 200, 184, 56, 16);
-            this.drawPopupAt(x - 15, y, mx, my, "tc.need.know");
+            mc.renderEngine.bindTexture(tex1);
+            drawTexturedModalRect(x - 12, y - 1, 200, 184, 56, 16);
+            drawPopupAt(x - 15, y, mx, my, "tc.need.know");
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            if (this.hasKnow != null) {
-                if (this.hasKnow.length != stage.getKnow().length) {
-                    this.hasKnow = new boolean[stage.getKnow().length];
+            if (hasKnow != null) {
+                if (hasKnow.length != stage.getKnow().length) {
+                    hasKnow = new boolean[stage.getKnow().length];
                 }
                 int ss2 = 18;
                 if (stage.getKnow().length > 6) {
@@ -672,39 +672,39 @@ public class GuiResearchPage extends GuiScreen
                     final ResearchStage.Knowledge kn = stage.getKnow()[idx2];
                     GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                     GL11.glPushMatrix();
-                    this.mc.renderEngine.bindTexture(HudHandler.KNOW_TYPE[kn.type.ordinal()]);
+                    mc.renderEngine.bindTexture(HudHandler.KNOW_TYPE[kn.type.ordinal()]);
                     GL11.glTranslatef((float)(x - 15 + shift), (float)y, 0.0f);
                     GL11.glScaled(0.0625, 0.0625, 0.0625);
-                    this.drawTexturedModalRect(0, 0, 0, 0, 255, 255);
+                    drawTexturedModalRect(0, 0, 0, 0, 255, 255);
                     if (kn.type.hasFields() && kn.category != null) {
-                        this.mc.renderEngine.bindTexture(kn.category.icon);
+                        mc.renderEngine.bindTexture(kn.category.icon);
                         GL11.glTranslatef(32.0f, 32.0f, 1.0f);
                         GL11.glPushMatrix();
                         GL11.glScaled(0.75, 0.75, 0.75);
-                        this.drawTexturedModalRect(0, 0, 0, 0, 255, 255);
+                        drawTexturedModalRect(0, 0, 0, 0, 255, 255);
                         GL11.glPopMatrix();
                     }
                     GL11.glPopMatrix();
-                    final String am = "" + (this.hasKnow[idx2] ? "" : TextFormatting.RED) + kn.amount;
+                    final String am = "" + (hasKnow[idx2] ? "" : TextFormatting.RED) + kn.amount;
                     GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                     GL11.glPushMatrix();
-                    GL11.glTranslatef((float)(x - 15 + shift + 16 - this.mc.fontRenderer.getStringWidth(am) / 2), (float)(y + 12), 5.0f);
+                    GL11.glTranslatef((float)(x - 15 + shift + 16 - mc.fontRenderer.getStringWidth(am) / 2), (float)(y + 12), 5.0f);
                     GL11.glScaled(0.5, 0.5, 0.5);
-                    this.mc.fontRenderer.drawStringWithShadow(am, 0.0f, 0.0f, 16777215);
+                    mc.fontRenderer.drawStringWithShadow(am, 0.0f, 0.0f, 16777215);
                     GL11.glPopMatrix();
-                    if (this.hasKnow[idx2]) {
+                    if (hasKnow[idx2]) {
                         GL11.glPushMatrix();
                         GL11.glTranslatef(0.0f, 0.0f, 1.0f);
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                        this.mc.renderEngine.bindTexture(this.tex1);
-                        this.drawTexturedModalRect(x - 15 + shift + 8, y, 159, 207, 10, 10);
+                        mc.renderEngine.bindTexture(tex1);
+                        drawTexturedModalRect(x - 15 + shift + 8, y, 159, 207, 10, 10);
                         GL11.glPopMatrix();
                     }
                     String s = I18n.translateToLocal("tc.type." + kn.type.toString().toLowerCase());
                     if (kn.type.hasFields() && kn.category != null) {
                         s = s + ": " + ResearchCategories.getCategoryName(kn.category.key);
                     }
-                    this.drawPopupAt(x - 15 + shift, y, mx, my, s);
+                    drawPopupAt(x - 15 + shift, y, mx, my, s);
                     shift += ss2;
                 }
             }
@@ -712,28 +712,28 @@ public class GuiResearchPage extends GuiScreen
         if (b) {
             y -= 12;
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            this.mc.renderEngine.bindTexture(this.tex1);
-            this.drawTexturedModalRect(x + 4, y - 2, 24, 184, 96, 8);
-            if (this.hasAllRequisites) {
-                this.hrx = x + 20;
-                this.hry = y - 6;
-                if (this.hold) {
+            mc.renderEngine.bindTexture(tex1);
+            drawTexturedModalRect(x + 4, y - 2, 24, 184, 96, 8);
+            if (hasAllRequisites) {
+                hrx = x + 20;
+                hry = y - 6;
+                if (hold) {
                     final String s2 = I18n.translateToLocal("tc.stage.hold");
-                    final int m = this.mc.fontRenderer.getStringWidth(s2);
-                    this.mc.fontRenderer.drawStringWithShadow(s2, x + 52 - m / 2.0f, (float)(y - 4), 16777215);
+                    final int m = mc.fontRenderer.getStringWidth(s2);
+                    mc.fontRenderer.drawStringWithShadow(s2, x + 52 - m / 2.0f, (float)(y - 4), 16777215);
                 }
                 else {
-                    if (this.mouseInside(this.hrx, this.hry, 64, 12, mx, my)) {
+                    if (mouseInside(hrx, hry, 64, 12, mx, my)) {
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                     }
                     else {
                         GlStateManager.color(0.8f, 0.8f, 0.9f, 1.0f);
                     }
-                    this.mc.renderEngine.bindTexture(this.tex1);
-                    this.drawTexturedModalRect(this.hrx, this.hry, 84, 216, 64, 12);
+                    mc.renderEngine.bindTexture(tex1);
+                    drawTexturedModalRect(hrx, hry, 84, 216, 64, 12);
                     final String s2 = I18n.translateToLocal("tc.stage.complete");
-                    final int m = this.mc.fontRenderer.getStringWidth(s2);
-                    this.mc.fontRenderer.drawStringWithShadow(s2, x + 52 - m / 2.0f, (float)(y - 4), 16777215);
+                    final int m = mc.fontRenderer.getStringWidth(s2);
+                    mc.fontRenderer.drawStringWithShadow(s2, x + 52 - m / 2.0f, (float)(y - 4), 16777215);
                 }
             }
         }
@@ -741,68 +741,68 @@ public class GuiResearchPage extends GuiScreen
     }
     
     private void drawRecipeBookmarks(final int x, final int mx, final int my, final ResearchStage stage) {
-        final Random rng = new Random(this.rhash);
+        final Random rng = new Random(rhash);
         GL11.glPushMatrix();
-        int y = (this.height - this.paneHeight) / 2 - 8;
-        this.allowWithPagePopup = true;
-        if (this.recipeOutputs.size() > 0) {
-            final int space = Math.min(25, 200 / this.recipeOutputs.size());
-            for (final ResourceLocation rk : this.recipeOutputs.keySet()) {
-                final List list = this.recipeOutputs.get(rk);
+        int y = (height - paneHeight) / 2 - 8;
+        allowWithPagePopup = true;
+        if (recipeOutputs.size() > 0) {
+            final int space = Math.min(25, 200 / recipeOutputs.size());
+            for (final ResourceLocation rk : recipeOutputs.keySet()) {
+                final List list = recipeOutputs.get(rk);
                 if (list != null && list.size() > 0) {
-                    final int i = this.cycle % list.size();
+                    final int i = cycle % list.size();
                     if (list.get(i) == null) {
                         continue;
                     }
                     final int sh = rng.nextInt(3);
-                    final int le = rng.nextInt(3) + (this.mouseInside(x + 280, y - 1, 30, 16, mx, my) ? 0 : 3);
-                    this.mc.renderEngine.bindTexture(this.tex1);
+                    final int le = rng.nextInt(3) + (mouseInside(x + 280, y - 1, 30, 16, mx, my) ? 0 : 3);
+                    mc.renderEngine.bindTexture(tex1);
                     if (rk.equals(GuiResearchPage.shownRecipe)) {
                         GlStateManager.color(1.0f, 0.5f, 0.5f, 1.0f);
                     }
                     else {
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                     }
-                    this.drawTexturedModalRect(x + 280 + sh, y - 1, 120 + le, 232, 28, 16);
-                    this.drawTexturedModalRect(x + 280 + sh, y - 1, 116, 232, 4, 16);
+                    drawTexturedModalRect(x + 280 + sh, y - 1, 120 + le, 232, 28, 16);
+                    drawTexturedModalRect(x + 280 + sh, y - 1, 116, 232, 4, 16);
                     GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                     UtilsFX.hideStackOverlay = true;
                     if (list.get(i) instanceof ItemStack) {
-                        this.drawStackAt((ItemStack) list.get(i), x + 287 + sh - le, y - 1, mx, my, false);
+                        drawStackAt((ItemStack) list.get(i), x + 287 + sh - le, y - 1, mx, my, false);
                     }
                     else if (list.get(i) instanceof Part[][][]) {
-                        BlueprintBlockAccess ba = this.blockAccessIcons.get(rk);
+                        BlueprintBlockAccess ba = blockAccessIcons.get(rk);
                         if (ba == null) {
-                            this.blockAccessIcons.put(rk, ba = new BlueprintBlockAccess((Part[][][]) list.get(i), true));
+                            blockAccessIcons.put(rk, ba = new BlueprintBlockAccess((Part[][][]) list.get(i), true));
                         }
                         final int h = ((Part[][][])list.get(i)).length;
-                        this.renderBluePrint(ba, x + 295 + sh - le, y + 6 + h, 4.0f, (Part[][][]) list.get(i), -5000, -5000, null);
+                        renderBluePrint(ba, x + 295 + sh - le, y + 6 + h, 4.0f, (Part[][][]) list.get(i), -5000, -5000, null);
                     }
                     UtilsFX.hideStackOverlay = false;
                     y += space;
                 }
             }
         }
-        this.allowWithPagePopup = false;
+        allowWithPagePopup = false;
         GL11.glPopMatrix();
     }
     
     private void generateRecipesLists(final ResearchStage stage, final ResearchAddendum[] addenda) {
-        this.recipeLists.clear();
-        this.recipeOutputs.clear();
+        recipeLists.clear();
+        recipeOutputs.clear();
         if (stage == null || stage.getRecipes() == null) {
             return;
         }
         for (final ResourceLocation rk : stage.getRecipes()) {
-            this.addRecipesToList(rk, this.recipeLists, this.recipeOutputs, rk);
+            addRecipesToList(rk, recipeLists, recipeOutputs, rk);
         }
         if (addenda == null) {
             return;
         }
         for (final ResearchAddendum addendum : addenda) {
-            if (addendum.getRecipes() != null && ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, addendum.getResearch())) {
+            if (addendum.getRecipes() != null && ThaumcraftCapabilities.knowsResearchStrict(mc.player, addendum.getResearch())) {
                 for (final ResourceLocation rk2 : addendum.getRecipes()) {
-                    this.addRecipesToList(rk2, this.recipeLists, this.recipeOutputs, rk2);
+                    addRecipesToList(rk2, recipeLists, recipeOutputs, rk2);
                 }
             }
         }
@@ -824,7 +824,7 @@ public class GuiResearchPage extends GuiScreen
         }
         if (recipe instanceof ArrayList) {
             for (final ResourceLocation rl : (ArrayList<ResourceLocation>)recipe) {
-                this.addRecipesToList(rl, recipeLists2, recipeOutputs2, rk);
+                addRecipesToList(rl, recipeLists2, recipeOutputs2, rk);
             }
         }
         else {
@@ -836,7 +836,7 @@ public class GuiResearchPage extends GuiScreen
             final ArrayList outputs = recipeOutputs2.get(rkey);
             if (recipe instanceof ThaumcraftApi.BluePrint) {
                 final ThaumcraftApi.BluePrint r = (ThaumcraftApi.BluePrint)recipe;
-                if (ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, r.getResearch())) {
+                if (ThaumcraftCapabilities.knowsResearchStrict(mc.player, r.getResearch())) {
                     list.add(r);
                     if (r.getDisplayStack() != null) {
                         outputs.add(r.getDisplayStack());
@@ -849,7 +849,7 @@ public class GuiResearchPage extends GuiScreen
             else if (recipe instanceof CrucibleRecipe) {
                 final CrucibleRecipe re = (CrucibleRecipe)recipe;
                 final ItemStack is = InventoryUtils.cycleItemStack(re.getCatalyst(), 0);
-                if (is != null && !is.isEmpty() && ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, re.getResearch())) {
+                if (is != null && !is.isEmpty() && ThaumcraftCapabilities.knowsResearchStrict(mc.player, re.getResearch())) {
                     list.add(re);
                     outputs.add(re.getRecipeOutput());
                 }
@@ -858,7 +858,7 @@ public class GuiResearchPage extends GuiScreen
                 final InfusionRecipe re2 = (InfusionRecipe)recipe;
                 ItemStack is = null;
                 if (re2 instanceof InfusionEnchantmentRecipe) {
-                    is = InventoryUtils.cycleItemStack(re2.getRecipeOutput(this.mc.player, re2.getRecipeInput().getMatchingStacks()[0].copy(), null), 0);
+                    is = InventoryUtils.cycleItemStack(re2.getRecipeOutput(mc.player, re2.getRecipeInput().getMatchingStacks()[0].copy(), null), 0);
                 }
                 else if (re2 instanceof InfusionRunicAugmentRecipe) {
                     final NonNullList<Ingredient> il = ((InfusionRunicAugmentRecipe)re2).getComponents(re2.getRecipeInput().getMatchingStacks()[0]);
@@ -866,7 +866,7 @@ public class GuiResearchPage extends GuiScreen
                     for (final Ingredient i : il) {
                         cl.add(i.getMatchingStacks()[0]);
                     }
-                    is = InventoryUtils.cycleItemStack(re2.getRecipeOutput(this.mc.player, re2.getRecipeInput().getMatchingStacks()[0].copy(), cl), 0);
+                    is = InventoryUtils.cycleItemStack(re2.getRecipeOutput(mc.player, re2.getRecipeInput().getMatchingStacks()[0].copy(), cl), 0);
                 }
                 else if (re2.getRecipeOutput() instanceof ItemStack) {
                     is = InventoryUtils.cycleItemStack(re2.getRecipeOutput(), 0);
@@ -883,7 +883,7 @@ public class GuiResearchPage extends GuiScreen
                     }
                     catch (final Exception ex) {}
                 }
-                if (is != null && ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, re2.research)) {
+                if (is != null && ThaumcraftCapabilities.knowsResearchStrict(mc.player, re2.research)) {
                     list.add(re2);
                     outputs.add(is);
                 }
@@ -891,7 +891,7 @@ public class GuiResearchPage extends GuiScreen
             else if (recipe instanceof IArcaneRecipe) {
                 final IArcaneRecipe re3 = (IArcaneRecipe)recipe;
                 final ItemStack is = InventoryUtils.cycleItemStack(re3.getRecipeOutput(), 0);
-                if (is != null && !is.isEmpty() && ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, re3.getResearch())) {
+                if (is != null && !is.isEmpty() && ThaumcraftCapabilities.knowsResearchStrict(mc.player, re3.getResearch())) {
                     list.add(re3);
                     outputs.add(re3.getRecipeOutput());
                 }
@@ -910,76 +910,76 @@ public class GuiResearchPage extends GuiScreen
     }
     
     private void drawRecipe(final int mx, final int my) {
-        this.allowWithPagePopup = true;
+        allowWithPagePopup = true;
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        this.mc.renderEngine.bindTexture(this.tex4);
-        final int x = (this.width - 256) / 2;
-        final int y = (this.height - 256) / 2;
+        mc.renderEngine.bindTexture(tex4);
+        final int x = (width - 256) / 2;
+        final int y = (height - 256) / 2;
         GlStateManager.disableDepth();
-        this.drawTexturedModalRect(x, y, 0, 0, 255, 255);
+        drawTexturedModalRect(x, y, 0, 0, 255, 255);
         GlStateManager.enableDepth();
-        List list = this.recipeLists.get(GuiResearchPage.shownRecipe);
+        List list = recipeLists.get(GuiResearchPage.shownRecipe);
         if (list == null || list.size() == 0) {
-            list = this.drilldownLists.get(GuiResearchPage.shownRecipe);
+            list = drilldownLists.get(GuiResearchPage.shownRecipe);
         }
         if (list != null && list.size() > 0) {
-            this.hasRecipePages = (list.size() > 1);
-            this.recipePageMax = list.size() - 1;
-            if (this.recipePage > this.recipePageMax) {
-                this.recipePage = this.recipePageMax;
+            hasRecipePages = (list.size() > 1);
+            recipePageMax = list.size() - 1;
+            if (recipePage > recipePageMax) {
+                recipePage = recipePageMax;
             }
-            final Object recipe = list.get(this.recipePage % list.size());
+            final Object recipe = list.get(recipePage % list.size());
             if (recipe != null) {
                 if (recipe instanceof IArcaneRecipe) {
-                    this.drawArcaneCraftingPage(x + 128, y + 128, mx, my, (IArcaneRecipe)recipe);
+                    drawArcaneCraftingPage(x + 128, y + 128, mx, my, (IArcaneRecipe)recipe);
                 }
                 else if (recipe instanceof IRecipe) {
-                    this.drawCraftingPage(x + 128, y + 128, mx, my, (IRecipe)recipe);
+                    drawCraftingPage(x + 128, y + 128, mx, my, (IRecipe)recipe);
                 }
                 else if (recipe instanceof CrucibleRecipe) {
-                    this.drawCruciblePage(x + 128, y + 128, mx, my, (CrucibleRecipe)recipe);
+                    drawCruciblePage(x + 128, y + 128, mx, my, (CrucibleRecipe)recipe);
                 }
                 else if (recipe instanceof InfusionRecipe) {
-                    this.drawInfusionPage(x + 128, y + 128, mx, my, (InfusionRecipe)recipe);
+                    drawInfusionPage(x + 128, y + 128, mx, my, (InfusionRecipe)recipe);
                 }
                 else if (recipe instanceof ThaumcraftApi.BluePrint) {
-                    this.drawCompoundCraftingPage(x + 128, y + 128, mx, my, (ThaumcraftApi.BluePrint)recipe);
-                    this.renderingCompound = true;
+                    drawCompoundCraftingPage(x + 128, y + 128, mx, my, (ThaumcraftApi.BluePrint)recipe);
+                    renderingCompound = true;
                 }
             }
-            if (this.hasRecipePages) {
-                this.mc.renderEngine.bindTexture(this.tex1);
-                final float bob = MathHelper.sin(this.mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
-                if (this.recipePage > 0) {
-                    this.drawTexturedModalRectScaled(x + 40, y + 232, 0, 184, 12, 8, bob);
+            if (hasRecipePages) {
+                mc.renderEngine.bindTexture(tex1);
+                final float bob = MathHelper.sin(mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
+                if (recipePage > 0) {
+                    drawTexturedModalRectScaled(x + 40, y + 232, 0, 184, 12, 8, bob);
                 }
-                if (this.recipePage < this.recipePageMax) {
-                    this.drawTexturedModalRectScaled(x + 204, y + 232, 12, 184, 12, 8, bob);
+                if (recipePage < recipePageMax) {
+                    drawTexturedModalRectScaled(x + 204, y + 232, 12, 184, 12, 8, bob);
                 }
             }
         }
-        this.allowWithPagePopup = false;
+        allowWithPagePopup = false;
     }
     
     private void drawCompoundCraftingPage(final int x, final int y, final int mx, final int my, final ThaumcraftApi.BluePrint recipe) {
         if (recipe.getParts() == null) {
             return;
         }
-        if (this.blockAccess == null) {
-            this.blockAccess = new BlueprintBlockAccess(recipe.getParts(), false);
+        if (blockAccess == null) {
+            blockAccess = new BlueprintBlockAccess(recipe.getParts(), false);
         }
         final int ySize = recipe.getParts().length;
         final int xSize = recipe.getParts()[0].length;
         final int zSize = recipe.getParts()[0][0].length;
         final String text = I18n.translateToLocal("recipe.type.construct");
-        final int offset = this.mc.fontRenderer.getStringWidth(text);
-        this.mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
+        final int offset = mc.fontRenderer.getStringWidth(text);
+        mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
         final int s = Math.max(Math.max(xSize, zSize), ySize) * 2;
         final float scale = (float)(38 - s);
-        this.renderBluePrint(this.blockAccess, x, y, scale, recipe.getParts(), mx, my, recipe.getIngredientList());
-        this.mc.renderEngine.bindTexture(this.tex1);
-        GlStateManager.color(1.0f, 1.0f, 1.0f, this.mouseInside(x + 80, y + 100, 8, 8, mx, my) ? 1.0f : 0.75f);
-        this.drawTexturedModalRect(x + 80, y + 100, GuiResearchPage.cycleMultiblockLines ? 168 : 160, 224, 8, 8);
+        renderBluePrint(blockAccess, x, y, scale, recipe.getParts(), mx, my, recipe.getIngredientList());
+        mc.renderEngine.bindTexture(tex1);
+        GlStateManager.color(1.0f, 1.0f, 1.0f, mouseInside(x + 80, y + 100, 8, 8, mx, my) ? 1.0f : 0.75f);
+        drawTexturedModalRect(x + 80, y + 100, GuiResearchPage.cycleMultiblockLines ? 168 : 160, 224, 8, 8);
     }
     
     private void renderBluePrint(final BlueprintBlockAccess ba, final int x, final int y, final float scale, final Part[][][] blueprint, final int mx, final int my, final ItemStack[] ingredients) {
@@ -987,15 +987,15 @@ public class GuiResearchPage extends GuiScreen
         final int ySize = blueprint.length;
         final int xSize = blueprint[0].length;
         final int zSize = blueprint[0][0].length;
-        this.transX = (float)(x - xSize / 2);
-        this.transY = y - (float)Math.sqrt(ySize * ySize + xSize * xSize + zSize * zSize) / 2.0f;
+        transX = (float)(x - xSize / 2);
+        transY = y - (float)Math.sqrt(ySize * ySize + xSize * xSize + zSize * zSize) / 2.0f;
         GlStateManager.enableRescaleNormal();
         GlStateManager.pushMatrix();
         RenderHelper.disableStandardItemLighting();
-        GlStateManager.translate(this.transX, this.transY, (float)Math.max(ySize, Math.max(xSize, zSize)));
+        GlStateManager.translate(transX, transY, (float)Math.max(ySize, Math.max(xSize, zSize)));
         GlStateManager.scale(scale, -scale, 1.0f);
-        GlStateManager.rotate(this.rotX, 1.0f, 0.0f, 0.0f);
-        GlStateManager.rotate(this.rotY, 0.0f, 1.0f, 0.0f);
+        GlStateManager.rotate(rotX, 1.0f, 0.0f, 0.0f);
+        GlStateManager.rotate(rotY, 0.0f, 1.0f, 0.0f);
         GlStateManager.translate(zSize / -2.0f, ySize / -2.0f, xSize / -2.0f);
         GlStateManager.disableLighting();
         if (Minecraft.isAmbientOcclusionEnabled()) {
@@ -1004,7 +1004,7 @@ public class GuiResearchPage extends GuiScreen
         else {
             GlStateManager.shadeModel(7424);
         }
-        this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         final ArrayList<ItemStack> blocks = new ArrayList<ItemStack>();
         for (int h = 0; h < ySize; ++h) {
             for (int l = 0; l < xSize; ++l) {
@@ -1021,14 +1021,14 @@ public class GuiResearchPage extends GuiScreen
                         tessellator.draw();
                         try {
                             if (!b && state.getBlock().hasTileEntity(state)) {
-                                final TileEntity te = state.getBlock().createTileEntity(this.mc.world, state);
+                                final TileEntity te = state.getBlock().createTileEntity(mc.world, state);
                                 RenderHelper.enableStandardItemLighting();
                                 final int i = 250;
                                 final int j = i % 65536;
                                 final int k = i / 65536;
                                 OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
                                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                                TileEntityRendererDispatcher.instance.render(te, pos.getX(), pos.getY(), pos.getZ(), this.mc.getRenderPartialTicks());
+                                TileEntityRendererDispatcher.instance.render(te, pos.getX(), pos.getY(), pos.getZ(), mc.getRenderPartialTicks());
                             }
                         }
                         catch (final Exception ex) {}
@@ -1046,7 +1046,7 @@ public class GuiResearchPage extends GuiScreen
                         GL11.glEnable(32826);
                         GL11.glEnable(2903);
                         GL11.glEnable(2896);
-                        this.drawStackAt(ingredients[a], x - 85 + a * 17, y + 90, mx, my, true);
+                        drawStackAt(ingredients[a], x - 85 + a * 17, y + 90, mx, my, true);
                         GL11.glDisable(2896);
                         GL11.glDepthMask(true);
                         GL11.glEnable(2929);
@@ -1061,26 +1061,26 @@ public class GuiResearchPage extends GuiScreen
     }
     
     private void drawAspectsInsert(final int mx, final int my) {
-        this.allowWithPagePopup = true;
+        allowWithPagePopup = true;
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        this.mc.renderEngine.bindTexture(this.tex4);
-        final int x = (this.width - 256) / 2;
-        final int y = (this.height - 256) / 2;
+        mc.renderEngine.bindTexture(tex4);
+        final int x = (width - 256) / 2;
+        final int y = (height - 256) / 2;
         GlStateManager.disableDepth();
-        this.drawTexturedModalRect(x, y, 0, 0, 255, 255);
+        drawTexturedModalRect(x, y, 0, 0, 255, 255);
         GlStateManager.enableDepth();
-        this.drawAspectPage(x + 60, y + 24, mx, my);
-        this.allowWithPagePopup = false;
+        drawAspectPage(x + 60, y + 24, mx, my);
+        allowWithPagePopup = false;
     }
     
     private void drawAspectPage(final int x, final int y, final int mx, final int my) {
-        if (this.knownPlayerAspects != null && this.knownPlayerAspects.size() > 0) {
+        if (knownPlayerAspects != null && knownPlayerAspects.size() > 0) {
             GL11.glPushMatrix();
             final int mposx = mx;
             final int mposy = my;
             int count = -1;
             final int start = GuiResearchPage.aspectsPage * 5;
-            for (final Aspect aspect : this.knownPlayerAspects.getAspectsSortedByName()) {
+            for (final Aspect aspect : knownPlayerAspects.getAspectsSortedByName()) {
                 if (++count >= start) {
                     if (count > start + 4) {
                         break;
@@ -1089,87 +1089,87 @@ public class GuiResearchPage extends GuiScreen
                         final int tx = x;
                         final int ty = y + count % 5 * 40;
                         if (mposx >= tx && mposy >= ty && mposx < tx + 40 && mposy < ty + 40) {
-                            this.mc.renderEngine.bindTexture(this.tex3);
+                            mc.renderEngine.bindTexture(tex3);
                             GL11.glPushMatrix();
                             GlStateManager.enableBlend();
                             GlStateManager.blendFunc(770, 771);
                             GL11.glTranslated(x - 2, y + count % 5 * 40 - 2, 0.0);
                             GL11.glScaled(2.0, 2.0, 0.0);
                             GlStateManager.color(1.0f, 1.0f, 1.0f, 0.5f);
-                            UtilsFX.drawTexturedQuadFull(0.0f, 0.0f, this.zLevel);
+                            UtilsFX.drawTexturedQuadFull(0.0f, 0.0f, zLevel);
                             GL11.glPopMatrix();
                         }
                         GL11.glPushMatrix();
                         GL11.glTranslated(x + 2, y + 2 + count % 5 * 40, 0.0);
                         GL11.glScalef(1.5f, 1.5f, 1.5f);
-                        UtilsFX.drawTag(0, 0, aspect, 0.0f, 0, this.zLevel);
+                        UtilsFX.drawTag(0, 0, aspect, 0.0f, 0, zLevel);
                         GL11.glPopMatrix();
                         GL11.glPushMatrix();
                         GL11.glTranslated(x + 16, y + 29 + count % 5 * 40, 0.0);
                         GL11.glScalef(0.5f, 0.5f, 0.5f);
                         String text = aspect.getName();
-                        int offset = this.mc.fontRenderer.getStringWidth(text) / 2;
-                        this.mc.fontRenderer.drawString(text, -offset, 0, 5263440);
+                        int offset = mc.fontRenderer.getStringWidth(text) / 2;
+                        mc.fontRenderer.drawString(text, -offset, 0, 5263440);
                         GL11.glPopMatrix();
                         if (aspect.getComponents() != null) {
                             GL11.glPushMatrix();
                             GL11.glTranslated(x + 60, y + 4 + count % 5 * 40, 0.0);
                             GL11.glScalef(1.25f, 1.25f, 1.25f);
-                            if (this.playerKnowledge.isResearchKnown("!" + aspect.getComponents()[0].getTag().toLowerCase())) {
-                                UtilsFX.drawTag(0, 0, aspect.getComponents()[0], 0.0f, 0, this.zLevel);
+                            if (playerKnowledge.isResearchKnown("!" + aspect.getComponents()[0].getTag().toLowerCase())) {
+                                UtilsFX.drawTag(0, 0, aspect.getComponents()[0], 0.0f, 0, zLevel);
                             }
                             else {
-                                this.mc.renderEngine.bindTexture(this.dummyResearch);
+                                mc.renderEngine.bindTexture(dummyResearch);
                                 GlStateManager.color(0.8f, 0.8f, 0.8f, 1.0f);
-                                UtilsFX.drawTexturedQuadFull(0.0f, 0.0f, this.zLevel);
+                                UtilsFX.drawTexturedQuadFull(0.0f, 0.0f, zLevel);
                             }
                             GL11.glPopMatrix();
                             GL11.glPushMatrix();
                             GL11.glTranslated(x + 102, y + 4 + count % 5 * 40, 0.0);
                             GL11.glScalef(1.25f, 1.25f, 1.25f);
-                            if (this.playerKnowledge.isResearchKnown("!" + aspect.getComponents()[1].getTag().toLowerCase())) {
-                                UtilsFX.drawTag(0, 0, aspect.getComponents()[1], 0.0f, 0, this.zLevel);
+                            if (playerKnowledge.isResearchKnown("!" + aspect.getComponents()[1].getTag().toLowerCase())) {
+                                UtilsFX.drawTag(0, 0, aspect.getComponents()[1], 0.0f, 0, zLevel);
                             }
                             else {
-                                this.mc.renderEngine.bindTexture(this.dummyResearch);
+                                mc.renderEngine.bindTexture(dummyResearch);
                                 GlStateManager.color(0.8f, 0.8f, 0.8f, 1.0f);
-                                UtilsFX.drawTexturedQuadFull(0.0f, 0.0f, this.zLevel);
+                                UtilsFX.drawTexturedQuadFull(0.0f, 0.0f, zLevel);
                             }
                             GL11.glPopMatrix();
-                            if (this.playerKnowledge.isResearchKnown("!" + aspect.getComponents()[0].getTag().toLowerCase())) {
+                            if (playerKnowledge.isResearchKnown("!" + aspect.getComponents()[0].getTag().toLowerCase())) {
                                 text = aspect.getComponents()[0].getName();
-                                offset = this.mc.fontRenderer.getStringWidth(text) / 2;
+                                offset = mc.fontRenderer.getStringWidth(text) / 2;
                                 GL11.glPushMatrix();
                                 GL11.glTranslated(x + 22 + 50, y + 29 + count % 5 * 40, 0.0);
                                 GL11.glScalef(0.5f, 0.5f, 0.5f);
-                                this.mc.fontRenderer.drawString(text, -offset, 0, 5263440);
+                                mc.fontRenderer.drawString(text, -offset, 0, 5263440);
                                 GL11.glPopMatrix();
                             }
-                            if (this.playerKnowledge.isResearchKnown("!" + aspect.getComponents()[1].getTag().toLowerCase())) {
+                            if (playerKnowledge.isResearchKnown("!" + aspect.getComponents()[1].getTag().toLowerCase())) {
                                 text = aspect.getComponents()[1].getName();
-                                offset = this.mc.fontRenderer.getStringWidth(text) / 2;
+                                offset = mc.fontRenderer.getStringWidth(text) / 2;
                                 GL11.glPushMatrix();
                                 GL11.glTranslated(x + 22 + 92, y + 29 + count % 5 * 40, 0.0);
                                 GL11.glScalef(0.5f, 0.5f, 0.5f);
-                                this.mc.fontRenderer.drawString(text, -offset, 0, 5263440);
+                                mc.fontRenderer.drawString(text, -offset, 0, 5263440);
                                 GL11.glPopMatrix();
                             }
-                            this.mc.fontRenderer.drawString("=", x + 9 + 32, y + 12 + count % 5 * 40, 10066329);
-                            this.mc.fontRenderer.drawString("+", x + 10 + 79, y + 12 + count % 5 * 40, 10066329);
+                            mc.fontRenderer.drawString("=", x + 9 + 32, y + 12 + count % 5 * 40, 10066329);
+                            mc.fontRenderer.drawString("+", x + 10 + 79, y + 12 + count % 5 * 40, 10066329);
                         }
                         else {
-                            this.mc.fontRenderer.drawString(I18n.translateToLocal("tc.aspect.primal"), x + 54, y + 12 + count % 5 * 40, 7829367);
+                            mc.fontRenderer.drawString(I18n.translateToLocal("tc.aspect.primal"), x + 54, y + 12 + count % 5 * 40, 7829367);
                         }
                     }
                 }
             }
-            this.mc.renderEngine.bindTexture(this.tex1);
-            final float bob = MathHelper.sin(this.mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
+            mc.renderEngine.bindTexture(tex1);
+            final float bob = MathHelper.sin(mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
             if (GuiResearchPage.aspectsPage > 0) {
-                this.drawTexturedModalRectScaled(x - 20, y + 208, 0, 184, 12, 8, bob);
+                drawTexturedModalRectScaled(x - 20, y + 208, 0, 184, 12, 8, bob);
             }
-            if (GuiResearchPage.aspectsPage < this.maxAspectPages - 1) {
-                this.drawTexturedModalRectScaled(x + 144, y + 208, 12, 184, 12, 8, bob);
+            if (GuiResearchPage.aspectsPage < maxAspectPages - 1) {
+                drawTexturedModalRectScaled(x + 144, y + 208, 12, 184, 12, 8, bob);
             }
             GL11.glPopMatrix();
         }
@@ -1179,15 +1179,15 @@ public class GuiResearchPage extends GuiScreen
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
         GL11.glPushMatrix();
-        this.mc.renderEngine.bindTexture(this.tex2);
+        mc.renderEngine.bindTexture(tex2);
         GL11.glPushMatrix();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
         GL11.glTranslatef((float)x, (float)y, 0.0f);
         GL11.glScalef(2.0f, 2.0f, 1.0f);
-        this.drawTexturedModalRect(-26, -26, 112, 15, 52, 52);
-        this.drawTexturedModalRect(-8, -46, 20, 3, 16, 16);
+        drawTexturedModalRect(-26, -26, 112, 15, 52, 52);
+        drawTexturedModalRect(-8, -46, 20, 3, 16, 16);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.4f);
@@ -1195,47 +1195,47 @@ public class GuiResearchPage extends GuiScreen
         GlStateManager.blendFunc(770, 771);
         GL11.glTranslatef((float)x, (float)y, 0.0f);
         GL11.glScalef(2.0f, 2.0f, 1.0f);
-        this.drawTexturedModalRect(-6, 40, 68, 76, 12, 12);
+        drawTexturedModalRect(-6, 40, 68, 76, 12, 12);
         GL11.glPopMatrix();
         String text = "" + recipe.getVis();
-        int offset = this.mc.fontRenderer.getStringWidth(text);
-        this.mc.fontRenderer.drawString(text, x - offset / 2, y + 90, 5263440);
-        this.drawPopupAt(x - offset / 2 - 15, y + 75, 30, 30, mx, my, "wandtable.text1");
+        int offset = mc.fontRenderer.getStringWidth(text);
+        mc.fontRenderer.drawString(text, x - offset / 2, y + 90, 5263440);
+        drawPopupAt(x - offset / 2 - 15, y + 75, 30, 30, mx, my, "wandtable.text1");
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glTranslated(0.0, 0.0, 100.0);
-        this.drawStackAt(InventoryUtils.cycleItemStack(recipe.getRecipeOutput(), 0), x - 8, y - 84, mx, my, false);
+        drawStackAt(InventoryUtils.cycleItemStack(recipe.getRecipeOutput(), 0), x - 8, y - 84, mx, my, false);
         final AspectList crystals = recipe.getCrystals();
         if (crystals != null) {
             int a = 0;
             final int sz = crystals.size();
             for (final Aspect aspect : crystals.getAspects()) {
-                this.drawStackAt(InventoryUtils.cycleItemStack(ThaumcraftApiHelper.makeCrystal(aspect, crystals.getAmount(aspect)), a), x + 4 - sz * 10 + a * 20, y + 59, mx, my, true);
+                drawStackAt(InventoryUtils.cycleItemStack(ThaumcraftApiHelper.makeCrystal(aspect, crystals.getAmount(aspect)), a), x + 4 - sz * 10 + a * 20, y + 59, mx, my, true);
                 ++a;
             }
         }
         if (recipe != null && recipe instanceof ShapedArcaneRecipe) {
             text = I18n.translateToLocal("recipe.type.arcane");
-            offset = this.mc.fontRenderer.getStringWidth(text);
-            this.mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
+            offset = mc.fontRenderer.getStringWidth(text);
+            mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
             final int rw = ((ShapedArcaneRecipe)recipe).getRecipeWidth();
             final int rh = ((ShapedArcaneRecipe)recipe).getRecipeHeight();
             final NonNullList<Ingredient> items = recipe.getIngredients();
             for (int i = 0; i < rw && i < 3; ++i) {
                 for (int j = 0; j < rh && j < 3; ++j) {
                     if (items.get(i + j * rw) != null) {
-                        this.drawStackAt(InventoryUtils.cycleItemStack(items.get(i + j * rw), i + j * rw), x - 40 + i * 32, y - 40 + j * 32, mx, my, true);
+                        drawStackAt(InventoryUtils.cycleItemStack(items.get(i + j * rw), i + j * rw), x - 40 + i * 32, y - 40 + j * 32, mx, my, true);
                     }
                 }
             }
         }
         if (recipe != null && recipe instanceof ShapelessArcaneRecipe) {
             text = I18n.translateToLocal("recipe.type.arcane.shapeless");
-            offset = this.mc.fontRenderer.getStringWidth(text);
-            this.mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
+            offset = mc.fontRenderer.getStringWidth(text);
+            mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
             final NonNullList<Ingredient> items2 = recipe.getIngredients();
             for (int k = 0; k < items2.size() && k < 9; ++k) {
                 if (items2.get(k) != null) {
-                    this.drawStackAt(InventoryUtils.cycleItemStack(items2.get(k), k), x - 40 + k % 3 * 32, y - 40 + k / 3 * 32, mx, my, true);
+                    drawStackAt(InventoryUtils.cycleItemStack(items2.get(k), k), x - 40 + k % 3 * 32, y - 40 + k / 3 * 32, mx, my, true);
                 }
             }
         }
@@ -1249,40 +1249,40 @@ public class GuiResearchPage extends GuiScreen
             return;
         }
         GL11.glPushMatrix();
-        this.mc.renderEngine.bindTexture(this.tex2);
+        mc.renderEngine.bindTexture(tex2);
         GL11.glPushMatrix();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
         GL11.glTranslatef((float)x, (float)y, 0.0f);
         GL11.glScalef(2.0f, 2.0f, 1.0f);
-        this.drawTexturedModalRect(-26, -26, 60, 15, 51, 52);
-        this.drawTexturedModalRect(-8, -46, 20, 3, 16, 16);
+        drawTexturedModalRect(-26, -26, 60, 15, 51, 52);
+        drawTexturedModalRect(-8, -46, 20, 3, 16, 16);
         GL11.glPopMatrix();
-        this.drawStackAt(InventoryUtils.cycleItemStack(recipe.getRecipeOutput(), 0), x - 8, y - 84, mx, my, false);
+        drawStackAt(InventoryUtils.cycleItemStack(recipe.getRecipeOutput(), 0), x - 8, y - 84, mx, my, false);
         if (recipe != null && recipe instanceof IShapedRecipe) {
             final String text = I18n.translateToLocal("recipe.type.workbench");
-            final int offset = this.mc.fontRenderer.getStringWidth(text);
-            this.mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
+            final int offset = mc.fontRenderer.getStringWidth(text);
+            mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
             final int rw = ((IShapedRecipe)recipe).getRecipeWidth();
             final int rh = ((IShapedRecipe)recipe).getRecipeHeight();
             final NonNullList<Ingredient> items = recipe.getIngredients();
             for (int i = 0; i < rw && i < 3; ++i) {
                 for (int j = 0; j < rh && j < 3; ++j) {
                     if (items.get(i + j * rw) != null) {
-                        this.drawStackAt(InventoryUtils.cycleItemStack(items.get(i + j * rw), i + j * rw), x - 40 + i * 32, y - 40 + j * 32, mx, my, true);
+                        drawStackAt(InventoryUtils.cycleItemStack(items.get(i + j * rw), i + j * rw), x - 40 + i * 32, y - 40 + j * 32, mx, my, true);
                     }
                 }
             }
         }
         if (recipe != null && (recipe instanceof ShapelessRecipes || recipe instanceof ShapelessOreRecipe)) {
             final String text = I18n.translateToLocal("recipe.type.workbenchshapeless");
-            final int offset = this.mc.fontRenderer.getStringWidth(text);
-            this.mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
+            final int offset = mc.fontRenderer.getStringWidth(text);
+            mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
             final NonNullList<Ingredient> items2 = recipe.getIngredients();
             for (int k = 0; k < items2.size() && k < 9; ++k) {
                 if (items2.get(k) != null) {
-                    this.drawStackAt(InventoryUtils.cycleItemStack(items2.get(k), k), x - 40 + k % 3 * 32, y - 40 + k / 3 * 32, mx, my, true);
+                    drawStackAt(InventoryUtils.cycleItemStack(items2.get(k), k), x - 40 + k % 3 * 32, y - 40 + k / 3 * 32, mx, my, true);
                 }
             }
         }
@@ -1295,20 +1295,20 @@ public class GuiResearchPage extends GuiScreen
         if (rc != null) {
             GL11.glPushMatrix();
             final String text = I18n.translateToLocal("recipe.type.crucible");
-            final int offset = this.mc.fontRenderer.getStringWidth(text);
-            this.mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
-            this.mc.renderEngine.bindTexture(this.tex2);
+            final int offset = mc.fontRenderer.getStringWidth(text);
+            mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
+            mc.renderEngine.bindTexture(tex2);
             GL11.glPushMatrix();
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(770, 771);
             GL11.glTranslatef((float)x, (float)y, 0.0f);
             GL11.glScalef(2.0f, 2.0f, 1.0f);
-            this.drawTexturedModalRect(-28, -29, 0, 3, 56, 17);
+            drawTexturedModalRect(-28, -29, 0, 3, 56, 17);
             GL11.glTranslatef(0.0f, 32.0f, 0.0f);
-            this.drawTexturedModalRect(-28, -44, 0, 20, 56, 48);
+            drawTexturedModalRect(-28, -44, 0, 20, 56, 48);
             GL11.glTranslatef(0.0f, -8.0f, 0.0f);
-            this.drawTexturedModalRect(-25, -50, 100, 84, 11, 13);
+            drawTexturedModalRect(-25, -50, 100, 84, 11, 13);
             GL11.glPopMatrix();
             final int mposx = mx;
             final int mposy = my;
@@ -1324,11 +1324,11 @@ public class GuiResearchPage extends GuiScreen
                 }
                 final int vx = sx + total % 3 * 20 + shift * m;
                 final int vy = sy + total / 3 * 20;
-                UtilsFX.drawTag(vx, vy, tag, (float)rc.getAspects().getAmount(tag), 0, this.zLevel);
+                UtilsFX.drawTag(vx, vy, tag, (float)rc.getAspects().getAmount(tag), 0, zLevel);
                 ++total;
             }
-            this.drawStackAt(rc.getRecipeOutput(), x - 8, y - 50, mx, my, false);
-            this.drawStackAt(InventoryUtils.cycleItemStack(rc.getCatalyst(), 0), x - 64, y - 56, mx, my, true);
+            drawStackAt(rc.getRecipeOutput(), x - 8, y - 50, mx, my, false);
+            drawStackAt(InventoryUtils.cycleItemStack(rc.getCatalyst(), 0), x - 64, y - 56, mx, my, true);
             total = 0;
             for (final Aspect tag : rc.getAspects().getAspectsSortedByName()) {
                 int m = 0;
@@ -1338,7 +1338,7 @@ public class GuiResearchPage extends GuiScreen
                 final int vx = sx + total % 3 * 20 + shift * m;
                 final int vy = sy + total / 3 * 20;
                 if (mposx >= vx && mposy >= vy && mposx < vx + 16 && mposy < vy + 16) {
-                    this.tipText = Arrays.asList(tag.getName(), tag.getLocalizedDescription());
+                    tipText = Arrays.asList(tag.getName(), tag.getLocalizedDescription());
                 }
                 ++total;
             }
@@ -1360,8 +1360,8 @@ public class GuiResearchPage extends GuiScreen
                 for (final Ingredient s : c) {
                     com.add(s.getMatchingStacks()[0]);
                 }
-                aspects = ri.getAspects(this.mc.player, ri.getRecipeInput().getMatchingStacks()[0], com);
-                output = ri.getRecipeOutput(this.mc.player, ri.getRecipeInput().getMatchingStacks()[0], com);
+                aspects = ri.getAspects(mc.player, ri.getRecipeInput().getMatchingStacks()[0], com);
+                output = ri.getRecipeOutput(mc.player, ri.getRecipeInput().getMatchingStacks()[0], com);
             }
             if (ri instanceof InfusionEnchantmentRecipe) {
                 final ArrayList<ItemStack> com2 = new ArrayList<ItemStack>();
@@ -1370,22 +1370,22 @@ public class GuiResearchPage extends GuiScreen
                         com2.add((ItemStack)s2);
                     }
                 }
-                aspects = ri.getAspects(this.mc.player, ri.getRecipeInput().getMatchingStacks()[0], com2);
+                aspects = ri.getAspects(mc.player, ri.getRecipeInput().getMatchingStacks()[0], com2);
                 output = ri.getRecipeOutput(null, ri.getRecipeInput().getMatchingStacks()[0], com2);
             }
             String text = I18n.translateToLocal("recipe.type.infusion");
-            int offset = this.mc.fontRenderer.getStringWidth(text);
-            this.mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
-            this.mc.renderEngine.bindTexture(this.tex2);
+            int offset = mc.fontRenderer.getStringWidth(text);
+            mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
+            mc.renderEngine.bindTexture(tex2);
             GL11.glPushMatrix();
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(770, 771);
             GL11.glTranslatef((float)x, (float)(y + 20), 0.0f);
             GL11.glScalef(2.0f, 2.0f, 1.0f);
-            this.drawTexturedModalRect(-28, -56, 0, 3, 56, 17);
+            drawTexturedModalRect(-28, -56, 0, 3, 56, 17);
             GL11.glTranslatef(0.0f, 19.0f, 0.0f);
-            this.drawTexturedModalRect(-28, -55, 200, 77, 60, 44);
+            drawTexturedModalRect(-28, -55, 200, 77, 60, 44);
             GL11.glPopMatrix();
             final int mposx = mx;
             final int mposy = my;
@@ -1401,7 +1401,7 @@ public class GuiResearchPage extends GuiScreen
                 }
                 final int vx = sx + total % 5 * 20 + shift * m;
                 final int vy = sy + total / 5 * 20;
-                UtilsFX.drawTag(vx, vy, tag, (float)aspects.getAmount(tag), 0, this.zLevel);
+                UtilsFX.drawTag(vx, vy, tag, (float)aspects.getAmount(tag), 0, zLevel);
                 ++total;
             }
             ItemStack idisp = null;
@@ -1417,9 +1417,9 @@ public class GuiResearchPage extends GuiScreen
                 }
                 catch (final Exception ex) {}
             }
-            this.drawStackAt(idisp, x - 8, y - 85, mx, my, false);
+            drawStackAt(idisp, x - 8, y - 85, mx, my, false);
             final ItemStack rinp = InventoryUtils.cycleItemStack(ri.getRecipeInput()).copy();
-            this.drawStackAt(rinp, x - 8, y - 16, mx, my, true);
+            drawStackAt(rinp, x - 8, y - 16, mx, my, true);
             GL11.glPushMatrix();
             GL11.glTranslated(0.0, 0.0, 100.0);
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -1441,15 +1441,15 @@ public class GuiResearchPage extends GuiScreen
                 final int vx2 = sx + coords.get(total).x;
                 final int vy2 = sy + coords.get(total).y;
                 final ItemStack is = InventoryUtils.cycleItemStack(ingredient);
-                this.drawStackAt(is.copy().splitStack(1), vx2, vy2, mx, my, true);
+                drawStackAt(is.copy().splitStack(1), vx2, vy2, mx, my, true);
                 ++total;
                 cmps.add(is.copy());
             }
             GL11.glPopMatrix();
-            final int inst = Math.min(5, ri.getInstability(this.mc.player, rinp, cmps) / 2);
+            final int inst = Math.min(5, ri.getInstability(mc.player, rinp, cmps) / 2);
             text = I18n.translateToLocal("tc.inst") + " " + I18n.translateToLocal("tc.inst." + inst);
-            offset = this.mc.fontRenderer.getStringWidth(text);
-            this.mc.fontRenderer.drawString(text, x - offset / 2, y + 94, 5263440);
+            offset = mc.fontRenderer.getStringWidth(text);
+            mc.fontRenderer.drawString(text, x - offset / 2, y + 94, 5263440);
             total = 0;
             rows = (aspects.size() - 1) / 5;
             shift = (5 - aspects.size() % 5) * 10;
@@ -1463,7 +1463,7 @@ public class GuiResearchPage extends GuiScreen
                 final int vx3 = sx + total % 5 * 20 + shift * i;
                 final int vy3 = sy + total / 5 * 20;
                 if (mposx >= vx3 && mposy >= vy3 && mposx < vx3 + 16 && mposy < vy3 + 16) {
-                    this.tipText = Arrays.asList(tag3.getName(), tag3.getLocalizedDescription());
+                    tipText = Arrays.asList(tag3.getName(), tag3.getLocalizedDescription());
                 }
                 ++total;
             }
@@ -1472,27 +1472,27 @@ public class GuiResearchPage extends GuiScreen
     }
     
     protected void keyTyped(final char par1, final int par2) throws IOException {
-        if (par2 == this.mc.gameSettings.keyBindInventory.getKeyCode() || par2 == 1) {
+        if (par2 == mc.gameSettings.keyBindInventory.getKeyCode() || par2 == 1) {
             GuiResearchPage.history.clear();
-            if (GuiResearchPage.shownRecipe != null || this.showingAspects || this.showingKnowledge) {
+            if (GuiResearchPage.shownRecipe != null || showingAspects || showingKnowledge) {
                 GuiResearchPage.shownRecipe = null;
-                this.blockAccess = null;
-                this.showingAspects = false;
-                this.showingKnowledge = false;
+                blockAccess = null;
+                showingAspects = false;
+                showingKnowledge = false;
                 Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.4f, 1.1f);
             }
             else {
-                this.mc.displayGuiScreen(new GuiResearchBrowser(this.guiMapX, this.guiMapY));
+                mc.displayGuiScreen(new GuiResearchBrowser(guiMapX, guiMapY));
             }
         }
         else if (par2 == 203 || par2 == 200 || par2 == 201) {
-            this.prevPage();
+            prevPage();
         }
         else if (par2 == 205 || par2 == 208 || par2 == 209) {
-            this.nextPage();
+            nextPage();
         }
         else if (par2 == 14) {
-            this.goBack();
+            goBack();
         }
         else {
             super.keyTyped(par1, par2);
@@ -1500,19 +1500,19 @@ public class GuiResearchPage extends GuiScreen
     }
     
     private void nextPage() {
-        if (this.page < this.maxPages - 2) {
-            this.page += 2;
-            this.lastCycle = 0L;
-            this.cycle = -1;
+        if (page < maxPages - 2) {
+            page += 2;
+            lastCycle = 0L;
+            cycle = -1;
             Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.66f, 1.0f);
         }
     }
     
     private void prevPage() {
-        if (this.page >= 2) {
-            this.page -= 2;
-            this.lastCycle = 0L;
-            this.cycle = -1;
+        if (page >= 2) {
+            page -= 2;
+            lastCycle = 0L;
+            cycle = -1;
             Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.66f, 1.0f);
         }
     }
@@ -1521,7 +1521,7 @@ public class GuiResearchPage extends GuiScreen
         if (!GuiResearchPage.history.isEmpty()) {
             Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.66f, 1.0f);
             GuiResearchPage.shownRecipe = GuiResearchPage.history.pop();
-            this.blockAccess = null;
+            blockAccess = null;
         }
         else {
             GuiResearchPage.shownRecipe = null;
@@ -1529,63 +1529,63 @@ public class GuiResearchPage extends GuiScreen
     }
     
     protected void mouseClicked(final int par1, final int par2, final int par3) {
-        this.checkRequisites();
-        final int var4 = (this.width - this.paneWidth) / 2;
-        final int var5 = (this.height - this.paneHeight) / 2;
-        int mx = par1 - this.hrx;
-        int my = par2 - this.hry;
-        if (GuiResearchPage.shownRecipe == null && !this.hold && this.hasAllRequisites && mx >= 0 && my >= 0 && mx < 64 && my < 12) {
-            PacketHandler.INSTANCE.sendToServer(new PacketSyncProgressToServer(this.research.getKey(), false, true, true));
+        checkRequisites();
+        final int var4 = (width - paneWidth) / 2;
+        final int var5 = (height - paneHeight) / 2;
+        int mx = par1 - hrx;
+        int my = par2 - hry;
+        if (GuiResearchPage.shownRecipe == null && !hold && hasAllRequisites && mx >= 0 && my >= 0 && mx < 64 && my < 12) {
+            PacketHandler.INSTANCE.sendToServer(new PacketSyncProgressToServer(research.getKey(), false, true, true));
             Minecraft.getMinecraft().player.playSound(SoundsTC.write, 0.66f, 1.0f);
-            this.lastCheck = 0L;
-            this.lastStage = this.currentStage;
-            this.hold = true;
-            this.keyCache.clear();
-            this.drilldownLists.clear();
+            lastCheck = 0L;
+            lastStage = currentStage;
+            hold = true;
+            keyCache.clear();
+            drilldownLists.clear();
         }
-        if (this.knownPlayerAspects != null && this.playerKnowledge.isResearchComplete("FIRSTSTEPS")) {
+        if (knownPlayerAspects != null && playerKnowledge.isResearchComplete("FIRSTSTEPS")) {
             mx = par1 - (var4 - 48);
             my = par2 - (var5 + 8);
             if (mx >= 0 && my >= 0 && mx < 25 && my < 16) {
                 GuiResearchPage.shownRecipe = null;
-                this.showingKnowledge = false;
-                this.showingAspects = !this.showingAspects;
-                this.blockAccess = null;
+                showingKnowledge = false;
+                showingAspects = !showingAspects;
+                blockAccess = null;
                 GuiResearchPage.history.clear();
-                if (GuiResearchPage.aspectsPage > this.maxAspectPages) {
+                if (GuiResearchPage.aspectsPage > maxAspectPages) {
                     GuiResearchPage.aspectsPage = 0;
                 }
                 Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.7f, 0.9f);
             }
         }
-        if (this.playerKnowledge.isResearchComplete("KNOWLEDGETYPES") && !this.research.getKey().equals("KNOWLEDGETYPES")) {
+        if (playerKnowledge.isResearchComplete("KNOWLEDGETYPES") && !research.getKey().equals("KNOWLEDGETYPES")) {
             mx = par1 - (var4 - 48);
             my = par2 - (var5 + 31);
             if (mx >= 0 && my >= 0 && mx < 25 && my < 16) {
                 GuiResearchPage.shownRecipe = null;
-                this.showingAspects = false;
-                this.showingKnowledge = !this.showingKnowledge;
-                this.blockAccess = null;
+                showingAspects = false;
+                showingKnowledge = !showingKnowledge;
+                blockAccess = null;
                 GuiResearchPage.history.clear();
                 Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.7f, 0.9f);
             }
         }
         mx = par1 - (var4 + 205);
         my = par2 - (var5 + 192);
-        if (this.showingAspects && GuiResearchPage.aspectsPage < this.maxAspectPages - 1 && mx >= 0 && my >= 0 && mx < 14 && my < 14) {
+        if (showingAspects && GuiResearchPage.aspectsPage < maxAspectPages - 1 && mx >= 0 && my >= 0 && mx < 14 && my < 14) {
             ++GuiResearchPage.aspectsPage;
             Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.7f, 0.9f);
         }
         mx = par1 - (var4 + 38);
         my = par2 - (var5 + 192);
-        if (this.showingAspects && GuiResearchPage.aspectsPage > 0 && mx >= 0 && my >= 0 && mx < 14 && my < 14) {
+        if (showingAspects && GuiResearchPage.aspectsPage > 0 && mx >= 0 && my >= 0 && mx < 14 && my < 14) {
             --GuiResearchPage.aspectsPage;
             Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.7f, 0.9f);
         }
-        if (this.recipeLists.size() > 0) {
+        if (recipeLists.size() > 0) {
             int aa = 0;
-            final int space = Math.min(25, 200 / this.recipeLists.size());
-            for (final ResourceLocation rk : this.recipeLists.keySet()) {
+            final int space = Math.min(25, 200 / recipeLists.size());
+            for (final ResourceLocation rk : recipeLists.keySet()) {
                 mx = par1 - (var4 + 280);
                 my = par2 - (var5 - 8 + aa * space);
                 if (mx >= 0 && my >= 0 && mx < 30 && my < 16) {
@@ -1595,9 +1595,9 @@ public class GuiResearchPage extends GuiScreen
                     else {
                         GuiResearchPage.shownRecipe = rk;
                     }
-                    this.showingAspects = false;
-                    this.showingKnowledge = false;
-                    this.blockAccess = null;
+                    showingAspects = false;
+                    showingKnowledge = false;
+                    blockAccess = null;
                     GuiResearchPage.history.clear();
                     Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.7f, 0.9f);
                     break;
@@ -1607,39 +1607,39 @@ public class GuiResearchPage extends GuiScreen
         }
         mx = par1 - (var4 + 205);
         my = par2 - (var5 + 192);
-        if (this.hasRecipePages && this.recipePage < this.recipePageMax && mx >= 0 && my >= 0 && mx < 14 && my < 14) {
-            ++this.recipePage;
+        if (hasRecipePages && recipePage < recipePageMax && mx >= 0 && my >= 0 && mx < 14 && my < 14) {
+            ++recipePage;
             Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.7f, 0.9f);
         }
         mx = par1 - (var4 + 38);
         my = par2 - (var5 + 192);
-        if (this.hasRecipePages && this.recipePage > 0 && mx >= 0 && my >= 0 && mx < 14 && my < 14) {
-            --this.recipePage;
+        if (hasRecipePages && recipePage > 0 && mx >= 0 && my >= 0 && mx < 14 && my < 14) {
+            --recipePage;
             Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.7f, 0.9f);
         }
         mx = par1 - (var4 + 261);
         my = par2 - (var5 + 189);
         if (GuiResearchPage.shownRecipe == null && mx >= 0 && my >= 0 && mx < 14 && my < 10) {
-            this.nextPage();
+            nextPage();
         }
         mx = par1 - (var4 - 17);
         my = par2 - (var5 + 189);
         if (GuiResearchPage.shownRecipe == null && mx >= 0 && my >= 0 && mx < 14 && my < 10) {
-            this.prevPage();
+            prevPage();
         }
         mx = par1 - (var4 + 118);
         my = par2 - (var5 + 190);
         if (mx >= 0 && my >= 0 && mx < 20 && my < 12) {
-            this.goBack();
+            goBack();
         }
         mx = par1 - (var4 + 210);
         my = par2 - (var5 + 190);
-        if (this.renderingCompound && mx >= 0 && my >= 0 && mx < 10 && my < 10) {
+        if (renderingCompound && mx >= 0 && my >= 0 && mx < 10 && my < 10) {
             Minecraft.getMinecraft().player.playSound(SoundsTC.clack, 0.66f, 1.0f);
             GuiResearchPage.cycleMultiblockLines = !GuiResearchPage.cycleMultiblockLines;
         }
-        if (this.reference.size() > 0) {
-            for (final List coords : this.reference) { //(int, int, RL, String)
+        if (reference.size() > 0) {
+            for (final List coords : reference) { //(int, int, RL, String)
                 if (par1 >= (int)coords.get(0) && par2 >= (int)coords.get(1) && par1 < (int)coords.get(0) + 16 && par2 < (int)coords.get(1) + 16) {
                     try {
                         Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.66f, 1.0f);
@@ -1649,11 +1649,11 @@ public class GuiResearchPage extends GuiScreen
                         GuiResearchPage.history.push(new ResourceLocation(GuiResearchPage.shownRecipe.getResourceDomain(), GuiResearchPage.shownRecipe.getResourcePath()));
                     }
                     GuiResearchPage.shownRecipe = (ResourceLocation) coords.get(2);
-                    this.recipePage = Integer.parseInt((String) coords.get(3));
-                    if (!this.drilldownLists.containsKey(GuiResearchPage.shownRecipe)) {
-                        this.addRecipesToList(GuiResearchPage.shownRecipe, this.drilldownLists, new LinkedHashMap<ResourceLocation, ArrayList>(), GuiResearchPage.shownRecipe);
+                    recipePage = Integer.parseInt((String) coords.get(3));
+                    if (!drilldownLists.containsKey(GuiResearchPage.shownRecipe)) {
+                        addRecipesToList(GuiResearchPage.shownRecipe, drilldownLists, new LinkedHashMap<ResourceLocation, ArrayList>(), GuiResearchPage.shownRecipe);
                     }
-                    this.blockAccess = null;
+                    blockAccess = null;
                     break;
                 }
             }
@@ -1669,18 +1669,18 @@ public class GuiResearchPage extends GuiScreen
     }
     
     void drawPopupAt(final int x, final int y, final int mx, final int my, final String text) {
-        if ((GuiResearchPage.shownRecipe == null || this.allowWithPagePopup) && mx >= x && my >= y && mx < x + 16 && my < y + 16) {
+        if ((GuiResearchPage.shownRecipe == null || allowWithPagePopup) && mx >= x && my >= y && mx < x + 16 && my < y + 16) {
             final ArrayList<String> s = new ArrayList<String>();
             s.add(I18n.translateToLocal(text));
-            this.tipText = s;
+            tipText = s;
         }
     }
     
     void drawPopupAt(final int x, final int y, final int w, final int h, final int mx, final int my, final String text) {
-        if ((GuiResearchPage.shownRecipe == null || this.allowWithPagePopup) && mx >= x && my >= y && mx < x + w && my < y + h) {
+        if ((GuiResearchPage.shownRecipe == null || allowWithPagePopup) && mx >= x && my >= y && mx < x + w && my < y + h) {
             final ArrayList<String> s = new ArrayList<String>();
             s.add(I18n.translateToLocal(text));
-            this.tipText = s;
+            tipText = s;
         }
     }
     
@@ -1689,11 +1689,11 @@ public class GuiResearchPage extends GuiScreen
     }
     
     void drawStackAt(final ItemStack itemstack, final int x, final int y, final int mx, final int my, final boolean clickthrough) {
-        UtilsFX.renderItemStack(this.mc, itemstack, x, y, null);
-        if ((GuiResearchPage.shownRecipe == null || this.allowWithPagePopup) && mx >= x && my >= y && mx < x + 16 && my < y + 16 && itemstack != null && !itemstack.isEmpty() && itemstack.getItem() != null) {
+        UtilsFX.renderItemStack(mc, itemstack, x, y, null);
+        if ((GuiResearchPage.shownRecipe == null || allowWithPagePopup) && mx >= x && my >= y && mx < x + 16 && my < y + 16 && itemstack != null && !itemstack.isEmpty() && itemstack.getItem() != null) {
             if (clickthrough) {
-                final List addtext = itemstack.getTooltip(this.mc.player, Minecraft.getMinecraft().gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
-                final String ref = this.getCraftingRecipeKey(this.mc.player, itemstack);
+                final List addtext = itemstack.getTooltip(mc.player, Minecraft.getMinecraft().gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
+                final String ref = getCraftingRecipeKey(mc.player, itemstack);
                 if (ref != null) {
                     final String[] sr = ref.split(";", 2);
                     if (sr != null && sr.length > 1) {
@@ -1703,14 +1703,14 @@ public class GuiResearchPage extends GuiScreen
                         }
                         else {
                             addtext.add(TextFormatting.BLUE + "" + TextFormatting.ITALIC + I18n.translateToLocal("recipe.clickthrough"));
-                            this.reference.add(Arrays.asList(mx, my, (Comparable)res, sr[1]));
+                            reference.add(Arrays.asList(mx, my, (Comparable)res, sr[1]));
                         }
                     }
                 }
-                this.tipText = addtext;
+                tipText = addtext;
             }
             else {
-                this.tipText = itemstack.getTooltip(this.mc.player, Minecraft.getMinecraft().gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
+                tipText = itemstack.getTooltip(mc.player, Minecraft.getMinecraft().gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
             }
         }
     }
@@ -1723,40 +1723,40 @@ public class GuiResearchPage extends GuiScreen
         GL11.glTranslatef(par1 + par5 / 2.0f, par2 + par6 / 2.0f, 0.0f);
         GL11.glScalef(1.0f + scale, 1.0f + scale, 1.0f);
         var9.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        var9.getBuffer().pos(-par5 / 2.0f, par6 / 2.0f, this.zLevel).tex((par3 + 0) * var7, (par4 + par6) * var8).endVertex();
-        var9.getBuffer().pos(par5 / 2.0f, par6 / 2.0f, this.zLevel).tex((par3 + par5) * var7, (par4 + par6) * var8).endVertex();
-        var9.getBuffer().pos(par5 / 2.0f, -par6 / 2.0f, this.zLevel).tex((par3 + par5) * var7, (par4 + 0) * var8).endVertex();
-        var9.getBuffer().pos(-par5 / 2.0f, -par6 / 2.0f, this.zLevel).tex((par3 + 0) * var7, (par4 + 0) * var8).endVertex();
+        var9.getBuffer().pos(-par5 / 2.0f, par6 / 2.0f, zLevel).tex((par3 + 0) * var7, (par4 + par6) * var8).endVertex();
+        var9.getBuffer().pos(par5 / 2.0f, par6 / 2.0f, zLevel).tex((par3 + par5) * var7, (par4 + par6) * var8).endVertex();
+        var9.getBuffer().pos(par5 / 2.0f, -par6 / 2.0f, zLevel).tex((par3 + par5) * var7, (par4 + 0) * var8).endVertex();
+        var9.getBuffer().pos(-par5 / 2.0f, -par6 / 2.0f, zLevel).tex((par3 + 0) * var7, (par4 + 0) * var8).endVertex();
         var9.draw();
         GL11.glPopMatrix();
     }
     
     private void parsePages() {
-        this.checkRequisites();
-        this.pages.clear();
-        if (this.research.getStages() == null) {
+        checkRequisites();
+        pages.clear();
+        if (research.getStages() == null) {
             return;
         }
         boolean complete = false;
-        this.currentStage = ThaumcraftCapabilities.getKnowledge(this.mc.player).getResearchStage(this.research.getKey()) - 1;
-        while (this.currentStage >= this.research.getStages().length) {
-            --this.currentStage;
+        currentStage = ThaumcraftCapabilities.getKnowledge(mc.player).getResearchStage(research.getKey()) - 1;
+        while (currentStage >= research.getStages().length) {
+            --currentStage;
             complete = true;
         }
-        if (this.currentStage < 0) {
-            this.currentStage = 0;
+        if (currentStage < 0) {
+            currentStage = 0;
         }
-        final ResearchStage stage = this.research.getStages()[this.currentStage];
+        final ResearchStage stage = research.getStages()[currentStage];
         ResearchAddendum[] addenda = null;
-        if (this.research.getAddenda() != null && complete) {
-            addenda = this.research.getAddenda();
+        if (research.getAddenda() != null && complete) {
+            addenda = research.getAddenda();
         }
-        this.generateRecipesLists(stage, addenda);
+        generateRecipesLists(stage, addenda);
         String rawText = stage.getTextLocalized();
         if (addenda != null) {
             int ac = 0;
             for (final ResearchAddendum addendum : addenda) {
-                if (ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, addendum.getResearch())) {
+                if (ThaumcraftCapabilities.knowsResearchStrict(mc.player, addendum.getResearch())) {
                     ++ac;
                     final ITextComponent text = new TextComponentTranslation("tc.addendumtext", ac);
                     rawText = rawText + "<PAGE>" + text.getFormattedText() + "<BR>" + addendum.getTextLocalized();
@@ -1822,15 +1822,15 @@ public class GuiResearchPage extends GuiScreen
         }
         final List<String> parsedText = new ArrayList<String>();
         for (final String s2 : firstPassText) {
-            final List<String> pt1 = this.mc.fontRenderer.listFormattedStringToWidth(s2, 140);
+            final List<String> pt1 = mc.fontRenderer.listFormattedStringToWidth(s2, 140);
             for (final String ln : pt1) {
                 parsedText.add(ln);
             }
         }
-        final int lineHeight = this.mc.fontRenderer.FONT_HEIGHT;
+        final int lineHeight = mc.fontRenderer.FONT_HEIGHT;
         int heightRemaining = 182;
         int dividerSpace = 0;
-        if (this.research.getKey().equals("KNOWLEDGETYPES")) {
+        if (research.getKey().equals("KNOWLEDGETYPES")) {
             heightRemaining -= 2;
             int tc = 0;
             int amt = 0;
@@ -1839,7 +1839,7 @@ public class GuiResearchPage extends GuiScreen
                     if (!type.hasFields() && category != null) {
                         continue;
                     }
-                    amt = this.playerKnowledge.getKnowledgeRaw(type, category);
+                    amt = playerKnowledge.getKnowledgeRaw(type, category);
                     if (amt > 0) {
                         ++tc;
                         break;
@@ -1849,7 +1849,7 @@ public class GuiResearchPage extends GuiScreen
             heightRemaining -= 20 * tc;
             dividerSpace = 12;
         }
-        if (!this.isComplete) {
+        if (!isComplete) {
             if (stage.getCraft() != null) {
                 heightRemaining -= 18;
                 dividerSpace = 15;
@@ -1887,7 +1887,7 @@ public class GuiResearchPage extends GuiScreen
             }
             if (line.contains("~P")) {
                 heightRemaining = 210;
-                this.pages.add(page1.copy());
+                pages.add(page1.copy());
                 page1 = new Page();
                 line = "";
             }
@@ -1905,19 +1905,19 @@ public class GuiResearchPage extends GuiScreen
             }
             if (heightRemaining < lineHeight && !page1.contents.isEmpty()) {
                 heightRemaining = 210;
-                this.pages.add(page1.copy());
+                pages.add(page1.copy());
                 page1 = new Page();
             }
         }
         if (!page1.contents.isEmpty()) {
-            this.pages.add(page1.copy());
+            pages.add(page1.copy());
         }
         page1 = new Page();
         heightRemaining = 210;
         while (!tempImages.isEmpty()) {
             if (heightRemaining < tempImages.get(0).ah + 2) {
                 heightRemaining = 210;
-                this.pages.add(page1.copy());
+                pages.add(page1.copy());
                 page1 = new Page();
             }
             else {
@@ -1926,30 +1926,30 @@ public class GuiResearchPage extends GuiScreen
             }
         }
         if (!page1.contents.isEmpty()) {
-            this.pages.add(page1.copy());
+            pages.add(page1.copy());
         }
-        this.rhash = this.research.getKey().hashCode() + this.currentStage * 50;
-        this.maxPages = this.pages.size();
+        rhash = research.getKey().hashCode() + currentStage * 50;
+        maxPages = pages.size();
     }
     
     private void checkRequisites() {
-        if (this.research.getStages() != null) {
-            this.isComplete = this.playerKnowledge.isResearchComplete(this.research.getKey());
-            while (this.currentStage >= this.research.getStages().length) {
-                --this.currentStage;
+        if (research.getStages() != null) {
+            isComplete = playerKnowledge.isResearchComplete(research.getKey());
+            while (currentStage >= research.getStages().length) {
+                --currentStage;
             }
-            if (this.currentStage < 0) {
+            if (currentStage < 0) {
                 return;
             }
-            this.hasAllRequisites = true;
-            this.hasItem = null;
-            this.hasCraft = null;
-            this.hasResearch = null;
-            this.hasKnow = null;
-            final ResearchStage stage = this.research.getStages()[this.currentStage];
+            hasAllRequisites = true;
+            hasItem = null;
+            hasCraft = null;
+            hasResearch = null;
+            hasKnow = null;
+            final ResearchStage stage = research.getStages()[currentStage];
             final Object[] o = stage.getObtain();
             if (o != null) {
-                this.hasItem = new boolean[o.length];
+                hasItem = new boolean[o.length];
                 for (int a = 0; a < o.length; ++a) {
                     ItemStack ts = ItemStack.EMPTY;
                     boolean ore = false;
@@ -1961,48 +1961,48 @@ public class GuiResearchPage extends GuiScreen
                         ts = nnl.get(0);
                         ore = true;
                     }
-                    if (!(this.hasItem[a] = InventoryUtils.isPlayerCarryingAmount(this.mc.player, ts, ore))) {
-                        this.hasAllRequisites = false;
+                    if (!(hasItem[a] = InventoryUtils.isPlayerCarryingAmount(mc.player, ts, ore))) {
+                        hasAllRequisites = false;
                     }
                 }
             }
             final Object[] c = stage.getCraft();
             if (c != null) {
-                this.hasCraft = new boolean[c.length];
+                hasCraft = new boolean[c.length];
                 for (int a2 = 0; a2 < c.length; ++a2) {
-                    if (!this.playerKnowledge.isResearchKnown("[#]" + stage.getCraftReference()[a2])) {
-                        this.hasAllRequisites = false;
-                        this.hasCraft[a2] = false;
+                    if (!playerKnowledge.isResearchKnown("[#]" + stage.getCraftReference()[a2])) {
+                        hasAllRequisites = false;
+                        hasCraft[a2] = false;
                     }
                     else {
-                        this.hasCraft[a2] = true;
+                        hasCraft[a2] = true;
                     }
                 }
             }
             final String[] r = stage.getResearch();
             if (r != null) {
-                this.hasResearch = new boolean[r.length];
+                hasResearch = new boolean[r.length];
                 for (int a3 = 0; a3 < r.length; ++a3) {
-                    if (!ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, r[a3])) {
-                        this.hasAllRequisites = false;
-                        this.hasResearch[a3] = false;
+                    if (!ThaumcraftCapabilities.knowsResearchStrict(mc.player, r[a3])) {
+                        hasAllRequisites = false;
+                        hasResearch[a3] = false;
                     }
                     else {
-                        this.hasResearch[a3] = true;
+                        hasResearch[a3] = true;
                     }
                 }
             }
             final ResearchStage.Knowledge[] k = stage.getKnow();
             if (k != null) {
-                this.hasKnow = new boolean[k.length];
+                hasKnow = new boolean[k.length];
                 for (int a4 = 0; a4 < k.length; ++a4) {
-                    final int pk = this.playerKnowledge.getKnowledge(k[a4].type, k[a4].category);
+                    final int pk = playerKnowledge.getKnowledge(k[a4].type, k[a4].category);
                     if (pk < k[a4].amount) {
-                        this.hasAllRequisites = false;
-                        this.hasKnow[a4] = false;
+                        hasAllRequisites = false;
+                        hasKnow[a4] = false;
                     }
                     else {
-                        this.hasKnow[a4] = true;
+                        hasKnow[a4] = true;
                     }
                 }
             }
@@ -2026,7 +2026,7 @@ public class GuiResearchPage extends GuiScreen
         if (recipe instanceof ArrayList) {
             int g = 0;
             for (final ResourceLocation rl : (ArrayList<ResourceLocation>)recipe) {
-                final int q = this.findRecipePage(rl, stack, g);
+                final int q = findRecipePage(rl, stack, g);
                 if (q >= 0) {
                     return q;
                 }
@@ -2034,19 +2034,19 @@ public class GuiResearchPage extends GuiScreen
             }
         }
         if (recipe instanceof CrucibleRecipe && ((CrucibleRecipe)recipe).getRecipeOutput().isItemEqual(stack)) {
-            if (!ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, ((CrucibleRecipe)recipe).getResearch())) {
+            if (!ThaumcraftCapabilities.knowsResearchStrict(mc.player, ((CrucibleRecipe)recipe).getResearch())) {
                 return -99;
             }
             return start;
         }
         else if (recipe instanceof InfusionRecipe && ((InfusionRecipe)recipe).getRecipeOutput() instanceof ItemStack && ((ItemStack)((InfusionRecipe)recipe).getRecipeOutput()).isItemEqual(stack)) {
-            if (!ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, ((InfusionRecipe)recipe).getResearch())) {
+            if (!ThaumcraftCapabilities.knowsResearchStrict(mc.player, ((InfusionRecipe)recipe).getResearch())) {
                 return -99;
             }
             return start;
         }
         else if (recipe instanceof IRecipe && ((IRecipe)recipe).getRecipeOutput().isItemEqual(stack)) {
-            if (recipe instanceof IArcaneRecipe && !ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, ((IArcaneRecipe)recipe).getResearch())) {
+            if (recipe instanceof IArcaneRecipe && !ThaumcraftCapabilities.knowsResearchStrict(mc.player, ((IArcaneRecipe)recipe).getResearch())) {
                 return -99;
             }
             return start;
@@ -2061,8 +2061,8 @@ public class GuiResearchPage extends GuiScreen
     
     private String getCraftingRecipeKey(final EntityPlayer player, final ItemStack stack) {
         final int key = stack.serializeNBT().toString().hashCode();
-        if (this.keyCache.containsKey(key)) {
-            return this.keyCache.get(key);
+        if (keyCache.containsKey(key)) {
+            return keyCache.get(key);
         }
         for (final ResearchCategory rcl : ResearchCategories.researchCategories.values()) {
             for (final ResearchEntry ri : rcl.research.values()) {
@@ -2073,7 +2073,7 @@ public class GuiResearchPage extends GuiScreen
                     final ResearchStage stage = ri.getStages()[a];
                     if (stage.getRecipes() != null) {
                         for (final ResourceLocation rec : stage.getRecipes()) {
-                            final int result = this.findRecipePage(rec, stack, 0);
+                            final int result = findRecipePage(rec, stack, 0);
                             if (result != -1) {
                                 String s = rec.toString();
                                 if (result == -99) {
@@ -2082,7 +2082,7 @@ public class GuiResearchPage extends GuiScreen
                                 else {
                                     s = s + ";" + result;
                                 }
-                                this.keyCache.put(key, s);
+                                keyCache.put(key, s);
                                 return s;
                             }
                         }
@@ -2090,7 +2090,7 @@ public class GuiResearchPage extends GuiScreen
                 }
             }
         }
-        this.keyCache.put(key, null);
+        keyCache.put(key, null);
         return null;
     }
     
@@ -2107,12 +2107,12 @@ public class GuiResearchPage extends GuiScreen
         ArrayList contents;
         
         private Page() {
-            this.contents = new ArrayList();
+            contents = new ArrayList();
         }
         
         public Page copy() {
             final Page p = new Page();
-            p.contents.addAll(this.contents);
+            p.contents.addAll(contents);
             return p;
         }
     }
@@ -2161,7 +2161,7 @@ public class GuiResearchPage extends GuiScreen
         public int sliceLine;
         
         public BlueprintBlockAccess(final Part[][][] data, final boolean target) {
-            this.sliceLine = 0;
+            sliceLine = 0;
             this.data = new Part[data.length][data[0].length][data[0][0].length];
             for (int y = 0; y < data.length; ++y) {
                 for (int x = 0; x < data[0].length; ++x) {
@@ -2170,7 +2170,7 @@ public class GuiResearchPage extends GuiScreen
                     }
                 }
             }
-            this.structure = new IBlockState[data.length][data[0].length][data[0][0].length];
+            structure = new IBlockState[data.length][data[0].length][data[0][0].length];
             if (target) {
                 for (int y = 0; y < this.data.length; ++y) {
                     final Matrix matrix = new Matrix(this.data[y]);
@@ -2181,30 +2181,30 @@ public class GuiResearchPage extends GuiScreen
             for (int y = 0; y < data.length; ++y) {
                 for (int x = 0; x < data[0].length; ++x) {
                     for (int z = 0; z < data[0][0].length; ++z) {
-                        this.structure[data.length - y - 1][x][z] = (target ? this.convertTarget(x, y, z) : this.convert(x, y, z));
+                        structure[data.length - y - 1][x][z] = (target ? convertTarget(x, y, z) : convert(x, y, z));
                     }
                 }
             }
         }
         
         private IBlockState convert(final int x, final int y, final int z) {
-            if (this.data[y][x][z] == null || this.data[y][x][z].getSource() == null) {
+            if (data[y][x][z] == null || data[y][x][z].getSource() == null) {
                 return Blocks.AIR.getDefaultState();
             }
-            if (this.data[y][x][z].getSource() instanceof ItemStack && Block.getBlockFromItem(((ItemStack)this.data[y][x][z].getSource()).getItem()) != null) {
-                return Block.getBlockFromItem(((ItemStack)this.data[y][x][z].getSource()).getItem()).getStateFromMeta(((ItemStack)this.data[y][x][z].getSource()).getItemDamage());
+            if (data[y][x][z].getSource() instanceof ItemStack && Block.getBlockFromItem(((ItemStack) data[y][x][z].getSource()).getItem()) != null) {
+                return Block.getBlockFromItem(((ItemStack) data[y][x][z].getSource()).getItem()).getStateFromMeta(((ItemStack) data[y][x][z].getSource()).getItemDamage());
             }
-            if (this.data[y][x][z].getSource() instanceof Block) {
-                return ((Block)this.data[y][x][z].getSource()).getDefaultState();
+            if (data[y][x][z].getSource() instanceof Block) {
+                return ((Block) data[y][x][z].getSource()).getDefaultState();
             }
-            if (this.data[y][x][z].getSource() instanceof IBlockState) {
-                return (IBlockState)this.data[y][x][z].getSource();
+            if (data[y][x][z].getSource() instanceof IBlockState) {
+                return (IBlockState) data[y][x][z].getSource();
             }
-            if (this.data[y][x][z].getSource() instanceof Material) {
-                if (this.data[y][x][z].getSource() == Material.LAVA) {
+            if (data[y][x][z].getSource() instanceof Material) {
+                if (data[y][x][z].getSource() == Material.LAVA) {
                     return Blocks.LAVA.getDefaultState();
                 }
-                if (this.data[y][x][z].getSource() == Material.WATER) {
+                if (data[y][x][z].getSource() == Material.WATER) {
                     return Blocks.WATER.getDefaultState();
                 }
             }
@@ -2212,26 +2212,26 @@ public class GuiResearchPage extends GuiScreen
         }
         
         private IBlockState convertTarget(final int x, final int y, final int z) {
-            if (this.data[y][x][z] == null) {
+            if (data[y][x][z] == null) {
                 return Blocks.AIR.getDefaultState();
             }
-            if (this.data[y][x][z].getTarget() == null) {
-                return this.convert(x, y, z);
+            if (data[y][x][z].getTarget() == null) {
+                return convert(x, y, z);
             }
-            if (this.data[y][x][z].getTarget() instanceof ItemStack && Block.getBlockFromItem(((ItemStack)this.data[y][x][z].getTarget()).getItem()) != null) {
-                return Block.getBlockFromItem(((ItemStack)this.data[y][x][z].getTarget()).getItem()).getStateFromMeta(((ItemStack)this.data[y][x][z].getTarget()).getItemDamage());
+            if (data[y][x][z].getTarget() instanceof ItemStack && Block.getBlockFromItem(((ItemStack) data[y][x][z].getTarget()).getItem()) != null) {
+                return Block.getBlockFromItem(((ItemStack) data[y][x][z].getTarget()).getItem()).getStateFromMeta(((ItemStack) data[y][x][z].getTarget()).getItemDamage());
             }
-            if (this.data[y][x][z].getTarget() instanceof Block) {
-                return ((Block)this.data[y][x][z].getTarget()).getDefaultState();
+            if (data[y][x][z].getTarget() instanceof Block) {
+                return ((Block) data[y][x][z].getTarget()).getDefaultState();
             }
-            if (this.data[y][x][z].getTarget() instanceof IBlockState) {
-                return (IBlockState)this.data[y][x][z].getTarget();
+            if (data[y][x][z].getTarget() instanceof IBlockState) {
+                return (IBlockState) data[y][x][z].getTarget();
             }
-            if (this.data[y][x][z].getTarget() instanceof Material) {
-                if (this.data[y][x][z].getTarget() == Material.LAVA) {
+            if (data[y][x][z].getTarget() instanceof Material) {
+                if (data[y][x][z].getTarget() == Material.LAVA) {
                     return Blocks.LAVA.getDefaultState();
                 }
-                if (this.data[y][x][z].getTarget() == Material.WATER) {
+                if (data[y][x][z].getTarget() == Material.WATER) {
                     return Blocks.WATER.getDefaultState();
                 }
             }
@@ -2251,17 +2251,17 @@ public class GuiResearchPage extends GuiScreen
             final int x = pos.getX();
             final int y = pos.getY();
             final int z = pos.getZ();
-            if (this.sliceLine > this.structure.length) {
-                this.sliceLine = 0;
+            if (sliceLine > structure.length) {
+                sliceLine = 0;
             }
-            if (y >= 0 && y < this.structure.length - this.sliceLine && x >= 0 && x < this.structure[y].length && z >= 0 && z < this.structure[y][x].length) {
-                return this.structure[y][x][z];
+            if (y >= 0 && y < structure.length - sliceLine && x >= 0 && x < structure[y].length && z >= 0 && z < structure[y][x].length) {
+                return structure[y][x][z];
             }
             return Blocks.AIR.getDefaultState();
         }
         
         public boolean isAirBlock(final BlockPos pos) {
-            return this.getBlockState(pos).getBlock() == Blocks.AIR;
+            return getBlockState(pos).getBlock() == Blocks.AIR;
         }
         
         public int getStrongPower(final BlockPos pos, final EnumFacing direction) {

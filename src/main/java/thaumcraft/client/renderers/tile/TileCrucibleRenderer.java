@@ -19,7 +19,7 @@ public class TileCrucibleRenderer extends TileEntitySpecialRenderer
 {
     public void renderEntityAt(final TileCrucible cr, final double x, final double y, final double z, final float fq) {
         if (cr.tank.getFluidAmount() > 0) {
-            this.renderFluid(cr, x, y, z);
+            renderFluid(cr, x, y, z);
         }
     }
     
@@ -45,6 +45,6 @@ public class TileCrucibleRenderer extends TileEntitySpecialRenderer
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderEntityAt((TileCrucible)te, x, y, z, partialTicks);
+        renderEntityAt((TileCrucible)te, x, y, z, partialTicks);
     }
 }

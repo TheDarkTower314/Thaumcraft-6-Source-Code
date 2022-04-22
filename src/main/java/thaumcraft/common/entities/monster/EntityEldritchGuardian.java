@@ -64,33 +64,33 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     
     public EntityEldritchGuardian(final World p_i1745_1_) {
         super(p_i1745_1_);
-        this.armLiftL = 0.0f;
-        this.armLiftR = 0.0f;
-        this.lastBlast = false;
-        ((PathNavigateGround)this.getNavigator()).setBreakDoors(true);
-        this.setSize(0.8f, 2.25f);
-        this.experienceValue = 20;
+        armLiftL = 0.0f;
+        armLiftR = 0.0f;
+        lastBlast = false;
+        ((PathNavigateGround) getNavigator()).setBreakDoors(true);
+        setSize(0.8f, 2.25f);
+        experienceValue = 20;
     }
     
     protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(2, new AILongRangeAttack(this, 8.0, 1.0, 20, 40, 24.0f));
-        this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0, false));
-        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.8));
-        this.tasks.addTask(7, new EntityAIWander(this, 1.0));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCultist.class, true));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(2, new AILongRangeAttack(this, 8.0, 1.0, 20, 40, 24.0f));
+        tasks.addTask(3, new EntityAIAttackMelee(this, 1.0, false));
+        tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 0.8));
+        tasks.addTask(7, new EntityAIWander(this, 1.0));
+        tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
+        tasks.addTask(8, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCultist.class, true));
     }
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0);
     }
     
     protected void entityInit() {
@@ -114,23 +114,23 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     
     public void onUpdate() {
         super.onUpdate();
-        if (this.world.isRemote) {
-            if (this.armLiftL > 0.0f) {
-                this.armLiftL -= 0.05f;
+        if (world.isRemote) {
+            if (armLiftL > 0.0f) {
+                armLiftL -= 0.05f;
             }
-            if (this.armLiftR > 0.0f) {
-                this.armLiftR -= 0.05f;
+            if (armLiftR > 0.0f) {
+                armLiftR -= 0.05f;
             }
-            final float x = (float)(this.posX + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2f);
-            final float z = (float)(this.posZ + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2f);
-            FXDispatcher.INSTANCE.wispFXEG(x, (float)(this.posY + 0.22 * this.height), z, this);
+            final float x = (float)(posX + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
+            final float z = (float)(posZ + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
+            FXDispatcher.INSTANCE.wispFXEG(x, (float)(posY + 0.22 * height), z, this);
         }
-        else if (this.world.provider.getDimension() != ModConfig.CONFIG_WORLD.dimensionOuterId && (this.ticksExisted == 0 || this.ticksExisted % 100 == 0) && this.world.getDifficulty() != EnumDifficulty.EASY) {
-            final double d6 = (this.world.getDifficulty() == EnumDifficulty.HARD) ? 576.0 : 256.0;
-            for (int i = 0; i < this.world.playerEntities.size(); ++i) {
-                final EntityPlayer entityplayer1 = this.world.playerEntities.get(i);
+        else if (world.provider.getDimension() != ModConfig.CONFIG_WORLD.dimensionOuterId && (ticksExisted == 0 || ticksExisted % 100 == 0) && world.getDifficulty() != EnumDifficulty.EASY) {
+            final double d6 = (world.getDifficulty() == EnumDifficulty.HARD) ? 576.0 : 256.0;
+            for (int i = 0; i < world.playerEntities.size(); ++i) {
+                final EntityPlayer entityplayer1 = world.playerEntities.get(i);
                 if (entityplayer1.isEntityAlive()) {
-                    final double d7 = entityplayer1.getDistanceSq(this.posX, this.posY, this.posZ);
+                    final double d7 = entityplayer1.getDistanceSq(posX, posY, posZ);
                     if (d7 < d6) {
                         PacketHandler.INSTANCE.sendTo(new PacketMiscEvent((byte)2), (EntityPlayerMP)entityplayer1);
                     }
@@ -142,8 +142,8 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     public boolean attackEntityAsMob(final Entity p_70652_1_) {
         final boolean flag = super.attackEntityAsMob(p_70652_1_);
         if (flag) {
-            final int i = this.world.getDifficulty().getDifficultyId();
-            if (this.getHeldItemMainhand() == null && this.isBurning() && this.rand.nextFloat() < i * 0.3f) {
+            final int i = world.getDifficulty().getDifficultyId();
+            if (getHeldItemMainhand() == null && isBurning() && rand.nextFloat() < i * 0.3f) {
                 p_70652_1_.setFire(2 * i);
             }
         }
@@ -176,37 +176,37 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        if (this.getHomePosition() != null && this.getMaximumHomeDistance() > 0.0f) {
-            nbt.setInteger("HomeD", (int)this.getMaximumHomeDistance());
-            nbt.setInteger("HomeX", this.getHomePosition().getX());
-            nbt.setInteger("HomeY", this.getHomePosition().getY());
-            nbt.setInteger("HomeZ", this.getHomePosition().getZ());
+        if (getHomePosition() != null && getMaximumHomeDistance() > 0.0f) {
+            nbt.setInteger("HomeD", (int) getMaximumHomeDistance());
+            nbt.setInteger("HomeX", getHomePosition().getX());
+            nbt.setInteger("HomeY", getHomePosition().getY());
+            nbt.setInteger("HomeZ", getHomePosition().getZ());
         }
     }
     
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         if (nbt.hasKey("HomeD")) {
-            this.setHomePosAndDistance(new BlockPos(nbt.getInteger("HomeX"), nbt.getInteger("HomeY"), nbt.getInteger("HomeZ")), nbt.getInteger("HomeD"));
+            setHomePosAndDistance(new BlockPos(nbt.getInteger("HomeX"), nbt.getInteger("HomeY"), nbt.getInteger("HomeZ")), nbt.getInteger("HomeD"));
         }
     }
     
     public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
         final IEntityLivingData dd = super.onInitialSpawn(diff, data);
         final float f = diff.getClampedAdditionalDifficulty();
-        if (this.world.provider.getDimension() == ModConfig.CONFIG_WORLD.dimensionOuterId) {
-            final int bh = (int)this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() / 2;
-            this.setAbsorptionAmount(this.getAbsorptionAmount() + bh);
+        if (world.provider.getDimension() == ModConfig.CONFIG_WORLD.dimensionOuterId) {
+            final int bh = (int) getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() / 2;
+            setAbsorptionAmount(getAbsorptionAmount() + bh);
         }
         return dd;
     }
     
     protected void updateAITasks() {
         super.updateAITasks();
-        if (this.world.provider.getDimension() == ModConfig.CONFIG_WORLD.dimensionOuterId && this.hurtResistantTime <= 0 && this.ticksExisted % 25 == 0) {
-            final int bh = (int)this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() / 2;
-            if (this.getAbsorptionAmount() < bh) {
-                this.setAbsorptionAmount(this.getAbsorptionAmount() + 1.0f);
+        if (world.provider.getDimension() == ModConfig.CONFIG_WORLD.dimensionOuterId && hurtResistantTime <= 0 && ticksExisted % 25 == 0) {
+            final int bh = (int) getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() / 2;
+            if (getAbsorptionAmount() < bh) {
+                setAbsorptionAmount(getAbsorptionAmount() + 1.0f);
             }
         }
     }
@@ -214,14 +214,14 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     @SideOnly(Side.CLIENT)
     public void handleStatusUpdate(final byte p_70103_1_) {
         if (p_70103_1_ == 15) {
-            this.armLiftL = 0.5f;
+            armLiftL = 0.5f;
         }
         else if (p_70103_1_ == 16) {
-            this.armLiftR = 0.5f;
+            armLiftR = 0.5f;
         }
         else if (p_70103_1_ == 17) {
-            this.armLiftL = 0.9f;
-            this.armLiftR = 0.9f;
+            armLiftL = 0.9f;
+            armLiftR = 0.9f;
         }
         else {
             super.handleStatusUpdate(p_70103_1_);
@@ -229,7 +229,7 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     }
     
     protected boolean canDespawn() {
-        return !this.hasHome();
+        return !hasHome();
     }
     
     public float getEyeHeight() {
@@ -237,7 +237,7 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     }
     
     public boolean getCanSpawnHere() {
-        final List ents = this.world.getEntitiesWithinAABB(EntityEldritchGuardian.class, new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0, this.posY + 1.0, this.posZ + 1.0).grow(32.0, 16.0, 32.0));
+        final List ents = world.getEntitiesWithinAABB(EntityEldritchGuardian.class, new AxisAlignedBB(posX, posY, posZ, posX + 1.0, posY + 1.0, posZ + 1.0).grow(32.0, 16.0, 32.0));
         return ents.size() <= 0 && super.getCanSpawnHere();
     }
     
@@ -250,30 +250,30 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     }
     
     public void attackEntityWithRangedAttack(final EntityLivingBase entitylivingbase, final float f) {
-        if (this.rand.nextFloat() > 0.15f) {
-            final EntityEldritchOrb blast = new EntityEldritchOrb(this.world, this);
-            this.lastBlast = !this.lastBlast;
-            this.world.setEntityState(this, (byte)(this.lastBlast ? 16 : 15));
-            final int rr = this.lastBlast ? 90 : 180;
-            final double xx = MathHelper.cos((this.rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
-            final double yy = 0.057777777 * this.height;
-            final double zz = MathHelper.sin((this.rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
+        if (rand.nextFloat() > 0.15f) {
+            final EntityEldritchOrb blast = new EntityEldritchOrb(world, this);
+            lastBlast = !lastBlast;
+            world.setEntityState(this, (byte)(lastBlast ? 16 : 15));
+            final int rr = lastBlast ? 90 : 180;
+            final double xx = MathHelper.cos((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
+            final double yy = 0.057777777 * height;
+            final double zz = MathHelper.sin((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
             blast.setPosition(blast.posX - xx, blast.posY, blast.posZ - zz);
-            final Vec3d v = entitylivingbase.getPositionVector().addVector(entitylivingbase.motionX * 10.0, entitylivingbase.motionY * 10.0, entitylivingbase.motionZ * 10.0).subtract(this.getPositionVector()).normalize();
+            final Vec3d v = entitylivingbase.getPositionVector().addVector(entitylivingbase.motionX * 10.0, entitylivingbase.motionY * 10.0, entitylivingbase.motionZ * 10.0).subtract(getPositionVector()).normalize();
             blast.shoot(v.x, v.y, v.z, 1.1f, 2.0f);
-            this.playSound(SoundsTC.egattack, 2.0f, 1.0f + this.rand.nextFloat() * 0.1f);
-            this.world.spawnEntity(blast);
+            playSound(SoundsTC.egattack, 2.0f, 1.0f + rand.nextFloat() * 0.1f);
+            world.spawnEntity(blast);
         }
-        else if (this.canEntityBeSeen(entitylivingbase)) {
-            PacketHandler.INSTANCE.sendToAllAround(new PacketFXSonic(this.getEntityId()), new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.posX, this.posY, this.posZ, 32.0));
+        else if (canEntityBeSeen(entitylivingbase)) {
+            PacketHandler.INSTANCE.sendToAllAround(new PacketFXSonic(getEntityId()), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 32.0));
             try {
                 entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.WITHER, 400, 0));
             }
             catch (final Exception ex) {}
             if (entitylivingbase instanceof EntityPlayer) {
-                ThaumcraftApi.internalMethods.addWarpToPlayer((EntityPlayer)entitylivingbase, 1 + this.world.rand.nextInt(3), IPlayerWarp.EnumWarpType.TEMPORARY);
+                ThaumcraftApi.internalMethods.addWarpToPlayer((EntityPlayer)entitylivingbase, 1 + world.rand.nextInt(3), IPlayerWarp.EnumWarpType.TEMPORARY);
             }
-            this.playSound(SoundsTC.egscreech, 3.0f, 1.0f + this.rand.nextFloat() * 0.1f);
+            playSound(SoundsTC.egscreech, 3.0f, 1.0f + rand.nextFloat() * 0.1f);
         }
     }
     

@@ -27,15 +27,15 @@ public class PacketSyncWarp implements IMessage, IMessageHandler<PacketSyncWarp,
     
     public PacketSyncWarp(final EntityPlayer player) {
         final IPlayerWarp pk = ThaumcraftCapabilities.getWarp(player);
-        this.data = pk.serializeNBT();
+        data = pk.serializeNBT();
     }
     
     public void toBytes(final ByteBuf buffer) {
-        Utils.writeNBTTagCompoundToBuffer(buffer, this.data);
+        Utils.writeNBTTagCompoundToBuffer(buffer, data);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.data = Utils.readNBTTagCompoundFromBuffer(buffer);
+        data = Utils.readNBTTagCompoundFromBuffer(buffer);
     }
     
     @SideOnly(Side.CLIENT)

@@ -47,10 +47,10 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     protected SealToggle[] props;
     
     public SealBreaker() {
-        this.delay = new Random(System.nanoTime()).nextInt(42);
-        this.cache = new HashMap<Integer, Long>();
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_breaker");
-        this.props = new SealToggle[] { new SealToggle(true, "pmeta", "golem.prop.meta") };
+        delay = new Random(System.nanoTime()).nextInt(42);
+        cache = new HashMap<Integer, Long>();
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_breaker");
+        props = new SealToggle[] { new SealToggle(true, "pmeta", "golem.prop.meta") };
     }
     
     @Override
@@ -60,8 +60,8 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     
     @Override
     public void tickSeal(final World world, final ISealEntity seal) {
-        if (this.delay % 100 == 0) {
-            final Iterator<Integer> it = this.cache.keySet().iterator();
+        if (delay % 100 == 0) {
+            final Iterator<Integer> it = cache.keySet().iterator();
             while (it.hasNext()) {
                 final Task t = TaskHandler.getTask(world.provider.getDimension(), it.next());
                 if (t == null) {
@@ -69,37 +69,37 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
                 }
             }
         }
-        ++this.delay;
-        final BlockPos p = GolemHelper.getPosInArea(seal, this.delay);
-        if (!this.cache.containsValue(p.toLong()) && this.isValidBlock(world, p)) {
+        ++delay;
+        final BlockPos p = GolemHelper.getPosInArea(seal, delay);
+        if (!cache.containsValue(p.toLong()) && isValidBlock(world, p)) {
             final Task task = new Task(seal.getSealPos(), p);
             task.setPriority(seal.getPriority());
             task.setData((int)(world.getBlockState(p).getBlockHardness(world, p) * 10.0f));
             TaskHandler.addTask(world.provider.getDimension(), task);
-            this.cache.put(task.getId(), p.toLong());
+            cache.put(task.getId(), p.toLong());
         }
     }
     
     private boolean isValidBlock(final World world, final BlockPos p) {
         final IBlockState bs = world.getBlockState(p);
         if (!world.isAirBlock(p) && bs.getBlockHardness(world, p) >= 0.0f) {
-            for (final ItemStack ts : this.getInv()) {
+            for (final ItemStack ts : getInv()) {
                 if (ts != null && !ts.isEmpty()) {
                     ItemStack fs = BlockUtils.getSilkTouchDrop(bs);
                     if (fs == null || !fs.isEmpty()) {
-                        fs = new ItemStack(bs.getBlock(), 1, this.getToggles()[0].value ? bs.getBlock().getMetaFromState(bs) : 32767);
+                        fs = new ItemStack(bs.getBlock(), 1, getToggles()[0].value ? bs.getBlock().getMetaFromState(bs) : 32767);
                     }
-                    if (!this.getToggles()[0].value) {
+                    if (!getToggles()[0].value) {
                         fs.setItemDamage(32767);
                     }
-                    if (this.isBlacklist()) {
-                        if (OreDictionary.itemMatches(fs, ts, this.getToggles()[0].value)) {
+                    if (isBlacklist()) {
+                        if (OreDictionary.itemMatches(fs, ts, getToggles()[0].value)) {
                             return false;
                         }
                         continue;
                     }
                     else {
-                        if (!OreDictionary.itemMatches(fs, ts, this.getToggles()[0].value)) {
+                        if (!OreDictionary.itemMatches(fs, ts, getToggles()[0].value)) {
                             return false;
                         }
                         continue;
@@ -114,12 +114,12 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     @Override
     public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
         final IBlockState bs = world.getBlockState(task.getPos());
-        if (this.cache.containsKey(task.getId()) && this.isValidBlock(world, task.getPos())) {
+        if (cache.containsKey(task.getId()) && isValidBlock(world, task.getPos())) {
             final FakePlayer fp = FakePlayerFactory.get((WorldServer)world, new GameProfile(null, "FakeThaumcraftGolem"));
             fp.connection = new FakeNetHandlerPlayServer(fp.mcServer, new NetworkManager(EnumPacketDirection.CLIENTBOUND), fp);
             fp.setPosition(golem.getGolemEntity().posX, golem.getGolemEntity().posY, golem.getGolemEntity().posZ);
             golem.swingArm();
-            final boolean silky = this.getToggles().length > 1 && this.getToggles()[1].value;
+            final boolean silky = getToggles().length > 1 && getToggles()[1].value;
             final int bspd = silky ? 7 : 21;
             if (task.getData() > bspd) {
                 final float bh = bs.getBlockHardness(world, task.getPos()) * 10.0f;
@@ -133,7 +133,7 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
             BlockUtils.destroyBlockPartially(world, golem.getGolemEntity().getEntityId(), task.getPos(), 10);
             BlockUtils.harvestBlock(world, fp, task.getPos(), true, silky, 0, true);
             golem.addRankXp(1);
-            this.cache.remove(task.getId());
+            cache.remove(task.getId());
         }
         task.setSuspended(true);
         return true;
@@ -141,7 +141,7 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     
     @Override
     public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
-        if (this.cache.containsKey(task.getId()) && this.isValidBlock(golem.getGolemWorld(), task.getPos())) {
+        if (cache.containsKey(task.getId()) && isValidBlock(golem.getGolemWorld(), task.getPos())) {
             return true;
         }
         task.setSuspended(true);
@@ -150,7 +150,7 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     
     @Override
     public void onTaskSuspension(final World world, final Task task) {
-        this.cache.remove(task.getId());
+        cache.remove(task.getId());
     }
     
     @Override
@@ -160,7 +160,7 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override
@@ -199,11 +199,11 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     
     @Override
     public SealToggle[] getToggles() {
-        return this.props;
+        return props;
     }
     
     @Override
     public void setToggle(final int indx, final boolean value) {
-        this.props[indx].setValue(value);
+        props[indx].setValue(value);
     }
 }

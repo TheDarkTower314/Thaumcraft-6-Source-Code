@@ -36,29 +36,29 @@ public class TileSpa extends TileThaumcraftInventory implements IFluidHandler
     
     public TileSpa() {
         super(1);
-        this.mix = true;
-        this.counter = 0;
-        this.tank = new FluidTank(5000);
+        mix = true;
+        counter = 0;
+        tank = new FluidTank(5000);
     }
     
     public void toggleMix() {
-        this.mix = !this.mix;
-        this.syncTile(false);
-        this.markDirty();
+        mix = !mix;
+        syncTile(false);
+        markDirty();
     }
     
     public boolean getMix() {
-        return this.mix;
+        return mix;
     }
     
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
-        this.mix = nbttagcompound.getBoolean("mix");
-        this.tank.readFromNBT(nbttagcompound);
+        mix = nbttagcompound.getBoolean("mix");
+        tank.readFromNBT(nbttagcompound);
     }
     
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
-        nbttagcompound.setBoolean("mix", this.mix);
-        this.tank.writeToNBT(nbttagcompound);
+        nbttagcompound.setBoolean("mix", mix);
+        tank.writeToNBT(nbttagcompound);
         return nbttagcompound;
     }
     
@@ -101,81 +101,81 @@ public class TileSpa extends TileThaumcraftInventory implements IFluidHandler
     public void update() {
         super.update();
         Label_0267: {
-            if (!this.world.isRemote && this.counter++ % 40 == 0 && !this.world.isBlockPowered(this.pos) && this.hasIngredients()) {
-                final Block b = this.world.getBlockState(this.pos.up()).getBlock();
-                final int m = b.getMetaFromState(this.world.getBlockState(this.pos.up()));
+            if (!world.isRemote && counter++ % 40 == 0 && !world.isBlockPowered(pos) && hasIngredients()) {
+                final Block b = world.getBlockState(pos.up()).getBlock();
+                final int m = b.getMetaFromState(world.getBlockState(pos.up()));
                 Block tb = null;
-                if (this.mix) {
+                if (mix) {
                     tb = BlocksTC.purifyingFluid;
                 }
                 else {
-                    tb = this.tank.getFluid().getFluid().getBlock();
+                    tb = tank.getFluid().getFluid().getBlock();
                 }
                 if (b == tb && m == 0) {
                     for (int xx = -2; xx <= 2; ++xx) {
                         for (int zz = -2; zz <= 2; ++zz) {
-                            final BlockPos p = this.getPos().add(xx, 1, zz);
-                            if (this.isValidLocation(p, true, tb)) {
-                                this.consumeIngredients();
-                                this.world.setBlockState(p, tb.getDefaultState());
-                                this.checkQuanta(p);
+                            final BlockPos p = getPos().add(xx, 1, zz);
+                            if (isValidLocation(p, true, tb)) {
+                                consumeIngredients();
+                                world.setBlockState(p, tb.getDefaultState());
+                                checkQuanta(p);
                                 break Label_0267;
                             }
                         }
                     }
                 }
-                else if (this.isValidLocation(this.pos.up(), false, tb)) {
-                    this.consumeIngredients();
-                    this.world.setBlockState(this.pos.up(), tb.getDefaultState());
-                    this.checkQuanta(this.pos.up());
+                else if (isValidLocation(pos.up(), false, tb)) {
+                    consumeIngredients();
+                    world.setBlockState(pos.up(), tb.getDefaultState());
+                    checkQuanta(pos.up());
                 }
             }
         }
     }
     
     private void checkQuanta(final BlockPos pos) {
-        final Block b = this.world.getBlockState(pos).getBlock();
+        final Block b = world.getBlockState(pos).getBlock();
         if (b instanceof BlockFluidBase) {
-            final float p = ((BlockFluidBase)b).getQuantaPercentage(this.world, pos);
+            final float p = ((BlockFluidBase)b).getQuantaPercentage(world, pos);
             if (p < 1.0f) {
                 final int md = (int)(1.0f / p) - 1;
                 if (md >= 0 && md < 16) {
-                    this.world.setBlockState(pos, b.getStateFromMeta(md));
+                    world.setBlockState(pos, b.getStateFromMeta(md));
                 }
             }
         }
     }
     
     private boolean hasIngredients() {
-        if (this.mix) {
-            if (this.tank.getInfo().fluid == null || !this.tank.getInfo().fluid.containsFluid(new FluidStack(FluidRegistry.WATER, 1000))) {
+        if (mix) {
+            if (tank.getInfo().fluid == null || !tank.getInfo().fluid.containsFluid(new FluidStack(FluidRegistry.WATER, 1000))) {
                 return false;
             }
-            if (!(this.getStackInSlot(0).getItem() instanceof ItemBathSalts)) {
+            if (!(getStackInSlot(0).getItem() instanceof ItemBathSalts)) {
                 return false;
             }
         }
-        else if (this.tank.getInfo().fluid == null || !this.tank.getFluid().getFluid().canBePlacedInWorld() || this.tank.getFluidAmount() < 1000) {
+        else if (tank.getInfo().fluid == null || !tank.getFluid().getFluid().canBePlacedInWorld() || tank.getFluidAmount() < 1000) {
             return false;
         }
         return true;
     }
     
     private void consumeIngredients() {
-        if (this.mix) {
-            this.decrStackSize(0, 1);
+        if (mix) {
+            decrStackSize(0, 1);
         }
-        this.drain(1000, true);
+        drain(1000, true);
     }
     
     private boolean isValidLocation(final BlockPos pos, final boolean mustBeAdjacent, final Block target) {
-        if ((target == Blocks.WATER || target == Blocks.FLOWING_WATER) && this.world.provider.doesWaterVaporize()) {
+        if ((target == Blocks.WATER || target == Blocks.FLOWING_WATER) && world.provider.doesWaterVaporize()) {
             return false;
         }
-        final Block b = this.world.getBlockState(pos).getBlock();
-        final IBlockState bb = this.world.getBlockState(pos.down());
-        final int m = b.getMetaFromState(this.world.getBlockState(pos));
-        return bb.isSideSolid(this.world, pos.down(), EnumFacing.UP) && b.isReplaceable(this.world, pos) && (b != target || m != 0) && (!mustBeAdjacent || BlockUtils.isBlockTouching(this.world, pos, target.getStateFromMeta(0)));
+        final Block b = world.getBlockState(pos).getBlock();
+        final IBlockState bb = world.getBlockState(pos.down());
+        final int m = b.getMetaFromState(world.getBlockState(pos));
+        return bb.isSideSolid(world, pos.down(), EnumFacing.UP) && b.isReplaceable(world, pos) && (b != target || m != 0) && (!mustBeAdjacent || BlockUtils.isBlockTouching(world, pos, target.getStateFromMeta(0)));
     }
     
     @Override
@@ -187,32 +187,32 @@ public class TileSpa extends TileThaumcraftInventory implements IFluidHandler
     @Override
     public <T> T getCapability(@Nonnull final Capability<T> capability, @Nullable final EnumFacing facing) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return (T)this.tank;
+            return (T) tank;
         }
         return super.getCapability(capability, facing);
     }
     
     public IFluidTankProperties[] getTankProperties() {
-        return this.tank.getTankProperties();
+        return tank.getTankProperties();
     }
     
     public int fill(final FluidStack resource, final boolean doFill) {
-        this.markDirty();
-        this.syncTile(false);
-        return this.tank.fill(resource, doFill);
+        markDirty();
+        syncTile(false);
+        return tank.fill(resource, doFill);
     }
     
     public FluidStack drain(final FluidStack resource, final boolean doDrain) {
-        final FluidStack fs = this.tank.drain(resource, doDrain);
-        this.markDirty();
-        this.syncTile(false);
+        final FluidStack fs = tank.drain(resource, doDrain);
+        markDirty();
+        syncTile(false);
         return fs;
     }
     
     public FluidStack drain(final int maxDrain, final boolean doDrain) {
-        final FluidStack fs = this.tank.drain(maxDrain, doDrain);
-        this.markDirty();
-        this.syncTile(false);
+        final FluidStack fs = tank.drain(maxDrain, doDrain);
+        markDirty();
+        syncTile(false);
         return fs;
     }
 }

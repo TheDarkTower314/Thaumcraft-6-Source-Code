@@ -17,9 +17,9 @@ public class SealPos  {
 		public int hashCode()
 	    {
 	        byte b0 = (byte) (face.ordinal()+1);
-	        int i = 31 * b0 + this.pos.getX();
-	        i = 31 * i + this.pos.getY();
-	        i = 31 * i + this.pos.getZ();
+	        int i = 31 * b0 + pos.getX();
+	        i = 31 * i + pos.getY();
+	        i = 31 * i + pos.getZ();
 	        return i;
 	    }
 	
@@ -37,7 +37,7 @@ public class SealPos  {
 	        else
 	        {
 	        	SealPos sp = (SealPos)p_equals_1_;
-	            return !this.pos.equals(sp.pos) ? false : this.face.equals(sp.face);
+	            return !pos.equals(sp.pos) ? false : face.equals(sp.face);
 	        }
 	    }
 	}

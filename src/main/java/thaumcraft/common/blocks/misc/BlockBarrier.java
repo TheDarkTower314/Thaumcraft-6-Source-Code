@@ -35,10 +35,10 @@ public class BlockBarrier extends Block
     
     public BlockBarrier() {
         super(BlockBarrier.barrierMat);
-        this.setCreativeTab(null);
-        this.setLightOpacity(0);
-        this.setUnlocalizedName("barrier");
-        this.setRegistryName("thaumcraft", "barrier");
+        setCreativeTab(null);
+        setLightOpacity(0);
+        setUnlocalizedName("barrier");
+        setRegistryName("thaumcraft", "barrier");
     }
     
     public EnumBlockRenderType getRenderType(final IBlockState state) {
@@ -77,7 +77,7 @@ public class BlockBarrier extends Block
     }
     
     public void neighborChanged(final IBlockState state, final World world, final BlockPos pos, final Block neighborBlock, final BlockPos pos2) {
-        if (world.getBlockState(pos.down(1)) != BlocksTC.pavingStoneBarrier.getDefaultState() && world.getBlockState(pos.down(1)) != this.getDefaultState()) {
+        if (world.getBlockState(pos.down(1)) != BlocksTC.pavingStoneBarrier.getDefaultState() && world.getBlockState(pos.down(1)) != getDefaultState()) {
             world.setBlockToAir(pos);
         }
     }

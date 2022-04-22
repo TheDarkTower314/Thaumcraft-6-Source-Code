@@ -29,17 +29,17 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     EnumFacing fd;
     
     public TileAlembic() {
-        this.aspectFilter = null;
-        this.amount = 0;
-        this.maxAmount = 128;
-        this.facing = EnumFacing.DOWN.ordinal();
-        this.aboveFurnace = false;
-        this.fd = null;
+        aspectFilter = null;
+        amount = 0;
+        maxAmount = 128;
+        facing = EnumFacing.DOWN.ordinal();
+        aboveFurnace = false;
+        fd = null;
     }
     
     @Override
     public AspectList getAspects() {
-        return (this.aspect != null) ? new AspectList().add(this.aspect, this.amount) : new AspectList();
+        return (aspect != null) ? new AspectList().add(aspect, amount) : new AspectList();
     }
     
     @Override
@@ -48,64 +48,64 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return new AxisAlignedBB(this.getPos().getX() - 0.1, this.getPos().getY() - 0.1, this.getPos().getZ() - 0.1, this.getPos().getX() + 1.1, this.getPos().getY() + 1.1, this.getPos().getZ() + 1.1);
+        return new AxisAlignedBB(getPos().getX() - 0.1, getPos().getY() - 0.1, getPos().getZ() - 0.1, getPos().getX() + 1.1, getPos().getY() + 1.1, getPos().getZ() + 1.1);
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
-        this.facing = nbttagcompound.getByte("facing");
-        this.aspectFilter = Aspect.getAspect(nbttagcompound.getString("AspectFilter"));
+        facing = nbttagcompound.getByte("facing");
+        aspectFilter = Aspect.getAspect(nbttagcompound.getString("AspectFilter"));
         final String tag = nbttagcompound.getString("aspect");
         if (tag != null) {
-            this.aspect = Aspect.getAspect(tag);
+            aspect = Aspect.getAspect(tag);
         }
-        this.amount = nbttagcompound.getShort("amount");
-        this.fd = EnumFacing.VALUES[this.facing];
+        amount = nbttagcompound.getShort("amount");
+        fd = EnumFacing.VALUES[facing];
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
-        if (this.aspect != null) {
-            nbttagcompound.setString("aspect", this.aspect.getTag());
+        if (aspect != null) {
+            nbttagcompound.setString("aspect", aspect.getTag());
         }
-        if (this.aspectFilter != null) {
-            nbttagcompound.setString("AspectFilter", this.aspectFilter.getTag());
+        if (aspectFilter != null) {
+            nbttagcompound.setString("AspectFilter", aspectFilter.getTag());
         }
-        nbttagcompound.setShort("amount", (short)this.amount);
-        nbttagcompound.setByte("facing", (byte)this.facing);
+        nbttagcompound.setShort("amount", (short) amount);
+        nbttagcompound.setByte("facing", (byte) facing);
         return nbttagcompound;
     }
     
     @Override
     public int addToContainer(final Aspect tt, int am) {
-        if (this.aspectFilter != null && tt != this.aspectFilter) {
+        if (aspectFilter != null && tt != aspectFilter) {
             return am;
         }
-        if ((this.amount < this.maxAmount && tt == this.aspect) || this.amount == 0) {
-            this.aspect = tt;
-            final int added = Math.min(am, this.maxAmount - this.amount);
-            this.amount += added;
+        if ((amount < maxAmount && tt == aspect) || amount == 0) {
+            aspect = tt;
+            final int added = Math.min(am, maxAmount - amount);
+            amount += added;
             am -= added;
         }
-        this.markDirty();
-        this.syncTile(false);
+        markDirty();
+        syncTile(false);
         return am;
     }
     
     @Override
     public boolean takeFromContainer(final Aspect tt, final int am) {
-        if (this.amount == 0 || this.aspect == null) {
-            this.aspect = null;
-            this.amount = 0;
+        if (amount == 0 || aspect == null) {
+            aspect = null;
+            amount = 0;
         }
-        if (this.aspect != null && this.amount >= am && tt == this.aspect) {
-            this.amount -= am;
-            if (this.amount <= 0) {
-                this.aspect = null;
-                this.amount = 0;
+        if (aspect != null && amount >= am && tt == aspect) {
+            amount -= am;
+            if (amount <= 0) {
+                aspect = null;
+                amount = 0;
             }
-            this.markDirty();
-            this.syncTile(false);
+            markDirty();
+            syncTile(false);
             return true;
         }
         return false;
@@ -113,17 +113,17 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     
     @Override
     public boolean doesContainerContain(final AspectList ot) {
-        return this.amount > 0 && this.aspect != null && ot.getAmount(this.aspect) > 0;
+        return amount > 0 && aspect != null && ot.getAmount(aspect) > 0;
     }
     
     @Override
     public boolean doesContainerContainAmount(final Aspect tt, final int am) {
-        return this.amount >= am && tt == this.aspect;
+        return amount >= am && tt == aspect;
     }
     
     @Override
     public int containerContains(final Aspect tt) {
-        return (tt == this.aspect) ? this.amount : 0;
+        return (tt == aspect) ? amount : 0;
     }
     
     @Override
@@ -138,7 +138,7 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     
     @Override
     public boolean isConnectable(final EnumFacing face) {
-        return face != EnumFacing.VALUES[this.facing] && face != EnumFacing.DOWN;
+        return face != EnumFacing.VALUES[facing] && face != EnumFacing.DOWN;
     }
     
     @Override
@@ -148,7 +148,7 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     
     @Override
     public boolean canOutputTo(final EnumFacing face) {
-        return face != EnumFacing.VALUES[this.facing] && face != EnumFacing.DOWN;
+        return face != EnumFacing.VALUES[facing] && face != EnumFacing.DOWN;
     }
     
     @Override
@@ -167,17 +167,17 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     
     @Override
     public Aspect getEssentiaType(final EnumFacing loc) {
-        return this.aspect;
+        return aspect;
     }
     
     @Override
     public int getEssentiaAmount(final EnumFacing loc) {
-        return this.amount;
+        return amount;
     }
     
     @Override
     public int takeEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
-        return (this.canOutputTo(face) && this.takeFromContainer(aspect, amount)) ? amount : 0;
+        return (canOutputTo(face) && takeFromContainer(aspect, amount)) ? amount : 0;
     }
     
     @Override

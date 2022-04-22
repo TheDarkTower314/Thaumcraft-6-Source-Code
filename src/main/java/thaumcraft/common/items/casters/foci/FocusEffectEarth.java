@@ -44,26 +44,26 @@ public class FocusEffectEarth extends FocusEffect
     
     @Override
     public int getComplexity() {
-        return this.getSettingValue("power") * 3;
+        return getSettingValue("power") * 3;
     }
     
     @Override
     public float getDamageForDisplay(final float finalPower) {
-        return 2 * this.getSettingValue("power") * finalPower;
+        return 2 * getSettingValue("power") * finalPower;
     }
     
     @Override
     public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
-        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { this.getKey() }), new NetworkRegistry.TargetPoint(this.getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
+        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
         if (target.typeOfHit == RayTraceResult.Type.ENTITY && target.entityHit != null) {
-            final float damage = this.getDamageForDisplay(finalPower);
-            target.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((target.entityHit != null) ? target.entityHit : this.getPackage().getCaster(), this.getPackage().getCaster()), damage);
+            final float damage = getDamageForDisplay(finalPower);
+            target.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((target.entityHit != null) ? target.entityHit : getPackage().getCaster(), getPackage().getCaster()), damage);
             return true;
         }
         if (target.typeOfHit == RayTraceResult.Type.BLOCK) {
             final BlockPos pos = target.getBlockPos();
-            if (this.getPackage().getCaster() instanceof EntityPlayer && this.getPackage().world.getBlockState(pos).getBlockHardness(this.getPackage().world, pos) <= this.getDamageForDisplay(finalPower) / 25.0f) {
-                ServerEvents.addBreaker(this.getPackage().world, pos, this.getPackage().world.getBlockState(pos), (EntityPlayer)this.getPackage().getCaster(), false, false, 0, 1.0f, 0.0f, 1.0f, num, 0.1f, null);
+            if (getPackage().getCaster() instanceof EntityPlayer && getPackage().world.getBlockState(pos).getBlockHardness(getPackage().world, pos) <= getDamageForDisplay(finalPower) / 25.0f) {
+                ServerEvents.addBreaker(getPackage().world, pos, getPackage().world.getBlockState(pos), (EntityPlayer) getPackage().getCaster(), false, false, 0, 1.0f, 0.0f, 1.0f, num, 0.1f, null);
             }
         }
         return false;

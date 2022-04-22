@@ -22,9 +22,9 @@ public class RenderFocusMine extends Render
     
     public RenderFocusMine(final RenderManager rm) {
         super(rm);
-        this.beam = new ResourceLocation("thaumcraft", "textures/entity/mine.png");
-        this.shadowSize = 0.0f;
-        this.model = new ModelGrappler();
+        beam = new ResourceLocation("thaumcraft", "textures/entity/mine.png");
+        shadowSize = 0.0f;
+        model = new ModelGrappler();
     }
     
     public void renderEntityAt(final Entity entity, final double x, final double y, final double z, final float fq, final float pticks) {
@@ -39,17 +39,17 @@ public class RenderFocusMine extends Render
         final int k = i / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
         GL11.glColor4f(1.0f, 1.0f - f, 1.0f - f, 1.0f);
-        this.bindTexture(this.beam);
+        bindTexture(beam);
         GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * pticks - 90.0f, 0.0f, 1.0f, 0.0f);
         GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * pticks, 0.0f, 0.0f, 1.0f);
-        this.model.render();
+        model.render();
         GL11.glDisable(3042);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glPopMatrix();
     }
     
     public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
-        this.renderEntityAt(entity, d, d1, d2, f, f1);
+        renderEntityAt(entity, d, d1, d2, f, f1);
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {

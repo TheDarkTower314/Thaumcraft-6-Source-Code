@@ -31,7 +31,7 @@ public class BlockResearchTable extends BlockTCDevice implements IBlockFacingHor
 {
     public BlockResearchTable() {
         super(Material.WOOD, TileResearchTable.class, "research_table");
-        this.setSoundType(SoundType.WOOD);
+        setSoundType(SoundType.WOOD);
     }
     
     @Override
@@ -61,7 +61,7 @@ public class BlockResearchTable extends BlockTCDevice implements IBlockFacingHor
     
     @Override
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)placer.getHorizontalFacing());
         return bs;
     }

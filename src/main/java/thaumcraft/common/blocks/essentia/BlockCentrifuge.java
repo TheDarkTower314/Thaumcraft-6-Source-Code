@@ -19,7 +19,7 @@ public class BlockCentrifuge extends BlockTCDevice
 {
     public BlockCentrifuge() {
         super(Material.WOOD, TileCentrifuge.class, "centrifuge");
-        this.setSoundType(SoundType.WOOD);
+        setSoundType(SoundType.WOOD);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {

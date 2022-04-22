@@ -16,7 +16,7 @@ public interface IBlockFacing
         }
         
         public boolean apply(final Object p_apply_1_) {
-            return this.apply((EnumFacing)p_apply_1_);
+            return apply((EnumFacing)p_apply_1_);
         }
     });
 }

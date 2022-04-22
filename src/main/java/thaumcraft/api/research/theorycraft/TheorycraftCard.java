@@ -21,7 +21,7 @@ public abstract class TheorycraftCard {
 	 * @return
 	 */
 	public long getSeed() {
-		if (seed<0) this.setSeed(System.nanoTime());
+		if (seed<0) setSeed(System.nanoTime());
 		return seed;
 	}
 

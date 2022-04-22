@@ -47,82 +47,82 @@ public class ContainerArcaneWorkbench extends Container
     private long lastCheck;
     
     public ContainerArcaneWorkbench(final InventoryPlayer par1InventoryPlayer, final TileArcaneWorkbench e) {
-        this.craftResult = new InventoryCraftResult();
-        this.lastVis = -1;
-        this.lastCheck = 0L;
-        this.tileEntity = e;
-        this.tileEntity.inventoryCraft.eventHandler = this;
-        this.ip = par1InventoryPlayer;
+        craftResult = new InventoryCraftResult();
+        lastVis = -1;
+        lastCheck = 0L;
+        tileEntity = e;
+        tileEntity.inventoryCraft.eventHandler = this;
+        ip = par1InventoryPlayer;
         e.getAura();
-        this.addSlotToContainer(new SlotCraftingArcaneWorkbench(this.tileEntity, par1InventoryPlayer.player, this.tileEntity.inventoryCraft, this.craftResult, 15, 160, 64));
+        addSlotToContainer(new SlotCraftingArcaneWorkbench(tileEntity, par1InventoryPlayer.player, tileEntity.inventoryCraft, craftResult, 15, 160, 64));
         for (int var6 = 0; var6 < 3; ++var6) {
             for (int var7 = 0; var7 < 3; ++var7) {
-                this.addSlotToContainer(new Slot(this.tileEntity.inventoryCraft, var7 + var6 * 3, 40 + var7 * 24, 40 + var6 * 24));
+                addSlotToContainer(new Slot(tileEntity.inventoryCraft, var7 + var6 * 3, 40 + var7 * 24, 40 + var6 * 24));
             }
         }
         for (final ShardType st : ShardType.values()) {
             if (st.getMetadata() < 6) {
-                this.addSlotToContainer(new SlotCrystal(st.getAspect(), this.tileEntity.inventoryCraft, st.getMetadata() + 9, ContainerArcaneWorkbench.xx[st.getMetadata()], ContainerArcaneWorkbench.yy[st.getMetadata()]));
+                addSlotToContainer(new SlotCrystal(st.getAspect(), tileEntity.inventoryCraft, st.getMetadata() + 9, ContainerArcaneWorkbench.xx[st.getMetadata()], ContainerArcaneWorkbench.yy[st.getMetadata()]));
             }
         }
         for (int var6 = 0; var6 < 3; ++var6) {
             for (int var7 = 0; var7 < 9; ++var7) {
-                this.addSlotToContainer(new Slot(par1InventoryPlayer, var7 + var6 * 9 + 9, 16 + var7 * 18, 151 + var6 * 18));
+                addSlotToContainer(new Slot(par1InventoryPlayer, var7 + var6 * 9 + 9, 16 + var7 * 18, 151 + var6 * 18));
             }
         }
         for (int var6 = 0; var6 < 9; ++var6) {
-            this.addSlotToContainer(new Slot(par1InventoryPlayer, var6, 16 + var6 * 18, 209));
+            addSlotToContainer(new Slot(par1InventoryPlayer, var6, 16 + var6 * 18, 209));
         }
-        this.onCraftMatrixChanged(this.tileEntity.inventoryCraft);
+        onCraftMatrixChanged(tileEntity.inventoryCraft);
     }
     
     public void addListener(final IContainerListener par1ICrafting) {
         super.addListener(par1ICrafting);
-        this.tileEntity.getAura();
-        par1ICrafting.sendWindowProperty(this, 0, this.tileEntity.auraVisServer);
+        tileEntity.getAura();
+        par1ICrafting.sendWindowProperty(this, 0, tileEntity.auraVisServer);
     }
     
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         final long t = System.currentTimeMillis();
-        if (t > this.lastCheck) {
-            this.lastCheck = t + 500L;
-            this.tileEntity.getAura();
+        if (t > lastCheck) {
+            lastCheck = t + 500L;
+            tileEntity.getAura();
         }
-        if (this.lastVis != this.tileEntity.auraVisServer) {
-            this.onCraftMatrixChanged(this.tileEntity.inventoryCraft);
+        if (lastVis != tileEntity.auraVisServer) {
+            onCraftMatrixChanged(tileEntity.inventoryCraft);
         }
-        for (int i = 0; i < this.listeners.size(); ++i) {
-            final IContainerListener icrafting = this.listeners.get(i);
-            if (this.lastVis != this.tileEntity.auraVisServer) {
-                icrafting.sendWindowProperty(this, 0, this.tileEntity.auraVisServer);
+        for (int i = 0; i < listeners.size(); ++i) {
+            final IContainerListener icrafting = listeners.get(i);
+            if (lastVis != tileEntity.auraVisServer) {
+                icrafting.sendWindowProperty(this, 0, tileEntity.auraVisServer);
             }
         }
-        this.lastVis = this.tileEntity.auraVisServer;
+        lastVis = tileEntity.auraVisServer;
     }
     
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(final int par1, final int par2) {
         if (par1 == 0) {
-            this.tileEntity.auraVisClient = par2;
+            tileEntity.auraVisClient = par2;
         }
     }
     
     public void onCraftMatrixChanged(final IInventory par1IInventory) {
-        final IArcaneRecipe recipe = ThaumcraftCraftingManager.findMatchingArcaneRecipe(this.tileEntity.inventoryCraft, this.ip.player);
+        final IArcaneRecipe recipe = ThaumcraftCraftingManager.findMatchingArcaneRecipe(tileEntity.inventoryCraft, ip.player);
         boolean hasVis = true;
         boolean hasCrystals = true;
         if (recipe != null) {
             int vis = 0;
             AspectList crystals = null;
             vis = recipe.getVis();
-            vis *= (int)(1.0f - CasterManager.getTotalVisDiscount(this.ip.player));
+            vis *= (int)(1.0f - CasterManager.getTotalVisDiscount(ip.player));
             crystals = recipe.getCrystals();
-            this.tileEntity.getAura();
-            hasVis = (this.tileEntity.getWorld().isRemote ? (this.tileEntity.auraVisClient >= vis) : (this.tileEntity.auraVisServer >= vis));
+            tileEntity.getAura();
+            hasVis = (tileEntity.getWorld().isRemote ? (tileEntity.auraVisClient >= vis) : (tileEntity.auraVisServer >= vis));
             if (crystals != null && crystals.size() > 0) {
                 for (final Aspect aspect : crystals.getAspects()) {
-                    if (ThaumcraftInvHelper.countTotalItemsIn(ThaumcraftInvHelper.wrapInventory(this.tileEntity.inventoryCraft, EnumFacing.UP), ThaumcraftApiHelper.makeCrystal(aspect, crystals.getAmount(aspect)), ThaumcraftInvHelper.InvFilter.STRICT) < crystals.getAmount(aspect)) {
+                    if (ThaumcraftInvHelper.countTotalItemsIn(ThaumcraftInvHelper.wrapInventory(tileEntity.inventoryCraft, EnumFacing.UP), ThaumcraftApiHelper.makeCrystal(aspect, crystals.getAmount(aspect)), ThaumcraftInvHelper.InvFilter.STRICT) < crystals.getAmount(aspect)) {
                         hasCrystals = false;
                         break;
                     }
@@ -130,7 +130,7 @@ public class ContainerArcaneWorkbench extends Container
             }
         }
         if (hasVis && hasCrystals) {
-            this.slotChangedCraftingGrid(this.tileEntity.getWorld(), this.ip.player, this.tileEntity.inventoryCraft, this.craftResult);
+            slotChangedCraftingGrid(tileEntity.getWorld(), ip.player, tileEntity.inventoryCraft, craftResult);
         }
         super.detectAndSendChanges();
     }
@@ -156,29 +156,29 @@ public class ContainerArcaneWorkbench extends Container
                 }
             }
             craftRes.setInventorySlotContents(0, itemstack);
-            entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 0, itemstack));
+            entityplayermp.connection.sendPacket(new SPacketSetSlot(windowId, 0, itemstack));
         }
     }
     
     public void onContainerClosed(final EntityPlayer par1EntityPlayer) {
         super.onContainerClosed(par1EntityPlayer);
-        if (!this.tileEntity.getWorld().isRemote) {
-            this.tileEntity.inventoryCraft.eventHandler = new ContainerDummy();
+        if (!tileEntity.getWorld().isRemote) {
+            tileEntity.inventoryCraft.eventHandler = new ContainerDummy();
         }
     }
     
     public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
-        return this.tileEntity.getWorld().getTileEntity(this.tileEntity.getPos()) == this.tileEntity && par1EntityPlayer.getDistanceSqToCenter(this.tileEntity.getPos()) <= 64.0;
+        return tileEntity.getWorld().getTileEntity(tileEntity.getPos()) == tileEntity && par1EntityPlayer.getDistanceSqToCenter(tileEntity.getPos()) <= 64.0;
     }
     
     public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int par1) {
         ItemStack var2 = ItemStack.EMPTY;
-        final Slot var3 = this.inventorySlots.get(par1);
+        final Slot var3 = inventorySlots.get(par1);
         if (var3 != null && var3.getHasStack()) {
             final ItemStack var4 = var3.getStack();
             var2 = var4.copy();
             if (par1 == 0) {
-                if (!this.mergeItemStack(var4, 16, 52, true)) {
+                if (!mergeItemStack(var4, 16, 52, true)) {
                     return ItemStack.EMPTY;
                 }
                 var3.onSlotChange(var4, var2);
@@ -187,7 +187,7 @@ public class ContainerArcaneWorkbench extends Container
                 for (final ShardType st : ShardType.values()) {
                     if (st.getMetadata() < 6) {
                         if (SlotCrystal.isValidCrystal(var4, st.getAspect())) {
-                            if (!this.mergeItemStack(var4, 10 + st.getMetadata(), 11 + st.getMetadata(), false)) {
+                            if (!mergeItemStack(var4, 10 + st.getMetadata(), 11 + st.getMetadata(), false)) {
                                 return ItemStack.EMPTY;
                             }
                             if (var4.getCount() == 0) {
@@ -198,16 +198,16 @@ public class ContainerArcaneWorkbench extends Container
                 }
                 if (var4.getCount() != 0) {
                     if (par1 >= 16 && par1 < 43) {
-                        if (!this.mergeItemStack(var4, 43, 52, false)) {
+                        if (!mergeItemStack(var4, 43, 52, false)) {
                             return ItemStack.EMPTY;
                         }
                     }
-                    else if (par1 >= 43 && par1 < 52 && !this.mergeItemStack(var4, 16, 43, false)) {
+                    else if (par1 >= 43 && par1 < 52 && !mergeItemStack(var4, 16, 43, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
             }
-            else if (!this.mergeItemStack(var4, 16, 52, false)) {
+            else if (!mergeItemStack(var4, 16, 52, false)) {
                 return ItemStack.EMPTY;
             }
             if (var4.getCount() == 0) {
@@ -219,13 +219,13 @@ public class ContainerArcaneWorkbench extends Container
             if (var4.getCount() == var2.getCount()) {
                 return ItemStack.EMPTY;
             }
-            var3.onTake(this.ip.player, var4);
+            var3.onTake(ip.player, var4);
         }
         return var2;
     }
     
     public boolean canMergeSlot(final ItemStack stack, final Slot slot) {
-        return slot.inventory != this.craftResult && super.canMergeSlot(stack, slot);
+        return slot.inventory != craftResult && super.canMergeSlot(stack, slot);
     }
     
     static {

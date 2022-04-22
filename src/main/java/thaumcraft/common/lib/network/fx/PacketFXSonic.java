@@ -28,11 +28,11 @@ public class PacketFXSonic implements IMessage, IMessageHandler<PacketFXSonic, I
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.source);
+        buffer.writeInt(source);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.source = buffer.readInt();
+        source = buffer.readInt();
     }
     
     @SideOnly(Side.CLIENT)

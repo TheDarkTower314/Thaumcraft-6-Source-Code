@@ -20,7 +20,7 @@ public class SlotCrystal extends Slot
     }
     
     public boolean isItemValid(final ItemStack stack) {
-        return isValidCrystal(stack, this.aspect);
+        return isValidCrystal(stack, aspect);
     }
     
     public static boolean isValidCrystal(final ItemStack stack, final Aspect aspect) {

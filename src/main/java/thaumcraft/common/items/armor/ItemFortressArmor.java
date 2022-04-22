@@ -39,13 +39,13 @@ public class ItemFortressArmor extends ItemArmor implements ISpecialArmor, IGogg
     
     public ItemFortressArmor(final String name, final ItemArmor.ArmorMaterial material, final int renderIndex, final EntityEquipmentSlot armorType) {
         super(material, renderIndex, armorType);
-        this.model1 = null;
-        this.model2 = null;
-        this.model = null;
-        this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        model1 = null;
+        model2 = null;
+        model = null;
+        setRegistryName(name);
+        setUnlocalizedName(name);
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
-        this.setCreativeTab(ConfigItems.TABTC);
+        setCreativeTab(ConfigItems.TABTC);
     }
     
     public Item getItem() {
@@ -71,13 +71,13 @@ public class ItemFortressArmor extends ItemArmor implements ISpecialArmor, IGogg
     
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(final EntityLivingBase entityLiving, final ItemStack itemStack, final EntityEquipmentSlot armorSlot, final ModelBiped _default) {
-        if (this.model1 == null) {
-            this.model1 = new ModelFortressArmor(1.0f);
+        if (model1 == null) {
+            model1 = new ModelFortressArmor(1.0f);
         }
-        if (this.model2 == null) {
-            this.model2 = new ModelFortressArmor(0.5f);
+        if (model2 == null) {
+            model2 = new ModelFortressArmor(0.5f);
         }
-        return this.model = CustomArmorHelper.getCustomArmorModel(entityLiving, itemStack, armorSlot, this.model, this.model1, this.model2);
+        return model = CustomArmorHelper.getCustomArmorModel(entityLiving, itemStack, armorSlot, model, model1, model2);
     }
     
     public String getArmorTexture(final ItemStack stack, final Entity entity, final EntityEquipmentSlot slot, final String type) {
@@ -105,14 +105,14 @@ public class ItemFortressArmor extends ItemArmor implements ISpecialArmor, IGogg
     
     public ISpecialArmor.ArmorProperties getProperties(final EntityLivingBase player, final ItemStack armor, final DamageSource source, final double damage, final int slot) {
         int priority = 0;
-        double ratio = this.damageReduceAmount / 25.0;
+        double ratio = damageReduceAmount / 25.0;
         if (source.isMagicDamage()) {
             priority = 1;
-            ratio = this.damageReduceAmount / 35.0;
+            ratio = damageReduceAmount / 35.0;
         }
         else if (source.isFireDamage() || source.isExplosion()) {
             priority = 1;
-            ratio = this.damageReduceAmount / 20.0;
+            ratio = damageReduceAmount / 20.0;
         }
         else if (source.isUnblockable()) {
             priority = 0;

@@ -31,8 +31,8 @@ public class ThaumcraftInvHelper {
 		public boolean relaxedNBT = false;
 	
 		public InvFilter(boolean ignoreDamage, boolean ignoreNBT, boolean useOre, boolean useMod) {
-			this.igDmg = ignoreDamage;
-			this.igNBT = ignoreNBT;
+			igDmg = ignoreDamage;
+			igNBT = ignoreNBT;
 			this.useOre = useOre;
 			this.useMod = useMod;
 		}		

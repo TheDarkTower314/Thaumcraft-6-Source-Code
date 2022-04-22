@@ -38,10 +38,10 @@ import net.minecraft.block.BlockLeaves;
 public class BlockLeavesTC extends BlockLeaves
 {
     public BlockLeavesTC(final String name) {
-        this.setDefaultState(this.blockState.getBaseState().withProperty((IProperty)BlockLeavesTC.CHECK_DECAY, (Comparable)true).withProperty((IProperty)BlockLeavesTC.DECAYABLE, (Comparable)true));
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setUnlocalizedName(name);
-        this.setRegistryName("thaumcraft", name);
+        setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockLeavesTC.CHECK_DECAY, (Comparable)true).withProperty((IProperty)BlockLeavesTC.DECAYABLE, (Comparable)true));
+        setCreativeTab(ConfigItems.TABTC);
+        setUnlocalizedName(name);
+        setRegistryName("thaumcraft", name);
     }
     
     public int getFlammability(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
@@ -69,7 +69,7 @@ public class BlockLeavesTC extends BlockLeaves
     }
     
     public boolean shouldSideBeRendered(final IBlockState blockState, final IBlockAccess blockAccess, final BlockPos pos, final EnumFacing side) {
-        this.setGraphicsLevel(!this.isOpaqueCube(blockState));
+        setGraphicsLevel(!isOpaqueCube(blockState));
         return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
     
@@ -98,7 +98,7 @@ public class BlockLeavesTC extends BlockLeaves
     }
     
     public IBlockState getStateFromMeta(final int meta) {
-        return this.getDefaultState().withProperty((IProperty)BlockLeavesTC.DECAYABLE, (Comparable)((meta & 0x4) == 0x0)).withProperty((IProperty)BlockLeavesTC.CHECK_DECAY, (Comparable)((meta & 0x8) > 0));
+        return getDefaultState().withProperty((IProperty)BlockLeavesTC.DECAYABLE, (Comparable)((meta & 0x4) == 0x0)).withProperty((IProperty)BlockLeavesTC.CHECK_DECAY, (Comparable)((meta & 0x8) > 0));
     }
     
     public int getMetaFromState(final IBlockState state) {

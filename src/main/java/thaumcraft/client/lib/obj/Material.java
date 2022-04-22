@@ -25,6 +25,6 @@ public class Material
     public String AlphaTextureMap;
     
     public Material(final String materialName) {
-        this.Name = materialName;
+        Name = materialName;
     }
 }

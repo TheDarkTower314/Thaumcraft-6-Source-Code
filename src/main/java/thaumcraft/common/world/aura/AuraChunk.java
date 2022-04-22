@@ -22,8 +22,8 @@ public class AuraChunk
     
     public AuraChunk(final Chunk chunk, final short base, final float vis, final float flux) {
         if (chunk != null) {
-            this.loc = chunk.getPos();
-            this.chunkRef = new WeakReference<Chunk>(chunk);
+            loc = chunk.getPos();
+            chunkRef = new WeakReference<Chunk>(chunk);
         }
         this.base = base;
         this.vis = vis;
@@ -31,11 +31,11 @@ public class AuraChunk
     }
     
     public boolean isModified() {
-        return this.chunkRef != null && this.chunkRef.get() != null && this.chunkRef.get().needsSaving(false);
+        return chunkRef != null && chunkRef.get() != null && chunkRef.get().needsSaving(false);
     }
     
     public short getBase() {
-        return this.base;
+        return base;
     }
     
     public void setBase(final short base) {
@@ -43,7 +43,7 @@ public class AuraChunk
     }
     
     public float getVis() {
-        return this.vis;
+        return vis;
     }
     
     public void setVis(final float vis) {
@@ -51,7 +51,7 @@ public class AuraChunk
     }
     
     public float getFlux() {
-        return this.flux;
+        return flux;
     }
     
     public void setFlux(final float flux) {
@@ -59,7 +59,7 @@ public class AuraChunk
     }
     
     public ChunkPos getLoc() {
-        return this.loc;
+        return loc;
     }
     
     public void setLoc(final ChunkPos loc) {

@@ -26,29 +26,29 @@ public class CardCelestial extends TheorycraftCard
     String cat;
     
     public CardCelestial() {
-        this.cat = "BASICS";
+        cat = "BASICS";
     }
     
     @Override
     public NBTTagCompound serialize() {
         final NBTTagCompound nbt = super.serialize();
-        nbt.setInteger("md1", this.md1);
-        nbt.setInteger("md2", this.md2);
-        nbt.setString("cat", this.cat);
+        nbt.setInteger("md1", md1);
+        nbt.setInteger("md2", md2);
+        nbt.setString("cat", cat);
         return nbt;
     }
     
     @Override
     public void deserialize(final NBTTagCompound nbt) {
         super.deserialize(nbt);
-        this.md1 = nbt.getInteger("md1");
-        this.md2 = nbt.getInteger("md2");
-        this.cat = nbt.getString("cat");
+        md1 = nbt.getInteger("md1");
+        md2 = nbt.getInteger("md2");
+        cat = nbt.getString("cat");
     }
     
     @Override
     public String getResearchCategory() {
-        return this.cat;
+        return cat;
     }
     
     @Override
@@ -56,11 +56,11 @@ public class CardCelestial extends TheorycraftCard
         if (data.categoryTotals.isEmpty() || !ThaumcraftCapabilities.knowsResearch(player, "CELESTIALSCANNING")) {
             return false;
         }
-        final Random r = new Random(this.getSeed());
-        this.md1 = MathHelper.getInt(r, 0, 12);
-        this.md2 = this.md1;
-        while (this.md1 == this.md2) {
-            this.md2 = MathHelper.getInt(r, 0, 12);
+        final Random r = new Random(getSeed());
+        md1 = MathHelper.getInt(r, 0, 12);
+        md2 = md1;
+        while (md1 == md2) {
+            md2 = MathHelper.getInt(r, 0, 12);
         }
         int hVal = 0;
         String hKey = "";
@@ -71,8 +71,8 @@ public class CardCelestial extends TheorycraftCard
                 hKey = category;
             }
         }
-        this.cat = hKey;
-        return this.cat != null;
+        cat = hKey;
+        return cat != null;
     }
     
     @Override
@@ -87,12 +87,12 @@ public class CardCelestial extends TheorycraftCard
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.celestial.text", TextFormatting.BOLD + new TextComponentTranslation("tc.research_category." + this.cat).getFormattedText() + TextFormatting.RESET).getUnformattedText();
+        return new TextComponentTranslation("card.celestial.text", TextFormatting.BOLD + new TextComponentTranslation("tc.research_category." + cat).getFormattedText() + TextFormatting.RESET).getUnformattedText();
     }
     
     @Override
     public ItemStack[] getRequiredItems() {
-        return new ItemStack[] { new ItemStack(ItemsTC.celestialNotes, 1, this.md1), new ItemStack(ItemsTC.celestialNotes, 1, this.md2) };
+        return new ItemStack[] { new ItemStack(ItemsTC.celestialNotes, 1, md1), new ItemStack(ItemsTC.celestialNotes, 1, md2) };
     }
     
     @Override
@@ -102,10 +102,10 @@ public class CardCelestial extends TheorycraftCard
     
     @Override
     public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        data.addTotal(this.getResearchCategory(), MathHelper.getInt(player.getRNG(), 25, 50));
-        final boolean sun = this.md1 == 0 || this.md2 == 0;
-        final boolean moon = this.md1 > 4 || this.md2 > 4;
-        final boolean stars = (this.md1 > 0 && this.md1 < 5) || (this.md2 > 0 && this.md2 < 5);
+        data.addTotal(getResearchCategory(), MathHelper.getInt(player.getRNG(), 25, 50));
+        final boolean sun = md1 == 0 || md2 == 0;
+        final boolean moon = md1 > 4 || md2 > 4;
+        final boolean stars = (md1 > 0 && md1 < 5) || (md2 > 0 && md2 < 5);
         if (stars) {
             final int amt = MathHelper.getInt(player.getRNG(), 0, 5);
             data.addTotal("ELDRITCH", amt * 2);

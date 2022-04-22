@@ -76,33 +76,33 @@ public class EntityFluxRift extends Entity
     
     public EntityFluxRift(final World par1World) {
         super(par1World);
-        this.maxSize = 0;
-        this.lastSize = -1;
-        this.points = new ArrayList<Vec3d>();
-        this.pointsWidth = new ArrayList<Float>();
-        this.setSize(2.0f, 2.0f);
+        maxSize = 0;
+        lastSize = -1;
+        points = new ArrayList<Vec3d>();
+        pointsWidth = new ArrayList<Float>();
+        setSize(2.0f, 2.0f);
     }
     
     protected void entityInit() {
-        this.getDataManager().register(EntityFluxRift.SEED, 0);
-        this.getDataManager().register(EntityFluxRift.SIZE, 5);
-        this.getDataManager().register(EntityFluxRift.STABILITY, 0.0f);
-        this.getDataManager().register(EntityFluxRift.COLLAPSE, false);
+        getDataManager().register(EntityFluxRift.SEED, 0);
+        getDataManager().register(EntityFluxRift.SIZE, 5);
+        getDataManager().register(EntityFluxRift.STABILITY, 0.0f);
+        getDataManager().register(EntityFluxRift.COLLAPSE, false);
     }
     
     public boolean getCollapse() {
-        return (boolean)this.getDataManager().get((DataParameter)EntityFluxRift.COLLAPSE);
+        return (boolean) getDataManager().get((DataParameter)EntityFluxRift.COLLAPSE);
     }
     
     public void setCollapse(final boolean b) {
         if (b) {
-            this.maxSize = this.getRiftSize();
+            maxSize = getRiftSize();
         }
-        this.getDataManager().set(EntityFluxRift.COLLAPSE, b);
+        getDataManager().set(EntityFluxRift.COLLAPSE, b);
     }
     
     public float getRiftStability() {
-        return (float)this.getDataManager().get((DataParameter)EntityFluxRift.STABILITY);
+        return (float) getDataManager().get((DataParameter)EntityFluxRift.STABILITY);
     }
     
     public void setRiftStability(float s) {
@@ -112,32 +112,32 @@ public class EntityFluxRift extends Entity
         if (s < -100.0f) {
             s = -100.0f;
         }
-        this.getDataManager().set(EntityFluxRift.STABILITY, s);
+        getDataManager().set(EntityFluxRift.STABILITY, s);
     }
     
     public int getRiftSize() {
-        return (int)this.getDataManager().get((DataParameter)EntityFluxRift.SIZE);
+        return (int) getDataManager().get((DataParameter)EntityFluxRift.SIZE);
     }
     
     public void setRiftSize(final int s) {
-        this.getDataManager().set(EntityFluxRift.SIZE, s);
-        this.setSize();
+        getDataManager().set(EntityFluxRift.SIZE, s);
+        setSize();
     }
     
     public double getYOffset() {
-        return -this.height / 2.0f;
+        return -height / 2.0f;
     }
     
     protected void setSize() {
-        this.calcSteps(this.points, this.pointsWidth, new Random(this.getRiftSeed()));
-        this.lastSize = this.getRiftSize();
+        calcSteps(points, pointsWidth, new Random(getRiftSeed()));
+        lastSize = getRiftSize();
         double x0 = Double.MAX_VALUE;
         double y0 = Double.MAX_VALUE;
         double z0 = Double.MAX_VALUE;
         double x2 = Double.MIN_VALUE;
         double y2 = Double.MIN_VALUE;
         double z2 = Double.MIN_VALUE;
-        for (final Vec3d v : this.points) {
+        for (final Vec3d v : points) {
             if (v.x < x0) {
                 x0 = v.x;
             }
@@ -157,17 +157,17 @@ public class EntityFluxRift extends Entity
                 z2 = v.z;
             }
         }
-        this.setEntityBoundingBox(new AxisAlignedBB(this.posX + x0, this.posY + y0, this.posZ + z0, this.posX + x2, this.posY + y2, this.posZ + z2));
-        this.width = Math.abs((float)Math.max(x2 - x0, z2 - z0));
-        this.height = Math.abs((float)(y2 - y0));
+        setEntityBoundingBox(new AxisAlignedBB(posX + x0, posY + y0, posZ + z0, posX + x2, posY + y2, posZ + z2));
+        width = Math.abs((float)Math.max(x2 - x0, z2 - z0));
+        height = Math.abs((float)(y2 - y0));
     }
     
     public void setPosition(final double x, final double y, final double z) {
-        this.posX = x;
-        this.posY = y;
-        this.posZ = z;
-        if (this.getDataManager() != null) {
-            this.setSize();
+        posX = x;
+        posY = y;
+        posZ = z;
+        if (getDataManager() != null) {
+            setSize();
         }
         else {
             super.setPosition(x, y, z);
@@ -175,27 +175,27 @@ public class EntityFluxRift extends Entity
     }
     
     public int getRiftSeed() {
-        return (int)this.getDataManager().get((DataParameter)EntityFluxRift.SEED);
+        return (int) getDataManager().get((DataParameter)EntityFluxRift.SEED);
     }
     
     public void setRiftSeed(final int s) {
-        this.getDataManager().set(EntityFluxRift.SEED, s);
+        getDataManager().set(EntityFluxRift.SEED, s);
     }
     
     public void writeEntityToNBT(final NBTTagCompound nbttagcompound) {
-        nbttagcompound.setInteger("MaxSize", this.maxSize);
-        nbttagcompound.setInteger("RiftSize", this.getRiftSize());
-        nbttagcompound.setInteger("RiftSeed", this.getRiftSeed());
-        nbttagcompound.setFloat("Stability", this.getRiftStability());
-        nbttagcompound.setBoolean("collapse", this.getCollapse());
+        nbttagcompound.setInteger("MaxSize", maxSize);
+        nbttagcompound.setInteger("RiftSize", getRiftSize());
+        nbttagcompound.setInteger("RiftSeed", getRiftSeed());
+        nbttagcompound.setFloat("Stability", getRiftStability());
+        nbttagcompound.setBoolean("collapse", getCollapse());
     }
     
     public void readEntityFromNBT(final NBTTagCompound nbttagcompound) {
-        this.maxSize = nbttagcompound.getInteger("MaxSize");
-        this.setRiftSize(nbttagcompound.getInteger("RiftSize"));
-        this.setRiftSeed(nbttagcompound.getInteger("RiftSeed"));
-        this.setRiftStability((float)nbttagcompound.getInteger("Stability"));
-        this.setCollapse(nbttagcompound.getBoolean("collapse"));
+        maxSize = nbttagcompound.getInteger("MaxSize");
+        setRiftSize(nbttagcompound.getInteger("RiftSize"));
+        setRiftSeed(nbttagcompound.getInteger("RiftSeed"));
+        setRiftStability((float)nbttagcompound.getInteger("Stability"));
+        setCollapse(nbttagcompound.getBoolean("collapse"));
     }
     
     public void move(final MoverType type, final double x, final double y, final double z) {
@@ -203,27 +203,27 @@ public class EntityFluxRift extends Entity
     
     public void onUpdate() {
         super.onUpdate();
-        if (this.lastSize != this.getRiftSize()) {
-            this.setSize();
+        if (lastSize != getRiftSize()) {
+            setSize();
         }
-        if (!this.world.isRemote) {
-            if (this.getRiftSeed() == 0) {
-                this.setRiftSeed(this.rand.nextInt());
+        if (!world.isRemote) {
+            if (getRiftSeed() == 0) {
+                setRiftSeed(rand.nextInt());
             }
-            if (!this.points.isEmpty()) {
-                final int pi = this.rand.nextInt(this.points.size() - 1);
-                final Vec3d v1 = this.points.get(pi).addVector(this.posX, this.posY, this.posZ);
-                final Vec3d v2 = this.points.get(pi + 1).addVector(this.posX, this.posY, this.posZ);
-                final RayTraceResult rt = this.world.rayTraceBlocks(v1, v2, false);
+            if (!points.isEmpty()) {
+                final int pi = rand.nextInt(points.size() - 1);
+                final Vec3d v1 = points.get(pi).addVector(posX, posY, posZ);
+                final Vec3d v2 = points.get(pi + 1).addVector(posX, posY, posZ);
+                final RayTraceResult rt = world.rayTraceBlocks(v1, v2, false);
                 if (rt != null && rt.getBlockPos() != null) {
                     final BlockPos p = new BlockPos(rt.getBlockPos());
-                    final IBlockState bs = this.world.getBlockState(p);
-                    if (!this.world.isAirBlock(p) && bs.getBlockHardness(this.world, p) >= 0.0f && bs.getBlock().canCollideCheck(bs, false)) {
-                        this.world.playEvent(null, 2001, p, Block.getStateId(this.world.getBlockState(p)));
-                        this.world.setBlockToAir(p);
+                    final IBlockState bs = world.getBlockState(p);
+                    if (!world.isAirBlock(p) && bs.getBlockHardness(world, p) >= 0.0f && bs.getBlock().canCollideCheck(bs, false)) {
+                        world.playEvent(null, 2001, p, Block.getStateId(world.getBlockState(p)));
+                        world.setBlockToAir(p);
                     }
                 }
-                final List<Entity> el = EntityUtils.getEntitiesInRange(this.getEntityWorld(), v1.x, v1.y, v1.z, this, Entity.class, 0.5);
+                final List<Entity> el = EntityUtils.getEntitiesInRange(getEntityWorld(), v1.x, v1.y, v1.z, this, Entity.class, 0.5);
                 for (final Entity e : el) {
                     if (!e.isDead) {
                         if (e instanceof EntityPlayer && ((EntityPlayer)e).isCreative()) {
@@ -240,53 +240,53 @@ public class EntityFluxRift extends Entity
                     }
                 }
             }
-            if (this.points.size() < 3 && !this.getCollapse()) {
-                this.setCollapse(true);
+            if (points.size() < 3 && !getCollapse()) {
+                setCollapse(true);
             }
-            if (this.getCollapse()) {
-                this.setRiftSize(this.getRiftSize() - 1);
-                if (this.rand.nextBoolean()) {
-                    AuraHelper.addVis(this.world, this.getPosition(), 1.0f);
+            if (getCollapse()) {
+                setRiftSize(getRiftSize() - 1);
+                if (rand.nextBoolean()) {
+                    AuraHelper.addVis(world, getPosition(), 1.0f);
                 }
                 else {
-                    AuraHelper.polluteAura(this.world, this.getPosition(), 1.0f, false);
+                    AuraHelper.polluteAura(world, getPosition(), 1.0f, false);
                 }
-                if (this.rand.nextInt(10) == 0) {
-                    this.world.createExplosion(this, this.posX + this.rand.nextGaussian() * 2.0, this.posY + this.rand.nextGaussian() * 2.0, this.posZ + this.rand.nextGaussian() * 2.0, this.rand.nextFloat() / 2.0f, false);
+                if (rand.nextInt(10) == 0) {
+                    world.createExplosion(this, posX + rand.nextGaussian() * 2.0, posY + rand.nextGaussian() * 2.0, posZ + rand.nextGaussian() * 2.0, rand.nextFloat() / 2.0f, false);
                 }
-                if (this.getRiftSize() <= 1) {
-                    this.completeCollapse();
+                if (getRiftSize() <= 1) {
+                    completeCollapse();
                     return;
                 }
             }
-            if (this.ticksExisted % 120 == 0) {
-                this.setRiftStability(this.getRiftStability() - 0.2f);
+            if (ticksExisted % 120 == 0) {
+                setRiftStability(getRiftStability() - 0.2f);
             }
-            if (this.ticksExisted % 600 == this.getEntityId() % 600) {
-                final float taint = AuraHandler.getFlux(this.world, this.getPosition());
-                final double size = Math.sqrt(this.getRiftSize() * 2);
-                if (taint >= size && this.getRiftSize() < 100 && this.getStability() != EnumStability.VERY_STABLE) {
-                    AuraHandler.drainFlux(this.getEntityWorld(), this.getPosition(), (float)size, false);
-                    this.setRiftSize(this.getRiftSize() + 1);
+            if (ticksExisted % 600 == getEntityId() % 600) {
+                final float taint = AuraHandler.getFlux(world, getPosition());
+                final double size = Math.sqrt(getRiftSize() * 2);
+                if (taint >= size && getRiftSize() < 100 && getStability() != EnumStability.VERY_STABLE) {
+                    AuraHandler.drainFlux(getEntityWorld(), getPosition(), (float)size, false);
+                    setRiftSize(getRiftSize() + 1);
                 }
-                if (this.getRiftStability() < 0.0f && this.rand.nextInt(1000) < Math.abs(this.getRiftStability()) + this.getRiftSize()) {
-                    this.executeRiftEvent();
+                if (getRiftStability() < 0.0f && rand.nextInt(1000) < Math.abs(getRiftStability()) + getRiftSize()) {
+                    executeRiftEvent();
                 }
             }
-            if (!this.isDead && this.ticksExisted % 300 == 0) {
-                this.playSound(SoundsTC.evilportal, (float)(0.15000000596046448 + this.rand.nextGaussian() * 0.066), (float)(0.75 + this.rand.nextGaussian() * 0.1));
+            if (!isDead && ticksExisted % 300 == 0) {
+                playSound(SoundsTC.evilportal, (float)(0.15000000596046448 + rand.nextGaussian() * 0.066), (float)(0.75 + rand.nextGaussian() * 0.1));
             }
         }
         else {
-            if (!this.points.isEmpty() && this.points.size() > 2 && !this.getCollapse() && this.getRiftStability() < 0.0f && this.rand.nextInt(150) < Math.abs(this.getRiftStability())) {
-                final int pi = 1 + this.rand.nextInt(this.points.size() - 2);
-                final Vec3d v1 = this.points.get(pi).addVector(this.posX, this.posY, this.posZ);
-                FXDispatcher.INSTANCE.drawCurlyWisp(v1.x, v1.y, v1.z, 0.0, 0.0, 0.0, 0.1f + this.pointsWidth.get(pi) * 3.0f, 1.0f, 1.0f, 1.0f, 0.25f, null, 1, 0, 0);
+            if (!points.isEmpty() && points.size() > 2 && !getCollapse() && getRiftStability() < 0.0f && rand.nextInt(150) < Math.abs(getRiftStability())) {
+                final int pi = 1 + rand.nextInt(points.size() - 2);
+                final Vec3d v1 = points.get(pi).addVector(posX, posY, posZ);
+                FXDispatcher.INSTANCE.drawCurlyWisp(v1.x, v1.y, v1.z, 0.0, 0.0, 0.0, 0.1f + pointsWidth.get(pi) * 3.0f, 1.0f, 1.0f, 1.0f, 0.25f, null, 1, 0, 0);
             }
-            if (!this.points.isEmpty() && this.points.size() > 2 && this.getCollapse()) {
-                final int pi = 1 + this.rand.nextInt(this.points.size() - 2);
-                final Vec3d v1 = this.points.get(pi).addVector(this.posX, this.posY, this.posZ);
-                FXDispatcher.INSTANCE.drawCurlyWisp(v1.x, v1.y, v1.z, 0.0, 0.0, 0.0, 0.1f + this.pointsWidth.get(pi) * 3.0f, 1.0f, 0.3f + this.rand.nextFloat() * 0.1f, 0.3f + this.rand.nextFloat() * 0.1f, 0.4f, null, 1, 0, 0);
+            if (!points.isEmpty() && points.size() > 2 && getCollapse()) {
+                final int pi = 1 + rand.nextInt(points.size() - 2);
+                final Vec3d v1 = points.get(pi).addVector(posX, posY, posZ);
+                FXDispatcher.INSTANCE.drawCurlyWisp(v1.x, v1.y, v1.z, 0.0, 0.0, 0.0, 0.1f + pointsWidth.get(pi) * 3.0f, 1.0f, 0.3f + rand.nextFloat() * 0.1f, 0.3f + rand.nextFloat() * 0.1f, 0.4f, null, 1, 0, 0);
             }
         }
     }
@@ -333,37 +333,37 @@ public class EntityFluxRift extends Entity
         if (ei == null) {
             return;
         }
-        if (!ei.nearTaintAllowed && TaintHelper.isNearTaintSeed(this.world, this.getPosition())) {
+        if (!ei.nearTaintAllowed && TaintHelper.isNearTaintSeed(world, getPosition())) {
             return;
         }
         boolean didit = false;
         switch (ei.event) {
             case 0: {
-                final EntityWisp wisp = new EntityWisp(this.world);
-                wisp.setLocationAndAngles(this.posX + this.rand.nextGaussian() * 5.0, this.posY + this.rand.nextGaussian() * 5.0, this.posZ + this.rand.nextGaussian() * 5.0, 0.0f, 0.0f);
-                if (this.world.rand.nextInt(5) == 0) {
+                final EntityWisp wisp = new EntityWisp(world);
+                wisp.setLocationAndAngles(posX + rand.nextGaussian() * 5.0, posY + rand.nextGaussian() * 5.0, posZ + rand.nextGaussian() * 5.0, 0.0f, 0.0f);
+                if (world.rand.nextInt(5) == 0) {
                     wisp.setType(Aspect.FLUX.getTag());
                 }
-                if (wisp.getCanSpawnHere() && this.world.spawnEntity(wisp)) {
+                if (wisp.getCanSpawnHere() && world.spawnEntity(wisp)) {
                     didit = true;
                     break;
                 }
                 break;
             }
             case 1: {
-                final EntityTaintSeedPrime seed = new EntityTaintSeedPrime(this.world);
-                seed.setLocationAndAngles((int)(this.posX + this.rand.nextGaussian() * 5.0) + 0.5, (int)(this.posY + this.rand.nextGaussian() * 5.0), (int)(this.posZ + this.rand.nextGaussian() * 5.0) + 0.5, (float)this.world.rand.nextInt(360), 0.0f);
-                if (seed.getCanSpawnHere() && this.world.spawnEntity(seed)) {
+                final EntityTaintSeedPrime seed = new EntityTaintSeedPrime(world);
+                seed.setLocationAndAngles((int)(posX + rand.nextGaussian() * 5.0) + 0.5, (int)(posY + rand.nextGaussian() * 5.0), (int)(posZ + rand.nextGaussian() * 5.0) + 0.5, (float) world.rand.nextInt(360), 0.0f);
+                if (seed.getCanSpawnHere() && world.spawnEntity(seed)) {
                     didit = true;
-                    seed.boost = this.getRiftSize();
-                    AuraHelper.polluteAura(this.getEntityWorld(), this.getPosition(), (float)(this.getRiftSize() / 2), true);
-                    this.setDead();
+                    seed.boost = getRiftSize();
+                    AuraHelper.polluteAura(getEntityWorld(), getPosition(), (float)(getRiftSize() / 2), true);
+                    setDead();
                     break;
                 }
                 break;
             }
             case 2: {
-                final List<EntityLivingBase> targets2 = this.world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(16.0, 16.0, 16.0));
+                final List<EntityLivingBase> targets2 = world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(16.0, 16.0, 16.0));
                 if (targets2 != null && targets2.size() > 0) {
                     for (final EntityLivingBase target : targets2) {
                         didit = true;
@@ -382,7 +382,7 @@ public class EntityFluxRift extends Entity
                 break;
             }
             case 3: {
-                final EntityPlayer target2 = this.world.getClosestPlayerToEntity(this, 16.0);
+                final EntityPlayer target2 = world.getClosestPlayerToEntity(this, 16.0);
                 if (target2 != null) {
                     final FocusPackage p = new FocusPackage(target2);
                     final FocusMediumRoot root = new FocusMediumRoot();
@@ -390,8 +390,8 @@ public class EntityFluxRift extends Entity
                     p.addNode(root);
                     final FocusMediumCloud fp = new FocusMediumCloud();
                     fp.initialize();
-                    fp.getSetting("radius").setValue(MathHelper.getInt(this.rand, 1, 3));
-                    fp.getSetting("duration").setValue(MathHelper.getInt(this.rand, Math.min(this.getRiftSize() / 2, 30), Math.min(this.getRiftSize(), 120)));
+                    fp.getSetting("radius").setValue(MathHelper.getInt(rand, 1, 3));
+                    fp.getSetting("duration").setValue(MathHelper.getInt(rand, Math.min(getRiftSize() / 2, 30), Math.min(getRiftSize(), 120)));
                     p.addNode(fp);
                     p.addNode(new FocusEffectFlux());
                     FocusEngine.castFocusPackage(target2, p, true);
@@ -400,12 +400,12 @@ public class EntityFluxRift extends Entity
                 break;
             }
             case 4: {
-                this.setCollapse(true);
+                setCollapse(true);
                 break;
             }
         }
         if (didit) {
-            this.setRiftStability(this.getRiftStability() + ei.cost);
+            setRiftStability(getRiftStability() + ei.cost);
         }
     }
     
@@ -416,8 +416,8 @@ public class EntityFluxRift extends Entity
         Vec3d left = right.scale(-1.0);
         Vec3d lr = new Vec3d(0.0, 0.0, 0.0);
         Vec3d ll = new Vec3d(0.0, 0.0, 0.0);
-        final int steps = MathHelper.ceil(this.getRiftSize() / 3.0f);
-        float girth = this.getRiftSize() / 300.0f;
+        final int steps = MathHelper.ceil(getRiftSize() / 3.0f);
+        float girth = getRiftSize() / 300.0f;
         final double angle = 0.33;
         final float dec = girth / steps;
         for (int a = 0; a < steps; ++a) {
@@ -442,11 +442,11 @@ public class EntityFluxRift extends Entity
     }
     
     public void addStability() {
-        this.setRiftStability(this.getRiftStability() + 0.125f);
+        setRiftStability(getRiftStability() + 0.125f);
     }
     
     public EnumStability getStability() {
-        return (this.getRiftStability() > 50.0f) ? EnumStability.VERY_STABLE : ((this.getRiftStability() >= 0.0f) ? EnumStability.STABLE : ((this.getRiftStability() > -25.0f) ? EnumStability.UNSTABLE : EnumStability.VERY_UNSTABLE));
+        return (getRiftStability() > 50.0f) ? EnumStability.VERY_STABLE : ((getRiftStability() >= 0.0f) ? EnumStability.STABLE : ((getRiftStability() > -25.0f) ? EnumStability.UNSTABLE : EnumStability.VERY_UNSTABLE));
     }
     
     public void setFire(final int seconds) {
@@ -461,16 +461,16 @@ public class EntityFluxRift extends Entity
     }
     
     private void completeCollapse() {
-        final int qq = (int)Math.sqrt(this.maxSize);
-        if (this.rand.nextInt(100) < qq) {
-            this.entityDropItem(new ItemStack(ItemsTC.primordialPearl, 1, 4 + this.rand.nextInt(4)), 0.0f);
+        final int qq = (int)Math.sqrt(maxSize);
+        if (rand.nextInt(100) < qq) {
+            entityDropItem(new ItemStack(ItemsTC.primordialPearl, 1, 4 + rand.nextInt(4)), 0.0f);
         }
         for (int a = 0; a < qq; ++a) {
-            this.entityDropItem(new ItemStack(ItemsTC.voidSeed), 0.0f);
+            entityDropItem(new ItemStack(ItemsTC.voidSeed), 0.0f);
         }
-        PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockBamf(this.posX, this.posY, this.posZ, 0, true, true, null), new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.posX, this.posY, this.posZ, 64.0));
-        final List<EntityLivingBase> list = EntityUtils.getEntitiesInRange(this.world, this.posX, this.posY, this.posZ, this, EntityLivingBase.class, 32.0);
-        switch (this.getStability()) {
+        PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockBamf(posX, posY, posZ, 0, true, true, null), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 64.0));
+        final List<EntityLivingBase> list = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityLivingBase.class, 32.0);
+        switch (getStability()) {
             case VERY_UNSTABLE: {
                 for (final EntityLivingBase p : list) {
                     final int w = (int)((1.0 - p.getDistanceSq(this) / 32.0) * 120.0);
@@ -501,7 +501,7 @@ public class EntityFluxRift extends Entity
                 break;
             }
         }
-        this.setDead();
+        setDead();
     }
     
     static {
@@ -532,7 +532,7 @@ public class EntityFluxRift extends Entity
         
         @Override
         public double getWeight() {
-            return this.weight;
+            return weight;
         }
     }
     

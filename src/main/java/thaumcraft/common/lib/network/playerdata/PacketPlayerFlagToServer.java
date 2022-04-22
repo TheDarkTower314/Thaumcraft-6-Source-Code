@@ -20,15 +20,15 @@ public class PacketPlayerFlagToServer implements IMessage, IMessageHandler<Packe
     }
     
     public PacketPlayerFlagToServer(final EntityLivingBase player, final int i) {
-        this.flag = (byte)i;
+        flag = (byte)i;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeByte(this.flag);
+        buffer.writeByte(flag);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.flag = buffer.readByte();
+        flag = buffer.readByte();
     }
     
     public IMessage onMessage(final PacketPlayerFlagToServer message, final MessageContext ctx) {

@@ -26,9 +26,9 @@ public class BlockTCTile extends BlockTC implements ITileEntityProvider
     
     public BlockTCTile(final Material mat, final Class<? extends TileEntity> tc, final String name) {
         super(mat, name);
-        this.setHardness(2.0f);
-        this.setResistance(20.0f);
-        this.tileClass = tc;
+        setHardness(2.0f);
+        setResistance(20.0f);
+        tileClass = tc;
     }
     
     public boolean canHarvestBlock(final IBlockAccess world, final BlockPos pos, final EntityPlayer player) {
@@ -36,11 +36,11 @@ public class BlockTCTile extends BlockTC implements ITileEntityProvider
     }
     
     public TileEntity createNewTileEntity(final World worldIn, final int meta) {
-        if (this.tileClass == null) {
+        if (tileClass == null) {
             return null;
         }
         try {
-            return this.tileClass.newInstance();
+            return tileClass.newInstance();
         }
         catch (final InstantiationException e) {
             Thaumcraft.log.catching(e);

@@ -15,6 +15,6 @@ public class AINearestAttackableTargetPech extends EntityAINearestAttackableTarg
     }
     
     public boolean shouldExecute() {
-        return (!(this.taskOwner instanceof EntityPech) || ((EntityPech)this.taskOwner).getAnger() != 0) && super.shouldExecute();
+        return (!(taskOwner instanceof EntityPech) || ((EntityPech) taskOwner).getAnger() != 0) && super.shouldExecute();
     }
 }

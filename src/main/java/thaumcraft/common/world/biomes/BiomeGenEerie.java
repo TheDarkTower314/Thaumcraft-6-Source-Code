@@ -21,24 +21,24 @@ public class BiomeGenEerie extends Biome
 {
     public BiomeGenEerie(final Biome.BiomeProperties par1) {
         super(par1);
-        this.setRegistryName("thaumcraft", "eerie");
-        this.spawnableCreatureList.clear();
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityBat.class, 3, 1, 1));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWitch.class, 8, 1, 1));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEnderman.class, 4, 1, 1));
+        setRegistryName("thaumcraft", "eerie");
+        spawnableCreatureList.clear();
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityBat.class, 3, 1, 1));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWitch.class, 8, 1, 1));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEnderman.class, 4, 1, 1));
         if (ModConfig.CONFIG_WORLD.allowSpawnAngryZombie) {
-            this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityBrainyZombie.class, 32, 1, 1));
-            this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityGiantBrainyZombie.class, 8, 1, 1));
+            spawnableMonsterList.add(new Biome.SpawnListEntry(EntityBrainyZombie.class, 32, 1, 1));
+            spawnableMonsterList.add(new Biome.SpawnListEntry(EntityGiantBrainyZombie.class, 8, 1, 1));
         }
         if (ModConfig.CONFIG_WORLD.allowSpawnWisp) {
-            this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWisp.class, 3, 1, 1));
+            spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWisp.class, 3, 1, 1));
         }
         if (ModConfig.CONFIG_WORLD.allowSpawnElder) {
-            this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEldritchGuardian.class, 1, 1, 1));
+            spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEldritchGuardian.class, 1, 1, 1));
         }
-        this.decorator.treesPerChunk = 2;
-        this.decorator.flowersPerChunk = 1;
-        this.decorator.grassPerChunk = 2;
+        decorator.treesPerChunk = 2;
+        decorator.flowersPerChunk = 1;
+        decorator.grassPerChunk = 2;
     }
     
     @SideOnly(Side.CLIENT)

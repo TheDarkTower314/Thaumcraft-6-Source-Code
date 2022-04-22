@@ -42,7 +42,7 @@ public class CardSpellbinding extends TheorycraftCard
             return false;
         }
         final int l = Math.min(5, player.experienceLevel);
-        data.addTotal(this.getResearchCategory(), l * 5);
+        data.addTotal(getResearchCategory(), l * 5);
         player.addExperienceLevel(-l);
         return true;
     }

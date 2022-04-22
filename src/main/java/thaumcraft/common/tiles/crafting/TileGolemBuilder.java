@@ -44,32 +44,32 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     
     public TileGolemBuilder() {
         super(1);
-        this.golem = -1L;
-        this.cost = 0;
-        this.maxCost = 0;
-        this.hasStuff = null;
-        this.bufferedEssentia = false;
-        this.ticks = 0;
-        this.press = 0;
-        this.props = null;
-        this.components = null;
+        golem = -1L;
+        cost = 0;
+        maxCost = 0;
+        hasStuff = null;
+        bufferedEssentia = false;
+        ticks = 0;
+        press = 0;
+        props = null;
+        components = null;
     }
     
     @Override
     public void messageFromClient(final NBTTagCompound nbt, final EntityPlayerMP player) {
         super.messageFromClient(nbt, player);
         if (nbt.hasKey("check")) {
-            this.hasStuff = this.checkCraft(nbt.getLong("golem"));
-            final byte[] ba = new byte[this.hasStuff.length];
+            hasStuff = checkCraft(nbt.getLong("golem"));
+            final byte[] ba = new byte[hasStuff.length];
             for (int a = 0; a < ba.length; ++a) {
-                ba[a] = (byte)(this.hasStuff[a] ? 1 : 0);
+                ba[a] = (byte)(hasStuff[a] ? 1 : 0);
             }
             final NBTTagCompound nbt2 = new NBTTagCompound();
             nbt2.setByteArray("stuff", ba);
-            this.sendMessageToClient(nbt2, player);
+            sendMessageToClient(nbt2, player);
         }
         else if (nbt.hasKey("golem")) {
-            this.startCraft(nbt.getLong("golem"), player);
+            startCraft(nbt.getLong("golem"), player);
         }
     }
     
@@ -77,12 +77,12 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     public void messageFromServer(final NBTTagCompound nbt) {
         super.messageFromServer(nbt);
         if (nbt.hasKey("stuff")) {
-            this.hasStuff = null;
+            hasStuff = null;
             final byte[] ba = nbt.getByteArray("stuff");
             if (ba != null && ba.length > 0) {
-                this.hasStuff = new boolean[ba.length];
+                hasStuff = new boolean[ba.length];
                 for (int a = 0; a < ba.length; ++a) {
-                    this.hasStuff[a] = (ba[a] == 1);
+                    hasStuff[a] = (ba[a] == 1);
                 }
             }
             ContainerGolemBuilder.redo = true;
@@ -92,92 +92,92 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     @Override
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
         super.readSyncNBT(nbttagcompound);
-        this.golem = nbttagcompound.getLong("golem");
-        this.cost = nbttagcompound.getInteger("cost");
-        this.maxCost = nbttagcompound.getInteger("mcost");
-        if (this.golem >= 0L) {
+        golem = nbttagcompound.getLong("golem");
+        cost = nbttagcompound.getInteger("cost");
+        maxCost = nbttagcompound.getInteger("mcost");
+        if (golem >= 0L) {
             try {
-                this.props = GolemProperties.fromLong(this.golem);
-                this.components = this.props.generateComponents();
+                props = GolemProperties.fromLong(golem);
+                components = props.generateComponents();
             }
             catch (final Exception e) {
-                this.props = null;
-                this.components = null;
-                this.cost = 0;
-                this.golem = -1L;
+                props = null;
+                components = null;
+                cost = 0;
+                golem = -1L;
             }
         }
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
-        nbttagcompound.setLong("golem", this.golem);
-        nbttagcompound.setInteger("cost", this.cost);
-        nbttagcompound.setInteger("mcost", this.maxCost);
+        nbttagcompound.setLong("golem", golem);
+        nbttagcompound.setInteger("cost", cost);
+        nbttagcompound.setInteger("mcost", maxCost);
         return super.writeSyncNBT(nbttagcompound);
     }
     
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return new AxisAlignedBB(this.pos.getX() - 1, this.pos.getY(), this.pos.getZ() - 1, this.pos.getX() + 2, this.pos.getY() + 2, this.pos.getZ() + 2);
+        return new AxisAlignedBB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 2, pos.getY() + 2, pos.getZ() + 2);
     }
     
     @Override
     public void update() {
         super.update();
         boolean complete = false;
-        if (!this.world.isRemote) {
-            ++this.ticks;
-            if (this.ticks % 5 == 0 && !complete && this.cost > 0 && this.golem >= 0L) {
-                if (this.bufferedEssentia || this.drawEssentia()) {
-                    this.bufferedEssentia = false;
-                    --this.cost;
-                    this.markDirty();
+        if (!world.isRemote) {
+            ++ticks;
+            if (ticks % 5 == 0 && !complete && cost > 0 && golem >= 0L) {
+                if (bufferedEssentia || drawEssentia()) {
+                    bufferedEssentia = false;
+                    --cost;
+                    markDirty();
                 }
-                if (this.cost <= 0) {
+                if (cost <= 0) {
                     final ItemStack placer = new ItemStack(ItemsTC.golemPlacer);
-                    placer.setTagInfo("props", new NBTTagLong(this.golem));
-                    if (this.getStackInSlot(0).isEmpty() || (this.getStackInSlot(0).getCount() < this.getStackInSlot(0).getMaxStackSize() && this.getStackInSlot(0).isItemEqual(placer) && ItemStack.areItemStackTagsEqual(this.getStackInSlot(0), placer))) {
-                        if (this.getStackInSlot(0) == null || this.getStackInSlot(0).isEmpty()) {
-                            this.setInventorySlotContents(0, placer.copy());
+                    placer.setTagInfo("props", new NBTTagLong(golem));
+                    if (getStackInSlot(0).isEmpty() || (getStackInSlot(0).getCount() < getStackInSlot(0).getMaxStackSize() && getStackInSlot(0).isItemEqual(placer) && ItemStack.areItemStackTagsEqual(getStackInSlot(0), placer))) {
+                        if (getStackInSlot(0) == null || getStackInSlot(0).isEmpty()) {
+                            setInventorySlotContents(0, placer.copy());
                         }
                         else {
-                            this.getStackInSlot(0).grow(1);
+                            getStackInSlot(0).grow(1);
                         }
                         complete = true;
-                        this.world.playSound(null, this.pos, SoundsTC.wand, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                        world.playSound(null, pos, SoundsTC.wand, SoundCategory.BLOCKS, 1.0f, 1.0f);
                     }
                 }
             }
         }
         else {
-            if (this.press < 90 && this.cost > 0 && this.golem > 0L) {
-                this.press += 6;
-                if (this.press >= 60) {
-                    this.world.playSound(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.66f, 1.0f + this.world.rand.nextFloat() * 0.1f, false);
+            if (press < 90 && cost > 0 && golem > 0L) {
+                press += 6;
+                if (press >= 60) {
+                    world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.66f, 1.0f + world.rand.nextFloat() * 0.1f, false);
                     for (int a = 0; a < 16; ++a) {
-                        FXDispatcher.INSTANCE.drawVentParticles(this.pos.getX() + 0.5, this.pos.getY() + 1, this.pos.getZ() + 0.5, this.world.rand.nextGaussian() * 0.1, 0.0, this.world.rand.nextGaussian() * 0.1, 11184810);
+                        FXDispatcher.INSTANCE.drawVentParticles(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, world.rand.nextGaussian() * 0.1, 0.0, world.rand.nextGaussian() * 0.1, 11184810);
                     }
                 }
             }
-            if (this.press >= 90 && this.world.rand.nextInt(8) == 0) {
-                FXDispatcher.INSTANCE.drawVentParticles(this.pos.getX() + 0.5, this.pos.getY() + 1, this.pos.getZ() + 0.5, this.world.rand.nextGaussian() * 0.1, 0.0, this.world.rand.nextGaussian() * 0.1, 11184810);
-                this.world.playSound(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.1f, 1.0f + this.world.rand.nextFloat() * 0.1f, false);
+            if (press >= 90 && world.rand.nextInt(8) == 0) {
+                FXDispatcher.INSTANCE.drawVentParticles(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, world.rand.nextGaussian() * 0.1, 0.0, world.rand.nextGaussian() * 0.1, 11184810);
+                world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.1f, 1.0f + world.rand.nextFloat() * 0.1f, false);
             }
-            if (this.press > 0 && (this.cost <= 0 || this.golem == -1L)) {
-                if (this.press >= 90) {
+            if (press > 0 && (cost <= 0 || golem == -1L)) {
+                if (press >= 90) {
                     for (int a = 0; a < 10; ++a) {
-                        FXDispatcher.INSTANCE.drawVentParticles(this.pos.getX() + 0.5, this.pos.getY() + 1, this.pos.getZ() + 0.5, this.world.rand.nextGaussian() * 0.1, 0.0, this.world.rand.nextGaussian() * 0.1, 11184810);
+                        FXDispatcher.INSTANCE.drawVentParticles(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, world.rand.nextGaussian() * 0.1, 0.0, world.rand.nextGaussian() * 0.1, 11184810);
                     }
                 }
-                this.press -= 3;
+                press -= 3;
             }
         }
         if (complete) {
-            this.cost = 0;
-            this.golem = -1L;
-            this.syncTile(false);
-            this.markDirty();
+            cost = 0;
+            golem = -1L;
+            syncTile(false);
+            markDirty();
         }
     }
     
@@ -187,7 +187,7 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
         final boolean[] ret = new boolean[cc.length];
         int a = 0;
         for (final ItemStack stack : props.generateComponents()) {
-            ret[a] = InventoryUtils.checkAdjacentChests(this.world, this.pos, stack);
+            ret[a] = InventoryUtils.checkAdjacentChests(world, pos, stack);
             ++a;
         }
         return ret;
@@ -196,32 +196,32 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     public boolean startCraft(final long id, final EntityPlayer p) {
         final ItemStack placer = new ItemStack(ItemsTC.golemPlacer);
         placer.setTagInfo("props", new NBTTagLong(id));
-        if (this.getStackInSlot(0) != null && !this.getStackInSlot(0).isEmpty() && (this.getStackInSlot(0).getCount() >= this.getStackInSlot(0).getMaxStackSize() || !this.getStackInSlot(0).isItemEqual(placer) || !ItemStack.areItemStackTagsEqual(this.getStackInSlot(0), placer))) {
-            this.cost = 0;
-            this.props = null;
-            this.components = null;
-            this.golem = -1L;
+        if (getStackInSlot(0) != null && !getStackInSlot(0).isEmpty() && (getStackInSlot(0).getCount() >= getStackInSlot(0).getMaxStackSize() || !getStackInSlot(0).isItemEqual(placer) || !ItemStack.areItemStackTagsEqual(getStackInSlot(0), placer))) {
+            cost = 0;
+            props = null;
+            components = null;
+            golem = -1L;
             return false;
         }
-        this.golem = id;
-        this.props = GolemProperties.fromLong(this.golem);
-        this.components = this.props.generateComponents();
-        if (!InventoryUtils.consumeItemsFromAdjacentInventoryOrPlayer(this.getWorld(), this.getPos(), p, true, this.components)) {
-            this.cost = 0;
-            this.props = null;
-            this.components = null;
-            this.golem = -1L;
+        golem = id;
+        props = GolemProperties.fromLong(golem);
+        components = props.generateComponents();
+        if (!InventoryUtils.consumeItemsFromAdjacentInventoryOrPlayer(getWorld(), getPos(), p, true, components)) {
+            cost = 0;
+            props = null;
+            components = null;
+            golem = -1L;
             return false;
         }
-        this.cost = this.props.getTraits().size() * 2;
-        for (final ItemStack stack : this.components) {
-            this.cost += stack.getCount();
+        cost = props.getTraits().size() * 2;
+        for (final ItemStack stack : components) {
+            cost += stack.getCount();
         }
-        InventoryUtils.consumeItemsFromAdjacentInventoryOrPlayer(this.getWorld(), this.getPos(), p, false, this.components);
-        this.maxCost = this.cost;
-        this.markDirty();
-        this.syncTile(false);
-        this.world.playSound(null, this.pos, SoundsTC.wand, SoundCategory.BLOCKS, 0.25f, 1.0f);
+        InventoryUtils.consumeItemsFromAdjacentInventoryOrPlayer(getWorld(), getPos(), p, false, components);
+        maxCost = cost;
+        markDirty();
+        syncTile(false);
+        world.playSound(null, pos, SoundsTC.wand, SoundCategory.BLOCKS, 0.25f, 1.0f);
         return true;
     }
     
@@ -232,13 +232,13 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     
     boolean drawEssentia() {
         for (final EnumFacing face : EnumFacing.VALUES) {
-            final TileEntity te = ThaumcraftApiHelper.getConnectableTile(this.world, this.getPos(), face);
+            final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), face);
             if (te != null) {
                 final IEssentiaTransport ic = (IEssentiaTransport)te;
                 if (!ic.canOutputTo(face.getOpposite())) {
                     return false;
                 }
-                if (ic.getSuctionAmount(face.getOpposite()) < this.getSuctionAmount(face) && ic.takeEssentia(Aspect.MECHANISM, 1, face.getOpposite()) == 1) {
+                if (ic.getSuctionAmount(face.getOpposite()) < getSuctionAmount(face) && ic.takeEssentia(Aspect.MECHANISM, 1, face.getOpposite()) == 1) {
                     return true;
                 }
             }
@@ -253,7 +253,7 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     
     @Override
     public boolean canInputFrom(final EnumFacing face) {
-        return this.isConnectable(face);
+        return isConnectable(face);
     }
     
     @Override
@@ -277,7 +277,7 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     
     @Override
     public int getSuctionAmount(final EnumFacing face) {
-        return (this.cost > 0 && this.golem >= 0L) ? 128 : 0;
+        return (cost > 0 && golem >= 0L) ? 128 : 0;
     }
     
     @Override
@@ -297,8 +297,8 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     
     @Override
     public int addEssentia(final Aspect aspect, final int amount, final EnumFacing facing) {
-        if (!this.bufferedEssentia && this.cost > 0 && this.golem >= 0L && aspect == Aspect.MECHANISM) {
-            this.bufferedEssentia = true;
+        if (!bufferedEssentia && cost > 0 && golem >= 0L && aspect == Aspect.MECHANISM) {
+            bufferedEssentia = true;
             return 1;
         }
         return 0;

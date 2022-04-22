@@ -37,9 +37,9 @@ public class ItemElementalAxe extends ItemAxe implements IThaumcraftItems
 {
     public ItemElementalAxe(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial, 8.0f, -3.0f);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("elemental_axe");
-        this.setUnlocalizedName("elemental_axe");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("elemental_axe");
+        setUnlocalizedName("elemental_axe");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

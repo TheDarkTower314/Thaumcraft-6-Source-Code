@@ -31,17 +31,17 @@ public class TileGolemBuilderRenderer extends TileEntitySpecialRenderer
     EntityItem entityitem;
     
     public TileGolemBuilderRenderer() {
-        this.entityitem = null;
-        this.model = AdvancedModelLoader.loadModel(TileGolemBuilderRenderer.TM);
+        entityitem = null;
+        model = AdvancedModelLoader.loadModel(TileGolemBuilderRenderer.TM);
     }
     
     public void renderTileEntityAt(final TileGolemBuilder tile, final double par2, final double par4, final double par6, final float pt, final int destroyStage) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float)par2 + 0.5f, (float)par4, (float)par6 + 0.5f);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.bindTexture(TileGolemBuilderRenderer.TEX);
+        bindTexture(TileGolemBuilderRenderer.TEX);
         if (destroyStage >= 0) {
-            this.bindTexture(TileGolemBuilderRenderer.DESTROY_STAGES[destroyStage]);
+            bindTexture(TileGolemBuilderRenderer.DESTROY_STAGES[destroyStage]);
             GlStateManager.matrixMode(5890);
             GlStateManager.pushMatrix();
             GlStateManager.scale(5.0f, 5.0f, 2.0f);
@@ -71,12 +71,12 @@ public class TileGolemBuilderRenderer extends TileEntitySpecialRenderer
                 }
             }
         }
-        this.model.renderAllExcept("press");
+        model.renderAllExcept("press");
         GL11.glPushMatrix();
         final float h = (float)tile.press;
         final double s = Math.sin(Math.toRadians(h)) * 0.625;
         GL11.glTranslated(0.0, -s, 0.0);
-        this.model.renderPart("press");
+        model.renderPart("press");
         GL11.glPopMatrix();
         if (destroyStage >= 0) {
             GlStateManager.matrixMode(5890);
@@ -98,7 +98,7 @@ public class TileGolemBuilderRenderer extends TileEntitySpecialRenderer
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderTileEntityAt((TileGolemBuilder)te, x, y, z, partialTicks, destroyStage);
+        renderTileEntityAt((TileGolemBuilder)te, x, y, z, partialTicks, destroyStage);
     }
     
     static {

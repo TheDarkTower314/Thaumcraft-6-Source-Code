@@ -43,14 +43,14 @@ public class ThaumcraftWorldGenerator implements IWorldGenerator
     private final Predicate<IBlockState> predicate;
     
     public ThaumcraftWorldGenerator() {
-        this.predicate = BlockMatcher.forBlock(Blocks.STONE);
+        predicate = BlockMatcher.forBlock(Blocks.STONE);
     }
     
     public void initialize() {
     }
     
     public void generate(final Random random, final int chunkX, final int chunkZ, final World world, final IChunkGenerator chunkGenerator, final IChunkProvider chunkProvider) {
-        this.worldGeneration(random, chunkX, chunkZ, world, true);
+        worldGeneration(random, chunkX, chunkZ, world, true);
         AuraHandler.generateAura(chunkProvider.provideChunk(chunkX, chunkZ), random);
     }
     
@@ -59,12 +59,12 @@ public class ThaumcraftWorldGenerator implements IWorldGenerator
             world.getChunkFromChunkCoords(chunkX, chunkZ).markDirty();
         }
         else {
-            this.generateAll(world, random, chunkX, chunkZ, newGen);
+            generateAll(world, random, chunkX, chunkZ, newGen);
             if (world.provider.getDimension() == -1) {
-                this.generateNether(world, random, chunkX, chunkZ, newGen);
+                generateNether(world, random, chunkX, chunkZ, newGen);
             }
             else if (world.provider.getDimension() == ModConfig.CONFIG_WORLD.overworldDim) {
-                this.generateSurface(world, random, chunkX, chunkZ, newGen);
+                generateSurface(world, random, chunkX, chunkZ, newGen);
             }
             if (!newGen) {
                 world.getChunkFromChunkCoords(chunkX, chunkZ).markDirty();
@@ -142,7 +142,7 @@ public class ThaumcraftWorldGenerator implements IWorldGenerator
                 final int randPosZ = chunkZ * 16 + 8 + MathHelper.getInt(random, -6, 6);
                 final BlockPos pos = new BlockPos(randPosX, randPosY, randPosZ);
                 final IBlockState block = world.getBlockState(pos);
-                if (block.getBlock().isReplaceableOreGen(block, world, pos, this.predicate)) {
+                if (block.getBlock().isReplaceableOreGen(block, world, pos, predicate)) {
                     world.setBlockState(pos, BlocksTC.oreCinnabar.getDefaultState(), 2);
                 }
             }
@@ -154,7 +154,7 @@ public class ThaumcraftWorldGenerator implements IWorldGenerator
                 final int randPosZ = chunkZ * 16 + 8 + MathHelper.getInt(random, -6, 6);
                 final BlockPos pos = new BlockPos(randPosX, randPosY, randPosZ);
                 final IBlockState block = world.getBlockState(pos);
-                if (block.getBlock().isReplaceableOreGen(block, world, pos, this.predicate)) {
+                if (block.getBlock().isReplaceableOreGen(block, world, pos, predicate)) {
                     world.setBlockState(pos, BlocksTC.oreQuartz.getDefaultState(), 2);
                 }
             }
@@ -166,7 +166,7 @@ public class ThaumcraftWorldGenerator implements IWorldGenerator
                 final int randPosY2 = world.getHeight(new BlockPos(randPosX, 0, randPosZ2)).getY() - random.nextInt(25);
                 final BlockPos pos = new BlockPos(randPosX, randPosY2, randPosZ2);
                 final IBlockState block = world.getBlockState(pos);
-                if (block.getBlock().isReplaceableOreGen(block, world, pos, this.predicate)) {
+                if (block.getBlock().isReplaceableOreGen(block, world, pos, predicate)) {
                     world.setBlockState(pos, BlocksTC.oreAmber.getDefaultState(), 2);
                 }
             }
@@ -220,10 +220,10 @@ public class ThaumcraftWorldGenerator implements IWorldGenerator
         final boolean auraGen = false;
         final int blacklist = BiomeHandler.getDimBlacklist(world.provider.getDimension());
         if (blacklist == -1 && ModConfig.CONFIG_WORLD.generateTrees && !world.getWorldInfo().getTerrainType().getName().startsWith("flat") && (newGen || ModConfig.CONFIG_WORLD.regenTrees)) {
-            this.generateVegetation(world, random, chunkX, chunkZ, newGen);
+            generateVegetation(world, random, chunkX, chunkZ, newGen);
         }
         if (blacklist != 0 && blacklist != 2) {
-            this.generateOres(world, random, chunkX, chunkZ, newGen);
+            generateOres(world, random, chunkX, chunkZ, newGen);
         }
     }
     

@@ -31,13 +31,13 @@ public class PacketFXShield implements IMessage, IMessageHandler<PacketFXShield,
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.source);
-        buffer.writeInt(this.target);
+        buffer.writeInt(source);
+        buffer.writeInt(target);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.source = buffer.readInt();
-        this.target = buffer.readInt();
+        source = buffer.readInt();
+        target = buffer.readInt();
     }
     
     @SideOnly(Side.CLIENT)

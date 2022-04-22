@@ -44,11 +44,11 @@ public class FocusMediumBolt extends FocusMediumTouch
     public boolean execute(final Trajectory trajectory) {
         final float range = 16.0f;
         Vec3d end = trajectory.direction.normalize();
-        RayTraceResult ray = EntityUtils.getPointedEntityRay(this.getPackage().world, this.getPackage().getCaster(), trajectory.source, end, 0.25, range, 0.25f, false);
+        RayTraceResult ray = EntityUtils.getPointedEntityRay(getPackage().world, getPackage().getCaster(), trajectory.source, end, 0.25, range, 0.25f, false);
         if (ray == null) {
             end = end.scale(range);
             end = end.add(trajectory.source);
-            ray = this.getPackage().world.rayTraceBlocks(trajectory.source, end);
+            ray = getPackage().world.rayTraceBlocks(trajectory.source, end);
             if (ray != null) {
                 end = ray.hitVec;
             }
@@ -60,17 +60,17 @@ public class FocusMediumBolt extends FocusMediumTouch
         int r = 0;
         int g = 0;
         int b = 0;
-        for (final FocusEffect ef : this.getPackage().getFocusEffects()) {
+        for (final FocusEffect ef : getPackage().getFocusEffects()) {
             final Color c = new Color(FocusEngine.getElementColor(ef.getKey()));
             r += c.getRed();
             g += c.getGreen();
             b += c.getBlue();
         }
-        r /= this.getPackage().getFocusEffects().length;
-        g /= this.getPackage().getFocusEffects().length;
-        b /= this.getPackage().getFocusEffects().length;
+        r /= getPackage().getFocusEffects().length;
+        g /= getPackage().getFocusEffects().length;
+        b /= getPackage().getFocusEffects().length;
         final Color c2 = new Color(r, g, b);
-        PacketHandler.INSTANCE.sendToAllAround(new PacketFXZap(trajectory.source, end, c2.getRGB(), this.getPackage().getPower() * 0.66f), new NetworkRegistry.TargetPoint(this.getPackage().world.provider.getDimension(), trajectory.source.x, trajectory.source.y, trajectory.source.z, 64.0));
+        PacketHandler.INSTANCE.sendToAllAround(new PacketFXZap(trajectory.source, end, c2.getRGB(), getPackage().getPower() * 0.66f), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), trajectory.source.x, trajectory.source.y, trajectory.source.z, 64.0));
         return true;
     }
 }

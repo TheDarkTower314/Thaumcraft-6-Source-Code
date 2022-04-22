@@ -23,6 +23,6 @@ public abstract class ITransformation<Vector, Transformation extends ITransforma
     public abstract Transformation inverse();
     
     public Transformation $plus$plus(final Transformation t) {
-        return this.with(t);
+        return with(t);
     }
 }

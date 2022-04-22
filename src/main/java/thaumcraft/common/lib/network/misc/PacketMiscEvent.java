@@ -26,11 +26,11 @@ public class PacketMiscEvent implements IMessage, IMessageHandler<PacketMiscEven
     public static final byte MIST_EVENT_SHORT = 2;
     
     public PacketMiscEvent() {
-        this.value = 0;
+        value = 0;
     }
     
     public PacketMiscEvent(final byte type) {
-        this.value = 0;
+        value = 0;
         this.type = type;
     }
     
@@ -41,16 +41,16 @@ public class PacketMiscEvent implements IMessage, IMessageHandler<PacketMiscEven
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeByte(this.type);
-        if (this.value != 0) {
-            buffer.writeInt(this.value);
+        buffer.writeByte(type);
+        if (value != 0) {
+            buffer.writeInt(value);
         }
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.type = buffer.readByte();
+        type = buffer.readByte();
         if (buffer.isReadable()) {
-            this.value = buffer.readInt();
+            value = buffer.readInt();
         }
     }
     
@@ -59,7 +59,7 @@ public class PacketMiscEvent implements IMessage, IMessageHandler<PacketMiscEven
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                PacketMiscEvent.this.processMessage(message);
+                processMessage(message);
             }
         });
         return null;

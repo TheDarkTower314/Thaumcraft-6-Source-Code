@@ -17,50 +17,50 @@ public class ModelCentrifuge extends ModelBase
     ModelRenderer Bottom;
     
     public ModelCentrifuge() {
-        this.textureWidth = 64;
-        this.textureHeight = 32;
-        (this.Crossbar = new ModelRenderer(this, 16, 0)).addBox(-4.0f, -1.0f, -1.0f, 8, 2, 2);
-        this.Crossbar.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.Crossbar.setTextureSize(64, 32);
-        this.Crossbar.mirror = true;
-        this.setRotation(this.Crossbar, 0.0f, 0.0f, 0.0f);
-        (this.Dingus1 = new ModelRenderer(this, 0, 16)).addBox(4.0f, -3.0f, -2.0f, 4, 6, 4);
-        this.Dingus1.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.Dingus1.setTextureSize(64, 32);
-        this.Dingus1.mirror = true;
-        this.setRotation(this.Dingus1, 0.0f, 0.0f, 0.0f);
-        (this.Dingus2 = new ModelRenderer(this, 0, 16)).addBox(-8.0f, -3.0f, -2.0f, 4, 6, 4);
-        this.Dingus2.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.Dingus2.setTextureSize(64, 32);
-        this.Dingus2.mirror = true;
-        this.setRotation(this.Dingus2, 0.0f, 0.0f, 0.0f);
-        (this.Core = new ModelRenderer(this, 0, 0)).addBox(-1.5f, -4.0f, -1.5f, 3, 8, 3);
-        this.Core.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.Core.setTextureSize(64, 32);
-        this.Core.mirror = true;
-        this.setRotation(this.Core, 0.0f, 0.0f, 0.0f);
-        (this.Top = new ModelRenderer(this, 20, 16)).addBox(-4.0f, -8.0f, -4.0f, 8, 4, 8);
-        this.Top.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.Top.setTextureSize(64, 32);
-        this.Top.mirror = true;
-        this.setRotation(this.Top, 0.0f, 0.0f, 0.0f);
-        (this.Bottom = new ModelRenderer(this, 20, 16)).addBox(-4.0f, 4.0f, -4.0f, 8, 4, 8);
-        this.Bottom.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.Bottom.setTextureSize(64, 32);
-        this.Bottom.mirror = true;
-        this.setRotation(this.Bottom, 0.0f, 0.0f, 0.0f);
+        textureWidth = 64;
+        textureHeight = 32;
+        (Crossbar = new ModelRenderer(this, 16, 0)).addBox(-4.0f, -1.0f, -1.0f, 8, 2, 2);
+        Crossbar.setRotationPoint(0.0f, 0.0f, 0.0f);
+        Crossbar.setTextureSize(64, 32);
+        Crossbar.mirror = true;
+        setRotation(Crossbar, 0.0f, 0.0f, 0.0f);
+        (Dingus1 = new ModelRenderer(this, 0, 16)).addBox(4.0f, -3.0f, -2.0f, 4, 6, 4);
+        Dingus1.setRotationPoint(0.0f, 0.0f, 0.0f);
+        Dingus1.setTextureSize(64, 32);
+        Dingus1.mirror = true;
+        setRotation(Dingus1, 0.0f, 0.0f, 0.0f);
+        (Dingus2 = new ModelRenderer(this, 0, 16)).addBox(-8.0f, -3.0f, -2.0f, 4, 6, 4);
+        Dingus2.setRotationPoint(0.0f, 0.0f, 0.0f);
+        Dingus2.setTextureSize(64, 32);
+        Dingus2.mirror = true;
+        setRotation(Dingus2, 0.0f, 0.0f, 0.0f);
+        (Core = new ModelRenderer(this, 0, 0)).addBox(-1.5f, -4.0f, -1.5f, 3, 8, 3);
+        Core.setRotationPoint(0.0f, 0.0f, 0.0f);
+        Core.setTextureSize(64, 32);
+        Core.mirror = true;
+        setRotation(Core, 0.0f, 0.0f, 0.0f);
+        (Top = new ModelRenderer(this, 20, 16)).addBox(-4.0f, -8.0f, -4.0f, 8, 4, 8);
+        Top.setRotationPoint(0.0f, 0.0f, 0.0f);
+        Top.setTextureSize(64, 32);
+        Top.mirror = true;
+        setRotation(Top, 0.0f, 0.0f, 0.0f);
+        (Bottom = new ModelRenderer(this, 20, 16)).addBox(-4.0f, 4.0f, -4.0f, 8, 4, 8);
+        Bottom.setRotationPoint(0.0f, 0.0f, 0.0f);
+        Bottom.setTextureSize(64, 32);
+        Bottom.mirror = true;
+        setRotation(Bottom, 0.0f, 0.0f, 0.0f);
     }
     
     public void renderBoxes() {
-        this.Top.render(0.0625f);
-        this.Bottom.render(0.0625f);
+        Top.render(0.0625f);
+        Bottom.render(0.0625f);
     }
     
     public void renderSpinnyBit() {
-        this.Crossbar.render(0.0625f);
-        this.Dingus1.render(0.0625f);
-        this.Dingus2.render(0.0625f);
-        this.Core.render(0.0625f);
+        Crossbar.render(0.0625f);
+        Dingus1.render(0.0625f);
+        Dingus2.render(0.0625f);
+        Core.render(0.0625f);
     }
     
     private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {

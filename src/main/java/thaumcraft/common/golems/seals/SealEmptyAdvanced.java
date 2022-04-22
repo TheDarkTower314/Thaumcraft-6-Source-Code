@@ -17,7 +17,7 @@ public class SealEmptyAdvanced extends SealEmpty implements ISealConfigToggles
     ResourceLocation icon;
     
     public SealEmptyAdvanced() {
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_empty_advanced");
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_empty_advanced");
     }
     
     @Override
@@ -32,12 +32,12 @@ public class SealEmptyAdvanced extends SealEmpty implements ISealConfigToggles
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override
     public NonNullList<ItemStack> getInv(final int c) {
-        if (this.getToggles()[4].value && !this.isBlacklist()) {
+        if (getToggles()[4].value && !isBlacklist()) {
             final ArrayList<ItemStack> w = new ArrayList<ItemStack>();
             for (final ItemStack s : super.getInv()) {
                 if (s != null && !s.isEmpty()) {
@@ -59,7 +59,7 @@ public class SealEmptyAdvanced extends SealEmpty implements ISealConfigToggles
     
     @Override
     public SealToggle[] getToggles() {
-        return this.props;
+        return props;
     }
     
     @Override
@@ -69,7 +69,7 @@ public class SealEmptyAdvanced extends SealEmpty implements ISealConfigToggles
     
     @Override
     public void setToggle(final int indx, final boolean value) {
-        this.props[indx].setValue(value);
+        props[indx].setValue(value);
     }
     
     @Override

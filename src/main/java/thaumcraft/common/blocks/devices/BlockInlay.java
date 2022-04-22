@@ -52,9 +52,9 @@ public class BlockInlay extends BlockTC implements IInfusionStabiliserExt
     
     public BlockInlay() {
         super(Material.IRON, "inlay");
-        this.setSoundType(SoundType.METAL);
-        this.setHardness(0.5f);
-        this.setDefaultState(this.blockState.getBaseState().withProperty((IProperty)BlockInlay.NORTH, (Comparable)EnumAttachPosition.NONE).withProperty((IProperty)BlockInlay.EAST, (Comparable)EnumAttachPosition.NONE).withProperty((IProperty)BlockInlay.SOUTH, (Comparable)EnumAttachPosition.NONE).withProperty((IProperty)BlockInlay.WEST, (Comparable)EnumAttachPosition.NONE).withProperty((IProperty)BlockInlay.CHARGE, (Comparable)0));
+        setSoundType(SoundType.METAL);
+        setHardness(0.5f);
+        setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockInlay.NORTH, (Comparable)EnumAttachPosition.NONE).withProperty((IProperty)BlockInlay.EAST, (Comparable)EnumAttachPosition.NONE).withProperty((IProperty)BlockInlay.SOUTH, (Comparable)EnumAttachPosition.NONE).withProperty((IProperty)BlockInlay.WEST, (Comparable)EnumAttachPosition.NONE).withProperty((IProperty)BlockInlay.CHARGE, (Comparable)0));
     }
     
     public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
@@ -83,10 +83,10 @@ public class BlockInlay extends BlockTC implements IInfusionStabiliserExt
     }
     
     public IBlockState getActualState(IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
-        state = state.withProperty((IProperty)BlockInlay.WEST, (Comparable)this.getAttachPosition(worldIn, pos, EnumFacing.WEST));
-        state = state.withProperty((IProperty)BlockInlay.EAST, (Comparable)this.getAttachPosition(worldIn, pos, EnumFacing.EAST));
-        state = state.withProperty((IProperty)BlockInlay.NORTH, (Comparable)this.getAttachPosition(worldIn, pos, EnumFacing.NORTH));
-        state = state.withProperty((IProperty)BlockInlay.SOUTH, (Comparable)this.getAttachPosition(worldIn, pos, EnumFacing.SOUTH));
+        state = state.withProperty((IProperty)BlockInlay.WEST, (Comparable) getAttachPosition(worldIn, pos, EnumFacing.WEST));
+        state = state.withProperty((IProperty)BlockInlay.EAST, (Comparable) getAttachPosition(worldIn, pos, EnumFacing.EAST));
+        state = state.withProperty((IProperty)BlockInlay.NORTH, (Comparable) getAttachPosition(worldIn, pos, EnumFacing.NORTH));
+        state = state.withProperty((IProperty)BlockInlay.SOUTH, (Comparable) getAttachPosition(worldIn, pos, EnumFacing.SOUTH));
         return state;
     }
     
@@ -139,7 +139,7 @@ public class BlockInlay extends BlockTC implements IInfusionStabiliserExt
     }
     
     public IBlockState getStateFromMeta(final int meta) {
-        return this.getDefaultState().withProperty((IProperty)BlockInlay.CHARGE, (Comparable)meta);
+        return getDefaultState().withProperty((IProperty)BlockInlay.CHARGE, (Comparable)meta);
     }
     
     public int getMetaFromState(final IBlockState state) {
@@ -190,7 +190,7 @@ public class BlockInlay extends BlockTC implements IInfusionStabiliserExt
         final int charge = (int)stateIn.getValue((IProperty)BlockInlay.CHARGE);
         if (charge > 0 && rand.nextInt(20 - charge) == 0) {
             final EnumFacing face = EnumFacing.HORIZONTALS[rand.nextInt(EnumFacing.HORIZONTALS.length)];
-            if (this.getAttachPosition(worldIn, pos, face) != EnumAttachPosition.NONE) {
+            if (getAttachPosition(worldIn, pos, face) != EnumAttachPosition.NONE) {
                 final double d0 = pos.getX() + 0.5 + rand.nextGaussian() * 0.08;
                 final double d2 = pos.getY() + 0.025f;
                 final double d3 = pos.getZ() + 0.5 + rand.nextGaussian() * 0.08;
@@ -347,11 +347,11 @@ public class BlockInlay extends BlockTC implements IInfusionStabiliserExt
     
     public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos fromPos) {
         if (!worldIn.isRemote) {
-            if (this.canPlaceBlockAt(worldIn, pos)) {
+            if (canPlaceBlockAt(worldIn, pos)) {
                 updateSurroundingInlay(worldIn, pos, state);
             }
             else {
-                this.dropBlockAsItem(worldIn, pos, state, 0);
+                dropBlockAsItem(worldIn, pos, state, 0);
                 worldIn.setBlockToAir(pos);
             }
         }
@@ -389,11 +389,11 @@ public class BlockInlay extends BlockTC implements IInfusionStabiliserExt
         
         @Override
         public String toString() {
-            return this.getName();
+            return getName();
         }
         
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 }

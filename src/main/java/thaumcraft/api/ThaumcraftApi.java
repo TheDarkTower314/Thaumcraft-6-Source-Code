@@ -127,7 +127,7 @@ public class ThaumcraftApi {
 		public BluePrint(String research, ItemStack display, Part[][][] parts, ItemStack... ingredientList) {
 			this.parts = parts;
 			this.research = research;
-			this.displayStack = display;
+			displayStack = display;
 			this.ingredientList = ingredientList;
 		}
 		

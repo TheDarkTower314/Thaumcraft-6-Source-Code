@@ -24,7 +24,7 @@ public class EntityEldritchOrb extends EntityThrowable
     
     public EntityEldritchOrb(final World par1World, final EntityLivingBase p) {
         super(par1World, p);
-        this.shoot(p, p.rotationPitch, p.rotationYaw, -5.0f, 0.75f, 0.0f);
+        shoot(p, p.rotationPitch, p.rotationYaw, -5.0f, 0.75f, 0.0f);
     }
     
     protected float getGravityVelocity() {
@@ -33,26 +33,26 @@ public class EntityEldritchOrb extends EntityThrowable
     
     public void onUpdate() {
         super.onUpdate();
-        if (this.ticksExisted > 100) {
-            this.setDead();
+        if (ticksExisted > 100) {
+            setDead();
         }
     }
     
     protected void onImpact(final RayTraceResult mop) {
-        if (!this.world.isRemote && this.getThrower() != null) {
-            final List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this.getThrower(), this.getEntityBoundingBox().grow(2.0, 2.0, 2.0));
+        if (!world.isRemote && getThrower() != null) {
+            final List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(getThrower(), getEntityBoundingBox().grow(2.0, 2.0, 2.0));
             for (int i = 0; i < list.size(); ++i) {
                 final Entity entity1 = list.get(i);
                 if (entity1 != null && entity1 instanceof EntityLivingBase && !((EntityLivingBase)entity1).isEntityUndead()) {
-                    entity1.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), (float)this.getThrower().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * 0.666f);
+                    entity1.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, getThrower()), (float) getThrower().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * 0.666f);
                     try {
                         ((EntityLivingBase)entity1).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 160, 0));
                     }
                     catch (final Exception ex) {}
                 }
             }
-            this.playSound(SoundEvents.BLOCK_LAVA_EXTINGUISH, 0.5f, 2.6f + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.8f);
-            this.setDead();
+            playSound(SoundEvents.BLOCK_LAVA_EXTINGUISH, 0.5f, 2.6f + (rand.nextFloat() - rand.nextFloat()) * 0.8f);
+            setDead();
         }
     }
 }

@@ -54,45 +54,45 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     
     public EntitySpellBat(final World world) {
         super(world);
-        this.owner = null;
-        this.damBonus = 0;
-        this.effects = null;
-        this.color = 16777215;
-        this.setSize(0.5f, 0.9f);
+        owner = null;
+        damBonus = 0;
+        effects = null;
+        color = 16777215;
+        setSize(0.5f, 0.9f);
     }
     
     public EntitySpellBat(final FocusPackage pac, final boolean friendly) {
         super(pac.world);
-        this.owner = null;
-        this.damBonus = 0;
-        this.effects = null;
-        this.color = 16777215;
-        this.setSize(0.5f, 0.9f);
-        this.focusPackage = pac;
-        this.setOwner(pac.getCaster());
-        this.setIsFriendly(friendly);
+        owner = null;
+        damBonus = 0;
+        effects = null;
+        color = 16777215;
+        setSize(0.5f, 0.9f);
+        focusPackage = pac;
+        setOwner(pac.getCaster());
+        setIsFriendly(friendly);
     }
     
     public void entityInit() {
         super.entityInit();
-        this.getDataManager().register(EntitySpellBat.FRIENDLY, false);
+        getDataManager().register(EntitySpellBat.FRIENDLY, false);
     }
     
     public boolean getIsFriendly() {
-        return (boolean)this.getDataManager().get((DataParameter)EntitySpellBat.FRIENDLY);
+        return (boolean) getDataManager().get((DataParameter)EntitySpellBat.FRIENDLY);
     }
     
     public void setIsFriendly(final boolean par1) {
-        this.getDataManager().set(EntitySpellBat.FRIENDLY, par1);
+        getDataManager().set(EntitySpellBat.FRIENDLY, par1);
     }
     
     public void writeSpawnData(final ByteBuf data) {
-        Utils.writeNBTTagCompoundToBuffer(data, this.focusPackage.serialize());
+        Utils.writeNBTTagCompoundToBuffer(data, focusPackage.serialize());
     }
     
     public void readSpawnData(final ByteBuf data) {
         try {
-            (this.focusPackage = new FocusPackage()).deserialize(Utils.readNBTTagCompoundFromBuffer(data));
+            (focusPackage = new FocusPackage()).deserialize(Utils.readNBTTagCompoundFromBuffer(data));
         }
         catch (final Exception e) {
             e.printStackTrace();
@@ -100,19 +100,19 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     }
     
     public void setOwner(@Nullable final EntityLivingBase ownerIn) {
-        this.owner = ownerIn;
-        this.ownerUniqueId = ((ownerIn == null) ? null : ownerIn.getUniqueID());
+        owner = ownerIn;
+        ownerUniqueId = ((ownerIn == null) ? null : ownerIn.getUniqueID());
     }
     
     @Nullable
     public EntityLivingBase getOwner() {
-        if (this.owner == null && this.ownerUniqueId != null && this.world instanceof WorldServer) {
-            final Entity entity = ((WorldServer)this.world).getEntityFromUuid(this.ownerUniqueId);
+        if (owner == null && ownerUniqueId != null && world instanceof WorldServer) {
+            final Entity entity = ((WorldServer) world).getEntityFromUuid(ownerUniqueId);
             if (entity instanceof EntityLivingBase) {
-                this.owner = (EntityLivingBase)entity;
+                owner = (EntityLivingBase)entity;
             }
         }
-        return this.owner;
+        return owner;
     }
     
     @SideOnly(Side.CLIENT)
@@ -150,12 +150,12 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(5.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(5.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0);
     }
     
     public Team getTeam() {
-        final EntityLivingBase entitylivingbase = this.getOwner();
+        final EntityLivingBase entitylivingbase = getOwner();
         if (entitylivingbase != null) {
             return entitylivingbase.getTeam();
         }
@@ -163,7 +163,7 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     }
     
     public boolean isOnSameTeam(final Entity otherEntity) {
-        final EntityLivingBase owner = this.getOwner();
+        final EntityLivingBase owner = getOwner();
         if (otherEntity == owner) {
             return true;
         }
@@ -175,86 +175,86 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     
     public void onUpdate() {
         super.onUpdate();
-        if (!this.world.isRemote && (this.ticksExisted > 600 || this.getOwner() == null)) {
-            this.setDead();
+        if (!world.isRemote && (ticksExisted > 600 || getOwner() == null)) {
+            setDead();
         }
-        this.motionY *= 0.6000000238418579;
-        if (this.isEntityAlive() && this.world.isRemote) {
-            if (this.effects == null) {
-                this.effects = this.focusPackage.getFocusEffects();
+        motionY *= 0.6000000238418579;
+        if (isEntityAlive() && world.isRemote) {
+            if (effects == null) {
+                effects = focusPackage.getFocusEffects();
                 int r = 0;
                 int g = 0;
                 int b = 0;
-                for (final FocusEffect ef : this.effects) {
+                for (final FocusEffect ef : effects) {
                     final Color c = new Color(FocusEngine.getElementColor(ef.getKey()));
                     r += c.getRed();
                     g += c.getGreen();
                     b += c.getBlue();
                 }
-                r /= this.effects.length;
-                g /= this.effects.length;
-                b /= this.effects.length;
+                r /= effects.length;
+                g /= effects.length;
+                b /= effects.length;
                 final Color c2 = new Color(r, g, b);
-                this.color = c2.getRGB();
+                color = c2.getRGB();
             }
-            if (this.effects != null && this.effects.length > 0) {
-                final FocusEffect eff = this.effects[this.rand.nextInt(this.effects.length)];
-                eff.renderParticleFX(this.world, this.posX + this.world.rand.nextGaussian() * 0.125, this.posY + this.height / 2.0f + this.world.rand.nextGaussian() * 0.125, this.posZ + this.world.rand.nextGaussian() * 0.125, 0.0, 0.0, 0.0);
+            if (effects != null && effects.length > 0) {
+                final FocusEffect eff = effects[rand.nextInt(effects.length)];
+                eff.renderParticleFX(world, posX + world.rand.nextGaussian() * 0.125, posY + height / 2.0f + world.rand.nextGaussian() * 0.125, posZ + world.rand.nextGaussian() * 0.125, 0.0, 0.0, 0.0);
             }
         }
     }
     
     protected void updateAITasks() {
         super.updateAITasks();
-        if (this.attackTime > 0) {
-            --this.attackTime;
+        if (attackTime > 0) {
+            --attackTime;
         }
         final BlockPos blockpos = new BlockPos(this);
         final BlockPos blockpos2 = blockpos.up();
-        if (this.getAttackTarget() == null) {
-            if (this.currentFlightTarget != null && (!this.world.isAirBlock(this.currentFlightTarget) || this.currentFlightTarget.getY() < 1)) {
-                this.currentFlightTarget = null;
+        if (getAttackTarget() == null) {
+            if (currentFlightTarget != null && (!world.isAirBlock(currentFlightTarget) || currentFlightTarget.getY() < 1)) {
+                currentFlightTarget = null;
             }
-            if (this.currentFlightTarget == null || this.rand.nextInt(30) == 0 || this.getDistanceSqToCenter(this.currentFlightTarget) < 4.0) {
-                this.currentFlightTarget = new BlockPos((int)this.posX + this.rand.nextInt(7) - this.rand.nextInt(7), (int)this.posY + this.rand.nextInt(6) - 2, (int)this.posZ + this.rand.nextInt(7) - this.rand.nextInt(7));
+            if (currentFlightTarget == null || rand.nextInt(30) == 0 || getDistanceSqToCenter(currentFlightTarget) < 4.0) {
+                currentFlightTarget = new BlockPos((int) posX + rand.nextInt(7) - rand.nextInt(7), (int) posY + rand.nextInt(6) - 2, (int) posZ + rand.nextInt(7) - rand.nextInt(7));
             }
-            final double var1 = this.currentFlightTarget.getX() + 0.5 - this.posX;
-            final double var2 = this.currentFlightTarget.getY() + 0.1 - this.posY;
-            final double var3 = this.currentFlightTarget.getZ() + 0.5 - this.posZ;
-            this.motionX += (Math.signum(var1) * 0.5 - this.motionX) * 0.10000000149011612;
-            this.motionY += (Math.signum(var2) * 0.699999988079071 - this.motionY) * 0.10000000149011612;
-            this.motionZ += (Math.signum(var3) * 0.5 - this.motionZ) * 0.10000000149011612;
-            final float var4 = (float)(Math.atan2(this.motionZ, this.motionX) * 180.0 / 3.141592653589793) - 90.0f;
-            final float var5 = MathHelper.wrapDegrees(var4 - this.rotationYaw);
-            this.moveForward = 0.5f;
-            this.rotationYaw += var5;
+            final double var1 = currentFlightTarget.getX() + 0.5 - posX;
+            final double var2 = currentFlightTarget.getY() + 0.1 - posY;
+            final double var3 = currentFlightTarget.getZ() + 0.5 - posZ;
+            motionX += (Math.signum(var1) * 0.5 - motionX) * 0.10000000149011612;
+            motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
+            motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.10000000149011612;
+            final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+            final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+            moveForward = 0.5f;
+            rotationYaw += var5;
         }
         else {
-            final double var1 = this.getAttackTarget().posX - this.posX;
-            final double var2 = this.getAttackTarget().posY + this.getAttackTarget().getEyeHeight() * 0.66f - this.posY;
-            final double var3 = this.getAttackTarget().posZ - this.posZ;
-            this.motionX += (Math.signum(var1) * 0.5 - this.motionX) * 0.10000000149011612;
-            this.motionY += (Math.signum(var2) * 0.699999988079071 - this.motionY) * 0.10000000149011612;
-            this.motionZ += (Math.signum(var3) * 0.5 - this.motionZ) * 0.10000000149011612;
-            final float var4 = (float)(Math.atan2(this.motionZ, this.motionX) * 180.0 / 3.141592653589793) - 90.0f;
-            final float var5 = MathHelper.wrapDegrees(var4 - this.rotationYaw);
-            this.moveForward = 0.5f;
-            this.rotationYaw += var5;
+            final double var1 = getAttackTarget().posX - posX;
+            final double var2 = getAttackTarget().posY + getAttackTarget().getEyeHeight() * 0.66f - posY;
+            final double var3 = getAttackTarget().posZ - posZ;
+            motionX += (Math.signum(var1) * 0.5 - motionX) * 0.10000000149011612;
+            motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
+            motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.10000000149011612;
+            final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+            final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+            moveForward = 0.5f;
+            rotationYaw += var5;
         }
-        if (this.getAttackTarget() == null) {
-            this.setAttackTarget(this.findTargetToAttack());
+        if (getAttackTarget() == null) {
+            setAttackTarget(findTargetToAttack());
         }
-        else if (this.getAttackTarget().isEntityAlive()) {
-            final float f = this.getAttackTarget().getDistance(this);
-            if (this.isEntityAlive() && this.canEntityBeSeen(this.getAttackTarget())) {
-                this.attackEntity(this.getAttackTarget(), f);
+        else if (getAttackTarget().isEntityAlive()) {
+            final float f = getAttackTarget().getDistance(this);
+            if (isEntityAlive() && canEntityBeSeen(getAttackTarget())) {
+                attackEntity(getAttackTarget(), f);
             }
         }
         else {
-            this.setAttackTarget(null);
+            setAttackTarget(null);
         }
-        if (!this.getIsFriendly() && this.getAttackTarget() instanceof EntityPlayer && ((EntityPlayer)this.getAttackTarget()).capabilities.disableDamage) {
-            this.setAttackTarget(null);
+        if (!getIsFriendly() && getAttackTarget() instanceof EntityPlayer && ((EntityPlayer) getAttackTarget()).capabilities.disableDamage) {
+            setAttackTarget(null);
         }
     }
     
@@ -277,21 +277,21 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     }
     
     protected void attackEntity(final Entity target, final float par2) {
-        if (this.attackTime <= 0 && par2 < Math.max(2.5f, target.width * 1.1f) && target.getEntityBoundingBox().maxY > this.getEntityBoundingBox().minY && target.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY) {
-            this.attackTime = 40;
-            if (!this.world.isRemote) {
+        if (attackTime <= 0 && par2 < Math.max(2.5f, target.width * 1.1f) && target.getEntityBoundingBox().maxY > getEntityBoundingBox().minY && target.getEntityBoundingBox().minY < getEntityBoundingBox().maxY) {
+            attackTime = 40;
+            if (!world.isRemote) {
                 final RayTraceResult ray = new RayTraceResult(target);
                 ray.hitVec = target.getPositionVector().addVector(0.0, target.height / 2.0f, 0.0);
-                final Trajectory tra = new Trajectory(this.getPositionVector(), this.getPositionVector().subtractReverse(ray.hitVec));
-                FocusEngine.runFocusPackage(this.focusPackage.copy(this.getOwner()), new Trajectory[] { tra }, new RayTraceResult[] { ray });
-                this.setHealth(this.getHealth() - 1.0f);
+                final Trajectory tra = new Trajectory(getPositionVector(), getPositionVector().subtractReverse(ray.hitVec));
+                FocusEngine.runFocusPackage(focusPackage.copy(getOwner()), new Trajectory[] { tra }, new RayTraceResult[] { ray });
+                setHealth(getHealth() - 1.0f);
             }
-            this.playSound(SoundEvents.ENTITY_BAT_HURT, 0.5f, 0.9f + this.world.rand.nextFloat() * 0.2f);
+            playSound(SoundEvents.ENTITY_BAT_HURT, 0.5f, 0.9f + world.rand.nextFloat() * 0.2f);
         }
     }
     
     protected void collideWithEntity(final Entity entityIn) {
-        if (this.getIsFriendly()) {
+        if (getIsFriendly()) {
             return;
         }
         super.collideWithEntity(entityIn);
@@ -299,27 +299,27 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     
     protected EntityLivingBase findTargetToAttack() {
         final double var1 = 12.0;
-        final List<EntityLivingBase> list = EntityUtils.getEntitiesInRange(this.world, this.posX, this.posY, this.posZ, this, EntityLivingBase.class, var1);
+        final List<EntityLivingBase> list = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityLivingBase.class, var1);
         double d = Double.MAX_VALUE;
         EntityLivingBase ret = null;
         for (final EntityLivingBase e : list) {
             if (e.isDead) {
                 continue;
             }
-            if (this.getIsFriendly()) {
-                if (!EntityUtils.isFriendly(this.getOwner(), e)) {
+            if (getIsFriendly()) {
+                if (!EntityUtils.isFriendly(getOwner(), e)) {
                     continue;
                 }
             }
             else {
-                if (EntityUtils.isFriendly(this.getOwner(), e)) {
+                if (EntityUtils.isFriendly(getOwner(), e)) {
                     continue;
                 }
-                if (this.isOnSameTeam(e)) {
+                if (isOnSameTeam(e)) {
                     continue;
                 }
             }
-            final double ed = this.getDistanceSq(e);
+            final double ed = getDistanceSq(e);
             if (ed >= d) {
                 continue;
             }
@@ -331,31 +331,31 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        this.ownerUniqueId = nbt.getUniqueId("OwnerUUID");
-        this.setIsFriendly(nbt.getBoolean("friendly"));
+        ownerUniqueId = nbt.getUniqueId("OwnerUUID");
+        setIsFriendly(nbt.getBoolean("friendly"));
         try {
-            (this.focusPackage = new FocusPackage()).deserialize(nbt.getCompoundTag("pack"));
+            (focusPackage = new FocusPackage()).deserialize(nbt.getCompoundTag("pack"));
         }
         catch (final Exception ex) {}
     }
     
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        if (this.ownerUniqueId != null) {
-            nbt.setUniqueId("OwnerUUID", this.ownerUniqueId);
+        if (ownerUniqueId != null) {
+            nbt.setUniqueId("OwnerUUID", ownerUniqueId);
         }
-        nbt.setTag("pack", this.focusPackage.serialize());
-        nbt.setBoolean("friendly", this.getIsFriendly());
+        nbt.setTag("pack", focusPackage.serialize());
+        nbt.setBoolean("friendly", getIsFriendly());
     }
     
     public boolean getCanSpawnHere() {
-        final int i = MathHelper.floor(this.posX);
-        final int j = MathHelper.floor(this.getEntityBoundingBox().minY);
-        final int k = MathHelper.floor(this.posZ);
+        final int i = MathHelper.floor(posX);
+        final int j = MathHelper.floor(getEntityBoundingBox().minY);
+        final int k = MathHelper.floor(posZ);
         final BlockPos blockpos = new BlockPos(i, j, k);
-        final int var4 = this.world.getLight(blockpos);
+        final int var4 = world.getLight(blockpos);
         final byte var5 = 7;
-        return var4 <= this.rand.nextInt(var5) && super.getCanSpawnHere();
+        return var4 <= rand.nextInt(var5) && super.getCanSpawnHere();
     }
     
     protected boolean canDropLoot() {

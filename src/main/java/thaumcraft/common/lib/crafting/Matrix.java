@@ -13,11 +13,11 @@ public class Matrix
     Part[][] matrix;
     
     public Matrix(final Part[][] matrix) {
-        this.rows = matrix.length;
-        this.cols = matrix[0].length;
-        this.matrix = new Part[this.rows][this.cols];
-        for (int i = 0; i < this.rows; ++i) {
-            for (int j = 0; j < this.cols; ++j) {
+        rows = matrix.length;
+        cols = matrix[0].length;
+        this.matrix = new Part[rows][cols];
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
                 this.matrix[i][j] = matrix[i][j];
             }
         }
@@ -25,20 +25,20 @@ public class Matrix
     
     public void Rotate90DegRight(final int times) {
         for (int a = 0; a < times; ++a) {
-            final Part[][] newMatrix = new Part[this.cols][this.rows];
-            for (int i = 0; i < this.rows; ++i) {
-                for (int j = 0; j < this.cols; ++j) {
-                    newMatrix[j][this.rows - i - 1] = this.matrix[i][j];
+            final Part[][] newMatrix = new Part[cols][rows];
+            for (int i = 0; i < rows; ++i) {
+                for (int j = 0; j < cols; ++j) {
+                    newMatrix[j][rows - i - 1] = matrix[i][j];
                 }
             }
-            this.matrix = newMatrix;
-            final int tmp = this.rows;
-            this.rows = this.cols;
-            this.cols = tmp;
+            matrix = newMatrix;
+            final int tmp = rows;
+            rows = cols;
+            cols = tmp;
         }
     }
     
     public Part[][] getMatrix() {
-        return this.matrix;
+        return matrix;
     }
 }

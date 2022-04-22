@@ -23,21 +23,21 @@ public class PacketAuraToClient implements IMessage, IMessageHandler<PacketAuraT
     }
     
     public PacketAuraToClient(final AuraChunk ac) {
-        this.base = ac.getBase();
-        this.vis = ac.getVis();
-        this.flux = ac.getFlux();
+        base = ac.getBase();
+        vis = ac.getVis();
+        flux = ac.getFlux();
     }
     
     public void toBytes(final ByteBuf dos) {
-        dos.writeShort(this.base);
-        dos.writeFloat(this.vis);
-        dos.writeFloat(this.flux);
+        dos.writeShort(base);
+        dos.writeFloat(vis);
+        dos.writeFloat(flux);
     }
     
     public void fromBytes(final ByteBuf dat) {
-        this.base = dat.readShort();
-        this.vis = dat.readFloat();
-        this.flux = dat.readFloat();
+        base = dat.readShort();
+        vis = dat.readFloat();
+        flux = dat.readFloat();
     }
     
     public IMessage onMessage(final PacketAuraToClient message, final MessageContext ctx) {

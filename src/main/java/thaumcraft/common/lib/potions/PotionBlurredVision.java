@@ -19,11 +19,11 @@ public class PotionBlurredVision extends Potion
     
     public PotionBlurredVision(final boolean par2, final int par3) {
         super(par2, par3);
-        this.statusIconIndex = -1;
-        this.setIconIndex(0, 0);
-        this.setPotionName("potion.blurred");
-        this.setIconIndex(5, 2);
-        this.setEffectiveness(0.25);
+        statusIconIndex = -1;
+        setIconIndex(0, 0);
+        setPotionName("potion.blurred");
+        setIconIndex(5, 2);
+        setEffectiveness(0.25);
     }
     
     public boolean isBadEffect() {

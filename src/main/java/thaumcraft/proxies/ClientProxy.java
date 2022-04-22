@@ -28,9 +28,9 @@ public class ClientProxy extends CommonProxy
     KeyHandler kh;
     
     public ClientProxy() {
-        this.proxyEntities = new ProxyEntities();
-        this.proxyTESR = new ProxyTESR();
-        this.kh = new KeyHandler();
+        proxyEntities = new ProxyEntities();
+        proxyTESR = new ProxyTESR();
+        kh = new KeyHandler();
     }
     
     @Override
@@ -44,9 +44,9 @@ public class ClientProxy extends CommonProxy
     public void init(final FMLInitializationEvent event) {
         super.init(event);
         ColorHandler.registerColourHandlers();
-        this.registerKeyBindings();
-        this.proxyEntities.setupEntityRenderers();
-        this.proxyTESR.setupTESR();
+        registerKeyBindings();
+        proxyEntities.setupEntityRenderers();
+        proxyTESR.setupTESR();
     }
     
     @Override
@@ -55,7 +55,7 @@ public class ClientProxy extends CommonProxy
     }
     
     public void registerKeyBindings() {
-        MinecraftForge.EVENT_BUS.register(this.kh);
+        MinecraftForge.EVENT_BUS.register(kh);
     }
     
     @Override
@@ -65,7 +65,7 @@ public class ClientProxy extends CommonProxy
     
     @Override
     public World getWorld(final int dim) {
-        return this.getClientWorld();
+        return getClientWorld();
     }
     
     @Override

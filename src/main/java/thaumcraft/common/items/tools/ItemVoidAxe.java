@@ -26,9 +26,9 @@ public class ItemVoidAxe extends ItemAxe implements IWarpingGear, IThaumcraftIte
 {
     public ItemVoidAxe(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial, 8.0f, -3.0f);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("void_axe");
-        this.setUnlocalizedName("void_axe");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("void_axe");
+        setUnlocalizedName("void_axe");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

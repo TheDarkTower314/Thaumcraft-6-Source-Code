@@ -19,39 +19,39 @@ public class ItemTCBase extends Item implements IThaumcraftItems
     protected int[] VARIANTS_META;
     
     public ItemTCBase(final String name, final String... variants) {
-        this.setRegistryName(name);
-        this.setUnlocalizedName(name);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setNoRepair();
-        this.setHasSubtypes(variants.length > 1);
-        this.BASE_NAME = name;
+        setRegistryName(name);
+        setUnlocalizedName(name);
+        setCreativeTab(ConfigItems.TABTC);
+        setNoRepair();
+        setHasSubtypes(variants.length > 1);
+        BASE_NAME = name;
         if (variants.length == 0) {
-            this.VARIANTS = new String[] { name };
+            VARIANTS = new String[] { name };
         }
         else {
-            this.VARIANTS = variants;
+            VARIANTS = variants;
         }
-        this.VARIANTS_META = new int[this.VARIANTS.length];
-        for (int m = 0; m < this.VARIANTS.length; ++m) {
-            this.VARIANTS_META[m] = m;
+        VARIANTS_META = new int[VARIANTS.length];
+        for (int m = 0; m < VARIANTS.length; ++m) {
+            VARIANTS_META[m] = m;
         }
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     
     public String getUnlocalizedName(final ItemStack itemStack) {
-        if (this.hasSubtypes && itemStack.getMetadata() < this.VARIANTS.length && this.VARIANTS[itemStack.getMetadata()] != this.BASE_NAME) {
-            return String.format(super.getUnlocalizedName() + ".%s", this.VARIANTS[itemStack.getMetadata()]);
+        if (hasSubtypes && itemStack.getMetadata() < VARIANTS.length && VARIANTS[itemStack.getMetadata()] != BASE_NAME) {
+            return String.format(super.getUnlocalizedName() + ".%s", VARIANTS[itemStack.getMetadata()]);
         }
         return super.getUnlocalizedName(itemStack);
     }
     
     public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
-            if (!this.getHasSubtypes()) {
+            if (!getHasSubtypes()) {
                 super.getSubItems(tab, items);
             }
             else {
-                for (int meta = 0; meta < this.VARIANTS.length; ++meta) {
+                for (int meta = 0; meta < VARIANTS.length; ++meta) {
                     items.add(new ItemStack(this, 1, meta));
                 }
             }
@@ -63,11 +63,11 @@ public class ItemTCBase extends Item implements IThaumcraftItems
     }
     
     public String[] getVariantNames() {
-        return this.VARIANTS;
+        return VARIANTS;
     }
     
     public int[] getVariantMeta() {
-        return this.VARIANTS_META;
+        return VARIANTS_META;
     }
     
     public ItemMeshDefinition getCustomMesh() {
@@ -75,9 +75,9 @@ public class ItemTCBase extends Item implements IThaumcraftItems
     }
     
     public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
-        if (variant.equals(this.BASE_NAME)) {
-            return new ModelResourceLocation("thaumcraft:" + this.BASE_NAME);
+        if (variant.equals(BASE_NAME)) {
+            return new ModelResourceLocation("thaumcraft:" + BASE_NAME);
         }
-        return new ModelResourceLocation("thaumcraft:" + this.BASE_NAME, variant);
+        return new ModelResourceLocation("thaumcraft:" + BASE_NAME, variant);
     }
 }

@@ -40,75 +40,75 @@ public class TileThaumcraftInventory extends TileThaumcraft implements ISidedInv
     IItemHandler handlerSouth;
     
     public TileThaumcraftInventory(final int size) {
-        this.stacks = NonNullList.withSize(1, ItemStack.EMPTY);
-        this.syncedSlots = new int[0];
-        this.syncedStacks = NonNullList.withSize(1, ItemStack.EMPTY);
-        this.initial = true;
-        this.handlerTop = new SidedInvWrapper(this, EnumFacing.UP);
-        this.handlerBottom = new SidedInvWrapper(this, EnumFacing.DOWN);
-        this.handlerWest = new SidedInvWrapper(this, EnumFacing.WEST);
-        this.handlerEast = new SidedInvWrapper(this, EnumFacing.EAST);
-        this.handlerNorth = new SidedInvWrapper(this, EnumFacing.NORTH);
-        this.handlerSouth = new SidedInvWrapper(this, EnumFacing.SOUTH);
-        this.stacks = NonNullList.withSize(size, ItemStack.EMPTY);
-        this.syncedStacks = NonNullList.withSize(size, ItemStack.EMPTY);
-        this.faceSlots = new int[size];
+        stacks = NonNullList.withSize(1, ItemStack.EMPTY);
+        syncedSlots = new int[0];
+        syncedStacks = NonNullList.withSize(1, ItemStack.EMPTY);
+        initial = true;
+        handlerTop = new SidedInvWrapper(this, EnumFacing.UP);
+        handlerBottom = new SidedInvWrapper(this, EnumFacing.DOWN);
+        handlerWest = new SidedInvWrapper(this, EnumFacing.WEST);
+        handlerEast = new SidedInvWrapper(this, EnumFacing.EAST);
+        handlerNorth = new SidedInvWrapper(this, EnumFacing.NORTH);
+        handlerSouth = new SidedInvWrapper(this, EnumFacing.SOUTH);
+        stacks = NonNullList.withSize(size, ItemStack.EMPTY);
+        syncedStacks = NonNullList.withSize(size, ItemStack.EMPTY);
+        faceSlots = new int[size];
         for (int a = 0; a < size; ++a) {
-            this.faceSlots[a] = a;
+            faceSlots[a] = a;
         }
     }
     
     public int getSizeInventory() {
-        return this.stacks.size();
+        return stacks.size();
     }
     
     protected NonNullList<ItemStack> getItems() {
-        return this.stacks;
+        return stacks;
     }
     
     public ItemStack getSyncedStackInSlot(final int index) {
-        return this.syncedStacks.get(index);
+        return syncedStacks.get(index);
     }
     
     public ItemStack getStackInSlot(final int index) {
-        return this.getItems().get(index);
+        return getItems().get(index);
     }
     
     public ItemStack decrStackSize(final int index, final int count) {
-        final ItemStack itemstack = ItemStackHelper.getAndSplit(this.getItems(), index, count);
-        if (!itemstack.isEmpty() && this.isSyncedSlot(index)) {
-            this.syncSlots(null);
+        final ItemStack itemstack = ItemStackHelper.getAndSplit(getItems(), index, count);
+        if (!itemstack.isEmpty() && isSyncedSlot(index)) {
+            syncSlots(null);
         }
-        this.markDirty();
+        markDirty();
         return itemstack;
     }
     
     public ItemStack removeStackFromSlot(final int index) {
-        final ItemStack s = ItemStackHelper.getAndRemove(this.getItems(), index);
-        if (this.isSyncedSlot(index)) {
-            this.syncSlots(null);
+        final ItemStack s = ItemStackHelper.getAndRemove(getItems(), index);
+        if (isSyncedSlot(index)) {
+            syncSlots(null);
         }
-        this.markDirty();
+        markDirty();
         return s;
     }
     
     public void setInventorySlotContents(final int index, @Nullable final ItemStack stack) {
-        this.getItems().set(index, stack);
-        if (stack.getCount() > this.getInventoryStackLimit()) {
-            stack.setCount(this.getInventoryStackLimit());
+        getItems().set(index, stack);
+        if (stack.getCount() > getInventoryStackLimit()) {
+            stack.setCount(getInventoryStackLimit());
         }
-        this.markDirty();
-        if (this.isSyncedSlot(index)) {
-            this.syncSlots(null);
+        markDirty();
+        if (isSyncedSlot(index)) {
+            syncSlots(null);
         }
     }
     
     public String getName() {
-        return this.hasCustomName() ? this.customName : "container.thaumcraft";
+        return hasCustomName() ? customName : "container.thaumcraft";
     }
     
     public boolean hasCustomName() {
-        return this.customName != null && this.customName.length() > 0;
+        return customName != null && customName.length() > 0;
     }
     
     public ITextComponent getDisplayName() {
@@ -116,7 +116,7 @@ public class TileThaumcraftInventory extends TileThaumcraft implements ISidedInv
     }
     
     private boolean isSyncedSlot(final int slot) {
-        for (final int s : this.syncedSlots) {
+        for (final int s : syncedSlots) {
             if (s == slot) {
                 return true;
             }
@@ -125,33 +125,33 @@ public class TileThaumcraftInventory extends TileThaumcraft implements ISidedInv
     }
     
     protected void syncSlots(final EntityPlayerMP player) {
-        if (this.syncedSlots.length > 0) {
+        if (syncedSlots.length > 0) {
             final NBTTagCompound nbt = new NBTTagCompound();
             final NBTTagList nbttaglist = new NBTTagList();
-            for (int i = 0; i < this.stacks.size(); ++i) {
-                if (!this.stacks.get(i).isEmpty() && this.isSyncedSlot(i)) {
+            for (int i = 0; i < stacks.size(); ++i) {
+                if (!stacks.get(i).isEmpty() && isSyncedSlot(i)) {
                     final NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                     nbttagcompound1.setByte("Slot", (byte)i);
-                    this.stacks.get(i).writeToNBT(nbttagcompound1);
+                    stacks.get(i).writeToNBT(nbttagcompound1);
                     nbttaglist.appendTag(nbttagcompound1);
                 }
             }
             nbt.setTag("ItemsSynced", nbttaglist);
-            this.sendMessageToClient(nbt, player);
+            sendMessageToClient(nbt, player);
         }
     }
     
     @Override
     public void syncTile(final boolean rerender) {
         super.syncTile(rerender);
-        this.syncSlots(null);
+        syncSlots(null);
     }
     
     @Override
     public void messageFromClient(final NBTTagCompound nbt, final EntityPlayerMP player) {
         super.messageFromClient(nbt, player);
         if (nbt.hasKey("requestSync")) {
-            this.syncSlots(player);
+            syncSlots(player);
         }
     }
     
@@ -159,13 +159,13 @@ public class TileThaumcraftInventory extends TileThaumcraft implements ISidedInv
     public void messageFromServer(final NBTTagCompound nbt) {
         super.messageFromServer(nbt);
         if (nbt.hasKey("ItemsSynced")) {
-            this.syncedStacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+            syncedStacks = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
             final NBTTagList nbttaglist = nbt.getTagList("ItemsSynced", 10);
             for (int i = 0; i < nbttaglist.tagCount(); ++i) {
                 final NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
                 final byte b0 = nbttagcompound1.getByte("Slot");
-                if (this.isSyncedSlot(b0)) {
-                    this.syncedStacks.set(b0, new ItemStack(nbttagcompound1));
+                if (isSyncedSlot(b0)) {
+                    syncedStacks.set(b0, new ItemStack(nbttagcompound1));
                 }
             }
         }
@@ -175,18 +175,18 @@ public class TileThaumcraftInventory extends TileThaumcraft implements ISidedInv
     public void readFromNBT(final NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
         if (nbtCompound.hasKey("CustomName")) {
-            this.customName = nbtCompound.getString("CustomName");
+            customName = nbtCompound.getString("CustomName");
         }
-        ItemStackHelper.loadAllItems(nbtCompound, this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY));
+        ItemStackHelper.loadAllItems(nbtCompound, stacks = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY));
     }
     
     @Override
     public NBTTagCompound writeToNBT(final NBTTagCompound nbtCompound) {
         super.writeToNBT(nbtCompound);
-        if (this.hasCustomName()) {
-            nbtCompound.setString("CustomName", this.customName);
+        if (hasCustomName()) {
+            nbtCompound.setString("CustomName", customName);
         }
-        ItemStackHelper.saveAllItems(nbtCompound, this.stacks);
+        ItemStackHelper.saveAllItems(nbtCompound, stacks);
         return nbtCompound;
     }
     
@@ -195,7 +195,7 @@ public class TileThaumcraftInventory extends TileThaumcraft implements ISidedInv
     }
     
     public boolean isUsableByPlayer(final EntityPlayer par1EntityPlayer) {
-        return this.world.getTileEntity(this.getPos()) == this && par1EntityPlayer.getDistanceSqToCenter(this.getPos()) <= 64.0;
+        return world.getTileEntity(getPos()) == this && par1EntityPlayer.getDistanceSqToCenter(getPos()) <= 64.0;
     }
     
     public boolean isItemValidForSlot(final int par1, final ItemStack stack2) {
@@ -203,7 +203,7 @@ public class TileThaumcraftInventory extends TileThaumcraft implements ISidedInv
     }
     
     public int[] getSlotsForFace(final EnumFacing par1) {
-        return this.faceSlots;
+        return faceSlots;
     }
     
     public void openInventory(final EntityPlayer player) {
@@ -227,7 +227,7 @@ public class TileThaumcraftInventory extends TileThaumcraft implements ISidedInv
     }
     
     public boolean canInsertItem(final int par1, final ItemStack stack2, final EnumFacing par3) {
-        return this.isItemValidForSlot(par1, stack2);
+        return isItemValidForSlot(par1, stack2);
     }
     
     public boolean canExtractItem(final int par1, final ItemStack stack2, final EnumFacing par3) {
@@ -235,7 +235,7 @@ public class TileThaumcraftInventory extends TileThaumcraft implements ISidedInv
     }
     
     public boolean isEmpty() {
-        for (final ItemStack itemstack : this.stacks) {
+        for (final ItemStack itemstack : stacks) {
             if (!itemstack.isEmpty()) {
                 return false;
             }
@@ -244,15 +244,15 @@ public class TileThaumcraftInventory extends TileThaumcraft implements ISidedInv
     }
     
     public void update() {
-        if (this.initial) {
-            this.initial = false;
-            if (!this.world.isRemote) {
-                this.syncSlots(null);
+        if (initial) {
+            initial = false;
+            if (!world.isRemote) {
+                syncSlots(null);
             }
             else {
                 final NBTTagCompound nbt = new NBTTagCompound();
                 nbt.setBoolean("requestSync", true);
-                this.sendMessageToServer(nbt);
+                sendMessageToServer(nbt);
             }
         }
     }
@@ -263,21 +263,21 @@ public class TileThaumcraftInventory extends TileThaumcraft implements ISidedInv
             return (T)super.getCapability((Capability)capability, facing);
         }
         if (facing == EnumFacing.DOWN) {
-            return (T)this.handlerBottom;
+            return (T) handlerBottom;
         }
         if (facing == EnumFacing.UP) {
-            return (T)this.handlerTop;
+            return (T) handlerTop;
         }
         if (facing == EnumFacing.WEST) {
-            return (T)this.handlerWest;
+            return (T) handlerWest;
         }
         if (facing == EnumFacing.EAST) {
-            return (T)this.handlerEast;
+            return (T) handlerEast;
         }
         if (facing == EnumFacing.NORTH) {
-            return (T)this.handlerNorth;
+            return (T) handlerNorth;
         }
-        return (T)this.handlerSouth;
+        return (T) handlerSouth;
     }
     
     public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {

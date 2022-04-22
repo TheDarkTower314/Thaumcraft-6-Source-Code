@@ -30,21 +30,21 @@ public class PacketFXSlash implements IMessage, IMessageHandler<PacketFXSlash, I
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.source);
-        buffer.writeInt(this.target);
+        buffer.writeInt(source);
+        buffer.writeInt(target);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.source = buffer.readInt();
-        this.target = buffer.readInt();
+        source = buffer.readInt();
+        target = buffer.readInt();
     }
     
     @SideOnly(Side.CLIENT)
     public IMessage onMessage(final PacketFXSlash message, final MessageContext ctx) {
         final Minecraft mc = FMLClientHandler.instance().getClient();
         final WorldClient world = mc.world;
-        final Entity var2 = this.getEntityByID(message.source, mc, world);
-        final Entity var3 = this.getEntityByID(message.target, mc, world);
+        final Entity var2 = getEntityByID(message.source, mc, world);
+        final Entity var3 = getEntityByID(message.target, mc, world);
         if (var2 != null && var3 != null) {
             FXDispatcher.INSTANCE.drawSlash(var2.posX, var2.getEntityBoundingBox().minY + var2.height / 2.0f, var2.posZ, var3.posX, var3.getEntityBoundingBox().minY + var3.height / 2.0f, var3.posZ, 8);
         }

@@ -456,8 +456,8 @@ public class ConfigBlocks
         
         private FluidPure() {
             super("purifying_fluid", new ResourceLocation("blocks/water_still"), new ResourceLocation("blocks/water_flow"));
-            this.setLuminosity(5);
-            this.setRarity(EnumRarity.RARE);
+            setLuminosity(5);
+            setRarity(EnumRarity.RARE);
         }
         
         public int getColor() {
@@ -476,8 +476,8 @@ public class ConfigBlocks
         
         private FluidDeath() {
             super("liquid_death", new ResourceLocation("thaumcraft:blocks/animatedglow"), new ResourceLocation("thaumcraft:blocks/animatedglow"));
-            this.setViscosity(1500);
-            this.setRarity(EnumRarity.RARE);
+            setViscosity(1500);
+            setRarity(EnumRarity.RARE);
         }
         
         public int getColor() {
@@ -496,8 +496,8 @@ public class ConfigBlocks
         
         private FluidFluxGoo() {
             super("flux_goo", new ResourceLocation("thaumcraft:blocks/flux_goo"), new ResourceLocation("thaumcraft:blocks/flux_goo"));
-            this.setViscosity(6000);
-            this.setDensity(8);
+            setViscosity(6000);
+            setDensity(8);
         }
         
         static {

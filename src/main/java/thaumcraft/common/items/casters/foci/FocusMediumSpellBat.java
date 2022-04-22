@@ -41,9 +41,9 @@ public class FocusMediumSpellBat extends FocusMedium
     
     @Override
     public boolean execute(final Trajectory trajectory) {
-        final EntitySpellBat bat = new EntitySpellBat(this.getRemainingPackage(), this.getSettingValue("target") == 1);
+        final EntitySpellBat bat = new EntitySpellBat(getRemainingPackage(), getSettingValue("target") == 1);
         bat.setPosition(trajectory.source.x, trajectory.source.y, trajectory.source.z);
-        return this.getPackage().getCaster().world.spawnEntity(bat);
+        return getPackage().getCaster().world.spawnEntity(bat);
     }
     
     @Override

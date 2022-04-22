@@ -22,21 +22,21 @@ public class CardConcentrate extends TheorycraftCard
     @Override
     public NBTTagCompound serialize() {
         final NBTTagCompound nbt = super.serialize();
-        nbt.setString("aspect", this.aspect.getTag());
+        nbt.setString("aspect", aspect.getTag());
         return nbt;
     }
     
     @Override
     public void deserialize(final NBTTagCompound nbt) {
         super.deserialize(nbt);
-        this.aspect = Aspect.getAspect(nbt.getString("aspect"));
+        aspect = Aspect.getAspect(nbt.getString("aspect"));
     }
     
     @Override
     public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(this.getSeed());
+        final Random r = new Random(getSeed());
         final int num = r.nextInt(Aspect.getCompoundAspects().size());
-        this.aspect = Aspect.getCompoundAspects().get(num);
+        aspect = Aspect.getCompoundAspects().get(num);
         return true;
     }
     
@@ -57,17 +57,17 @@ public class CardConcentrate extends TheorycraftCard
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.concentrate.text", TextFormatting.BOLD + this.aspect.getName() + TextFormatting.RESET).getFormattedText();
+        return new TextComponentTranslation("card.concentrate.text", TextFormatting.BOLD + aspect.getName() + TextFormatting.RESET).getFormattedText();
     }
     
     @Override
     public ItemStack[] getRequiredItems() {
-        return new ItemStack[] { ThaumcraftApiHelper.makeCrystal(this.aspect) };
+        return new ItemStack[] { ThaumcraftApiHelper.makeCrystal(aspect) };
     }
     
     @Override
     public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        data.addTotal(this.getResearchCategory(), 15);
+        data.addTotal(getResearchCategory(), 15);
         ++data.bonusDraws;
         if (player.getRNG().nextFloat() < 0.33) {
             data.addInspiration(1);

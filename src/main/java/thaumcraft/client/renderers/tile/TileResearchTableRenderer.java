@@ -24,12 +24,12 @@ public class TileResearchTableRenderer extends TileEntitySpecialRenderer<TileRes
     private static final ResourceLocation TEX;
     
     public TileResearchTableRenderer() {
-        this.tableModel = new ModelResearchTable();
+        tableModel = new ModelResearchTable();
     }
     
     public void render(final TileResearchTable table, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         GL11.glPushMatrix();
-        this.bindTexture(TileResearchTableRenderer.TEX);
+        bindTexture(TileResearchTableRenderer.TEX);
         GL11.glTranslatef((float)x + 0.5f, (float)y + 1.0f, (float)z + 0.5f);
         GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
         switch (BlockStateUtils.getFacing(table.getBlockMetadata())) {
@@ -47,10 +47,10 @@ public class TileResearchTableRenderer extends TileEntitySpecialRenderer<TileRes
             }
         }
         if (table.data != null) {
-            this.tableModel.renderScroll(Aspect.ALCHEMY.getColor());
+            tableModel.renderScroll(Aspect.ALCHEMY.getColor());
         }
         if (!table.getSyncedStackInSlot(0).isEmpty() && table.getSyncedStackInSlot(0).getItem() instanceof IScribeTools) {
-            this.tableModel.renderInkwell();
+            tableModel.renderInkwell();
             GL11.glPushMatrix();
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);

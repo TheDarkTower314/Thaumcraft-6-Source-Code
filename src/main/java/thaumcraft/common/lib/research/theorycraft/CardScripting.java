@@ -37,7 +37,7 @@ public class CardScripting extends TheorycraftCard
         if (data.table != null && ((TileResearchTable)data.table).getStackInSlot(0) != null && ((TileResearchTable)data.table).getStackInSlot(0).getItemDamage() < ((TileResearchTable)data.table).getStackInSlot(0).getMaxDamage() && ((TileResearchTable)data.table).getStackInSlot(1) != null) {
             ((TileResearchTable)data.table).consumeInkFromTable();
             ((TileResearchTable)data.table).consumepaperFromTable();
-            data.addTotal(this.getResearchCategory(), 25);
+            data.addTotal(getResearchCategory(), 25);
             return true;
         }
         return false;

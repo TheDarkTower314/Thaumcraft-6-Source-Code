@@ -31,67 +31,67 @@ public class AIFollowOwner extends EntityAIBase
     private float oldWaterCost;
     
     public AIFollowOwner(final EntityOwnedConstruct p_i1625_1_, final double p_i1625_2_, final float p_i1625_4_, final float p_i1625_5_) {
-        this.thePet = p_i1625_1_;
-        this.theWorld = p_i1625_1_.world;
-        this.followSpeed = p_i1625_2_;
-        this.petPathfinder = p_i1625_1_.getNavigator();
-        this.minDist = p_i1625_4_;
-        this.maxDist = p_i1625_5_;
-        this.setMutexBits(3);
+        thePet = p_i1625_1_;
+        theWorld = p_i1625_1_.world;
+        followSpeed = p_i1625_2_;
+        petPathfinder = p_i1625_1_.getNavigator();
+        minDist = p_i1625_4_;
+        maxDist = p_i1625_5_;
+        setMutexBits(3);
         if (!(p_i1625_1_.getNavigator() instanceof PathNavigateGround) && !(p_i1625_1_.getNavigator() instanceof PathNavigateGolemAir)) {
             throw new IllegalArgumentException("Unsupported mob type for FollowOwnerGoal");
         }
     }
     
     public boolean shouldExecute() {
-        final EntityLivingBase entitylivingbase = this.thePet.getOwnerEntity();
+        final EntityLivingBase entitylivingbase = thePet.getOwnerEntity();
         if (entitylivingbase == null) {
             return false;
         }
-        if (this.thePet.getDistanceSq(entitylivingbase) < this.minDist * this.minDist) {
+        if (thePet.getDistanceSq(entitylivingbase) < minDist * minDist) {
             return false;
         }
-        this.theOwner = entitylivingbase;
+        theOwner = entitylivingbase;
         return true;
     }
     
     public boolean shouldContinueExecuting() {
-        return !this.petPathfinder.noPath() && this.thePet.getDistanceSq(this.theOwner) > this.maxDist * this.maxDist;
+        return !petPathfinder.noPath() && thePet.getDistanceSq(theOwner) > maxDist * maxDist;
     }
     
     public void startExecuting() {
-        this.timeToRecalcPath = 0;
-        this.oldWaterCost = this.thePet.getPathPriority(PathNodeType.WATER);
-        this.thePet.setPathPriority(PathNodeType.WATER, 0.0f);
+        timeToRecalcPath = 0;
+        oldWaterCost = thePet.getPathPriority(PathNodeType.WATER);
+        thePet.setPathPriority(PathNodeType.WATER, 0.0f);
     }
     
     public void resetTask() {
-        this.theOwner = null;
-        this.petPathfinder.clearPath();
-        this.thePet.setPathPriority(PathNodeType.WATER, this.oldWaterCost);
+        theOwner = null;
+        petPathfinder.clearPath();
+        thePet.setPathPriority(PathNodeType.WATER, oldWaterCost);
     }
     
     private boolean func_181065_a(final BlockPos p_181065_1_) {
-        final IBlockState iblockstate = this.theWorld.getBlockState(p_181065_1_);
+        final IBlockState iblockstate = theWorld.getBlockState(p_181065_1_);
         final Block block = iblockstate.getBlock();
         return block == Blocks.AIR || !iblockstate.isFullCube();
     }
     
     public void updateTask() {
-        this.thePet.getLookHelper().setLookPositionWithEntity(this.theOwner, 10.0f, (float)this.thePet.getVerticalFaceSpeed());
+        thePet.getLookHelper().setLookPositionWithEntity(theOwner, 10.0f, (float) thePet.getVerticalFaceSpeed());
         final int timeToRecalcPath = this.timeToRecalcPath - 1;
         this.timeToRecalcPath = timeToRecalcPath;
         if (timeToRecalcPath <= 0) {
             this.timeToRecalcPath = 10;
-            if (!this.petPathfinder.tryMoveToEntityLiving(this.theOwner, this.followSpeed) && !this.thePet.getLeashed() && this.thePet.getDistanceSq(this.theOwner) >= 144.0) {
-                final int i = MathHelper.floor(this.theOwner.posX) - 2;
-                final int j = MathHelper.floor(this.theOwner.posZ) - 2;
-                final int k = MathHelper.floor(this.theOwner.getEntityBoundingBox().minY);
+            if (!petPathfinder.tryMoveToEntityLiving(theOwner, followSpeed) && !thePet.getLeashed() && thePet.getDistanceSq(theOwner) >= 144.0) {
+                final int i = MathHelper.floor(theOwner.posX) - 2;
+                final int j = MathHelper.floor(theOwner.posZ) - 2;
+                final int k = MathHelper.floor(theOwner.getEntityBoundingBox().minY);
                 for (int l = 0; l <= 4; ++l) {
                     for (int i2 = 0; i2 <= 4; ++i2) {
-                        if ((l < 1 || i2 < 1 || l > 3 || i2 > 3) && this.theWorld.getBlockState(new BlockPos(i + l, k - 1, j + i2)).isFullCube() && this.func_181065_a(new BlockPos(i + l, k, j + i2)) && this.func_181065_a(new BlockPos(i + l, k + 1, j + i2))) {
-                            this.thePet.setLocationAndAngles(i + l + 0.5f, k, j + i2 + 0.5f, this.thePet.rotationYaw, this.thePet.rotationPitch);
-                            this.petPathfinder.clearPath();
+                        if ((l < 1 || i2 < 1 || l > 3 || i2 > 3) && theWorld.getBlockState(new BlockPos(i + l, k - 1, j + i2)).isFullCube() && func_181065_a(new BlockPos(i + l, k, j + i2)) && func_181065_a(new BlockPos(i + l, k + 1, j + i2))) {
+                            thePet.setLocationAndAngles(i + l + 0.5f, k, j + i2 + 0.5f, thePet.rotationYaw, thePet.rotationPitch);
+                            petPathfinder.clearPath();
                             return;
                         }
                     }

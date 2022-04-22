@@ -15,19 +15,19 @@ public class WorldCoordinates implements Comparable
     public WorldCoordinates(BlockPos pos, int d)
     {
         this.pos = pos;
-        this.dim = d;
+        dim = d;
     }
     
     public WorldCoordinates(TileEntity tile)
     {
-        this.pos = tile.getPos();
-        this.dim = tile.getWorld().provider.getDimension();
+        pos = tile.getPos();
+        dim = tile.getWorld().provider.getDimension();
     }
 
     public WorldCoordinates(WorldCoordinates par1ChunkCoordinates)
     {
-        this.pos = par1ChunkCoordinates.pos;
-        this.dim = par1ChunkCoordinates.dim;
+        pos = par1ChunkCoordinates.pos;
+        dim = par1ChunkCoordinates.dim;
     }
 
     public boolean equals(Object par1Obj)
@@ -39,13 +39,13 @@ public class WorldCoordinates implements Comparable
         else
         {
         	WorldCoordinates coordinates = (WorldCoordinates)par1Obj;
-            return this.pos.equals(coordinates.pos) && this.dim == coordinates.dim ;
+            return pos.equals(coordinates.pos) && dim == coordinates.dim ;
         }
     }
 
     public int hashCode()
     {
-        return this.pos.getX() + this.pos.getY() << 8 + this.pos.getZ() << 16 + this.dim << 24;
+        return pos.getX() + pos.getY() << 8 + pos.getZ() << 16 + dim << 24;
     }
 
     /**
@@ -53,13 +53,13 @@ public class WorldCoordinates implements Comparable
      */
     public int compareWorldCoordinate(WorldCoordinates par1)
     {
-        return this.dim == par1.dim ? this.pos.compareTo(par1.pos) : -1;
+        return dim == par1.dim ? pos.compareTo(par1.pos) : -1;
     }
 
     public void set(BlockPos pos, int d)
     {
         this.pos = pos;
-        this.dim = d;
+        dim = d;
     }
 
     /**
@@ -75,20 +75,20 @@ public class WorldCoordinates implements Comparable
      */
     public double getDistanceSquaredToWorldCoordinates(WorldCoordinates par1ChunkCoordinates)
     {
-        return this.getDistanceSquared(par1ChunkCoordinates.pos);
+        return getDistanceSquared(par1ChunkCoordinates.pos);
     }
 
     public int compareTo(Object par1Obj)
     {
-        return this.compareWorldCoordinate((WorldCoordinates)par1Obj);
+        return compareWorldCoordinate((WorldCoordinates)par1Obj);
     }
     
     public void readNBT(NBTTagCompound nbt) {
     	int x = nbt.getInteger("w_x");
     	int y = nbt.getInteger("w_y");
     	int z = nbt.getInteger("w_z");
-    	this.pos = new BlockPos(x,y,z);
-    	this.dim = nbt.getInteger("w_d");
+    	pos = new BlockPos(x,y,z);
+    	dim = nbt.getInteger("w_d");
     }
     
     public void writeNBT(NBTTagCompound nbt) {

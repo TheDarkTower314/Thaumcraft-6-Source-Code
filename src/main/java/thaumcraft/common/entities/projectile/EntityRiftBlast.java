@@ -35,20 +35,20 @@ public class EntityRiftBlast extends EntityThrowable implements IEntityAdditiona
     
     public EntityRiftBlast(final World par1World) {
         super(par1World);
-        this.targetID = 0;
-        this.red = false;
-        this.growing = -1;
-        this.vecs = new ArrayList<Quat>();
+        targetID = 0;
+        red = false;
+        growing = -1;
+        vecs = new ArrayList<Quat>();
     }
     
     public EntityRiftBlast(final World par1World, final EntityLivingBase par2EntityLiving, final EntityLivingBase t, final boolean r) {
         super(par1World, par2EntityLiving);
-        this.targetID = 0;
-        this.red = false;
-        this.growing = -1;
-        this.vecs = new ArrayList<Quat>();
-        this.target = t;
-        this.red = r;
+        targetID = 0;
+        red = false;
+        growing = -1;
+        vecs = new ArrayList<Quat>();
+        target = t;
+        red = r;
     }
     
     protected float getGravityVelocity() {
@@ -57,87 +57,87 @@ public class EntityRiftBlast extends EntityThrowable implements IEntityAdditiona
     
     public void writeSpawnData(final ByteBuf data) {
         int id = -1;
-        if (this.target != null) {
-            id = this.target.getEntityId();
+        if (target != null) {
+            id = target.getEntityId();
         }
         data.writeInt(id);
-        data.writeBoolean(this.red);
+        data.writeBoolean(red);
     }
     
     public void readSpawnData(final ByteBuf data) {
         final int id = data.readInt();
         try {
             if (id >= 0) {
-                this.target = (EntityLivingBase)this.world.getEntityByID(id);
+                target = (EntityLivingBase) world.getEntityByID(id);
             }
         }
         catch (final Exception ex) {}
-        this.red = data.readBoolean();
+        red = data.readBoolean();
     }
     
     protected void onImpact(final RayTraceResult mop) {
-        if (!this.world.isRemote && this.getThrower() != null && mop.typeOfHit == RayTraceResult.Type.ENTITY) {
-            mop.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), (float)this.getThrower().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * (this.red ? 1.0f : 0.6f));
+        if (!world.isRemote && getThrower() != null && mop.typeOfHit == RayTraceResult.Type.ENTITY) {
+            mop.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, getThrower()), (float) getThrower().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * (red ? 1.0f : 0.6f));
         }
-        this.playSound(SoundsTC.shock, 1.0f, 1.0f + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2f);
-        if (this.world.isRemote) {
-            FXDispatcher.INSTANCE.burst(this.posX, this.posY, this.posZ, 6.0f);
+        playSound(SoundsTC.shock, 1.0f, 1.0f + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
+        if (world.isRemote) {
+            FXDispatcher.INSTANCE.burst(posX, posY, posZ, 6.0f);
         }
-        this.setDead();
+        setDead();
     }
     
     public void onUpdate() {
         super.onUpdate();
-        if (this.ticksExisted > (this.red ? 240 : 160)) {
-            this.setDead();
+        if (ticksExisted > (red ? 240 : 160)) {
+            setDead();
         }
-        if (this.target != null) {
-            if (this.target == null || this.target.isDead) {
-                this.setDead();
+        if (target != null) {
+            if (target == null || target.isDead) {
+                setDead();
             }
-            final double d = this.getDistanceSq(this.target);
-            double dx = this.target.posX - this.posX;
-            double dy = this.target.getEntityBoundingBox().minY + this.target.height * 0.6 - this.posY;
-            double dz = this.target.posZ - this.posZ;
+            final double d = getDistanceSq(target);
+            double dx = target.posX - posX;
+            double dy = target.getEntityBoundingBox().minY + target.height * 0.6 - posY;
+            double dz = target.posZ - posZ;
             final double d2 = 1.0;
             dx /= d;
             dy /= d;
             dz /= d;
-            this.motionX += dx * d2;
-            this.motionY += dy * d2;
-            this.motionZ += dz * d2;
-            this.motionX = MathHelper.clamp((float)this.motionX, -0.33f, 0.33f);
-            this.motionY = MathHelper.clamp((float)this.motionY, -0.33f, 0.33f);
-            this.motionZ = MathHelper.clamp((float)this.motionZ, -0.33f, 0.33f);
-            if (this.world.isRemote) {
-                final Quat q = new Quat(0.1, this.posX + this.rand.nextGaussian() * 0.05, this.posY + this.rand.nextGaussian() * 0.05, this.posZ + this.rand.nextGaussian() * 0.05);
-                this.vecs.add(q);
-                FXDispatcher.INSTANCE.drawCurlyWisp(q.x, q.y, q.z, 0.0, 0.0, 0.0, 0.3f + this.rand.nextFloat() * 0.2f, this.rand.nextFloat(), this.rand.nextFloat() * 0.2f, this.rand.nextFloat() * 0.2f, 0.5f, null, 1, this.rand.nextInt(2), 0);
-                if (this.vecs.size() > 9) {
-                    this.vecs.remove(0);
+            motionX += dx * d2;
+            motionY += dy * d2;
+            motionZ += dz * d2;
+            motionX = MathHelper.clamp((float) motionX, -0.33f, 0.33f);
+            motionY = MathHelper.clamp((float) motionY, -0.33f, 0.33f);
+            motionZ = MathHelper.clamp((float) motionZ, -0.33f, 0.33f);
+            if (world.isRemote) {
+                final Quat q = new Quat(0.1, posX + rand.nextGaussian() * 0.05, posY + rand.nextGaussian() * 0.05, posZ + rand.nextGaussian() * 0.05);
+                vecs.add(q);
+                FXDispatcher.INSTANCE.drawCurlyWisp(q.x, q.y, q.z, 0.0, 0.0, 0.0, 0.3f + rand.nextFloat() * 0.2f, rand.nextFloat(), rand.nextFloat() * 0.2f, rand.nextFloat() * 0.2f, 0.5f, null, 1, rand.nextInt(2), 0);
+                if (vecs.size() > 9) {
+                    vecs.remove(0);
                 }
-                this.points = new double[this.vecs.size()][3];
-                this.colours = new float[this.vecs.size()][4];
-                this.radii = new double[this.vecs.size()];
+                points = new double[vecs.size()][3];
+                colours = new float[vecs.size()][4];
+                radii = new double[vecs.size()];
                 int c = 0;
-                if (this.vecs.size() > 1) {
-                    final float vv = (float)(3.141592653589793 / (float)(this.vecs.size() - 1));
-                    for (final Quat v : this.vecs) {
-                        final float variance = 1.0f + MathHelper.sin((c + this.ticksExisted) / 3.0f) * 0.2f;
-                        final float xx = MathHelper.sin((c + this.ticksExisted) / 6.0f) * 0.01f;
-                        final float yy = MathHelper.sin((c + this.ticksExisted) / 7.0f) * 0.01f;
-                        final float zz = MathHelper.sin((c + this.ticksExisted) / 8.0f) * 0.01f;
-                        this.points[c][0] = v.x + xx;
-                        this.points[c][1] = v.y + yy;
-                        this.points[c][2] = v.z + zz;
-                        this.radii[c] = v.s * variance;
+                if (vecs.size() > 1) {
+                    final float vv = (float)(3.141592653589793 / (float)(vecs.size() - 1));
+                    for (final Quat v : vecs) {
+                        final float variance = 1.0f + MathHelper.sin((c + ticksExisted) / 3.0f) * 0.2f;
+                        final float xx = MathHelper.sin((c + ticksExisted) / 6.0f) * 0.01f;
+                        final float yy = MathHelper.sin((c + ticksExisted) / 7.0f) * 0.01f;
+                        final float zz = MathHelper.sin((c + ticksExisted) / 8.0f) * 0.01f;
+                        points[c][0] = v.x + xx;
+                        points[c][1] = v.y + yy;
+                        points[c][2] = v.z + zz;
+                        radii[c] = v.s * variance;
                         final double[] radii = this.radii;
                         final int n = c;
                         radii[n] *= MathHelper.sin(c * vv);
-                        this.colours[c][0] = 1.0f;
-                        this.colours[c][1] = 0.0f;
-                        this.colours[c][2] = 0.0f;
-                        this.colours[c][3] = 1.0f;
+                        colours[c][0] = 1.0f;
+                        colours[c][1] = 0.0f;
+                        colours[c][2] = 0.0f;
+                        colours[c][3] = 1.0f;
                         ++c;
                     }
                 }
@@ -146,19 +146,19 @@ public class EntityRiftBlast extends EntityThrowable implements IEntityAdditiona
     }
     
     public boolean attackEntityFrom(final DamageSource source, final float damage) {
-        if (this.isEntityInvulnerable(source)) {
+        if (isEntityInvulnerable(source)) {
             return false;
         }
         if (source.getTrueSource() != null) {
             final Vec3d vec3 = source.getTrueSource().getLookVec();
             if (vec3 != null) {
-                this.motionX = vec3.x;
-                this.motionY = vec3.y;
-                this.motionZ = vec3.z;
-                this.motionX *= 0.9;
-                this.motionY *= 0.9;
-                this.motionZ *= 0.9;
-                this.playSound(SoundsTC.zap, 1.0f, 1.0f + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2f);
+                motionX = vec3.x;
+                motionY = vec3.y;
+                motionZ = vec3.z;
+                motionX *= 0.9;
+                motionY *= 0.9;
+                motionZ *= 0.9;
+                playSound(SoundsTC.zap, 1.0f, 1.0f + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
             }
             return true;
         }

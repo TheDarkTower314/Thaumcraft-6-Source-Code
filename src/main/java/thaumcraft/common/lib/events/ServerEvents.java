@@ -72,8 +72,8 @@ public class ServerEvents
     private static LinkedBlockingQueue<RunnableEntry> clientRunList;
     
     public ServerEvents() {
-        this.lastcheck = 0L;
-        this.myFormatter = new DecimalFormat("#######.##");
+        lastcheck = 0L;
+        myFormatter = new DecimalFormat("#######.##");
     }
     
     @SideOnly(Side.CLIENT)
@@ -460,7 +460,7 @@ public class ServerEvents
             this.fortune = fortune;
             this.durabilityCurrent = durabilityCurrent;
             this.durabilityMax = durabilityMax;
-            this.visCost = vis;
+            visCost = vis;
         }
     }
     
@@ -495,13 +495,13 @@ public class ServerEvents
         float visCost;
         
         VirtualSwapper(final BlockPos pos, final Object source, final ItemStack t, final boolean consumeTarget, final int life, final EntityPlayer p, final boolean fx, final boolean fancy, final int color, final boolean pickup, final boolean silk, final int fortune, final Predicate<SwapperPredicate> allowSwap, final float cost) {
-            this.lifespan = 0;
-            this.player = null;
+            lifespan = 0;
+            player = null;
             this.pos = pos;
             this.source = source;
-            this.target = t;
-            this.lifespan = life;
-            this.player = p;
+            target = t;
+            lifespan = life;
+            player = p;
             this.consumeTarget = consumeTarget;
             this.fx = fx;
             this.fancy = fancy;
@@ -510,7 +510,7 @@ public class ServerEvents
             this.fortune = fortune;
             this.pickup = pickup;
             this.color = color;
-            this.visCost = cost;
+            visCost = cost;
         }
     }
     

@@ -22,7 +22,7 @@ public class BlockFocalManipulator extends BlockTCDevice
 {
     public BlockFocalManipulator() {
         super(Material.ROCK, TileFocalManipulator.class, "wand_workbench");
-        this.setSoundType(SoundType.STONE);
+        setSoundType(SoundType.STONE);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {

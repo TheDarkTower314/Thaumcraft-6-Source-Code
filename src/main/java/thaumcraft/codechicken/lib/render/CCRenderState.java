@@ -179,9 +179,9 @@ public class CCRenderState
             
             @Override
             public boolean load() {
-                this.normalRef = CCRenderState.model.getAttributes(this);
+                normalRef = CCRenderState.model.getAttributes(this);
                 if (CCRenderState.model.hasAttribute(this)) {
-                    return this.normalRef != null;
+                    return normalRef != null;
                 }
                 if (CCRenderState.model.hasAttribute(CCRenderState.sideAttrib)) {
                     CCRenderState.pipeline.addDependency(CCRenderState.sideAttrib);
@@ -192,8 +192,8 @@ public class CCRenderState
             
             @Override
             public void operate() {
-                if (this.normalRef != null) {
-                    CCRenderState.setNormal(this.normalRef[CCRenderState.vertexIndex]);
+                if (normalRef != null) {
+                    CCRenderState.setNormal(normalRef[CCRenderState.vertexIndex]);
                 }
                 else {
                     CCRenderState.setNormal(Rotation.axes[CCRenderState.side]);
@@ -210,14 +210,14 @@ public class CCRenderState
             
             @Override
             public boolean load() {
-                this.colourRef = CCRenderState.model.getAttributes(this);
-                return this.colourRef != null || !CCRenderState.model.hasAttribute(this);
+                colourRef = CCRenderState.model.getAttributes(this);
+                return colourRef != null || !CCRenderState.model.hasAttribute(this);
             }
             
             @Override
             public void operate() {
-                if (this.colourRef != null) {
-                    CCRenderState.setColour(ColourRGBA.multiply(CCRenderState.baseColour, this.colourRef[CCRenderState.vertexIndex]));
+                if (colourRef != null) {
+                    CCRenderState.setColour(ColourRGBA.multiply(CCRenderState.baseColour, colourRef[CCRenderState.vertexIndex]));
                 }
                 else {
                     CCRenderState.setColour(CCRenderState.baseColour);
@@ -237,8 +237,8 @@ public class CCRenderState
                 if (!CCRenderState.computeLighting || !CCRenderState.useColour || !CCRenderState.model.hasAttribute(this)) {
                     return false;
                 }
-                this.colourRef = CCRenderState.model.getAttributes(this);
-                if (this.colourRef != null) {
+                colourRef = CCRenderState.model.getAttributes(this);
+                if (colourRef != null) {
                     CCRenderState.pipeline.addDependency(CCRenderState.colourAttrib);
                     return true;
                 }
@@ -247,7 +247,7 @@ public class CCRenderState
             
             @Override
             public void operate() {
-                CCRenderState.setColour(ColourRGBA.multiply(CCRenderState.colour, this.colourRef[CCRenderState.vertexIndex]));
+                CCRenderState.setColour(ColourRGBA.multiply(CCRenderState.colour, colourRef[CCRenderState.vertexIndex]));
             }
         };
         CCRenderState.sideAttrib = new VertexAttribute<int[]>() {
@@ -260,9 +260,9 @@ public class CCRenderState
             
             @Override
             public boolean load() {
-                this.sideRef = CCRenderState.model.getAttributes(this);
+                sideRef = CCRenderState.model.getAttributes(this);
                 if (CCRenderState.model.hasAttribute(this)) {
-                    return this.sideRef != null;
+                    return sideRef != null;
                 }
                 CCRenderState.pipeline.addDependency(CCRenderState.normalAttrib);
                 return true;
@@ -270,8 +270,8 @@ public class CCRenderState
             
             @Override
             public void operate() {
-                if (this.sideRef != null) {
-                    CCRenderState.side = this.sideRef[CCRenderState.vertexIndex];
+                if (sideRef != null) {
+                    CCRenderState.side = sideRef[CCRenderState.vertexIndex];
                 }
                 else {
                     CCRenderState.side = CCModel.findSide(CCRenderState.normal);
@@ -290,11 +290,11 @@ public class CCRenderState
             
             @Override
             public boolean load() {
-                this.lcRef = CCRenderState.model.getAttributes(this);
+                lcRef = CCRenderState.model.getAttributes(this);
                 if (CCRenderState.model.hasAttribute(this)) {
-                    return this.lcRef != null;
+                    return lcRef != null;
                 }
-                this.pos.set(CCRenderState.lightMatrix.pos.x, CCRenderState.lightMatrix.pos.y, CCRenderState.lightMatrix.pos.z);
+                pos.set(CCRenderState.lightMatrix.pos.x, CCRenderState.lightMatrix.pos.y, CCRenderState.lightMatrix.pos.z);
                 CCRenderState.pipeline.addDependency(CCRenderState.sideAttrib);
                 CCRenderState.pipeline.addRequirement(Transformation.operationIndex);
                 return true;
@@ -302,11 +302,11 @@ public class CCRenderState
             
             @Override
             public void operate() {
-                if (this.lcRef != null) {
-                    CCRenderState.lc.set(this.lcRef[CCRenderState.vertexIndex]);
+                if (lcRef != null) {
+                    CCRenderState.lc.set(lcRef[CCRenderState.vertexIndex]);
                 }
                 else {
-                    CCRenderState.lc.compute(this.vec.set(CCRenderState.vert.vec).sub(this.pos), CCRenderState.side);
+                    CCRenderState.lc.compute(vec.set(CCRenderState.vert.vec).sub(pos), CCRenderState.side);
                 }
             }
         };
@@ -324,16 +324,16 @@ public class CCRenderState
         public boolean active;
         
         public VertexAttribute() {
-            this.attributeIndex = registerVertexAttribute(this);
-            this.operationIndex = CCRenderState.registerOperation();
-            this.active = false;
+            attributeIndex = registerVertexAttribute(this);
+            operationIndex = CCRenderState.registerOperation();
+            active = false;
         }
         
         public abstract T newArray(final int p0);
         
         @Override
         public int operationID() {
-            return this.operationIndex;
+            return operationIndex;
         }
     }
     

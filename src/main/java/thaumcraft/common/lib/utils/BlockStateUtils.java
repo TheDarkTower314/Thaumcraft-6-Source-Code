@@ -78,8 +78,8 @@ public class BlockStateUtils
         private IProperty finalProperty;
         
         private PropertyIndexer(final IProperty... properties) {
-            this.indexedProperties = new HashMap<IProperty, IndexedProperty>();
-            this.finalProperty = properties[properties.length - 1];
+            indexedProperties = new HashMap<IProperty, IndexedProperty>();
+            finalProperty = properties[properties.length - 1];
             IndexedProperty previousIndexedProperty = null;
             for (final IProperty property : properties) {
                 final IndexedProperty indexedProperty = new IndexedProperty(property);
@@ -87,17 +87,17 @@ public class BlockStateUtils
                     indexedProperty.parent = previousIndexedProperty;
                     previousIndexedProperty.child = indexedProperty;
                 }
-                this.indexedProperties.put(property, indexedProperty);
+                indexedProperties.put(property, indexedProperty);
                 previousIndexedProperty = indexedProperty;
             }
         }
         
         public boolean increment() {
-            return this.indexedProperties.get(this.finalProperty).increment();
+            return indexedProperties.get(finalProperty).increment();
         }
         
         public IndexedProperty getIndexedProperty(final IProperty property) {
-            return this.indexedProperties.get(property);
+            return indexedProperties.get(property);
         }
     }
     
@@ -110,47 +110,47 @@ public class BlockStateUtils
         private IndexedProperty child;
         
         private IndexedProperty(final IProperty property) {
-            (this.validValues = new ArrayList<Comparable>()).addAll(property.getAllowedValues());
-            this.maxCount = this.validValues.size() - 1;
+            (validValues = new ArrayList<Comparable>()).addAll(property.getAllowedValues());
+            maxCount = validValues.size() - 1;
         }
         
         public boolean increment() {
-            if (this.counter < this.maxCount) {
-                ++this.counter;
+            if (counter < maxCount) {
+                ++counter;
                 return true;
             }
-            if (this.hasParent()) {
-                this.resetSelfAndChildren();
-                return this.parent.increment();
+            if (hasParent()) {
+                resetSelfAndChildren();
+                return parent.increment();
             }
             return false;
         }
         
         public void resetSelfAndChildren() {
-            this.counter = 0;
-            if (this.hasChild()) {
-                this.child.resetSelfAndChildren();
+            counter = 0;
+            if (hasChild()) {
+                child.resetSelfAndChildren();
             }
         }
         
         public boolean hasParent() {
-            return this.parent != null;
+            return parent != null;
         }
         
         public boolean hasChild() {
-            return this.child != null;
+            return child != null;
         }
         
         public int getCounter() {
-            return this.counter;
+            return counter;
         }
         
         public int getMaxCount() {
-            return this.maxCount;
+            return maxCount;
         }
         
         public Comparable getCurrentValue() {
-            return this.validValues.get(this.counter);
+            return validValues.get(counter);
         }
     }
 }

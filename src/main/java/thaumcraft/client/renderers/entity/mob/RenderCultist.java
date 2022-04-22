@@ -36,14 +36,14 @@ public class RenderCultist extends RenderBiped<EntityCultist>
     
     public RenderCultist(final RenderManager p_i46127_1_) {
         super(p_i46127_1_, new ModelBiped(), 0.5f);
-        this.addLayer((LayerRenderer)new LayerHeldItem(this));
+        addLayer((LayerRenderer)new LayerHeldItem(this));
         final LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this) {
             protected void initArmor() {
-                this.modelLeggings = new ModelBiped();
-                this.modelArmor = new ModelBiped();
+                modelLeggings = new ModelBiped();
+                modelArmor = new ModelBiped();
             }
         };
-        this.addLayer((LayerRenderer)layerbipedarmor);
+        addLayer((LayerRenderer)layerbipedarmor);
     }
     
     protected ResourceLocation getEntityTexture(final EntityCultist p_110775_1_) {
@@ -64,7 +64,7 @@ public class RenderCultist extends RenderBiped<EntityCultist>
         if (rit) {
             GL11.glPushMatrix();
             GL11.glDepthMask(false);
-            this.drawFloatyLine(entity.posX, entity.posY + entity.getEyeHeight() * 1.2f, entity.posZ, entity.getHomePosition().getX() + 0.5, entity.getHomePosition().getY() + 1.5 - bob, entity.getHomePosition().getZ() + 0.5, p_76986_9_, 1114129, -0.03f, Math.min(entity.ticksExisted, 10) / 10.0f, 0.25f);
+            drawFloatyLine(entity.posX, entity.posY + entity.getEyeHeight() * 1.2f, entity.posZ, entity.getHomePosition().getX() + 0.5, entity.getHomePosition().getY() + 1.5 - bob, entity.getHomePosition().getZ() + 0.5, p_76986_9_, 1114129, -0.03f, Math.min(entity.ticksExisted, 10) / 10.0f, 0.25f);
             GL11.glDepthMask(true);
             GL11.glPopMatrix();
         }
@@ -97,7 +97,7 @@ public class RenderCultist extends RenderBiped<EntityCultist>
         final double dc1x = (float)(dd1x - ds1x);
         final double dc1y = (float)(dd1y - ds1y);
         final double dc1z = (float)(dd1z - ds1z);
-        this.bindTexture(RenderCultist.fl);
+        bindTexture(RenderCultist.fl);
         tessellator.getBuffer().begin(5, DefaultVertexFormats.POSITION_TEX_COLOR);
         final double dx2 = 0.0;
         final double dy2 = 0.0;

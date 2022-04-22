@@ -24,27 +24,27 @@ public class TileArcaneWorkbench extends TileThaumcraft
     public int auraVisClient;
     
     public TileArcaneWorkbench() {
-        this.auraVisServer = 0;
-        this.auraVisClient = 0;
-        this.inventoryCraft = new InventoryArcaneWorkbench(this, new ContainerDummy());
+        auraVisServer = 0;
+        auraVisClient = 0;
+        inventoryCraft = new InventoryArcaneWorkbench(this, new ContainerDummy());
     }
     
     @Override
     public void readFromNBT(final NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
-        final NonNullList<ItemStack> stacks = NonNullList.withSize(this.inventoryCraft.getSizeInventory(), ItemStack.EMPTY);
+        final NonNullList<ItemStack> stacks = NonNullList.withSize(inventoryCraft.getSizeInventory(), ItemStack.EMPTY);
         ItemStackHelper.loadAllItems(nbtCompound, stacks);
         for (int a = 0; a < stacks.size(); ++a) {
-            this.inventoryCraft.setInventorySlotContents(a, stacks.get(a));
+            inventoryCraft.setInventorySlotContents(a, stacks.get(a));
         }
     }
     
     @Override
     public NBTTagCompound writeToNBT(final NBTTagCompound nbtCompound) {
         super.writeToNBT(nbtCompound);
-        final NonNullList<ItemStack> stacks = NonNullList.withSize(this.inventoryCraft.getSizeInventory(), ItemStack.EMPTY);
+        final NonNullList<ItemStack> stacks = NonNullList.withSize(inventoryCraft.getSizeInventory(), ItemStack.EMPTY);
         for (int a = 0; a < stacks.size(); ++a) {
-            stacks.set(a, this.inventoryCraft.getStackInSlot(a));
+            stacks.set(a, inventoryCraft.getStackInSlot(a));
         }
         ItemStackHelper.saveAllItems(nbtCompound, stacks);
         return nbtCompound;
@@ -60,14 +60,14 @@ public class TileArcaneWorkbench extends TileThaumcraft
     }
     
     public void getAura() {
-        if (!this.getWorld().isRemote) {
+        if (!getWorld().isRemote) {
             int t = 0;
-            if (this.world.getBlockState(this.getPos().up()).getBlock() == BlocksTC.arcaneWorkbenchCharger) {
-                final int sx = this.pos.getX() >> 4;
-                final int sz = this.pos.getZ() >> 4;
+            if (world.getBlockState(getPos().up()).getBlock() == BlocksTC.arcaneWorkbenchCharger) {
+                final int sx = pos.getX() >> 4;
+                final int sz = pos.getZ() >> 4;
                 for (int xx = -1; xx <= 1; ++xx) {
                     for (int zz = -1; zz <= 1; ++zz) {
-                        final AuraChunk ac = AuraHandler.getAuraChunk(this.world.provider.getDimension(), sx + xx, sz + zz);
+                        final AuraChunk ac = AuraHandler.getAuraChunk(world.provider.getDimension(), sx + xx, sz + zz);
                         if (ac != null) {
                             t += (int)ac.getVis();
                         }
@@ -75,15 +75,15 @@ public class TileArcaneWorkbench extends TileThaumcraft
                 }
             }
             else {
-                t = (int)AuraHandler.getVis(this.getWorld(), this.getPos());
+                t = (int)AuraHandler.getVis(getWorld(), getPos());
             }
-            this.auraVisServer = t;
+            auraVisServer = t;
         }
     }
     
     public void spendAura(final int vis) {
-        if (!this.getWorld().isRemote) {
-            if (this.world.getBlockState(this.getPos().up()).getBlock() == BlocksTC.arcaneWorkbenchCharger) {
+        if (!getWorld().isRemote) {
+            if (world.getBlockState(getPos().up()).getBlock() == BlocksTC.arcaneWorkbenchCharger) {
                 int q = vis;
                 int z = Math.max(1, vis / 9);
                 int attempts = 0;
@@ -95,7 +95,7 @@ public class TileArcaneWorkbench extends TileThaumcraft
                             if (z > q) {
                                 z = q;
                             }
-                            q -= (int)AuraHandler.drainVis(this.getWorld(), this.getPos().add(xx * 16, 0, zz * 16), (float)z, false);
+                            q -= (int)AuraHandler.drainVis(getWorld(), getPos().add(xx * 16, 0, zz * 16), (float)z, false);
                             if (q <= 0) {
                                 break Label_0144;
                             }
@@ -107,7 +107,7 @@ public class TileArcaneWorkbench extends TileThaumcraft
                 }
             }
             else {
-                AuraHandler.drainVis(this.getWorld(), this.getPos(), (float)vis, false);
+                AuraHandler.drainVis(getWorld(), getPos(), (float)vis, false);
             }
         }
     }

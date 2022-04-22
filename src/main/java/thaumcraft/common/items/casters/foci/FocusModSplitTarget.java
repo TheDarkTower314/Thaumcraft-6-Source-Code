@@ -37,7 +37,7 @@ public class FocusModSplitTarget extends FocusModSplit
     
     @Override
     public RayTraceResult[] supplyTargets() {
-        return this.getParent().supplyTargets();
+        return getParent().supplyTargets();
     }
     
     @Override

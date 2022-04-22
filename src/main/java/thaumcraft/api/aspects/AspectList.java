@@ -31,8 +31,8 @@ public class AspectList implements Serializable {
 	
 	public AspectList copy() {
 		AspectList out = new AspectList();
-		for (Aspect a:this.getAspects())
-			out.add(a, this.getAmount(a));
+		for (Aspect a: getAspects())
+			out.add(a, getAmount(a));
 		return out;
 	}
 	
@@ -51,7 +51,7 @@ public class AspectList implements Serializable {
 		int q = 0;
 		
 		for (Aspect as:aspects.keySet()) {
-			q+=this.getAmount(as);
+			q+= getAmount(as);
 		}
 		
 		return q;
@@ -87,7 +87,7 @@ public class AspectList implements Serializable {
 			} while (change==true);
 			return out;
 		} catch (Exception e) {
-			return this.getAspects(); 
+			return getAspects();
 		}
 	}
 	
@@ -115,7 +115,7 @@ public class AspectList implements Serializable {
 			} while (change==true);
 			return out;
 		} catch (Exception e) {
-			return this.getAspects();
+			return getAspects();
 		}
 	}
 	
@@ -152,7 +152,7 @@ public class AspectList implements Serializable {
 	public AspectList remove(Aspect key, int amount) {
 		int am = getAmount(key)-amount;
 		if (am<=0) aspects.remove(key); else
-		this.aspects.put(key, am);
+		aspects.put(key, am);
 		return this;
 	}
 	
@@ -175,11 +175,11 @@ public class AspectList implements Serializable {
 	 * @return
 	 */
 	public AspectList add(Aspect aspect, int amount) {
-		if (this.aspects.containsKey(aspect)) {
-			int oldamount = this.aspects.get(aspect);
+		if (aspects.containsKey(aspect)) {
+			int oldamount = aspects.get(aspect);
 			amount+=oldamount;
 		}
-		this.aspects.put( aspect, amount );
+		aspects.put( aspect, amount );
 		return this;
 	}
 
@@ -192,30 +192,30 @@ public class AspectList implements Serializable {
 	 * @return
 	 */
 	public AspectList merge(Aspect aspect, int amount) {
-		if (this.aspects.containsKey(aspect)) {
-			int oldamount = this.aspects.get(aspect);
+		if (aspects.containsKey(aspect)) {
+			int oldamount = aspects.get(aspect);
 			if (amount<oldamount) amount=oldamount;
 			
 		}
-		this.aspects.put( aspect, amount );
+		aspects.put( aspect, amount );
 		return this;
 	}
 	
 	public AspectList add(AspectList in) {
 		for (Aspect a:in.getAspects()) 
-			this.add(a, in.getAmount(a));
+			add(a, in.getAmount(a));
 		return this;
 	}
 	
 	public AspectList remove(AspectList in) {
 		for (Aspect a:in.getAspects()) 
-			this.remove(a, in.getAmount(a));
+			remove(a, in.getAmount(a));
 		return this;
 	}
 	
 	public AspectList merge(AspectList in) {
 		for (Aspect a:in.getAspects()) 
-			this.merge(a, in.getAmount(a));
+			merge(a, in.getAmount(a));
 		return this;
 	}
 		

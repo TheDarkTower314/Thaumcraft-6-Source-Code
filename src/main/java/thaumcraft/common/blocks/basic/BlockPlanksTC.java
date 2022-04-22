@@ -15,9 +15,9 @@ public class BlockPlanksTC extends BlockTC
 {
     public BlockPlanksTC(final String name) {
         super(Material.WOOD, name);
-        this.setHarvestLevel("axe", 0);
-        this.setHardness(2.0f);
-        this.setSoundType(SoundType.WOOD);
+        setHarvestLevel("axe", 0);
+        setHardness(2.0f);
+        setSoundType(SoundType.WOOD);
     }
     
     public int getFlammability(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {

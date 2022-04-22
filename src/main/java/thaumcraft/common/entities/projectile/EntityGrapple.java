@@ -32,13 +32,13 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
     
     public EntityGrapple(final World par1World) {
         super(par1World);
-        this.hand = EnumHand.MAIN_HAND;
-        this.p = false;
-        this.prevDist = 0;
-        this.count = 0;
-        this.added = false;
-        this.ampl = 0.0f;
-        this.setSize(0.1f, 0.1f);
+        hand = EnumHand.MAIN_HAND;
+        p = false;
+        prevDist = 0;
+        count = 0;
+        added = false;
+        ampl = 0.0f;
+        setSize(0.1f, 0.1f);
     }
     
     public boolean isInRangeToRenderDist(final double distance) {
@@ -52,55 +52,55 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
     public EntityGrapple(final World par1World, final EntityLivingBase par2EntityLiving, final EnumHand hand) {
         super(par1World, par2EntityLiving);
         this.hand = EnumHand.MAIN_HAND;
-        this.p = false;
-        this.prevDist = 0;
-        this.count = 0;
-        this.added = false;
-        this.ampl = 0.0f;
-        this.setSize(0.1f, 0.1f);
+        p = false;
+        prevDist = 0;
+        count = 0;
+        added = false;
+        ampl = 0.0f;
+        setSize(0.1f, 0.1f);
         this.hand = hand;
     }
     
     public EntityGrapple(final World par1World, final double par2, final double par4, final double par6) {
         super(par1World, par2, par4, par6);
-        this.hand = EnumHand.MAIN_HAND;
-        this.p = false;
-        this.prevDist = 0;
-        this.count = 0;
-        this.added = false;
-        this.ampl = 0.0f;
-        this.setSize(0.1f, 0.1f);
+        hand = EnumHand.MAIN_HAND;
+        p = false;
+        prevDist = 0;
+        count = 0;
+        added = false;
+        ampl = 0.0f;
+        setSize(0.1f, 0.1f);
     }
     
     public void writeSpawnData(final ByteBuf data) {
         int id = -1;
-        if (this.getThrower() != null) {
-            id = this.getThrower().getEntityId();
+        if (getThrower() != null) {
+            id = getThrower().getEntityId();
         }
         data.writeInt(id);
-        data.writeBoolean(this.hand == EnumHand.MAIN_HAND);
+        data.writeBoolean(hand == EnumHand.MAIN_HAND);
     }
     
     public void readSpawnData(final ByteBuf data) {
         final int id = data.readInt();
-        this.hand = (data.readBoolean() ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
+        hand = (data.readBoolean() ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
         try {
             if (id >= 0) {
-                this.cthrower = (EntityLivingBase)this.world.getEntityByID(id);
+                cthrower = (EntityLivingBase) world.getEntityByID(id);
             }
         }
         catch (final Exception ex) {}
     }
     
     public EntityLivingBase getThrower() {
-        if (this.cthrower != null) {
-            return this.cthrower;
+        if (cthrower != null) {
+            return cthrower;
         }
         return super.getThrower();
     }
     
     protected float getGravityVelocity() {
-        return this.getPulling() ? 0.0f : 0.03f;
+        return getPulling() ? 0.0f : 0.03f;
     }
     
     public void entityInit() {
@@ -108,55 +108,55 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
     }
     
     public void setPulling() {
-        this.p = true;
+        p = true;
     }
     
     public boolean getPulling() {
-        return this.p;
+        return p;
     }
     
     public void onUpdate() {
         super.onUpdate();
-        if (!this.getPulling() && !this.isDead && (this.ticksExisted > 30 || this.getThrower() == null)) {
-            if (this.getThrower() != null) {
-                EntityGrapple.grapples.remove(this.getThrower().getEntityId());
+        if (!getPulling() && !isDead && (ticksExisted > 30 || getThrower() == null)) {
+            if (getThrower() != null) {
+                EntityGrapple.grapples.remove(getThrower().getEntityId());
             }
-            this.setDead();
+            setDead();
         }
-        if (this.getThrower() != null) {
-            if (!this.world.isRemote && !this.isDead && !this.added) {
-                if (EntityGrapple.grapples.containsKey(this.getThrower().getEntityId())) {
-                    final int ii = EntityGrapple.grapples.get(this.getThrower().getEntityId());
-                    if (ii != this.getEntityId()) {
-                        final Entity e = this.world.getEntityByID(ii);
+        if (getThrower() != null) {
+            if (!world.isRemote && !isDead && !added) {
+                if (EntityGrapple.grapples.containsKey(getThrower().getEntityId())) {
+                    final int ii = EntityGrapple.grapples.get(getThrower().getEntityId());
+                    if (ii != getEntityId()) {
+                        final Entity e = world.getEntityByID(ii);
                         if (e != null) {
                             e.setDead();
                         }
                     }
                 }
-                EntityGrapple.grapples.put(this.getThrower().getEntityId(), this.getEntityId());
-                this.added = true;
+                EntityGrapple.grapples.put(getThrower().getEntityId(), getEntityId());
+                added = true;
             }
             try {
-                if (this.getThrower() != null && EntityGrapple.grapples.containsKey(this.getThrower().getEntityId()) && EntityGrapple.grapples.get(this.getThrower().getEntityId()) != this.getEntityId()) {
-                    this.setDead();
+                if (getThrower() != null && EntityGrapple.grapples.containsKey(getThrower().getEntityId()) && EntityGrapple.grapples.get(getThrower().getEntityId()) != getEntityId()) {
+                    setDead();
                 }
             }
             catch (final Exception ex) {}
-            final double dis = this.getThrower().getDistance(this);
-            if (this.getThrower() != null && this.getPulling() && !this.isDead) {
-                if (this.getThrower().isSneaking()) {
-                    EntityGrapple.grapples.remove(this.getThrower().getEntityId());
-                    this.setDead();
+            final double dis = getThrower().getDistance(this);
+            if (getThrower() != null && getPulling() && !isDead) {
+                if (getThrower().isSneaking()) {
+                    EntityGrapple.grapples.remove(getThrower().getEntityId());
+                    setDead();
                 }
                 else {
-                    if (!this.world.isRemote && this.getThrower() instanceof EntityPlayerMP) {
-                        ((EntityPlayerMP)this.getThrower()).connection.floatingTickCount = 0;
+                    if (!world.isRemote && getThrower() instanceof EntityPlayerMP) {
+                        ((EntityPlayerMP) getThrower()).connection.floatingTickCount = 0;
                     }
-                    this.getThrower().fallDistance = 0.0f;
-                    double mx = this.posX - this.getThrower().posX;
-                    double my = this.posY - this.getThrower().posY;
-                    double mz = this.posZ - this.getThrower().posZ;
+                    getThrower().fallDistance = 0.0f;
+                    double mx = posX - getThrower().posX;
+                    double my = posY - getThrower().posY;
+                    double mz = posZ - getThrower().posZ;
                     double dd = dis;
                     if (dis < 8.0) {
                         dd = dis * (8.0 - dis);
@@ -172,33 +172,33 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
                         my = v2.y / 4.0;
                         mz = v2.z / 4.0;
                     }
-                    final EntityLivingBase thrower = this.getThrower();
+                    final EntityLivingBase thrower = getThrower();
                     thrower.motionX += mx;
-                    final EntityLivingBase thrower2 = this.getThrower();
+                    final EntityLivingBase thrower2 = getThrower();
                     thrower2.motionY += my + 0.033;
-                    final EntityLivingBase thrower3 = this.getThrower();
+                    final EntityLivingBase thrower3 = getThrower();
                     thrower3.motionZ += mz;
-                    if (!this.boost) {
-                        final EntityLivingBase thrower4 = this.getThrower();
+                    if (!boost) {
+                        final EntityLivingBase thrower4 = getThrower();
                         thrower4.motionY += 0.4000000059604645;
-                        this.boost = true;
+                        boost = true;
                     }
                     final int d = (int)(dis / 2.0);
-                    if (d == this.prevDist) {
-                        ++this.count;
+                    if (d == prevDist) {
+                        ++count;
                     }
                     else {
-                        this.count = 0;
+                        count = 0;
                     }
-                    this.prevDist = d;
+                    prevDist = d;
                 }
             }
-            if (this.world.isRemote) {
-                if (!this.getPulling()) {
-                    this.ampl += 0.02f;
+            if (world.isRemote) {
+                if (!getPulling()) {
+                    ampl += 0.02f;
                 }
                 else {
-                    this.ampl *= 0.66f;
+                    ampl *= 0.66f;
                 }
             }
         }
@@ -207,23 +207,23 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
     @SideOnly(Side.CLIENT)
     public void handleStatusUpdate(final byte id) {
         if (id == 6) {
-            this.setPulling();
-            this.motionX = 0.0;
-            this.motionY = 0.0;
-            this.motionZ = 0.0;
+            setPulling();
+            motionX = 0.0;
+            motionY = 0.0;
+            motionZ = 0.0;
         }
     }
     
     protected void onImpact(final RayTraceResult mop) {
-        if (!this.world.isRemote) {
-            this.setPulling();
-            this.motionX = 0.0;
-            this.motionY = 0.0;
-            this.motionZ = 0.0;
-            this.posX = mop.hitVec.x;
-            this.posY = mop.hitVec.y;
-            this.posZ = mop.hitVec.z;
-            this.world.setEntityState(this, (byte)6);
+        if (!world.isRemote) {
+            setPulling();
+            motionX = 0.0;
+            motionY = 0.0;
+            motionZ = 0.0;
+            posX = mop.hitVec.x;
+            posY = mop.hitVec.y;
+            posZ = mop.hitVec.z;
+            world.setEntityState(this, (byte)6);
         }
     }
     

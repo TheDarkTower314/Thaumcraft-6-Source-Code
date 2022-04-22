@@ -20,9 +20,9 @@ public class ItemAlumentum extends ItemTCBase
 {
     public ItemAlumentum() {
         super("alumentum");
-        this.setMaxStackSize(64);
-        this.setHasSubtypes(true);
-        this.setMaxDamage(0);
+        setMaxStackSize(64);
+        setHasSubtypes(true);
+        setMaxDamage(0);
     }
     
     public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {

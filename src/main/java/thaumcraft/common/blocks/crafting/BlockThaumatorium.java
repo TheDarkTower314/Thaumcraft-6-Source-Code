@@ -35,17 +35,17 @@ public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHori
     
     public BlockThaumatorium(final boolean top) {
         super(Material.IRON, null, top ? "thaumatorium_top" : "thaumatorium");
-        this.setSoundType(SoundType.METAL);
-        this.setCreativeTab(null);
+        setSoundType(SoundType.METAL);
+        setCreativeTab(null);
         this.top = top;
     }
     
     @Override
     public TileEntity createNewTileEntity(final World world, final int metadata) {
-        if (!this.top) {
+        if (!top) {
             return new TileThaumatorium();
         }
-        if (this.top) {
+        if (top) {
             return new TileThaumatoriumTop();
         }
         return null;
@@ -68,12 +68,12 @@ public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHori
     }
     
     public EnumBlockRenderType getRenderType(final IBlockState state) {
-        return this.top ? EnumBlockRenderType.INVISIBLE : EnumBlockRenderType.MODEL;
+        return top ? EnumBlockRenderType.INVISIBLE : EnumBlockRenderType.MODEL;
     }
     
     public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
         if (!world.isRemote && !player.isSneaking()) {
-            if (!this.top) {
+            if (!top) {
                 player.openGui(Thaumcraft.instance, 3, world, pos.getX(), pos.getY(), pos.getZ());
             }
             else {
@@ -94,10 +94,10 @@ public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHori
     
     @Override
     public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
-        if (this.top && worldIn.getBlockState(pos.down()).getBlock() == BlocksTC.thaumatorium) {
+        if (top && worldIn.getBlockState(pos.down()).getBlock() == BlocksTC.thaumatorium) {
             worldIn.setBlockState(pos.down(), BlocksTC.metalAlchemical.getDefaultState());
         }
-        if (!this.top && worldIn.getBlockState(pos.up()).getBlock() == BlocksTC.thaumatoriumTop) {
+        if (!top && worldIn.getBlockState(pos.up()).getBlock() == BlocksTC.thaumatoriumTop) {
             worldIn.setBlockState(pos.up(), BlocksTC.metalAlchemical.getDefaultState());
         }
         super.breakBlock(worldIn, pos, state);
@@ -105,7 +105,7 @@ public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHori
     
     @Override
     public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
-        if (!this.top && worldIn.getBlockState(pos.down()).getBlock() != BlocksTC.crucible) {
+        if (!top && worldIn.getBlockState(pos.down()).getBlock() != BlocksTC.crucible) {
             worldIn.setBlockState(pos, BlocksTC.metalAlchemical.getDefaultState());
             if (worldIn.getBlockState(pos.up()).getBlock() == BlocksTC.thaumatoriumTop) {
                 worldIn.setBlockState(pos.up(), BlocksTC.metalAlchemical.getDefaultState());
@@ -114,7 +114,7 @@ public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHori
     }
     
     public boolean hasComparatorInputOverride(final IBlockState state) {
-        return !this.top;
+        return !top;
     }
     
     public int getComparatorInputOverride(final IBlockState state, final World world, final BlockPos pos) {

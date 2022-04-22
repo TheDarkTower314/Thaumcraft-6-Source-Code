@@ -28,7 +28,7 @@ public class ItemCelestialNotes extends ItemTCBase
     @SideOnly(Side.CLIENT)
     public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
         try {
-            tooltip.add(TextFormatting.AQUA + I18n.translateToLocal("item.celestial_notes." + this.getVariantNames()[stack.getItemDamage()] + ".text"));
+            tooltip.add(TextFormatting.AQUA + I18n.translateToLocal("item.celestial_notes." + getVariantNames()[stack.getItemDamage()] + ".text"));
         }
         catch (final Exception ex) {}
     }

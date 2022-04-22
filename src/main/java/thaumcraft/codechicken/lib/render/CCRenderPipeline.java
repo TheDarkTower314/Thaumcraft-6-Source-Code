@@ -15,10 +15,10 @@ public class CCRenderPipeline
     private PipelineNode loading;
     
     public CCRenderPipeline() {
-        this.attribs = new ArrayList<CCRenderState.VertexAttribute>();
-        this.ops = new ArrayList<CCRenderState.IVertexOperation>();
-        this.nodes = new ArrayList<PipelineNode>();
-        this.sorted = new ArrayList<CCRenderState.IVertexOperation>();
+        attribs = new ArrayList<CCRenderState.VertexAttribute>();
+        ops = new ArrayList<CCRenderState.IVertexOperation>();
+        nodes = new ArrayList<PipelineNode>();
+        sorted = new ArrayList<CCRenderState.IVertexOperation>();
     }
     
     public void setPipeline(final CCRenderState.IVertexOperation... ops) {
@@ -26,79 +26,79 @@ public class CCRenderPipeline
         for (int i = 0; i < ops.length; ++i) {
             this.ops.add(ops[i]);
         }
-        this.rebuild();
+        rebuild();
     }
     
     public void reset() {
-        this.ops.clear();
-        this.unbuild();
+        ops.clear();
+        unbuild();
     }
     
     private void unbuild() {
-        for (int i = 0; i < this.attribs.size(); ++i) {
-            this.attribs.get(i).active = false;
+        for (int i = 0; i < attribs.size(); ++i) {
+            attribs.get(i).active = false;
         }
-        this.attribs.clear();
-        this.sorted.clear();
+        attribs.clear();
+        sorted.clear();
     }
     
     public void rebuild() {
-        if (this.ops.isEmpty() || CCRenderState.model == null) {
+        if (ops.isEmpty() || CCRenderState.model == null) {
             return;
         }
-        while (this.nodes.size() < CCRenderState.operationCount()) {
-            this.nodes.add(new PipelineNode());
+        while (nodes.size() < CCRenderState.operationCount()) {
+            nodes.add(new PipelineNode());
         }
-        this.unbuild();
+        unbuild();
         if (CCRenderState.useNormals) {
-            this.addAttribute(CCRenderState.normalAttrib);
+            addAttribute(CCRenderState.normalAttrib);
         }
         if (CCRenderState.baseColour != -1 || CCRenderState.alphaOverride >= 0) {
-            this.addAttribute(CCRenderState.colourAttrib);
+            addAttribute(CCRenderState.colourAttrib);
         }
         else if (CCRenderState.hasColour) {
             CCRenderState.setColour(-1);
         }
-        for (int i = 0; i < this.ops.size(); ++i) {
-            final CCRenderState.IVertexOperation op = this.ops.get(i);
-            this.loading = this.nodes.get(op.operationID());
+        for (int i = 0; i < ops.size(); ++i) {
+            final CCRenderState.IVertexOperation op = ops.get(i);
+            loading = nodes.get(op.operationID());
             final boolean loaded = op.load();
             if (loaded) {
-                this.loading.op = op;
+                loading.op = op;
             }
             if (op instanceof CCRenderState.VertexAttribute) {
                 if (loaded) {
-                    this.attribs.add((CCRenderState.VertexAttribute)op);
+                    attribs.add((CCRenderState.VertexAttribute)op);
                 }
                 else {
                     ((CCRenderState.VertexAttribute)op).active = false;
                 }
             }
         }
-        for (int i = 0; i < this.nodes.size(); ++i) {
-            this.nodes.get(i).add();
+        for (int i = 0; i < nodes.size(); ++i) {
+            nodes.get(i).add();
         }
     }
     
     public void addRequirement(final int opRef) {
-        this.loading.deps.add(this.nodes.get(opRef));
+        loading.deps.add(nodes.get(opRef));
     }
     
     public void addDependency(final CCRenderState.VertexAttribute attrib) {
-        this.loading.deps.add(this.nodes.get(attrib.operationID()));
-        this.addAttribute(attrib);
+        loading.deps.add(nodes.get(attrib.operationID()));
+        addAttribute(attrib);
     }
     
     public void addAttribute(final CCRenderState.VertexAttribute attrib) {
         if (!attrib.active) {
-            this.ops.add(attrib);
+            ops.add(attrib);
             attrib.active = true;
         }
     }
     
     public void operate() {
-        for (int i = 0; i < this.sorted.size(); ++i) {
-            this.sorted.get(i).operate();
+        for (int i = 0; i < sorted.size(); ++i) {
+            sorted.get(i).operate();
         }
     }
     
@@ -108,19 +108,19 @@ public class CCRenderPipeline
         public CCRenderState.IVertexOperation op;
         
         private PipelineNode() {
-            this.deps = new ArrayList<PipelineNode>();
+            deps = new ArrayList<PipelineNode>();
         }
         
         public void add() {
-            if (this.op == null) {
+            if (op == null) {
                 return;
             }
-            for (int i = 0; i < this.deps.size(); ++i) {
-                this.deps.get(i).add();
+            for (int i = 0; i < deps.size(); ++i) {
+                deps.get(i).add();
             }
-            this.deps.clear();
-            CCRenderPipeline.this.sorted.add(this.op);
-            this.op = null;
+            deps.clear();
+            sorted.add(op);
+            op = null;
         }
     }
 }

@@ -18,58 +18,58 @@ public class ContainerThaumatorium extends Container
     private EntityPlayer player;
     
     public ContainerThaumatorium(final InventoryPlayer par1InventoryPlayer, final TileThaumatorium tileEntity) {
-        this.player = null;
-        this.player = par1InventoryPlayer.player;
-        this.thaumatorium = tileEntity;
-        ((ContainerThaumatorium)(this.thaumatorium.eventHandler = this)).addSlotToContainer(new Slot(tileEntity, 0, 55, 24));
+        player = null;
+        player = par1InventoryPlayer.player;
+        thaumatorium = tileEntity;
+        ((ContainerThaumatorium)(thaumatorium.eventHandler = this)).addSlotToContainer(new Slot(tileEntity, 0, 55, 24));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 135 + i * 18));
+                addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 135 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 193));
+            addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 193));
         }
-        this.thaumatorium.updateRecipes(this.player);
+        thaumatorium.updateRecipes(player);
     }
     
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        this.thaumatorium.updateRecipes(this.player);
+        thaumatorium.updateRecipes(player);
     }
     
     public void onContainerClosed(final EntityPlayer par1EntityPlayer) {
         super.onContainerClosed(par1EntityPlayer);
-        if (!this.thaumatorium.getWorld().isRemote) {
-            this.thaumatorium.eventHandler = null;
+        if (!thaumatorium.getWorld().isRemote) {
+            thaumatorium.eventHandler = null;
         }
     }
     
     public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
-        return this.thaumatorium.isUsableByPlayer(par1EntityPlayer);
+        return thaumatorium.isUsableByPlayer(par1EntityPlayer);
     }
     
     public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int par2) {
         ItemStack itemstack = ItemStack.EMPTY;
-        final Slot slot = this.inventorySlots.get(par2);
+        final Slot slot = inventorySlots.get(par2);
         if (slot != null && slot.getHasStack()) {
             final ItemStack itemstack2 = slot.getStack();
             itemstack = itemstack2.copy();
             if (par2 != 0) {
-                if (!this.mergeItemStack(itemstack2, 0, 1, false)) {
+                if (!mergeItemStack(itemstack2, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }
             }
             else if (par2 >= 1 && par2 < 28) {
-                if (!this.mergeItemStack(itemstack2, 28, 37, false)) {
+                if (!mergeItemStack(itemstack2, 28, 37, false)) {
                     return ItemStack.EMPTY;
                 }
             }
             else {
-                if (par2 >= 28 && par2 < 37 && !this.mergeItemStack(itemstack2, 1, 28, false)) {
+                if (par2 >= 28 && par2 < 37 && !mergeItemStack(itemstack2, 1, 28, false)) {
                     return ItemStack.EMPTY;
                 }
-                if (!this.mergeItemStack(itemstack2, 1, 37, false)) {
+                if (!mergeItemStack(itemstack2, 1, 37, false)) {
                     return ItemStack.EMPTY;
                 }
             }

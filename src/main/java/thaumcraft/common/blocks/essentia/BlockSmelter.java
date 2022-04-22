@@ -35,11 +35,11 @@ public class BlockSmelter extends BlockTCDevice implements IBlockEnabled, IBlock
 {
     public BlockSmelter(final String name) {
         super(Material.IRON, TileSmelter.class, name);
-        this.setSoundType(SoundType.METAL);
-        final IBlockState bs = this.blockState.getBaseState();
+        setSoundType(SoundType.METAL);
+        final IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)EnumFacing.NORTH);
         bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false);
-        this.setDefaultState(bs);
+        setDefaultState(bs);
     }
     
     @Override
@@ -48,7 +48,7 @@ public class BlockSmelter extends BlockTCDevice implements IBlockEnabled, IBlock
     
     @Override
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)placer.getHorizontalFacing().getOpposite());
         bs = bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false);
         return bs;

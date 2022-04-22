@@ -25,9 +25,9 @@ public class ItemCultistBoots extends ItemArmor implements IWarpingGear, IVisDis
 {
     public ItemCultistBoots() {
         super(ItemArmor.ArmorMaterial.IRON, 2, EntityEquipmentSlot.FEET);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("crimson_boots");
-        this.setUnlocalizedName("crimson_boots");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("crimson_boots");
+        setUnlocalizedName("crimson_boots");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

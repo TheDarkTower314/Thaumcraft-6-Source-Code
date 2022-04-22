@@ -40,110 +40,110 @@ public class GolemProperties implements IGolemProperties
     private Set<EnumGolemTrait> traitCache;
     
     public GolemProperties() {
-        this.data = 0L;
-        this.traitCache = null;
+        data = 0L;
+        traitCache = null;
     }
     
     @Override
     public Set<EnumGolemTrait> getTraits() {
-        if (this.traitCache == null) {
-            this.traitCache = new HashSet<EnumGolemTrait>();
-            for (final EnumGolemTrait trait : this.getMaterial().traits) {
-                this.addTraitSmart(trait);
+        if (traitCache == null) {
+            traitCache = new HashSet<EnumGolemTrait>();
+            for (final EnumGolemTrait trait : getMaterial().traits) {
+                addTraitSmart(trait);
             }
-            for (final EnumGolemTrait trait : this.getHead().traits) {
-                this.addTraitSmart(trait);
+            for (final EnumGolemTrait trait : getHead().traits) {
+                addTraitSmart(trait);
             }
-            for (final EnumGolemTrait trait : this.getArms().traits) {
-                this.addTraitSmart(trait);
+            for (final EnumGolemTrait trait : getArms().traits) {
+                addTraitSmart(trait);
             }
-            for (final EnumGolemTrait trait : this.getLegs().traits) {
-                this.addTraitSmart(trait);
+            for (final EnumGolemTrait trait : getLegs().traits) {
+                addTraitSmart(trait);
             }
-            for (final EnumGolemTrait trait : this.getAddon().traits) {
-                this.addTraitSmart(trait);
+            for (final EnumGolemTrait trait : getAddon().traits) {
+                addTraitSmart(trait);
             }
         }
-        return this.traitCache;
+        return traitCache;
     }
     
     private void addTraitSmart(final EnumGolemTrait trait) {
-        if (trait.opposite != null && this.traitCache.contains(trait.opposite)) {
-            this.traitCache.remove(trait.opposite);
+        if (trait.opposite != null && traitCache.contains(trait.opposite)) {
+            traitCache.remove(trait.opposite);
         }
         else {
-            this.traitCache.add(trait);
+            traitCache.add(trait);
         }
     }
     
     @Override
     public boolean hasTrait(final EnumGolemTrait trait) {
-        return this.getTraits().contains(trait);
+        return getTraits().contains(trait);
     }
     
     @Override
     public void setMaterial(final GolemMaterial mat) {
-        this.data = ThaumcraftApiHelper.setByteInLong(this.data, mat.id, 0);
-        this.traitCache = null;
+        data = ThaumcraftApiHelper.setByteInLong(data, mat.id, 0);
+        traitCache = null;
     }
     
     @Override
     public GolemMaterial getMaterial() {
-        return GolemMaterial.getMaterials()[ThaumcraftApiHelper.getByteInLong(this.data, 0)];
+        return GolemMaterial.getMaterials()[ThaumcraftApiHelper.getByteInLong(data, 0)];
     }
     
     @Override
     public void setHead(final GolemHead mat) {
-        this.data = ThaumcraftApiHelper.setByteInLong(this.data, mat.id, 1);
-        this.traitCache = null;
+        data = ThaumcraftApiHelper.setByteInLong(data, mat.id, 1);
+        traitCache = null;
     }
     
     @Override
     public GolemHead getHead() {
-        return GolemHead.getHeads()[ThaumcraftApiHelper.getByteInLong(this.data, 1)];
+        return GolemHead.getHeads()[ThaumcraftApiHelper.getByteInLong(data, 1)];
     }
     
     @Override
     public void setArms(final GolemArm mat) {
-        this.data = ThaumcraftApiHelper.setByteInLong(this.data, mat.id, 2);
-        this.traitCache = null;
+        data = ThaumcraftApiHelper.setByteInLong(data, mat.id, 2);
+        traitCache = null;
     }
     
     @Override
     public GolemArm getArms() {
-        return GolemArm.getArms()[ThaumcraftApiHelper.getByteInLong(this.data, 2)];
+        return GolemArm.getArms()[ThaumcraftApiHelper.getByteInLong(data, 2)];
     }
     
     @Override
     public void setLegs(final GolemLeg mat) {
-        this.data = ThaumcraftApiHelper.setByteInLong(this.data, mat.id, 3);
-        this.traitCache = null;
+        data = ThaumcraftApiHelper.setByteInLong(data, mat.id, 3);
+        traitCache = null;
     }
     
     @Override
     public GolemLeg getLegs() {
-        return GolemLeg.getLegs()[ThaumcraftApiHelper.getByteInLong(this.data, 3)];
+        return GolemLeg.getLegs()[ThaumcraftApiHelper.getByteInLong(data, 3)];
     }
     
     @Override
     public void setAddon(final GolemAddon mat) {
-        this.data = ThaumcraftApiHelper.setByteInLong(this.data, mat.id, 4);
-        this.traitCache = null;
+        data = ThaumcraftApiHelper.setByteInLong(data, mat.id, 4);
+        traitCache = null;
     }
     
     @Override
     public GolemAddon getAddon() {
-        return GolemAddon.getAddons()[ThaumcraftApiHelper.getByteInLong(this.data, 4)];
+        return GolemAddon.getAddons()[ThaumcraftApiHelper.getByteInLong(data, 4)];
     }
     
     @Override
     public void setRank(final int rank) {
-        this.data = ThaumcraftApiHelper.setByteInLong(this.data, (byte)rank, 5);
+        data = ThaumcraftApiHelper.setByteInLong(data, (byte)rank, 5);
     }
     
     @Override
     public int getRank() {
-        return ThaumcraftApiHelper.getByteInLong(this.data, 5);
+        return ThaumcraftApiHelper.getByteInLong(data, 5);
     }
     
     public static IGolemProperties fromLong(final long d) {
@@ -154,20 +154,20 @@ public class GolemProperties implements IGolemProperties
     
     @Override
     public long toLong() {
-        return this.data;
+        return data;
     }
     
     @Override
     public ItemStack[] generateComponents() {
         final ArrayList<ItemStack> comps = new ArrayList<ItemStack>();
-        final ItemStack base = this.getMaterial().componentBase;
-        final ItemStack mech = this.getMaterial().componentMechanism;
+        final ItemStack base = getMaterial().componentBase;
+        final ItemStack mech = getMaterial().componentMechanism;
         addToList(comps, base, 2);
         addToList(comps, mech, 1);
-        addToListFromComps(comps, this.getArms().components, this.getMaterial());
-        addToListFromComps(comps, this.getLegs().components, this.getMaterial());
-        addToListFromComps(comps, this.getHead().components, this.getMaterial());
-        addToListFromComps(comps, this.getAddon().components, this.getMaterial());
+        addToListFromComps(comps, getArms().components, getMaterial());
+        addToListFromComps(comps, getLegs().components, getMaterial());
+        addToListFromComps(comps, getHead().components, getMaterial());
+        addToListFromComps(comps, getAddon().components, getMaterial());
         return comps.toArray(new ItemStack[0]);
     }
     

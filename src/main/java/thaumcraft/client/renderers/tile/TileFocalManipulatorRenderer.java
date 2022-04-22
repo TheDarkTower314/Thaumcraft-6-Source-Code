@@ -33,7 +33,7 @@ public class TileFocalManipulatorRenderer extends TileEntitySpecialRenderer
     EntityItem entityitem;
     
     public TileFocalManipulatorRenderer() {
-        this.entityitem = null;
+        entityitem = null;
     }
     
     public void renderTileEntityAt(final TileFocalManipulator table, final double par2, final double par4, final double par6, final float par8) {
@@ -44,10 +44,10 @@ public class TileFocalManipulatorRenderer extends TileEntitySpecialRenderer
                 GL11.glTranslatef((float)par2 + 0.5f, (float)par4 + 0.8f, (float)par6 + 0.5f);
                 GL11.glRotatef(ticks % 360.0f, 0.0f, 1.0f, 0.0f);
                 final ItemStack is = table.getSyncedStackInSlot(0).copy();
-                this.entityitem = new EntityItem(table.getWorld(), 0.0, 0.0, 0.0, is);
-                this.entityitem.hoverStart = MathHelper.sin(ticks / 14.0f) * 0.2f + 0.2f;
+                entityitem = new EntityItem(table.getWorld(), 0.0, 0.0, 0.0, is);
+                entityitem.hoverStart = MathHelper.sin(ticks / 14.0f) * 0.2f + 0.2f;
                 final RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-                rendermanager.renderEntity(this.entityitem, 0.0, 0.0, 0.0, 0.0f, 0.0f, false);
+                rendermanager.renderEntity(entityitem, 0.0, 0.0, 0.0, 0.0f, 0.0f, false);
                 GL11.glPopMatrix();
             }
             if (table.crystalsSync.getAspects().length > 0) {
@@ -61,7 +61,7 @@ public class TileFocalManipulatorRenderer extends TileEntitySpecialRenderer
                     GL11.glRotatef(angle, 0.0f, 1.0f, 0.0f);
                     GL11.glTranslatef(0.0f, bob, 0.4f);
                     GL11.glRotatef(-angle, 0.0f, 1.0f, 0.0f);
-                    this.bindTexture(ParticleEngine.particleTexture);
+                    bindTexture(ParticleEngine.particleTexture);
                     GL11.glEnable(3042);
                     GL11.glBlendFunc(770, 1);
                     GL11.glAlphaFunc(516, 0.003921569f);
@@ -83,12 +83,12 @@ public class TileFocalManipulatorRenderer extends TileEntitySpecialRenderer
                     GL11.glTranslatef(0.0f, bob, 0.4f);
                     GL11.glScaled(0.5, 0.5, 0.5);
                     final ItemStack is2 = ThaumcraftApiHelper.makeCrystal(table.crystalsSync.getAspects()[a]);
-                    this.entityitem = new EntityItem(table.getWorld(), 0.0, 0.0, 0.0, is2);
-                    this.entityitem.hoverStart = 0.0f;
-                    this.renderRay(angle, a, bob, r, g, b, ticks);
-                    this.renderRay(angle, (a + 1) * 5, bob, r, g, b, ticks);
+                    entityitem = new EntityItem(table.getWorld(), 0.0, 0.0, 0.0, is2);
+                    entityitem.hoverStart = 0.0f;
+                    renderRay(angle, a, bob, r, g, b, ticks);
+                    renderRay(angle, (a + 1) * 5, bob, r, g, b, ticks);
                     final RenderManager rendermanager2 = Minecraft.getMinecraft().getRenderManager();
-                    rendermanager2.renderEntity(this.entityitem, 0.0, 0.0, 0.0, 0.0f, 0.0f, false);
+                    rendermanager2.renderEntity(entityitem, 0.0, 0.0, 0.0, 0.0f, 0.0f, false);
                     GL11.glPopMatrix();
                 }
             }
@@ -142,6 +142,6 @@ public class TileFocalManipulatorRenderer extends TileEntitySpecialRenderer
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderTileEntityAt((TileFocalManipulator)te, x, y, z, partialTicks);
+        renderTileEntityAt((TileFocalManipulator)te, x, y, z, partialTicks);
     }
 }

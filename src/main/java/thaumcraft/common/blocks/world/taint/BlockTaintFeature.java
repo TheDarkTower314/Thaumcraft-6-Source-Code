@@ -32,12 +32,12 @@ public class BlockTaintFeature extends BlockTC implements ITaintBlock
 {
     public BlockTaintFeature() {
         super(ThaumcraftMaterials.MATERIAL_TAINT, "taint_feature");
-        this.setHardness(0.1f);
-        this.setLightLevel(0.625f);
-        final IBlockState bs = this.blockState.getBaseState();
+        setHardness(0.1f);
+        setLightLevel(0.625f);
+        final IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)EnumFacing.UP);
-        this.setDefaultState(bs);
-        this.setTickRandomly(true);
+        setDefaultState(bs);
+        setTickRandomly(true);
     }
     
     protected boolean canSilkHarvest() {
@@ -70,7 +70,7 @@ public class BlockTaintFeature extends BlockTC implements ITaintBlock
     public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random random) {
         if (!world.isRemote) {
             if (!TaintHelper.isNearTaintSeed(world, pos) && random.nextInt(10) == 0) {
-                this.die(world, pos, state);
+                die(world, pos, state);
                 return;
             }
             TaintHelper.spreadFibres(world, pos);
@@ -112,13 +112,13 @@ public class BlockTaintFeature extends BlockTC implements ITaintBlock
     }
     
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)facing);
         return bs;
     }
     
     public IBlockState getStateFromMeta(final int meta) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)BlockStateUtils.getFacing(meta));
         return bs;
     }
@@ -136,7 +136,7 @@ public class BlockTaintFeature extends BlockTC implements ITaintBlock
     }
     
     public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
-        final EnumFacing facing = BlockStateUtils.getFacing(this.getMetaFromState(state));
+        final EnumFacing facing = BlockStateUtils.getFacing(getMetaFromState(state));
         switch (facing.ordinal()) {
             case 0: {
                 return new AxisAlignedBB(0.125, 0.625, 0.125, 0.875, 1.0, 0.875);

@@ -30,9 +30,9 @@ public class ItemVoidSword extends ItemSword implements IWarpingGear, IThaumcraf
 {
     public ItemVoidSword(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("void_sword");
-        this.setUnlocalizedName("void_sword");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("void_sword");
+        setUnlocalizedName("void_sword");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

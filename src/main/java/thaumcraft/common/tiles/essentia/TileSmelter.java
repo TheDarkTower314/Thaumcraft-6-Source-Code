@@ -48,75 +48,75 @@ public class TileSmelter extends TileThaumcraftInventory
     
     public TileSmelter() {
         super(2);
-        this.aspects = new AspectList();
-        this.maxVis = 256;
-        this.smeltTime = 100;
-        this.speedBoost = false;
-        this.count = 0;
-        this.bellows = -1;
+        aspects = new AspectList();
+        maxVis = 256;
+        smeltTime = 100;
+        speedBoost = false;
+        count = 0;
+        bellows = -1;
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
-        this.furnaceBurnTime = nbttagcompound.getShort("BurnTime");
+        furnaceBurnTime = nbttagcompound.getShort("BurnTime");
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
-        nbttagcompound.setShort("BurnTime", (short)this.furnaceBurnTime);
+        nbttagcompound.setShort("BurnTime", (short) furnaceBurnTime);
         return nbttagcompound;
     }
     
     @Override
     public void readFromNBT(final NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
-        this.speedBoost = nbtCompound.getBoolean("speedBoost");
-        this.furnaceCookTime = nbtCompound.getShort("CookTime");
-        this.currentItemBurnTime = TileEntityFurnace.getItemBurnTime(this.getStackInSlot(1));
-        this.aspects.readFromNBT(nbtCompound);
-        this.vis = this.aspects.visSize();
+        speedBoost = nbtCompound.getBoolean("speedBoost");
+        furnaceCookTime = nbtCompound.getShort("CookTime");
+        currentItemBurnTime = TileEntityFurnace.getItemBurnTime(getStackInSlot(1));
+        aspects.readFromNBT(nbtCompound);
+        vis = aspects.visSize();
     }
     
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbtCompound) {
         nbtCompound = super.writeToNBT(nbtCompound);
-        nbtCompound.setBoolean("speedBoost", this.speedBoost);
-        nbtCompound.setShort("CookTime", (short)this.furnaceCookTime);
-        this.aspects.writeToNBT(nbtCompound);
+        nbtCompound.setBoolean("speedBoost", speedBoost);
+        nbtCompound.setShort("CookTime", (short) furnaceCookTime);
+        aspects.writeToNBT(nbtCompound);
         return nbtCompound;
     }
     
     @Override
     public void update() {
         super.update();
-        final boolean flag = this.furnaceBurnTime > 0;
+        final boolean flag = furnaceBurnTime > 0;
         boolean flag2 = false;
-        ++this.count;
-        if (this.furnaceBurnTime > 0) {
-            --this.furnaceBurnTime;
+        ++count;
+        if (furnaceBurnTime > 0) {
+            --furnaceBurnTime;
         }
-        if (this.world != null && !this.world.isRemote) {
-            if (this.bellows < 0) {
-                this.checkNeighbours();
+        if (world != null && !world.isRemote) {
+            if (bellows < 0) {
+                checkNeighbours();
             }
-            int speed = this.getSpeed();
-            if (this.speedBoost) {
+            int speed = getSpeed();
+            if (speedBoost) {
                 speed *= (int)0.8;
             }
-            if (this.count % speed == 0 && this.aspects.size() > 0) {
-                for (final Aspect aspect : this.aspects.getAspects()) {
-                    if (this.aspects.getAmount(aspect) > 0 && TileAlembic.processAlembics(this.getWorld(), this.getPos(), aspect)) {
-                        this.takeFromContainer(aspect, 1);
+            if (count % speed == 0 && aspects.size() > 0) {
+                for (final Aspect aspect : aspects.getAspects()) {
+                    if (aspects.getAmount(aspect) > 0 && TileAlembic.processAlembics(getWorld(), getPos(), aspect)) {
+                        takeFromContainer(aspect, 1);
                         break;
                     }
                 }
                 for (final EnumFacing face : EnumFacing.HORIZONTALS) {
-                    if (BlockStateUtils.getFacing(this.getBlockMetadata()) != face) {
-                        final IBlockState aux = this.world.getBlockState(this.getPos().offset(face));
+                    if (BlockStateUtils.getFacing(getBlockMetadata()) != face) {
+                        final IBlockState aux = world.getBlockState(getPos().offset(face));
                         if (aux.getBlock() == BlocksTC.smelterAux && BlockStateUtils.getFacing(aux) == face.getOpposite()) {
-                            for (final Aspect aspect2 : this.aspects.getAspects()) {
-                                if (this.aspects.getAmount(aspect2) > 0 && TileAlembic.processAlembics(this.getWorld(), this.getPos().offset(face), aspect2)) {
-                                    this.takeFromContainer(aspect2, 1);
+                            for (final Aspect aspect2 : aspects.getAspects()) {
+                                if (aspects.getAmount(aspect2) > 0 && TileAlembic.processAlembics(getWorld(), getPos().offset(face), aspect2)) {
+                                    takeFromContainer(aspect2, 1);
                                     break;
                                 }
                             }
@@ -124,126 +124,126 @@ public class TileSmelter extends TileThaumcraftInventory
                     }
                 }
             }
-            if (this.furnaceBurnTime == 0) {
-                if (this.canSmelt()) {
-                    final int itemBurnTime = TileEntityFurnace.getItemBurnTime(this.getStackInSlot(1));
-                    this.furnaceBurnTime = itemBurnTime;
-                    this.currentItemBurnTime = itemBurnTime;
-                    if (this.furnaceBurnTime > 0) {
-                        BlockSmelter.setFurnaceState(this.world, this.getPos(), true);
+            if (furnaceBurnTime == 0) {
+                if (canSmelt()) {
+                    final int itemBurnTime = TileEntityFurnace.getItemBurnTime(getStackInSlot(1));
+                    furnaceBurnTime = itemBurnTime;
+                    currentItemBurnTime = itemBurnTime;
+                    if (furnaceBurnTime > 0) {
+                        BlockSmelter.setFurnaceState(world, getPos(), true);
                         flag2 = true;
-                        this.speedBoost = false;
-                        final ItemStack itemstack = this.getStackInSlot(1);
+                        speedBoost = false;
+                        final ItemStack itemstack = getStackInSlot(1);
                         if (!itemstack.isEmpty()) {
                             if (itemstack.isItemEqual(new ItemStack(ItemsTC.alumentum))) {
-                                this.speedBoost = true;
+                                speedBoost = true;
                             }
                             final Item item = itemstack.getItem();
                             itemstack.shrink(1);
                             if (itemstack.isEmpty()) {
                                 final ItemStack item2 = item.getContainerItem(itemstack);
-                                this.setInventorySlotContents(1, item2);
+                                setInventorySlotContents(1, item2);
                             }
                         }
                     }
                     else {
-                        BlockSmelter.setFurnaceState(this.world, this.getPos(), false);
+                        BlockSmelter.setFurnaceState(world, getPos(), false);
                     }
                 }
                 else {
-                    BlockSmelter.setFurnaceState(this.world, this.getPos(), false);
+                    BlockSmelter.setFurnaceState(world, getPos(), false);
                 }
             }
-            if (BlockStateUtils.isEnabled(this.getBlockMetadata()) && this.canSmelt()) {
-                ++this.furnaceCookTime;
-                if (this.furnaceCookTime >= this.smeltTime) {
-                    this.furnaceCookTime = 0;
-                    this.smeltItem();
+            if (BlockStateUtils.isEnabled(getBlockMetadata()) && canSmelt()) {
+                ++furnaceCookTime;
+                if (furnaceCookTime >= smeltTime) {
+                    furnaceCookTime = 0;
+                    smeltItem();
                     flag2 = true;
                 }
             }
             else {
-                this.furnaceCookTime = 0;
+                furnaceCookTime = 0;
             }
-            if (flag != this.furnaceBurnTime > 0) {
+            if (flag != furnaceBurnTime > 0) {
                 flag2 = true;
             }
         }
         if (flag2) {
-            this.markDirty();
+            markDirty();
         }
     }
     
     private boolean canSmelt() {
-        if (this.getStackInSlot(0).isEmpty()) {
+        if (getStackInSlot(0).isEmpty()) {
             return false;
         }
-        final AspectList al = ThaumcraftCraftingManager.getObjectTags(this.getStackInSlot(0));
+        final AspectList al = ThaumcraftCraftingManager.getObjectTags(getStackInSlot(0));
         if (al == null || al.size() == 0) {
             return false;
         }
         final int vs = al.visSize();
-        if (vs > this.maxVis - this.vis) {
+        if (vs > maxVis - vis) {
             return false;
         }
-        this.smeltTime = (int)(vs * 2 * (1.0f - 0.125f * this.bellows));
+        smeltTime = (int)(vs * 2 * (1.0f - 0.125f * bellows));
         return true;
     }
     
     public void checkNeighbours() {
         EnumFacing[] faces = EnumFacing.HORIZONTALS;
         try {
-            if (BlockStateUtils.getFacing(this.getBlockMetadata()) == EnumFacing.NORTH) {
+            if (BlockStateUtils.getFacing(getBlockMetadata()) == EnumFacing.NORTH) {
                 faces = new EnumFacing[] { EnumFacing.SOUTH, EnumFacing.EAST, EnumFacing.WEST };
             }
-            if (BlockStateUtils.getFacing(this.getBlockMetadata()) == EnumFacing.SOUTH) {
+            if (BlockStateUtils.getFacing(getBlockMetadata()) == EnumFacing.SOUTH) {
                 faces = new EnumFacing[] { EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.WEST };
             }
-            if (BlockStateUtils.getFacing(this.getBlockMetadata()) == EnumFacing.EAST) {
+            if (BlockStateUtils.getFacing(getBlockMetadata()) == EnumFacing.EAST) {
                 faces = new EnumFacing[] { EnumFacing.SOUTH, EnumFacing.NORTH, EnumFacing.WEST };
             }
-            if (BlockStateUtils.getFacing(this.getBlockMetadata()) == EnumFacing.WEST) {
+            if (BlockStateUtils.getFacing(getBlockMetadata()) == EnumFacing.WEST) {
                 faces = new EnumFacing[] { EnumFacing.SOUTH, EnumFacing.EAST, EnumFacing.NORTH };
             }
         }
         catch (final Exception ex) {}
-        this.bellows = TileBellows.getBellows(this.world, this.pos, faces);
+        bellows = TileBellows.getBellows(world, pos, faces);
     }
     
     private int getType() {
-        return (this.getBlockType() == BlocksTC.smelterBasic) ? 0 : ((this.getBlockType() == BlocksTC.smelterThaumium) ? 1 : 2);
+        return (getBlockType() == BlocksTC.smelterBasic) ? 0 : ((getBlockType() == BlocksTC.smelterThaumium) ? 1 : 2);
     }
     
     private float getEfficiency() {
         float efficiency = 0.8f;
-        if (this.getType() == 1) {
+        if (getType() == 1) {
             efficiency = 0.9f;
         }
-        if (this.getType() == 2) {
+        if (getType() == 2) {
             efficiency = 0.95f;
         }
         return efficiency;
     }
     
     private int getSpeed() {
-        final int speed = 20 - ((this.getType() == 1) ? 10 : 5);
+        final int speed = 20 - ((getType() == 1) ? 10 : 5);
         return speed;
     }
     
     public void smeltItem() {
-        if (this.canSmelt()) {
+        if (canSmelt()) {
             int flux = 0;
-            final AspectList al = ThaumcraftCraftingManager.getObjectTags(this.getStackInSlot(0));
+            final AspectList al = ThaumcraftCraftingManager.getObjectTags(getStackInSlot(0));
             for (final Aspect a : al.getAspects()) {
-                if (this.getEfficiency() < 1.0f) {
+                if (getEfficiency() < 1.0f) {
                     for (int qq = al.getAmount(a), q = 0; q < qq; ++q) {
-                        if (this.world.rand.nextFloat() > ((a == Aspect.FLUX) ? (this.getEfficiency() * 0.66f) : this.getEfficiency())) {
+                        if (world.rand.nextFloat() > ((a == Aspect.FLUX) ? (getEfficiency() * 0.66f) : getEfficiency())) {
                             al.reduce(a, 1);
                             ++flux;
                         }
                     }
                 }
-                this.aspects.add(a, al.getAmount(a));
+                aspects.add(a, al.getAmount(a));
             }
             if (flux > 0) {
                 int pp = 0;
@@ -252,10 +252,10 @@ public class TileSmelter extends TileThaumcraftInventory
                 while (c < flux) {
                     while (true) {
                         for (final EnumFacing face : EnumFacing.HORIZONTALS) {
-                            if (BlockStateUtils.getFacing(this.getBlockMetadata()) != face) {
-                                final IBlockState vent = this.world.getBlockState(this.getPos().offset(face));
-                                if (vent.getBlock() == BlocksTC.smelterVent && BlockStateUtils.getFacing(vent) == face.getOpposite() && this.world.rand.nextFloat() < 0.333) {
-                                    this.world.addBlockEvent(this.getPos(), this.getBlockType(), 1, face.getOpposite().ordinal());
+                            if (BlockStateUtils.getFacing(getBlockMetadata()) != face) {
+                                final IBlockState vent = world.getBlockState(getPos().offset(face));
+                                if (vent.getBlock() == BlocksTC.smelterVent && BlockStateUtils.getFacing(vent) == face.getOpposite() && world.rand.nextFloat() < 0.333) {
+                                    world.addBlockEvent(getPos(), getBlockType(), 1, face.getOpposite().ordinal());
                                     ++c;
                                     continue Label_0155;
                                 }
@@ -265,12 +265,12 @@ public class TileSmelter extends TileThaumcraftInventory
                         continue;
                     }
                 }
-                AuraHelper.polluteAura(this.getWorld(), this.getPos(), (float)pp, true);
+                AuraHelper.polluteAura(getWorld(), getPos(), (float)pp, true);
             }
-            this.vis = this.aspects.visSize();
-            this.getStackInSlot(0).shrink(1);
-            if (this.getStackInSlot(0).getCount() <= 0) {
-                this.setInventorySlotContents(0, ItemStack.EMPTY);
+            vis = aspects.visSize();
+            getStackInSlot(0).shrink(1);
+            if (getStackInSlot(0).getCount() <= 0) {
+                setInventorySlotContents(0, ItemStack.EMPTY);
             }
         }
     }
@@ -297,7 +297,7 @@ public class TileSmelter extends TileThaumcraftInventory
     
     @Override
     public boolean canInsertItem(final int par1, final ItemStack stack2, final EnumFacing par3) {
-        return par3 != EnumFacing.UP && this.isItemValidForSlot(par1, stack2);
+        return par3 != EnumFacing.UP && isItemValidForSlot(par1, stack2);
     }
     
     @Override
@@ -306,10 +306,10 @@ public class TileSmelter extends TileThaumcraftInventory
     }
     
     public boolean takeFromContainer(final Aspect tag, final int amount) {
-        if (this.aspects != null && this.aspects.getAmount(tag) >= amount) {
-            this.aspects.remove(tag, amount);
-            this.vis = this.aspects.visSize();
-            this.markDirty();
+        if (aspects != null && aspects.getAmount(tag) >= amount) {
+            aspects.remove(tag, amount);
+            vis = aspects.visSize();
+            markDirty();
             return true;
         }
         return false;
@@ -317,47 +317,47 @@ public class TileSmelter extends TileThaumcraftInventory
     
     @SideOnly(Side.CLIENT)
     public int getCookProgressScaled(final int par1) {
-        if (this.smeltTime <= 0) {
-            this.smeltTime = 1;
+        if (smeltTime <= 0) {
+            smeltTime = 1;
         }
-        return this.furnaceCookTime * par1 / this.smeltTime;
+        return furnaceCookTime * par1 / smeltTime;
     }
     
     @SideOnly(Side.CLIENT)
     public int getVisScaled(final int par1) {
-        return this.vis * par1 / this.maxVis;
+        return vis * par1 / maxVis;
     }
     
     @SideOnly(Side.CLIENT)
     public int getBurnTimeRemainingScaled(final int par1) {
-        if (this.currentItemBurnTime == 0) {
-            this.currentItemBurnTime = 200;
+        if (currentItemBurnTime == 0) {
+            currentItemBurnTime = 200;
         }
-        return this.furnaceBurnTime * par1 / this.currentItemBurnTime;
+        return furnaceBurnTime * par1 / currentItemBurnTime;
     }
     
     @Override
     public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
-        if (this.world != null) {
-            this.world.checkLightFor(EnumSkyBlock.BLOCK, this.pos);
+        if (world != null) {
+            world.checkLightFor(EnumSkyBlock.BLOCK, pos);
         }
     }
     
     public boolean receiveClientEvent(final int i, final int j) {
         if (i == 1) {
-            if (this.world.isRemote) {
+            if (world.isRemote) {
                 final EnumFacing d = EnumFacing.VALUES[j];
-                this.world.playSound(this.getPos().getX() + 0.5 + d.getOpposite().getFrontOffsetX(), this.getPos().getY() + 0.5, this.getPos().getZ() + 0.5 + d.getOpposite().getFrontOffsetZ(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.25f, 2.6f + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.8f, true);
+                world.playSound(getPos().getX() + 0.5 + d.getOpposite().getFrontOffsetX(), getPos().getY() + 0.5, getPos().getZ() + 0.5 + d.getOpposite().getFrontOffsetZ(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.25f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f, true);
                 for (int a = 0; a < 4; ++a) {
-                    final float fx = 0.1f - this.world.rand.nextFloat() * 0.2f;
-                    final float fz = 0.1f - this.world.rand.nextFloat() * 0.2f;
-                    final float fy = 0.1f - this.world.rand.nextFloat() * 0.2f;
-                    final float fx2 = 0.1f - this.world.rand.nextFloat() * 0.2f;
-                    final float fz2 = 0.1f - this.world.rand.nextFloat() * 0.2f;
-                    final float fy2 = 0.1f - this.world.rand.nextFloat() * 0.2f;
+                    final float fx = 0.1f - world.rand.nextFloat() * 0.2f;
+                    final float fz = 0.1f - world.rand.nextFloat() * 0.2f;
+                    final float fy = 0.1f - world.rand.nextFloat() * 0.2f;
+                    final float fx2 = 0.1f - world.rand.nextFloat() * 0.2f;
+                    final float fz2 = 0.1f - world.rand.nextFloat() * 0.2f;
+                    final float fy2 = 0.1f - world.rand.nextFloat() * 0.2f;
                     final int color = 11184810;
-                    FXDispatcher.INSTANCE.drawVentParticles(this.getPos().getX() + 0.5f + fx + d.getOpposite().getFrontOffsetX(), this.getPos().getY() + 0.5f + fy, this.getPos().getZ() + 0.5f + fz + d.getOpposite().getFrontOffsetZ(), d.getOpposite().getFrontOffsetX() / 4.0f + fx2, d.getOpposite().getFrontOffsetY() / 4.0f + fy2, d.getOpposite().getFrontOffsetZ() / 4.0f + fz2, color);
+                    FXDispatcher.INSTANCE.drawVentParticles(getPos().getX() + 0.5f + fx + d.getOpposite().getFrontOffsetX(), getPos().getY() + 0.5f + fy, getPos().getZ() + 0.5f + fz + d.getOpposite().getFrontOffsetZ(), d.getOpposite().getFrontOffsetX() / 4.0f + fx2, d.getOpposite().getFrontOffsetY() / 4.0f + fy2, d.getOpposite().getFrontOffsetZ() / 4.0f + fz2, color);
                 }
             }
             return true;

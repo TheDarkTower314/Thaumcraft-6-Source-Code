@@ -30,10 +30,10 @@ public class GolemArm
         this.key = key;
         this.research = research;
         this.icon = icon;
-        this.components = comp;
-        this.traits = tags;
+        components = comp;
+        traits = tags;
         this.model = model;
-        this.function = null;
+        function = null;
     }
     
     public GolemArm(final String key, final String[] research, final ResourceLocation icon, final PartModel model, final Object[] comp, final IArmFunction function, final EnumGolemTrait[] tags) {
@@ -53,11 +53,11 @@ public class GolemArm
     }
     
     public String getLocalizedName() {
-        return I18n.translateToLocal("golem.arm." + this.key.toLowerCase());
+        return I18n.translateToLocal("golem.arm." + key.toLowerCase());
     }
     
     public String getLocalizedDescription() {
-        return I18n.translateToLocal("golem.arm.text." + this.key.toLowerCase());
+        return I18n.translateToLocal("golem.arm.text." + key.toLowerCase());
     }
     
     public static GolemArm[] getArms() {

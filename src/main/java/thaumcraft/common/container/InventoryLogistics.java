@@ -11,7 +11,7 @@ public class InventoryLogistics extends InventoryBasic
 {
     public InventoryLogistics(final IInventoryChangedListener listener) {
         super("container.logistics", false, 81);
-        this.addInventoryChangeListener(listener);
+        addInventoryChangeListener(listener);
     }
     
     public int getInventoryStackLimit() {

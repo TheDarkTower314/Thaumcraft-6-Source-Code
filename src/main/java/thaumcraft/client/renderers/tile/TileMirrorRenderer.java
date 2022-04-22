@@ -36,7 +36,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
     private static ResourceLocation mpt;
     
     public TileMirrorRenderer() {
-        this.fBuffer = GLAllocation.createDirectFloatBuffer(16);
+        fBuffer = GLAllocation.createDirectFloatBuffer(16);
     }
     
     public void drawPlaneYPos(final TileEntity tileentityendportal, final double x, final double y, final double z, final float f) {
@@ -53,7 +53,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             float f3 = 0.0625f;
             float f4 = 1.0f / (f2 + 1.0f);
             if (i == 0) {
-                this.bindTexture(TileMirrorRenderer.t1);
+                bindTexture(TileMirrorRenderer.t1);
                 f4 = 0.1f;
                 f2 = 65.0f;
                 f3 = 0.125f;
@@ -61,7 +61,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(770, 771);
             }
             if (i == 1) {
-                this.bindTexture(TileMirrorRenderer.t2);
+                bindTexture(TileMirrorRenderer.t2);
                 GL11.glEnable(3042);
                 GL11.glBlendFunc(1, 1);
                 f3 = 0.5f;
@@ -76,10 +76,10 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTexGeni(8193, 9472, 9217);
             GL11.glTexGeni(8194, 9472, 9217);
             GL11.glTexGeni(8195, 9472, 9216);
-            GL11.glTexGen(8192, 9473, this.calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
-            GL11.glTexGen(8193, 9473, this.calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
-            GL11.glTexGen(8194, 9473, this.calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
-            GL11.glTexGen(8195, 9474, this.calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8192, 9473, calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8193, 9473, calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
+            GL11.glTexGen(8194, 9473, calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
+            GL11.glTexGen(8195, 9474, calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
             GL11.glEnable(3168);
             GL11.glEnable(3169);
             GL11.glEnable(3170);
@@ -133,7 +133,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             float f6 = 0.0625f;
             float f7 = 1.0f / (f5 + 1.0f);
             if (i == 0) {
-                this.bindTexture(TileMirrorRenderer.t1);
+                bindTexture(TileMirrorRenderer.t1);
                 f7 = 0.1f;
                 f5 = 65.0f;
                 f6 = 0.125f;
@@ -141,7 +141,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(770, 771);
             }
             if (i == 1) {
-                this.bindTexture(TileMirrorRenderer.t2);
+                bindTexture(TileMirrorRenderer.t2);
                 GL11.glEnable(3042);
                 GL11.glBlendFunc(1, 1);
                 f6 = 0.5f;
@@ -156,10 +156,10 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTexGeni(8193, 9472, 9217);
             GL11.glTexGeni(8194, 9472, 9217);
             GL11.glTexGeni(8195, 9472, 9216);
-            GL11.glTexGen(8192, 9473, this.calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
-            GL11.glTexGen(8193, 9473, this.calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
-            GL11.glTexGen(8194, 9473, this.calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
-            GL11.glTexGen(8195, 9474, this.calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8192, 9473, calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8193, 9473, calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
+            GL11.glTexGen(8194, 9473, calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
+            GL11.glTexGen(8195, 9474, calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
             GL11.glEnable(3168);
             GL11.glEnable(3169);
             GL11.glEnable(3170);
@@ -213,7 +213,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             float f3 = 0.0625f;
             float f4 = 1.0f / (f2 + 1.0f);
             if (i == 0) {
-                this.bindTexture(TileMirrorRenderer.t1);
+                bindTexture(TileMirrorRenderer.t1);
                 f4 = 0.1f;
                 f2 = 65.0f;
                 f3 = 0.125f;
@@ -221,7 +221,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(770, 771);
             }
             if (i == 1) {
-                this.bindTexture(TileMirrorRenderer.t2);
+                bindTexture(TileMirrorRenderer.t2);
                 GL11.glEnable(3042);
                 GL11.glBlendFunc(1, 1);
                 f3 = 0.5f;
@@ -236,10 +236,10 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTexGeni(8193, 9472, 9217);
             GL11.glTexGeni(8194, 9472, 9217);
             GL11.glTexGeni(8195, 9472, 9216);
-            GL11.glTexGen(8192, 9473, this.calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
-            GL11.glTexGen(8193, 9473, this.calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
-            GL11.glTexGen(8194, 9473, this.calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
-            GL11.glTexGen(8195, 9474, this.calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
+            GL11.glTexGen(8192, 9473, calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8193, 9473, calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8194, 9473, calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
+            GL11.glTexGen(8195, 9474, calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
             GL11.glEnable(3168);
             GL11.glEnable(3169);
             GL11.glEnable(3170);
@@ -293,7 +293,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             float f3 = 0.0625f;
             float f4 = 1.0f / (f2 + 1.0f);
             if (i == 0) {
-                this.bindTexture(TileMirrorRenderer.t1);
+                bindTexture(TileMirrorRenderer.t1);
                 f4 = 0.1f;
                 f2 = 65.0f;
                 f3 = 0.125f;
@@ -301,7 +301,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(770, 771);
             }
             if (i == 1) {
-                this.bindTexture(TileMirrorRenderer.t2);
+                bindTexture(TileMirrorRenderer.t2);
                 GL11.glEnable(3042);
                 GL11.glBlendFunc(1, 1);
                 f3 = 0.5f;
@@ -316,10 +316,10 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTexGeni(8193, 9472, 9217);
             GL11.glTexGeni(8194, 9472, 9217);
             GL11.glTexGeni(8195, 9472, 9216);
-            GL11.glTexGen(8192, 9473, this.calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
-            GL11.glTexGen(8193, 9473, this.calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
-            GL11.glTexGen(8194, 9473, this.calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
-            GL11.glTexGen(8195, 9474, this.calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
+            GL11.glTexGen(8192, 9473, calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8193, 9473, calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8194, 9473, calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
+            GL11.glTexGen(8195, 9474, calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
             GL11.glEnable(3168);
             GL11.glEnable(3169);
             GL11.glEnable(3170);
@@ -373,7 +373,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             float f3 = 0.0625f;
             float f4 = 1.0f / (f2 + 1.0f);
             if (i == 0) {
-                this.bindTexture(TileMirrorRenderer.t1);
+                bindTexture(TileMirrorRenderer.t1);
                 f4 = 0.1f;
                 f2 = 65.0f;
                 f3 = 0.125f;
@@ -381,7 +381,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(770, 771);
             }
             if (i == 1) {
-                this.bindTexture(TileMirrorRenderer.t2);
+                bindTexture(TileMirrorRenderer.t2);
                 GL11.glEnable(3042);
                 GL11.glBlendFunc(1, 1);
                 f3 = 0.5f;
@@ -396,10 +396,10 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTexGeni(8193, 9472, 9217);
             GL11.glTexGeni(8194, 9472, 9217);
             GL11.glTexGeni(8195, 9472, 9216);
-            GL11.glTexGen(8193, 9473, this.calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
-            GL11.glTexGen(8192, 9473, this.calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
-            GL11.glTexGen(8194, 9473, this.calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
-            GL11.glTexGen(8195, 9474, this.calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8193, 9473, calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8192, 9473, calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
+            GL11.glTexGen(8194, 9473, calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
+            GL11.glTexGen(8195, 9474, calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
             GL11.glEnable(3168);
             GL11.glEnable(3169);
             GL11.glEnable(3170);
@@ -453,7 +453,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             float f3 = 0.0625f;
             float f4 = 1.0f / (f2 + 1.0f);
             if (i == 0) {
-                this.bindTexture(TileMirrorRenderer.t1);
+                bindTexture(TileMirrorRenderer.t1);
                 f4 = 0.1f;
                 f2 = 65.0f;
                 f3 = 0.125f;
@@ -461,7 +461,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(770, 771);
             }
             if (i == 1) {
-                this.bindTexture(TileMirrorRenderer.t2);
+                bindTexture(TileMirrorRenderer.t2);
                 GL11.glEnable(3042);
                 GL11.glBlendFunc(1, 1);
                 f3 = 0.5f;
@@ -476,10 +476,10 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTexGeni(8193, 9472, 9217);
             GL11.glTexGeni(8194, 9472, 9217);
             GL11.glTexGeni(8195, 9472, 9216);
-            GL11.glTexGen(8193, 9473, this.calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
-            GL11.glTexGen(8192, 9473, this.calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
-            GL11.glTexGen(8194, 9473, this.calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
-            GL11.glTexGen(8195, 9474, this.calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8193, 9473, calcFloatBuffer(0.0f, 1.0f, 0.0f, 0.0f));
+            GL11.glTexGen(8192, 9473, calcFloatBuffer(0.0f, 0.0f, 1.0f, 0.0f));
+            GL11.glTexGen(8194, 9473, calcFloatBuffer(0.0f, 0.0f, 0.0f, 1.0f));
+            GL11.glTexGen(8195, 9474, calcFloatBuffer(1.0f, 0.0f, 0.0f, 0.0f));
             GL11.glEnable(3168);
             GL11.glEnable(3169);
             GL11.glEnable(3170);
@@ -520,10 +520,10 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
     }
     
     private FloatBuffer calcFloatBuffer(final float f, final float f1, final float f2, final float f3) {
-        this.fBuffer.clear();
-        this.fBuffer.put(f).put(f1).put(f2).put(f3);
-        this.fBuffer.flip();
-        return this.fBuffer;
+        fBuffer.clear();
+        fBuffer.put(f).put(f1).put(f2).put(f3);
+        fBuffer.flip();
+        return fBuffer;
     }
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
@@ -540,7 +540,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
-        this.translateFromOrientation((float)x, (float)y, (float)z, dir.ordinal(), 0.01f);
+        translateFromOrientation((float)x, (float)y, (float)z, dir.ordinal(), 0.01f);
         UtilsFX.renderItemIn2D((te.getBlockType() == BlocksTC.mirror) ? "thaumcraft:blocks/mirrorframe" : "thaumcraft:blocks/mirrorframe2", 0.0625f);
         GL11.glDisable(3042);
         GL11.glPopMatrix();
@@ -548,27 +548,27 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glPushMatrix();
             switch (dir) {
                 case DOWN: {
-                    this.drawPlaneYPos(te, x, y, z, partialTicks);
+                    drawPlaneYPos(te, x, y, z, partialTicks);
                     break;
                 }
                 case UP: {
-                    this.drawPlaneYNeg(te, x, y, z, partialTicks);
+                    drawPlaneYNeg(te, x, y, z, partialTicks);
                     break;
                 }
                 case WEST: {
-                    this.drawPlaneXPos(te, x, y, z, partialTicks);
+                    drawPlaneXPos(te, x, y, z, partialTicks);
                     break;
                 }
                 case EAST: {
-                    this.drawPlaneXNeg(te, x, y, z, partialTicks);
+                    drawPlaneXNeg(te, x, y, z, partialTicks);
                     break;
                 }
                 case NORTH: {
-                    this.drawPlaneZPos(te, x, y, z, partialTicks);
+                    drawPlaneZPos(te, x, y, z, partialTicks);
                     break;
                 }
                 case SOUTH: {
-                    this.drawPlaneZNeg(te, x, y, z, partialTicks);
+                    drawPlaneZNeg(te, x, y, z, partialTicks);
                     break;
                 }
             }
@@ -576,7 +576,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glPushMatrix();
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);
-            this.translateFromOrientation((float)x, (float)y, (float)z, dir.ordinal(), 0.02f);
+            translateFromOrientation((float)x, (float)y, (float)z, dir.ordinal(), 0.02f);
             GL11.glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
             GL11.glTranslated(0.5, -0.5, 0.0);
             UtilsFX.renderQuadCentered(TileMirrorRenderer.mpt, 1.0f, 1.0f, 1.0f, 1.0f, b, 771, 1.0f);
@@ -587,7 +587,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glPushMatrix();
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);
-            this.translateFromOrientation((float)x, (float)y, (float)z, dir.ordinal(), 0.02f);
+            translateFromOrientation((float)x, (float)y, (float)z, dir.ordinal(), 0.02f);
             GL11.glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
             GL11.glTranslated(0.5, -0.5, 0.0);
             UtilsFX.renderQuadCentered(TileMirrorRenderer.mp, 1.0f, 1.0f, 1.0f, 1.0f, b, 771, 1.0f);

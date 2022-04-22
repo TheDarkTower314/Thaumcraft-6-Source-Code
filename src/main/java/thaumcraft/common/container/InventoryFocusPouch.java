@@ -13,7 +13,7 @@ public class InventoryFocusPouch extends InventoryBasic
 {
     public InventoryFocusPouch(final IInventoryChangedListener listener) {
         super("container.focuspouch", false, 18);
-        this.addInventoryChangeListener(listener);
+        addInventoryChangeListener(listener);
     }
     
     public int getInventoryStackLimit() {

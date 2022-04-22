@@ -30,13 +30,13 @@ public class BlockVisBattery extends Block
     
     public BlockVisBattery() {
         super(Material.ROCK);
-        this.setUnlocalizedName("vis_battery");
-        this.setRegistryName("thaumcraft", "vis_battery");
-        this.setHardness(0.5f);
-        this.setSoundType(SoundType.STONE);
-        this.setTickRandomly(true);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setDefaultState(this.blockState.getBaseState().withProperty((IProperty)BlockVisBattery.CHARGE, (Comparable)0));
+        setUnlocalizedName("vis_battery");
+        setRegistryName("thaumcraft", "vis_battery");
+        setHardness(0.5f);
+        setSoundType(SoundType.STONE);
+        setTickRandomly(true);
+        setCreativeTab(ConfigItems.TABTC);
+        setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockVisBattery.CHARGE, (Comparable)0));
     }
     
     public int damageDropped(final IBlockState state) {
@@ -45,7 +45,7 @@ public class BlockVisBattery extends Block
     
     public void updateTick(final World worldIn, final BlockPos pos, final IBlockState state, final Random rand) {
         if (!worldIn.isRemote) {
-            final int charge = this.getMetaFromState(state);
+            final int charge = getMetaFromState(state);
             if (worldIn.isBlockPowered(pos)) {
                 if (charge > 0) {
                     AuraHandler.addVis(worldIn, pos, 1.0f);
@@ -81,7 +81,7 @@ public class BlockVisBattery extends Block
     }
     
     public int getComparatorInputOverride(final IBlockState state, final World world, final BlockPos pos) {
-        return this.getMetaFromState(state);
+        return getMetaFromState(state);
     }
     
     public int getLightValue(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
@@ -103,7 +103,7 @@ public class BlockVisBattery extends Block
     }
     
     public IBlockState getStateFromMeta(final int meta) {
-        return this.getDefaultState().withProperty((IProperty)BlockVisBattery.CHARGE, (Comparable)meta);
+        return getDefaultState().withProperty((IProperty)BlockVisBattery.CHARGE, (Comparable)meta);
     }
     
     public int getMetaFromState(final IBlockState state) {

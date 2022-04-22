@@ -65,36 +65,36 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     
     public EntityTurretCrossbow(final World worldIn) {
         super(worldIn);
-        this.loadProgressInt = 0;
-        this.isLoadInProgress = false;
-        this.loadProgress = 0.0f;
-        this.prevLoadProgress = 0.0f;
-        this.loadProgressForRender = 0.0f;
-        this.attackedLastTick = false;
-        this.attackCount = 0;
-        this.setSize(0.95f, 1.25f);
-        this.stepHeight = 0.0f;
+        loadProgressInt = 0;
+        isLoadInProgress = false;
+        loadProgress = 0.0f;
+        prevLoadProgress = 0.0f;
+        loadProgressForRender = 0.0f;
+        attackedLastTick = false;
+        attackCount = 0;
+        setSize(0.95f, 1.25f);
+        stepHeight = 0.0f;
     }
     
     protected void initEntityAI() {
-        this.tasks.addTask(1, new EntityAIAttackRanged(this, 0.0, 20, 60, 24.0f));
-        this.tasks.addTask(2, new EntityAIWatchTarget(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAINearestValidTarget(this, EntityLiving.class, 5, true, false, IMob.MOB_SELECTOR));
+        tasks.addTask(1, new EntityAIAttackRanged(this, 0.0, 20, 60, 24.0f));
+        tasks.addTask(2, new EntityAIWatchTarget(this));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        targetTasks.addTask(2, new EntityAINearestValidTarget(this, EntityLiving.class, 5, true, false, IMob.MOB_SELECTOR));
     }
     
     public EntityTurretCrossbow(final World worldIn, final BlockPos pos) {
         this(worldIn);
-        this.setPositionAndRotation(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0f, 0.0f);
+        setPositionAndRotation(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0f, 0.0f);
     }
     
     public void attackEntityWithRangedAttack(final EntityLivingBase target, final float range) {
-        if (this.getHeldItemMainhand() != null && !this.getHeldItemMainhand().isEmpty() && this.getHeldItemMainhand().getCount() > 0) {
-            final EntityTippedArrow entityarrow = new EntityTippedArrow(this.world, this);
-            entityarrow.setDamage(2.25 + range * 2.0f + this.rand.nextGaussian() * 0.25);
-            entityarrow.setPotionEffect(this.getHeldItemMainhand());
-            final Vec3d vec3d = this.getLook(1.0f);
-            if (!this.isRiding()) {
+        if (getHeldItemMainhand() != null && !getHeldItemMainhand().isEmpty() && getHeldItemMainhand().getCount() > 0) {
+            final EntityTippedArrow entityarrow = new EntityTippedArrow(world, this);
+            entityarrow.setDamage(2.25 + range * 2.0f + rand.nextGaussian() * 0.25);
+            entityarrow.setPotionEffect(getHeldItemMainhand());
+            final Vec3d vec3d = getLook(1.0f);
+            if (!isRiding()) {
                 final EntityTippedArrow entityTippedArrow = entityarrow;
                 entityTippedArrow.posX -= vec3d.x * 0.8999999761581421;
                 final EntityTippedArrow entityTippedArrow2 = entityarrow;
@@ -111,16 +111,16 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
                 entityTippedArrow6.posZ += vec3d.z * 1.75;
             }
             entityarrow.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
-            final double d0 = target.posX - this.posX;
+            final double d0 = target.posX - posX;
             final double d2 = target.getEntityBoundingBox().minY + target.getEyeHeight() + range * range * 3.0f - entityarrow.posY;
-            final double d3 = target.posZ - this.posZ;
+            final double d3 = target.posZ - posZ;
             entityarrow.shoot(d0, d2, d3, 2.0f, 2.0f);
-            this.world.spawnEntity(entityarrow);
-            this.world.setEntityState(this, (byte)16);
-            this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0f, 1.0f / (this.getRNG().nextFloat() * 0.4f + 0.8f));
-            this.getHeldItemMainhand().shrink(1);
-            if (this.getHeldItemMainhand().getCount() <= 0) {
-                this.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
+            world.spawnEntity(entityarrow);
+            world.setEntityState(this, (byte)16);
+            playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0f, 1.0f / (getRNG().nextFloat() * 0.4f + 0.8f));
+            getHeldItemMainhand().shrink(1);
+            if (getHeldItemMainhand().getCount() <= 0) {
+                setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
             }
         }
     }
@@ -128,15 +128,15 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     @SideOnly(Side.CLIENT)
     public void handleStatusUpdate(final byte par1) {
         if (par1 == 16) {
-            if (!this.isSwingInProgress) {
-                this.swingProgressInt = -1;
-                this.isSwingInProgress = true;
+            if (!isSwingInProgress) {
+                swingProgressInt = -1;
+                isSwingInProgress = true;
             }
         }
         else if (par1 == 17) {
-            if (!this.isLoadInProgress) {
-                this.loadProgressInt = -1;
-                this.isLoadInProgress = true;
+            if (!isLoadInProgress) {
+                loadProgressInt = -1;
+                isLoadInProgress = true;
             }
         }
         else {
@@ -146,50 +146,50 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     
     @SideOnly(Side.CLIENT)
     public float getLoadProgress(final float pt) {
-        float f1 = this.loadProgress - this.prevLoadProgress;
+        float f1 = loadProgress - prevLoadProgress;
         if (f1 < 0.0f) {
             ++f1;
         }
-        return this.prevLoadProgress + f1 * pt;
+        return prevLoadProgress + f1 * pt;
     }
     
     protected void updateArmSwingProgress() {
-        if (this.isSwingInProgress) {
-            ++this.swingProgressInt;
-            if (this.swingProgressInt >= 6) {
-                this.swingProgressInt = 0;
-                this.isSwingInProgress = false;
+        if (isSwingInProgress) {
+            ++swingProgressInt;
+            if (swingProgressInt >= 6) {
+                swingProgressInt = 0;
+                isSwingInProgress = false;
             }
         }
         else {
-            this.swingProgressInt = 0;
+            swingProgressInt = 0;
         }
-        this.swingProgress = this.swingProgressInt / 6.0f;
-        if (this.isLoadInProgress) {
-            ++this.loadProgressInt;
-            if (this.loadProgressInt >= 10) {
-                this.loadProgressInt = 0;
-                this.isLoadInProgress = false;
+        swingProgress = swingProgressInt / 6.0f;
+        if (isLoadInProgress) {
+            ++loadProgressInt;
+            if (loadProgressInt >= 10) {
+                loadProgressInt = 0;
+                isLoadInProgress = false;
             }
         }
         else {
-            this.loadProgressInt = 0;
+            loadProgressInt = 0;
         }
-        this.loadProgress = this.loadProgressInt / 10.0f;
+        loadProgress = loadProgressInt / 10.0f;
     }
     
     public void onEntityUpdate() {
-        this.prevLoadProgress = this.loadProgress;
-        if (!this.world.isRemote && (this.getHeldItemMainhand() == null || this.getHeldItemMainhand().isEmpty() || this.getHeldItemMainhand().getCount() <= 0)) {
-            final BlockPos p = this.getPosition().down();
-            final TileEntity t = this.world.getTileEntity(p);
+        prevLoadProgress = loadProgress;
+        if (!world.isRemote && (getHeldItemMainhand() == null || getHeldItemMainhand().isEmpty() || getHeldItemMainhand().getCount() <= 0)) {
+            final BlockPos p = getPosition().down();
+            final TileEntity t = world.getTileEntity(p);
             if (t != null && t instanceof TileEntityDispenser && EnumFacing.getFront(t.getBlockMetadata() & 0x7) == EnumFacing.UP) {
                 final TileEntityDispenser d = (TileEntityDispenser)t;
                 for (int a = 0; a < d.getSizeInventory(); ++a) {
                     if (d.getStackInSlot(a) != null && !d.getStackInSlot(a).isEmpty() && d.getStackInSlot(a).getItem() instanceof ItemArrow) {
-                        this.setHeldItem(EnumHand.MAIN_HAND, d.decrStackSize(a, d.getStackInSlot(a).getCount()));
-                        this.playSound(SoundsTC.ticks, 1.0f, 1.0f);
-                        this.world.setEntityState(this, (byte)17);
+                        setHeldItem(EnumHand.MAIN_HAND, d.decrStackSize(a, d.getStackInSlot(a).getCount()));
+                        playSound(SoundsTC.ticks, 1.0f, 1.0f);
+                        world.setEntityState(this, (byte)17);
                         break;
                     }
                 }
@@ -200,8 +200,8 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     
     @Override
     public Team getTeam() {
-        if (this.isOwned()) {
-            final EntityLivingBase entitylivingbase = this.getOwnerEntity();
+        if (isOwned()) {
+            final EntityLivingBase entitylivingbase = getOwnerEntity();
             if (entitylivingbase != null) {
                 return entitylivingbase.getTeam();
             }
@@ -210,13 +210,13 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     }
     
     public float getEyeHeight() {
-        return this.height * 0.66f;
+        return height * 0.66f;
     }
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(24.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(24.0);
     }
     
     public int getTotalArmorValue() {
@@ -226,29 +226,29 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (this.getAttackTarget() != null && (this.getAttackTarget().isDead || this.isOnSameTeam(this.getAttackTarget()))) {
-            this.setAttackTarget(null);
+        if (getAttackTarget() != null && (getAttackTarget().isDead || isOnSameTeam(getAttackTarget()))) {
+            setAttackTarget(null);
         }
-        if (!this.world.isRemote) {
-            this.rotationYaw = this.rotationYawHead;
-            if (this.ticksExisted % 80 == 0) {
-                this.heal(1.0f);
+        if (!world.isRemote) {
+            rotationYaw = rotationYawHead;
+            if (ticksExisted % 80 == 0) {
+                heal(1.0f);
             }
-            final int k = MathHelper.floor(this.posX);
-            int l = MathHelper.floor(this.posY);
-            final int i1 = MathHelper.floor(this.posZ);
-            if (BlockRailBase.isRailBlock(this.world, new BlockPos(k, l - 1, i1))) {
+            final int k = MathHelper.floor(posX);
+            int l = MathHelper.floor(posY);
+            final int i1 = MathHelper.floor(posZ);
+            if (BlockRailBase.isRailBlock(world, new BlockPos(k, l - 1, i1))) {
                 --l;
             }
             final BlockPos blockpos = new BlockPos(k, l, i1);
-            final IBlockState iblockstate = this.world.getBlockState(blockpos);
+            final IBlockState iblockstate = world.getBlockState(blockpos);
             if (BlockRailBase.isRailBlock(iblockstate) && iblockstate.getBlock() == BlocksTC.activatorRail) {
                 final boolean ac = (boolean)iblockstate.getValue((IProperty)BlockRailPowered.POWERED);
-                this.setNoAI(ac);
+                setNoAI(ac);
             }
         }
         else {
-            this.updateArmSwingProgress();
+            updateArmSwingProgress();
         }
     }
     
@@ -271,30 +271,30 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     }
     
     public boolean attackEntityFrom(final DamageSource source, final float amount) {
-        this.rotationYaw += (float)(this.getRNG().nextGaussian() * 45.0);
-        this.rotationPitch += (float)(this.getRNG().nextGaussian() * 20.0);
+        rotationYaw += (float)(getRNG().nextGaussian() * 45.0);
+        rotationPitch += (float)(getRNG().nextGaussian() * 20.0);
         return super.attackEntityFrom(source, amount);
     }
     
     public void knockBack(final Entity p_70653_1_, final float p_70653_2_, final double p_70653_3_, final double p_70653_5_) {
         super.knockBack(p_70653_1_, p_70653_2_, p_70653_3_ / 10.0, p_70653_5_ / 10.0);
-        if (this.motionY > 0.1) {
-            this.motionY = 0.1;
+        if (motionY > 0.1) {
+            motionY = 0.1;
         }
     }
     
     @Override
     protected boolean processInteract(final EntityPlayer player, final EnumHand hand) {
-        if (!this.world.isRemote && this.isOwner(player) && !this.isDead) {
+        if (!world.isRemote && isOwner(player) && !isDead) {
             if (player.isSneaking()) {
-                this.playSound(SoundsTC.zap, 1.0f, 1.0f);
-                this.dropAmmo();
-                this.entityDropItem(new ItemStack(ItemsTC.turretPlacer, 1, 0), 0.5f);
-                this.setDead();
+                playSound(SoundsTC.zap, 1.0f, 1.0f);
+                dropAmmo();
+                entityDropItem(new ItemStack(ItemsTC.turretPlacer, 1, 0), 0.5f);
+                setDead();
                 player.swingArm(hand);
             }
             else {
-                player.openGui(Thaumcraft.instance, 16, this.world, this.getEntityId(), 0, 0);
+                player.openGui(Thaumcraft.instance, 16, world, getEntityId(), 0, 0);
             }
             return true;
         }
@@ -308,39 +308,39 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     @Override
     public void onDeath(final DamageSource cause) {
         super.onDeath(cause);
-        if (!this.world.isRemote) {
-            this.dropAmmo();
+        if (!world.isRemote) {
+            dropAmmo();
         }
     }
     
     protected void dropAmmo() {
-        if (this.getHeldItemMainhand() != null && !this.getHeldItemMainhand().isEmpty()) {
-            this.entityDropItem(this.getHeldItemMainhand(), 0.5f);
+        if (getHeldItemMainhand() != null && !getHeldItemMainhand().isEmpty()) {
+            entityDropItem(getHeldItemMainhand(), 0.5f);
         }
     }
     
     protected void dropFewItems(final boolean p_70628_1_, final int p_70628_2_) {
         final float b = p_70628_2_ * 0.15f;
-        if (this.rand.nextFloat() < 0.2f + b) {
-            this.entityDropItem(new ItemStack(ItemsTC.mind), 0.5f);
+        if (rand.nextFloat() < 0.2f + b) {
+            entityDropItem(new ItemStack(ItemsTC.mind), 0.5f);
         }
-        if (this.rand.nextFloat() < 0.5f + b) {
-            this.entityDropItem(new ItemStack(ItemsTC.mechanismSimple), 0.5f);
+        if (rand.nextFloat() < 0.5f + b) {
+            entityDropItem(new ItemStack(ItemsTC.mechanismSimple), 0.5f);
         }
-        if (this.rand.nextFloat() < 0.5f + b) {
-            this.entityDropItem(new ItemStack(BlocksTC.plankGreatwood), 0.5f);
+        if (rand.nextFloat() < 0.5f + b) {
+            entityDropItem(new ItemStack(BlocksTC.plankGreatwood), 0.5f);
         }
-        if (this.rand.nextFloat() < 0.5f + b) {
-            this.entityDropItem(new ItemStack(BlocksTC.plankGreatwood), 0.5f);
+        if (rand.nextFloat() < 0.5f + b) {
+            entityDropItem(new ItemStack(BlocksTC.plankGreatwood), 0.5f);
         }
     }
     
     protected RayTraceResult getRayTraceResult() {
-        final float f = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch);
-        final float f2 = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw);
-        final double d0 = this.prevPosX + (this.posX - this.prevPosX);
-        final double d2 = this.prevPosY + (this.posY - this.prevPosY) + this.getEyeHeight();
-        final double d3 = this.prevPosZ + (this.posZ - this.prevPosZ);
+        final float f = prevRotationPitch + (rotationPitch - prevRotationPitch);
+        final float f2 = prevRotationYaw + (rotationYaw - prevRotationYaw);
+        final double d0 = prevPosX + (posX - prevPosX);
+        final double d2 = prevPosY + (posY - prevPosY) + getEyeHeight();
+        final double d3 = prevPosZ + (posZ - prevPosZ);
         final Vec3d vec3 = new Vec3d(d0, d2, d3);
         final float f3 = MathHelper.cos(-f2 * 0.017453292f - 3.1415927f);
         final float f4 = MathHelper.sin(-f2 * 0.017453292f - 3.1415927f);
@@ -350,7 +350,7 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
         final float f8 = f3 * f5;
         final double d4 = 5.0;
         final Vec3d vec4 = vec3.addVector(f7 * d4, f6 * d4, f8 * d4);
-        return this.world.rayTraceBlocks(vec3, vec4, true, false, false);
+        return world.rayTraceBlocks(vec3, vec4, true, false, false);
     }
     
     public int getVerticalFaceSpeed() {
@@ -367,37 +367,37 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
         private int lookTime;
         
         public EntityAIWatchTarget(final EntityLiving p_i1631_1_) {
-            this.theWatcher = p_i1631_1_;
-            this.setMutexBits(2);
+            theWatcher = p_i1631_1_;
+            setMutexBits(2);
         }
         
         public boolean shouldExecute() {
-            if (this.theWatcher.getAttackTarget() != null) {
-                this.closestEntity = this.theWatcher.getAttackTarget();
+            if (theWatcher.getAttackTarget() != null) {
+                closestEntity = theWatcher.getAttackTarget();
             }
-            return this.closestEntity != null;
+            return closestEntity != null;
         }
         
         public boolean shouldContinueExecuting() {
-            final float d = (float)this.getTargetDistance();
-            return this.closestEntity.isEntityAlive() && this.theWatcher.getDistanceSq(this.closestEntity) <= d * d && this.lookTime > 0;
+            final float d = (float) getTargetDistance();
+            return closestEntity.isEntityAlive() && theWatcher.getDistanceSq(closestEntity) <= d * d && lookTime > 0;
         }
         
         public void startExecuting() {
-            this.lookTime = 40 + this.theWatcher.getRNG().nextInt(40);
+            lookTime = 40 + theWatcher.getRNG().nextInt(40);
         }
         
         public void resetTask() {
-            this.closestEntity = null;
+            closestEntity = null;
         }
         
         public void updateTask() {
-            this.theWatcher.getLookHelper().setLookPosition(this.closestEntity.posX, this.closestEntity.posY + this.closestEntity.getEyeHeight(), this.closestEntity.posZ, 10.0f, (float)this.theWatcher.getVerticalFaceSpeed());
-            --this.lookTime;
+            theWatcher.getLookHelper().setLookPosition(closestEntity.posX, closestEntity.posY + closestEntity.getEyeHeight(), closestEntity.posZ, 10.0f, (float) theWatcher.getVerticalFaceSpeed());
+            --lookTime;
         }
         
         protected double getTargetDistance() {
-            final IAttributeInstance iattributeinstance = this.theWatcher.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
+            final IAttributeInstance iattributeinstance = theWatcher.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
             return (iattributeinstance == null) ? 16.0 : iattributeinstance.getAttributeValue();
         }
     }
@@ -420,11 +420,11 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
         
         public EntityAINearestValidTarget(final EntityCreature owner, final Class<? extends EntityLivingBase> cls, final int targetChance, final boolean checkSight, final boolean onlyNearby, final Predicate<Entity> tselector) {
             super(owner, checkSight, onlyNearby);
-            this.targetClass = cls;
+            targetClass = cls;
             this.targetChance = targetChance;
-            this.theNearestAttackableTargetSorter = new EntityAINearestAttackableTarget.Sorter(owner);
-            this.setMutexBits(1);
-            this.targetEntitySelector = new Predicate<EntityLivingBase>() {
+            theNearestAttackableTargetSorter = new EntityAINearestAttackableTarget.Sorter(owner);
+            setMutexBits(1);
+            targetEntitySelector = new Predicate<EntityLivingBase>() {
                 private static final String __OBFID = "CL_00001621";
                 
                 public boolean applySelection(final EntityLivingBase entity) {
@@ -443,39 +443,39 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
                             }
                             d0 *= 0.7f * f;
                         }
-                        if (entity.getDistance(EntityAINearestValidTarget.this.taskOwner) > d0) {
+                        if (entity.getDistance(taskOwner) > d0) {
                             return false;
                         }
                     }
-                    return EntityAINearestValidTarget.this.isSuitableTarget(entity, false);
+                    return isSuitableTarget(entity, false);
                 }
                 
                 public boolean apply(final EntityLivingBase p_apply_1_) {
-                    return this.applySelection(p_apply_1_);
+                    return applySelection(p_apply_1_);
                 }
             };
         }
         
         protected boolean isSuitableTarget(final EntityLivingBase p_75296_1_, final boolean p_75296_2_) {
-            return isSuitableTarget(this.taskOwner, p_75296_1_, p_75296_2_, this.shouldCheckSight) && this.taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(p_75296_1_));
+            return isSuitableTarget(taskOwner, p_75296_1_, p_75296_2_, shouldCheckSight) && taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(p_75296_1_));
         }
         
         public boolean shouldExecute() {
-            if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(this.targetChance) != 0) {
+            if (targetChance > 0 && taskOwner.getRNG().nextInt(targetChance) != 0) {
                 return false;
             }
-            final double d0 = this.getTargetDistance();
-            final List<EntityLivingBase> list = this.taskOwner.world.getEntitiesWithinAABB(this.targetClass, this.taskOwner.getEntityBoundingBox().grow(d0, 4.0, d0), Predicates.and(targetEntitySelector, EntitySelectors.NOT_SPECTATING));
-            Collections.sort(list, this.theNearestAttackableTargetSorter);
+            final double d0 = getTargetDistance();
+            final List<EntityLivingBase> list = taskOwner.world.getEntitiesWithinAABB(targetClass, taskOwner.getEntityBoundingBox().grow(d0, 4.0, d0), Predicates.and(targetEntitySelector, EntitySelectors.NOT_SPECTATING));
+            Collections.sort(list, theNearestAttackableTargetSorter);
             if (list.isEmpty()) {
                 return false;
             }
-            this.targetEntity = list.get(0);
+            targetEntity = list.get(0);
             return true;
         }
         
         public void startExecuting() {
-            this.taskOwner.setAttackTarget(this.targetEntity);
+            taskOwner.setAttackTarget(targetEntity);
             super.startExecuting();
         }
         
@@ -487,18 +487,18 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
             private static final String __OBFID = "CL_00001622";
             
             public Sorter(final Entity p_i1662_1_) {
-                this.theEntity = p_i1662_1_;
+                theEntity = p_i1662_1_;
             }
             
             public int compare(final Entity p_compare_1_, final Entity p_compare_2_) {
-                final double d0 = this.theEntity.getDistanceSq(p_compare_1_);
-                final double d2 = this.theEntity.getDistanceSq(p_compare_2_);
+                final double d0 = theEntity.getDistanceSq(p_compare_1_);
+                final double d2 = theEntity.getDistanceSq(p_compare_2_);
                 return (d0 < d2) ? -1 : ((d0 > d2) ? 1 : 0);
             }
             
             @Override
             public int compare(final Object p_compare_1_, final Object p_compare_2_) {
-                return this.compare((Entity)p_compare_1_, (Entity)p_compare_2_);
+                return compare((Entity)p_compare_1_, (Entity)p_compare_2_);
             }
         }
     }

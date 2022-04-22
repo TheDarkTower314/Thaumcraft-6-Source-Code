@@ -26,9 +26,9 @@ public class ItemVoidPickaxe extends ItemPickaxe implements IWarpingGear, IThaum
 {
     public ItemVoidPickaxe(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("void_pick");
-        this.setUnlocalizedName("void_pick");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("void_pick");
+        setUnlocalizedName("void_pick");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

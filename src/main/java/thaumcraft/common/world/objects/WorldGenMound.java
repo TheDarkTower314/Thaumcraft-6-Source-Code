@@ -31,7 +31,7 @@ public class WorldGenMound extends WorldGenerator
         final BlockPos pos2 = pos.up(distanceToAir - 1);
         final Block blockID = world.getBlockState(pos2).getBlock();
         final Block blockIDBelow = world.getBlockState(pos2.down()).getBlock();
-        for (final Block x : this.GetValidSpawnBlocks()) {
+        for (final Block x : GetValidSpawnBlocks()) {
             if (!world.isAirBlock(pos2.up())) {
                 return false;
             }
@@ -49,7 +49,7 @@ public class WorldGenMound extends WorldGenerator
         final int i = pos.getX();
         final int j = pos.getY();
         final int k = pos.getZ();
-        if (!this.LocationIsValidSpawn(world, new BlockPos(i + 9, j + 9, k + 9)) || !this.LocationIsValidSpawn(world, new BlockPos(i, j + 9, k)) || !this.LocationIsValidSpawn(world, new BlockPos(i + 18, j + 9, k)) || !this.LocationIsValidSpawn(world, new BlockPos(i + 18, j + 9, k + 18)) || !this.LocationIsValidSpawn(world, new BlockPos(i, j + 9, k + 18))) {
+        if (!LocationIsValidSpawn(world, new BlockPos(i + 9, j + 9, k + 9)) || !LocationIsValidSpawn(world, new BlockPos(i, j + 9, k)) || !LocationIsValidSpawn(world, new BlockPos(i + 18, j + 9, k)) || !LocationIsValidSpawn(world, new BlockPos(i + 18, j + 9, k + 18)) || !LocationIsValidSpawn(world, new BlockPos(i, j + 9, k + 18))) {
             return false;
         }
         world.setBlockState(new BlockPos(i + 0, j + 8, k + 4), Blocks.DIRT.getDefaultState());
@@ -1547,7 +1547,7 @@ public class WorldGenMound extends WorldGenerator
         world.setBlockState(new BlockPos(i + 16, j + 10, k + 12), Blocks.DIRT.getDefaultState());
         world.setBlockState(new BlockPos(i + 16, j + 10, k + 13), Blocks.DIRT.getDefaultState());
         world.setBlockState(new BlockPos(i + 16, j + 10, k + 14), Blocks.DIRT.getDefaultState());
-        this.generate2(world, rand, i, j, k);
+        generate2(world, rand, i, j, k);
         return true;
     }
     

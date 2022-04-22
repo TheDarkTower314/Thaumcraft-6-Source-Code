@@ -26,7 +26,7 @@ public class PacketItemKeyToServer implements IMessage, IMessageHandler<PacketIt
     
     public PacketItemKeyToServer(final int key) {
         this.key = (byte)key;
-        this.mod = 0;
+        mod = 0;
     }
     
     public PacketItemKeyToServer(final int key, final int mod) {
@@ -35,13 +35,13 @@ public class PacketItemKeyToServer implements IMessage, IMessageHandler<PacketIt
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeByte(this.key);
-        buffer.writeByte(this.mod);
+        buffer.writeByte(key);
+        buffer.writeByte(mod);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.key = buffer.readByte();
-        this.mod = buffer.readByte();
+        key = buffer.readByte();
+        mod = buffer.readByte();
     }
     
     public IMessage onMessage(final PacketItemKeyToServer message, final MessageContext ctx) {

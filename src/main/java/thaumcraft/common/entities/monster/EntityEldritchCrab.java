@@ -53,46 +53,46 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
     
     public EntityEldritchCrab(final World par1World) {
         super(par1World);
-        this.attackTime = 0;
-        this.setSize(0.8f, 0.6f);
-        this.experienceValue = 6;
-        ((PathNavigateGround)this.getNavigator()).setBreakDoors(true);
+        attackTime = 0;
+        setSize(0.8f, 0.6f);
+        experienceValue = 6;
+        ((PathNavigateGround) getNavigator()).setBreakDoors(true);
     }
     
     protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAILeapAtTarget(this, 0.63f));
-        this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0, false));
-        this.tasks.addTask(7, new EntityAIWander(this, 0.8));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCultist.class, true));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(2, new EntityAILeapAtTarget(this, 0.63f));
+        tasks.addTask(3, new EntityAIAttackMelee(this, 1.0, false));
+        tasks.addTask(7, new EntityAIWander(this, 0.8));
+        tasks.addTask(8, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCultist.class, true));
     }
     
     public double getYOffset() {
-        return this.isRiding() ? 0.5 : 0.0;
+        return isRiding() ? 0.5 : 0.0;
     }
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(this.hasHelm() ? 0.275 : 0.3);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(hasHelm() ? 0.275 : 0.3);
     }
     
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register(EntityEldritchCrab.HELM, false);
-        this.getDataManager().register(EntityEldritchCrab.RIDING, (-1));
+        getDataManager().register(EntityEldritchCrab.HELM, false);
+        getDataManager().register(EntityEldritchCrab.RIDING, (-1));
     }
     
     public int getRiding() {
-        return (int)this.getDataManager().get((DataParameter)EntityEldritchCrab.RIDING);
+        return (int) getDataManager().get((DataParameter)EntityEldritchCrab.RIDING);
     }
     
     public void setRiding(final int s) {
-        this.getDataManager().set(EntityEldritchCrab.RIDING, s);
+        getDataManager().set(EntityEldritchCrab.RIDING, s);
     }
     
     public boolean canPickUpLoot() {
@@ -100,70 +100,70 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
     }
     
     public int getTotalArmorValue() {
-        return this.hasHelm() ? 5 : 0;
+        return hasHelm() ? 5 : 0;
     }
     
     public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, IEntityLivingData data) {
-        if (this.world.getDifficulty() == EnumDifficulty.HARD) {
-            this.setHelm(true);
+        if (world.getDifficulty() == EnumDifficulty.HARD) {
+            setHelm(true);
         }
         else {
-            this.setHelm(this.rand.nextFloat() < 0.33f);
+            setHelm(rand.nextFloat() < 0.33f);
         }
         if (data == null) {
             data = new EntitySpider.GroupData();
-            if (this.world.getDifficulty() == EnumDifficulty.HARD && this.world.rand.nextFloat() < 0.1f * diff.getClampedAdditionalDifficulty()) {
-                ((EntitySpider.GroupData)data).setRandomEffect(this.world.rand);
+            if (world.getDifficulty() == EnumDifficulty.HARD && world.rand.nextFloat() < 0.1f * diff.getClampedAdditionalDifficulty()) {
+                ((EntitySpider.GroupData)data).setRandomEffect(world.rand);
             }
         }
         if (data instanceof EntitySpider.GroupData) {
             final Potion potion = ((EntitySpider.GroupData)data).effect;
             if (potion != null) {
-                this.addPotionEffect(new PotionEffect(potion, Integer.MAX_VALUE));
+                addPotionEffect(new PotionEffect(potion, Integer.MAX_VALUE));
             }
         }
         return super.onInitialSpawn(diff, data);
     }
     
     public boolean hasHelm() {
-        return (boolean)this.getDataManager().get((DataParameter)EntityEldritchCrab.HELM);
+        return (boolean) getDataManager().get((DataParameter)EntityEldritchCrab.HELM);
     }
     
     public void setHelm(final boolean par1) {
-        this.getDataManager().set(EntityEldritchCrab.HELM, par1);
+        getDataManager().set(EntityEldritchCrab.HELM, par1);
     }
     
     public void onUpdate() {
         super.onUpdate();
-        --this.attackTime;
-        if (this.ticksExisted < 20) {
-            this.fallDistance = 0.0f;
+        --attackTime;
+        if (ticksExisted < 20) {
+            fallDistance = 0.0f;
         }
-        if (!this.world.isRemote) {
-            if (this.getRidingEntity() == null && this.getAttackTarget() != null && !this.getAttackTarget().isBeingRidden() && !this.onGround && !this.hasHelm() && !this.getAttackTarget().isDead && this.posY - this.getAttackTarget().posY >= this.getAttackTarget().height / 2.0f && this.getDistanceSq(this.getAttackTarget()) < 4.0) {
-                this.startRiding(this.getAttackTarget());
-                this.setRiding(this.getAttackTarget().getEntityId());
+        if (!world.isRemote) {
+            if (getRidingEntity() == null && getAttackTarget() != null && !getAttackTarget().isBeingRidden() && !onGround && !hasHelm() && !getAttackTarget().isDead && posY - getAttackTarget().posY >= getAttackTarget().height / 2.0f && getDistanceSq(getAttackTarget()) < 4.0) {
+                startRiding(getAttackTarget());
+                setRiding(getAttackTarget().getEntityId());
             }
-            if (this.getRidingEntity() != null && !this.isDead && this.attackTime <= 0) {
-                this.attackTime = 10 + this.rand.nextInt(10);
-                this.attackEntityAsMob(this.getRidingEntity());
-                if (this.rand.nextFloat() < 0.2) {
-                    this.dismountRidingEntity();
-                    this.setRiding(-1);
+            if (getRidingEntity() != null && !isDead && attackTime <= 0) {
+                attackTime = 10 + rand.nextInt(10);
+                attackEntityAsMob(getRidingEntity());
+                if (rand.nextFloat() < 0.2) {
+                    dismountRidingEntity();
+                    setRiding(-1);
                 }
             }
-            if (this.getRidingEntity() == null && this.getRiding() != -1) {
-                this.setRiding(-1);
+            if (getRidingEntity() == null && getRiding() != -1) {
+                setRiding(-1);
             }
         }
-        else if (this.getRidingEntity() == null && this.getRiding() != -1) {
-            final Entity e = this.world.getEntityByID(this.getRiding());
+        else if (getRidingEntity() == null && getRiding() != -1) {
+            final Entity e = world.getEntityByID(getRiding());
             if (e != null) {
-                this.startRiding(e);
+                startRiding(e);
             }
         }
-        else if (this.getRidingEntity() != null && this.getRiding() == -1) {
-            this.dismountRidingEntity();
+        else if (getRidingEntity() != null && getRiding() == -1) {
+            dismountRidingEntity();
         }
     }
     
@@ -173,14 +173,14 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
     
     protected void dropFewItems(final boolean p_70628_1_, final int p_70628_2_) {
         super.dropFewItems(p_70628_1_, p_70628_2_);
-        if (p_70628_1_ && (this.rand.nextInt(3) == 0 || this.rand.nextInt(1 + p_70628_2_) > 0)) {
-            this.dropItem(Items.ENDER_PEARL, 1);
+        if (p_70628_1_ && (rand.nextInt(3) == 0 || rand.nextInt(1 + p_70628_2_) > 0)) {
+            dropItem(Items.ENDER_PEARL, 1);
         }
     }
     
     public boolean attackEntityAsMob(final Entity p_70652_1_) {
         if (super.attackEntityAsMob(p_70652_1_)) {
-            this.playSound(SoundsTC.crabclaw, 1.0f, 0.9f + this.world.rand.nextFloat() * 0.2f);
+            playSound(SoundsTC.crabclaw, 1.0f, 0.9f + world.rand.nextFloat() * 0.2f);
             return true;
         }
         return false;
@@ -188,25 +188,25 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
     
     public boolean attackEntityFrom(final DamageSource source, final float damage) {
         final boolean b = super.attackEntityFrom(source, damage);
-        if (this.hasHelm() && this.getHealth() / this.getMaxHealth() <= 0.5f) {
-            this.setHelm(false);
-            this.renderBrokenItemStack(new ItemStack(ItemsTC.crimsonPlateChest));
-            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
+        if (hasHelm() && getHealth() / getMaxHealth() <= 0.5f) {
+            setHelm(false);
+            renderBrokenItemStack(new ItemStack(ItemsTC.crimsonPlateChest));
+            getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
         }
         return b;
     }
     
     public void readEntityFromNBT(final NBTTagCompound par1NBTTagCompound) {
         super.readEntityFromNBT(par1NBTTagCompound);
-        this.setHelm(par1NBTTagCompound.getBoolean("helm"));
-        if (!this.hasHelm()) {
-            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
+        setHelm(par1NBTTagCompound.getBoolean("helm"));
+        if (!hasHelm()) {
+            getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
         }
     }
     
     public void writeEntityToNBT(final NBTTagCompound par1NBTTagCompound) {
         super.writeEntityToNBT(par1NBTTagCompound);
-        par1NBTTagCompound.setBoolean("helm", this.hasHelm());
+        par1NBTTagCompound.setBoolean("helm", hasHelm());
     }
     
     public int getTalkInterval() {
@@ -226,7 +226,7 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
     }
     
     protected void playStepSound(final BlockPos p_180429_1_, final Block p_180429_2_) {
-        this.playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15f, 1.0f);
+        playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15f, 1.0f);
     }
     
     public EnumCreatureAttribute getCreatureAttribute() {

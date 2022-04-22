@@ -36,10 +36,10 @@ public class ItemVerdantCharm extends ItemTCBase implements IBauble, IRechargabl
 {
     public ItemVerdantCharm() {
         super("verdant_charm");
-        this.maxStackSize = 1;
-        this.canRepair = false;
-        this.setMaxDamage(0);
-        this.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
+        maxStackSize = 1;
+        canRepair = false;
+        setMaxDamage(0);
+        addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
             public float apply(final ItemStack stack, @Nullable final World worldIn, @Nullable final EntityLivingBase entityIn) {
                 if (stack.getItem() instanceof ItemVerdantCharm && stack.hasTagCompound()) {

@@ -11,7 +11,7 @@ public class ScanBlockState implements IScanThing {
 	IBlockState blockState;
 	
 	public ScanBlockState(IBlockState blockState) {
-		this.research = "!"+blockState.toString();
+		research = "!"+blockState.toString();
 		this.blockState = blockState;
 	}
 	

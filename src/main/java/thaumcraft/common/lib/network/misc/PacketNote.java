@@ -35,7 +35,7 @@ public class PacketNote implements IMessage, IMessageHandler<PacketNote, IMessag
         this.y = y;
         this.z = z;
         this.dim = dim;
-        this.note = -1;
+        note = -1;
     }
     
     public PacketNote(final int x, final int y, final int z, final int dim, final byte note) {
@@ -47,19 +47,19 @@ public class PacketNote implements IMessage, IMessageHandler<PacketNote, IMessag
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.x);
-        buffer.writeInt(this.y);
-        buffer.writeInt(this.z);
-        buffer.writeInt(this.dim);
-        buffer.writeByte(this.note);
+        buffer.writeInt(x);
+        buffer.writeInt(y);
+        buffer.writeInt(z);
+        buffer.writeInt(dim);
+        buffer.writeByte(note);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.x = buffer.readInt();
-        this.y = buffer.readInt();
-        this.z = buffer.readInt();
-        this.dim = buffer.readInt();
-        this.note = buffer.readByte();
+        x = buffer.readInt();
+        y = buffer.readInt();
+        z = buffer.readInt();
+        dim = buffer.readInt();
+        note = buffer.readByte();
     }
     
     public IMessage onMessage(final PacketNote message, final MessageContext ctx) {

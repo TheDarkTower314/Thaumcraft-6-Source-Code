@@ -30,11 +30,11 @@ public class GolemMaterial
         this.research = research;
         this.texture = texture;
         this.itemColor = itemColor;
-        this.componentBase = compb;
-        this.componentMechanism = compm;
-        this.healthMod = hp;
+        componentBase = compb;
+        componentMechanism = compm;
+        healthMod = hp;
         this.armor = armor;
-        this.traits = tags;
+        traits = tags;
         this.damage = damage;
     }
     
@@ -50,11 +50,11 @@ public class GolemMaterial
     }
     
     public String getLocalizedName() {
-        return I18n.translateToLocal("golem.material." + this.key.toLowerCase());
+        return I18n.translateToLocal("golem.material." + key.toLowerCase());
     }
     
     public String getLocalizedDescription() {
-        return I18n.translateToLocal("golem.material.text." + this.key.toLowerCase());
+        return I18n.translateToLocal("golem.material.text." + key.toLowerCase());
     }
     
     public static GolemMaterial[] getMaterials() {

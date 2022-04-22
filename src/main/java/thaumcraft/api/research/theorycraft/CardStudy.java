@@ -33,7 +33,7 @@ public class CardStudy extends TheorycraftCard {
 	
 	@Override
 	public boolean initialize(EntityPlayer player, ResearchTableData data) { 
-		Random r = new Random(this.getSeed());
+		Random r = new Random(getSeed());
 		ArrayList<String> list = data.getAvailableCategories(player);
 		cat = list.get(r.nextInt(list.size()));
 		return cat!=null;

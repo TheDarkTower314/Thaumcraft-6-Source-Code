@@ -41,11 +41,11 @@ public class UV implements Copyable<UV>
     }
     
     public UV set(final double u, final double v) {
-        return this.set(u, v, this.tex);
+        return set(u, v, tex);
     }
     
     public UV set(final UV uv) {
-        return this.set(uv.u, uv.v, uv.tex);
+        return set(uv.u, uv.v, uv.tex);
     }
     
     @Override
@@ -54,21 +54,21 @@ public class UV implements Copyable<UV>
     }
     
     public UV add(final UV uv) {
-        this.u += uv.u;
-        this.v += uv.v;
+        u += uv.u;
+        v += uv.v;
         return this;
     }
     
     public UV multiply(final double d) {
-        this.u *= d;
-        this.v *= d;
+        u *= d;
+        v *= d;
         return this;
     }
     
     @Override
     public String toString() {
         final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
-        return "UV(" + new BigDecimal(this.u, cont) + ", " + new BigDecimal(this.v, cont) + ")";
+        return "UV(" + new BigDecimal(u, cont) + ", " + new BigDecimal(v, cont) + ")";
     }
     
     public UV apply(final UVTransformation t) {
@@ -82,6 +82,6 @@ public class UV implements Copyable<UV>
             return false;
         }
         final UV uv = (UV)o;
-        return this.u == uv.u && this.v == uv.v;
+        return u == uv.u && v == uv.v;
     }
 }

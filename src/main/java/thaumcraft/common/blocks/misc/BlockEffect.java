@@ -37,9 +37,9 @@ public class BlockEffect extends BlockTC
 {
     public BlockEffect(final String name) {
         super(Material.AIR, name);
-        this.setTickRandomly(true);
-        this.blockResistance = 999.0f;
-        this.setLightLevel(0.5f);
+        setTickRandomly(true);
+        blockResistance = 999.0f;
+        setLightLevel(0.5f);
     }
     
     public int getLightValue(final IBlockState state, final IBlockAccess world, final BlockPos pos) {

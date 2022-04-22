@@ -27,8 +27,8 @@ public class TileBellowsRenderer extends TileEntitySpecialRenderer<TileBellows>
     private static final ResourceLocation TEX_BORE;
     
     public TileBellowsRenderer() {
-        this.model = new ModelBellows();
-        this.model2 = new ModelBoreBase();
+        model = new ModelBellows();
+        model2 = new ModelBoreBase();
     }
     
     public void render(final TileBellows bellows, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
@@ -50,7 +50,7 @@ public class TileBellowsRenderer extends TileEntitySpecialRenderer<TileBellows>
         }
         final float tscale = 0.125f + scale * 0.875f;
         if (extension) {
-            this.bindTexture(TileBellowsRenderer.TEX_BORE);
+            bindTexture(TileBellowsRenderer.TEX_BORE);
             GL11.glPushMatrix();
             GL11.glTranslatef((float)x + 0.5f + dir.getFrontOffsetX(), (float)y + dir.getFrontOffsetY(), (float)z + 0.5f + dir.getFrontOffsetZ());
             switch (dir.getOpposite().ordinal()) {
@@ -81,17 +81,17 @@ public class TileBellowsRenderer extends TileEntitySpecialRenderer<TileBellows>
                     break;
                 }
             }
-            this.model2.renderNozzle();
+            model2.renderNozzle();
             GL11.glPopMatrix();
         }
-        this.bindTexture(TileBellowsRenderer.TEX);
+        bindTexture(TileBellowsRenderer.TEX);
         GL11.glPushMatrix();
         GL11.glEnable(2977);
         GL11.glEnable(32826);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.translateFromOrientation((float)x, (float)y, (float)z, dir.ordinal());
+        translateFromOrientation((float)x, (float)y, (float)z, dir.ordinal());
         if (destroyStage >= 0) {
-            this.bindTexture(TileBellowsRenderer.DESTROY_STAGES[destroyStage]);
+            bindTexture(TileBellowsRenderer.DESTROY_STAGES[destroyStage]);
             GlStateManager.matrixMode(5890);
             GlStateManager.pushMatrix();
             GlStateManager.scale(4.0f, 4.0f, 1.0f);
@@ -101,22 +101,22 @@ public class TileBellowsRenderer extends TileEntitySpecialRenderer<TileBellows>
         GL11.glTranslatef(0.0f, 1.0f, 0.0f);
         GL11.glPushMatrix();
         GL11.glScalef(0.5f, (scale + 0.1f) / 2.0f, 0.5f);
-        this.model.Bag.setRotationPoint(0.0f, 0.5f, 0.0f);
-        this.model.Bag.render(0.0625f);
+        model.Bag.setRotationPoint(0.0f, 0.5f, 0.0f);
+        model.Bag.render(0.0625f);
         GL11.glScalef(1.0f, 1.0f, 1.0f);
         GL11.glPopMatrix();
         GL11.glTranslatef(0.0f, -1.0f, 0.0f);
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0f, -tscale / 2.0f + 0.5f, 0.0f);
-        this.model.TopPlank.render(0.0625f);
+        model.TopPlank.render(0.0625f);
         GL11.glTranslatef(0.0f, tscale / 2.0f - 0.5f, 0.0f);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0f, tscale / 2.0f - 0.5f, 0.0f);
-        this.model.BottomPlank.render(0.0625f);
+        model.BottomPlank.render(0.0625f);
         GL11.glTranslatef(0.0f, -tscale / 2.0f + 0.5f, 0.0f);
         GL11.glPopMatrix();
-        this.model.render();
+        model.render();
         GL11.glDisable(32826);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glPopMatrix();

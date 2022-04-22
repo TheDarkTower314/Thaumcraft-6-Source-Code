@@ -20,41 +20,41 @@ public class ContainerSpa extends Container
     private int lastBreakTime;
     
     public ContainerSpa(final InventoryPlayer par1InventoryPlayer, final TileSpa tileEntity) {
-        this.spa = tileEntity;
-        this.addSlotToContainer(new SlotLimitedByClass(ItemBathSalts.class, tileEntity, 0, 65, 31));
+        spa = tileEntity;
+        addSlotToContainer(new SlotLimitedByClass(ItemBathSalts.class, tileEntity, 0, 65, 31));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
+            addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
         }
     }
     
     public boolean enchantItem(final EntityPlayer p, final int button) {
         if (button == 1) {
-            this.spa.toggleMix();
+            spa.toggleMix();
         }
         return false;
     }
     
     public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
-        return this.spa.isUsableByPlayer(par1EntityPlayer);
+        return spa.isUsableByPlayer(par1EntityPlayer);
     }
     
     public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = this.inventorySlots.get(slot);
+        final Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
             final ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot == 0) {
-                if (!this.spa.isItemValidForSlot(slot, stackInSlot) || !this.mergeItemStack(stackInSlot, 1, this.inventorySlots.size(), true)) {
+                if (!spa.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.spa.isItemValidForSlot(slot, stackInSlot) || !this.mergeItemStack(stackInSlot, 0, 1, false)) {
+            else if (!spa.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
             if (stackInSlot.getCount() == 0) {

@@ -34,12 +34,12 @@ public class BlockPillar extends BlockTC
     
     public BlockPillar(final String name) {
         super(Material.ROCK, name);
-        this.rand = new Random();
-        this.setHardness(2.5f);
-        this.setSoundType(SoundType.STONE);
-        final IBlockState bs = this.blockState.getBaseState();
+        rand = new Random();
+        setHardness(2.5f);
+        setSoundType(SoundType.STONE);
+        final IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)BlockPillar.FACING, (Comparable)EnumFacing.NORTH);
-        this.setDefaultState(bs);
+        setDefaultState(bs);
     }
     
     public EnumPushReaction getMobilityFlag(final IBlockState state) {
@@ -67,7 +67,7 @@ public class BlockPillar extends BlockTC
     }
     
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        final IBlockState bs = this.blockState.getBaseState();
+        final IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)BlockPillar.FACING, (Comparable)placer.getHorizontalFacing());
         return bs;
     }
@@ -97,7 +97,7 @@ public class BlockPillar extends BlockTC
     
     public IBlockState getStateFromMeta(final int meta) {
         final EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
-        return this.getBlockState().getBaseState().withProperty((IProperty)BlockPillar.FACING, (Comparable)enumfacing);
+        return getBlockState().getBaseState().withProperty((IProperty)BlockPillar.FACING, (Comparable)enumfacing);
     }
     
     public static int calcMeta(EnumFacing enumfacing) {

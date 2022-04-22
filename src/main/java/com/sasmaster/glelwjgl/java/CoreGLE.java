@@ -32,22 +32,22 @@ public class CoreGLE implements GLE
     }
     
     public CoreGLE() {
-        this.context_ = new GLEContext();
-        this._POLYCYL_TESS = 20;
-        this.__ROUND_TESS_PIECES = 5;
-        this.tessCallback = new tessellCallBack(CoreGLE.glu_);
-        this.SLICE = 1.0f;
-        this.SLICE_PROGRESS = 0.0f;
+        context_ = new GLEContext();
+        _POLYCYL_TESS = 20;
+        __ROUND_TESS_PIECES = 5;
+        tessCallback = new tessellCallBack(CoreGLE.glu_);
+        SLICE = 1.0f;
+        SLICE_PROGRESS = 0.0f;
     }
     
     @Override
     public int gleGetJoinStyle() {
-        return this.context_.getJoinStyle();
+        return context_.getJoinStyle();
     }
     
     @Override
     public void gleSetJoinStyle(final int style) {
-        this.context_.setJoinStyle(style);
+        context_.setJoinStyle(style);
     }
     
     @Override
@@ -55,23 +55,23 @@ public class CoreGLE implements GLE
     }
     
     private void gen_polycone(final int npoints, final double[][] pointArray, final float[][] colourArray, double radius, final double[][][] xformArray, final float texSlice, final float start) {
-        this.SLICE = texSlice;
-        this.SLICE_PROGRESS = start;
-        final double[][] circle = new double[this._POLYCYL_TESS][2];
-        final double[][] norm = new double[this._POLYCYL_TESS][2];
+        SLICE = texSlice;
+        SLICE_PROGRESS = start;
+        final double[][] circle = new double[_POLYCYL_TESS][2];
+        final double[][] norm = new double[_POLYCYL_TESS][2];
         final double[] v21 = new double[3];
         double len = 0.0;
         final double[] up = new double[3];
         if (xformArray != null) {
             radius = 1.0;
         }
-        final double s = Math.sin(6.283185307179586 / this._POLYCYL_TESS);
-        final double c = Math.cos(6.283185307179586 / this._POLYCYL_TESS);
+        final double s = Math.sin(6.283185307179586 / _POLYCYL_TESS);
+        final double c = Math.cos(6.283185307179586 / _POLYCYL_TESS);
         norm[0][0] = 1.0;
         norm[0][1] = 0.0;
         circle[0][0] = radius;
         circle[0][1] = 0.0;
-        for (int i = 1; i < this._POLYCYL_TESS; ++i) {
+        for (int i = 1; i < _POLYCYL_TESS; ++i) {
             norm[i][0] = norm[i - 1][0] * c - norm[i - 1][1] * s;
             norm[i][1] = norm[i - 1][0] * s + norm[i - 1][1] * c;
             circle[i][0] = radius * norm[i][0];
@@ -98,20 +98,20 @@ public class CoreGLE implements GLE
             up[0] = (up[2] = 0.0);
             up[1] = 1.0;
         }
-        final int savedStyle = this.gleGetJoinStyle();
-        this.gleSetJoinStyle(savedStyle | 0x1000);
+        final int savedStyle = gleGetJoinStyle();
+        gleSetJoinStyle(savedStyle | 0x1000);
         if (!GL11.glIsEnabled(2896)) {
-            this.gleSuperExtrusion(this._POLYCYL_TESS, circle, null, up, npoints, pointArray, colourArray, xformArray);
+            gleSuperExtrusion(_POLYCYL_TESS, circle, null, up, npoints, pointArray, colourArray, xformArray);
         }
         else {
-            this.gleSuperExtrusion(this._POLYCYL_TESS, circle, norm, up, npoints, pointArray, colourArray, xformArray);
+            gleSuperExtrusion(_POLYCYL_TESS, circle, norm, up, npoints, pointArray, colourArray, xformArray);
         }
-        this.gleSetJoinStyle(savedStyle);
+        gleSetJoinStyle(savedStyle);
     }
     
     @Override
     public void glePolyCylinder(final int npoints, final double[][] pointArray, final float[][] colourArray, final double radius, final float texSlice, final float start) throws GLEException {
-        this.gen_polycone(npoints, pointArray, colourArray, radius, null, texSlice, start);
+        gen_polycone(npoints, pointArray, colourArray, radius, null, texSlice, start);
     }
     
     @Override
@@ -125,12 +125,12 @@ public class CoreGLE implements GLE
             xforms[i][1][1] = radiusArray[i];
             xforms[i][1][2] = 0.0;
         }
-        this.gen_polycone(npoints, pointArray, colourArray, 1.0, xforms, texSlice, start);
+        gen_polycone(npoints, pointArray, colourArray, 1.0, xforms, texSlice, start);
     }
     
     @Override
     public void gleExtrusion(final int ncp, final double[][] contour, final double[][] contourNormal, final double[] up, final int npoints, final double[][] pointArray, final float[][] colourArray) throws GLEException {
-        this.gleSuperExtrusion(ncp, contour, contourNormal, up, npoints, pointArray, colourArray, null);
+        gleSuperExtrusion(ncp, contour, contourNormal, up, npoints, pointArray, colourArray, null);
     }
     
     @Override
@@ -150,31 +150,31 @@ public class CoreGLE implements GLE
             xforms[j][1][1] = co;
             xforms[j][1][2] = 0.0;
         }
-        this.gleSuperExtrusion(ncp, contour, contourNormal, up, npoints, pointArray, colourArray, xforms);
+        gleSuperExtrusion(ncp, contour, contourNormal, up, npoints, pointArray, colourArray, xforms);
     }
     
     @Override
     public void gleSuperExtrusion(final int ncp, final double[][] contour, final double[][] contourNormal, final double[] up, final int npoints, final double[][] pointArray, final float[][] colourArray, final double[][][] xformArray) throws GLEException {
-        this.context_.ncp = ncp;
-        this.context_.contour = contour;
-        this.context_.contourNormal = contourNormal;
-        this.context_.up = up;
-        this.context_.npoints = npoints;
-        this.context_.pointArray = pointArray;
-        this.context_.colourArray = colourArray;
-        this.context_.xformArray = xformArray;
-        switch (this.gleGetJoinStyle() & 0xF) {
+        context_.ncp = ncp;
+        context_.contour = contour;
+        context_.contourNormal = contourNormal;
+        context_.up = up;
+        context_.npoints = npoints;
+        context_.pointArray = pointArray;
+        context_.colourArray = colourArray;
+        context_.xformArray = xformArray;
+        switch (gleGetJoinStyle() & 0xF) {
             case 1: {
-                this.extrusion_raw_join(ncp, contour, contourNormal, up, npoints, pointArray, colourArray, xformArray);
+                extrusion_raw_join(ncp, contour, contourNormal, up, npoints, pointArray, colourArray, xformArray);
                 break;
             }
             case 2: {
-                this.extrusion_angle_join(ncp, contour, contourNormal, up, npoints, pointArray, colourArray, xformArray);
+                extrusion_angle_join(ncp, contour, contourNormal, up, npoints, pointArray, colourArray, xformArray);
                 break;
             }
             case 3:
             case 4: {
-                this.extrusion_round_or_cut_join(ncp, contour, contourNormal, up, npoints, pointArray, colourArray, xformArray);
+                extrusion_round_or_cut_join(ncp, contour, contourNormal, up, npoints, pointArray, colourArray, xformArray);
                 break;
             }
             default: {
@@ -185,7 +185,7 @@ public class CoreGLE implements GLE
     
     @Override
     public void gleSpiral(final int ncp, final double[][] contour, final double[][] contourNormal, final double[] up, double startRadius, double drdTheta, double startZ, double dzdTheta, final double[][] startTransform, final double[][] dTransformdTheta, double startTheta, final double sweepTheta) throws GLEException {
-        final int npoints = (int)(this._POLYCYL_TESS / 360.0 * Math.abs(sweepTheta) + 4.0);
+        final int npoints = (int)(_POLYCYL_TESS / 360.0 * Math.abs(sweepTheta) + 4.0);
         double[][] points = null;
         double[][][] xforms = null;
         double delta = 0.0;
@@ -283,12 +283,12 @@ public class CoreGLE implements GLE
             }
         }
         int style;
-        final int saveStyle = style = this.gleGetJoinStyle();
+        final int saveStyle = style = gleGetJoinStyle();
         style &= 0xFFFFFFF0;
         style |= 0x2;
-        this.gleSetJoinStyle(style);
-        this.gleSuperExtrusion(ncp, contour, contourNormal, up, npoints, points, null, xforms);
-        this.gleSetJoinStyle(saveStyle);
+        gleSetJoinStyle(style);
+        gleSuperExtrusion(ncp, contour, contourNormal, up, npoints, points, null, xforms);
+        gleSetJoinStyle(saveStyle);
     }
     
     @Override
@@ -347,7 +347,7 @@ public class CoreGLE implements GLE
                 delt[1][1] = 0.0;
                 delt[1][2] = trans[1];
             }
-            this.gleSpiral(ncp, contour, contourNormal, up, startRadius, 0.0, startZ, 0.0, startTransform, delt, startTheta, sweepTheta);
+            gleSpiral(ncp, contour, contourNormal, up, startRadius, 0.0, startZ, 0.0, startTransform, delt, startTheta, sweepTheta);
         }
         else {
             start[0][0] = 1.0;
@@ -362,18 +362,18 @@ public class CoreGLE implements GLE
             delt[1][0] = 0.0;
             delt[1][1] = 0.0;
             delt[1][2] = trans[1];
-            this.gleSpiral(ncp, contour, contourNormal, up, startRadius, 0.0, startZ, 0.0, start, delt, startTheta, sweepTheta);
+            gleSpiral(ncp, contour, contourNormal, up, startRadius, 0.0, startZ, 0.0, start, delt, startTheta, sweepTheta);
         }
     }
     
     @Override
     public void gleHelicoid(final double rToroid, final double startRadius, final double drdTheta, final double startZ, final double dzdTheta, final double[][] startTransform, final double[][] dTransformdTheta, final double startTheta, final double sweepTheta) throws GLEException {
-        this.super_helix(rToroid, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta, "Spiral");
+        super_helix(rToroid, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta, "Spiral");
     }
     
     @Override
     public void gleToroid(final double rToroid, final double startRadius, final double drdTheta, final double startZ, final double dzdTheta, final double[][] startTransform, final double[][] dTransformdTheta, final double startTheta, final double sweepTheta) throws GLEException {
-        this.super_helix(rToroid, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta, "Lathe");
+        super_helix(rToroid, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta, "Lathe");
     }
     
     @Override
@@ -397,22 +397,22 @@ public class CoreGLE implements GLE
             twarr[i] = currang;
             currang += delang;
         }
-        this.gleTwistExtrusion(ncp, contour, contourNormal, up, numsegs, path, null, twarr);
+        gleTwistExtrusion(ncp, contour, contourNormal, up, numsegs, path, null, twarr);
     }
     
     private final void super_helix(final double rToroid, final double startRadius, final double drdTheta, final double startZ, final double dzdTheta, final double[][] startTransform, final double[][] dTransformdTheta, final double startTheta, final double sweepTheta, final String callback) {
-        final double[][] circle = new double[this._POLYCYL_TESS][2];
-        final double[][] norm = new double[this._POLYCYL_TESS][2];
+        final double[][] circle = new double[_POLYCYL_TESS][2];
+        final double[][] norm = new double[_POLYCYL_TESS][2];
         double c = 0.0;
         double s = 0.0;
         final double[] up = new double[3];
-        s = Math.sin(6.283185307179586 / this._POLYCYL_TESS);
-        c = Math.cos(6.283185307179586 / this._POLYCYL_TESS);
+        s = Math.sin(6.283185307179586 / _POLYCYL_TESS);
+        c = Math.cos(6.283185307179586 / _POLYCYL_TESS);
         norm[0][0] = 1.0;
         norm[0][1] = 0.0;
         circle[0][0] = rToroid;
         circle[0][1] = 0.0;
-        for (int i = 1; i < this._POLYCYL_TESS; ++i) {
+        for (int i = 1; i < _POLYCYL_TESS; ++i) {
             norm[i][0] = norm[i - 1][0] * c - norm[i - 1][1] * s;
             norm[i][1] = norm[i - 1][0] * s + norm[i - 1][1] * c;
             circle[i][0] = rToroid * norm[i][0];
@@ -421,31 +421,31 @@ public class CoreGLE implements GLE
         up[1] = (up[2] = 0.0);
         up[0] = 1.0;
         int style;
-        final int saveStyle = style = this.gleGetJoinStyle();
+        final int saveStyle = style = gleGetJoinStyle();
         style |= 0x1000;
         style |= 0x400;
-        this.gleSetJoinStyle(style);
+        gleSetJoinStyle(style);
         if (!GL11.glIsEnabled(2896)) {
             if (callback.equals("Spiral")) {
-                this.gleSpiral(this._POLYCYL_TESS, circle, null, up, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta);
+                gleSpiral(_POLYCYL_TESS, circle, null, up, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta);
             }
             else {
                 if (!callback.equals("Lathe")) {
                     throw new GLEException("Specified callback " + callback + " is not registered. Use either ``Spiral'' or ``Lathe''");
                 }
-                this.gleLathe(this._POLYCYL_TESS, circle, null, up, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta);
+                gleLathe(_POLYCYL_TESS, circle, null, up, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta);
             }
         }
         else if (callback.equals("Spiral")) {
-            this.gleSpiral(this._POLYCYL_TESS, circle, norm, up, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta);
+            gleSpiral(_POLYCYL_TESS, circle, norm, up, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta);
         }
         else {
             if (!callback.equals("Lathe")) {
                 throw new GLEException("Specified callback " + callback + " is not registered. Use either ``Spiral'' or ``Lathe''");
             }
-            this.gleLathe(this._POLYCYL_TESS, circle, norm, up, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta);
+            gleLathe(_POLYCYL_TESS, circle, norm, up, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta);
         }
-        this.gleSetJoinStyle(saveStyle);
+        gleSetJoinStyle(saveStyle);
     }
     
     private double[] up_sanity_check(final double[] up, final int npoints, final double[][] pointArray) {
@@ -510,7 +510,7 @@ public class CoreGLE implements GLE
             yup = matrix.VEC_COPY(up);
         }
         up = matrix.VEC_COPY(yup);
-        yup = this.up_sanity_check(up, npoints, pointArray);
+        yup = up_sanity_check(up, npoints, pointArray);
         i = (inext = 1);
         inext = intersect.FIND_NON_DEGENERATE_POINT(inext, npoints, len, diff, pointArray);
         len = matrix.VEC_LENGTH(diff);
@@ -537,23 +537,23 @@ public class CoreGLE implements GLE
             if (no_xform) {
                 if (no_cols) {
                     if (no_norm) {
-                        this.draw_raw_segment_plain(ncp, contour, inext, len);
+                        draw_raw_segment_plain(ncp, contour, inext, len);
                     }
-                    else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                        this.draw_raw_segment_facet_n(ncp, contour, contourNormal, inext, len);
+                    else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                        draw_raw_segment_facet_n(ncp, contour, contourNormal, inext, len);
                     }
                     else {
-                        this.draw_raw_segment_edge_n(ncp, contour, contourNormal, inext, len);
+                        draw_raw_segment_edge_n(ncp, contour, contourNormal, inext, len);
                     }
                 }
                 else if (no_norm) {
-                    this.draw_raw_segment_color(ncp, contour, colourArray, inext, len);
+                    draw_raw_segment_color(ncp, contour, colourArray, inext, len);
                 }
-                else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                    this.draw_raw_segment_c_and_facet_n(ncp, contour, colourArray, contourNormal, inext, len);
+                else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                    draw_raw_segment_c_and_facet_n(ncp, contour, colourArray, contourNormal, inext, len);
                 }
                 else {
-                    this.draw_raw_segment_c_and_edge_n(ncp, contour, colourArray, contourNormal, inext, len);
+                    draw_raw_segment_c_and_edge_n(ncp, contour, colourArray, contourNormal, inext, len);
                 }
             }
             else {
@@ -568,42 +568,42 @@ public class CoreGLE implements GLE
                 }
                 if (no_cols) {
                     if (no_norm) {
-                        this.draw_segment_plain(ncp, front_loop, back_loop, inext, len);
+                        draw_segment_plain(ncp, front_loop, back_loop, inext, len);
                     }
-                    else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                        this.draw_binorm_segment_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, len);
+                    else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                        draw_binorm_segment_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, len);
                     }
                     else {
-                        this.draw_binorm_segment_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, len);
+                        draw_binorm_segment_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, len);
                     }
-                    if ((this.gleGetJoinStyle() & 0x10) == 0x10) {
+                    if ((gleGetJoinStyle() & 0x10) == 0x10) {
                         nrmv[2] = 1.0;
                         GL11.glNormal3d(nrmv[0], nrmv[1], nrmv[2]);
-                        this.draw_front_contour_cap(ncp, front_loop);
+                        draw_front_contour_cap(ncp, front_loop);
                         nrmv[2] = -1.0;
                         GL11.glNormal3d(nrmv[0], nrmv[1], nrmv[2]);
-                        this.draw_back_contour_cap(ncp, back_loop);
+                        draw_back_contour_cap(ncp, back_loop);
                     }
                 }
                 else {
                     if (no_norm) {
-                        this.draw_segment_color(ncp, front_loop, back_loop, colourArray[inext - 1], colourArray[inext], inext, len);
+                        draw_segment_color(ncp, front_loop, back_loop, colourArray[inext - 1], colourArray[inext], inext, len);
                     }
-                    else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                        this.draw_binorm_segment_c_and_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, colourArray[inext - 1], colourArray[inext], inext, len);
+                    else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                        draw_binorm_segment_c_and_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, colourArray[inext - 1], colourArray[inext], inext, len);
                     }
                     else {
-                        this.draw_binorm_segment_c_and_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, colourArray[inext - 1], colourArray[inext], inext, len);
+                        draw_binorm_segment_c_and_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, colourArray[inext - 1], colourArray[inext], inext, len);
                     }
-                    if ((this.gleGetJoinStyle() & 0x10) == 0x10) {
+                    if ((gleGetJoinStyle() & 0x10) == 0x10) {
                         GL11.glColor4f(colourArray[inext - 1][0], colourArray[inext - 1][1], colourArray[inext - 1][2], colourArray[inext - 1][3]);
                         nrmv[2] = 1.0;
                         GL11.glNormal3d(nrmv[0], nrmv[1], nrmv[2]);
-                        this.draw_front_contour_cap(ncp, front_loop);
+                        draw_front_contour_cap(ncp, front_loop);
                         GL11.glColor4f(colourArray[inext][0], colourArray[inext][1], colourArray[inext][2], colourArray[inext][3]);
                         nrmv[2] = -1.0;
                         GL11.glNormal3d(nrmv[0], nrmv[1], nrmv[2]);
-                        this.draw_back_contour_cap(ncp, back_loop);
+                        draw_back_contour_cap(ncp, back_loop);
                     }
                 }
             }
@@ -632,7 +632,7 @@ public class CoreGLE implements GLE
             point[2] = -len;
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             point[0] = contour[0][0];
             point[1] = contour[0][1];
             point[2] = 0.0;
@@ -641,9 +641,9 @@ public class CoreGLE implements GLE
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
         GL11.glEnd();
-        if ((this.gleGetJoinStyle() & 0x10) == 0x10) {
-            this.draw_raw_style_end_cap(ncp, contour, 0.0, true);
-            this.draw_raw_style_end_cap(ncp, contour, -len, false);
+        if ((gleGetJoinStyle() & 0x10) == 0x10) {
+            draw_raw_style_end_cap(ncp, contour, 0.0, true);
+            draw_raw_style_end_cap(ncp, contour, -len, false);
         }
     }
     
@@ -657,36 +657,36 @@ public class CoreGLE implements GLE
             point[0] = contour[j][0];
             point[1] = contour[j][1];
             point[2] = 0.0;
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS);
             GL11.glColor4f(color_array[inext - 1][0], color_array[inext - 1][1], color_array[inext - 1][2], color_array[inext - 1][3]);
             GL11.glVertex3d(point[0], point[1], point[2]);
             point[2] = -len;
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS + SLICE);
             GL11.glColor4f(color_array[inext][0], color_array[inext][1], color_array[inext][2], color_array[inext][3]);
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             point[0] = contour[0][0];
             point[1] = contour[0][1];
             point[2] = 0.0;
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS);
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS);
             GL11.glColor4f(color_array[inext - 1][0], color_array[inext - 1][1], color_array[inext - 1][2], color_array[inext - 1][3]);
             GL11.glVertex3d(point[0], point[1], point[2]);
             point[2] = -len;
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS + SLICE);
             GL11.glColor4f(color_array[inext][0], color_array[inext][1], color_array[inext][2], color_array[inext][3]);
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
         GL11.glEnd();
-        if ((this.gleGetJoinStyle() & 0x10) == 0x10) {
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS);
+        if ((gleGetJoinStyle() & 0x10) == 0x10) {
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS);
             GL11.glColor4f(color_array[inext - 1][0], color_array[inext - 1][1], color_array[inext - 1][2], color_array[inext - 1][3]);
-            this.draw_raw_style_end_cap(ncp, contour, 0.0, true);
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS + this.SLICE);
+            draw_raw_style_end_cap(ncp, contour, 0.0, true);
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS + SLICE);
             GL11.glColor4f(color_array[inext][0], color_array[inext][1], color_array[inext][2], color_array[inext][3]);
-            this.draw_raw_style_end_cap(ncp, contour, -len, false);
+            draw_raw_style_end_cap(ncp, contour, -len, false);
         }
-        this.SLICE_PROGRESS += this.SLICE;
+        SLICE_PROGRESS += SLICE;
     }
     
     private final void draw_raw_segment_edge_n(final int ncp, final double[][] contour, final double[][] cont_normal, final int inext, final double len) {
@@ -706,7 +706,7 @@ public class CoreGLE implements GLE
             point[2] = -len;
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             norm[0] = cont_normal[0][0];
             norm[1] = cont_normal[0][1];
             norm[2] = 0.0;
@@ -719,14 +719,14 @@ public class CoreGLE implements GLE
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
         GL11.glEnd();
-        if ((this.gleGetJoinStyle() & 0x10) == 0x10) {
+        if ((gleGetJoinStyle() & 0x10) == 0x10) {
             norm[0] = (norm[1] = 0.0);
             norm[2] = 1.0;
             GL11.glNormal3d(norm[0], norm[1], norm[2]);
-            this.draw_raw_style_end_cap(ncp, contour, 0.0, true);
+            draw_raw_style_end_cap(ncp, contour, 0.0, true);
             norm[2] = -1.0;
             GL11.glNormal3d(norm[0], norm[1], norm[2]);
-            this.draw_raw_style_end_cap(ncp, contour, -len, false);
+            draw_raw_style_end_cap(ncp, contour, -len, false);
         }
     }
     
@@ -750,7 +750,7 @@ public class CoreGLE implements GLE
             point[2] = -len;
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             GL11.glColor4f(color_array[inext - 1][0], color_array[inext - 1][1], color_array[inext - 1][2], color_array[inext - 1][3]);
             norm[0] = cont_normal[0][0];
             norm[1] = cont_normal[0][1];
@@ -767,16 +767,16 @@ public class CoreGLE implements GLE
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
         GL11.glEnd();
-        if ((this.gleGetJoinStyle() & 0x10) == 0x10) {
+        if ((gleGetJoinStyle() & 0x10) == 0x10) {
             GL11.glColor4f(color_array[inext - 1][0], color_array[inext - 1][1], color_array[inext - 1][2], color_array[inext - 1][3]);
             norm[0] = (norm[1] = 0.0);
             norm[2] = 1.0;
             GL11.glNormal3d(norm[0], norm[1], norm[2]);
-            this.draw_raw_style_end_cap(ncp, contour, 0.0, true);
+            draw_raw_style_end_cap(ncp, contour, 0.0, true);
             GL11.glColor4f(color_array[inext][0], color_array[inext][1], color_array[inext][2], color_array[inext][3]);
             norm[2] = -1.0;
             GL11.glNormal3d(norm[0], norm[1], norm[2]);
-            this.draw_raw_style_end_cap(ncp, contour, -len, false);
+            draw_raw_style_end_cap(ncp, contour, -len, false);
         }
     }
     
@@ -803,7 +803,7 @@ public class CoreGLE implements GLE
             point[2] = -len;
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             norm[0] = cont_normal[ncp - 1][0];
             norm[1] = cont_normal[ncp - 1][1];
             GL11.glNormal3d(norm[0], norm[1], norm[2]);
@@ -821,14 +821,14 @@ public class CoreGLE implements GLE
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
         GL11.glEnd();
-        if ((this.gleGetJoinStyle() & 0x10) == 0x10) {
+        if ((gleGetJoinStyle() & 0x10) == 0x10) {
             norm[0] = (norm[1] = 0.0);
             norm[2] = 1.0;
             GL11.glNormal3d(norm[0], norm[1], norm[2]);
-            this.draw_raw_style_end_cap(ncp, contour, 0.0, true);
+            draw_raw_style_end_cap(ncp, contour, 0.0, true);
             norm[2] = -1.0;
             GL11.glNormal3d(norm[0], norm[1], norm[2]);
-            this.draw_raw_style_end_cap(ncp, contour, -len, false);
+            draw_raw_style_end_cap(ncp, contour, -len, false);
         }
     }
     
@@ -861,7 +861,7 @@ public class CoreGLE implements GLE
             point[2] = -len;
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             point[0] = contour[ncp - 1][0];
             point[1] = contour[ncp - 1][1];
             point[2] = 0.0;
@@ -888,16 +888,16 @@ public class CoreGLE implements GLE
             GL11.glVertex3d(point[0], point[1], point[2]);
         }
         GL11.glEnd();
-        if ((this.gleGetJoinStyle() & 0x10) == 0x10) {
+        if ((gleGetJoinStyle() & 0x10) == 0x10) {
             GL11.glColor4f(color_array[inext - 1][0], color_array[inext - 1][1], color_array[inext - 1][2], color_array[inext - 1][3]);
             norm[0] = (norm[1] = 0.0);
             norm[2] = 1.0;
             GL11.glNormal3d(norm[0], norm[1], norm[2]);
-            this.draw_raw_style_end_cap(ncp, contour, 0.0, true);
+            draw_raw_style_end_cap(ncp, contour, 0.0, true);
             GL11.glColor4f(color_array[inext][0], color_array[inext][1], color_array[inext][2], color_array[inext][3]);
             norm[2] = -1.0;
             GL11.glNormal3d(norm[0], norm[1], norm[2]);
-            this.draw_raw_style_end_cap(ncp, contour, -len, false);
+            draw_raw_style_end_cap(ncp, contour, -len, false);
         }
     }
     
@@ -905,10 +905,10 @@ public class CoreGLE implements GLE
         System.out.println("draw_raw_style_end_cap");
         final GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100130.0);
-        tobj.gluTessCallback(100101, this.tessCallback);
-        tobj.gluTessCallback(100100, this.tessCallback);
-        tobj.gluTessCallback(100102, this.tessCallback);
-        tobj.gluTessCallback(100103, this.tessCallback);
+        tobj.gluTessCallback(100101, tessCallback);
+        tobj.gluTessCallback(100100, tessCallback);
+        tobj.gluTessCallback(100102, tessCallback);
+        tobj.gluTessCallback(100103, tessCallback);
         tobj.gluTessBeginPolygon(null);
         tobj.gluTessBeginContour();
         if (frontwards) {
@@ -931,10 +931,10 @@ public class CoreGLE implements GLE
     private final void draw_front_contour_cap(final int ncp, final double[][] contour) {
         final GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100130.0);
-        tobj.gluTessCallback(100101, this.tessCallback);
-        tobj.gluTessCallback(100100, this.tessCallback);
-        tobj.gluTessCallback(100102, this.tessCallback);
-        tobj.gluTessCallback(100103, this.tessCallback);
+        tobj.gluTessCallback(100101, tessCallback);
+        tobj.gluTessCallback(100100, tessCallback);
+        tobj.gluTessCallback(100102, tessCallback);
+        tobj.gluTessCallback(100103, tessCallback);
         tobj.gluTessBeginPolygon(null);
         tobj.gluTessBeginContour();
         for (int j = 0; j < ncp; ++j) {
@@ -948,10 +948,10 @@ public class CoreGLE implements GLE
     private final void draw_back_contour_cap(final int ncp, final double[][] contour) {
         final GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100132.0);
-        tobj.gluTessCallback(100101, this.tessCallback);
-        tobj.gluTessCallback(100100, this.tessCallback);
-        tobj.gluTessCallback(100102, this.tessCallback);
-        tobj.gluTessCallback(100103, this.tessCallback);
+        tobj.gluTessCallback(100101, tessCallback);
+        tobj.gluTessCallback(100100, tessCallback);
+        tobj.gluTessCallback(100102, tessCallback);
+        tobj.gluTessCallback(100103, tessCallback);
         tobj.gluTessBeginPolygon(null);
         tobj.gluTessBeginContour();
         for (int j = ncp - 1; j > -1; --j) {
@@ -988,7 +988,7 @@ public class CoreGLE implements GLE
         else {
             yup = matrix.VEC_COPY(up);
         }
-        yup = this.up_sanity_check(yup, npoints, point_array);
+        yup = up_sanity_check(yup, npoints, point_array);
         origin[0] = 0.0;
         origin[2] = (origin[1] = 0.0);
         neg_z[1] = (neg_z[0] = 0.0);
@@ -1038,7 +1038,7 @@ public class CoreGLE implements GLE
                     if (xform_array != null) {
                         back_norm[j] = matrix.NORM_XFORM_2X2(xform_array[inext], cont_normal[j]);
                     }
-                    if ((this.gleGetJoinStyle() & 0x400) == 0x400) {
+                    if ((gleGetJoinStyle() & 0x400) == 0x400) {
                         if (xform_array == null) {
                             back_norm[j][0] = cont_normal[j][0];
                             back_norm[j][1] = cont_normal[j][1];
@@ -1072,62 +1072,62 @@ public class CoreGLE implements GLE
                 end_point_2[2] = -len_seg;
                 back_loop[j] = intersect.INNERSECT(neg_z, bisector_2, end_point_0, end_point_2);
             }
-            if ((this.gleGetJoinStyle() & 0x10) == 0x10) {
+            if ((gleGetJoinStyle() & 0x10) == 0x10) {
                 if (first_time) {
                     if (color_array != null) {
                         GL11.glColor4f(color_array[inext - 1][0], color_array[inext - 1][1], color_array[inext - 1][2], color_array[inext - 1][3]);
                     }
                     first_time = false;
-                    this.draw_angle_style_front_cap(ncp, bisector_0, front_loop);
+                    draw_angle_style_front_cap(ncp, bisector_0, front_loop);
                 }
                 if (inext == npoints - 2) {
                     if (color_array != null) {
                         GL11.glColor4f(color_array[inext][0], color_array[inext][1], color_array[inext][2], color_array[inext][3]);
                     }
-                    this.draw_angle_style_back_cap(ncp, bisector_2, back_loop);
+                    draw_angle_style_back_cap(ncp, bisector_2, back_loop);
                 }
             }
-            if (xform_array == null && (this.gleGetJoinStyle() & 0x400) != 0x400) {
+            if (xform_array == null && (gleGetJoinStyle() & 0x400) != 0x400) {
                 if (color_array == null) {
                     if (cont_normal == null) {
-                        this.draw_segment_plain(ncp, front_loop, back_loop, inext, len_seg);
+                        draw_segment_plain(ncp, front_loop, back_loop, inext, len_seg);
                     }
-                    else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                        this.draw_segment_facet_n(ncp, front_loop, back_loop, norm_loop, inext, len_seg);
+                    else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                        draw_segment_facet_n(ncp, front_loop, back_loop, norm_loop, inext, len_seg);
                     }
                     else {
-                        this.draw_segment_edge_n(ncp, front_loop, back_loop, norm_loop, inext, len_seg);
+                        draw_segment_edge_n(ncp, front_loop, back_loop, norm_loop, inext, len_seg);
                     }
                 }
                 else if (cont_normal == null) {
-                    this.draw_segment_color(ncp, front_loop, back_loop, color_array[inext - 1], color_array[inext], inext, len_seg);
+                    draw_segment_color(ncp, front_loop, back_loop, color_array[inext - 1], color_array[inext], inext, len_seg);
                 }
-                else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                    this.draw_segment_c_and_facet_n(ncp, front_loop, back_loop, norm_loop, color_array[inext - 1], color_array[inext], inext, len_seg);
+                else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                    draw_segment_c_and_facet_n(ncp, front_loop, back_loop, norm_loop, color_array[inext - 1], color_array[inext], inext, len_seg);
                 }
                 else {
-                    this.draw_segment_c_and_edge_n(ncp, front_loop, back_loop, norm_loop, color_array[inext - 1], color_array[inext], inext, len_seg);
+                    draw_segment_c_and_edge_n(ncp, front_loop, back_loop, norm_loop, color_array[inext - 1], color_array[inext], inext, len_seg);
                 }
             }
             else if (color_array == null) {
                 if (cont_normal == null) {
-                    this.draw_segment_plain(ncp, front_loop, back_loop, inext, len_seg);
+                    draw_segment_plain(ncp, front_loop, back_loop, inext, len_seg);
                 }
-                else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                    this.draw_binorm_segment_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, len_seg);
+                else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                    draw_binorm_segment_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, len_seg);
                 }
                 else {
-                    this.draw_binorm_segment_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, len_seg);
+                    draw_binorm_segment_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, len_seg);
                 }
             }
             else if (cont_normal == null) {
-                this.draw_segment_color(ncp, front_loop, back_loop, color_array[inext - 1], color_array[inext], inext, len_seg);
+                draw_segment_color(ncp, front_loop, back_loop, color_array[inext - 1], color_array[inext], inext, len_seg);
             }
-            else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                this.draw_binorm_segment_c_and_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, color_array[inext - 1], color_array[inext], inext, len_seg);
+            else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                draw_binorm_segment_c_and_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, color_array[inext - 1], color_array[inext], inext, len_seg);
             }
             else {
-                this.draw_binorm_segment_c_and_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, color_array[inext - 1], color_array[inext], inext, len_seg);
+                draw_binorm_segment_c_and_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, color_array[inext - 1], color_array[inext], inext, len_seg);
             }
             GL11.glPopMatrix();
             len_seg = len;
@@ -1144,10 +1144,10 @@ public class CoreGLE implements GLE
     private final void draw_angle_style_front_cap(final int ncp, double[] bi, final double[][] point_array) {
         final GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100130.0);
-        tobj.gluTessCallback(100101, this.tessCallback);
-        tobj.gluTessCallback(100100, this.tessCallback);
-        tobj.gluTessCallback(100102, this.tessCallback);
-        tobj.gluTessCallback(100103, this.tessCallback);
+        tobj.gluTessCallback(100101, tessCallback);
+        tobj.gluTessCallback(100100, tessCallback);
+        tobj.gluTessCallback(100102, tessCallback);
+        tobj.gluTessCallback(100103, tessCallback);
         if (bi[2] < 0.0) {
             bi = matrix.VEC_SCALE(-1.0, bi);
         }
@@ -1165,10 +1165,10 @@ public class CoreGLE implements GLE
     private final void draw_angle_style_back_cap(final int ncp, double[] bi, final double[][] point_array) {
         final GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100130.0);
-        tobj.gluTessCallback(100101, this.tessCallback);
-        tobj.gluTessCallback(100100, this.tessCallback);
-        tobj.gluTessCallback(100102, this.tessCallback);
-        tobj.gluTessCallback(100103, this.tessCallback);
+        tobj.gluTessCallback(100101, tessCallback);
+        tobj.gluTessCallback(100100, tessCallback);
+        tobj.gluTessCallback(100102, tessCallback);
+        tobj.gluTessCallback(100103, tessCallback);
         if (bi[2] > 0.0) {
             bi = matrix.VEC_SCALE(-1.0, bi);
         }
@@ -1188,19 +1188,19 @@ public class CoreGLE implements GLE
         GL11.glBegin(5);
         for (int j = 0; j < ncp; ++j) {
             final double tc = j / (double)ncp;
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS);
             GL11.glVertex3d(front_contour[j][0], front_contour[j][1], front_contour[j][2]);
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS + SLICE);
             GL11.glVertex3d(back_contour[j][0], back_contour[j][1], back_contour[j][2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS);
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS);
             GL11.glVertex3d(front_contour[0][0], front_contour[0][1], front_contour[0][2]);
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS + SLICE);
             GL11.glVertex3d(back_contour[0][0], back_contour[0][1], back_contour[0][2]);
         }
         GL11.glEnd();
-        this.SLICE_PROGRESS += this.SLICE;
+        SLICE_PROGRESS += SLICE;
     }
     
     private final void draw_segment_color(final int ncp, final double[][] front_contour, final double[][] back_contour, final float[] color_last, final float[] color_next, final int inext, final double len) {
@@ -1208,23 +1208,23 @@ public class CoreGLE implements GLE
         double tc = 0.0;
         for (int j = 0; j < ncp; ++j) {
             tc = j / (double)ncp;
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS);
             GL11.glColor4f(color_last[0], color_last[1], color_last[2], color_last[3]);
             GL11.glVertex3d(front_contour[j][0], front_contour[j][1], front_contour[j][2]);
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS + SLICE);
             GL11.glColor4f(color_next[0], color_next[1], color_next[2], color_next[3]);
             GL11.glVertex3d(back_contour[j][0], back_contour[j][1], back_contour[j][2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS);
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS);
             GL11.glColor4f(color_last[0], color_last[1], color_last[2], color_last[3]);
             GL11.glVertex3d(front_contour[0][0], front_contour[0][1], front_contour[0][2]);
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS + SLICE);
             GL11.glColor4f(color_next[0], color_next[1], color_next[2], color_next[3]);
             GL11.glVertex3d(back_contour[0][0], back_contour[0][1], back_contour[0][2]);
         }
         GL11.glEnd();
-        this.SLICE_PROGRESS += this.SLICE;
+        SLICE_PROGRESS += SLICE;
     }
     
     private final void draw_segment_edge_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] norm_cont, final int inext, final double len) {
@@ -1235,7 +1235,7 @@ public class CoreGLE implements GLE
             GL11.glVertex3d(front_contour[j][0], front_contour[j][1], front_contour[j][2]);
             GL11.glVertex3d(back_contour[j][0], back_contour[j][1], back_contour[j][2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             GL11.glNormal3d(norm_cont[0][0], norm_cont[0][1], norm_cont[0][2]);
             GL11.glVertex3d(front_contour[0][0], front_contour[0][1], front_contour[0][2]);
             GL11.glVertex3d(back_contour[0][0], back_contour[0][1], back_contour[0][2]);
@@ -1248,27 +1248,27 @@ public class CoreGLE implements GLE
         double tc = 0.0;
         for (int j = 0; j < ncp; ++j) {
             tc = j / (double)ncp;
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS);
             GL11.glColor4f(color_last[0], color_last[1], color_last[2], color_last[3]);
             GL11.glNormal3d(norm_cont[j][0], norm_cont[j][1], norm_cont[j][2]);
             GL11.glVertex3d(front_contour[j][0], front_contour[j][1], front_contour[j][2]);
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS + SLICE);
             GL11.glColor4f(color_next[0], color_next[1], color_next[2], color_next[3]);
             GL11.glNormal3d(norm_cont[j][0], norm_cont[j][1], norm_cont[j][2]);
             GL11.glVertex3d(back_contour[j][0], back_contour[j][1], back_contour[j][2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS);
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS);
             GL11.glColor4f(color_last[0], color_last[1], color_last[2], color_last[3]);
             GL11.glNormal3d(norm_cont[0][0], norm_cont[0][1], norm_cont[0][2]);
             GL11.glVertex3d(front_contour[0][0], front_contour[0][1], front_contour[0][2]);
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS + SLICE);
             GL11.glColor4f(color_next[0], color_next[1], color_next[2], color_next[3]);
             GL11.glNormal3d(norm_cont[0][0], norm_cont[0][1], norm_cont[0][2]);
             GL11.glVertex3d(back_contour[0][0], back_contour[0][1], back_contour[0][2]);
         }
         GL11.glEnd();
-        this.SLICE_PROGRESS += this.SLICE;
+        SLICE_PROGRESS += SLICE;
     }
     
     private final void draw_segment_facet_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] norm_cont, final int inext, final double len) {
@@ -1280,7 +1280,7 @@ public class CoreGLE implements GLE
             GL11.glVertex3d(front_contour[j + 1][0], front_contour[j + 1][1], front_contour[j + 1][2]);
             GL11.glVertex3d(back_contour[j + 1][0], back_contour[j + 1][1], back_contour[j + 1][2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             GL11.glNormal3d(norm_cont[ncp - 1][0], norm_cont[ncp - 1][1], norm_cont[ncp - 1][2]);
             GL11.glVertex3d(front_contour[ncp - 1][0], front_contour[ncp - 1][1], front_contour[ncp - 1][2]);
             GL11.glVertex3d(back_contour[ncp - 1][0], back_contour[ncp - 1][1], back_contour[ncp - 1][2]);
@@ -1307,7 +1307,7 @@ public class CoreGLE implements GLE
             GL11.glNormal3d(norm_cont[j][0], norm_cont[j][1], norm_cont[j][2]);
             GL11.glVertex3d(back_contour[j + 1][0], back_contour[j + 1][1], back_contour[j + 1][2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             GL11.glColor4f(color_last[0], color_last[1], color_last[2], color_last[3]);
             GL11.glNormal3d(norm_cont[ncp - 1][0], norm_cont[ncp - 1][1], norm_cont[ncp - 1][2]);
             GL11.glVertex3d(front_contour[ncp - 1][0], front_contour[ncp - 1][1], front_contour[ncp - 1][2]);
@@ -1329,23 +1329,23 @@ public class CoreGLE implements GLE
         double tc = 0.0;
         for (int j = 0; j < ncp; ++j) {
             tc = j / (double)ncp;
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS);
             GL11.glNormal3d(front_norm[j][0], front_norm[j][1], front_norm[j][2]);
             GL11.glVertex3d(front_contour[j][0], front_contour[j][1], front_contour[j][2]);
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS + SLICE);
             GL11.glNormal3d(back_norm[j][0], back_norm[j][1], back_norm[j][2]);
             GL11.glVertex3d(back_contour[j][0], back_contour[j][1], back_contour[j][2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS);
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS);
             GL11.glNormal3d(front_norm[0][0], front_norm[0][1], front_norm[0][2]);
             GL11.glVertex3d(front_contour[0][0], front_contour[0][1], front_contour[0][2]);
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS + SLICE);
             GL11.glNormal3d(back_norm[0][0], back_norm[0][1], back_norm[0][2]);
             GL11.glVertex3d(back_contour[0][0], back_contour[0][1], back_contour[0][2]);
         }
         GL11.glEnd();
-        this.SLICE_PROGRESS += this.SLICE;
+        SLICE_PROGRESS += SLICE;
     }
     
     private final void draw_binorm_segment_c_and_edge_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] front_norm, final double[][] back_norm, final float[] color_last, final float[] color_next, final int inext, final double len) {
@@ -1353,27 +1353,27 @@ public class CoreGLE implements GLE
         double tc = 0.0;
         for (int j = 0; j < ncp; ++j) {
             tc = j / (double)ncp;
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS);
             GL11.glColor4f(color_last[0], color_last[1], color_last[2], color_last[3]);
             GL11.glNormal3d(front_norm[j][0], front_norm[j][1], front_norm[j][2]);
             GL11.glVertex3d(front_contour[j][0], front_contour[j][1], front_contour[j][2]);
-            GL11.glTexCoord2d(tc, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(tc, SLICE_PROGRESS + SLICE);
             GL11.glColor4f(color_next[0], color_next[1], color_next[2], color_next[3]);
             GL11.glNormal3d(front_norm[j][0], front_norm[j][1], front_norm[j][2]);
             GL11.glVertex3d(back_contour[j][0], back_contour[j][1], back_contour[j][2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS);
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS);
             GL11.glColor4f(color_last[0], color_last[1], color_last[2], color_last[3]);
             GL11.glNormal3d(front_norm[0][0], front_norm[0][1], front_norm[0][2]);
             GL11.glVertex3d(front_contour[0][0], front_contour[0][1], front_contour[0][2]);
-            GL11.glTexCoord2d(1.0, this.SLICE_PROGRESS + this.SLICE);
+            GL11.glTexCoord2d(1.0, SLICE_PROGRESS + SLICE);
             GL11.glColor4f(color_next[0], color_next[1], color_next[2], color_next[3]);
             GL11.glNormal3d(back_norm[0][0], back_norm[0][1], back_norm[0][2]);
             GL11.glVertex3d(back_contour[0][0], back_contour[0][1], back_contour[0][2]);
         }
         GL11.glEnd();
-        this.SLICE_PROGRESS += this.SLICE;
+        SLICE_PROGRESS += SLICE;
     }
     
     private final void draw_binorm_segment_facet_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] front_norm, final double[][] back_norm, final int inext, final double len) {
@@ -1389,7 +1389,7 @@ public class CoreGLE implements GLE
             GL11.glNormal3d(back_norm[j][0], back_norm[j][1], back_norm[j][2]);
             GL11.glVertex3d(back_contour[j + 1][0], back_contour[j + 1][1], back_contour[j + 1][2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             GL11.glNormal3d(front_norm[ncp - 1][0], front_norm[ncp - 1][1], front_norm[ncp - 1][2]);
             GL11.glVertex3d(front_contour[ncp - 1][0], front_contour[ncp - 1][1], front_contour[ncp - 1][2]);
             GL11.glNormal3d(back_norm[ncp - 1][0], back_norm[ncp - 1][1], back_norm[ncp - 1][2]);
@@ -1419,7 +1419,7 @@ public class CoreGLE implements GLE
             GL11.glNormal3d(back_norm[j][0], back_norm[j][1], back_norm[j][2]);
             GL11.glVertex3d(back_contour[j + 1][0], back_contour[j + 1][1], back_contour[j + 1][2]);
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             GL11.glColor4f(color_last[0], color_last[1], color_last[2], color_last[3]);
             GL11.glNormal3d(front_norm[ncp - 1][0], front_norm[ncp - 1][1], front_norm[ncp - 1][2]);
             GL11.glVertex3d(front_contour[ncp - 1][0], front_contour[ncp - 1][1], front_contour[ncp - 1][2]);
@@ -1481,7 +1481,7 @@ public class CoreGLE implements GLE
         double[] cut_vec = null;
         String cap_callback = null;
         String tmp_cap_callback = null;
-        if ((this.gleGetJoinStyle() & 0x3) == 0x3) {
+        if ((gleGetJoinStyle() & 0x3) == 0x3) {
             join_style_is_cut = true;
             cap_callback = new String("cut");
         }
@@ -1497,7 +1497,7 @@ public class CoreGLE implements GLE
         else {
             yup = matrix.VEC_COPY(up);
         }
-        yup = this.up_sanity_check(yup, npoints, point_array);
+        yup = up_sanity_check(yup, npoints, point_array);
         origin[0] = 0.0;
         origin[2] = (origin[1] = 0.0);
         neg_z[1] = (neg_z[0] = 0.0);
@@ -1623,54 +1623,54 @@ public class CoreGLE implements GLE
             if (xform_array == null) {
                 if (color_array == null) {
                     if (cont_normal == null) {
-                        this.draw_segment_plain(ncp, front_loop, back_loop, inext, seg_len);
+                        draw_segment_plain(ncp, front_loop, back_loop, inext, seg_len);
                     }
-                    else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                        this.draw_segment_facet_n(ncp, front_loop, back_loop, norm_loop, inext, seg_len);
+                    else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                        draw_segment_facet_n(ncp, front_loop, back_loop, norm_loop, inext, seg_len);
                     }
                     else {
-                        this.draw_segment_edge_n(ncp, front_loop, back_loop, norm_loop, inext, seg_len);
+                        draw_segment_edge_n(ncp, front_loop, back_loop, norm_loop, inext, seg_len);
                     }
                 }
                 else if (cont_normal == null) {
-                    this.draw_segment_color(ncp, front_loop, back_loop, color_array[inext - 1], color_array[inext], inext, seg_len);
+                    draw_segment_color(ncp, front_loop, back_loop, color_array[inext - 1], color_array[inext], inext, seg_len);
                 }
-                else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                    this.draw_segment_c_and_facet_n(ncp, front_loop, back_loop, norm_loop, color_array[inext - 1], color_array[inext], inext, seg_len);
+                else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                    draw_segment_c_and_facet_n(ncp, front_loop, back_loop, norm_loop, color_array[inext - 1], color_array[inext], inext, seg_len);
                 }
                 else {
-                    this.draw_segment_c_and_edge_n(ncp, front_loop, back_loop, norm_loop, color_array[inext - 1], color_array[inext], inext, seg_len);
+                    draw_segment_c_and_edge_n(ncp, front_loop, back_loop, norm_loop, color_array[inext - 1], color_array[inext], inext, seg_len);
                 }
             }
             else if (color_array == null) {
                 if (cont_normal == null) {
-                    this.draw_segment_plain(ncp, front_loop, back_loop, inext, seg_len);
+                    draw_segment_plain(ncp, front_loop, back_loop, inext, seg_len);
                 }
-                else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                    this.draw_binorm_segment_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, seg_len);
+                else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                    draw_binorm_segment_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, seg_len);
                 }
                 else {
-                    this.draw_binorm_segment_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, seg_len);
+                    draw_binorm_segment_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, inext, seg_len);
                 }
             }
             else if (cont_normal == null) {
-                this.draw_segment_color(ncp, front_loop, back_loop, color_array[inext - 1], color_array[inext], inext, seg_len);
+                draw_segment_color(ncp, front_loop, back_loop, color_array[inext - 1], color_array[inext], inext, seg_len);
             }
-            else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                this.draw_binorm_segment_c_and_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, color_array[inext - 1], color_array[inext], inext, seg_len);
+            else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                draw_binorm_segment_c_and_facet_n(ncp, front_loop, back_loop, front_norm, back_norm, color_array[inext - 1], color_array[inext], inext, seg_len);
             }
             else {
-                this.draw_binorm_segment_c_and_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, color_array[inext - 1], color_array[inext], inext, seg_len);
+                draw_binorm_segment_c_and_edge_n(ncp, front_loop, back_loop, front_norm, back_norm, color_array[inext - 1], color_array[inext], inext, seg_len);
             }
             if (first_time) {
                 first_time = false;
                 tmp_cap_callback = cap_callback;
                 cap_callback = new String("null");
-                if ((this.gleGetJoinStyle() & 0x10) == 0x1) {
+                if ((gleGetJoinStyle() & 0x10) == 0x1) {
                     if (color_array != null) {
                         GL11.glColor4f(color_array[inext - 1][0], color_array[inext - 1][1], color_array[inext - 1][2], color_array[inext - 1][3]);
                     }
-                    this.draw_angle_style_front_cap(ncp, bisector_0, front_loop);
+                    draw_angle_style_front_cap(ncp, bisector_0, front_loop);
                 }
             }
             if (color_array != null) {
@@ -1688,13 +1688,13 @@ public class CoreGLE implements GLE
                 else {
                     cut_vec = null;
                 }
-                this.draw_fillets_and_join_plain(ncp, front_loop, front_cap, front_is_trimmed, origin, bisector_0, front_color, back_color, cut_vec, true, cap_callback);
+                draw_fillets_and_join_plain(ncp, front_loop, front_cap, front_is_trimmed, origin, bisector_0, front_color, back_color, cut_vec, true, cap_callback);
                 if (inext == npoints - 2) {
-                    if ((this.gleGetJoinStyle() & 0x10) == 0x1) {
+                    if ((gleGetJoinStyle() & 0x10) == 0x1) {
                         if (color_array != null) {
                             GL11.glColor4f(color_array[inext][0], color_array[inext][1], color_array[inext][2], color_array[inext][3]);
                         }
-                        this.draw_angle_style_back_cap(ncp, bisector_2, back_loop);
+                        draw_angle_style_back_cap(ncp, bisector_2, back_loop);
                         cap_callback = new String("null");
                     }
                 }
@@ -1707,7 +1707,7 @@ public class CoreGLE implements GLE
                 else {
                     cut_vec = null;
                 }
-                this.draw_fillets_and_join_plain(ncp, back_loop, back_cap, back_is_trimmed, neg_z, bisector_2, back_color, front_color, cut_vec, false, cap_callback);
+                draw_fillets_and_join_plain(ncp, back_loop, back_cap, back_is_trimmed, neg_z, bisector_2, back_color, front_color, cut_vec, false, cap_callback);
             }
             else {
                 if (valid_cut_0) {
@@ -1716,13 +1716,13 @@ public class CoreGLE implements GLE
                 else {
                     cut_vec = null;
                 }
-                this.draw_fillets_and_join_n_norms(ncp, front_loop, front_cap, front_is_trimmed, origin, bisector_0, front_norm, front_color, back_color, cut_vec, true, cap_callback);
+                draw_fillets_and_join_n_norms(ncp, front_loop, front_cap, front_is_trimmed, origin, bisector_0, front_norm, front_color, back_color, cut_vec, true, cap_callback);
                 if (inext == npoints - 2) {
-                    if ((this.gleGetJoinStyle() & 0x10) == 0x1) {
+                    if ((gleGetJoinStyle() & 0x10) == 0x1) {
                         if (color_array != null) {
                             GL11.glColor4f(color_array[inext][0], color_array[inext][1], color_array[inext][2], color_array[inext][3]);
                         }
-                        this.draw_angle_style_back_cap(ncp, bisector_2, back_loop);
+                        draw_angle_style_back_cap(ncp, bisector_2, back_loop);
                         cap_callback = new String("null");
                     }
                 }
@@ -1735,7 +1735,7 @@ public class CoreGLE implements GLE
                 else {
                     cut_vec = null;
                 }
-                this.draw_fillets_and_join_n_norms(ncp, back_loop, back_cap, back_is_trimmed, neg_z, bisector_2, back_norm, back_color, front_color, cut_vec, false, cap_callback);
+                draw_fillets_and_join_n_norms(ncp, back_loop, back_cap, back_is_trimmed, neg_z, bisector_2, back_norm, back_color, front_color, cut_vec, false, cap_callback);
             }
             GL11.glPopMatrix();
             tmp = front_norm;
@@ -1760,7 +1760,7 @@ public class CoreGLE implements GLE
         icnt = 0;
         iloop = 0;
         if (!is_trimmed[0]) {
-            if ((this.gleGetJoinStyle() & 0x3) == 0x3 && (save_style & 0x1000) != 0x1000) {
+            if ((gleGetJoinStyle() & 0x3) == 0x3 && (save_style & 0x1000) != 0x1000) {
                 tmp_vec = matrix.VEC_SUM(trimmed_loop[0], bis_vector);
                 sect = intersect.INNERSECT(bis_origin, bis_vector, trimmed_loop[0], tmp_vec);
                 cap_loop[iloop] = matrix.VEC_COPY(sect);
@@ -1780,14 +1780,14 @@ public class CoreGLE implements GLE
                 }
             }
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             istop = ncp;
         }
         else {
             istop = ncp - 1;
         }
-        save_style = this.gleGetJoinStyle();
-        this.gleSetJoinStyle(save_style & 0xFFFFEFFF);
+        save_style = gleGetJoinStyle();
+        gleSetJoinStyle(save_style & 0xFFFFEFFF);
         while (icnt_prev < istop) {
             if (!is_trimmed[icnt_prev] || is_trimmed[icnt]) {}
             if (is_trimmed[icnt_prev] && !is_trimmed[icnt]) {
@@ -1809,10 +1809,10 @@ public class CoreGLE implements GLE
                 cap_loop[iloop] = matrix.VEC_COPY(sect);
                 if (++iloop >= 3) {
                     if (cap_callback.equals("cut")) {
-                        this.draw_cut_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, null, face);
+                        draw_cut_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, null, face);
                     }
                     else if (cap_callback.equals("round")) {
-                        this.draw_round_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, null, face);
+                        draw_round_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, null, face);
                     }
                 }
                 iloop = 0;
@@ -1828,16 +1828,16 @@ public class CoreGLE implements GLE
             cap_loop[iloop] = matrix.VEC_COPY(sect);
             ++iloop;
             if (!was_trimmed) {
-                this.gleSetJoinStyle(save_style);
+                gleSetJoinStyle(save_style);
             }
             if (cap_callback.equals("cut")) {
-                this.draw_cut_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, null, face);
+                draw_cut_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, null, face);
             }
             else if (cap_callback.equals("round")) {
-                this.draw_round_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, null, face);
+                draw_round_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, null, face);
             }
         }
-        this.gleSetJoinStyle(save_style);
+        gleSetJoinStyle(save_style);
     }
     
     private final void draw_fillets_and_join_n_norms(final int ncp, final double[][] trimmed_loop, final double[][] untrimmed_loop, final boolean[] is_trimmed, final double[] bis_origin, final double[] bis_vector, final double[][] normals, final float[] front_color, final float[] back_color, final double[] cut_vector, final boolean face, final String cap_callback) {
@@ -1856,7 +1856,7 @@ public class CoreGLE implements GLE
         icnt = 0;
         iloop = 0;
         if (!is_trimmed[0]) {
-            if ((this.gleGetJoinStyle() & 0x3) == 0x3 && (save_style & 0x1000) != 0x1000) {
+            if ((gleGetJoinStyle() & 0x3) == 0x3 && (save_style & 0x1000) != 0x1000) {
                 tmp_vec = matrix.VEC_SUM(trimmed_loop[0], bis_vector);
                 sect = intersect.INNERSECT(bis_origin, bis_vector, trimmed_loop[0], tmp_vec);
                 cap_loop[iloop] = matrix.VEC_COPY(sect);
@@ -1878,19 +1878,19 @@ public class CoreGLE implements GLE
                 }
             }
         }
-        if ((this.gleGetJoinStyle() & 0x1000) == 0x1000) {
+        if ((gleGetJoinStyle() & 0x1000) == 0x1000) {
             istop = ncp;
         }
         else {
             istop = ncp - 1;
         }
-        save_style = this.gleGetJoinStyle();
-        this.gleSetJoinStyle(save_style & 0xFFFFEFFF);
+        save_style = gleGetJoinStyle();
+        gleSetJoinStyle(save_style & 0xFFFFEFFF);
         while (icnt_prev < istop) {
             if (!is_trimmed[icnt_prev] || is_trimmed[icnt]) {}
             if (is_trimmed[icnt_prev] && !is_trimmed[icnt]) {
                 sect = intersect.INNERSECT(bis_origin, bis_vector, untrimmed_loop[icnt_prev], trimmed_loop[icnt]);
-                this.draw_fillet_triangle_n_norms(trimmed_loop[icnt_prev], trimmed_loop[icnt], sect, face, front_color, back_color, normals[icnt_prev], normals[icnt]);
+                draw_fillet_triangle_n_norms(trimmed_loop[icnt_prev], trimmed_loop[icnt], sect, face, front_color, back_color, normals[icnt_prev], normals[icnt]);
                 cap_loop[iloop] = matrix.VEC_COPY(sect);
                 norm_loop[iloop] = matrix.VEC_COPY(normals[icnt_prev]);
                 ++iloop;
@@ -1906,9 +1906,9 @@ public class CoreGLE implements GLE
             if (!is_trimmed[icnt_prev] && is_trimmed[icnt]) {
                 was_trimmed = true;
                 sect = intersect.INNERSECT(bis_origin, bis_vector, trimmed_loop[icnt_prev], untrimmed_loop[icnt]);
-                this.draw_fillet_triangle_n_norms(trimmed_loop[icnt_prev], trimmed_loop[icnt], sect, face, front_color, back_color, normals[icnt_prev], normals[icnt]);
+                draw_fillet_triangle_n_norms(trimmed_loop[icnt_prev], trimmed_loop[icnt], sect, face, front_color, back_color, normals[icnt_prev], normals[icnt]);
                 cap_loop[iloop] = matrix.VEC_COPY(sect);
-                if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
+                if ((gleGetJoinStyle() & 0x100) == 0x100) {
                     norm_loop[iloop] = matrix.VEC_COPY(normals[icnt_prev]);
                 }
                 else {
@@ -1916,10 +1916,10 @@ public class CoreGLE implements GLE
                 }
                 if (++iloop >= 3) {
                     if (cap_callback.equals("cut")) {
-                        this.draw_cut_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, norm_loop, face);
+                        draw_cut_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, norm_loop, face);
                     }
                     else if (cap_callback.equals("round")) {
-                        this.draw_round_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, norm_loop, face);
+                        draw_round_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, norm_loop, face);
                     }
                 }
                 iloop = 0;
@@ -1930,7 +1930,7 @@ public class CoreGLE implements GLE
         icnt = --icnt + ncp;
         icnt %= ncp;
         if (!is_trimmed[icnt] && iloop >= 2) {
-            if ((this.gleGetJoinStyle() & 0x3) == 0x3 && (save_style & 0x1000) != 0x1000) {
+            if ((gleGetJoinStyle() & 0x3) == 0x3 && (save_style & 0x1000) != 0x1000) {
                 tmp_vec = matrix.VEC_SUM(trimmed_loop[icnt], bis_vector);
                 sect = intersect.INNERSECT(bis_origin, bis_vector, trimmed_loop[icnt], tmp_vec);
                 cap_loop[iloop] = matrix.VEC_COPY(sect);
@@ -1938,16 +1938,16 @@ public class CoreGLE implements GLE
                 ++iloop;
             }
             if (!was_trimmed) {
-                this.gleSetJoinStyle(save_style);
+                gleSetJoinStyle(save_style);
             }
             if (cap_callback.equals("cut")) {
-                this.draw_cut_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, norm_loop, face);
+                draw_cut_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, norm_loop, face);
             }
             else if (cap_callback.equals("round")) {
-                this.draw_round_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, norm_loop, face);
+                draw_round_style_cap_callback(iloop, cap_loop, front_color, cut_vector, bis_vector, norm_loop, face);
             }
         }
-        this.gleSetJoinStyle(save_style);
+        gleSetJoinStyle(save_style);
     }
     
     private static void draw_fillet_triangle_plain(final double[] va, final double[] vb, final double[] vc, final boolean face, final float[] front_color, final float[] back_color) {
@@ -1972,7 +1972,7 @@ public class CoreGLE implements GLE
             GL11.glColor4f(front_color[0], front_color[1], front_color[2], front_color[3]);
         }
         GL11.glBegin(5);
-        if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
+        if ((gleGetJoinStyle() & 0x100) == 0x100) {
             GL11.glNormal3d(na[0], na[1], na[2]);
             if (face) {
                 GL11.glVertex3d(va[0], va[1], va[2]);
@@ -2009,10 +2009,10 @@ public class CoreGLE implements GLE
         boolean is_colinear = false;
         final GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100130.0);
-        tobj.gluTessCallback(100101, this.tessCallback);
-        tobj.gluTessCallback(100100, this.tessCallback);
-        tobj.gluTessCallback(100102, this.tessCallback);
-        tobj.gluTessCallback(100103, this.tessCallback);
+        tobj.gluTessCallback(100101, tessCallback);
+        tobj.gluTessCallback(100100, tessCallback);
+        tobj.gluTessCallback(100102, tessCallback);
+        tobj.gluTessCallback(100103, tessCallback);
         if (face_color != null) {
             GL11.glColor4f(face_color[0], face_color[1], face_color[2], face_color[3]);
         }
@@ -2117,7 +2117,7 @@ public class CoreGLE implements GLE
         xycut = matrix.VEC_NORMALIZE(xycut);
         theta = matrix.VEC_DOT_PRODUCT(xycut, cut);
         theta = Math.acos(theta);
-        theta /= this.__ROUND_TESS_PIECES;
+        theta /= __ROUND_TESS_PIECES;
         m = matrix.urot_axis_d(theta, axis);
         last_contour = new double[ncp][3];
         next_contour = new double[ncp][3];
@@ -2144,7 +2144,7 @@ public class CoreGLE implements GLE
                 last_contour[k][2] = (cap_z[k] = cap[j][2]);
             }
             if (norms != null) {
-                if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
+                if ((gleGetJoinStyle() & 0x100) == 0x100) {
                     for (j = 0; j < ncp - 1; ++j) {
                         k = ncp - j - 2;
                         last_norm[k] = matrix.VEC_COPY(norms[j]);
@@ -2158,7 +2158,7 @@ public class CoreGLE implements GLE
                 }
             }
         }
-        for (i = 0; i < this.__ROUND_TESS_PIECES; ++i) {
+        for (i = 0; i < __ROUND_TESS_PIECES; ++i) {
             for (j = 0; j < ncp; ++j) {
                 final double[] array = next_contour[j];
                 final int n = 2;
@@ -2180,13 +2180,13 @@ public class CoreGLE implements GLE
                 }
             }
             if (norms == null) {
-                this.draw_segment_plain(ncp, next_contour, last_contour, 0, 0.0);
+                draw_segment_plain(ncp, next_contour, last_contour, 0, 0.0);
             }
-            else if ((this.gleGetJoinStyle() & 0x100) == 0x100) {
-                this.draw_binorm_segment_facet_n(ncp, next_contour, last_contour, next_norm, last_norm, 0, 0.0);
+            else if ((gleGetJoinStyle() & 0x100) == 0x100) {
+                draw_binorm_segment_facet_n(ncp, next_contour, last_contour, next_norm, last_norm, 0, 0.0);
             }
             else {
-                this.draw_binorm_segment_edge_n(ncp, next_contour, last_contour, next_norm, last_norm, 0, 0.0);
+                draw_binorm_segment_edge_n(ncp, next_contour, last_contour, next_norm, last_norm, 0, 0.0);
             }
             tmp = next_contour;
             next_contour = last_contour;

@@ -22,13 +22,13 @@ public class PacketFXPollute implements IMessage, IMessageHandler<PacketFXPollut
     }
     
     public PacketFXPollute(final BlockPos pos, float amt) {
-        this.x = pos.getX();
-        this.y = pos.getY();
-        this.z = pos.getZ();
+        x = pos.getX();
+        y = pos.getY();
+        z = pos.getZ();
         if (amt < 1.0f && amt > 0.0f) {
             amt = 1.0f;
         }
-        this.amount = (byte)amt;
+        amount = (byte)amt;
     }
     
     public PacketFXPollute(final BlockPos pos, final float amt, final boolean vary) {
@@ -36,17 +36,17 @@ public class PacketFXPollute implements IMessage, IMessageHandler<PacketFXPollut
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.x);
-        buffer.writeInt(this.y);
-        buffer.writeInt(this.z);
-        buffer.writeByte(this.amount);
+        buffer.writeInt(x);
+        buffer.writeInt(y);
+        buffer.writeInt(z);
+        buffer.writeByte(amount);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.x = buffer.readInt();
-        this.y = buffer.readInt();
-        this.z = buffer.readInt();
-        this.amount = buffer.readByte();
+        x = buffer.readInt();
+        y = buffer.readInt();
+        z = buffer.readInt();
+        amount = buffer.readByte();
     }
     
     public IMessage onMessage(final PacketFXPollute message, final MessageContext ctx) {

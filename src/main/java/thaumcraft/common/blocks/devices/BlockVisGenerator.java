@@ -34,7 +34,7 @@ public class BlockVisGenerator extends BlockTCDevice implements IBlockFacing, IB
 {
     public BlockVisGenerator() {
         super(Material.WOOD, TileVisGenerator.class, "vis_generator");
-        this.setSoundType(SoundType.WOOD);
+        setSoundType(SoundType.WOOD);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {
@@ -61,7 +61,7 @@ public class BlockVisGenerator extends BlockTCDevice implements IBlockFacing, IB
             if (tileentity != null && tileentity.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
                 final IEnergyStorage capability = tileentity.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
                 if (capability.canReceive()) {
-                    IBlockState bs = this.getDefaultState();
+                    IBlockState bs = getDefaultState();
                     bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)face);
                     bs = bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)true);
                     return bs;
@@ -92,6 +92,6 @@ public class BlockVisGenerator extends BlockTCDevice implements IBlockFacing, IB
     }
     
     public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
-        return Utils.rotateBlockAABB(new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.875, 0.75), BlockStateUtils.getFacing(this.getMetaFromState(state)));
+        return Utils.rotateBlockAABB(new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.875, 0.75), BlockStateUtils.getFacing(getMetaFromState(state)));
     }
 }

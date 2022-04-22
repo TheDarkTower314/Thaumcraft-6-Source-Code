@@ -32,10 +32,10 @@ public class BlockPlaceholder extends BlockTC
     
     public BlockPlaceholder(final String name) {
         super(Material.ROCK, name);
-        this.rand = new Random();
-        this.setHardness(2.5f);
-        this.setSoundType(SoundType.STONE);
-        this.setCreativeTab(null);
+        rand = new Random();
+        setHardness(2.5f);
+        setSoundType(SoundType.STONE);
+        setCreativeTab(null);
     }
     
     public EnumPushReaction getMobilityFlag(final IBlockState state) {

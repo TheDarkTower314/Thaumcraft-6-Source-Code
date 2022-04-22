@@ -14,9 +14,9 @@ public class ItemCharmUndying extends ItemTCBase implements IBauble
 {
     public ItemCharmUndying() {
         super("charm_undying");
-        this.maxStackSize = 1;
-        this.canRepair = false;
-        this.setMaxDamage(0);
+        maxStackSize = 1;
+        canRepair = false;
+        setMaxDamage(0);
     }
     
     public EnumRarity getRarity(final ItemStack itemstack) {

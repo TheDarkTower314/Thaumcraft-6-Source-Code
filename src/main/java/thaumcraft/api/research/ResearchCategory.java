@@ -34,10 +34,10 @@ public class ResearchCategory {
 	
 	public ResearchCategory(String key, String researchkey, AspectList formula, ResourceLocation icon, ResourceLocation background) {
 		this.key = key;
-		this.researchKey = researchkey;
+		researchKey = researchkey;
 		this.icon = icon;
 		this.background = background;
-		this.background2 = null;
+		background2 = null;
 		this.formula = formula;
 	}
 	

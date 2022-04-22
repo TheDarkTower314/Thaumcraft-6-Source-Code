@@ -32,9 +32,9 @@ public class BlockStonePorous extends BlockTC
     
     public BlockStonePorous() {
         super(Material.ROCK, "stone_porous");
-        this.setHardness(1.0f);
-        this.setResistance(5.0f);
-        this.setSoundType(SoundType.STONE);
+        setHardness(1.0f);
+        setResistance(5.0f);
+        setSoundType(SoundType.STONE);
     }
     
     public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
@@ -42,7 +42,7 @@ public class BlockStonePorous extends BlockTC
         final int rr = BlockStonePorous.r.nextInt(15) + fortune;
         if (rr > 13) {
             if (BlockStonePorous.pdrops == null || BlockStonePorous.pdrops.size() <= 0) {
-                this.createDrops();
+                createDrops();
             }
             final ItemStack s = ((WeightedRandomLoot)WeightedRandom.getRandomItem(BlockStonePorous.r, (List)BlockStonePorous.pdrops)).item.copy();
             ret.add(s);

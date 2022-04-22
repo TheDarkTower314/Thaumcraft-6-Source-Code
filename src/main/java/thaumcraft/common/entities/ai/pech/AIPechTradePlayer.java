@@ -12,19 +12,19 @@ public class AIPechTradePlayer extends EntityAIBase
     private EntityPech villager;
     
     public AIPechTradePlayer(final EntityPech par1EntityVillager) {
-        this.villager = par1EntityVillager;
-        this.setMutexBits(5);
+        villager = par1EntityVillager;
+        setMutexBits(5);
     }
     
     public boolean shouldExecute() {
-        return this.villager.isEntityAlive() && !this.villager.isInWater() && this.villager.isTamed() && this.villager.onGround && !this.villager.velocityChanged && this.villager.trading;
+        return villager.isEntityAlive() && !villager.isInWater() && villager.isTamed() && villager.onGround && !villager.velocityChanged && villager.trading;
     }
     
     public void startExecuting() {
-        this.villager.getNavigator().clearPath();
+        villager.getNavigator().clearPath();
     }
     
     public void resetTask() {
-        this.villager.trading = false;
+        villager.trading = false;
     }
 }

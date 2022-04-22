@@ -52,10 +52,10 @@ public class BlockTaint extends BlockTC implements ITaintBlock
     
     public BlockTaint(final String name) {
         super(ThaumcraftMaterials.MATERIAL_TAINT, name);
-        this.setHardness(10.0f);
-        this.setResistance(100.0f);
-        this.setSoundType(SoundsTC.GORE);
-        this.setTickRandomly(true);
+        setHardness(10.0f);
+        setResistance(100.0f);
+        setSoundType(SoundsTC.GORE);
+        setTickRandomly(true);
     }
     
     public SoundType getSoundType() {
@@ -97,7 +97,7 @@ public class BlockTaint extends BlockTC implements ITaintBlock
     public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random random) {
         if (!world.isRemote) {
             if (!TaintHelper.isNearTaintSeed(world, pos) && random.nextInt(10) == 0) {
-                this.die(world, pos, state);
+                die(world, pos, state);
                 return;
             }
             if (state.getBlock() == BlocksTC.taintRock) {
@@ -105,7 +105,7 @@ public class BlockTaint extends BlockTC implements ITaintBlock
             }
             if (state.getBlock() == BlocksTC.taintCrust) {
                 final Random r = new Random(pos.toLong());
-                if (this.tryToFall(world, pos, pos)) {
+                if (tryToFall(world, pos, pos)) {
                     return;
                 }
                 if (world.isAirBlock(pos.up())) {
@@ -121,7 +121,7 @@ public class BlockTaint extends BlockTC implements ITaintBlock
                             break;
                         }
                     }
-                    if (doIt && this.tryToFall(world, pos, pos.offset(dir))) {
+                    if (doIt && tryToFall(world, pos, pos.offset(dir))) {
                         return;
                     }
                 }

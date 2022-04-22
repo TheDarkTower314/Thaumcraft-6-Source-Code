@@ -47,49 +47,49 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
     
     public EntityFocusProjectile(final World par1World) {
         super(par1World);
-        this.noTouchy = false;
-        this.firstParticle = false;
-        this.lastRenderTick = 0.0f;
-        this.effects = null;
-        this.setSize(0.15f, 0.15f);
+        noTouchy = false;
+        firstParticle = false;
+        lastRenderTick = 0.0f;
+        effects = null;
+        setSize(0.15f, 0.15f);
     }
     
     public EntityFocusProjectile(final FocusPackage pack, final float speed, final Trajectory trajectory, final int special) {
         super(pack.world, pack.getCaster());
-        this.noTouchy = false;
-        this.firstParticle = false;
-        this.lastRenderTick = 0.0f;
-        this.effects = null;
-        this.focusPackage = pack;
-        this.setPosition(trajectory.source.x + trajectory.direction.x * pack.getCaster().width * 2.1, trajectory.source.y + trajectory.direction.y * pack.getCaster().width * 2.1, trajectory.source.z + trajectory.direction.z * pack.getCaster().width * 2.1);
-        this.shoot(trajectory.direction.x, trajectory.direction.y, trajectory.direction.z, speed, 0.0f);
-        this.setSize(0.15f, 0.15f);
-        this.setSpecial(special);
-        this.ignoreEntity = pack.getCaster();
-        this.setOwner(this.getThrower().getEntityId());
+        noTouchy = false;
+        firstParticle = false;
+        lastRenderTick = 0.0f;
+        effects = null;
+        focusPackage = pack;
+        setPosition(trajectory.source.x + trajectory.direction.x * pack.getCaster().width * 2.1, trajectory.source.y + trajectory.direction.y * pack.getCaster().width * 2.1, trajectory.source.z + trajectory.direction.z * pack.getCaster().width * 2.1);
+        shoot(trajectory.direction.x, trajectory.direction.y, trajectory.direction.z, speed, 0.0f);
+        setSize(0.15f, 0.15f);
+        setSpecial(special);
+        ignoreEntity = pack.getCaster();
+        setOwner(getThrower().getEntityId());
     }
     
     protected float getGravityVelocity() {
-        return (this.getSpecial() > 1) ? 0.005f : 0.01f;
+        return (getSpecial() > 1) ? 0.005f : 0.01f;
     }
     
     public void entityInit() {
         super.entityInit();
-        this.getDataManager().register(EntityFocusProjectile.SPECIAL, 0);
-        this.getDataManager().register(EntityFocusProjectile.OWNER, 0);
+        getDataManager().register(EntityFocusProjectile.SPECIAL, 0);
+        getDataManager().register(EntityFocusProjectile.OWNER, 0);
     }
     
     public void setOwner(final int s) {
-        this.getDataManager().set(EntityFocusProjectile.OWNER, s);
+        getDataManager().set(EntityFocusProjectile.OWNER, s);
     }
     
     public int getOwner() {
-        return (int)this.getDataManager().get((DataParameter)EntityFocusProjectile.OWNER);
+        return (int) getDataManager().get((DataParameter)EntityFocusProjectile.OWNER);
     }
     
     public EntityLivingBase getThrower() {
-        if (this.world.isRemote) {
-            final Entity e = this.world.getEntityByID(this.getOwner());
+        if (world.isRemote) {
+            final Entity e = world.getEntityByID(getOwner());
             if (e != null && e instanceof EntityLivingBase) {
                 return (EntityLivingBase)e;
             }
@@ -98,20 +98,20 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
     }
     
     public void setSpecial(final int s) {
-        this.getDataManager().set(EntityFocusProjectile.SPECIAL, s);
+        getDataManager().set(EntityFocusProjectile.SPECIAL, s);
     }
     
     public int getSpecial() {
-        return (int)this.getDataManager().get((DataParameter)EntityFocusProjectile.SPECIAL);
+        return (int) getDataManager().get((DataParameter)EntityFocusProjectile.SPECIAL);
     }
     
     public void writeSpawnData(final ByteBuf data) {
-        Utils.writeNBTTagCompoundToBuffer(data, this.focusPackage.serialize());
+        Utils.writeNBTTagCompoundToBuffer(data, focusPackage.serialize());
     }
     
     public void readSpawnData(final ByteBuf data) {
         try {
-            (this.focusPackage = new FocusPackage()).deserialize(Utils.readNBTTagCompoundFromBuffer(data));
+            (focusPackage = new FocusPackage()).deserialize(Utils.readNBTTagCompoundFromBuffer(data));
         }
         catch (final Exception e) {
             e.printStackTrace();
@@ -120,136 +120,136 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
     
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setTag("pack", this.focusPackage.serialize());
-        nbt.setInteger("special", this.getSpecial());
+        nbt.setTag("pack", focusPackage.serialize());
+        nbt.setInteger("special", getSpecial());
     }
     
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        this.setSpecial(nbt.getInteger("special"));
+        setSpecial(nbt.getInteger("special"));
         try {
-            (this.focusPackage = new FocusPackage()).deserialize(nbt.getCompoundTag("pack"));
+            (focusPackage = new FocusPackage()).deserialize(nbt.getCompoundTag("pack"));
         }
         catch (final Exception ex) {}
-        if (this.getThrower() != null) {
-            this.setOwner(this.getThrower().getEntityId());
+        if (getThrower() != null) {
+            setOwner(getThrower().getEntityId());
         }
     }
     
     protected void onImpact(final RayTraceResult mop) {
         if (mop != null) {
-            if (this.getSpecial() == 1 && mop.typeOfHit == RayTraceResult.Type.BLOCK) {
-                final IBlockState bs = this.world.getBlockState(mop.getBlockPos());
-                final AxisAlignedBB bb = bs.getCollisionBoundingBox(this.world, mop.getBlockPos());
+            if (getSpecial() == 1 && mop.typeOfHit == RayTraceResult.Type.BLOCK) {
+                final IBlockState bs = world.getBlockState(mop.getBlockPos());
+                final AxisAlignedBB bb = bs.getCollisionBoundingBox(world, mop.getBlockPos());
                 if (bb == null) {
                     return;
                 }
-                this.posX -= this.motionX;
-                this.posY -= this.motionY;
-                this.posZ -= this.motionZ;
+                posX -= motionX;
+                posY -= motionY;
+                posZ -= motionZ;
                 if (mop.sideHit.getFrontOffsetZ() != 0) {
-                    this.motionZ *= -1.0;
+                    motionZ *= -1.0;
                 }
                 if (mop.sideHit.getFrontOffsetX() != 0) {
-                    this.motionX *= -1.0;
+                    motionX *= -1.0;
                 }
                 if (mop.sideHit.getFrontOffsetY() != 0) {
-                    this.motionY *= -0.9;
+                    motionY *= -0.9;
                 }
-                this.motionX *= 0.9;
-                this.motionY *= 0.9;
-                this.motionZ *= 0.9;
-                final float var20 = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-                this.posX -= this.motionX / var20 * 0.05000000074505806;
-                this.posY -= this.motionY / var20 * 0.05000000074505806;
-                this.posZ -= this.motionZ / var20 * 0.05000000074505806;
-                if (!this.world.isRemote) {
-                    this.playSound(SoundEvents.ENTITY_LEASHKNOT_PLACE, 0.25f, 1.0f);
+                motionX *= 0.9;
+                motionY *= 0.9;
+                motionZ *= 0.9;
+                final float var20 = MathHelper.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
+                posX -= motionX / var20 * 0.05000000074505806;
+                posY -= motionY / var20 * 0.05000000074505806;
+                posZ -= motionZ / var20 * 0.05000000074505806;
+                if (!world.isRemote) {
+                    playSound(SoundEvents.ENTITY_LEASHKNOT_PLACE, 0.25f, 1.0f);
                 }
-                if (!this.world.isRemote && new Vec3d(this.motionX, this.motionY, this.motionZ).lengthVector() < 0.2) {
-                    this.setDead();
+                if (!world.isRemote && new Vec3d(motionX, motionY, motionZ).lengthVector() < 0.2) {
+                    setDead();
                 }
             }
-            else if (!this.world.isRemote) {
+            else if (!world.isRemote) {
                 if (mop.entityHit != null) {
-                    mop.hitVec = this.getPositionVector();
+                    mop.hitVec = getPositionVector();
                 }
-                final Vec3d pv = new Vec3d(this.prevPosX, this.prevPosY, this.prevPosZ);
-                final Vec3d vf = new Vec3d(this.motionX, this.motionY, this.motionZ);
-                ServerEvents.addRunnableServer(this.getEntityWorld(), new Runnable() {
+                final Vec3d pv = new Vec3d(prevPosX, prevPosY, prevPosZ);
+                final Vec3d vf = new Vec3d(motionX, motionY, motionZ);
+                ServerEvents.addRunnableServer(getEntityWorld(), new Runnable() {
                     @Override
                     public void run() {
-                        FocusEngine.runFocusPackage(EntityFocusProjectile.this.focusPackage, new Trajectory[] { new Trajectory(pv, vf.normalize()) }, new RayTraceResult[] { mop });
+                        FocusEngine.runFocusPackage(focusPackage, new Trajectory[] { new Trajectory(pv, vf.normalize()) }, new RayTraceResult[] { mop });
                     }
                 }, 0);
-                this.setDead();
+                setDead();
             }
         }
     }
     
     public void onUpdate() {
         super.onUpdate();
-        if (this.ticksExisted > 1200 || (!this.world.isRemote && this.getThrower() == null)) {
-            this.setDead();
+        if (ticksExisted > 1200 || (!world.isRemote && getThrower() == null)) {
+            setDead();
         }
-        this.firstParticle = true;
-        if (this.target == null && this.ticksExisted % 5 == 0 && this.getSpecial() > 1) {
-            final List<EntityLivingBase> list = EntityUtils.getEntitiesInRangeSorted(this.getEntityWorld(), this, EntityLivingBase.class, 16.0);
+        firstParticle = true;
+        if (target == null && ticksExisted % 5 == 0 && getSpecial() > 1) {
+            final List<EntityLivingBase> list = EntityUtils.getEntitiesInRangeSorted(getEntityWorld(), this, EntityLivingBase.class, 16.0);
             for (final EntityLivingBase pt : list) {
                 if (!pt.isDead && EntityUtils.isVisibleTo(1.75f, this, pt, 16.0f)) {
                     if (!EntityUtils.canEntityBeSeen(this, pt)) {
                         continue;
                     }
-                    final boolean f = EntityUtils.isFriendly(this.getThrower(), pt);
-                    if (f && this.getSpecial() == 3) {
-                        this.target = pt;
+                    final boolean f = EntityUtils.isFriendly(getThrower(), pt);
+                    if (f && getSpecial() == 3) {
+                        target = pt;
                         break;
                     }
-                    if (!f && this.getSpecial() == 2) {
-                        this.target = pt;
+                    if (!f && getSpecial() == 2) {
+                        target = pt;
                         break;
                     }
                     continue;
                 }
             }
         }
-        if (this.target != null) {
-            final double d = this.getDistanceSq(this.target);
-            final double dx = this.target.posX - this.posX;
-            final double dy = this.target.getEntityBoundingBox().minY + this.target.height * 0.6 - this.posY;
-            final double dz = this.target.posZ - this.posZ;
+        if (target != null) {
+            final double d = getDistanceSq(target);
+            final double dx = target.posX - posX;
+            final double dy = target.getEntityBoundingBox().minY + target.height * 0.6 - posY;
+            final double dz = target.posZ - posZ;
             Vec3d v = new Vec3d(dx, dy, dz);
             v = v.normalize();
-            Vec3d mv = new Vec3d(this.motionX, this.motionY, this.motionZ);
+            Vec3d mv = new Vec3d(motionX, motionY, motionZ);
             final double lv = mv.lengthVector();
             mv = mv.normalize().add(v.scale(0.275));
             mv = mv.normalize().scale(lv);
-            this.motionX = mv.x;
-            this.motionY = mv.y;
-            this.motionZ = mv.z;
-            if (this.ticksExisted % 5 == 0 && (this.target.isDead || !EntityUtils.isVisibleTo(1.75f, this, this.target, 16.0f) || !EntityUtils.canEntityBeSeen(this, this.target))) {
-                this.target = null;
+            motionX = mv.x;
+            motionY = mv.y;
+            motionZ = mv.z;
+            if (ticksExisted % 5 == 0 && (target.isDead || !EntityUtils.isVisibleTo(1.75f, this, target, 16.0f) || !EntityUtils.canEntityBeSeen(this, target))) {
+                target = null;
             }
         }
     }
     
     public Vec3d getLookVec() {
-        return new Vec3d(this.motionX, this.motionY, this.motionZ).normalize();
+        return new Vec3d(motionX, motionY, motionZ).normalize();
     }
     
     public void renderParticle(final float coeff) {
-        this.lastRenderTick = coeff;
-        if (this.effects == null) {
-            this.effects = this.focusPackage.getFocusEffects();
+        lastRenderTick = coeff;
+        if (effects == null) {
+            effects = focusPackage.getFocusEffects();
         }
-        if (this.effects != null && this.effects.length > 0) {
-            final FocusEffect eff = this.effects[this.rand.nextInt(this.effects.length)];
+        if (effects != null && effects.length > 0) {
+            final FocusEffect eff = effects[rand.nextInt(effects.length)];
             final float scale = 1.0f;
             final Color c1 = new Color(FocusEngine.getElementColor(eff.getKey()));
-            FXDispatcher.INSTANCE.drawFireMote((float)(this.prevPosX + (this.posX - this.prevPosX) * coeff), (float)(this.prevPosY + (this.posY - this.prevPosY) * coeff) + this.height / 2.0f, (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * coeff), 0.0125f * (this.rand.nextFloat() - 0.5f) * scale, 0.0125f * (this.rand.nextFloat() - 0.5f) * scale, 0.0125f * (this.rand.nextFloat() - 0.5f) * scale, c1.getRed() / 255.0f, c1.getGreen() / 255.0f, c1.getBlue() / 255.0f, 0.5f, 7.0f * scale);
-            if (this.firstParticle) {
-                this.firstParticle = false;
-                eff.renderParticleFX(this.world, this.prevPosX + (this.posX - this.prevPosX) * coeff + this.world.rand.nextGaussian() * 0.10000000149011612, this.prevPosY + (this.posY - this.prevPosY) * coeff + this.height / 2.0f + this.world.rand.nextGaussian() * 0.10000000149011612, this.prevPosZ + (this.posZ - this.prevPosZ) * coeff + this.world.rand.nextGaussian() * 0.10000000149011612, this.world.rand.nextGaussian() * 0.009999999776482582, this.world.rand.nextGaussian() * 0.009999999776482582, this.world.rand.nextGaussian() * 0.009999999776482582);
+            FXDispatcher.INSTANCE.drawFireMote((float)(prevPosX + (posX - prevPosX) * coeff), (float)(prevPosY + (posY - prevPosY) * coeff) + height / 2.0f, (float)(prevPosZ + (posZ - prevPosZ) * coeff), 0.0125f * (rand.nextFloat() - 0.5f) * scale, 0.0125f * (rand.nextFloat() - 0.5f) * scale, 0.0125f * (rand.nextFloat() - 0.5f) * scale, c1.getRed() / 255.0f, c1.getGreen() / 255.0f, c1.getBlue() / 255.0f, 0.5f, 7.0f * scale);
+            if (firstParticle) {
+                firstParticle = false;
+                eff.renderParticleFX(world, prevPosX + (posX - prevPosX) * coeff + world.rand.nextGaussian() * 0.10000000149011612, prevPosY + (posY - prevPosY) * coeff + height / 2.0f + world.rand.nextGaussian() * 0.10000000149011612, prevPosZ + (posZ - prevPosZ) * coeff + world.rand.nextGaussian() * 0.10000000149011612, world.rand.nextGaussian() * 0.009999999776482582, world.rand.nextGaussian() * 0.009999999776482582, world.rand.nextGaussian() * 0.009999999776482582);
             }
         }
     }

@@ -36,73 +36,73 @@ public class TileCondenser extends TileThaumcraft implements ITickable, IEssenti
     public int cost;
     
     public TileCondenser() {
-        this.MAX = 100;
-        this.count = 0;
-        this.history = new ArrayList<Long>();
-        this.blockList = new ArrayList<Long>();
-        this.uncloggedList = new ArrayList<Long>();
-        this.latticeCount = -1.0f;
-        this.interval = 0;
-        this.cost = 0;
+        MAX = 100;
+        count = 0;
+        history = new ArrayList<Long>();
+        blockList = new ArrayList<Long>();
+        uncloggedList = new ArrayList<Long>();
+        latticeCount = -1.0f;
+        interval = 0;
+        cost = 0;
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
-        this.essentia = nbttagcompound.getShort("essentia");
-        this.flux = nbttagcompound.getShort("flux");
+        essentia = nbttagcompound.getShort("essentia");
+        flux = nbttagcompound.getShort("flux");
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
-        nbttagcompound.setShort("essentia", (short)this.essentia);
-        nbttagcompound.setShort("flux", (short)this.flux);
+        nbttagcompound.setShort("essentia", (short) essentia);
+        nbttagcompound.setShort("flux", (short) flux);
         return nbttagcompound;
     }
     
     public void update() {
-        if (this.latticeCount < 0.0f) {
-            this.triggerCheck();
+        if (latticeCount < 0.0f) {
+            triggerCheck();
         }
-        ++this.count;
-        if (BlockStateUtils.isEnabled(this.getBlockMetadata()) && this.latticeCount > 0.0f) {
-            if (this.world.isRemote) {
-                if (this.essentia > 0 && this.uncloggedList.size() > 0 && this.count % Math.max(3, this.interval / 50) == 0) {
-                    final BlockPos p = BlockPos.fromLong(this.uncloggedList.get(this.world.rand.nextInt(this.uncloggedList.size())));
+        ++count;
+        if (BlockStateUtils.isEnabled(getBlockMetadata()) && latticeCount > 0.0f) {
+            if (world.isRemote) {
+                if (essentia > 0 && uncloggedList.size() > 0 && count % Math.max(3, interval / 50) == 0) {
+                    final BlockPos p = BlockPos.fromLong(uncloggedList.get(world.rand.nextInt(uncloggedList.size())));
                     if (p != null) {
-                        FXDispatcher.INSTANCE.spark(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, 4.5f + this.world.rand.nextFloat(), 0.33f + this.world.rand.nextFloat() * 0.66f, 0.33f + this.world.rand.nextFloat() * 0.66f, 0.33f + this.world.rand.nextFloat() * 0.66f, 0.8f);
+                        FXDispatcher.INSTANCE.spark(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, 4.5f + world.rand.nextFloat(), 0.33f + world.rand.nextFloat() * 0.66f, 0.33f + world.rand.nextFloat() * 0.66f, 0.33f + world.rand.nextFloat() * 0.66f, 0.8f);
                     }
                 }
             }
             else {
-                if (this.count % 5 == 0 && this.essentia < this.MAX) {
-                    this.fill();
+                if (count % 5 == 0 && essentia < MAX) {
+                    fill();
                 }
-                if (this.interval > 0 && this.essentia >= this.cost && this.flux < this.MAX && this.count % this.interval == 0 && AuraHelper.getFlux(this.getWorld(), this.getPos()) >= 1.0f) {
-                    AuraHelper.drainFlux(this.getWorld(), this.getPos(), 1.0f, false);
-                    this.essentia -= this.cost;
-                    ++this.flux;
-                    if (this.world.rand.nextInt(50) == 0) {
-                        this.makeLatticeDirty();
+                if (interval > 0 && essentia >= cost && flux < MAX && count % interval == 0 && AuraHelper.getFlux(getWorld(), getPos()) >= 1.0f) {
+                    AuraHelper.drainFlux(getWorld(), getPos(), 1.0f, false);
+                    essentia -= cost;
+                    ++flux;
+                    if (world.rand.nextInt(50) == 0) {
+                        makeLatticeDirty();
                     }
-                    this.syncTile(false);
-                    this.markDirty();
+                    syncTile(false);
+                    markDirty();
                 }
             }
         }
     }
     
     private void makeLatticeDirty() {
-        if (this.uncloggedList.size() > 0) {
-            int q = this.world.rand.nextInt(this.uncloggedList.size());
+        if (uncloggedList.size() > 0) {
+            int q = world.rand.nextInt(uncloggedList.size());
             if (q == 0) {
-                q = this.world.rand.nextInt(this.uncloggedList.size());
+                q = world.rand.nextInt(uncloggedList.size());
             }
-            final BlockPos p = BlockPos.fromLong(this.uncloggedList.get(q));
+            final BlockPos p = BlockPos.fromLong(uncloggedList.get(q));
             if (p != null) {
-                final IBlockState bs = this.world.getBlockState(p);
+                final IBlockState bs = world.getBlockState(p);
                 if (bs.getBlock() == BlocksTC.condenserlattice) {
-                    this.world.setBlockState(p, BlocksTC.condenserlatticeDirty.getDefaultState(), 3);
-                    ((BlockCondenserLattice)bs.getBlock()).triggerUpdate(this.world, p);
+                    world.setBlockState(p, BlocksTC.condenserlatticeDirty.getDefaultState(), 3);
+                    ((BlockCondenserLattice)bs.getBlock()).triggerUpdate(world, p);
                 }
             }
         }
@@ -110,26 +110,26 @@ public class TileCondenser extends TileThaumcraft implements ITickable, IEssenti
     
     private void fill() {
         for (final EnumFacing face : EnumFacing.HORIZONTALS) {
-            final TileEntity te = ThaumcraftApiHelper.getConnectableTile(this.world, this.pos, face);
+            final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, pos, face);
             if (te != null) {
                 final IEssentiaTransport ic = (IEssentiaTransport)te;
                 Aspect ta = null;
                 if (!ic.canOutputTo(face.getOpposite())) {
                     return;
                 }
-                if (ic.getEssentiaAmount(face.getOpposite()) > 0 && ic.getSuctionAmount(face.getOpposite()) < this.getSuctionAmount(face) && this.getSuctionAmount(face) >= ic.getMinimumSuction()) {
+                if (ic.getEssentiaAmount(face.getOpposite()) > 0 && ic.getSuctionAmount(face.getOpposite()) < getSuctionAmount(face) && getSuctionAmount(face) >= ic.getMinimumSuction()) {
                     ta = ic.getEssentiaType(face.getOpposite());
                 }
                 if (ta != null) {
                     if (ta != Aspect.FLUX) {
-                        this.essentia += ic.takeEssentia(ta, 1, face.getOpposite());
+                        essentia += ic.takeEssentia(ta, 1, face.getOpposite());
                     }
                     else {
-                        this.makeLatticeDirty();
+                        makeLatticeDirty();
                     }
-                    this.syncTile(false);
-                    this.markDirty();
-                    if (this.essentia >= this.MAX) {
+                    syncTile(false);
+                    markDirty();
+                    if (essentia >= MAX) {
                         break;
                     }
                 }
@@ -138,39 +138,39 @@ public class TileCondenser extends TileThaumcraft implements ITickable, IEssenti
     }
     
     public void triggerCheck() {
-        this.history.clear();
-        this.blockList.clear();
-        this.uncloggedList.clear();
-        this.latticeCount = 0.0f;
-        this.interval = 0;
-        this.performCheck(this.pos, true, false);
-        this.history.clear();
-        if (this.latticeCount <= 0.0f) {
-            this.latticeCount = 0.0f;
+        history.clear();
+        blockList.clear();
+        uncloggedList.clear();
+        latticeCount = 0.0f;
+        interval = 0;
+        performCheck(pos, true, false);
+        history.clear();
+        if (latticeCount <= 0.0f) {
+            latticeCount = 0.0f;
         }
         else {
-            if (this.latticeCount > 40.0f) {
-                this.latticeCount = 40.0f;
+            if (latticeCount > 40.0f) {
+                latticeCount = 40.0f;
             }
-            this.interval = Math.round(600.0f - this.latticeCount * 15.0f);
-            if (this.interval < 5) {
-                this.interval = 5;
+            interval = Math.round(600.0f - latticeCount * 15.0f);
+            if (interval < 5) {
+                interval = 5;
             }
-            this.cost = (int)(4.0 + Math.sqrt(this.blockList.size()));
+            cost = (int)(4.0 + Math.sqrt(blockList.size()));
         }
     }
     
     private void performCheck(final BlockPos pos, final boolean skip, boolean clogged) {
-        if (this.latticeCount < 0.0f) {
+        if (latticeCount < 0.0f) {
             return;
         }
-        this.history.add(pos.toLong());
+        history.add(pos.toLong());
         boolean found = false;
         int sides = 0;
         for (final EnumFacing face : EnumFacing.VALUES) {
             if (!skip || face == EnumFacing.UP) {
                 final BlockPos p2 = pos.offset(face);
-                final IBlockState bs = this.world.getBlockState(p2);
+                final IBlockState bs = world.getBlockState(p2);
                 final boolean lattice = bs.getBlock() == BlocksTC.condenserlattice;
                 final boolean latticeDirty = bs.getBlock() == BlocksTC.condenserlatticeDirty;
                 if (skip && latticeDirty) {
@@ -179,20 +179,20 @@ public class TileCondenser extends TileThaumcraft implements ITickable, IEssenti
                 if (lattice || latticeDirty) {
                     ++sides;
                 }
-                if (!this.history.contains(p2.toLong())) {
-                    if (face == EnumFacing.DOWN && this.world.getBlockState(p2).getBlock() == BlocksTC.condenser) {
-                        this.latticeCount = -99.0f;
+                if (!history.contains(p2.toLong())) {
+                    if (face == EnumFacing.DOWN && world.getBlockState(p2).getBlock() == BlocksTC.condenser) {
+                        latticeCount = -99.0f;
                         return;
                     }
-                    if (this.getPos().getY() < p2.getY()) {
-                        if (this.getPos().distanceSq(p2) <= 74.0) {
+                    if (getPos().getY() < p2.getY()) {
+                        if (getPos().distanceSq(p2) <= 74.0) {
                             if (lattice || latticeDirty) {
-                                this.blockList.add(p2.toLong());
+                                blockList.add(p2.toLong());
                                 if (lattice) {
-                                    this.uncloggedList.add(p2.toLong());
+                                    uncloggedList.add(p2.toLong());
                                 }
                                 found = true;
-                                this.performCheck(p2, false, clogged || latticeDirty);
+                                performCheck(p2, false, clogged || latticeDirty);
                                 if (skip) {
                                     break;
                                 }
@@ -204,7 +204,7 @@ public class TileCondenser extends TileThaumcraft implements ITickable, IEssenti
         }
         if (found && !clogged) {
             final float f = 1.0f - 0.15f * sides;
-            this.latticeCount += f;
+            latticeCount += f;
         }
     }
     
@@ -228,24 +228,24 @@ public class TileCondenser extends TileThaumcraft implements ITickable, IEssenti
     }
     
     public int getSuctionAmount(final EnumFacing face) {
-        return (face == EnumFacing.DOWN || this.essentia >= this.MAX) ? 0 : 128;
+        return (face == EnumFacing.DOWN || essentia >= MAX) ? 0 : 128;
     }
     
     public int takeEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
-        final int amt = (this.canOutputTo(face) && (aspect == null || aspect == Aspect.FLUX)) ? Math.min(amount, this.flux) : 0;
+        final int amt = (canOutputTo(face) && (aspect == null || aspect == Aspect.FLUX)) ? Math.min(amount, flux) : 0;
         if (amt > 0) {
-            this.flux -= amt;
-            this.syncTile(false);
-            this.markDirty();
+            flux -= amt;
+            syncTile(false);
+            markDirty();
         }
         return amt;
     }
     
     public int addEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
-        final int amt = this.canInputFrom(face) ? Math.min(amount, this.MAX - this.essentia) : 0;
+        final int amt = canInputFrom(face) ? Math.min(amount, MAX - essentia) : 0;
         if (amt > 0) {
-            this.syncTile(false);
-            this.markDirty();
+            syncTile(false);
+            markDirty();
         }
         return amt;
     }
@@ -255,7 +255,7 @@ public class TileCondenser extends TileThaumcraft implements ITickable, IEssenti
     }
     
     public int getEssentiaAmount(final EnumFacing face) {
-        return this.flux;
+        return flux;
     }
     
     public int getMinimumSuction() {

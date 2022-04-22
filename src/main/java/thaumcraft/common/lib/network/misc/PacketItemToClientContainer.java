@@ -22,21 +22,21 @@ public class PacketItemToClientContainer implements IMessage, IMessageHandler<Pa
     }
     
     public PacketItemToClientContainer(final int windowIdIn, final int slotIn, final ItemStack itemIn) {
-        this.windowId = windowIdIn;
-        this.slot = slotIn;
-        this.item = itemIn;
+        windowId = windowIdIn;
+        slot = slotIn;
+        item = itemIn;
     }
     
     public void toBytes(final ByteBuf dos) {
-        dos.writeInt(this.windowId);
-        dos.writeInt(this.slot);
-        Utils.writeItemStackToBuffer(dos, this.item);
+        dos.writeInt(windowId);
+        dos.writeInt(slot);
+        Utils.writeItemStackToBuffer(dos, item);
     }
     
     public void fromBytes(final ByteBuf dat) {
-        this.windowId = dat.readInt();
-        this.slot = dat.readInt();
-        this.item = Utils.readItemStackFromBuffer(dat);
+        windowId = dat.readInt();
+        slot = dat.readInt();
+        item = Utils.readItemStackFromBuffer(dat);
     }
     
     public IMessage onMessage(final PacketItemToClientContainer message, final MessageContext ctx) {

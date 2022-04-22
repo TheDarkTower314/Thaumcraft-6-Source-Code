@@ -32,11 +32,11 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
     protected static final AxisAlignedBB SAPLING_AABB;
     
     public BlockSaplingTC(final String name) {
-        this.setUnlocalizedName(name);
-        this.setRegistryName("thaumcraft", name);
-        this.setDefaultState(this.blockState.getBaseState().withProperty((IProperty)BlockSaplingTC.STAGE, (Comparable)0));
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setSoundType(SoundType.PLANT);
+        setUnlocalizedName(name);
+        setRegistryName("thaumcraft", name);
+        setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockSaplingTC.STAGE, (Comparable)0));
+        setCreativeTab(ConfigItems.TABTC);
+        setSoundType(SoundType.PLANT);
     }
     
     public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
@@ -55,7 +55,7 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
         if (!worldIn.isRemote) {
             super.updateTick(worldIn, pos, state, rand);
             if (worldIn.getLightFromNeighbors(pos.up()) >= 9 && rand.nextInt(7) == 0) {
-                this.grow(worldIn, pos, state, rand);
+                grow(worldIn, pos, state, rand);
             }
         }
     }
@@ -65,7 +65,7 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
             worldIn.setBlockState(pos, state.cycleProperty((IProperty)BlockSaplingTC.STAGE), 4);
         }
         else {
-            this.generateTree(worldIn, pos, state, rand);
+            generateTree(worldIn, pos, state, rand);
         }
     }
     
@@ -81,7 +81,7 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
             if (state.getBlock() == BlocksTC.saplingGreatwood) {
                 for (i = 0; i >= -1; --i) {
                     for (j = 0; j >= -1; --j) {
-                        if (this.isTwoByTwoOfType(worldIn, pos, i, j, BlocksTC.saplingGreatwood)) {
+                        if (isTwoByTwoOfType(worldIn, pos, i, j, BlocksTC.saplingGreatwood)) {
                             object = new WorldGenGreatwoodTrees(true, false);
                             flag = true;
                             break Label_0111;
@@ -120,7 +120,7 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
     }
     
     private boolean isTwoByTwoOfType(final World worldIn, final BlockPos pos, final int p_181624_3_, final int p_181624_4_, final Block type) {
-        return this.isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_), type) && this.isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_), type) && this.isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_ + 1), type) && this.isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_ + 1), type);
+        return isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_), type) && isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_), type) && isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_ + 1), type) && isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_ + 1), type);
     }
     
     public boolean isTypeAt(final World worldIn, final BlockPos pos, final Block type) {
@@ -141,11 +141,11 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
     }
     
     public void grow(final World worldIn, final Random rand, final BlockPos pos, final IBlockState state) {
-        this.grow(worldIn, pos, state, rand);
+        grow(worldIn, pos, state, rand);
     }
     
     public IBlockState getStateFromMeta(final int meta) {
-        return this.getDefaultState().withProperty((IProperty)BlockSaplingTC.STAGE, (Comparable)((meta & 0x8) >> 3));
+        return getDefaultState().withProperty((IProperty)BlockSaplingTC.STAGE, (Comparable)((meta & 0x8) >> 3));
     }
     
     public int getMetaFromState(final IBlockState state) {

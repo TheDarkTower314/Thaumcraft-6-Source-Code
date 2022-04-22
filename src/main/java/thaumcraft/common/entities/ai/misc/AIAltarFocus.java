@@ -16,14 +16,14 @@ public class AIAltarFocus extends EntityAIBase
     int field_48399_a;
     
     public AIAltarFocus(final EntityCultistCleric par1EntityLiving) {
-        this.field_48399_a = 0;
-        this.entity = par1EntityLiving;
-        this.world = par1EntityLiving.world;
-        this.setMutexBits(7);
+        field_48399_a = 0;
+        entity = par1EntityLiving;
+        world = par1EntityLiving.world;
+        setMutexBits(7);
     }
     
     public boolean shouldExecute() {
-        return this.entity.getIsRitualist() && this.entity.getHomePosition() != null;
+        return entity.getIsRitualist() && entity.getHomePosition() != null;
     }
     
     public void startExecuting() {
@@ -33,12 +33,12 @@ public class AIAltarFocus extends EntityAIBase
     }
     
     public boolean shouldContinueExecuting() {
-        return this.entity.getIsRitualist() && this.entity.getHomePosition() != null;
+        return entity.getIsRitualist() && entity.getHomePosition() != null;
     }
     
     public void updateTask() {
-        if (this.entity.getHomePosition() != null && this.entity.ticksExisted % 40 == 0 && (this.entity.getHomePosition().distanceSq(this.entity.posX, this.entity.posY, this.entity.posZ) > 16.0 || this.world.getBlockState(this.entity.getHomePosition()).getBlock() != BlocksTC.eldritch)) {
-            this.entity.setIsRitualist(false);
+        if (entity.getHomePosition() != null && entity.ticksExisted % 40 == 0 && (entity.getHomePosition().distanceSq(entity.posX, entity.posY, entity.posZ) > 16.0 || world.getBlockState(entity.getHomePosition()).getBlock() != BlocksTC.eldritch)) {
+            entity.setIsRitualist(false);
         }
     }
 }

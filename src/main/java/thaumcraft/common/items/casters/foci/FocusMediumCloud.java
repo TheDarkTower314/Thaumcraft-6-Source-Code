@@ -31,7 +31,7 @@ public class FocusMediumCloud extends FocusMedium
     
     @Override
     public int getComplexity() {
-        return 4 + this.getSettingValue("radius") * 2 + this.getSettingValue("duration") / 5;
+        return 4 + getSettingValue("radius") * 2 + getSettingValue("duration") / 5;
     }
     
     @Override
@@ -41,8 +41,8 @@ public class FocusMediumCloud extends FocusMedium
     
     @Override
     public boolean execute(final Trajectory trajectory) {
-        final EntityFocusCloud cloud = new EntityFocusCloud(this.getRemainingPackage(), trajectory, (float)this.getSettingValue("radius"), this.getSettingValue("duration"));
-        return this.getPackage().getCaster().world.spawnEntity(cloud);
+        final EntityFocusCloud cloud = new EntityFocusCloud(getRemainingPackage(), trajectory, (float) getSettingValue("radius"), getSettingValue("duration"));
+        return getPackage().getCaster().world.spawnEntity(cloud);
     }
     
     @Override

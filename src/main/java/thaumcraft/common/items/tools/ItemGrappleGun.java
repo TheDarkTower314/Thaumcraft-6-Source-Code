@@ -32,8 +32,8 @@ public class ItemGrappleGun extends ItemTCBase implements IRechargable
 {
     public ItemGrappleGun() {
         super("grapple_gun");
-        this.setMaxStackSize(1);
-        this.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
+        setMaxStackSize(1);
+        addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
             public float apply(final ItemStack stack, @Nullable final World worldIn, @Nullable final EntityLivingBase entityIn) {
                 return (stack.hasTagCompound() && stack.getTagCompound().getByte("loaded") == 1) ? 1.0f : 0.0f;

@@ -23,37 +23,37 @@ public class GuiSliderTC extends GuiButton
     
     public GuiSliderTC(final int idIn, final int x, final int y, final int w, final int h, final String name, final float min, final float max, final float defaultValue, final boolean vertical) {
         super(idIn, x, y, w, h, "");
-        this.sliderPosition = 1.0f;
+        sliderPosition = 1.0f;
         this.name = name;
         this.min = min;
         this.max = max;
-        this.sliderPosition = (defaultValue - min) / (max - min);
+        sliderPosition = (defaultValue - min) / (max - min);
         this.vertical = vertical;
     }
     
     public float getMax() {
-        return this.max;
+        return max;
     }
     
     public float getMin() {
-        return this.min;
+        return min;
     }
     
     public void setMax(final float max) {
         this.max = max;
-        this.sliderPosition = 0.0f;
+        sliderPosition = 0.0f;
     }
     
     public float getSliderValue() {
-        return this.min + (this.max - this.min) * this.sliderPosition;
+        return min + (max - min) * sliderPosition;
     }
     
     public void setSliderValue(final float p_175218_1_, final boolean p_175218_2_) {
-        this.sliderPosition = (p_175218_1_ - this.min) / (this.max - this.min);
+        sliderPosition = (p_175218_1_ - min) / (max - min);
     }
     
     public float getSliderPosition() {
-        return this.sliderPosition;
+        return sliderPosition;
     }
     
     protected int getHoverState(final boolean mouseOver) {
@@ -61,81 +61,81 @@ public class GuiSliderTC extends GuiButton
     }
     
     protected void mouseDragged(final Minecraft mc, final int mouseX, final int mouseY) {
-        if (this.visible) {
-            if (this.isMouseDown) {
-                if (this.vertical) {
-                    this.sliderPosition = (mouseY - (this.y + 4)) / (float)(this.height - 8);
+        if (visible) {
+            if (isMouseDown) {
+                if (vertical) {
+                    sliderPosition = (mouseY - (y + 4)) / (float)(height - 8);
                 }
                 else {
-                    this.sliderPosition = (mouseX - (this.x + 4)) / (float)(this.width - 8);
+                    sliderPosition = (mouseX - (x + 4)) / (float)(width - 8);
                 }
-                if (this.sliderPosition < 0.0f) {
-                    this.sliderPosition = 0.0f;
+                if (sliderPosition < 0.0f) {
+                    sliderPosition = 0.0f;
                 }
-                if (this.sliderPosition > 1.0f) {
-                    this.sliderPosition = 1.0f;
+                if (sliderPosition > 1.0f) {
+                    sliderPosition = 1.0f;
                 }
             }
             mc.getTextureManager().bindTexture(GuiSliderTC.tex);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            if (this.vertical) {
-                this.drawTexturedModalRect(this.x, this.y + (int)(this.sliderPosition * (this.height - 8)), 20, 20, 8, 8);
+            if (vertical) {
+                drawTexturedModalRect(x, y + (int)(sliderPosition * (height - 8)), 20, 20, 8, 8);
             }
             else {
-                this.drawTexturedModalRect(this.x + (int)(this.sliderPosition * (this.width - 8)), this.y, 20, 20, 8, 8);
+                drawTexturedModalRect(x + (int)(sliderPosition * (width - 8)), y, 20, 20, 8, 8);
             }
         }
     }
     
     public void setSliderPosition(final float p_175219_1_) {
-        this.sliderPosition = p_175219_1_;
+        sliderPosition = p_175219_1_;
     }
     
     public boolean mousePressed(final Minecraft mc, final int mouseX, final int mouseY) {
         if (super.mousePressed(mc, mouseX, mouseY)) {
-            if (this.vertical) {
-                this.sliderPosition = (mouseY - (this.y + 4)) / (float)(this.height - 8);
+            if (vertical) {
+                sliderPosition = (mouseY - (y + 4)) / (float)(height - 8);
             }
             else {
-                this.sliderPosition = (mouseX - (this.x + 4)) / (float)(this.width - 8);
+                sliderPosition = (mouseX - (x + 4)) / (float)(width - 8);
             }
-            if (this.sliderPosition < 0.0f) {
-                this.sliderPosition = 0.0f;
+            if (sliderPosition < 0.0f) {
+                sliderPosition = 0.0f;
             }
-            if (this.sliderPosition > 1.0f) {
-                this.sliderPosition = 1.0f;
+            if (sliderPosition > 1.0f) {
+                sliderPosition = 1.0f;
             }
-            return this.isMouseDown = true;
+            return isMouseDown = true;
         }
         return false;
     }
     
     public void mouseReleased(final int mouseX, final int mouseY) {
-        this.isMouseDown = false;
+        isMouseDown = false;
     }
     
     public void drawButton(final Minecraft mc, final int mouseX, final int mouseY, final float pt) {
-        if (this.visible) {
+        if (visible) {
             mc.getTextureManager().bindTexture(GuiSliderTC.tex);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            this.hovered = (mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height);
-            final int i = this.getHoverState(this.hovered);
+            hovered = (mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height);
+            final int i = getHoverState(hovered);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
             GlStateManager.pushMatrix();
-            if (this.vertical) {
-                GlStateManager.translate((float)(this.x + 2), (float)this.y, 0.0f);
-                GlStateManager.scale(1.0f, this.height / 32.0f, 1.0f);
-                this.drawTexturedModalRect(0, 0, 240, 176, 4, 32);
+            if (vertical) {
+                GlStateManager.translate((float)(x + 2), (float) y, 0.0f);
+                GlStateManager.scale(1.0f, height / 32.0f, 1.0f);
+                drawTexturedModalRect(0, 0, 240, 176, 4, 32);
             }
             else {
-                GlStateManager.translate((float)this.x, (float)(this.y + 2), 0.0f);
-                GlStateManager.scale(this.width / 32.0f, 1.0f, 1.0f);
-                this.drawTexturedModalRect(0, 0, 208, 176, 32, 4);
+                GlStateManager.translate((float) x, (float)(y + 2), 0.0f);
+                GlStateManager.scale(width / 32.0f, 1.0f, 1.0f);
+                drawTexturedModalRect(0, 0, 208, 176, 32, 4);
             }
             GlStateManager.popMatrix();
-            this.mouseDragged(mc, mouseX, mouseY);
+            mouseDragged(mc, mouseX, mouseY);
         }
     }
     

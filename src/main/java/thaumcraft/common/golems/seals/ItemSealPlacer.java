@@ -25,15 +25,15 @@ public class ItemSealPlacer extends ItemTCBase implements ISealDisplayer
 {
     public ItemSealPlacer() {
         super("seal", "blank");
-        this.setMaxStackSize(64);
-        this.setHasSubtypes(true);
-        this.setMaxDamage(0);
+        setMaxStackSize(64);
+        setHasSubtypes(true);
+        setMaxDamage(0);
     }
     
     @Override
     public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
-            final String[] vn = this.getVariantNames();
+            final String[] vn = getVariantNames();
             for (int a = 0; a < vn.length; ++a) {
                 items.add(new ItemStack(this, 1, a));
             }
@@ -42,7 +42,7 @@ public class ItemSealPlacer extends ItemTCBase implements ISealDisplayer
     
     @Override
     public String[] getVariantNames() {
-        if (SealHandler.types.size() + 1 != this.VARIANTS.length) {
+        if (SealHandler.types.size() + 1 != VARIANTS.length) {
             final String[] rs = SealHandler.getRegisteredSeals();
             final String[] out = new String[rs.length + 1];
             out[0] = "blank";
@@ -52,13 +52,13 @@ public class ItemSealPlacer extends ItemTCBase implements ISealDisplayer
                 out[indx] = ((sp.length > 1) ? sp[1] : sp[0]);
                 ++indx;
             }
-            this.VARIANTS = out;
-            this.VARIANTS_META = new int[this.VARIANTS.length];
-            for (int m = 0; m < this.VARIANTS.length; ++m) {
-                this.VARIANTS_META[m] = m;
+            VARIANTS = out;
+            VARIANTS_META = new int[VARIANTS.length];
+            for (int m = 0; m < VARIANTS.length; ++m) {
+                VARIANTS_META[m] = m;
             }
         }
-        return this.VARIANTS;
+        return VARIANTS;
     }
     
     public static ItemStack getSealStack(final String sealKey) {

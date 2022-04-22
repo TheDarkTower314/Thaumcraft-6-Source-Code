@@ -25,81 +25,81 @@ public abstract class Colour implements Copyable<Colour>
     }
     
     public Colour(final Colour colour) {
-        this.r = colour.r;
-        this.g = colour.g;
-        this.b = colour.b;
-        this.a = colour.a;
+        r = colour.r;
+        g = colour.g;
+        b = colour.b;
+        a = colour.a;
     }
     
     @SideOnly(Side.CLIENT)
     public void glColour() {
-        GL11.glColor4ub(this.r, this.g, this.b, this.a);
+        GL11.glColor4ub(r, g, b, a);
     }
     
     @SideOnly(Side.CLIENT)
     public void glColour(final int a) {
-        GL11.glColor4ub(this.r, this.g, this.b, (byte)a);
+        GL11.glColor4ub(r, g, b, (byte)a);
     }
     
     public abstract int pack();
     
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "[0x" + Integer.toHexString(this.pack()).toUpperCase() + "]";
+        return getClass().getSimpleName() + "[0x" + Integer.toHexString(pack()).toUpperCase() + "]";
     }
     
     public Colour add(final Colour colour2) {
-        this.a += colour2.a;
-        this.r += colour2.r;
-        this.g += colour2.g;
-        this.b += colour2.b;
+        a += colour2.a;
+        r += colour2.r;
+        g += colour2.g;
+        b += colour2.b;
         return this;
     }
     
     public Colour sub(final Colour colour2) {
-        final int ia = (this.a & 0xFF) - (colour2.a & 0xFF);
-        final int ir = (this.r & 0xFF) - (colour2.r & 0xFF);
-        final int ig = (this.g & 0xFF) - (colour2.g & 0xFF);
-        final int ib = (this.b & 0xFF) - (colour2.b & 0xFF);
-        this.a = (byte)((ia < 0) ? 0 : ia);
-        this.r = (byte)((ir < 0) ? 0 : ir);
-        this.g = (byte)((ig < 0) ? 0 : ig);
-        this.b = (byte)((ib < 0) ? 0 : ib);
+        final int ia = (a & 0xFF) - (colour2.a & 0xFF);
+        final int ir = (r & 0xFF) - (colour2.r & 0xFF);
+        final int ig = (g & 0xFF) - (colour2.g & 0xFF);
+        final int ib = (b & 0xFF) - (colour2.b & 0xFF);
+        a = (byte)((ia < 0) ? 0 : ia);
+        r = (byte)((ir < 0) ? 0 : ir);
+        g = (byte)((ig < 0) ? 0 : ig);
+        b = (byte)((ib < 0) ? 0 : ib);
         return this;
     }
     
     public Colour invert() {
-        this.a = (byte)(255 - (this.a & 0xFF));
-        this.r = (byte)(255 - (this.r & 0xFF));
-        this.g = (byte)(255 - (this.g & 0xFF));
-        this.b = (byte)(255 - (this.b & 0xFF));
+        a = (byte)(255 - (a & 0xFF));
+        r = (byte)(255 - (r & 0xFF));
+        g = (byte)(255 - (g & 0xFF));
+        b = (byte)(255 - (b & 0xFF));
         return this;
     }
     
     public Colour multiply(final Colour colour2) {
-        this.a = (byte)((this.a & 0xFF) * ((colour2.a & 0xFF) / 255.0));
-        this.r = (byte)((this.r & 0xFF) * ((colour2.r & 0xFF) / 255.0));
-        this.g = (byte)((this.g & 0xFF) * ((colour2.g & 0xFF) / 255.0));
-        this.b = (byte)((this.b & 0xFF) * ((colour2.b & 0xFF) / 255.0));
+        a = (byte)((a & 0xFF) * ((colour2.a & 0xFF) / 255.0));
+        r = (byte)((r & 0xFF) * ((colour2.r & 0xFF) / 255.0));
+        g = (byte)((g & 0xFF) * ((colour2.g & 0xFF) / 255.0));
+        b = (byte)((b & 0xFF) * ((colour2.b & 0xFF) / 255.0));
         return this;
     }
     
     public Colour scale(final double d) {
-        this.a = (byte)((this.a & 0xFF) * d);
-        this.r = (byte)((this.r & 0xFF) * d);
-        this.g = (byte)((this.g & 0xFF) * d);
-        this.b = (byte)((this.b & 0xFF) * d);
+        a = (byte)((a & 0xFF) * d);
+        r = (byte)((r & 0xFF) * d);
+        g = (byte)((g & 0xFF) * d);
+        b = (byte)((b & 0xFF) * d);
         return this;
     }
     
     public Colour interpolate(final Colour colour2, final double d) {
-        return this.add(colour2.copy().sub(this).scale(d));
+        return add(colour2.copy().sub(this).scale(d));
     }
     
     public Colour multiplyC(final double d) {
-        this.r = (byte)MathHelper.clip((this.r & 0xFF) * d, 0.0, 255.0);
-        this.g = (byte)MathHelper.clip((this.g & 0xFF) * d, 0.0, 255.0);
-        this.b = (byte)MathHelper.clip((this.b & 0xFF) * d, 0.0, 255.0);
+        r = (byte)MathHelper.clip((r & 0xFF) * d, 0.0, 255.0);
+        g = (byte)MathHelper.clip((g & 0xFF) * d, 0.0, 255.0);
+        b = (byte)MathHelper.clip((b & 0xFF) * d, 0.0, 255.0);
         return this;
     }
     
@@ -107,26 +107,26 @@ public abstract class Colour implements Copyable<Colour>
     public abstract Colour copy();
     
     public int rgb() {
-        return (this.r & 0xFF) << 16 | (this.g & 0xFF) << 8 | (this.b & 0xFF);
+        return (r & 0xFF) << 16 | (g & 0xFF) << 8 | (b & 0xFF);
     }
     
     public int argb() {
-        return (this.a & 0xFF) << 24 | (this.r & 0xFF) << 16 | (this.g & 0xFF) << 8 | (this.b & 0xFF);
+        return (a & 0xFF) << 24 | (r & 0xFF) << 16 | (g & 0xFF) << 8 | (b & 0xFF);
     }
     
     public int rgba() {
-        return (this.r & 0xFF) << 24 | (this.g & 0xFF) << 16 | (this.b & 0xFF) << 8 | (this.a & 0xFF);
+        return (r & 0xFF) << 24 | (g & 0xFF) << 16 | (b & 0xFF) << 8 | (a & 0xFF);
     }
     
     public Colour set(final Colour colour) {
-        this.r = colour.r;
-        this.g = colour.g;
-        this.b = colour.b;
-        this.a = colour.a;
+        r = colour.r;
+        g = colour.g;
+        b = colour.b;
+        a = colour.a;
         return this;
     }
     
     public boolean equals(final Colour colour) {
-        return colour != null && this.rgba() == colour.rgba();
+        return colour != null && rgba() == colour.rgba();
     }
 }

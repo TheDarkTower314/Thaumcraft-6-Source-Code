@@ -29,7 +29,7 @@ public class ItemSanitySoap extends ItemTCBase
 {
     public ItemSanitySoap() {
         super("sanity_soap");
-        this.setHasSubtypes(false);
+        setHasSubtypes(false);
     }
     
     public int getMaxItemUseDuration(final ItemStack p_77626_1_) {
@@ -46,7 +46,7 @@ public class ItemSanitySoap extends ItemTCBase
     }
     
     public void onUsingTick(final ItemStack stack, final EntityLivingBase player, final int count) {
-        final int ticks = this.getMaxItemUseDuration(stack) - count;
+        final int ticks = getMaxItemUseDuration(stack) - count;
         if (ticks > 95) {
             player.stopActiveHand();
         }
@@ -61,7 +61,7 @@ public class ItemSanitySoap extends ItemTCBase
     }
     
     public void onPlayerStoppedUsing(final ItemStack stack, final World world, final EntityLivingBase player, final int timeLeft) {
-        final int qq = this.getMaxItemUseDuration(stack) - timeLeft;
+        final int qq = getMaxItemUseDuration(stack) - timeLeft;
         if (qq > 95 && player instanceof EntityPlayer) {
             stack.shrink(1);
             if (!world.isRemote) {

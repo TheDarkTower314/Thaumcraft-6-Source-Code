@@ -23,7 +23,7 @@ public class BlockDioptra extends BlockTCDevice implements IBlockEnabled
 {
     public BlockDioptra() {
         super(Material.ROCK, TileDioptra.class, "dioptra");
-        this.setSoundType(SoundType.STONE);
+        setSoundType(SoundType.STONE);
     }
     
     @Override

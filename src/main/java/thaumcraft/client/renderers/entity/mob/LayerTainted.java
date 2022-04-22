@@ -24,7 +24,7 @@ public class LayerTainted implements LayerRenderer<EntityLiving>
     public static ArrayList<Integer> taintLayers;
     
     public LayerTainted(final int i, final RenderLivingBase witherRendererIn, final ModelBase model) {
-        this.renderer = witherRendererIn;
+        renderer = witherRendererIn;
         this.model = model;
         LayerTainted.taintLayers.add(i);
     }
@@ -35,7 +35,7 @@ public class LayerTainted implements LayerRenderer<EntityLiving>
         }
         final boolean flag = entitylivingbaseIn.isInvisible();
         GlStateManager.depthMask(!flag);
-        this.renderer.bindTexture(LayerTainted.TAINT_TEXTURE);
+        renderer.bindTexture(LayerTainted.TAINT_TEXTURE);
         GlStateManager.matrixMode(5890);
         GlStateManager.loadIdentity();
         final float f = (float)entitylivingbaseIn.getEntityId();
@@ -47,9 +47,9 @@ public class LayerTainted implements LayerRenderer<EntityLiving>
         GlStateManager.enableBlend();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.66f);
         GL11.glBlendFunc(770, 771);
-        this.model.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
-        this.model.setModelAttributes(this.renderer.getMainModel());
-        this.model.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        model.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
+        model.setModelAttributes(renderer.getMainModel());
+        model.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         GlStateManager.matrixMode(5890);
         GlStateManager.loadIdentity();
         GlStateManager.matrixMode(5888);

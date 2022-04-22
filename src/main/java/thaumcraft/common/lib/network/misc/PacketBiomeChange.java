@@ -32,15 +32,15 @@ public class PacketBiomeChange implements IMessage, IMessageHandler<PacketBiomeC
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.x);
-        buffer.writeInt(this.z);
-        buffer.writeShort(this.biome);
+        buffer.writeInt(x);
+        buffer.writeInt(z);
+        buffer.writeShort(biome);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.x = buffer.readInt();
-        this.z = buffer.readInt();
-        this.biome = buffer.readShort();
+        x = buffer.readInt();
+        z = buffer.readInt();
+        biome = buffer.readShort();
     }
     
     @SideOnly(Side.CLIENT)

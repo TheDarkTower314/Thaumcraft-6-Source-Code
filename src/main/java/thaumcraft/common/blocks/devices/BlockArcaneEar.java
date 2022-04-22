@@ -36,12 +36,12 @@ public class BlockArcaneEar extends BlockTCDevice implements IBlockFacing, IBloc
     
     public BlockArcaneEar(final String name) {
         super(Material.WOOD, TileArcaneEar.class, name);
-        this.setSoundType(SoundType.WOOD);
-        this.setHardness(1.0f);
-        final IBlockState bs = this.blockState.getBaseState();
+        setSoundType(SoundType.WOOD);
+        setHardness(1.0f);
+        final IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)EnumFacing.UP);
         bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false);
-        this.setDefaultState(bs);
+        setDefaultState(bs);
     }
     
     public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
@@ -63,7 +63,7 @@ public class BlockArcaneEar extends BlockTCDevice implements IBlockFacing, IBloc
     
     @Override
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)facing);
         bs = bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false);
         return bs;
@@ -84,7 +84,7 @@ public class BlockArcaneEar extends BlockTCDevice implements IBlockFacing, IBloc
             tile.updateTone();
         }
         if (!worldIn.getBlockState(pos.offset(BlockStateUtils.getFacing(state).getOpposite())).isSideSolid(worldIn, pos.offset(BlockStateUtils.getFacing(state).getOpposite()), BlockStateUtils.getFacing(state))) {
-            this.dropBlockAsItem(worldIn, pos, this.getDefaultState(), 0);
+            dropBlockAsItem(worldIn, pos, getDefaultState(), 0);
             worldIn.setBlockToAir(pos);
         }
     }
@@ -118,7 +118,7 @@ public class BlockArcaneEar extends BlockTCDevice implements IBlockFacing, IBloc
     }
     
     public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
-        final EnumFacing facing = BlockStateUtils.getFacing(this.getMetaFromState(state));
+        final EnumFacing facing = BlockStateUtils.getFacing(getMetaFromState(state));
         switch (facing.ordinal()) {
             case 0: {
                 return new AxisAlignedBB(0.125, 0.625, 0.125, 0.875, 1.0, 0.875);
@@ -152,7 +152,7 @@ public class BlockArcaneEar extends BlockTCDevice implements IBlockFacing, IBloc
     public boolean eventReceived(final IBlockState state, final World worldIn, final BlockPos pos, final int par5, final int par6) {
         super.eventReceived(state, worldIn, pos, par5, par6);
         final float var7 = (float)Math.pow(2.0, (par6 - 12) / 12.0);
-        worldIn.playSound(null, pos, this.getInstrument(par5), SoundCategory.BLOCKS, 3.0f, var7);
+        worldIn.playSound(null, pos, getInstrument(par5), SoundCategory.BLOCKS, 3.0f, var7);
         worldIn.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, par6 / 24.0, 0.0, 0.0);
         return true;
     }

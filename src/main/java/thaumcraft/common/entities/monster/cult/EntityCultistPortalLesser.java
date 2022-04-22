@@ -37,12 +37,12 @@ public class EntityCultistPortalLesser extends EntityMob
     
     public EntityCultistPortalLesser(final World par1World) {
         super(par1World);
-        this.stagecounter = 100;
-        this.activeCounter = 0;
-        this.pulse = 0;
-        this.isImmuneToFire = true;
-        this.experienceValue = 10;
-        this.setSize(1.5f, 3.0f);
+        stagecounter = 100;
+        activeCounter = 0;
+        pulse = 0;
+        isImmuneToFire = true;
+        experienceValue = 10;
+        setSize(1.5f, 3.0f);
     }
     
     public int getTotalArmorValue() {
@@ -51,22 +51,22 @@ public class EntityCultistPortalLesser extends EntityMob
     
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register(EntityCultistPortalLesser.ACTIVE, false);
+        getDataManager().register(EntityCultistPortalLesser.ACTIVE, false);
     }
     
     public boolean isActive() {
-        return (boolean)this.getDataManager().get((DataParameter)EntityCultistPortalLesser.ACTIVE);
+        return (boolean) getDataManager().get((DataParameter)EntityCultistPortalLesser.ACTIVE);
     }
     
     public void setActive(final boolean active) {
-        this.getDataManager().set(EntityCultistPortalLesser.ACTIVE, active);
+        getDataManager().set(EntityCultistPortalLesser.ACTIVE, active);
     }
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(0.0);
-        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(0.0);
+        getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0);
     }
     
     protected boolean canDespawn() {
@@ -75,12 +75,12 @@ public class EntityCultistPortalLesser extends EntityMob
     
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setBoolean("active", this.isActive());
+        nbt.setBoolean("active", isActive());
     }
     
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        this.setActive(nbt.getBoolean("active"));
+        setActive(nbt.getBoolean("active"));
     }
     
     public boolean canBeCollidedWith() {
@@ -112,62 +112,62 @@ public class EntityCultistPortalLesser extends EntityMob
     
     public void onUpdate() {
         super.onUpdate();
-        if (this.isActive()) {
-            ++this.activeCounter;
+        if (isActive()) {
+            ++activeCounter;
         }
-        if (!this.world.isRemote) {
-            if (!this.isActive()) {
-                if (this.ticksExisted % 10 == 0) {
-                    final EntityPlayer p = this.world.getClosestPlayerToEntity(this, 32.0);
+        if (!world.isRemote) {
+            if (!isActive()) {
+                if (ticksExisted % 10 == 0) {
+                    final EntityPlayer p = world.getClosestPlayerToEntity(this, 32.0);
                     if (p != null) {
-                        this.setActive(true);
-                        this.playSound(SoundsTC.craftstart, 1.0f, 1.0f);
+                        setActive(true);
+                        playSound(SoundsTC.craftstart, 1.0f, 1.0f);
                     }
                 }
             }
-            else if (this.stagecounter-- <= 0) {
-                final EntityPlayer p = this.world.getClosestPlayerToEntity(this, 32.0);
-                if (p != null && this.canEntityBeSeen(p)) {
-                    int count = (this.world.getDifficulty() == EnumDifficulty.HARD) ? 6 : ((this.world.getDifficulty() == EnumDifficulty.NORMAL) ? 4 : 2);
+            else if (stagecounter-- <= 0) {
+                final EntityPlayer p = world.getClosestPlayerToEntity(this, 32.0);
+                if (p != null && canEntityBeSeen(p)) {
+                    int count = (world.getDifficulty() == EnumDifficulty.HARD) ? 6 : ((world.getDifficulty() == EnumDifficulty.NORMAL) ? 4 : 2);
                     try {
-                        final List l = this.world.getEntitiesWithinAABB(EntityCultist.class, this.getEntityBoundingBox().grow(32.0, 32.0, 32.0));
+                        final List l = world.getEntitiesWithinAABB(EntityCultist.class, getEntityBoundingBox().grow(32.0, 32.0, 32.0));
                         if (l != null) {
                             count -= l.size();
                         }
                     }
                     catch (final Exception ex) {}
                     if (count > 0) {
-                        this.world.setEntityState(this, (byte)16);
-                        this.spawnMinions();
+                        world.setEntityState(this, (byte)16);
+                        spawnMinions();
                     }
                 }
-                this.stagecounter = 50 + this.rand.nextInt(50);
+                stagecounter = 50 + rand.nextInt(50);
             }
         }
-        if (this.pulse > 0) {
-            --this.pulse;
+        if (pulse > 0) {
+            --pulse;
         }
     }
     
     int getTiming() {
-        final List<Entity> l = EntityUtils.getEntitiesInRange(this.world, this.posX, this.posY, this.posZ, this, EntityCultist.class, 32.0);
+        final List<Entity> l = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityCultist.class, 32.0);
         return l.size() * 20;
     }
     
     void spawnMinions() {
         EntityCultist cultist = null;
-        if (this.rand.nextFloat() > 0.33) {
-            cultist = new EntityCultistKnight(this.world);
+        if (rand.nextFloat() > 0.33) {
+            cultist = new EntityCultistKnight(world);
         }
         else {
-            cultist = new EntityCultistCleric(this.world);
+            cultist = new EntityCultistCleric(world);
         }
-        cultist.setPosition(this.posX + this.rand.nextFloat() - this.rand.nextFloat(), this.posY + 0.25, this.posZ + this.rand.nextFloat() - this.rand.nextFloat());
-        cultist.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(cultist.getPosition())), null);
-        this.world.spawnEntity(cultist);
+        cultist.setPosition(posX + rand.nextFloat() - rand.nextFloat(), posY + 0.25, posZ + rand.nextFloat() - rand.nextFloat());
+        cultist.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(cultist.getPosition())), null);
+        world.spawnEntity(cultist);
         cultist.spawnExplosionParticle();
         cultist.playSound(SoundsTC.wandfail, 1.0f, 1.0f);
-        this.attackEntityFrom(DamageSource.OUT_OF_WORLD, (float)(5 + this.rand.nextInt(5)));
+        attackEntityFrom(DamageSource.OUT_OF_WORLD, (float)(5 + rand.nextInt(5)));
     }
     
     protected boolean isValidLightLevel() {
@@ -175,8 +175,8 @@ public class EntityCultistPortalLesser extends EntityMob
     }
     
     public void onCollideWithPlayer(final EntityPlayer p) {
-        if (this.getDistanceSq(p) < 3.0 && p.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this), 4.0f)) {
-            this.playSound(SoundsTC.zap, 1.0f, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1f + 1.0f);
+        if (getDistanceSq(p) < 3.0 && p.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this), 4.0f)) {
+            playSound(SoundsTC.zap, 1.0f, (rand.nextFloat() - rand.nextFloat()) * 0.1f + 1.0f);
         }
     }
     
@@ -210,7 +210,7 @@ public class EntityCultistPortalLesser extends EntityMob
     @SideOnly(Side.CLIENT)
     public void handleStatusUpdate(final byte msg) {
         if (msg == 16) {
-            this.pulse = 10;
+            pulse = 10;
         }
         else {
             super.handleStatusUpdate(msg);
@@ -224,8 +224,8 @@ public class EntityCultistPortalLesser extends EntityMob
     }
     
     public void onDeath(final DamageSource p_70645_1_) {
-        if (!this.world.isRemote) {
-            this.world.newExplosion(this, this.posX, this.posY, this.posZ, 1.5f, false, false);
+        if (!world.isRemote) {
+            world.newExplosion(this, posX, posY, posZ, 1.5f, false, false);
         }
         super.onDeath(p_70645_1_);
     }

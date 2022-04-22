@@ -14,9 +14,9 @@ public class BlockMetalTC extends BlockTC
 {
     public BlockMetalTC(final String name) {
         super(Material.IRON, name);
-        this.setHardness(4.0f);
-        this.setResistance(10.0f);
-        this.setSoundType(SoundType.METAL);
+        setHardness(4.0f);
+        setResistance(10.0f);
+        setSoundType(SoundType.METAL);
     }
     
     public boolean isBeaconBase(final IBlockAccess world, final BlockPos pos, final BlockPos beacon) {

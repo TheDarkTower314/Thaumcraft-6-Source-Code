@@ -38,8 +38,8 @@ public class BlockBannerTC extends BlockTC implements ITileEntityProvider
     
     public BlockBannerTC(final String name, final EnumDyeColor dye) {
         super(Material.WOOD, name);
-        this.setHardness(1.0f);
-        this.setSoundType(SoundType.WOOD);
+        setHardness(1.0f);
+        setSoundType(SoundType.WOOD);
         this.dye = dye;
     }
     
@@ -52,7 +52,7 @@ public class BlockBannerTC extends BlockTC implements ITileEntityProvider
     }
     
     public MapColor getMapColor(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
-        return (this.dye == null) ? MapColor.RED : MapColor.getBlockColor(this.dye);
+        return (dye == null) ? MapColor.RED : MapColor.getBlockColor(dye);
     }
     
     public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
@@ -94,7 +94,7 @@ public class BlockBannerTC extends BlockTC implements ITileEntityProvider
     public boolean onBlockActivated(final World w, final BlockPos pos, final IBlockState state, final EntityPlayer p, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
         if (!w.isRemote && (p.isSneaking() || p.getHeldItem(hand).getItem() instanceof ItemPhial)) {
             final TileBanner te = (TileBanner)w.getTileEntity(pos);
-            if (te != null && this.dye != null) {
+            if (te != null && dye != null) {
                 if (p.isSneaking()) {
                     te.setAspect(null);
                 }
@@ -123,7 +123,7 @@ public class BlockBannerTC extends BlockTC implements ITileEntityProvider
         final TileEntity te = world.getTileEntity(pos);
         if (te instanceof TileBanner) {
             final ItemStack drop = new ItemStack(this);
-            if (this.dye != null || ((TileBanner)te).getAspect() != null) {
+            if (dye != null || ((TileBanner)te).getAspect() != null) {
                 drop.setTagCompound(new NBTTagCompound());
                 if (((TileBanner)te).getAspect() != null) {
                     drop.getTagCompound().setString("aspect", ((TileBanner)te).getAspect().getTag());
@@ -138,7 +138,7 @@ public class BlockBannerTC extends BlockTC implements ITileEntityProvider
         final TileEntity te = worldIn.getTileEntity(pos);
         if (te instanceof TileBanner) {
             final ItemStack drop = new ItemStack(this);
-            if (this.dye != null || ((TileBanner)te).getAspect() != null) {
+            if (dye != null || ((TileBanner)te).getAspect() != null) {
                 drop.setTagCompound(new NBTTagCompound());
                 if (((TileBanner)te).getAspect() != null) {
                     drop.getTagCompound().setString("aspect", ((TileBanner)te).getAspect().getTag());
@@ -154,7 +154,7 @@ public class BlockBannerTC extends BlockTC implements ITileEntityProvider
     public void harvestBlock(final World worldIn, final EntityPlayer player, final BlockPos pos, final IBlockState state, final TileEntity te, final ItemStack stack) {
         if (te instanceof TileBanner) {
             final ItemStack drop = new ItemStack(this);
-            if (this.dye != null || ((TileBanner)te).getAspect() != null) {
+            if (dye != null || ((TileBanner)te).getAspect() != null) {
                 drop.setTagCompound(new NBTTagCompound());
                 if (((TileBanner)te).getAspect() != null) {
                     drop.getTagCompound().setString("aspect", ((TileBanner)te).getAspect().getTag());

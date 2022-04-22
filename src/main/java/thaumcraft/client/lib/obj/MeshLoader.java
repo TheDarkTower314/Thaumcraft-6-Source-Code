@@ -31,7 +31,7 @@ public class MeshLoader
         final String[] args = line.split(" ");
         final float x = Float.parseFloat(args[0]);
         final float y = Float.parseFloat(args[1]);
-        this.currentModel.addTexCoords(x, y);
+        currentModel.addTexCoords(x, y);
     }
     
     private void addNormal(final String line) {
@@ -39,7 +39,7 @@ public class MeshLoader
         final float x = Float.parseFloat(args[0]);
         final float y = Float.parseFloat(args[1]);
         final float z = args[2].equals("\\\\") ? ((float)Math.sqrt(1.0f - x * x - y * y)) : Float.parseFloat(args[2]);
-        this.currentModel.addNormal(x, y, z);
+        currentModel.addNormal(x, y, z);
     }
     
     private void addPosition(final String line) {
@@ -47,7 +47,7 @@ public class MeshLoader
         final float x = Float.parseFloat(args[0]);
         final float y = Float.parseFloat(args[1]);
         final float z = Float.parseFloat(args[2]);
-        this.currentModel.addPosition(x, y, z);
+        currentModel.addPosition(x, y, z);
     }
     
     private void addFace(final String line) {
@@ -58,16 +58,16 @@ public class MeshLoader
         final String[] p1 = args[0].split("/");
         final String[] p2 = args[1].split("/");
         final String[] p3 = args[2].split("/");
-        final int[] v1 = this.parseIndices(p1);
-        final int[] v2 = this.parseIndices(p2);
-        final int[] v3 = this.parseIndices(p3);
+        final int[] v1 = parseIndices(p1);
+        final int[] v2 = parseIndices(p2);
+        final int[] v3 = parseIndices(p3);
         if (args.length == 3) {
-            this.currentPart.addTriangleFace(v1, v2, v3);
+            currentPart.addTriangleFace(v1, v2, v3);
         }
         else if (args.length == 4) {
             final String[] p4 = args[3].split("/");
-            final int[] v4 = this.parseIndices(p4);
-            this.currentPart.addQuadFace(v1, v2, v3, v4);
+            final int[] v4 = parseIndices(p4);
+            currentPart.addQuadFace(v1, v2, v3, v4);
         }
     }
     
@@ -80,19 +80,19 @@ public class MeshLoader
     }
     
     private void useMaterial(final String matName) {
-        final Material mat = this.currentMatLib.get(matName);
-        this.currentPart = new MeshPart();
-        this.currentPart.name = this.lastObjectName;
-        this.currentPart.material = mat;
-        this.currentModel.addPart(this.currentPart);
+        final Material mat = currentMatLib.get(matName);
+        currentPart = new MeshPart();
+        currentPart.name = lastObjectName;
+        currentPart.material = mat;
+        currentModel.addPart(currentPart);
     }
     
     private void newObject(final String line) {
-        this.lastObjectName = line;
+        lastObjectName = line;
     }
     
     private void newGroup(final String line) {
-        this.lastObjectName = line;
+        lastObjectName = line;
     }
     
     private void loadMaterialLibrary(final ResourceLocation locOfParent, final String path) throws IOException {
@@ -100,15 +100,15 @@ public class MeshLoader
         final int pp = prefix.lastIndexOf(47);
         prefix = ((pp >= 0) ? prefix.substring(0, pp + 1) : "");
         final ResourceLocation loc = new ResourceLocation(locOfParent.getResourceDomain(), prefix + path);
-        this.currentMatLib.loadFromStream(loc);
+        currentMatLib.loadFromStream(loc);
     }
     
     public MeshModel loadFromResource(final ResourceLocation loc) throws IOException {
         final IResource res = Minecraft.getMinecraft().getResourceManager().getResource(loc);
         final InputStreamReader lineStream = new InputStreamReader(res.getInputStream(), Charsets.UTF_8);
         final BufferedReader lineReader = new BufferedReader(lineStream);
-        this.currentModel = new MeshModel();
-        this.currentMatLib = new MaterialLibrary();
+        currentModel = new MeshModel();
+        currentMatLib = new MaterialLibrary();
         while (true) {
             String currentLine = lineReader.readLine();
             if (currentLine == null) {
@@ -127,28 +127,28 @@ public class MeshLoader
             final String keyword = fields[0];
             final String data = fields[1];
             if (keyword.equalsIgnoreCase("o")) {
-                this.newObject(data);
+                newObject(data);
             }
             else if (keyword.equalsIgnoreCase("g")) {
-                this.newGroup(data);
+                newGroup(data);
             }
             else if (keyword.equalsIgnoreCase("mtllib")) {
-                this.loadMaterialLibrary(loc, data);
+                loadMaterialLibrary(loc, data);
             }
             else if (keyword.equalsIgnoreCase("usemtl")) {
-                this.useMaterial(data);
+                useMaterial(data);
             }
             else if (keyword.equalsIgnoreCase("v")) {
-                this.addPosition(data);
+                addPosition(data);
             }
             else if (keyword.equalsIgnoreCase("vn")) {
-                this.addNormal(data);
+                addNormal(data);
             }
             else if (keyword.equalsIgnoreCase("vt")) {
-                this.addTexCoord(data);
+                addTexCoord(data);
             }
             else if (keyword.equalsIgnoreCase("f")) {
-                this.addFace(data);
+                addFace(data);
             }
             else {
                 if (MeshLoader.unknownCommands.contains(keyword)) {
@@ -157,7 +157,7 @@ public class MeshLoader
                 MeshLoader.unknownCommands.add(keyword);
             }
         }
-        return this.currentModel;
+        return currentModel;
     }
     
     static {

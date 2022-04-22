@@ -29,7 +29,7 @@ public class Scale extends Transformation
     
     @Override
     public void apply(final Vector3 vec) {
-        vec.multiply(this.factor);
+        vec.multiply(factor);
     }
     
     @Override
@@ -38,36 +38,36 @@ public class Scale extends Transformation
     
     @Override
     public void apply(final Matrix4 mat) {
-        mat.scale(this.factor);
+        mat.scale(factor);
     }
     
     @SideOnly(Side.CLIENT)
     @Override
     public void glApply() {
-        GlStateManager.scale(this.factor.x, this.factor.y, this.factor.z);
+        GlStateManager.scale(factor.x, factor.y, factor.z);
     }
     
     @Override
     public Transformation inverse() {
-        return new Scale(1.0 / this.factor.x, 1.0 / this.factor.y, 1.0 / this.factor.z);
+        return new Scale(1.0 / factor.x, 1.0 / factor.y, 1.0 / factor.z);
     }
     
     @Override
     public Transformation merge(final Transformation next) {
         if (next instanceof Scale) {
-            return new Scale(this.factor.copy().multiply(((Scale)next).factor));
+            return new Scale(factor.copy().multiply(((Scale)next).factor));
         }
         return null;
     }
     
     @Override
     public boolean isRedundant() {
-        return this.factor.equalsT(Vector3.one);
+        return factor.equalsT(Vector3.one);
     }
     
     @Override
     public String toString() {
         final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
-        return "Scale(" + new BigDecimal(this.factor.x, cont) + ", " + new BigDecimal(this.factor.y, cont) + ", " + new BigDecimal(this.factor.z, cont) + ")";
+        return "Scale(" + new BigDecimal(factor.x, cont) + ", " + new BigDecimal(factor.y, cont) + ", " + new BigDecimal(factor.z, cont) + ")";
     }
 }

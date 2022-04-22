@@ -56,36 +56,36 @@ public class FocusEffectFrost extends FocusEffect
     
     @Override
     public int getComplexity() {
-        return this.getSettingValue("duration") + this.getSettingValue("power") * 2;
+        return getSettingValue("duration") + getSettingValue("power") * 2;
     }
     
     @Override
     public float getDamageForDisplay(final float finalPower) {
-        return (3 + this.getSettingValue("power")) * finalPower;
+        return (3 + getSettingValue("power")) * finalPower;
     }
     
     @Override
     public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
-        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { this.getKey() }), new NetworkRegistry.TargetPoint(this.getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
+        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
         if (target.typeOfHit == RayTraceResult.Type.ENTITY && target.entityHit != null) {
-            final float damage = this.getDamageForDisplay(finalPower);
-            final int duration = 20 * this.getSettingValue("duration");
-            final int potency = (int)(1.0f + this.getSettingValue("power") * finalPower / 3.0f);
-            target.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((target.entityHit != null) ? target.entityHit : this.getPackage().getCaster(), this.getPackage().getCaster()), damage);
+            final float damage = getDamageForDisplay(finalPower);
+            final int duration = 20 * getSettingValue("duration");
+            final int potency = (int)(1.0f + getSettingValue("power") * finalPower / 3.0f);
+            target.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((target.entityHit != null) ? target.entityHit : getPackage().getCaster(), getPackage().getCaster()), damage);
             if (target.entityHit instanceof EntityLivingBase) {
                 ((EntityLivingBase)target.entityHit).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, duration, potency));
             }
         }
         else if (target.typeOfHit == RayTraceResult.Type.BLOCK) {
-            final float f = Math.min(16.0f, 2 * this.getSettingValue("power") * finalPower);
+            final float f = Math.min(16.0f, 2 * getSettingValue("power") * finalPower);
             for (final BlockPos.MutableBlockPos blockpos$mutableblockpos1 : BlockPos.getAllInBoxMutable(target.getBlockPos().add(-f, -f, -f), target.getBlockPos().add(f, f, f))) {
                 if (blockpos$mutableblockpos1.distanceSqToCenter(target.hitVec.x, target.hitVec.y, target.hitVec.z) <= f * f) {
-                    final IBlockState iblockstate1 = this.getPackage().world.getBlockState(blockpos$mutableblockpos1);
-                    if (iblockstate1.getMaterial() != Material.WATER || (int)iblockstate1.getValue((IProperty)BlockLiquid.LEVEL) != 0 || !this.getPackage().world.mayPlace(Blocks.FROSTED_ICE, blockpos$mutableblockpos1, false, EnumFacing.DOWN, null)) {
+                    final IBlockState iblockstate1 = getPackage().world.getBlockState(blockpos$mutableblockpos1);
+                    if (iblockstate1.getMaterial() != Material.WATER || (int)iblockstate1.getValue((IProperty)BlockLiquid.LEVEL) != 0 || !getPackage().world.mayPlace(Blocks.FROSTED_ICE, blockpos$mutableblockpos1, false, EnumFacing.DOWN, null)) {
                         continue;
                     }
-                    this.getPackage().world.setBlockState(blockpos$mutableblockpos1, Blocks.FROSTED_ICE.getDefaultState());
-                    this.getPackage().world.scheduleUpdate(blockpos$mutableblockpos1.toImmutable(), Blocks.FROSTED_ICE, MathHelper.getInt(this.getPackage().world.rand, 60, 120));
+                    getPackage().world.setBlockState(blockpos$mutableblockpos1, Blocks.FROSTED_ICE.getDefaultState());
+                    getPackage().world.scheduleUpdate(blockpos$mutableblockpos1.toImmutable(), Blocks.FROSTED_ICE, MathHelper.getInt(getPackage().world.rand, 60, 120));
                 }
             }
         }

@@ -27,13 +27,13 @@ public class ShapelessArcaneRecipe extends ShapelessOreRecipe implements IArcane
     public ShapelessArcaneRecipe(ResourceLocation group, String res, int vis, AspectList crystals, NonNullList<Ingredient> input, @Nonnull ItemStack result)
     {
     	super(group, input, result);
-    	this.research = res;
+    	research = res;
 		this.vis = vis;
 		this.crystals = crystals;
     }
 	public ShapelessArcaneRecipe(ResourceLocation group, String res, int vis, AspectList crystals, ItemStack result, Object[] recipe) {
 		super(group, result, recipe);
-		this.research = res;
+		research = res;
 		this.vis = vis;
 		this.crystals = crystals;
 	}

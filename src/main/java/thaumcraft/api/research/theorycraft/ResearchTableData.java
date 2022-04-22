@@ -44,7 +44,7 @@ public class ResearchTableData
 		public CardChoice(String key, TheorycraftCard card, boolean aid, boolean selected) {
 			this.key = key;
 			this.card = card;
-			this.fromAid = aid;
+			fromAid = aid;
 			this.selected = selected;
 		}
 		
@@ -209,8 +209,8 @@ public class ResearchTableData
 		//
 		
 		EntityPlayer pe = null;		
-		if (this.table!=null && table.getWorld()!=null && !table.getWorld().isRemote) 
-			pe = this.table.getWorld().getPlayerEntityByName(player);
+		if (table!=null && table.getWorld()!=null && !table.getWorld().isRemote)
+			pe = table.getWorld().getPlayerEntityByName(player);
 			
 		NBTTagList cardChoicesTag = nbt.getTagList("cardChoices", (byte)10);
 		cardChoices = new ArrayList<CardChoice>();
@@ -233,20 +233,20 @@ public class ResearchTableData
 	}
 	
 	private boolean isCategoryBlocked(String cat) {
-		return this.categoriesBlocked.contains(cat);
+		return categoriesBlocked.contains(cat);
 	}
 	
 	public void drawCards(int draw, EntityPlayer pe) {
 		
 		if (draw==3) {
 			if (bonusDraws>0) {
-				this.bonusDraws--;
+				bonusDraws--;
 			} else {
 				draw=2;
 			}
 		}
 		cardChoices.clear();
-		this.player=pe.getName();
+		player=pe.getName();
 		ArrayList<String> availCats = getAvailableCategories(pe);
 		ArrayList<String> drawnCards = new ArrayList<>();
 		boolean aidDrawn=false;

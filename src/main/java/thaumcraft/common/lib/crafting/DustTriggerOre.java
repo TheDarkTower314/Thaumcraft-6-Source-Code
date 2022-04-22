@@ -38,24 +38,24 @@ public class DustTriggerOre implements IDustTrigger
             final int[] oreIDs;
             final int[] ods = oreIDs = OreDictionary.getOreIDs(new ItemStack(bs.getBlock(), 1, bs.getBlock().damageDropped(bs)));
             for (final int q : oreIDs) {
-                if (q == OreDictionary.getOreID(this.target)) {
+                if (q == OreDictionary.getOreID(target)) {
                     b = true;
                     break;
                 }
             }
         }
         catch (final Exception ex) {}
-        return (b && (this.research == null || ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(this.research))) ? new Placement(0, 0, 0, null) : null;
+        return (b && (research == null || ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(research))) ? new Placement(0, 0, 0, null) : null;
     }
     
     @Override
     public void execute(final World world, final EntityPlayer player, final BlockPos pos, final Placement placement, final EnumFacing side) {
-        FMLCommonHandler.instance().firePlayerCraftingEvent(player, this.result, new InventoryFake(1));
+        FMLCommonHandler.instance().firePlayerCraftingEvent(player, result, new InventoryFake(1));
         final IBlockState state = world.getBlockState(pos);
         ServerEvents.addRunnableServer(world, new Runnable() {
             @Override
             public void run() {
-                ServerEvents.addSwapper(world, pos, state, DustTriggerOre.this.result, false, 0, player, true, true, -9999, false, false, 0, ServerEvents.DEFAULT_PREDICATE, 0.0f);
+                ServerEvents.addSwapper(world, pos, state, result, false, 0, player, true, true, -9999, false, false, 0, ServerEvents.DEFAULT_PREDICATE, 0.0f);
             }
         }, 50);
     }

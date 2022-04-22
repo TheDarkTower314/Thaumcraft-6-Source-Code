@@ -35,9 +35,9 @@ public class ItemCrimsonBlade extends ItemSword implements IWarpingGear, IThaumc
     
     public ItemCrimsonBlade() {
         super(ItemCrimsonBlade.toolMatCrimsonVoid);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("crimson_blade");
-        this.setUnlocalizedName("crimson_blade");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("crimson_blade");
+        setUnlocalizedName("crimson_blade");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

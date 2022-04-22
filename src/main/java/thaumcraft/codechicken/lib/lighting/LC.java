@@ -22,32 +22,32 @@ public class LC implements Copyable<LC>
     }
     
     public LC(final int s, final float a, final float b, final float c, final float d) {
-        this.side = s;
-        this.fa = a;
-        this.fb = b;
-        this.fc = c;
-        this.fd = d;
+        side = s;
+        fa = a;
+        fb = b;
+        fc = c;
+        fd = d;
     }
     
     public LC set(final int s, final float a, final float b, final float c, final float d) {
-        this.side = s;
-        this.fa = a;
-        this.fb = b;
-        this.fc = c;
-        this.fd = d;
+        side = s;
+        fa = a;
+        fb = b;
+        fc = c;
+        fd = d;
         return this;
     }
     
     public LC set(final LC lc) {
-        return this.set(lc.side, lc.fa, lc.fb, lc.fc, lc.fd);
+        return set(lc.side, lc.fa, lc.fb, lc.fc, lc.fd);
     }
     
     public LC compute(final Vector3 vec, final Vector3 normal) {
         final int side = CCModel.findSide(normal);
         if (side < 0) {
-            return this.set(12, 1.0f, 0.0f, 0.0f, 0.0f);
+            return set(12, 1.0f, 0.0f, 0.0f, 0.0f);
         }
-        return this.compute(vec, side);
+        return compute(vec, side);
     }
     
     public LC compute(final Vector3 vec, int side) {
@@ -81,7 +81,7 @@ public class LC implements Copyable<LC>
         if (!offset) {
             side += 6;
         }
-        return this.computeO(vec, side);
+        return computeO(vec, side);
     }
     
     public LC computeO(final Vector3 vec, final int side) {
@@ -91,11 +91,11 @@ public class LC implements Copyable<LC>
         final float d2 = 1.0f - d1;
         final float d3 = (float)vec.scalarProject(v2);
         final float d4 = 1.0f - d3;
-        return this.set(side, d2 * d4, d2 * d3, d1 * d4, d1 * d3);
+        return set(side, d2 * d4, d2 * d3, d1 * d4, d1 * d3);
     }
     
     @Override
     public LC copy() {
-        return new LC(this.side, this.fa, this.fb, this.fc, this.fd);
+        return new LC(side, fa, fb, fc, fd);
     }
 }

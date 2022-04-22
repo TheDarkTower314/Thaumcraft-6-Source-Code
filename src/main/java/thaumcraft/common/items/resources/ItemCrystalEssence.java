@@ -25,13 +25,13 @@ public class ItemCrystalEssence extends ItemTCEssentiaContainer
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
             for (final Aspect tag : Aspect.aspects.values()) {
                 final ItemStack i = new ItemStack(this);
-                this.setAspects(i, new AspectList().add(tag, this.base));
+                setAspects(i, new AspectList().add(tag, base));
                 items.add(i);
             }
         }
     }
     
     public String getItemStackDisplayName(final ItemStack stack) {
-        return (this.getAspects(stack) != null && !this.getAspects(stack).aspects.isEmpty()) ? String.format(super.getItemStackDisplayName(stack), this.getAspects(stack).getAspects()[0].getName()) : super.getItemStackDisplayName(stack);
+        return (getAspects(stack) != null && !getAspects(stack).aspects.isEmpty()) ? String.format(super.getItemStackDisplayName(stack), getAspects(stack).getAspects()[0].getName()) : super.getItemStackDisplayName(stack);
     }
 }

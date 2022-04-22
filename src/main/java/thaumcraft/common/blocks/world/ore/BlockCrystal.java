@@ -55,14 +55,14 @@ public class BlockCrystal extends Block
     
     public BlockCrystal(final String name, final Aspect aspect) {
         super(Material.GLASS);
-        this.setUnlocalizedName(name);
-        this.setRegistryName("thaumcraft", name);
+        setUnlocalizedName(name);
+        setRegistryName("thaumcraft", name);
         this.aspect = aspect;
-        this.setHardness(0.25f);
-        this.setSoundType(SoundsTC.CRYSTAL);
-        this.setTickRandomly(true);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setDefaultState(this.blockState.getBaseState().withProperty((IProperty)BlockCrystal.SIZE, (Comparable)0).withProperty((IProperty)BlockCrystal.GENERATION, (Comparable)1));
+        setHardness(0.25f);
+        setSoundType(SoundsTC.CRYSTAL);
+        setTickRandomly(true);
+        setCreativeTab(ConfigItems.TABTC);
+        setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockCrystal.SIZE, (Comparable)0).withProperty((IProperty)BlockCrystal.GENERATION, (Comparable)1));
     }
     
     public SoundType getSoundType() {
@@ -87,18 +87,18 @@ public class BlockCrystal extends Block
     
     public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
         final List<ItemStack> ret = new ArrayList<ItemStack>();
-        for (int count = this.getGrowth(state) + 1, i = 0; i < count; ++i) {
-            ret.add(ThaumcraftApiHelper.makeCrystal(this.aspect));
+        for (int count = getGrowth(state) + 1, i = 0; i < count; ++i) {
+            ret.add(ThaumcraftApiHelper.makeCrystal(aspect));
         }
         return ret;
     }
     
     public void updateTick(final World worldIn, final BlockPos pos, final IBlockState state, final Random rand) {
-        if (!worldIn.isRemote && rand.nextInt(3 + this.getGeneration(state)) == 0) {
+        if (!worldIn.isRemote && rand.nextInt(3 + getGeneration(state)) == 0) {
             final int threshold = 10;
-            final int growth = this.getGrowth(state);
-            int generation = this.getGeneration(state);
-            if (this.aspect != Aspect.FLUX) {
+            final int growth = getGrowth(state);
+            int generation = getGeneration(state);
+            if (aspect != Aspect.FLUX) {
                 if (AuraHelper.getVis(worldIn, pos) <= threshold) {
                     if (growth > 0) {
                         worldIn.setBlockState(pos, state.withProperty((IProperty)BlockCrystal.SIZE, (Comparable)(growth - 1)));
@@ -121,7 +121,7 @@ public class BlockCrystal extends Block
                             if (rand.nextInt(6) == 0) {
                                 --generation;
                             }
-                            worldIn.setBlockState(p2, this.getDefaultState().withProperty((IProperty)BlockCrystal.GENERATION, (Comparable)(generation + 1)));
+                            worldIn.setBlockState(p2, getDefaultState().withProperty((IProperty)BlockCrystal.GENERATION, (Comparable)(generation + 1)));
                         }
                     }
                 }
@@ -148,7 +148,7 @@ public class BlockCrystal extends Block
                         if (rand.nextInt(6) == 0) {
                             --generation;
                         }
-                        worldIn.setBlockState(p2, this.getDefaultState().withProperty((IProperty)BlockCrystal.GENERATION, (Comparable)(generation + 1)));
+                        worldIn.setBlockState(p2, getDefaultState().withProperty((IProperty)BlockCrystal.GENERATION, (Comparable)(generation + 1)));
                     }
                 }
             }
@@ -173,7 +173,7 @@ public class BlockCrystal extends Block
     
     public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos fromPos) {
         if (!BlockUtils.isBlockTouching(worldIn, pos, Material.ROCK, true)) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
@@ -188,7 +188,7 @@ public class BlockCrystal extends Block
     }
     
     public AxisAlignedBB getBoundingBox(final IBlockState bs, final IBlockAccess iblockaccess, final BlockPos pos) {
-        final IBlockState state = this.getExtendedState(bs, iblockaccess, pos);
+        final IBlockState state = getExtendedState(bs, iblockaccess, pos);
         if (state instanceof IExtendedBlockState) {
             final IExtendedBlockState es = (IExtendedBlockState)state;
             int c = 0;
@@ -270,7 +270,7 @@ public class BlockCrystal extends Block
     public IBlockState getExtendedState(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
         if (state instanceof IExtendedBlockState) {
             final IExtendedBlockState retval = (IExtendedBlockState)state;
-            return retval.withProperty(BlockCrystal.UP, this.drawAt(world, pos.up(), EnumFacing.UP)).withProperty(BlockCrystal.DOWN, this.drawAt(world, pos.down(), EnumFacing.DOWN)).withProperty(BlockCrystal.NORTH, this.drawAt(world, pos.north(), EnumFacing.NORTH)).withProperty(BlockCrystal.EAST, this.drawAt(world, pos.east(), EnumFacing.EAST)).withProperty(BlockCrystal.SOUTH, this.drawAt(world, pos.south(), EnumFacing.SOUTH)).withProperty(BlockCrystal.WEST, this.drawAt(world, pos.west(), EnumFacing.WEST));
+            return retval.withProperty(BlockCrystal.UP, drawAt(world, pos.up(), EnumFacing.UP)).withProperty(BlockCrystal.DOWN, drawAt(world, pos.down(), EnumFacing.DOWN)).withProperty(BlockCrystal.NORTH, drawAt(world, pos.north(), EnumFacing.NORTH)).withProperty(BlockCrystal.EAST, drawAt(world, pos.east(), EnumFacing.EAST)).withProperty(BlockCrystal.SOUTH, drawAt(world, pos.south(), EnumFacing.SOUTH)).withProperty(BlockCrystal.WEST, drawAt(world, pos.west(), EnumFacing.WEST));
         }
         return state;
     }
@@ -280,7 +280,7 @@ public class BlockCrystal extends Block
     }
     
     public IBlockState getStateFromMeta(final int meta) {
-        return this.getDefaultState().withProperty((IProperty)BlockCrystal.SIZE, (Comparable)(meta & 0x3)).withProperty((IProperty)BlockCrystal.GENERATION, (Comparable)(1 + (meta >> 2 & 0x3)));
+        return getDefaultState().withProperty((IProperty)BlockCrystal.SIZE, (Comparable)(meta & 0x3)).withProperty((IProperty)BlockCrystal.GENERATION, (Comparable)(1 + (meta >> 2 & 0x3)));
     }
     
     public int getMetaFromState(final IBlockState state) {
@@ -291,11 +291,11 @@ public class BlockCrystal extends Block
     }
     
     public int getGrowth(final IBlockState state) {
-        return this.getMetaFromState(state) & 0x3;
+        return getMetaFromState(state) & 0x3;
     }
     
     public int getGeneration(final IBlockState state) {
-        return 1 + (this.getMetaFromState(state) >> 2);
+        return 1 + (getMetaFromState(state) >> 2);
     }
     
     @SideOnly(Side.CLIENT)

@@ -23,26 +23,26 @@ public class GuiFocusPouch extends GuiContainer
     
     public GuiFocusPouch(final InventoryPlayer par1InventoryPlayer, final World world, final int x, final int y, final int z) {
         super(new ContainerFocusPouch(par1InventoryPlayer, world, x, y, z));
-        this.tex = new ResourceLocation("thaumcraft", "textures/gui/gui_focuspouch.png");
-        this.blockSlot = par1InventoryPlayer.currentItem;
-        this.xSize = 175;
-        this.ySize = 232;
+        tex = new ResourceLocation("thaumcraft", "textures/gui/gui_focuspouch.png");
+        blockSlot = par1InventoryPlayer.currentItem;
+        xSize = 175;
+        ySize = 232;
     }
     
     public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
-        this.drawDefaultBackground();
+        drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.renderHoveredToolTip(mouseX, mouseY);
+        renderHoveredToolTip(mouseX, mouseY);
     }
     
     protected void drawGuiContainerForegroundLayer(final int par1, final int par2) {
-        this.mc.renderEngine.bindTexture(this.tex);
-        final float t = this.zLevel;
-        this.zLevel = 300.0f;
+        mc.renderEngine.bindTexture(tex);
+        final float t = zLevel;
+        zLevel = 300.0f;
         GL11.glEnable(3042);
-        this.drawTexturedModalRect(8 + this.blockSlot * 18, 209, 240, 0, 16, 16);
+        drawTexturedModalRect(8 + blockSlot * 18, 209, 240, 0, 16, 16);
         GL11.glDisable(3042);
-        this.zLevel = t;
+        zLevel = t;
     }
     
     protected boolean checkHotbarKeys(final int par1) {
@@ -50,15 +50,15 @@ public class GuiFocusPouch extends GuiContainer
     }
     
     protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
-        if (this.mc.player.inventory.mainInventory.get(this.blockSlot).isEmpty()) {
-            this.mc.player.closeScreen();
+        if (mc.player.inventory.mainInventory.get(blockSlot).isEmpty()) {
+            mc.player.closeScreen();
         }
-        this.mc.renderEngine.bindTexture(this.tex);
+        mc.renderEngine.bindTexture(tex);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        final int var5 = (this.width - this.xSize) / 2;
-        final int var6 = (this.height - this.ySize) / 2;
+        final int var5 = (width - xSize) / 2;
+        final int var6 = (height - ySize) / 2;
         GL11.glEnable(3042);
-        this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, this.ySize);
+        drawTexturedModalRect(var5, var6, 0, 0, xSize, ySize);
         GL11.glDisable(3042);
     }
 }

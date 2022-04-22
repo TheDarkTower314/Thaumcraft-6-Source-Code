@@ -19,7 +19,7 @@ public class BlockCondenser extends BlockTCDevice implements IBlockEnabled
 {
     public BlockCondenser() {
         super(Material.IRON, TileCondenser.class, "condenser");
-        this.setSoundType(SoundType.METAL);
+        setSoundType(SoundType.METAL);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {

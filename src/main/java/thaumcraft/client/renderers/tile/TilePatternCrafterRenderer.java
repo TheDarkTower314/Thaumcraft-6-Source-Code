@@ -23,7 +23,7 @@ public class TilePatternCrafterRenderer extends TileEntitySpecialRenderer
     private static final ResourceLocation ICON;
     
     public TilePatternCrafterRenderer() {
-        this.model = new ModelBoreBase();
+        model = new ModelBoreBase();
     }
     
     public void renderTileEntityAt(final TilePatternCrafter pc, final double x, final double y, final double z, final float fq) {
@@ -73,7 +73,7 @@ public class TilePatternCrafterRenderer extends TileEntitySpecialRenderer
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderTileEntityAt((TilePatternCrafter)te, x, y, z, partialTicks);
+        renderTileEntityAt((TilePatternCrafter)te, x, y, z, partialTicks);
     }
     
     static {

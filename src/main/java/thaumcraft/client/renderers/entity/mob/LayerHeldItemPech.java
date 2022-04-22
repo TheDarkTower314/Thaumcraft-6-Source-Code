@@ -30,14 +30,14 @@ public class LayerHeldItemPech extends LayerHeldItem
         final ItemStack itemstack2 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
         if ((itemstack != null && !itemstack.isEmpty()) || (itemstack2 != null && !itemstack2.isEmpty())) {
             GlStateManager.pushMatrix();
-            if (this.livingEntityRenderer.getMainModel().isChild) {
+            if (livingEntityRenderer.getMainModel().isChild) {
                 final float f = 0.5f;
                 GlStateManager.translate(0.0f, 0.625f, 0.0f);
                 GlStateManager.rotate(-20.0f, -1.0f, 0.0f, 0.0f);
                 GlStateManager.scale(f, f, f);
             }
-            this.renderHeldItem(entitylivingbaseIn, itemstack2, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
-            this.renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
+            renderHeldItem(entitylivingbaseIn, itemstack2, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
+            renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
             GlStateManager.popMatrix();
         }
     }
@@ -45,7 +45,7 @@ public class LayerHeldItemPech extends LayerHeldItem
     private void renderHeldItem(final EntityLivingBase entity, final ItemStack stack, final ItemCameraTransforms.TransformType p_188358_3_, final EnumHandSide p_188358_4_) {
         if (stack != null && !stack.isEmpty()) {
             GlStateManager.pushMatrix();
-            ((ModelBiped)this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625f, p_188358_4_);
+            ((ModelBiped) livingEntityRenderer.getMainModel()).postRenderArm(0.0625f, p_188358_4_);
             GlStateManager.translate(0.0f, -0.1f, 0.0625f);
             if (stack.getItem() instanceof ItemBow) {
                 GlStateManager.translate(-0.07500000298023224, -0.1, 0.0);

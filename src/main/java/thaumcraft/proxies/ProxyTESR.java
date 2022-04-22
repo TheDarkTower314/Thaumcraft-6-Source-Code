@@ -55,30 +55,30 @@ import thaumcraft.common.tiles.crafting.TileCrucible;
 public class ProxyTESR
 {
     public void setupTESR() {
-        this.registerTESR(TileCrucible.class, new TileCrucibleRenderer());
-        this.registerTESR(TileDioptra.class, new TileDioptraRenderer());
-        this.registerTESR(TilePedestal.class, new TilePedestalRenderer());
-        this.registerTESR(TileRechargePedestal.class, new TileRechargePedestalRenderer());
-        this.registerTESR(TileFocalManipulator.class, new TileFocalManipulatorRenderer());
-        this.registerTESR(TileHungryChest.class, new TileHungryChestRenderer());
-        this.registerTESR(TileTubeOneway.class, new TileTubeOnewayRenderer());
-        this.registerTESR(TileTubeValve.class, new TileTubeValveRenderer());
-        this.registerTESR(TileTubeBuffer.class, new TileTubeBufferRenderer());
-        this.registerTESR(TileJar.class, new TileJarRenderer());
-        this.registerTESR(TileBellows.class, new TileBellowsRenderer());
-        this.registerTESR(TileAlembic.class, new TileAlembicRenderer());
-        this.registerTESR(TileInfusionMatrix.class, new TileInfusionMatrixRenderer());
-        this.registerTESR(TileResearchTable.class, new TileResearchTableRenderer());
-        this.registerTESR(TileThaumatorium.class, new TileThaumatoriumRenderer());
-        this.registerTESR(TileCentrifuge.class, new TileCentrifugeRenderer());
+        registerTESR(TileCrucible.class, new TileCrucibleRenderer());
+        registerTESR(TileDioptra.class, new TileDioptraRenderer());
+        registerTESR(TilePedestal.class, new TilePedestalRenderer());
+        registerTESR(TileRechargePedestal.class, new TileRechargePedestalRenderer());
+        registerTESR(TileFocalManipulator.class, new TileFocalManipulatorRenderer());
+        registerTESR(TileHungryChest.class, new TileHungryChestRenderer());
+        registerTESR(TileTubeOneway.class, new TileTubeOnewayRenderer());
+        registerTESR(TileTubeValve.class, new TileTubeValveRenderer());
+        registerTESR(TileTubeBuffer.class, new TileTubeBufferRenderer());
+        registerTESR(TileJar.class, new TileJarRenderer());
+        registerTESR(TileBellows.class, new TileBellowsRenderer());
+        registerTESR(TileAlembic.class, new TileAlembicRenderer());
+        registerTESR(TileInfusionMatrix.class, new TileInfusionMatrixRenderer());
+        registerTESR(TileResearchTable.class, new TileResearchTableRenderer());
+        registerTESR(TileThaumatorium.class, new TileThaumatoriumRenderer());
+        registerTESR(TileCentrifuge.class, new TileCentrifugeRenderer());
         final TileMirrorRenderer tmr = new TileMirrorRenderer();
-        this.registerTESR(TileMirror.class, tmr);
-        this.registerTESR(TileMirrorEssentia.class, tmr);
-        this.registerTESR(TileGolemBuilder.class, new TileGolemBuilderRenderer());
-        this.registerTESR(TilePatternCrafter.class, new TilePatternCrafterRenderer());
-        this.registerTESR(TileVoidSiphon.class, new TileVoidSiphonRenderer());
-        this.registerTESR(TileBanner.class, new TileBannerRenderer());
-        this.registerTESR(TileHole.class, new TileHoleRenderer());
+        registerTESR(TileMirror.class, tmr);
+        registerTESR(TileMirrorEssentia.class, tmr);
+        registerTESR(TileGolemBuilder.class, new TileGolemBuilderRenderer());
+        registerTESR(TilePatternCrafter.class, new TilePatternCrafterRenderer());
+        registerTESR(TileVoidSiphon.class, new TileVoidSiphonRenderer());
+        registerTESR(TileBanner.class, new TileBannerRenderer());
+        registerTESR(TileHole.class, new TileHoleRenderer());
     }
     
     private void registerTESR(final Class tile, final TileEntitySpecialRenderer renderer) {

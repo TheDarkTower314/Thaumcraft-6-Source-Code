@@ -25,27 +25,27 @@ public class CardSynthesis extends TheorycraftCard
     @Override
     public NBTTagCompound serialize() {
         final NBTTagCompound nbt = super.serialize();
-        nbt.setString("aspect1", this.aspect1.getTag());
-        nbt.setString("aspect2", this.aspect2.getTag());
-        nbt.setString("aspect3", this.aspect3.getTag());
+        nbt.setString("aspect1", aspect1.getTag());
+        nbt.setString("aspect2", aspect2.getTag());
+        nbt.setString("aspect3", aspect3.getTag());
         return nbt;
     }
     
     @Override
     public void deserialize(final NBTTagCompound nbt) {
         super.deserialize(nbt);
-        this.aspect1 = Aspect.getAspect(nbt.getString("aspect1"));
-        this.aspect2 = Aspect.getAspect(nbt.getString("aspect2"));
-        this.aspect3 = Aspect.getAspect(nbt.getString("aspect3"));
+        aspect1 = Aspect.getAspect(nbt.getString("aspect1"));
+        aspect2 = Aspect.getAspect(nbt.getString("aspect2"));
+        aspect3 = Aspect.getAspect(nbt.getString("aspect3"));
     }
     
     @Override
     public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(this.getSeed());
+        final Random r = new Random(getSeed());
         final int num = MathHelper.getInt(r, 0, Aspect.getCompoundAspects().size() - 1);
-        this.aspect3 = Aspect.getCompoundAspects().get(num);
-        this.aspect1 = this.aspect3.getComponents()[0];
-        this.aspect2 = this.aspect3.getComponents()[1];
+        aspect3 = Aspect.getCompoundAspects().get(num);
+        aspect1 = aspect3.getComponents()[0];
+        aspect2 = aspect3.getComponents()[1];
         return true;
     }
     
@@ -66,12 +66,12 @@ public class CardSynthesis extends TheorycraftCard
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.synthesis.text", TextFormatting.BOLD + this.aspect1.getName() + TextFormatting.RESET, TextFormatting.BOLD + this.aspect2.getName() + TextFormatting.RESET).getUnformattedText();
+        return new TextComponentTranslation("card.synthesis.text", TextFormatting.BOLD + aspect1.getName() + TextFormatting.RESET, TextFormatting.BOLD + aspect2.getName() + TextFormatting.RESET).getUnformattedText();
     }
     
     @Override
     public ItemStack[] getRequiredItems() {
-        return new ItemStack[] { ThaumcraftApiHelper.makeCrystal(this.aspect1), ThaumcraftApiHelper.makeCrystal(this.aspect2) };
+        return new ItemStack[] { ThaumcraftApiHelper.makeCrystal(aspect1), ThaumcraftApiHelper.makeCrystal(aspect2) };
     }
     
     @Override
@@ -81,8 +81,8 @@ public class CardSynthesis extends TheorycraftCard
     
     @Override
     public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        final ItemStack res = ThaumcraftApiHelper.makeCrystal(this.aspect3);
-        data.addTotal(this.getResearchCategory(), 40);
+        final ItemStack res = ThaumcraftApiHelper.makeCrystal(aspect3);
+        data.addTotal(getResearchCategory(), 40);
         if (player.getRNG().nextFloat() < 0.33) {
             data.addInspiration(1);
         }

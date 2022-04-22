@@ -16,25 +16,25 @@ public class TileMemory extends TileEntity
     public NBTTagCompound tileEntityCompound;
     
     public TileMemory() {
-        this.oldblock = Blocks.AIR.getDefaultState();
+        oldblock = Blocks.AIR.getDefaultState();
     }
     
     public TileMemory(final IBlockState bi) {
-        this.oldblock = Blocks.AIR.getDefaultState();
-        this.oldblock = bi;
+        oldblock = Blocks.AIR.getDefaultState();
+        oldblock = bi;
     }
     
     public void readFromNBT(final NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
         final Block b = Block.getBlockById(nbttagcompound.getInteger("oldblock"));
         final int meta = nbttagcompound.getInteger("oldmeta");
-        this.oldblock = b.getStateFromMeta(meta);
+        oldblock = b.getStateFromMeta(meta);
     }
     
     public NBTTagCompound writeToNBT(final NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
-        nbttagcompound.setInteger("oldblock", Block.getIdFromBlock(this.oldblock.getBlock()));
-        nbttagcompound.setInteger("oldmeta", this.oldblock.getBlock().getMetaFromState(this.oldblock));
+        nbttagcompound.setInteger("oldblock", Block.getIdFromBlock(oldblock.getBlock()));
+        nbttagcompound.setInteger("oldmeta", oldblock.getBlock().getMetaFromState(oldblock));
         return nbttagcompound;
     }
 }

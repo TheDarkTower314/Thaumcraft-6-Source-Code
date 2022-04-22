@@ -22,19 +22,19 @@ public class Rectangle4i
     }
     
     public int x1() {
-        return this.x;
+        return x;
     }
     
     public int y1() {
-        return this.y;
+        return y;
     }
     
     public int x2() {
-        return this.x + this.w - 1;
+        return x + w - 1;
     }
     
     public int y2() {
-        return this.y + this.h - 1;
+        return y + h - 1;
     }
     
     public void set(final int x, final int y, final int w, final int h) {
@@ -45,59 +45,59 @@ public class Rectangle4i
     }
     
     public Rectangle4i offset(final int dx, final int dy) {
-        this.x += dx;
-        this.y += dy;
+        x += dx;
+        y += dy;
         return this;
     }
     
     public Rectangle4i include(final int px, final int py) {
-        if (px < this.x) {
-            this.expand(px - this.x, 0);
+        if (px < x) {
+            expand(px - x, 0);
         }
-        if (px >= this.x + this.w) {
-            this.expand(px - this.x - this.w + 1, 0);
+        if (px >= x + w) {
+            expand(px - x - w + 1, 0);
         }
-        if (py < this.y) {
-            this.expand(0, py - this.y);
+        if (py < y) {
+            expand(0, py - y);
         }
-        if (py >= this.y + this.h) {
-            this.expand(0, py - this.y - this.h + 1);
+        if (py >= y + h) {
+            expand(0, py - y - h + 1);
         }
         return this;
     }
     
     public Rectangle4i include(final Rectangle4i r) {
-        this.include(r.x, r.y);
-        return this.include(r.x2(), r.y2());
+        include(r.x, r.y);
+        return include(r.x2(), r.y2());
     }
     
     public Rectangle4i expand(final int px, final int py) {
         if (px > 0) {
-            this.w += px;
+            w += px;
         }
         else {
-            this.x += px;
-            this.w -= px;
+            x += px;
+            w -= px;
         }
         if (py > 0) {
-            this.h += py;
+            h += py;
         }
         else {
-            this.y += py;
-            this.h -= py;
+            y += py;
+            h -= py;
         }
         return this;
     }
     
     public boolean contains(final int px, final int py) {
-        return this.x <= px && px < this.x + this.w && this.y <= py && py < this.y + this.h;
+        return x <= px && px < x + w && y <= py && py < y + h;
     }
     
     public boolean intersects(final Rectangle4i r) {
-        return r.x + r.w > this.x && r.x < this.x + this.w && r.y + r.h > this.y && r.y < this.y + this.h;
+        return r.x + r.w > x && r.x < x + w && r.y + r.h > y && r.y < y + h;
     }
     
     public int area() {
-        return this.w * this.h;
+        return w * h;
     }
 }

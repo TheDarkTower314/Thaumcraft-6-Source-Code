@@ -42,9 +42,9 @@ public class EntityTaintSwarm extends EntityMob implements ITaintedMob
     
     public EntityTaintSwarm(final World par1World) {
         super(par1World);
-        this.damBonus = 0;
-        this.swarm = new ArrayList();
-        this.setSize(2.0f, 2.0f);
+        damBonus = 0;
+        swarm = new ArrayList();
+        setSize(2.0f, 2.0f);
     }
     
     public boolean canAttackClass(final Class clazz) {
@@ -57,7 +57,7 @@ public class EntityTaintSwarm extends EntityMob implements ITaintedMob
     
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register(EntityTaintSwarm.SUMMONED, false);
+        getDataManager().register(EntityTaintSwarm.SUMMONED, false);
     }
     
     @SideOnly(Side.CLIENT)
@@ -95,86 +95,86 @@ public class EntityTaintSwarm extends EntityMob implements ITaintedMob
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2 + this.damBonus);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2 + damBonus);
     }
     
     public boolean getIsSummoned() {
-        return (boolean)this.getDataManager().get((DataParameter)EntityTaintSwarm.SUMMONED);
+        return (boolean) getDataManager().get((DataParameter)EntityTaintSwarm.SUMMONED);
     }
     
     public void setIsSummoned(final boolean par1) {
-        this.getDataManager().set(EntityTaintSwarm.SUMMONED, par1);
+        getDataManager().set(EntityTaintSwarm.SUMMONED, par1);
     }
     
     public void onUpdate() {
         super.onUpdate();
-        this.motionY *= 0.6000000238418579;
-        if (this.world.isRemote) {
-            for (int a = 0; a < this.swarm.size(); ++a) {
-                if (this.swarm.get(a) == null || !this.swarm.get(a).isAlive()) {
-                    this.swarm.remove(a);
+        motionY *= 0.6000000238418579;
+        if (world.isRemote) {
+            for (int a = 0; a < swarm.size(); ++a) {
+                if (swarm.get(a) == null || !swarm.get(a).isAlive()) {
+                    swarm.remove(a);
                     break;
                 }
             }
-            if (this.swarm.size() < 30) {
-                this.swarm.add(FXDispatcher.INSTANCE.swarmParticleFX(this, 0.22f, 15.0f, 0.08f));
+            if (swarm.size() < 30) {
+                swarm.add(FXDispatcher.INSTANCE.swarmParticleFX(this, 0.22f, 15.0f, 0.08f));
             }
         }
     }
     
     public void onLivingUpdate() {
         super.onLivingUpdate();
-        if (this.attackTime > 0) {
-            --this.attackTime;
+        if (attackTime > 0) {
+            --attackTime;
         }
-        if (this.getAttackTarget() == null) {
-            if (this.getIsSummoned()) {
-                this.attackEntityFrom(DamageSource.GENERIC, 5.0f);
+        if (getAttackTarget() == null) {
+            if (getIsSummoned()) {
+                attackEntityFrom(DamageSource.GENERIC, 5.0f);
             }
-            if (this.currentFlightTarget != null && (!this.world.isAirBlock(this.currentFlightTarget) || this.currentFlightTarget.getY() < 1 || this.currentFlightTarget.getY() > this.world.getPrecipitationHeight(this.currentFlightTarget).up(2).getY() || !TaintHelper.isNearTaintSeed(this.world, this.currentFlightTarget))) {
-                this.currentFlightTarget = null;
+            if (currentFlightTarget != null && (!world.isAirBlock(currentFlightTarget) || currentFlightTarget.getY() < 1 || currentFlightTarget.getY() > world.getPrecipitationHeight(currentFlightTarget).up(2).getY() || !TaintHelper.isNearTaintSeed(world, currentFlightTarget))) {
+                currentFlightTarget = null;
             }
-            if (this.currentFlightTarget == null || this.rand.nextInt(30) == 0 || this.getDistanceSqToCenter(this.currentFlightTarget) < 4.0) {
-                this.currentFlightTarget = new BlockPos((int)this.posX + this.rand.nextInt(7) - this.rand.nextInt(7), (int)this.posY + this.rand.nextInt(6) - 2, (int)this.posZ + this.rand.nextInt(7) - this.rand.nextInt(7));
+            if (currentFlightTarget == null || rand.nextInt(30) == 0 || getDistanceSqToCenter(currentFlightTarget) < 4.0) {
+                currentFlightTarget = new BlockPos((int) posX + rand.nextInt(7) - rand.nextInt(7), (int) posY + rand.nextInt(6) - 2, (int) posZ + rand.nextInt(7) - rand.nextInt(7));
             }
-            final double var1 = this.currentFlightTarget.getX() + 0.5 - this.posX;
-            final double var2 = this.currentFlightTarget.getY() + 0.1 - this.posY;
-            final double var3 = this.currentFlightTarget.getZ() + 0.5 - this.posZ;
-            this.motionX += (Math.signum(var1) * 0.5 - this.motionX) * 0.015000000014901161;
-            this.motionY += (Math.signum(var2) * 0.699999988079071 - this.motionY) * 0.10000000149011612;
-            this.motionZ += (Math.signum(var3) * 0.5 - this.motionZ) * 0.015000000014901161;
-            final float var4 = (float)(Math.atan2(this.motionZ, this.motionX) * 180.0 / 3.141592653589793) - 90.0f;
-            final float var5 = MathHelper.wrapDegrees(var4 - this.rotationYaw);
-            this.moveForward = 0.1f;
-            this.rotationYaw += var5;
+            final double var1 = currentFlightTarget.getX() + 0.5 - posX;
+            final double var2 = currentFlightTarget.getY() + 0.1 - posY;
+            final double var3 = currentFlightTarget.getZ() + 0.5 - posZ;
+            motionX += (Math.signum(var1) * 0.5 - motionX) * 0.015000000014901161;
+            motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
+            motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.015000000014901161;
+            final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+            final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+            moveForward = 0.1f;
+            rotationYaw += var5;
         }
-        else if (this.getAttackTarget() != null) {
-            final double var1 = this.getAttackTarget().posX - this.posX;
-            final double var2 = this.getAttackTarget().posY + this.getAttackTarget().getEyeHeight() - this.posY;
-            final double var3 = this.getAttackTarget().posZ - this.posZ;
-            this.motionX += (Math.signum(var1) * 0.5 - this.motionX) * 0.025000000149011613;
-            this.motionY += (Math.signum(var2) * 0.699999988079071 - this.motionY) * 0.10000000149011612;
-            this.motionZ += (Math.signum(var3) * 0.5 - this.motionZ) * 0.02500000001490116;
-            final float var4 = (float)(Math.atan2(this.motionZ, this.motionX) * 180.0 / 3.141592653589793) - 90.0f;
-            final float var5 = MathHelper.wrapDegrees(var4 - this.rotationYaw);
-            this.moveForward = 0.1f;
-            this.rotationYaw += var5;
+        else if (getAttackTarget() != null) {
+            final double var1 = getAttackTarget().posX - posX;
+            final double var2 = getAttackTarget().posY + getAttackTarget().getEyeHeight() - posY;
+            final double var3 = getAttackTarget().posZ - posZ;
+            motionX += (Math.signum(var1) * 0.5 - motionX) * 0.025000000149011613;
+            motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
+            motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.02500000001490116;
+            final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+            final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+            moveForward = 0.1f;
+            rotationYaw += var5;
         }
-        if (this.getAttackTarget() == null) {
-            this.setAttackTarget((EntityLivingBase)this.findPlayerToAttack());
+        if (getAttackTarget() == null) {
+            setAttackTarget((EntityLivingBase) findPlayerToAttack());
         }
-        else if (this.isEntityAlive() && this.getAttackTarget().isEntityAlive()) {
-            final float f = this.getAttackTarget().getDistance(this);
-            if (this.canEntityBeSeen(this.getAttackTarget())) {
-                this.attackEntity(this.getAttackTarget(), f);
+        else if (isEntityAlive() && getAttackTarget().isEntityAlive()) {
+            final float f = getAttackTarget().getDistance(this);
+            if (canEntityBeSeen(getAttackTarget())) {
+                attackEntity(getAttackTarget(), f);
             }
         }
         else {
-            this.setAttackTarget(null);
+            setAttackTarget(null);
         }
-        if (this.getAttackTarget() instanceof EntityPlayer && ((EntityPlayer)this.getAttackTarget()).capabilities.disableDamage) {
-            this.setAttackTarget(null);
+        if (getAttackTarget() instanceof EntityPlayer && ((EntityPlayer) getAttackTarget()).capabilities.disableDamage) {
+            setAttackTarget(null);
         }
     }
     
@@ -194,53 +194,53 @@ public class EntityTaintSwarm extends EntityMob implements ITaintedMob
     }
     
     public boolean attackEntityFrom(final DamageSource par1DamageSource, final float par2) {
-        return !this.isEntityInvulnerable(par1DamageSource) && super.attackEntityFrom(par1DamageSource, par2);
+        return !isEntityInvulnerable(par1DamageSource) && super.attackEntityFrom(par1DamageSource, par2);
     }
     
     protected void attackEntity(final Entity par1Entity, final float par2) {
-        if (this.attackTime <= 0 && par2 < 3.0f && par1Entity.getEntityBoundingBox().maxY > this.getEntityBoundingBox().minY && par1Entity.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY) {
-            if (this.getIsSummoned()) {
+        if (attackTime <= 0 && par2 < 3.0f && par1Entity.getEntityBoundingBox().maxY > getEntityBoundingBox().minY && par1Entity.getEntityBoundingBox().minY < getEntityBoundingBox().maxY) {
+            if (getIsSummoned()) {
                 ((EntityLivingBase)par1Entity).recentlyHit = 100;
             }
-            this.attackTime = 15 + this.rand.nextInt(10);
+            attackTime = 15 + rand.nextInt(10);
             final double mx = par1Entity.motionX;
             final double my = par1Entity.motionY;
             final double mz = par1Entity.motionZ;
-            if (this.attackEntityAsMob(par1Entity) && !this.world.isRemote && par1Entity instanceof EntityLivingBase) {
+            if (attackEntityAsMob(par1Entity) && !world.isRemote && par1Entity instanceof EntityLivingBase) {
                 ((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, 0));
             }
             par1Entity.isAirBorne = false;
             par1Entity.motionX = mx;
             par1Entity.motionY = my;
             par1Entity.motionZ = mz;
-            this.playSound(SoundsTC.swarmattack, 0.3f, 0.9f + this.world.rand.nextFloat() * 0.2f);
+            playSound(SoundsTC.swarmattack, 0.3f, 0.9f + world.rand.nextFloat() * 0.2f);
         }
     }
     
     protected Entity findPlayerToAttack() {
         final double var1 = 8.0;
-        return this.getIsSummoned() ? null : this.world.getClosestPlayerToEntity(this, var1);
+        return getIsSummoned() ? null : world.getClosestPlayerToEntity(this, var1);
     }
     
     public void readEntityFromNBT(final NBTTagCompound par1NBTTagCompound) {
         super.readEntityFromNBT(par1NBTTagCompound);
-        this.setIsSummoned(par1NBTTagCompound.getBoolean("summoned"));
-        this.damBonus = par1NBTTagCompound.getByte("damBonus");
+        setIsSummoned(par1NBTTagCompound.getBoolean("summoned"));
+        damBonus = par1NBTTagCompound.getByte("damBonus");
     }
     
     public void writeEntityToNBT(final NBTTagCompound par1NBTTagCompound) {
         super.writeEntityToNBT(par1NBTTagCompound);
-        par1NBTTagCompound.setBoolean("summoned", this.getIsSummoned());
-        par1NBTTagCompound.setByte("damBonus", (byte)this.damBonus);
+        par1NBTTagCompound.setBoolean("summoned", getIsSummoned());
+        par1NBTTagCompound.setByte("damBonus", (byte) damBonus);
     }
     
     public boolean getCanSpawnHere() {
-        final int var1 = MathHelper.floor(this.getEntityBoundingBox().minY);
-        final int var2 = MathHelper.floor(this.posX);
-        final int var3 = MathHelper.floor(this.posZ);
-        final int var4 = this.world.getLight(new BlockPos(var2, var1, var3));
+        final int var1 = MathHelper.floor(getEntityBoundingBox().minY);
+        final int var2 = MathHelper.floor(posX);
+        final int var3 = MathHelper.floor(posZ);
+        final int var4 = world.getLight(new BlockPos(var2, var1, var3));
         final byte var5 = 7;
-        return var4 <= this.rand.nextInt(var5) && super.getCanSpawnHere();
+        return var4 <= rand.nextInt(var5) && super.getCanSpawnHere();
     }
     
     protected boolean isValidLightLevel() {
@@ -252,8 +252,8 @@ public class EntityTaintSwarm extends EntityMob implements ITaintedMob
     }
     
     protected void dropFewItems(final boolean flag, final int i) {
-        if (this.world.rand.nextBoolean()) {
-            this.entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), this.height / 2.0f);
+        if (world.rand.nextBoolean()) {
+            entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), height / 2.0f);
         }
     }
     

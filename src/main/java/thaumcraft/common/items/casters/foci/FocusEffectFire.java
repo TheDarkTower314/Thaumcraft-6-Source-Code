@@ -44,24 +44,24 @@ public class FocusEffectFire extends FocusEffect
     
     @Override
     public int getComplexity() {
-        return this.getSettingValue("duration") + this.getSettingValue("power") * 2;
+        return getSettingValue("duration") + getSettingValue("power") * 2;
     }
     
     @Override
     public float getDamageForDisplay(final float finalPower) {
-        return (3 + this.getSettingValue("power")) * finalPower;
+        return (3 + getSettingValue("power")) * finalPower;
     }
     
     @Override
     public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
-        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { this.getKey() }), new NetworkRegistry.TargetPoint(this.getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
+        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
         if (target.typeOfHit != RayTraceResult.Type.ENTITY || target.entityHit == null) {
-            if (target.typeOfHit == RayTraceResult.Type.BLOCK && this.getSettingValue("duration") > 0) {
+            if (target.typeOfHit == RayTraceResult.Type.BLOCK && getSettingValue("duration") > 0) {
                 BlockPos pos = target.getBlockPos();
                 pos = pos.offset(target.sideHit);
-                if (this.getPackage().world.isAirBlock(pos) && this.getPackage().world.rand.nextFloat() < finalPower) {
-                    this.getPackage().world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0f, this.getPackage().world.rand.nextFloat() * 0.4f + 0.8f);
-                    this.getPackage().world.setBlockState(pos, Blocks.FIRE.getDefaultState(), 11);
+                if (getPackage().world.isAirBlock(pos) && getPackage().world.rand.nextFloat() < finalPower) {
+                    getPackage().world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0f, getPackage().world.rand.nextFloat() * 0.4f + 0.8f);
+                    getPackage().world.setBlockState(pos, Blocks.FIRE.getDefaultState(), 11);
                     return true;
                 }
             }
@@ -70,10 +70,10 @@ public class FocusEffectFire extends FocusEffect
         if (target.entityHit.isImmuneToFire()) {
             return false;
         }
-        float fire = (float)(1 + this.getSettingValue("duration") * this.getSettingValue("duration"));
-        final float damage = this.getDamageForDisplay(finalPower);
+        float fire = (float)(1 + getSettingValue("duration") * getSettingValue("duration"));
+        final float damage = getDamageForDisplay(finalPower);
         fire *= finalPower;
-        target.entityHit.attackEntityFrom(new EntityDamageSourceIndirect("fireball", (target.entityHit != null) ? target.entityHit : this.getPackage().getCaster(), this.getPackage().getCaster()).setFireDamage(), damage);
+        target.entityHit.attackEntityFrom(new EntityDamageSourceIndirect("fireball", (target.entityHit != null) ? target.entityHit : getPackage().getCaster(), getPackage().getCaster()).setFireDamage(), damage);
         if (fire > 0.0f) {
             target.entityHit.setFire(Math.round(fire));
         }

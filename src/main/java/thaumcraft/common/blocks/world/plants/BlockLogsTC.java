@@ -29,11 +29,11 @@ public class BlockLogsTC extends BlockTC
     
     public BlockLogsTC(final String name) {
         super(Material.WOOD, name);
-        this.setHarvestLevel("axe", 0);
-        this.setHardness(2.0f);
-        this.setResistance(5.0f);
-        this.setSoundType(SoundType.WOOD);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(BlockLogsTC.AXIS, (Comparable)EnumFacing.Axis.Y));
+        setHarvestLevel("axe", 0);
+        setHardness(2.0f);
+        setResistance(5.0f);
+        setSoundType(SoundType.WOOD);
+        setDefaultState(blockState.getBaseState().withProperty(BlockLogsTC.AXIS, (Comparable)EnumFacing.Axis.Y));
     }
     
     public IBlockState getStateForPlacement(final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final int metadata, final EntityLivingBase entity) {
@@ -61,7 +61,7 @@ public class BlockLogsTC extends BlockTC
     
     public IBlockState getStateFromMeta(final int meta) {
         final int axis = meta % 3;
-        return this.getDefaultState().withProperty(BlockLogsTC.AXIS, (Comparable)EnumFacing.Axis.values()[axis]);
+        return getDefaultState().withProperty(BlockLogsTC.AXIS, (Comparable)EnumFacing.Axis.values()[axis]);
     }
     
     public int getMetaFromState(final IBlockState state) {

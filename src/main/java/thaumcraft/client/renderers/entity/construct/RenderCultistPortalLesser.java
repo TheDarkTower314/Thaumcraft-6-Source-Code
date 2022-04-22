@@ -27,8 +27,8 @@ public class RenderCultistPortalLesser extends Render
     
     public RenderCultistPortalLesser(final RenderManager renderManager) {
         super(renderManager);
-        this.shadowSize = 0.0f;
-        this.shadowOpaque = 0.0f;
+        shadowSize = 0.0f;
+        shadowOpaque = 0.0f;
     }
     
     public void renderPortal(final EntityCultistPortalLesser portal, final double px, double py, final double pz, final float par8, final float f) {
@@ -55,7 +55,7 @@ public class RenderCultistPortalLesser extends Render
             final float alpha = 1.0f - bob;
             scaley -= bob / 4.0f;
             scale -= bob2 / 3.0f;
-            this.bindTexture(RenderCultistPortalLesser.portaltex);
+            bindTexture(RenderCultistPortalLesser.portaltex);
             GL11.glPushMatrix();
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);
@@ -95,7 +95,7 @@ public class RenderCultistPortalLesser extends Render
     }
     
     public void doRender(final Entity par1Entity, final double par2, final double par4, final double par6, final float par8, final float par9) {
-        this.renderPortal((EntityCultistPortalLesser)par1Entity, par2, par4, par6, par8, par9);
+        renderPortal((EntityCultistPortalLesser)par1Entity, par2, par4, par6, par8, par9);
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {

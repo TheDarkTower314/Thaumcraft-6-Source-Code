@@ -32,12 +32,12 @@ public class RenderFallingTaint extends Render
 {
     public RenderFallingTaint(final RenderManager p_i46177_1_) {
         super(p_i46177_1_);
-        this.shadowSize = 0.5f;
+        shadowSize = 0.5f;
     }
     
     public void doRender(final EntityFallingTaint p_180557_1_, final double p_180557_2_, final double p_180557_4_, final double p_180557_6_, final float p_180557_8_, final float p_180557_9_) {
         if (p_180557_1_.getBlock() != null) {
-            this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+            bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             final IBlockState iblockstate = p_180557_1_.getBlock();
             final Block block = iblockstate.getBlock();
             final BlockPos blockpos = new BlockPos(p_180557_1_);
@@ -70,10 +70,10 @@ public class RenderFallingTaint extends Render
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {
-        return this.getEntityTexture((EntityFallingBlock)entity);
+        return getEntityTexture((EntityFallingBlock)entity);
     }
     
     public void doRender(final Entity entity, final double x, final double y, final double z, final float p_76986_8_, final float partialTicks) {
-        this.doRender((EntityFallingTaint)entity, x, y, z, p_76986_8_, partialTicks);
+        doRender((EntityFallingTaint)entity, x, y, z, p_76986_8_, partialTicks);
     }
 }

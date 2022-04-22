@@ -20,9 +20,9 @@ public class IngredientNBTTC extends Ingredient
     {
         if (input == null) 
         	return false;
-        return  this.stack.getItem() == input.getItem() && 
-        		this.stack.getItemDamage() == input.getItemDamage() && 
-        		ThaumcraftInvHelper.areItemStackTagsEqualRelaxed(this.stack, input);
+        return  stack.getItem() == input.getItem() &&
+        		stack.getItemDamage() == input.getItemDamage() &&
+        		ThaumcraftInvHelper.areItemStackTagsEqualRelaxed(stack, input);
     }
 
     @Override

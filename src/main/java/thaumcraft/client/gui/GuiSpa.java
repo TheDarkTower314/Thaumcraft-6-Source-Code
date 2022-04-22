@@ -36,70 +36,70 @@ public class GuiSpa extends GuiContainer
     
     public GuiSpa(final InventoryPlayer par1InventoryPlayer, final TileSpa teSpa) {
         super(new ContainerSpa(par1InventoryPlayer, teSpa));
-        this.tex = new ResourceLocation("thaumcraft", "textures/gui/gui_spa.png");
-        this.spa = teSpa;
+        tex = new ResourceLocation("thaumcraft", "textures/gui/gui_spa.png");
+        spa = teSpa;
     }
     
     public void drawScreen(final int par1, final int par2, final float par3) {
-        this.drawDefaultBackground();
+        drawDefaultBackground();
         super.drawScreen(par1, par2, par3);
-        this.xSize_lo = (float)par1;
-        this.ySize_lo = (float)par2;
-        final int baseX = this.guiLeft;
-        final int baseY = this.guiTop;
+        xSize_lo = (float)par1;
+        ySize_lo = (float)par2;
+        final int baseX = guiLeft;
+        final int baseY = guiTop;
         int mposx = par1 - (baseX + 104);
         int mposy = par2 - (baseY + 10);
         if (mposx >= 0 && mposy >= 0 && mposx < 10 && mposy < 55) {
             final List list = new ArrayList();
-            final FluidStack fluid = this.spa.tank.getFluid();
+            final FluidStack fluid = spa.tank.getFluid();
             if (fluid != null) {
                 list.add(fluid.getFluid().getLocalizedName(fluid));
                 list.add(fluid.amount + " mb");
-                this.drawHoveringText(list, par1, par2, this.fontRenderer);
+                drawHoveringText(list, par1, par2, fontRenderer);
             }
         }
         mposx = par1 - (baseX + 88);
         mposy = par2 - (baseY + 34);
         if (mposx >= 0 && mposy >= 0 && mposx < 10 && mposy < 10) {
             final List list = new ArrayList();
-            if (this.spa.getMix()) {
+            if (spa.getMix()) {
                 list.add(I18n.translateToLocal("text.spa.mix.true"));
             }
             else {
                 list.add(I18n.translateToLocal("text.spa.mix.false"));
             }
-            this.drawHoveringText(list, par1, par2, this.fontRenderer);
+            drawHoveringText(list, par1, par2, fontRenderer);
         }
-        this.renderHoveredToolTip(par2, par2);
+        renderHoveredToolTip(par2, par2);
     }
     
     protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.mc.renderEngine.bindTexture(this.tex);
-        final int k = (this.width - this.xSize) / 2;
-        final int l = (this.height - this.ySize) / 2;
+        mc.renderEngine.bindTexture(tex);
+        final int k = (width - xSize) / 2;
+        final int l = (height - ySize) / 2;
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
-        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-        if (this.spa.getMix()) {
-            this.drawTexturedModalRect(k + 89, l + 35, 208, 16, 8, 8);
+        drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
+        if (spa.getMix()) {
+            drawTexturedModalRect(k + 89, l + 35, 208, 16, 8, 8);
         }
         else {
-            this.drawTexturedModalRect(k + 89, l + 35, 208, 32, 8, 8);
+            drawTexturedModalRect(k + 89, l + 35, 208, 32, 8, 8);
         }
-        if (this.spa.tank.getFluidAmount() > 0) {
-            final FluidStack fluid = this.spa.tank.getFluid();
+        if (spa.tank.getFluidAmount() > 0) {
+            final FluidStack fluid = spa.tank.getFluid();
             if (fluid != null) {
-                final TextureAtlasSprite icon = this.func_175371_a(fluid.getFluid().getBlock());
+                final TextureAtlasSprite icon = func_175371_a(fluid.getFluid().getBlock());
                 if (icon != null) {
-                    final float bar = this.spa.tank.getFluidAmount() / (float)this.spa.tank.getCapacity();
-                    this.renderFluid(icon, fluid.getFluid());
-                    this.mc.renderEngine.bindTexture(this.tex);
-                    this.drawTexturedModalRect(k + 107, l + 15, 107, 15, 10, (int)(48.0f - 48.0f * bar));
+                    final float bar = spa.tank.getFluidAmount() / (float) spa.tank.getCapacity();
+                    renderFluid(icon, fluid.getFluid());
+                    mc.renderEngine.bindTexture(tex);
+                    drawTexturedModalRect(k + 107, l + 15, 107, 15, 10, (int)(48.0f - 48.0f * bar));
                 }
             }
         }
-        this.drawTexturedModalRect(k + 106, l + 11, 232, 0, 10, 55);
+        drawTexturedModalRect(k + 106, l + 11, 232, 0, 10, 55);
         GL11.glDisable(3042);
     }
     
@@ -109,12 +109,12 @@ public class GuiSpa extends GuiContainer
     
     public void renderFluid(final TextureAtlasSprite icon, final Fluid fluid) {
         GL11.glPushMatrix();
-        this.mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         GL11.glScalef(0.5f, 0.5f, 0.5f);
         final Color cc = new Color(fluid.getColor());
         GL11.glColor3f(cc.getRed() / 255.0f, cc.getGreen() / 255.0f, cc.getBlue() / 255.0f);
         for (int a = 0; a < 6; ++a) {
-            this.drawTexturedModalRect((this.guiLeft + 107) * 2, (this.guiTop + 15) * 2 + a * 16, icon, 16, 16);
+            drawTexturedModalRect((guiLeft + 107) * 2, (guiTop + 15) * 2 + a * 16, icon, 16, 16);
         }
         GL11.glColor3f(1.0f, 1.0f, 1.0f);
         GL11.glPopMatrix();
@@ -122,17 +122,17 @@ public class GuiSpa extends GuiContainer
     
     protected void mouseClicked(final int mx, final int my, final int par3) throws IOException {
         super.mouseClicked(mx, my, par3);
-        final int gx = (this.width - this.xSize) / 2;
-        final int gy = (this.height - this.ySize) / 2;
+        final int gx = (width - xSize) / 2;
+        final int gy = (height - ySize) / 2;
         final int var7 = mx - (gx + 89);
         final int var8 = my - (gy + 35);
         if (var7 >= 0 && var8 >= 0 && var7 < 8 && var8 < 8) {
-            this.mc.playerController.sendEnchantPacket(this.inventorySlots.windowId, 1);
-            this.playButtonClick();
+            mc.playerController.sendEnchantPacket(inventorySlots.windowId, 1);
+            playButtonClick();
         }
     }
     
     private void playButtonClick() {
-        this.mc.getRenderViewEntity().playSound(SoundsTC.clack, 0.4f, 1.0f);
+        mc.getRenderViewEntity().playSound(SoundsTC.clack, 0.4f, 1.0f);
     }
 }

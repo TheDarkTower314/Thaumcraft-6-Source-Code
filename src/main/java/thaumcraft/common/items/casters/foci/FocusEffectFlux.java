@@ -44,20 +44,20 @@ public class FocusEffectFlux extends FocusEffect
     
     @Override
     public int getComplexity() {
-        return this.getSettingValue("power") * 3;
+        return getSettingValue("power") * 3;
     }
     
     @Override
     public float getDamageForDisplay(final float finalPower) {
-        return (3 + this.getSettingValue("power")) * finalPower;
+        return (3 + getSettingValue("power")) * finalPower;
     }
     
     @Override
     public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
-        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { this.getKey() }), new NetworkRegistry.TargetPoint(this.getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
+        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
         if (target.typeOfHit == RayTraceResult.Type.ENTITY && target.entityHit != null) {
-            final float damage = this.getDamageForDisplay(finalPower);
-            target.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage((target.entityHit != null) ? target.entityHit : this.getPackage().getCaster(), this.getPackage().getCaster()), damage);
+            final float damage = getDamageForDisplay(finalPower);
+            target.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage((target.entityHit != null) ? target.entityHit : getPackage().getCaster(), getPackage().getCaster()), damage);
         }
         return false;
     }

@@ -27,14 +27,14 @@ public class WorldGenSilverwoodTrees extends WorldGenAbstractTree
     
     public WorldGenSilverwoodTrees(final boolean doBlockNotify, final int minTreeHeight, final int randomTreeHeight) {
         super(doBlockNotify);
-        this.worldgen = false;
-        this.worldgen = !doBlockNotify;
+        worldgen = false;
+        worldgen = !doBlockNotify;
         this.minTreeHeight = minTreeHeight;
         this.randomTreeHeight = randomTreeHeight;
     }
     
     public boolean generate(final World world, final Random random, final BlockPos pos) {
-        final int height = random.nextInt(this.randomTreeHeight) + this.minTreeHeight;
+        final int height = random.nextInt(randomTreeHeight) + minTreeHeight;
         boolean flag = true;
         final int x = pos.getX();
         final int y = pos.getY();
@@ -84,7 +84,7 @@ public class WorldGenSilverwoodTrees extends WorldGenAbstractTree
                         final double dist = d3 * d3 + d4 * d4 + d5 * d5;
                         final IBlockState s2 = world.getBlockState(new BlockPos(xx, k2, zz));
                         if (dist < 10 + random.nextInt(8) && s2.getBlock().canBeReplacedByLeaves(s2, world, new BlockPos(xx, k2, zz))) {
-                            this.setBlockAndNotifyAdequately(world, new BlockPos(xx, k2, zz), BlocksTC.leafSilverwood.getStateFromMeta(1));
+                            setBlockAndNotifyAdequately(world, new BlockPos(xx, k2, zz), BlocksTC.leafSilverwood.getStateFromMeta(1));
                         }
                     }
                 }
@@ -94,59 +94,59 @@ public class WorldGenSilverwoodTrees extends WorldGenAbstractTree
                 final IBlockState s3 = world.getBlockState(new BlockPos(x, y + k2, z));
                 final Block block3 = s3.getBlock();
                 if (block3.isAir(s3, world, new BlockPos(x, y + k2, z)) || block3.isLeaves(s3, world, new BlockPos(x, y + k2, z)) || block3.isReplaceable(world, new BlockPos(x, y + k2, z))) {
-                    this.setBlockAndNotifyAdequately(world, new BlockPos(x, y + k2, z), BlocksTC.logSilverwood.getStateFromMeta(1));
-                    this.setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + k2, z), BlocksTC.logSilverwood.getStateFromMeta(1));
-                    this.setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + k2, z), BlocksTC.logSilverwood.getStateFromMeta(1));
-                    this.setBlockAndNotifyAdequately(world, new BlockPos(x, y + k2, z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
-                    this.setBlockAndNotifyAdequately(world, new BlockPos(x, y + k2, z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+                    setBlockAndNotifyAdequately(world, new BlockPos(x, y + k2, z), BlocksTC.logSilverwood.getStateFromMeta(1));
+                    setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + k2, z), BlocksTC.logSilverwood.getStateFromMeta(1));
+                    setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + k2, z), BlocksTC.logSilverwood.getStateFromMeta(1));
+                    setBlockAndNotifyAdequately(world, new BlockPos(x, y + k2, z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+                    setBlockAndNotifyAdequately(world, new BlockPos(x, y + k2, z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
                 }
             }
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x, y + k2, z), BlocksTC.logSilverwood.getStateFromMeta(1));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y, z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y, z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y, z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y, z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x, y + k2, z), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y, z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y, z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y, z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y, z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
             if (random.nextInt(3) != 0) {
-                this.setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + 1, z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
-            }
-            if (random.nextInt(3) != 0) {
-                this.setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + 1, z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+                setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + 1, z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
             }
             if (random.nextInt(3) != 0) {
-                this.setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + 1, z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+                setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + 1, z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
             }
             if (random.nextInt(3) != 0) {
-                this.setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + 1, z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+                setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + 1, z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
             }
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x - 2, y, z), BlocksTC.logSilverwood.getStateFromMeta(0));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x + 2, y, z), BlocksTC.logSilverwood.getStateFromMeta(0));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x, y, z - 2), BlocksTC.logSilverwood.getStateFromMeta(2));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x, y, z + 2), BlocksTC.logSilverwood.getStateFromMeta(2));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x - 2, y - 1, z), BlocksTC.logSilverwood.getStateFromMeta(1));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x + 2, y - 1, z), BlocksTC.logSilverwood.getStateFromMeta(1));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x, y - 1, z - 2), BlocksTC.logSilverwood.getStateFromMeta(1));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x, y - 1, z + 2), BlocksTC.logSilverwood.getStateFromMeta(1));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + (height - 4), z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + (height - 4), z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + (height - 4), z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + (height - 4), z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
-            if (random.nextInt(3) == 0) {
-                this.setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + (height - 5), z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+            if (random.nextInt(3) != 0) {
+                setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + 1, z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
             }
+            setBlockAndNotifyAdequately(world, new BlockPos(x - 2, y, z), BlocksTC.logSilverwood.getStateFromMeta(0));
+            setBlockAndNotifyAdequately(world, new BlockPos(x + 2, y, z), BlocksTC.logSilverwood.getStateFromMeta(0));
+            setBlockAndNotifyAdequately(world, new BlockPos(x, y, z - 2), BlocksTC.logSilverwood.getStateFromMeta(2));
+            setBlockAndNotifyAdequately(world, new BlockPos(x, y, z + 2), BlocksTC.logSilverwood.getStateFromMeta(2));
+            setBlockAndNotifyAdequately(world, new BlockPos(x - 2, y - 1, z), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x + 2, y - 1, z), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x, y - 1, z - 2), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x, y - 1, z + 2), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + (height - 4), z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + (height - 4), z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + (height - 4), z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+            setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + (height - 4), z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
             if (random.nextInt(3) == 0) {
-                this.setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + (height - 5), z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
-            }
-            if (random.nextInt(3) == 0) {
-                this.setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + (height - 5), z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+                setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + (height - 5), z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
             }
             if (random.nextInt(3) == 0) {
-                this.setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + (height - 5), z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+                setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + (height - 5), z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
             }
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x - 2, y + (height - 4), z), BlocksTC.logSilverwood.getStateFromMeta(0));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x + 2, y + (height - 4), z), BlocksTC.logSilverwood.getStateFromMeta(0));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x, y + (height - 4), z - 2), BlocksTC.logSilverwood.getStateFromMeta(2));
-            this.setBlockAndNotifyAdequately(world, new BlockPos(x, y + (height - 4), z + 2), BlocksTC.logSilverwood.getStateFromMeta(2));
-            if (this.worldgen) {
+            if (random.nextInt(3) == 0) {
+                setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + (height - 5), z + 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+            }
+            if (random.nextInt(3) == 0) {
+                setBlockAndNotifyAdequately(world, new BlockPos(x + 1, y + (height - 5), z - 1), BlocksTC.logSilverwood.getStateFromMeta(1));
+            }
+            setBlockAndNotifyAdequately(world, new BlockPos(x - 2, y + (height - 4), z), BlocksTC.logSilverwood.getStateFromMeta(0));
+            setBlockAndNotifyAdequately(world, new BlockPos(x + 2, y + (height - 4), z), BlocksTC.logSilverwood.getStateFromMeta(0));
+            setBlockAndNotifyAdequately(world, new BlockPos(x, y + (height - 4), z - 2), BlocksTC.logSilverwood.getStateFromMeta(2));
+            setBlockAndNotifyAdequately(world, new BlockPos(x, y + (height - 4), z + 2), BlocksTC.logSilverwood.getStateFromMeta(2));
+            if (worldgen) {
                 final WorldGenerator flowers = new WorldGenCustomFlowers(BlocksTC.shimmerleaf, 0);
                 flowers.generate(world, random, new BlockPos(x, y, z));
             }

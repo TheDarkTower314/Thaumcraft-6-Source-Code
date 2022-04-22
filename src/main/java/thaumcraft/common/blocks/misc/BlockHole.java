@@ -30,14 +30,14 @@ public class BlockHole extends BlockContainer
 {
     public BlockHole() {
         super(Material.ROCK);
-        this.setUnlocalizedName("hole");
-        this.setRegistryName("thaumcraft", "hole");
-        this.setBlockUnbreakable();
-        this.setResistance(6000000.0f);
-        this.setSoundType(SoundType.CLOTH);
-        this.setLightLevel(0.7f);
-        this.setTickRandomly(true);
-        this.setCreativeTab(null);
+        setUnlocalizedName("hole");
+        setRegistryName("thaumcraft", "hole");
+        setBlockUnbreakable();
+        setResistance(6000000.0f);
+        setSoundType(SoundType.CLOTH);
+        setLightLevel(0.7f);
+        setTickRandomly(true);
+        setCreativeTab(null);
     }
     
     public ItemStack getPickBlock(final IBlockState state, final RayTraceResult target, final World world, final BlockPos pos, final EntityPlayer player) {

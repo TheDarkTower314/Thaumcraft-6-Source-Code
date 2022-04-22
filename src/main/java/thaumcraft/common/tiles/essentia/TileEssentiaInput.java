@@ -18,17 +18,17 @@ public class TileEssentiaInput extends TileThaumcraft implements IEssentiaTransp
     int count;
     
     public TileEssentiaInput() {
-        this.count = 0;
+        count = 0;
     }
     
     @Override
     public boolean isConnectable(final EnumFacing face) {
-        return face == this.getFacing().getOpposite();
+        return face == getFacing().getOpposite();
     }
     
     @Override
     public boolean canInputFrom(final EnumFacing face) {
-        return face == this.getFacing().getOpposite();
+        return face == getFacing().getOpposite();
     }
     
     @Override
@@ -76,22 +76,22 @@ public class TileEssentiaInput extends TileThaumcraft implements IEssentiaTransp
     }
     
     public void update() {
-        if (!this.world.isRemote && ++this.count % 5 == 0) {
-            this.fillJar();
+        if (!world.isRemote && ++count % 5 == 0) {
+            fillJar();
         }
     }
     
     void fillJar() {
-        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(this.world, this.getPos(), this.getFacing().getOpposite());
+        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), getFacing().getOpposite());
         if (te != null) {
             final IEssentiaTransport ic = (IEssentiaTransport)te;
-            if (!ic.canOutputTo(this.getFacing())) {
+            if (!ic.canOutputTo(getFacing())) {
                 return;
             }
-            if (ic.getEssentiaAmount(this.getFacing()) > 0 && ic.getSuctionAmount(this.getFacing()) < this.getSuctionAmount(this.getFacing().getOpposite()) && this.getSuctionAmount(this.getFacing().getOpposite()) >= ic.getMinimumSuction()) {
-                final Aspect ta = ic.getEssentiaType(this.getFacing());
-                if (EssentiaHandler.addEssentia(this, ta, this.getFacing(), 16, false, 5)) {
-                    ic.takeEssentia(ta, 1, this.getFacing());
+            if (ic.getEssentiaAmount(getFacing()) > 0 && ic.getSuctionAmount(getFacing()) < getSuctionAmount(getFacing().getOpposite()) && getSuctionAmount(getFacing().getOpposite()) >= ic.getMinimumSuction()) {
+                final Aspect ta = ic.getEssentiaType(getFacing());
+                if (EssentiaHandler.addEssentia(this, ta, getFacing(), 16, false, 5)) {
+                    ic.takeEssentia(ta, 1, getFacing());
                 }
             }
         }

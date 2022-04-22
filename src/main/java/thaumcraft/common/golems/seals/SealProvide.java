@@ -40,9 +40,9 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
     protected SealToggle[] props;
     
     public SealProvide() {
-        this.delay = new Random(System.nanoTime()).nextInt(88);
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_provider");
-        this.props = new SealToggle[] { new SealToggle(true, "pmeta", "golem.prop.meta"), new SealToggle(true, "pnbt", "golem.prop.nbt"), new SealToggle(false, "pore", "golem.prop.ore"), new SealToggle(false, "pmod", "golem.prop.mod"), new SealToggle(false, "psing", "golem.prop.single"), new SealToggle(false, "pleave", "golem.prop.leave") };
+        delay = new Random(System.nanoTime()).nextInt(88);
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_provider");
+        props = new SealToggle[] { new SealToggle(true, "pmeta", "golem.prop.meta"), new SealToggle(true, "pnbt", "golem.prop.nbt"), new SealToggle(false, "pore", "golem.prop.ore"), new SealToggle(false, "pmod", "golem.prop.mod"), new SealToggle(false, "psing", "golem.prop.single"), new SealToggle(false, "pleave", "golem.prop.leave") };
     }
     
     @Override
@@ -57,7 +57,7 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
     
     @Override
     public void tickSeal(final World world, final ISealEntity seal) {
-        if (this.delay % 100 == 0 && GolemHelper.provisionRequests.containsKey(world.provider.getDimension())) {
+        if (delay % 100 == 0 && GolemHelper.provisionRequests.containsKey(world.provider.getDimension())) {
             final Iterator<ProvisionRequest> it = GolemHelper.provisionRequests.get(world.provider.getDimension()).iterator();
             while (it.hasNext()) {
                 final ProvisionRequest pr = it.next();
@@ -66,7 +66,7 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
                 }
             }
         }
-        if (this.delay++ % 20 != 0) {
+        if (delay++ % 20 != 0) {
             return;
         }
         final IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, seal.getSealPos().pos, seal.getSealPos().face);
@@ -85,7 +85,7 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
                         continue;
                     }
                     final NonNullList<ItemStack> stacks = NonNullList.withSize(1, pr2.getStack());
-                    if (!InventoryUtils.findFirstMatchFromFilter(this.getInv(), this.getSizes(), this.blacklist, stacks, new ThaumcraftInvHelper.InvFilter(!this.props[0].value, !this.props[1].value, this.props[2].value, this.props[3].value)).isEmpty() && ThaumcraftInvHelper.countTotalItemsIn(inv, pr2.getStack(), ThaumcraftInvHelper.InvFilter.STRICT) > (this.props[5].value ? 1 : 0)) {
+                    if (!InventoryUtils.findFirstMatchFromFilter(getInv(), getSizes(), blacklist, stacks, new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value)).isEmpty() && ThaumcraftInvHelper.countTotalItemsIn(inv, pr2.getStack(), ThaumcraftInvHelper.InvFilter.STRICT) > (props[5].value ? 1 : 0)) {
                         final Task task = new Task(seal.getSealPos(), seal.getSealPos().pos);
                         task.setPriority((pr2.getSeal() != null) ? pr2.getSeal().getPriority() : 5);
                         task.setLifespan((short)((pr2.getSeal() != null) ? 10 : 31000));
@@ -101,7 +101,7 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
     }
     
     public boolean matchesFilters(final ItemStack stack) {
-        return InventoryUtils.matchesFilters(this.getInv(), this.blacklist, stack, new ThaumcraftInvHelper.InvFilter(!this.props[0].value, !this.props[1].value, this.props[2].value, this.props[3].value));
+        return InventoryUtils.matchesFilters(getInv(), blacklist, stack, new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
     }
     
     @Override
@@ -115,11 +115,11 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
                         stack = task.getLinkedProvision().getStack().copy();
                     }
                     catch (final Exception ex) {}
-                    if (stack != null && this.props[4].value) {
+                    if (stack != null && props[4].value) {
                         stack.setCount(1);
                     }
                     int sa = 0;
-                    if (stack != null && !stack.isEmpty() && this.props[5].value && (sa = ThaumcraftInvHelper.countTotalItemsIn(inv, stack, ThaumcraftInvHelper.InvFilter.STRICT)) <= stack.getCount()) {
+                    if (stack != null && !stack.isEmpty() && props[5].value && (sa = ThaumcraftInvHelper.countTotalItemsIn(inv, stack, ThaumcraftInvHelper.InvFilter.STRICT)) <= stack.getCount()) {
                         stack.setCount(sa - 1);
                     }
                     if (stack != null && !stack.isEmpty()) {
@@ -189,9 +189,9 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
         final ProvisionRequest pr = task.getLinkedProvision();
         final boolean b = pr != null && ((pr.getSeal() != null && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(pr.getSeal().getSealPos().pos)) || (pr.getEntity() != null && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(pr.getEntity().getPosition())) || (pr.getPos() != null && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(pr.getPos())));
         if (task.getData() == 0) {
-            return b && this.areGolemTagsValidForTask(pr.getSeal(), golem) && pr.getStack() != null && !golem.isCarrying(pr.getStack()) && golem.canCarry(pr.getStack(), true);
+            return b && areGolemTagsValidForTask(pr.getSeal(), golem) && pr.getStack() != null && !golem.isCarrying(pr.getStack()) && golem.canCarry(pr.getStack(), true);
         }
-        return b && this.areGolemTagsValidForTask(pr.getSeal(), golem) && pr.getStack() != null && golem.isCarrying(pr.getStack());
+        return b && areGolemTagsValidForTask(pr.getSeal(), golem) && pr.getStack() != null && golem.isCarrying(pr.getStack());
     }
     
     private boolean areGolemTagsValidForTask(final ISealEntity se, final IGolemAPI golem) {
@@ -230,7 +230,7 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override
@@ -258,11 +258,11 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
     
     @Override
     public SealToggle[] getToggles() {
-        return this.props;
+        return props;
     }
     
     @Override
     public void setToggle(final int indx, final boolean value) {
-        this.props[indx].setValue(value);
+        props[indx].setValue(value);
     }
 }

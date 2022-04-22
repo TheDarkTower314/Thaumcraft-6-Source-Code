@@ -16,21 +16,21 @@ public class BlockStairsTC extends BlockStairs
 {
     public BlockStairsTC(final String name, final IBlockState modelState) {
         super(modelState);
-        this.setUnlocalizedName(name);
-        this.setRegistryName("thaumcraft", name);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setLightOpacity(0);
+        setUnlocalizedName(name);
+        setRegistryName("thaumcraft", name);
+        setCreativeTab(ConfigItems.TABTC);
+        setLightOpacity(0);
     }
     
     public int getFlammability(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
-        if (this.getMaterial(this.getDefaultState()) == Material.WOOD) {
+        if (getMaterial(getDefaultState()) == Material.WOOD) {
             return 20;
         }
         return super.getFlammability(world, pos, face);
     }
     
     public int getFireSpreadSpeed(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
-        if (this.getMaterial(this.getDefaultState()) == Material.WOOD) {
+        if (getMaterial(getDefaultState()) == Material.WOOD) {
             return 5;
         }
         return super.getFireSpreadSpeed(world, pos, face);

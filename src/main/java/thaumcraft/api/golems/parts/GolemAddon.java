@@ -25,10 +25,10 @@ public class GolemAddon
         this.key = key;
         this.research = research;
         this.icon = icon;
-        this.components = comp;
-        this.traits = tags;
+        components = comp;
+        traits = tags;
         this.model = model;
-        this.function = null;
+        function = null;
     }
     
     public GolemAddon(final String key, final String[] research, final ResourceLocation icon, final PartModel model, final Object[] comp, final IAddonFunction function, final EnumGolemTrait[] tags) {
@@ -48,11 +48,11 @@ public class GolemAddon
     }
     
     public String getLocalizedName() {
-        return I18n.translateToLocal("golem.addon." + this.key.toLowerCase());
+        return I18n.translateToLocal("golem.addon." + key.toLowerCase());
     }
     
     public String getLocalizedDescription() {
-        return I18n.translateToLocal("golem.addon.text." + this.key.toLowerCase());
+        return I18n.translateToLocal("golem.addon.text." + key.toLowerCase());
     }
     
     public static GolemAddon[] getAddons() {

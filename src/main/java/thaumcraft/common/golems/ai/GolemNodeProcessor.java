@@ -35,67 +35,67 @@ public class GolemNodeProcessor extends NodeProcessor
     
     public void init(final IBlockAccess sourceIn, final EntityLiving mob) {
         super.init(sourceIn, mob);
-        this.avoidsWater = mob.getPathPriority(PathNodeType.WATER);
+        avoidsWater = mob.getPathPriority(PathNodeType.WATER);
     }
     
     public void postProcess() {
-        this.entity.setPathPriority(PathNodeType.WATER, this.avoidsWater);
+        entity.setPathPriority(PathNodeType.WATER, avoidsWater);
         super.postProcess();
     }
     
     public PathPoint getStart() {
         int i;
-        if (this.getCanSwim() && this.entity.isInWater()) {
-            i = (int)this.entity.getEntityBoundingBox().minY;
-            final BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(this.entity.posX), i, MathHelper.floor(this.entity.posZ));
-            for (Block block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock()) {
+        if (getCanSwim() && entity.isInWater()) {
+            i = (int) entity.getEntityBoundingBox().minY;
+            final BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
+            for (Block block = blockaccess.getBlockState(blockpos$mutableblockpos).getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = blockaccess.getBlockState(blockpos$mutableblockpos).getBlock()) {
                 ++i;
-                blockpos$mutableblockpos.setPos(MathHelper.floor(this.entity.posX), i, MathHelper.floor(this.entity.posZ));
+                blockpos$mutableblockpos.setPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
             }
         }
-        else if (this.entity.onGround) {
-            i = MathHelper.floor(this.entity.getEntityBoundingBox().minY + 0.5);
+        else if (entity.onGround) {
+            i = MathHelper.floor(entity.getEntityBoundingBox().minY + 0.5);
         }
         else {
             BlockPos blockpos;
-            for (blockpos = new BlockPos(this.entity); (this.blockaccess.getBlockState(blockpos).getMaterial() == Material.AIR || this.blockaccess.getBlockState(blockpos).getBlock().isPassable(this.blockaccess, blockpos)) && blockpos.getY() > 0; blockpos = blockpos.down()) {}
+            for (blockpos = new BlockPos(entity); (blockaccess.getBlockState(blockpos).getMaterial() == Material.AIR || blockaccess.getBlockState(blockpos).getBlock().isPassable(blockaccess, blockpos)) && blockpos.getY() > 0; blockpos = blockpos.down()) {}
             i = blockpos.up().getY();
         }
-        final BlockPos blockpos2 = new BlockPos(this.entity);
-        final PathNodeType pathnodetype1 = this.getPathNodeType(this.entity, blockpos2.getX(), i, blockpos2.getZ());
-        if (this.entity.getPathPriority(pathnodetype1) < 0.0f) {
+        final BlockPos blockpos2 = new BlockPos(entity);
+        final PathNodeType pathnodetype1 = getPathNodeType(entity, blockpos2.getX(), i, blockpos2.getZ());
+        if (entity.getPathPriority(pathnodetype1) < 0.0f) {
             final Set<BlockPos> set = Sets.newHashSet();
-            set.add(new BlockPos(this.entity.getEntityBoundingBox().minX, i, this.entity.getEntityBoundingBox().minZ));
-            set.add(new BlockPos(this.entity.getEntityBoundingBox().minX, i, this.entity.getEntityBoundingBox().maxZ));
-            set.add(new BlockPos(this.entity.getEntityBoundingBox().maxX, i, this.entity.getEntityBoundingBox().minZ));
-            set.add(new BlockPos(this.entity.getEntityBoundingBox().maxX, i, this.entity.getEntityBoundingBox().maxZ));
+            set.add(new BlockPos(entity.getEntityBoundingBox().minX, i, entity.getEntityBoundingBox().minZ));
+            set.add(new BlockPos(entity.getEntityBoundingBox().minX, i, entity.getEntityBoundingBox().maxZ));
+            set.add(new BlockPos(entity.getEntityBoundingBox().maxX, i, entity.getEntityBoundingBox().minZ));
+            set.add(new BlockPos(entity.getEntityBoundingBox().maxX, i, entity.getEntityBoundingBox().maxZ));
             for (final BlockPos blockpos3 : set) {
-                final PathNodeType pathnodetype2 = this.getPathNodeType(this.entity, blockpos3);
-                if (this.entity.getPathPriority(pathnodetype2) >= 0.0f) {
-                    return this.openPoint(blockpos3.getX(), blockpos3.getY(), blockpos3.getZ());
+                final PathNodeType pathnodetype2 = getPathNodeType(entity, blockpos3);
+                if (entity.getPathPriority(pathnodetype2) >= 0.0f) {
+                    return openPoint(blockpos3.getX(), blockpos3.getY(), blockpos3.getZ());
                 }
             }
         }
-        return this.openPoint(blockpos2.getX(), i, blockpos2.getZ());
+        return openPoint(blockpos2.getX(), i, blockpos2.getZ());
     }
     
     public PathPoint getPathPointToCoords(final double x, final double y, final double z) {
-        return this.openPoint(MathHelper.floor(x - this.entity.width / 2.0f), MathHelper.floor(y), MathHelper.floor(z - this.entity.width / 2.0f));
+        return openPoint(MathHelper.floor(x - entity.width / 2.0f), MathHelper.floor(y), MathHelper.floor(z - entity.width / 2.0f));
     }
     
     public int findPathOptions(final PathPoint[] pathOptions, final PathPoint currentPoint, final PathPoint targetPoint, final float maxDistance) {
         int i = 0;
         int j = 0;
-        final PathNodeType pathnodetype = this.getPathNodeType(this.entity, currentPoint.x, currentPoint.y + 1, currentPoint.z);
-        if (this.entity.getPathPriority(pathnodetype) >= 0.0f) {
-            j = MathHelper.floor(Math.max(1.0f, this.entity.stepHeight));
+        final PathNodeType pathnodetype = getPathNodeType(entity, currentPoint.x, currentPoint.y + 1, currentPoint.z);
+        if (entity.getPathPriority(pathnodetype) >= 0.0f) {
+            j = MathHelper.floor(Math.max(1.0f, entity.stepHeight));
         }
         final BlockPos blockpos = new BlockPos(currentPoint.x, currentPoint.y, currentPoint.z).down();
-        final double d0 = currentPoint.y - (1.0 - this.blockaccess.getBlockState(blockpos).getBoundingBox(this.blockaccess, blockpos).maxY);
-        final PathPoint pathpoint = this.getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
-        final PathPoint pathpoint2 = this.getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.WEST);
-        final PathPoint pathpoint3 = this.getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.EAST);
-        final PathPoint pathpoint4 = this.getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
+        final double d0 = currentPoint.y - (1.0 - blockaccess.getBlockState(blockpos).getBoundingBox(blockaccess, blockpos).maxY);
+        final PathPoint pathpoint = getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
+        final PathPoint pathpoint2 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.WEST);
+        final PathPoint pathpoint3 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.EAST);
+        final PathPoint pathpoint4 = getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
         if (pathpoint != null && !pathpoint.visited && pathpoint.distanceTo(targetPoint) < maxDistance) {
             pathOptions[i++] = pathpoint;
         }
@@ -113,25 +113,25 @@ public class GolemNodeProcessor extends NodeProcessor
         final boolean flag3 = pathpoint3 == null || pathpoint3.nodeType == PathNodeType.OPEN || pathpoint3.costMalus != 0.0f;
         final boolean flag4 = pathpoint2 == null || pathpoint2.nodeType == PathNodeType.OPEN || pathpoint2.costMalus != 0.0f;
         if (flag && flag4) {
-            final PathPoint pathpoint5 = this.getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
+            final PathPoint pathpoint5 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
             if (pathpoint5 != null && !pathpoint5.visited && pathpoint5.distanceTo(targetPoint) < maxDistance) {
                 pathOptions[i++] = pathpoint5;
             }
         }
         if (flag && flag3) {
-            final PathPoint pathpoint6 = this.getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
+            final PathPoint pathpoint6 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
             if (pathpoint6 != null && !pathpoint6.visited && pathpoint6.distanceTo(targetPoint) < maxDistance) {
                 pathOptions[i++] = pathpoint6;
             }
         }
         if (flag2 && flag4) {
-            final PathPoint pathpoint7 = this.getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
+            final PathPoint pathpoint7 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
             if (pathpoint7 != null && !pathpoint7.visited && pathpoint7.distanceTo(targetPoint) < maxDistance) {
                 pathOptions[i++] = pathpoint7;
             }
         }
         if (flag2 && flag3) {
-            final PathPoint pathpoint8 = this.getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
+            final PathPoint pathpoint8 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
             if (pathpoint8 != null && !pathpoint8.visited && pathpoint8.distanceTo(targetPoint) < maxDistance) {
                 pathOptions[i++] = pathpoint8;
             }
@@ -143,15 +143,15 @@ public class GolemNodeProcessor extends NodeProcessor
         PathPoint pathpoint = null;
         final BlockPos blockpos = new BlockPos(x, y, z);
         final BlockPos blockpos2 = blockpos.down();
-        final double d0 = y - (1.0 - this.blockaccess.getBlockState(blockpos2).getBoundingBox(this.blockaccess, blockpos2).maxY);
+        final double d0 = y - (1.0 - blockaccess.getBlockState(blockpos2).getBoundingBox(blockaccess, blockpos2).maxY);
         if (d0 - p_186332_5_ > 1.125) {
             return null;
         }
-        PathNodeType pathnodetype = this.getPathNodeType(this.entity, x, y, z);
-        float f = this.entity.getPathPriority(pathnodetype);
-        final double d2 = this.entity.width / 2.0;
+        PathNodeType pathnodetype = getPathNodeType(entity, x, y, z);
+        float f = entity.getPathPriority(pathnodetype);
+        final double d2 = entity.width / 2.0;
         if (f >= 0.0f) {
-            pathpoint = this.openPoint(x, y, z);
+            pathpoint = openPoint(x, y, z);
             pathpoint.nodeType = pathnodetype;
             pathpoint.costMalus = Math.max(pathpoint.costMalus, f);
         }
@@ -159,27 +159,27 @@ public class GolemNodeProcessor extends NodeProcessor
             return pathpoint;
         }
         if (pathpoint == null && p_186332_4_ > 0 && pathnodetype != PathNodeType.FENCE && pathnodetype != PathNodeType.TRAPDOOR) {
-            pathpoint = this.getSafePoint(x, y + 1, z, p_186332_4_ - 1, p_186332_5_, facing);
-            if (pathpoint != null && (pathpoint.nodeType == PathNodeType.OPEN || pathpoint.nodeType == PathNodeType.WALKABLE) && this.entity.width < 1.0f) {
+            pathpoint = getSafePoint(x, y + 1, z, p_186332_4_ - 1, p_186332_5_, facing);
+            if (pathpoint != null && (pathpoint.nodeType == PathNodeType.OPEN || pathpoint.nodeType == PathNodeType.WALKABLE) && entity.width < 1.0f) {
                 final double d3 = x - facing.getFrontOffsetX() + 0.5;
                 final double d4 = z - facing.getFrontOffsetZ() + 0.5;
-                final AxisAlignedBB axisalignedbb = new AxisAlignedBB(d3 - d2, y + 0.001, d4 - d2, d3 + d2, y + this.entity.height, d4 + d2);
-                final AxisAlignedBB axisalignedbb2 = this.blockaccess.getBlockState(blockpos).getBoundingBox(this.blockaccess, blockpos);
+                final AxisAlignedBB axisalignedbb = new AxisAlignedBB(d3 - d2, y + 0.001, d4 - d2, d3 + d2, y + entity.height, d4 + d2);
+                final AxisAlignedBB axisalignedbb2 = blockaccess.getBlockState(blockpos).getBoundingBox(blockaccess, blockpos);
                 final AxisAlignedBB axisalignedbb3 = axisalignedbb.expand(0.0, axisalignedbb2.maxY - 0.002, 0.0);
-                if (this.entity.world.collidesWithAnyBlock(axisalignedbb3)) {
+                if (entity.world.collidesWithAnyBlock(axisalignedbb3)) {
                     pathpoint = null;
                 }
             }
         }
         if (pathnodetype == PathNodeType.OPEN) {
-            final AxisAlignedBB axisalignedbb4 = new AxisAlignedBB(x - d2 + 0.5, y + 0.001, z - d2 + 0.5, x + d2 + 0.5, y + this.entity.height, z + d2 + 0.5);
-            if (this.entity.world.collidesWithAnyBlock(axisalignedbb4)) {
+            final AxisAlignedBB axisalignedbb4 = new AxisAlignedBB(x - d2 + 0.5, y + 0.001, z - d2 + 0.5, x + d2 + 0.5, y + entity.height, z + d2 + 0.5);
+            if (entity.world.collidesWithAnyBlock(axisalignedbb4)) {
                 return null;
             }
-            if (this.entity.width >= 1.0f) {
-                final PathNodeType pathnodetype2 = this.getPathNodeType(this.entity, x, y - 1, z);
+            if (entity.width >= 1.0f) {
+                final PathNodeType pathnodetype2 = getPathNodeType(entity, x, y - 1, z);
                 if (pathnodetype2 == PathNodeType.BLOCKED) {
-                    pathpoint = this.openPoint(x, y, z);
+                    pathpoint = openPoint(x, y, z);
                     pathpoint.nodeType = PathNodeType.WALKABLE;
                     pathpoint.costMalus = Math.max(pathpoint.costMalus, f);
                     return pathpoint;
@@ -188,13 +188,13 @@ public class GolemNodeProcessor extends NodeProcessor
             int i = 0;
             while (y > 0 && pathnodetype == PathNodeType.OPEN) {
                 --y;
-                if (i++ >= this.entity.getMaxFallHeight()) {
+                if (i++ >= entity.getMaxFallHeight()) {
                     return null;
                 }
-                pathnodetype = this.getPathNodeType(this.entity, x, y, z);
-                f = this.entity.getPathPriority(pathnodetype);
+                pathnodetype = getPathNodeType(entity, x, y, z);
+                f = entity.getPathPriority(pathnodetype);
                 if (pathnodetype != PathNodeType.OPEN && f >= 0.0f) {
-                    pathpoint = this.openPoint(x, y, z);
+                    pathpoint = openPoint(x, y, z);
                     pathpoint.nodeType = pathnodetype;
                     pathpoint.costMalus = Math.max(pathpoint.costMalus, f);
                     break;
@@ -218,7 +218,7 @@ public class GolemNodeProcessor extends NodeProcessor
                     final int l = i + x;
                     final int i2 = j + y;
                     final int j2 = k + z;
-                    PathNodeType pathnodetype2 = this.getPathNodeType(blockaccessIn, l, i2, j2);
+                    PathNodeType pathnodetype2 = getPathNodeType(blockaccessIn, l, i2, j2);
                     if (pathnodetype2 == PathNodeType.DOOR_WOOD_CLOSED && canBreakDoorsIn && canEnterDoorsIn) {
                         pathnodetype2 = PathNodeType.WALKABLE;
                     }
@@ -255,18 +255,18 @@ public class GolemNodeProcessor extends NodeProcessor
     }
     
     private PathNodeType getPathNodeType(final EntityLiving entitylivingIn, final BlockPos pos) {
-        return this.getPathNodeType(entitylivingIn, pos.getX(), pos.getY(), pos.getZ());
+        return getPathNodeType(entitylivingIn, pos.getX(), pos.getY(), pos.getZ());
     }
     
     private PathNodeType getPathNodeType(final EntityLiving entitylivingIn, final int x, final int y, final int z) {
-        return this.getPathNodeType(this.blockaccess, x, y, z, entitylivingIn, this.entitySizeX, this.entitySizeY, this.entitySizeZ, false, this.getCanEnterDoors());
+        return getPathNodeType(blockaccess, x, y, z, entitylivingIn, entitySizeX, entitySizeY, entitySizeZ, false, getCanEnterDoors());
     }
     
     public PathNodeType getPathNodeType(final IBlockAccess blockaccessIn, final int x, final int y, final int z) {
-        PathNodeType pathnodetype = this.getPathNodeTypeRaw(blockaccessIn, x, y, z);
+        PathNodeType pathnodetype = getPathNodeTypeRaw(blockaccessIn, x, y, z);
         if (pathnodetype == PathNodeType.OPEN && y >= 1) {
             final Block block = blockaccessIn.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
-            final PathNodeType pathnodetype2 = this.getPathNodeTypeRaw(blockaccessIn, x, y - 1, z);
+            final PathNodeType pathnodetype2 = getPathNodeTypeRaw(blockaccessIn, x, y - 1, z);
             pathnodetype = ((pathnodetype2 != PathNodeType.WALKABLE && pathnodetype2 != PathNodeType.OPEN && pathnodetype2 != PathNodeType.WATER && pathnodetype2 != PathNodeType.LAVA) ? PathNodeType.WALKABLE : PathNodeType.OPEN);
             if (pathnodetype2 == PathNodeType.DAMAGE_FIRE || block == Blocks.MAGMA) {
                 pathnodetype = PathNodeType.DAMAGE_FIRE;

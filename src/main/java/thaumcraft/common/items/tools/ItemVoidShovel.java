@@ -26,9 +26,9 @@ public class ItemVoidShovel extends ItemSpade implements IWarpingGear, IThaumcra
 {
     public ItemVoidShovel(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("void_shovel");
-        this.setUnlocalizedName("void_shovel");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("void_shovel");
+        setUnlocalizedName("void_shovel");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

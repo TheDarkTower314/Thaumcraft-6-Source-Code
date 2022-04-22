@@ -14,33 +14,33 @@ public class TileTubeFilter extends TileTube implements IAspectContainer
     public Aspect aspectFilter;
     
     public TileTubeFilter() {
-        this.aspectFilter = null;
+        aspectFilter = null;
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
         super.readSyncNBT(nbttagcompound);
-        this.aspectFilter = Aspect.getAspect(nbttagcompound.getString("AspectFilter"));
+        aspectFilter = Aspect.getAspect(nbttagcompound.getString("AspectFilter"));
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound = super.writeSyncNBT(nbttagcompound);
-        if (this.aspectFilter != null) {
-            nbttagcompound.setString("AspectFilter", this.aspectFilter.getTag());
+        if (aspectFilter != null) {
+            nbttagcompound.setString("AspectFilter", aspectFilter.getTag());
         }
         return nbttagcompound;
     }
     
     @Override
     void calculateSuction(final Aspect filter, final boolean restrict, final boolean dir) {
-        super.calculateSuction(this.aspectFilter, restrict, dir);
+        super.calculateSuction(aspectFilter, restrict, dir);
     }
     
     @Override
     public AspectList getAspects() {
-        if (this.aspectFilter != null) {
-            return new AspectList().add(this.aspectFilter, -1);
+        if (aspectFilter != null) {
+            return new AspectList().add(aspectFilter, -1);
         }
         return null;
     }

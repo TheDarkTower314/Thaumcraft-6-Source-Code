@@ -33,7 +33,7 @@ public class CardCalibrate extends TheorycraftCard
     
     @Override
     public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        data.addTotal(this.getResearchCategory(), 15);
+        data.addTotal(getResearchCategory(), 15);
         ++data.bonusDraws;
         return true;
     }

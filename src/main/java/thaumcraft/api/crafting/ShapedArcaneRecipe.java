@@ -28,7 +28,7 @@ public class ShapedArcaneRecipe extends ShapedOreRecipe implements IArcaneRecipe
     public ShapedArcaneRecipe(ResourceLocation group, String res, int vis, AspectList crystals, @Nonnull ItemStack result, Object... recipe) { this(group, res, vis, crystals, result, CraftingHelper.parseShaped(recipe)); }
 	public ShapedArcaneRecipe(ResourceLocation group, String res, int vis, AspectList crystals, @Nonnull ItemStack result, ShapedPrimer primer) {
 		super(group, result, primer);
-		this.research = res;
+		research = res;
 		this.vis = vis;
 		this.crystals = crystals;
 	}

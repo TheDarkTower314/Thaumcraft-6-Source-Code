@@ -17,13 +17,13 @@ public class InventoryPech extends InventoryBasic
     
     public InventoryPech(final IInventoryChangedListener listener, final EntityPlayer par1EntityPlayer, final EntityPech par2IMerchant) {
         super("container.pech", false, 5);
-        this.addInventoryChangeListener(listener);
-        this.thePlayer = par1EntityPlayer;
-        this.theMerchant = par2IMerchant;
+        addInventoryChangeListener(listener);
+        thePlayer = par1EntityPlayer;
+        theMerchant = par2IMerchant;
     }
     
     public boolean isUsableByPlayer(final EntityPlayer player) {
-        return this.theMerchant.isTamed();
+        return theMerchant.isTamed();
     }
     
     public boolean isItemValidForSlot(final int index, final ItemStack stack) {

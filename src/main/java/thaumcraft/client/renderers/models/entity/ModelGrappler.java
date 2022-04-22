@@ -15,31 +15,31 @@ public class ModelGrappler extends ModelBase
     ModelRenderer prong3;
     
     public ModelGrappler() {
-        this.textureWidth = 64;
-        this.textureHeight = 32;
-        (this.core = new ModelRenderer(this, 0, 0)).addBox(-1.5f, -1.5f, -1.5f, 3, 3, 3);
-        this.core.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.core.setTextureSize(this.textureWidth, this.textureHeight);
-        this.setRotation(this.core, 0.0f, 0.0f, 0.0f);
-        (this.prong1 = new ModelRenderer(this, 0, 10)).addBox(-0.5f, -0.5f, -2.5f, 1, 1, 5);
-        this.prong1.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.prong1.setTextureSize(this.textureWidth, this.textureHeight);
-        this.setRotation(this.prong1, 0.0f, 0.0f, 0.0f);
-        (this.prong2 = new ModelRenderer(this, 0, 10)).addBox(-0.5f, -0.5f, -2.5f, 1, 1, 5);
-        this.prong2.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.prong2.setTextureSize(this.textureWidth, this.textureHeight);
-        this.setRotation(this.prong2, 0.0f, 1.5707964f, 0.0f);
-        (this.prong3 = new ModelRenderer(this, 0, 10)).addBox(-0.5f, -0.5f, -2.5f, 1, 1, 5);
-        this.prong3.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.prong3.setTextureSize(this.textureWidth, this.textureHeight);
-        this.setRotation(this.prong3, 1.5707964f, 1.5707964f, 0.0f);
+        textureWidth = 64;
+        textureHeight = 32;
+        (core = new ModelRenderer(this, 0, 0)).addBox(-1.5f, -1.5f, -1.5f, 3, 3, 3);
+        core.setRotationPoint(0.0f, 0.0f, 0.0f);
+        core.setTextureSize(textureWidth, textureHeight);
+        setRotation(core, 0.0f, 0.0f, 0.0f);
+        (prong1 = new ModelRenderer(this, 0, 10)).addBox(-0.5f, -0.5f, -2.5f, 1, 1, 5);
+        prong1.setRotationPoint(0.0f, 0.0f, 0.0f);
+        prong1.setTextureSize(textureWidth, textureHeight);
+        setRotation(prong1, 0.0f, 0.0f, 0.0f);
+        (prong2 = new ModelRenderer(this, 0, 10)).addBox(-0.5f, -0.5f, -2.5f, 1, 1, 5);
+        prong2.setRotationPoint(0.0f, 0.0f, 0.0f);
+        prong2.setTextureSize(textureWidth, textureHeight);
+        setRotation(prong2, 0.0f, 1.5707964f, 0.0f);
+        (prong3 = new ModelRenderer(this, 0, 10)).addBox(-0.5f, -0.5f, -2.5f, 1, 1, 5);
+        prong3.setRotationPoint(0.0f, 0.0f, 0.0f);
+        prong3.setTextureSize(textureWidth, textureHeight);
+        setRotation(prong3, 1.5707964f, 1.5707964f, 0.0f);
     }
     
     public void render() {
-        this.core.render(0.0625f);
-        this.prong1.render(0.0625f);
-        this.prong2.render(0.0625f);
-        this.prong3.render(0.0625f);
+        core.render(0.0625f);
+        prong1.render(0.0625f);
+        prong2.render(0.0625f);
+        prong3.render(0.0625f);
     }
     
     private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {

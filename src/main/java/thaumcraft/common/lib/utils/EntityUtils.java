@@ -459,8 +459,8 @@ public class EntityUtils
             if (a.equals(b)) {
                 return 0;
             }
-            final double da = this.source.getPositionVector().squareDistanceTo(a.getPositionVector());
-            final double db = this.source.getPositionVector().squareDistanceTo(b.getPositionVector());
+            final double da = source.getPositionVector().squareDistanceTo(a.getPositionVector());
+            final double db = source.getPositionVector().squareDistanceTo(b.getPositionVector());
             return (da < db) ? -1 : ((da > db) ? 1 : 0);
         }
     }

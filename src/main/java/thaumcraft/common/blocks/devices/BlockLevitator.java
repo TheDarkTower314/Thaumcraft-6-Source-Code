@@ -48,8 +48,8 @@ public class BlockLevitator extends BlockTCDevice implements IBlockFacing, IBloc
     
     public BlockLevitator() {
         super(Material.WOOD, TileLevitator.class, "levitator");
-        this.rayTracer = new RayTracer();
-        this.setSoundType(SoundType.WOOD);
+        rayTracer = new RayTracer();
+        setSoundType(SoundType.WOOD);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {
@@ -124,7 +124,7 @@ public class BlockLevitator extends BlockTCDevice implements IBlockFacing, IBloc
             ((TileLevitator)tile).addTraceableCuboids(cuboids);
         }
         final ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
-        this.rayTracer.rayTraceCuboids(new Vector3(start), new Vector3(end), cuboids, new BlockCoord(pos), this, list);
+        rayTracer.rayTraceCuboids(new Vector3(start), new Vector3(end), cuboids, new BlockCoord(pos), this, list);
         return (list.size() > 0) ? list.get(0) : super.collisionRayTrace(state, world, pos, start, end);
     }
 }

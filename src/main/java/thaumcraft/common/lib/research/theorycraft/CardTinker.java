@@ -26,27 +26,27 @@ public class CardTinker extends TheorycraftCard
     static ItemStack[] options;
     
     public CardTinker() {
-        this.stack = ItemStack.EMPTY;
+        stack = ItemStack.EMPTY;
     }
     
     @Override
     public NBTTagCompound serialize() {
         final NBTTagCompound nbt = super.serialize();
-        nbt.setTag("stack", this.stack.serializeNBT());
+        nbt.setTag("stack", stack.serializeNBT());
         return nbt;
     }
     
     @Override
     public void deserialize(final NBTTagCompound nbt) {
         super.deserialize(nbt);
-        this.stack = new ItemStack(nbt.getCompoundTag("stack"));
+        stack = new ItemStack(nbt.getCompoundTag("stack"));
     }
     
     @Override
     public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(this.getSeed());
-        this.stack = CardTinker.options[r.nextInt(CardTinker.options.length)].copy();
-        return this.stack != null;
+        final Random r = new Random(getSeed());
+        stack = CardTinker.options[r.nextInt(CardTinker.options.length)].copy();
+        return stack != null;
     }
     
     @Override
@@ -62,7 +62,7 @@ public class CardTinker extends TheorycraftCard
     private int getVal() {
         int q = 0;
         try {
-            q += (int)Math.sqrt(ThaumcraftCraftingManager.getObjectTags(this.stack).visSize());
+            q += (int)Math.sqrt(ThaumcraftCraftingManager.getObjectTags(stack).visSize());
         }
         catch (final Exception ex) {}
         return q;
@@ -75,20 +75,20 @@ public class CardTinker extends TheorycraftCard
     
     @Override
     public String getLocalizedText() {
-        final int a = this.getVal() * 2;
+        final int a = getVal() * 2;
         final int b = a + 10;
         return new TextComponentTranslation("card.tinker.text", a, b).getFormattedText();
     }
     
     @Override
     public ItemStack[] getRequiredItems() {
-        return new ItemStack[] { this.stack };
+        return new ItemStack[] { stack };
     }
     
     @Override
     public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        final int q = this.getVal() * 2;
-        data.addTotal(this.getResearchCategory(), MathHelper.getInt(player.getRNG(), q, q + 10));
+        final int q = getVal() * 2;
+        data.addTotal(getResearchCategory(), MathHelper.getInt(player.getRNG(), q, q + 10));
         return true;
     }
     

@@ -18,12 +18,12 @@ public class TileEssentiaOutput extends TileThaumcraft implements IEssentiaTrans
     int count;
     
     public TileEssentiaOutput() {
-        this.count = 0;
+        count = 0;
     }
     
     @Override
     public boolean isConnectable(final EnumFacing face) {
-        return face == this.getFacing().getOpposite();
+        return face == getFacing().getOpposite();
     }
     
     @Override
@@ -33,7 +33,7 @@ public class TileEssentiaOutput extends TileThaumcraft implements IEssentiaTrans
     
     @Override
     public boolean canOutputTo(final EnumFacing face) {
-        return face == this.getFacing().getOpposite();
+        return face == getFacing().getOpposite();
     }
     
     @Override
@@ -76,21 +76,21 @@ public class TileEssentiaOutput extends TileThaumcraft implements IEssentiaTrans
     }
     
     public void update() {
-        if (!this.world.isRemote && ++this.count % 5 == 0) {
-            this.fillBuffer();
+        if (!world.isRemote && ++count % 5 == 0) {
+            fillBuffer();
         }
     }
     
     void fillBuffer() {
-        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(this.world, this.getPos(), this.getFacing().getOpposite());
+        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), getFacing().getOpposite());
         if (te != null) {
             final IEssentiaTransport ic = (IEssentiaTransport)te;
-            if (!ic.canInputFrom(this.getFacing())) {
+            if (!ic.canInputFrom(getFacing())) {
                 return;
             }
-            if (ic.getSuctionAmount(this.getFacing()) > 0 && ic.getSuctionType(this.getFacing()) != null) {
-                final Aspect ta = ic.getSuctionType(this.getFacing());
-                if (EssentiaHandler.drainEssentiaWithConfirmation(this, ta, this.getFacing(), 16, false, 5) && ic.addEssentia(ta, 1, this.getFacing()) > 0) {
+            if (ic.getSuctionAmount(getFacing()) > 0 && ic.getSuctionType(getFacing()) != null) {
+                final Aspect ta = ic.getSuctionType(getFacing());
+                if (EssentiaHandler.drainEssentiaWithConfirmation(this, ta, getFacing(), 16, false, 5) && ic.addEssentia(ta, 1, getFacing()) > 0) {
                     EssentiaHandler.confirmDrain();
                 }
             }

@@ -17,8 +17,8 @@ public class WorldGenCustomFlowers extends WorldGenerator
     private int plantBlockMeta;
     
     public WorldGenCustomFlowers(final Block bi, final int md) {
-        this.plantBlock = bi;
-        this.plantBlockMeta = md;
+        plantBlock = bi;
+        plantBlockMeta = md;
     }
     
     public boolean generate(final World world, final Random par2Random, final BlockPos pos) {
@@ -28,7 +28,7 @@ public class WorldGenCustomFlowers extends WorldGenerator
             final int var9 = pos.getZ() + par2Random.nextInt(8) - par2Random.nextInt(8);
             final BlockPos bp = new BlockPos(var7, var8, var9);
             if (world.isAirBlock(bp) && (world.getBlockState(bp.down()).getBlock() == Blocks.GRASS || world.getBlockState(bp.down()).getBlock() == Blocks.SAND)) {
-                world.setBlockState(bp, this.plantBlock.getStateFromMeta(this.plantBlockMeta), 3);
+                world.setBlockState(bp, plantBlock.getStateFromMeta(plantBlockMeta), 3);
             }
         }
         return true;

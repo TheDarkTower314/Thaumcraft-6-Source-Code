@@ -23,7 +23,7 @@ public class BlockArcaneWorkbench extends BlockTCDevice
 {
     public BlockArcaneWorkbench() {
         super(Material.WOOD, TileArcaneWorkbench.class, "arcane_workbench");
-        this.setSoundType(SoundType.WOOD);
+        setSoundType(SoundType.WOOD);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {

@@ -43,33 +43,33 @@ public class PlayerWarp
         private int counter;
         
         private DefaultImpl() {
-            this.warp = new int[EnumWarpType.values().length];
+            warp = new int[EnumWarpType.values().length];
         }
         
         @Override
         public void clear() {
-            this.warp = new int[EnumWarpType.values().length];
-            this.counter = 0;
+            warp = new int[EnumWarpType.values().length];
+            counter = 0;
         }
         
         @Override
         public int get(@Nonnull final EnumWarpType type) {
-            return this.warp[type.ordinal()];
+            return warp[type.ordinal()];
         }
         
         @Override
         public void set(final EnumWarpType type, final int amount) {
-            this.warp[type.ordinal()] = MathHelper.clamp(amount, 0, 500);
+            warp[type.ordinal()] = MathHelper.clamp(amount, 0, 500);
         }
         
         @Override
         public int add(@Nonnull final EnumWarpType type, final int amount) {
-            return this.warp[type.ordinal()] = MathHelper.clamp(this.warp[type.ordinal()] + amount, 0, 500);
+            return warp[type.ordinal()] = MathHelper.clamp(warp[type.ordinal()] + amount, 0, 500);
         }
         
         @Override
         public int reduce(@Nonnull final EnumWarpType type, final int amount) {
-            return this.warp[type.ordinal()] = MathHelper.clamp(this.warp[type.ordinal()] - amount, 0, 500);
+            return warp[type.ordinal()] = MathHelper.clamp(warp[type.ordinal()] - amount, 0, 500);
         }
         
         @Override
@@ -79,8 +79,8 @@ public class PlayerWarp
         
         public NBTTagCompound serializeNBT() {
             final NBTTagCompound properties = new NBTTagCompound();
-            properties.setIntArray("warp", this.warp);
-            properties.setInteger("counter", this.getCounter());
+            properties.setIntArray("warp", warp);
+            properties.setInteger("counter", getCounter());
             return properties;
         }
         
@@ -88,7 +88,7 @@ public class PlayerWarp
             if (properties == null) {
                 return;
             }
-            this.clear();
+            clear();
             final int[] ba = properties.getIntArray("warp");
             if (ba != null) {
                 int l = EnumWarpType.values().length;
@@ -96,20 +96,20 @@ public class PlayerWarp
                     l = ba.length;
                 }
                 for (int a = 0; a < l; ++a) {
-                    this.warp[a] = ba[a];
+                    warp[a] = ba[a];
                 }
             }
-            this.setCounter(properties.getInteger("counter"));
+            setCounter(properties.getInteger("counter"));
         }
         
         @Override
         public int getCounter() {
-            return this.counter;
+            return counter;
         }
         
         @Override
         public void setCounter(final int amount) {
-            this.counter = amount;
+            counter = amount;
         }
     }
     
@@ -119,7 +119,7 @@ public class PlayerWarp
         private final DefaultImpl warp;
         
         public Provider() {
-            this.warp = new DefaultImpl();
+            warp = new DefaultImpl();
         }
         
         public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
@@ -128,17 +128,17 @@ public class PlayerWarp
         
         public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
             if (capability == ThaumcraftCapabilities.WARP) {
-                return ThaumcraftCapabilities.WARP.cast(this.warp);
+                return ThaumcraftCapabilities.WARP.cast(warp);
             }
             return null;
         }
         
         public NBTTagCompound serializeNBT() {
-            return this.warp.serializeNBT();
+            return warp.serializeNBT();
         }
         
         public void deserializeNBT(final NBTTagCompound nbt) {
-            this.warp.deserializeNBT(nbt);
+            warp.deserializeNBT(nbt);
         }
         
         static {

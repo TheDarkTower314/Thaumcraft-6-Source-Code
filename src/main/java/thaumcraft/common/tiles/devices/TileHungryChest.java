@@ -14,8 +14,8 @@ import net.minecraft.tileentity.TileEntityChest;
 public class TileHungryChest extends TileEntityChest
 {
     public void checkForAdjacentChests() {
-        if (!this.adjacentChestChecked) {
-            this.adjacentChestChecked = true;
+        if (!adjacentChestChecked) {
+            adjacentChestChecked = true;
         }
     }
     
@@ -24,11 +24,11 @@ public class TileHungryChest extends TileEntityChest
     }
     
     public void closeInventory(final EntityPlayer player) {
-        if (!player.isSpectator() && this.getBlockType() instanceof BlockHungryChest) {
-            --this.numPlayersUsing;
-            this.world.addBlockEvent(this.pos, this.getBlockType(), 1, this.numPlayersUsing);
-            this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
-            this.world.notifyNeighborsOfStateChange(this.pos.down(), this.getBlockType(), true);
+        if (!player.isSpectator() && getBlockType() instanceof BlockHungryChest) {
+            --numPlayersUsing;
+            world.addBlockEvent(pos, getBlockType(), 1, numPlayersUsing);
+            world.notifyNeighborsOfStateChange(pos, getBlockType(), true);
+            world.notifyNeighborsOfStateChange(pos.down(), getBlockType(), true);
         }
     }
     

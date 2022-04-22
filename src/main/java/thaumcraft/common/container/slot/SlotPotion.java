@@ -18,7 +18,7 @@ public class SlotPotion extends Slot
     
     public SlotPotion(final IInventory par2IInventory, final int par3, final int par4, final int par5) {
         super(par2IInventory, par3, par4, par5);
-        this.limit = 64;
+        limit = 64;
     }
     
     public SlotPotion(final int limit, final IInventory par2IInventory, final int par3, final int par4, final int par5) {
@@ -46,6 +46,6 @@ public class SlotPotion extends Slot
     }
     
     public int getSlotStackLimit() {
-        return this.limit;
+        return limit;
     }
 }

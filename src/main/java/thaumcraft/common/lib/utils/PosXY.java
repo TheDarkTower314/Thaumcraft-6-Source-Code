@@ -14,12 +14,12 @@ public class PosXY implements Comparable
     
     public PosXY(final int x, final int z) {
         this.x = x;
-        this.y = z;
+        y = z;
     }
     
     public PosXY(final PosXY c) {
-        this.x = c.x;
-        this.y = c.y;
+        x = c.x;
+        y = c.y;
     }
     
     @Override
@@ -28,40 +28,40 @@ public class PosXY implements Comparable
             return false;
         }
         final PosXY chunkcoordinates = (PosXY)o;
-        return this.x == chunkcoordinates.x && this.y == chunkcoordinates.y;
+        return x == chunkcoordinates.x && y == chunkcoordinates.y;
     }
     
     @Override
     public int hashCode() {
-        return this.x + this.y << 8;
+        return x + y << 8;
     }
     
     public int compareTo(final PosXY c) {
-        return (this.y == c.y) ? (this.x - c.x) : (this.y - c.y);
+        return (y == c.y) ? (x - c.x) : (y - c.y);
     }
     
     public void set(final int x, final int z) {
         this.x = x;
-        this.y = z;
+        y = z;
     }
     
     public float getDistanceSquared(final int x, final int z) {
         final float f = (float)(this.x - x);
-        final float f2 = (float)(this.y - z);
+        final float f2 = (float)(y - z);
         return f * f + f2 * f2;
     }
     
     public float getDistanceSquaredToChunkCoordinates(final PosXY c) {
-        return this.getDistanceSquared(c.x, c.y);
+        return getDistanceSquared(c.x, c.y);
     }
     
     @Override
     public String toString() {
-        return "Pos{x=" + this.x + ", y=" + this.y + '}';
+        return "Pos{x=" + x + ", y=" + y + '}';
     }
     
     @Override
     public int compareTo(final Object o) {
-        return this.compareTo((PosXY)o);
+        return compareTo((PosXY)o);
     }
 }

@@ -43,10 +43,10 @@ public enum EnumGolemTrait {
 	}
 	
 	public String getLocalizedName() {
-		return I18n.translateToLocal("golem.trait."+this.name().toLowerCase());
+		return I18n.translateToLocal("golem.trait."+ name().toLowerCase());
 	}
 	
 	public String getLocalizedDescription() {
-		return I18n.translateToLocal("golem.trait.text."+this.name().toLowerCase());
+		return I18n.translateToLocal("golem.trait.text."+ name().toLowerCase());
 	}
 }

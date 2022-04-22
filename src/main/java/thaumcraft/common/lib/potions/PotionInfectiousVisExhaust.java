@@ -23,11 +23,11 @@ public class PotionInfectiousVisExhaust extends Potion
     
     public PotionInfectiousVisExhaust(final boolean par2, final int par3) {
         super(par2, par3);
-        this.statusIconIndex = -1;
-        this.setIconIndex(0, 0);
-        this.setPotionName("potion.infvisexhaust");
-        this.setIconIndex(6, 1);
-        this.setEffectiveness(0.25);
+        statusIconIndex = -1;
+        setIconIndex(0, 0);
+        setPotionName("potion.infvisexhaust");
+        setIconIndex(6, 1);
+        setEffectiveness(0.25);
     }
     
     public boolean isBadEffect() {

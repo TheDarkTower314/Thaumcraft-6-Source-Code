@@ -21,38 +21,38 @@ public class ItemChunksEdible extends ItemFood implements IThaumcraftItems
     
     public ItemChunksEdible() {
         super(1, 0.3f, false);
-        this.variants = new String[] { "beef", "chicken", "pork", "fish", "rabbit", "mutton" };
-        this.itemUseDuration = 10;
-        this.setMaxStackSize(64);
-        this.setHasSubtypes(true);
-        this.setMaxDamage(0);
-        this.setRegistryName("chunk");
-        this.setUnlocalizedName("chunk");
-        this.setCreativeTab(ConfigItems.TABTC);
+        variants = new String[] { "beef", "chicken", "pork", "fish", "rabbit", "mutton" };
+        itemUseDuration = 10;
+        setMaxStackSize(64);
+        setHasSubtypes(true);
+        setMaxDamage(0);
+        setRegistryName("chunk");
+        setUnlocalizedName("chunk");
+        setCreativeTab(ConfigItems.TABTC);
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     
     public int getMaxItemUseDuration(final ItemStack stack1) {
-        return this.itemUseDuration;
+        return itemUseDuration;
     }
     
     public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
-            for (int a = 0; a < this.variants.length; ++a) {
+            for (int a = 0; a < variants.length; ++a) {
                 items.add(new ItemStack(this, 1, a));
             }
         }
     }
     
     public String getUnlocalizedName(final ItemStack itemStack) {
-        if (this.hasSubtypes && itemStack.getMetadata() < this.variants.length && this.variants[itemStack.getMetadata()] != "chunk") {
-            return String.format(super.getUnlocalizedName() + ".%s", this.variants[itemStack.getMetadata()]);
+        if (hasSubtypes && itemStack.getMetadata() < variants.length && variants[itemStack.getMetadata()] != "chunk") {
+            return String.format(super.getUnlocalizedName() + ".%s", variants[itemStack.getMetadata()]);
         }
         return super.getUnlocalizedName(itemStack);
     }
     
     public String[] getVariantNames() {
-        return this.variants;
+        return variants;
     }
     
     public int[] getVariantMeta() {

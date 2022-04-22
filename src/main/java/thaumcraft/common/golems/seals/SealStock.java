@@ -26,9 +26,9 @@ public class SealStock extends SealFiltered implements ISealConfigToggles
     ResourceLocation icon;
     
     public SealStock() {
-        this.delay = new Random(System.nanoTime()).nextInt(50);
-        this.props = new SealToggle[] { new SealToggle(true, "pmeta", "golem.prop.meta"), new SealToggle(true, "pnbt", "golem.prop.nbt"), new SealToggle(false, "pore", "golem.prop.ore"), new SealToggle(false, "pmod", "golem.prop.mod") };
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_stock");
+        delay = new Random(System.nanoTime()).nextInt(50);
+        props = new SealToggle[] { new SealToggle(true, "pmeta", "golem.prop.meta"), new SealToggle(true, "pnbt", "golem.prop.nbt"), new SealToggle(false, "pore", "golem.prop.ore"), new SealToggle(false, "pmod", "golem.prop.mod") };
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_stock");
     }
     
     @Override
@@ -43,16 +43,16 @@ public class SealStock extends SealFiltered implements ISealConfigToggles
     
     @Override
     public void tickSeal(final World world, final ISealEntity seal) {
-        if (this.delay++ % 20 != 0) {
+        if (delay++ % 20 != 0) {
             return;
         }
         final IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, seal.getSealPos().pos, seal.getSealPos().face);
         if (inv != null) {
             for (int a = 0; a < 9; ++a) {
-                final int amt = ThaumcraftInvHelper.countTotalItemsIn(inv, this.getFilterSlot(a), new ThaumcraftInvHelper.InvFilter(!this.props[0].value, !this.props[1].value, this.props[2].value, this.props[3].value));
-                if (amt < this.getFilterSlotSize(a)) {
-                    ItemStack fs = this.getFilterSlot(a).copy();
-                    fs.setCount(Math.min(fs.getMaxStackSize(), this.getFilterSlotSize(a) - amt));
+                final int amt = ThaumcraftInvHelper.countTotalItemsIn(inv, getFilterSlot(a), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
+                if (amt < getFilterSlotSize(a)) {
+                    ItemStack fs = getFilterSlot(a).copy();
+                    fs.setCount(Math.min(fs.getMaxStackSize(), getFilterSlotSize(a) - amt));
                     fs = ThaumcraftInvHelper.hasRoomFor(world, seal.getSealPos().pos, seal.getSealPos().face, fs);
                     if (!fs.isEmpty()) {
                         GolemHelper.requestProvisioning(world, seal.getSealPos().pos, seal.getSealPos().face, fs);
@@ -84,7 +84,7 @@ public class SealStock extends SealFiltered implements ISealConfigToggles
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override
@@ -122,11 +122,11 @@ public class SealStock extends SealFiltered implements ISealConfigToggles
     
     @Override
     public SealToggle[] getToggles() {
-        return this.props;
+        return props;
     }
     
     @Override
     public void setToggle(final int indx, final boolean value) {
-        this.props[indx].setValue(value);
+        props[indx].setValue(value);
     }
 }

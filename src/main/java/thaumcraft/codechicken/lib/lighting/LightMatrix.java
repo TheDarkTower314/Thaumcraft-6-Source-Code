@@ -28,66 +28,66 @@ public class LightMatrix implements CCRenderState.IVertexOperation
     public static final float[] sideao;
     
     public LightMatrix() {
-        this.computed = 0;
-        this.ao = new float[13][4];
-        this.brightness = new int[13][4];
-        this.pos = new BlockCoord();
-        this.sampled = 0;
-        this.aSamples = new float[27];
-        this.bSamples = new int[27];
+        computed = 0;
+        ao = new float[13][4];
+        brightness = new int[13][4];
+        pos = new BlockCoord();
+        sampled = 0;
+        aSamples = new float[27];
+        bSamples = new int[27];
     }
     
     public void locate(final IBlockAccess a, final int x, final int y, final int z) {
-        this.access = a;
-        this.pos.set(x, y, z);
-        this.computed = 0;
-        this.sampled = 0;
+        access = a;
+        pos.set(x, y, z);
+        computed = 0;
+        sampled = 0;
     }
     
     public void sample(final int i) {
-        if ((this.sampled & 1 << i) == 0x0) {
-            final int x = this.pos.x + i % 3 - 1;
-            final int y = this.pos.y + i / 9 - 1;
-            final int z = this.pos.z + i / 3 % 3 - 1;
-            final IBlockState b = this.access.getBlockState(new BlockPos(x, y, z));
-            this.bSamples[i] = this.access.getCombinedLight(new BlockPos(x, y, z), b.getBlock().getLightValue(b, this.access, new BlockPos(x, y, z)));
-            this.aSamples[i] = b.getAmbientOcclusionLightValue();
+        if ((sampled & 1 << i) == 0x0) {
+            final int x = pos.x + i % 3 - 1;
+            final int y = pos.y + i / 9 - 1;
+            final int z = pos.z + i / 3 % 3 - 1;
+            final IBlockState b = access.getBlockState(new BlockPos(x, y, z));
+            bSamples[i] = access.getCombinedLight(new BlockPos(x, y, z), b.getBlock().getLightValue(b, access, new BlockPos(x, y, z)));
+            aSamples[i] = b.getAmbientOcclusionLightValue();
         }
     }
     
     public int[] brightness(final int side) {
-        this.sideSample(side);
-        return this.brightness[side];
+        sideSample(side);
+        return brightness[side];
     }
     
     public float[] ao(final int side) {
-        this.sideSample(side);
-        return this.ao[side];
+        sideSample(side);
+        return ao[side];
     }
     
     public void sideSample(final int side) {
-        if ((this.computed & 1 << side) == 0x0) {
+        if ((computed & 1 << side) == 0x0) {
             final int[] ssample = LightMatrix.ssamplem[side];
             for (int q = 0; q < 4; ++q) {
                 final int[] qsample = LightMatrix.qsamplem[q];
                 if (Minecraft.isAmbientOcclusionEnabled()) {
-                    this.interp(side, q, ssample[qsample[0]], ssample[qsample[1]], ssample[qsample[2]], ssample[qsample[3]]);
+                    interp(side, q, ssample[qsample[0]], ssample[qsample[1]], ssample[qsample[2]], ssample[qsample[3]]);
                 }
                 else {
-                    this.interp(side, q, ssample[4], ssample[4], ssample[4], ssample[4]);
+                    interp(side, q, ssample[4], ssample[4], ssample[4], ssample[4]);
                 }
             }
-            this.computed |= 1 << side;
+            computed |= 1 << side;
         }
     }
     
     private void interp(final int s, final int q, final int a, final int b, final int c, final int d) {
-        this.sample(a);
-        this.sample(b);
-        this.sample(c);
-        this.sample(d);
-        this.ao[s][q] = interpAO(this.aSamples[a], this.aSamples[b], this.aSamples[c], this.aSamples[d]) * LightMatrix.sideao[s];
-        this.brightness[s][q] = interpBrightness(this.bSamples[a], this.bSamples[b], this.bSamples[c], this.bSamples[d]);
+        sample(a);
+        sample(b);
+        sample(c);
+        sample(d);
+        ao[s][q] = interpAO(aSamples[a], aSamples[b], aSamples[c], aSamples[d]) * LightMatrix.sideao[s];
+        brightness[s][q] = interpBrightness(bSamples[a], bSamples[b], bSamples[c], bSamples[d]);
     }
     
     public static float interpAO(final float a, final float b, final float c, final float d) {
@@ -117,9 +117,9 @@ public class LightMatrix implements CCRenderState.IVertexOperation
     @Override
     public void operate() {
         final LC lc = CCRenderState.lc;
-        final float[] a = this.ao(lc.side);
+        final float[] a = ao(lc.side);
         final float f = a[0] * lc.fa + a[1] * lc.fb + a[2] * lc.fc + a[3] * lc.fd;
-        final int[] b = this.brightness(lc.side);
+        final int[] b = brightness(lc.side);
         CCRenderState.setColour(ColourRGBA.multiplyC(CCRenderState.colour, f));
         CCRenderState.setBrightness((int)(b[0] * lc.fa + b[1] * lc.fb + b[2] * lc.fc + b[3] * lc.fd) & 0xFF00FF);
     }

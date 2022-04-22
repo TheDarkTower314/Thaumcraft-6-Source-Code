@@ -38,21 +38,21 @@ public class DustTriggerMultiblock implements IDustTrigger
     public DustTriggerMultiblock(final String research, final Part[][][] blueprint) {
         this.blueprint = blueprint;
         this.research = research;
-        this.ySize = this.blueprint.length;
-        this.xSize = this.blueprint[0].length;
-        this.zSize = this.blueprint[0][0].length;
+        ySize = this.blueprint.length;
+        xSize = this.blueprint[0].length;
+        zSize = this.blueprint[0][0].length;
     }
     
     @Override
     public Placement getValidFace(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing face) {
-        if (this.research != null && !ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(this.research)) {
+        if (research != null && !ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(research)) {
             return null;
         }
-        for (int yy = -this.ySize; yy <= 0; ++yy) {
-            for (int xx = -this.xSize; xx <= 0; ++xx) {
-                for (int zz = -this.zSize; zz <= 0; ++zz) {
+        for (int yy = -ySize; yy <= 0; ++yy) {
+            for (int xx = -xSize; xx <= 0; ++xx) {
+                for (int zz = -zSize; zz <= 0; ++zz) {
                     final BlockPos p2 = pos.add(xx, yy, zz);
-                    final EnumFacing f = this.fitMultiblock(world, p2);
+                    final EnumFacing f = fitMultiblock(world, p2);
                     if (f != null) {
                         return new Placement(xx, yy, zz, f);
                     }
@@ -69,13 +69,13 @@ public class DustTriggerMultiblock implements IDustTrigger
     Label_0011:
         while (i < length) {
             final EnumFacing face = horizontals[i];
-            for (int y = 0; y < this.ySize; ++y) {
-                final Matrix matrix = new Matrix(this.blueprint[y]);
+            for (int y = 0; y < ySize; ++y) {
+                final Matrix matrix = new Matrix(blueprint[y]);
                 matrix.Rotate90DegRight(3 - face.getHorizontalIndex());
                 for (int x = 0; x < matrix.rows; ++x) {
                     for (int z = 0; z < matrix.cols; ++z) {
                         if (matrix.matrix[x][z] != null) {
-                            final IBlockState bsWo = world.getBlockState(pos.add(x, -y + (this.ySize - 1), z));
+                            final IBlockState bsWo = world.getBlockState(pos.add(x, -y + (ySize - 1), z));
                             Label_0382: {
                                 if (!(matrix.matrix[x][z].getSource() instanceof Block) || bsWo.getBlock() == matrix.matrix[x][z].getSource()) {
                                     if (!(matrix.matrix[x][z].getSource() instanceof Material) || bsWo.getMaterial() == matrix.matrix[x][z].getSource()) {
@@ -108,13 +108,13 @@ public class DustTriggerMultiblock implements IDustTrigger
     public List<BlockPos> sparkle(final World world, final EntityPlayer player, final BlockPos pos, final Placement placement) {
         final BlockPos p2 = pos.add(placement.xOffset, placement.yOffset, placement.zOffset);
         final ArrayList<BlockPos> list = new ArrayList<BlockPos>();
-        for (int y = 0; y < this.ySize; ++y) {
-            final Matrix matrix = new Matrix(this.blueprint[y]);
+        for (int y = 0; y < ySize; ++y) {
+            final Matrix matrix = new Matrix(blueprint[y]);
             matrix.Rotate90DegRight(3 - placement.facing.getHorizontalIndex());
             for (int x = 0; x < matrix.rows; ++x) {
                 for (int z = 0; z < matrix.cols; ++z) {
                     if (matrix.matrix[x][z] != null) {
-                        final BlockPos p3 = p2.add(x, -y + (this.ySize - 1), z);
+                        final BlockPos p3 = p2.add(x, -y + (ySize - 1), z);
                         if (matrix.matrix[x][z].getSource() != null && BlockUtils.isBlockExposed(world, p3)) {
                             list.add(p3);
                         }
@@ -130,8 +130,8 @@ public class DustTriggerMultiblock implements IDustTrigger
         if (!world.isRemote) {
             FMLCommonHandler.instance().firePlayerCraftingEvent(player, new ItemStack(BlocksTC.infernalFurnace), new InventoryFake(1));
             final BlockPos p2 = pos.add(placement.xOffset, placement.yOffset, placement.zOffset);
-            for (int y = 0; y < this.ySize; ++y) {
-                final Matrix matrix = new Matrix(this.blueprint[y]);
+            for (int y = 0; y < ySize; ++y) {
+                final Matrix matrix = new Matrix(blueprint[y]);
                 matrix.Rotate90DegRight(3 - placement.facing.getHorizontalIndex());
                 for (int x = 0; x < matrix.rows; ++x) {
                     for (int z = 0; z < matrix.cols; ++z) {
@@ -155,7 +155,7 @@ public class DustTriggerMultiblock implements IDustTrigger
                             else {
                                 targetObject = null;
                             }
-                            final BlockPos p3 = p2.add(x, -y + (this.ySize - 1), z);
+                            final BlockPos p3 = p2.add(x, -y + (ySize - 1), z);
                             Object sourceObject;
                             if (matrix.matrix[x][z].getSource() instanceof Block) {
                                 sourceObject = world.getBlockState(p3);

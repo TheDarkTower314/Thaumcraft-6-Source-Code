@@ -23,25 +23,25 @@ public class PacketWarpMessage implements IMessage, IMessageHandler<PacketWarpMe
     protected byte type;
     
     public PacketWarpMessage() {
-        this.data = 0;
-        this.type = 0;
+        data = 0;
+        type = 0;
     }
     
     public PacketWarpMessage(final EntityPlayer player, final byte type, final int change) {
-        this.data = 0;
+        data = 0;
         this.type = 0;
-        this.data = change;
+        data = change;
         this.type = type;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.data);
-        buffer.writeByte(this.type);
+        buffer.writeInt(data);
+        buffer.writeByte(type);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.data = buffer.readInt();
-        this.type = buffer.readByte();
+        data = buffer.readInt();
+        type = buffer.readByte();
     }
     
     @SideOnly(Side.CLIENT)
@@ -50,7 +50,7 @@ public class PacketWarpMessage implements IMessage, IMessageHandler<PacketWarpMe
             Minecraft.getMinecraft().addScheduledTask(new Runnable() {
                 @Override
                 public void run() {
-                    PacketWarpMessage.this.processMessage(message);
+                    processMessage(message);
                 }
             });
         }

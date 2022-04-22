@@ -19,11 +19,11 @@ public class PotionWarpWard extends Potion
     
     public PotionWarpWard(final boolean par2, final int par3) {
         super(par2, par3);
-        this.statusIconIndex = -1;
-        this.setIconIndex(0, 0);
-        this.setPotionName("potion.warpward");
-        this.setIconIndex(3, 2);
-        this.setEffectiveness(0.25);
+        statusIconIndex = -1;
+        setIconIndex(0, 0);
+        setPotionName("potion.warpward");
+        setIconIndex(3, 2);
+        setEffectiveness(0.25);
     }
     
     public boolean isBadEffect() {

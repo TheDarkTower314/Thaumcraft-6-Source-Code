@@ -103,25 +103,25 @@ public class HexUtils
         }
         
         public CubicHex toCubicHex() {
-            return new CubicHex(this.q, this.r, -this.q - this.r);
+            return new CubicHex(q, r, -q - r);
         }
         
         public Pixel toPixel(final int size) {
-            return new Pixel(size * 1.5 * this.q, size * Math.sqrt(3.0) * (this.r + this.q / 2.0));
+            return new Pixel(size * 1.5 * q, size * Math.sqrt(3.0) * (r + q / 2.0));
         }
         
         public Hex getNeighbour(final int direction) {
             final int[] d = HexUtils.NEIGHBOURS[direction];
-            return new Hex(this.q + d[0], this.r + d[1]);
+            return new Hex(q + d[0], r + d[1]);
         }
         
         public boolean equals(final Hex h) {
-            return h.q == this.q && h.r == this.r;
+            return h.q == q && h.r == r;
         }
         
         @Override
         public String toString() {
-            return this.q + ":" + this.r;
+            return q + ":" + r;
         }
         
         public static Hex fromString(final String hs) {
@@ -156,7 +156,7 @@ public class HexUtils
         }
         
         public Hex toHex() {
-            return new Hex(this.x, this.z);
+            return new Hex(x, z);
         }
     }
     
@@ -173,8 +173,8 @@ public class HexUtils
         }
         
         public Hex toHex(final int size) {
-            final double qq = 0.6666666666666666 * this.x / size;
-            final double rr = (0.3333333333333333 * Math.sqrt(3.0) * -this.y - 0.3333333333333333 * this.x) / size;
+            final double qq = 0.6666666666666666 * x / size;
+            final double rr = (0.3333333333333333 * Math.sqrt(3.0) * -y - 0.3333333333333333 * x) / size;
             return HexUtils.getRoundedHex(qq, rr);
         }
     }

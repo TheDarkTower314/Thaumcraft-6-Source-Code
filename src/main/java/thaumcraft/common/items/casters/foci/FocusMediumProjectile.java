@@ -27,8 +27,8 @@ public class FocusMediumProjectile extends FocusMedium
     
     @Override
     public int getComplexity() {
-        int c = 4 + (this.getSettingValue("speed") - 1) / 2;
-        switch (this.getSettingValue("option")) {
+        int c = 4 + (getSettingValue("speed") - 1) / 2;
+        switch (getSettingValue("option")) {
             case 1: {
                 c += 3;
                 break;
@@ -49,11 +49,11 @@ public class FocusMediumProjectile extends FocusMedium
     
     @Override
     public boolean execute(final Trajectory trajectory) {
-        final float speed = this.getSettingValue("speed") / 3.0f;
-        final FocusPackage p = this.getRemainingPackage();
+        final float speed = getSettingValue("speed") / 3.0f;
+        final FocusPackage p = getRemainingPackage();
         if (p.getCaster() != null) {
-            final EntityFocusProjectile projectile = new EntityFocusProjectile(p, speed, trajectory, this.getSettingValue("option"));
-            return this.getPackage().getCaster().world.spawnEntity(projectile);
+            final EntityFocusProjectile projectile = new EntityFocusProjectile(p, speed, trajectory, getSettingValue("option"));
+            return getPackage().getCaster().world.spawnEntity(projectile);
         }
         return false;
     }

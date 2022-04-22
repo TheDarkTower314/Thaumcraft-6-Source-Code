@@ -39,16 +39,16 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
     
     public EntityTaintacleGiant(final World par1World) {
         super(par1World);
-        this.bossInfo = (BossInfoServer)new BossInfoServer(this.getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS).setDarkenSky(true);
-        this.setSize(1.1f, 6.0f);
-        this.experienceValue = 20;
+        bossInfo = (BossInfoServer)new BossInfoServer(getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS).setDarkenSky(true);
+        setSize(1.1f, 6.0f);
+        experienceValue = 20;
     }
     
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(175.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(9.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(175.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(9.0);
     }
     
     public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
@@ -59,31 +59,31 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (this.getAnger() > 0) {
-            this.setAnger(this.getAnger() - 1);
+        if (getAnger() > 0) {
+            setAnger(getAnger() - 1);
         }
-        if (this.world.isRemote && this.rand.nextInt(15) == 0 && this.getAnger() > 0) {
-            final double d0 = this.rand.nextGaussian() * 0.02;
-            final double d2 = this.rand.nextGaussian() * 0.02;
-            final double d3 = this.rand.nextGaussian() * 0.02;
-            this.world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, this.posX + this.rand.nextFloat() * this.width - this.width / 2.0, this.getEntityBoundingBox().minY + this.height + this.rand.nextFloat() * 0.5, this.posZ + this.rand.nextFloat() * this.width - this.width / 2.0, d0, d2, d3);
+        if (world.isRemote && rand.nextInt(15) == 0 && getAnger() > 0) {
+            final double d0 = rand.nextGaussian() * 0.02;
+            final double d2 = rand.nextGaussian() * 0.02;
+            final double d3 = rand.nextGaussian() * 0.02;
+            world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, posX + rand.nextFloat() * width - width / 2.0, getEntityBoundingBox().minY + height + rand.nextFloat() * 0.5, posZ + rand.nextFloat() * width - width / 2.0, d0, d2, d3);
         }
-        if (!this.world.isRemote && this.ticksExisted % 30 == 0) {
-            this.heal(1.0f);
+        if (!world.isRemote && ticksExisted % 30 == 0) {
+            heal(1.0f);
         }
     }
     
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register(EntityTaintacleGiant.AGGRO, 0);
+        getDataManager().register(EntityTaintacleGiant.AGGRO, 0);
     }
     
     public int getAnger() {
-        return (int)this.getDataManager().get((DataParameter)EntityTaintacleGiant.AGGRO);
+        return (int) getDataManager().get((DataParameter)EntityTaintacleGiant.AGGRO);
     }
     
     public void setAnger(final int par1) {
-        this.getDataManager().set(EntityTaintacleGiant.AGGRO, par1);
+        getDataManager().set(EntityTaintacleGiant.AGGRO, par1);
     }
     
     @Override
@@ -93,9 +93,9 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
     
     @Override
     protected void dropFewItems(final boolean flag, final int i) {
-        final List<EntityTaintacleGiant> ents = EntityUtils.getEntitiesInRange(this.world, this.posX, this.posY, this.posZ, this, EntityTaintacleGiant.class, 48.0);
+        final List<EntityTaintacleGiant> ents = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityTaintacleGiant.class, 48.0);
         if (ents == null || ents.size() <= 0) {
-            EntityUtils.entityDropSpecialItem(this, new ItemStack(ItemsTC.primordialPearl), this.height / 2.0f);
+            EntityUtils.entityDropSpecialItem(this, new ItemStack(ItemsTC.primordialPearl), height / 2.0f);
         }
     }
     
@@ -112,17 +112,17 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
     }
     
     public boolean attackEntityFrom(final DamageSource source, float damage) {
-        if (!this.world.isRemote && damage > 35.0f) {
-            if (this.getAnger() == 0) {
+        if (!world.isRemote && damage > 35.0f) {
+            if (getAnger() == 0) {
                 try {
-                    this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200, (int)(damage / 15.0f)));
-                    this.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 200, (int)(damage / 10.0f)));
-                    this.addPotionEffect(new PotionEffect(MobEffects.HASTE, 200, (int)(damage / 40.0f)));
-                    this.setAnger(200);
+                    addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200, (int)(damage / 15.0f)));
+                    addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 200, (int)(damage / 10.0f)));
+                    addPotionEffect(new PotionEffect(MobEffects.HASTE, 200, (int)(damage / 40.0f)));
+                    setAnger(200);
                 }
                 catch (final Exception ex) {}
                 if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityPlayer) {
-                    ((EntityPlayer)source.getTrueSource()).sendStatusMessage(new TextComponentTranslation(this.getName() + " " + I18n.translateToLocal("tc.boss.enrage")), true);
+                    ((EntityPlayer)source.getTrueSource()).sendStatusMessage(new TextComponentTranslation(getName() + " " + I18n.translateToLocal("tc.boss.enrage")), true);
                 }
             }
             damage = 35.0f;
@@ -132,17 +132,17 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
     
     protected void updateAITasks() {
         super.updateAITasks();
-        this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
+        bossInfo.setPercent(getHealth() / getMaxHealth());
     }
     
     public void removeTrackingPlayer(final EntityPlayerMP player) {
         super.removeTrackingPlayer(player);
-        this.bossInfo.removePlayer(player);
+        bossInfo.removePlayer(player);
     }
     
     public void addTrackingPlayer(final EntityPlayerMP player) {
         super.addTrackingPlayer(player);
-        this.bossInfo.addPlayer(player);
+        bossInfo.addPlayer(player);
     }
     
     public boolean isNonBoss() {

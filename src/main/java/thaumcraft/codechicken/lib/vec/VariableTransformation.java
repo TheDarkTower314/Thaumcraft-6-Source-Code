@@ -17,7 +17,7 @@ public abstract class VariableTransformation extends Transformation
     
     @Override
     public void applyN(final Vector3 normal) {
-        this.apply(normal);
+        apply(normal);
     }
     
     @Override
@@ -28,6 +28,6 @@ public abstract class VariableTransformation extends Transformation
     @SideOnly(Side.CLIENT)
     @Override
     public void glApply() {
-        this.mat.glApply();
+        mat.glApply();
     }
 }

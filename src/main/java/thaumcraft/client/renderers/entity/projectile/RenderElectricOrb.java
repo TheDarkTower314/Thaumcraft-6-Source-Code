@@ -23,8 +23,8 @@ public class RenderElectricOrb extends Render
     
     public RenderElectricOrb(final RenderManager rm) {
         super(rm);
-        this.random = new Random();
-        this.shadowSize = 0.0f;
+        random = new Random();
+        shadowSize = 0.0f;
     }
     
     public void renderEntityAt(final Entity entity, final double x, final double y, final double z, final float fq, final float pticks) {
@@ -34,7 +34,7 @@ public class RenderElectricOrb extends Render
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 1);
         GL11.glDepthMask(false);
-        this.bindTexture(ParticleEngine.particleTexture);
+        bindTexture(ParticleEngine.particleTexture);
         final float f2 = (1 + entity.ticksExisted % 6) / 32.0f;
         final float f3 = f2 + 0.03125f;
         float f4 = 0.21875f;
@@ -46,8 +46,8 @@ public class RenderElectricOrb extends Render
         final float f7 = 0.5f;
         final float f8 = 0.5f;
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.8f);
-        GL11.glRotatef(180.0f - this.renderManager.playerViewY, 0.0f, 1.0f, 0.0f);
-        GL11.glRotatef(-this.renderManager.playerViewX, 1.0f, 0.0f, 0.0f);
+        GL11.glRotatef(180.0f - renderManager.playerViewY, 0.0f, 1.0f, 0.0f);
+        GL11.glRotatef(-renderManager.playerViewX, 1.0f, 0.0f, 0.0f);
         final float bob = MathHelper.sin(entity.ticksExisted / 5.0f) * 0.2f + 0.2f;
         GL11.glScalef(1.0f + bob, 1.0f + bob, 1.0f + bob);
         tessellator.getBuffer().begin(7, UtilsFX.VERTEXFORMAT_POS_TEX_CO_LM_NO);
@@ -68,7 +68,7 @@ public class RenderElectricOrb extends Render
     }
     
     public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
-        this.renderEntityAt(entity, d, d1, d2, f, f1);
+        renderEntityAt(entity, d, d1, d2, f, f1);
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {

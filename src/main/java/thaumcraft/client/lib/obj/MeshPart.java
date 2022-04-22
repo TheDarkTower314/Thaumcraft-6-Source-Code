@@ -15,30 +15,30 @@ public class MeshPart
     public int tintIndex;
     
     public MeshPart() {
-        this.tintIndex = -1;
-        this.indices = new ArrayList<int[]>();
+        tintIndex = -1;
+        indices = new ArrayList<int[]>();
     }
     
     public MeshPart(final MeshPart p, final int ti) {
-        this.tintIndex = -1;
-        this.indices = new ArrayList<int[]>();
-        this.name = p.name;
-        this.material = p.material;
-        this.indices = p.indices;
-        this.tintIndex = ti;
+        tintIndex = -1;
+        indices = new ArrayList<int[]>();
+        name = p.name;
+        material = p.material;
+        indices = p.indices;
+        tintIndex = ti;
     }
     
     public void addTriangleFace(final int[] a, final int[] b, final int[] c) {
-        this.indices.add(a);
-        this.indices.add(b);
-        this.indices.add(c);
-        this.indices.add(c);
+        indices.add(a);
+        indices.add(b);
+        indices.add(c);
+        indices.add(c);
     }
     
     public void addQuadFace(final int[] a, final int[] b, final int[] c, final int[] d) {
-        this.indices.add(a);
-        this.indices.add(b);
-        this.indices.add(c);
-        this.indices.add(d);
+        indices.add(a);
+        indices.add(b);
+        indices.add(c);
+        indices.add(d);
     }
 }

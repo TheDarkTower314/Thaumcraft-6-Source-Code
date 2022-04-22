@@ -19,9 +19,9 @@ public class ItemThaumiumPickaxe extends ItemPickaxe implements IThaumcraftItems
 {
     public ItemThaumiumPickaxe(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("thaumium_pick");
-        this.setUnlocalizedName("thaumium_pick");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("thaumium_pick");
+        setUnlocalizedName("thaumium_pick");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

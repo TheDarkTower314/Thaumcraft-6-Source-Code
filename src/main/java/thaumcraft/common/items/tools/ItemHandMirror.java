@@ -39,7 +39,7 @@ public class ItemHandMirror extends ItemTCBase
 {
     public ItemHandMirror() {
         super("hand_mirror");
-        this.setMaxStackSize(1);
+        setMaxStackSize(1);
     }
     
     public boolean getShareTag() {

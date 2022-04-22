@@ -32,17 +32,17 @@ public class DustTriggerSimple implements IDustTrigger
     
     @Override
     public Placement getValidFace(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing face) {
-        return (world.getBlockState(pos).getBlock() == this.target && (this.research == null || ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(this.research))) ? new Placement(0, 0, 0, null) : null;
+        return (world.getBlockState(pos).getBlock() == target && (research == null || ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(research))) ? new Placement(0, 0, 0, null) : null;
     }
     
     @Override
     public void execute(final World world, final EntityPlayer player, final BlockPos pos, final Placement placement, final EnumFacing side) {
-        FMLCommonHandler.instance().firePlayerCraftingEvent(player, this.result, new InventoryFake(1));
+        FMLCommonHandler.instance().firePlayerCraftingEvent(player, result, new InventoryFake(1));
         final IBlockState state = world.getBlockState(pos);
         ServerEvents.addRunnableServer(world, new Runnable() {
             @Override
             public void run() {
-                ServerEvents.addSwapper(world, pos, state, DustTriggerSimple.this.result, false, 0, player, true, true, -9999, false, false, 0, ServerEvents.DEFAULT_PREDICATE, 0.0f);
+                ServerEvents.addSwapper(world, pos, state, result, false, 0, player, true, true, -9999, false, false, 0, ServerEvents.DEFAULT_PREDICATE, 0.0f);
             }
         }, 50);
     }

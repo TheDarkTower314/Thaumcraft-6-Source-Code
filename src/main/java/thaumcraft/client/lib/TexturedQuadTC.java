@@ -18,9 +18,9 @@ public class TexturedQuadTC
     private boolean flipped;
     
     public TexturedQuadTC(final PositionTextureVertex[] vertices) {
-        this.flipped = false;
-        this.vertexPositions = vertices;
-        this.nVertices = vertices.length;
+        flipped = false;
+        vertexPositions = vertices;
+        nVertices = vertices.length;
     }
     
     public TexturedQuadTC(final PositionTextureVertex[] vertices, final int texcoordU1, final int texcoordV1, final int texcoordU2, final int texcoordV2, final float textureWidth, final float textureHeight) {
@@ -34,12 +34,12 @@ public class TexturedQuadTC
     }
     
     public void flipFace() {
-        this.flipped = true;
-        final PositionTextureVertex[] apositiontexturevertex = new PositionTextureVertex[this.vertexPositions.length];
-        for (int i = 0; i < this.vertexPositions.length; ++i) {
-            apositiontexturevertex[i] = this.vertexPositions[this.vertexPositions.length - i - 1];
+        flipped = true;
+        final PositionTextureVertex[] apositiontexturevertex = new PositionTextureVertex[vertexPositions.length];
+        for (int i = 0; i < vertexPositions.length; ++i) {
+            apositiontexturevertex[i] = vertexPositions[vertexPositions.length - i - 1];
         }
-        this.vertexPositions = apositiontexturevertex;
+        vertexPositions = apositiontexturevertex;
     }
     
     public void draw(final BufferBuilder renderer, final float scale, final int bright, final int color, final float alpha) {
@@ -54,7 +54,7 @@ public class TexturedQuadTC
         final int j = aa >> 16 & 0xFFFF;
         final int k = aa & 0xFFFF;
         for (int i = 0; i < 4; ++i) {
-            final PositionTextureVertex positiontexturevertex = this.vertexPositions[i];
+            final PositionTextureVertex positiontexturevertex = vertexPositions[i];
             if (bright != -99) {
                 renderer.pos(positiontexturevertex.vector3D.x * scale, positiontexturevertex.vector3D.y * scale, positiontexturevertex.vector3D.z * scale).tex(positiontexturevertex.texturePositionX, positiontexturevertex.texturePositionY).color(c.getRed(), c.getGreen(), c.getBlue(), (int)(alpha * 255.0f)).lightmap(j, k).normal(0.0f, 0.0f, 1.0f).endVertex();
             }
@@ -76,9 +76,9 @@ public class TexturedQuadTC
         final int j = aa >> 16 & 0xFFFF;
         final int k = aa & 0xFFFF;
         for (int i = 0; i < 4; ++i) {
-            final int idx = this.flipped ? (3 - i) : i;
+            final int idx = flipped ? (3 - i) : i;
             final Color c = new Color(color[idx]);
-            final PositionTextureVertex positiontexturevertex = this.vertexPositions[i];
+            final PositionTextureVertex positiontexturevertex = vertexPositions[i];
             if (bright != -99) {
                 renderer.pos(positiontexturevertex.vector3D.x * scale, positiontexturevertex.vector3D.y * scale, positiontexturevertex.vector3D.z * scale).tex(positiontexturevertex.texturePositionX, positiontexturevertex.texturePositionY).color(c.getRed(), c.getGreen(), c.getBlue(), (int)(alpha[idx] * 255.0f)).lightmap(j, k).normal(0.0f, 0.0f, 1.0f).endVertex();
             }

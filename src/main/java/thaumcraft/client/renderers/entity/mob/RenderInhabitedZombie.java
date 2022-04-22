@@ -25,7 +25,7 @@ public class RenderInhabitedZombie extends RenderZombie
     
     public RenderInhabitedZombie(final RenderManager p_i46127_1_) {
         super(p_i46127_1_);
-        this.field_82431_q = 1;
+        field_82431_q = 1;
     }
     
     protected ResourceLocation getEntityTexture(final EntityZombie entity) {

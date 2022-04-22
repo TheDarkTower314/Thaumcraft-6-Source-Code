@@ -23,7 +23,7 @@ public abstract class UVTransformation extends ITransformation<UV, UVTransformat
     
     @Override
     public boolean load() {
-        return !this.isRedundant();
+        return !isRedundant();
     }
     
     @Override

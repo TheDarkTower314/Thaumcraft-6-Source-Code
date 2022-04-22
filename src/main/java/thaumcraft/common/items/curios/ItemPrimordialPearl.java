@@ -20,9 +20,9 @@ public class ItemPrimordialPearl extends ItemTCBase
 {
     public ItemPrimordialPearl() {
         super("primordial_pearl");
-        this.maxStackSize = 1;
-        this.setMaxDamage(8);
-        this.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
+        maxStackSize = 1;
+        setMaxDamage(8);
+        addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
             public float apply(final ItemStack stack, @Nullable final World worldIn, @Nullable final EntityLivingBase entityIn) {
                 if (stack.getItemDamage() < 3) {
@@ -34,7 +34,7 @@ public class ItemPrimordialPearl extends ItemTCBase
                 return 2.0f;
             }
         });
-        this.setNoRepair();
+        setNoRepair();
     }
     
     public boolean getIsRepairable(final ItemStack toRepair, final ItemStack repair) {
@@ -57,7 +57,7 @@ public class ItemPrimordialPearl extends ItemTCBase
     }
     
     public ItemStack getContainerItem(final ItemStack itemStack) {
-        if (!this.hasContainerItem(itemStack)) {
+        if (!hasContainerItem(itemStack)) {
             return ItemStack.EMPTY;
         }
         return new ItemStack(itemStack.getItem(), itemStack.getCount(), itemStack.getItemDamage() + 1);

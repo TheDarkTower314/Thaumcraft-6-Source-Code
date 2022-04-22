@@ -14,12 +14,12 @@ public class AidPortal implements ITheorycraftAid
     Object portal;
     
     public AidPortal(final Object o) {
-        this.portal = o;
+        portal = o;
     }
     
     @Override
     public Object getAidObject() {
-        return this.portal;
+        return portal;
     }
     
     @Override

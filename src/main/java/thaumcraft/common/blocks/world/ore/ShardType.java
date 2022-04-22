@@ -25,33 +25,33 @@ public enum ShardType
     
     private ShardType(final int metadata, final String unlocalizedName, final Aspect aspect) {
         this.metadata = metadata;
-        this.name = unlocalizedName;
+        name = unlocalizedName;
         this.aspect = aspect;
     }
     
     public int getMetadata() {
-        return this.metadata;
+        return metadata;
     }
     
     public Aspect getAspect() {
-        return this.aspect;
+        return aspect;
     }
     
     public Block getOre() {
-        return this.ore;
+        return ore;
     }
     
     public void setOre(final Block b) {
-        this.ore = b;
+        ore = b;
     }
     
     public String getUnlocalizedName() {
-        return this.name;
+        return name;
     }
     
     @Override
     public String toString() {
-        return this.getUnlocalizedName();
+        return getUnlocalizedName();
     }
     
     public static int getMetaByAspect(final Aspect a) {
@@ -72,7 +72,7 @@ public enum ShardType
     }
     
     public String getName() {
-        return this.name;
+        return name;
     }
     
     static {

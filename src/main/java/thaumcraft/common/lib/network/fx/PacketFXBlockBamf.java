@@ -41,18 +41,18 @@ public class PacketFXBlockBamf implements IMessage, IMessageHandler<PacketFXBloc
             f = Utils.setBit(f, 1);
         }
         if (side != null) {
-            this.face = (byte)side.ordinal();
+            face = (byte)side.ordinal();
         }
         else {
-            this.face = -1;
+            face = -1;
         }
-        this.flags = (byte)f;
+        flags = (byte)f;
     }
     
     public PacketFXBlockBamf(final BlockPos pos, final int color, final boolean sound, final boolean flair, final EnumFacing side) {
-        this.x = pos.getX() + 0.5;
-        this.y = pos.getY() + 0.5;
-        this.z = pos.getZ() + 0.5;
+        x = pos.getX() + 0.5;
+        y = pos.getY() + 0.5;
+        z = pos.getZ() + 0.5;
         this.color = color;
         int f = 0;
         if (sound) {
@@ -62,37 +62,37 @@ public class PacketFXBlockBamf implements IMessage, IMessageHandler<PacketFXBloc
             f = Utils.setBit(f, 1);
         }
         if (side != null) {
-            this.face = (byte)side.ordinal();
+            face = (byte)side.ordinal();
         }
         else {
-            this.face = -1;
+            face = -1;
         }
-        this.flags = (byte)f;
+        flags = (byte)f;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeDouble(this.x);
-        buffer.writeDouble(this.y);
-        buffer.writeDouble(this.z);
-        buffer.writeInt(this.color);
-        buffer.writeByte(this.flags);
-        buffer.writeByte(this.face);
+        buffer.writeDouble(x);
+        buffer.writeDouble(y);
+        buffer.writeDouble(z);
+        buffer.writeInt(color);
+        buffer.writeByte(flags);
+        buffer.writeByte(face);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.x = buffer.readDouble();
-        this.y = buffer.readDouble();
-        this.z = buffer.readDouble();
-        this.color = buffer.readInt();
-        this.flags = buffer.readByte();
-        this.face = buffer.readByte();
+        x = buffer.readDouble();
+        y = buffer.readDouble();
+        z = buffer.readDouble();
+        color = buffer.readInt();
+        flags = buffer.readByte();
+        face = buffer.readByte();
     }
     
     public IMessage onMessage(final PacketFXBlockBamf message, final MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                PacketFXBlockBamf.this.processMessage(message);
+                processMessage(message);
             }
         });
         return null;

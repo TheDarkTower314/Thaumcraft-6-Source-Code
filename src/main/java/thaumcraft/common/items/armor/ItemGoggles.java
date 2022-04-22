@@ -37,11 +37,11 @@ public class ItemGoggles extends ItemArmor implements IVisDiscountGear, IReveale
     
     public ItemGoggles() {
         super(ThaumcraftMaterials.ARMORMAT_SPECIAL, 4, EntityEquipmentSlot.HEAD);
-        this.tex = new ResourceLocation("thaumcraft", "textures/items/goggles_bauble.png");
-        this.setMaxDamage(350);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("goggles");
-        this.setUnlocalizedName("goggles");
+        tex = new ResourceLocation("thaumcraft", "textures/items/goggles_bauble.png");
+        setMaxDamage(350);
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("goggles");
+        setUnlocalizedName("goggles");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     
@@ -98,7 +98,7 @@ public class ItemGoggles extends ItemArmor implements IVisDiscountGear, IReveale
     public void onPlayerBaubleRender(final ItemStack stack, final EntityPlayer player, final IRenderBauble.RenderType type, final float ticks) {
         if (type == IRenderBauble.RenderType.HEAD) {
             final boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
-            Minecraft.getMinecraft().renderEngine.bindTexture(this.tex);
+            Minecraft.getMinecraft().renderEngine.bindTexture(tex);
             IRenderBauble.Helper.translateToHeadLevel(player);
             IRenderBauble.Helper.translateToFace();
             IRenderBauble.Helper.defaultTransforms();

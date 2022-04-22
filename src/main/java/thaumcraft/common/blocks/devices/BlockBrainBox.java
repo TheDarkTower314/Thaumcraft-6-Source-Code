@@ -29,12 +29,12 @@ public class BlockBrainBox extends BlockTC implements IBlockFacingHorizontal, IB
 {
     public BlockBrainBox() {
         super(Material.IRON, "brain_box");
-        this.setSoundType(SoundType.METAL);
-        final IBlockState bs = this.blockState.getBaseState();
+        setSoundType(SoundType.METAL);
+        final IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)EnumFacing.UP);
-        this.setDefaultState(bs);
-        this.setHardness(1.0f);
-        this.setResistance(10.0f);
+        setDefaultState(bs);
+        setHardness(1.0f);
+        setResistance(10.0f);
     }
     
     public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
@@ -60,7 +60,7 @@ public class BlockBrainBox extends BlockTC implements IBlockFacingHorizontal, IB
     
     public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
         if (worldIn.getBlockState(pos.offset(BlockStateUtils.getFacing(state))).getBlock() != BlocksTC.thaumatorium && worldIn.getBlockState(pos.offset(BlockStateUtils.getFacing(state))).getBlock() != BlocksTC.thaumatoriumTop) {
-            this.dropBlockAsItem(worldIn, pos, BlocksTC.brainBox.getDefaultState(), 0);
+            dropBlockAsItem(worldIn, pos, BlocksTC.brainBox.getDefaultState(), 0);
             worldIn.setBlockToAir(pos);
         }
     }
@@ -70,13 +70,13 @@ public class BlockBrainBox extends BlockTC implements IBlockFacingHorizontal, IB
     }
     
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)facing.getOpposite());
         return bs;
     }
     
     public IBlockState getStateFromMeta(final int meta) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)BlockStateUtils.getFacing(meta));
         return bs;
     }

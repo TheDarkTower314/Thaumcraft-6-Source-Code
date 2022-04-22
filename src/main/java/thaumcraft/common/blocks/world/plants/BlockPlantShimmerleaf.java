@@ -24,11 +24,11 @@ public class BlockPlantShimmerleaf extends BlockBush
 {
     public BlockPlantShimmerleaf() {
         super(Material.PLANTS);
-        this.setUnlocalizedName("shimmerleaf");
-        this.setRegistryName("thaumcraft", "shimmerleaf");
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setSoundType(SoundType.PLANT);
-        this.setLightLevel(0.4f);
+        setUnlocalizedName("shimmerleaf");
+        setRegistryName("thaumcraft", "shimmerleaf");
+        setCreativeTab(ConfigItems.TABTC);
+        setSoundType(SoundType.PLANT);
+        setLightLevel(0.4f);
     }
     
     protected boolean canSustainBush(final IBlockState state) {

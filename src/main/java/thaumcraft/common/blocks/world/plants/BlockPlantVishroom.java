@@ -26,11 +26,11 @@ public class BlockPlantVishroom extends BlockBush
 {
     public BlockPlantVishroom() {
         super(Material.PLANTS);
-        this.setUnlocalizedName("vishroom");
-        this.setRegistryName("thaumcraft", "vishroom");
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setSoundType(SoundType.PLANT);
-        this.setLightLevel(0.4f);
+        setUnlocalizedName("vishroom");
+        setRegistryName("thaumcraft", "vishroom");
+        setCreativeTab(ConfigItems.TABTC);
+        setSoundType(SoundType.PLANT);
+        setLightLevel(0.4f);
     }
     
     public boolean isFullCube(final IBlockState state) {

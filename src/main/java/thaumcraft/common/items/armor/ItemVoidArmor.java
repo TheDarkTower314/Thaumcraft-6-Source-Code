@@ -26,9 +26,9 @@ public class ItemVoidArmor extends ItemArmor implements IWarpingGear, IThaumcraf
 {
     public ItemVoidArmor(final String name, final ItemArmor.ArmorMaterial enumarmormaterial, final int j, final EntityEquipmentSlot k) {
         super(enumarmormaterial, j, k);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName(name);
+        setUnlocalizedName(name);
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

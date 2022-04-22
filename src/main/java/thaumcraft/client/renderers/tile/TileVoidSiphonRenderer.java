@@ -23,7 +23,7 @@ public class TileVoidSiphonRenderer extends TileEntitySpecialRenderer
     private static final ResourceLocation starsTexture;
     
     public TileVoidSiphonRenderer() {
-        this.shaderCallback = new ShaderCallback() {
+        shaderCallback = new ShaderCallback() {
             @Override
             public void call(final int shader) {
                 final Minecraft mc = Minecraft.getMinecraft();
@@ -39,8 +39,8 @@ public class TileVoidSiphonRenderer extends TileEntitySpecialRenderer
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         if (BlockStateUtils.isEnabled(te.getBlockMetadata())) {
             GL11.glPushMatrix();
-            this.bindTexture(TileVoidSiphonRenderer.starsTexture);
-            ShaderHelper.useShader(ShaderHelper.endShader, this.shaderCallback);
+            bindTexture(TileVoidSiphonRenderer.starsTexture);
+            ShaderHelper.useShader(ShaderHelper.endShader, shaderCallback);
             GL11.glPushMatrix();
             GL11.glTranslated(x + 0.5, y + 0.875, z + 0.5);
             GlStateManager.depthMask(false);

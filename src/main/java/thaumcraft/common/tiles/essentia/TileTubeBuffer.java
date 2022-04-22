@@ -35,44 +35,44 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
     int bellows;
     
     public TileTubeBuffer() {
-        this.aspects = new AspectList();
-        this.chokedSides = new byte[] { 0, 0, 0, 0, 0, 0 };
-        this.count = 0;
-        this.bellows = -1;
+        aspects = new AspectList();
+        chokedSides = new byte[] { 0, 0, 0, 0, 0, 0 };
+        count = 0;
+        bellows = -1;
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
-        this.aspects.readFromNBT(nbttagcompound);
+        aspects.readFromNBT(nbttagcompound);
         final byte[] sides = nbttagcompound.getByteArray("open");
         if (sides != null && sides.length == 6) {
             for (int a = 0; a < 6; ++a) {
-                this.openSides[a] = (sides[a] == 1);
+                openSides[a] = (sides[a] == 1);
             }
         }
-        this.chokedSides = nbttagcompound.getByteArray("choke");
-        if (this.chokedSides == null || this.chokedSides.length < 6) {
-            this.chokedSides = new byte[] { 0, 0, 0, 0, 0, 0 };
+        chokedSides = nbttagcompound.getByteArray("choke");
+        if (chokedSides == null || chokedSides.length < 6) {
+            chokedSides = new byte[] { 0, 0, 0, 0, 0, 0 };
         }
-        this.facing = EnumFacing.VALUES[nbttagcompound.getInteger("side")];
+        facing = EnumFacing.VALUES[nbttagcompound.getInteger("side")];
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
-        this.aspects.writeToNBT(nbttagcompound);
+        aspects.writeToNBT(nbttagcompound);
         final byte[] sides = new byte[6];
         for (int a = 0; a < 6; ++a) {
-            sides[a] = (byte)(this.openSides[a] ? 1 : 0);
+            sides[a] = (byte)(openSides[a] ? 1 : 0);
         }
         nbttagcompound.setByteArray("open", sides);
-        nbttagcompound.setByteArray("choke", this.chokedSides);
-        nbttagcompound.setInteger("side", this.facing.ordinal());
+        nbttagcompound.setByteArray("choke", chokedSides);
+        nbttagcompound.setInteger("side", facing.ordinal());
         return nbttagcompound;
     }
     
     @Override
     public AspectList getAspects() {
-        return this.aspects;
+        return aspects;
     }
     
     @Override
@@ -84,10 +84,10 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
         if (am != 1) {
             return am;
         }
-        if (this.aspects.visSize() < 10) {
-            this.aspects.add(tt, am);
-            this.markDirty();
-            this.syncTile(false);
+        if (aspects.visSize() < 10) {
+            aspects.add(tt, am);
+            markDirty();
+            syncTile(false);
             return 0;
         }
         return am;
@@ -95,10 +95,10 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
     
     @Override
     public boolean takeFromContainer(final Aspect tt, final int am) {
-        if (this.aspects.getAmount(tt) >= am) {
-            this.aspects.remove(tt, am);
-            this.markDirty();
-            this.syncTile(false);
+        if (aspects.getAmount(tt) >= am) {
+            aspects.remove(tt, am);
+            markDirty();
+            syncTile(false);
             return true;
         }
         return false;
@@ -111,7 +111,7 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
     
     @Override
     public boolean doesContainerContainAmount(final Aspect tag, final int amt) {
-        return this.aspects.getAmount(tag) >= amt;
+        return aspects.getAmount(tag) >= amt;
     }
     
     @Override
@@ -121,7 +121,7 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
     
     @Override
     public int containerContains(final Aspect tag) {
-        return this.aspects.getAmount(tag);
+        return aspects.getAmount(tag);
     }
     
     @Override
@@ -131,17 +131,17 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
     
     @Override
     public boolean isConnectable(final EnumFacing face) {
-        return this.openSides[face.ordinal()];
+        return openSides[face.ordinal()];
     }
     
     @Override
     public boolean canInputFrom(final EnumFacing face) {
-        return this.openSides[face.ordinal()];
+        return openSides[face.ordinal()];
     }
     
     @Override
     public boolean canOutputTo(final EnumFacing face) {
-        return this.openSides[face.ordinal()];
+        return openSides[face.ordinal()];
     }
     
     @Override
@@ -160,69 +160,69 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
     
     @Override
     public int getSuctionAmount(final EnumFacing loc) {
-        return (this.chokedSides[loc.ordinal()] == 2) ? 0 : ((this.bellows <= 0 || this.chokedSides[loc.ordinal()] == 1) ? 1 : (this.bellows * 32));
+        return (chokedSides[loc.ordinal()] == 2) ? 0 : ((bellows <= 0 || chokedSides[loc.ordinal()] == 1) ? 1 : (bellows * 32));
     }
     
     @Override
     public Aspect getEssentiaType(final EnumFacing loc) {
-        return (this.aspects.size() > 0) ? this.aspects.getAspects()[this.world.rand.nextInt(this.aspects.getAspects().length)] : null;
+        return (aspects.size() > 0) ? aspects.getAspects()[world.rand.nextInt(aspects.getAspects().length)] : null;
     }
     
     @Override
     public int getEssentiaAmount(final EnumFacing loc) {
-        return this.aspects.visSize();
+        return aspects.visSize();
     }
     
     @Override
     public int takeEssentia(final Aspect aspect, int amount, final EnumFacing face) {
-        if (!this.canOutputTo(face)) {
+        if (!canOutputTo(face)) {
             return 0;
         }
         TileEntity te = null;
         IEssentiaTransport ic = null;
         int suction = 0;
-        te = ThaumcraftApiHelper.getConnectableTile(this.world, this.pos, face);
+        te = ThaumcraftApiHelper.getConnectableTile(world, pos, face);
         if (te != null) {
             ic = (IEssentiaTransport)te;
             suction = ic.getSuctionAmount(face.getOpposite());
         }
         for (final EnumFacing dir : EnumFacing.VALUES) {
-            if (this.canOutputTo(dir)) {
+            if (canOutputTo(dir)) {
                 if (dir != face) {
-                    te = ThaumcraftApiHelper.getConnectableTile(this.world, this.pos, dir);
+                    te = ThaumcraftApiHelper.getConnectableTile(world, pos, dir);
                     if (te != null) {
                         ic = (IEssentiaTransport)te;
                         final int sa = ic.getSuctionAmount(dir.getOpposite());
                         final Aspect su = ic.getSuctionType(dir.getOpposite());
-                        if ((su == aspect || su == null) && suction < sa && this.getSuctionAmount(dir) < sa) {
+                        if ((su == aspect || su == null) && suction < sa && getSuctionAmount(dir) < sa) {
                             return 0;
                         }
                     }
                 }
             }
         }
-        if (amount > this.aspects.getAmount(aspect)) {
-            amount = this.aspects.getAmount(aspect);
+        if (amount > aspects.getAmount(aspect)) {
+            amount = aspects.getAmount(aspect);
         }
-        return this.takeFromContainer(aspect, amount) ? amount : 0;
+        return takeFromContainer(aspect, amount) ? amount : 0;
     }
     
     @Override
     public int addEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
-        return this.canInputFrom(face) ? (amount - this.addToContainer(aspect, amount)) : 0;
+        return canInputFrom(face) ? (amount - addToContainer(aspect, amount)) : 0;
     }
     
     @Override
     public void update() {
-        ++this.count;
-        if (this.bellows < 0 || this.count % 20 == 0) {
-            this.getBellows();
+        ++count;
+        if (bellows < 0 || count % 20 == 0) {
+            getBellows();
         }
-        if (!this.world.isRemote && this.count % 5 == 0) {
-            final int visSize = this.aspects.visSize();
-            this.getClass();
+        if (!world.isRemote && count % 5 == 0) {
+            final int visSize = aspects.visSize();
+            getClass();
             if (visSize < 10) {
-                this.fillBuffer();
+                fillBuffer();
             }
         }
     }
@@ -231,13 +231,13 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
         TileEntity te = null;
         IEssentiaTransport ic = null;
         for (final EnumFacing dir : EnumFacing.VALUES) {
-            if (this.canInputFrom(dir)) {
-                te = ThaumcraftApiHelper.getConnectableTile(this.world, this.pos, dir);
+            if (canInputFrom(dir)) {
+                te = ThaumcraftApiHelper.getConnectableTile(world, pos, dir);
                 if (te != null) {
                     ic = (IEssentiaTransport)te;
-                    if (ic.getEssentiaAmount(dir.getOpposite()) > 0 && ic.getSuctionAmount(dir.getOpposite()) < this.getSuctionAmount(dir) && this.getSuctionAmount(dir) >= ic.getMinimumSuction()) {
+                    if (ic.getEssentiaAmount(dir.getOpposite()) > 0 && ic.getSuctionAmount(dir.getOpposite()) < getSuctionAmount(dir) && getSuctionAmount(dir) >= ic.getMinimumSuction()) {
                         final Aspect ta = ic.getEssentiaType(dir.getOpposite());
-                        this.addToContainer(ta, ic.takeEssentia(ta, 1, dir.getOpposite()));
+                        addToContainer(ta, ic.takeEssentia(ta, 1, dir.getOpposite()));
                         return;
                     }
                 }
@@ -246,12 +246,12 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
     }
     
     public void getBellows() {
-        this.bellows = TileBellows.getBellows(this.world, this.pos, EnumFacing.VALUES);
+        bellows = TileBellows.getBellows(world, pos, EnumFacing.VALUES);
     }
     
     @Override
     public boolean onCasterRightClick(final World world, final ItemStack wandstack, final EntityPlayer player, final BlockPos bp, final EnumFacing side, final EnumHand hand) {
-        final RayTraceResult hit = RayTracer.retraceBlock(world, player, this.pos);
+        final RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
         if (hit == null) {
             return false;
         }
@@ -266,22 +266,22 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
                     if (this.chokedSides[hit.subHit] > 2) {
                         this.chokedSides[hit.subHit] = 0;
                     }
-                    this.markDirty();
-                    this.syncTile(true);
+                    markDirty();
+                    syncTile(true);
                 }
             }
             else {
                 player.world.playSound(bp.getX() + 0.5, bp.getY() + 0.5, bp.getZ() + 0.5, SoundsTC.tool, SoundCategory.BLOCKS, 0.5f, 0.9f + player.world.rand.nextFloat() * 0.2f, false);
-                this.openSides[hit.subHit] = !this.openSides[hit.subHit];
+                openSides[hit.subHit] = !openSides[hit.subHit];
                 final EnumFacing dir = EnumFacing.VALUES[hit.subHit];
-                final TileEntity tile = world.getTileEntity(this.pos.offset(dir));
+                final TileEntity tile = world.getTileEntity(pos.offset(dir));
                 if (tile != null && tile instanceof TileTube) {
-                    ((TileTube)tile).openSides[dir.getOpposite().ordinal()] = this.openSides[hit.subHit];
+                    ((TileTube)tile).openSides[dir.getOpposite().ordinal()] = openSides[hit.subHit];
                     ((TileTube)tile).syncTile(true);
                     tile.markDirty();
                 }
-                this.markDirty();
-                this.syncTile(true);
+                markDirty();
+                syncTile(true);
             }
             return true;
         }
@@ -290,7 +290,7 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
     
     @Override
     public boolean canConnectSide(final EnumFacing side) {
-        final TileEntity tile = this.world.getTileEntity(this.pos.offset(side));
+        final TileEntity tile = world.getTileEntity(pos.offset(side));
         return tile != null && tile instanceof IEssentiaTransport;
     }
     
@@ -298,24 +298,24 @@ public class TileTubeBuffer extends TileTube implements IAspectContainer
     public void addTraceableCuboids(final List<IndexedCuboid6> cuboids) {
         final float min = 0.375f;
         final float max = 0.625f;
-        if (this.canConnectSide(EnumFacing.DOWN)) {
-            cuboids.add(new IndexedCuboid6(0, new Cuboid6(this.pos.getX() + min, this.pos.getY(), this.pos.getZ() + min, this.pos.getX() + max, this.pos.getY() + 0.5, this.pos.getZ() + max)));
+        if (canConnectSide(EnumFacing.DOWN)) {
+            cuboids.add(new IndexedCuboid6(0, new Cuboid6(pos.getX() + min, pos.getY(), pos.getZ() + min, pos.getX() + max, pos.getY() + 0.5, pos.getZ() + max)));
         }
-        if (this.canConnectSide(EnumFacing.UP)) {
-            cuboids.add(new IndexedCuboid6(1, new Cuboid6(this.pos.getX() + min, this.pos.getY() + 0.5, this.pos.getZ() + min, this.pos.getX() + max, this.pos.getY() + 1, this.pos.getZ() + max)));
+        if (canConnectSide(EnumFacing.UP)) {
+            cuboids.add(new IndexedCuboid6(1, new Cuboid6(pos.getX() + min, pos.getY() + 0.5, pos.getZ() + min, pos.getX() + max, pos.getY() + 1, pos.getZ() + max)));
         }
-        if (this.canConnectSide(EnumFacing.NORTH)) {
-            cuboids.add(new IndexedCuboid6(2, new Cuboid6(this.pos.getX() + min, this.pos.getY() + min, this.pos.getZ(), this.pos.getX() + max, this.pos.getY() + max, this.pos.getZ() + 0.5)));
+        if (canConnectSide(EnumFacing.NORTH)) {
+            cuboids.add(new IndexedCuboid6(2, new Cuboid6(pos.getX() + min, pos.getY() + min, pos.getZ(), pos.getX() + max, pos.getY() + max, pos.getZ() + 0.5)));
         }
-        if (this.canConnectSide(EnumFacing.SOUTH)) {
-            cuboids.add(new IndexedCuboid6(3, new Cuboid6(this.pos.getX() + min, this.pos.getY() + min, this.pos.getZ() + 0.5, this.pos.getX() + max, this.pos.getY() + max, this.pos.getZ() + 1)));
+        if (canConnectSide(EnumFacing.SOUTH)) {
+            cuboids.add(new IndexedCuboid6(3, new Cuboid6(pos.getX() + min, pos.getY() + min, pos.getZ() + 0.5, pos.getX() + max, pos.getY() + max, pos.getZ() + 1)));
         }
-        if (this.canConnectSide(EnumFacing.WEST)) {
-            cuboids.add(new IndexedCuboid6(4, new Cuboid6(this.pos.getX(), this.pos.getY() + min, this.pos.getZ() + min, this.pos.getX() + 0.5, this.pos.getY() + max, this.pos.getZ() + max)));
+        if (canConnectSide(EnumFacing.WEST)) {
+            cuboids.add(new IndexedCuboid6(4, new Cuboid6(pos.getX(), pos.getY() + min, pos.getZ() + min, pos.getX() + 0.5, pos.getY() + max, pos.getZ() + max)));
         }
-        if (this.canConnectSide(EnumFacing.EAST)) {
-            cuboids.add(new IndexedCuboid6(5, new Cuboid6(this.pos.getX() + 0.5, this.pos.getY() + min, this.pos.getZ() + min, this.pos.getX() + 1, this.pos.getY() + max, this.pos.getZ() + max)));
+        if (canConnectSide(EnumFacing.EAST)) {
+            cuboids.add(new IndexedCuboid6(5, new Cuboid6(pos.getX() + 0.5, pos.getY() + min, pos.getZ() + min, pos.getX() + 1, pos.getY() + max, pos.getZ() + max)));
         }
-        cuboids.add(new IndexedCuboid6(6, new Cuboid6(this.pos.getX() + 0.25f, this.pos.getY() + 0.25f, this.pos.getZ() + 0.25f, this.pos.getX() + 0.75f, this.pos.getY() + 0.75f, this.pos.getZ() + 0.75f)));
+        cuboids.add(new IndexedCuboid6(6, new Cuboid6(pos.getX() + 0.25f, pos.getY() + 0.25f, pos.getZ() + 0.25f, pos.getX() + 0.75f, pos.getY() + 0.75f, pos.getZ() + 0.75f)));
     }
 }

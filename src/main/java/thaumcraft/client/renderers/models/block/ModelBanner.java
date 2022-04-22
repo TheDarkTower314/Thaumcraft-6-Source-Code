@@ -16,50 +16,50 @@ public class ModelBanner extends ModelBase
     ModelRenderer Pole;
     
     public ModelBanner() {
-        this.textureWidth = 128;
-        this.textureHeight = 64;
-        (this.B1 = new ModelRenderer(this, 0, 29)).addBox(-5.0f, -7.5f, -1.5f, 2, 3, 3);
-        this.B1.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.B1.setTextureSize(128, 64);
-        this.B1.mirror = true;
-        this.setRotation(this.B1, 0.0f, 0.0f, 0.0f);
-        (this.B2 = new ModelRenderer(this, 0, 29)).addBox(3.0f, -7.5f, -1.5f, 2, 3, 3);
-        this.B2.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.B2.setTextureSize(128, 64);
-        this.B2.mirror = true;
-        this.setRotation(this.B2, 0.0f, 0.0f, 0.0f);
-        (this.Beam = new ModelRenderer(this, 30, 0)).addBox(-7.0f, -7.0f, -1.0f, 14, 2, 2);
-        this.Beam.setRotationPoint(0.0f, 0.0f, 0.0f);
-        this.Beam.setTextureSize(128, 64);
-        this.Beam.mirror = true;
-        this.setRotation(this.Beam, 0.0f, 0.0f, 0.0f);
-        (this.Banner = new ModelRenderer(this, 0, 0)).addBox(-7.0f, 0.0f, -0.5f, 14, 28, 1);
-        this.Banner.setRotationPoint(0.0f, -5.0f, 0.0f);
-        this.Banner.setTextureSize(128, 64);
-        this.Banner.mirror = true;
-        this.setRotation(this.Banner, 0.0f, 0.0f, 0.0f);
-        (this.Pole = new ModelRenderer(this, 62, 0)).addBox(0.0f, 0.0f, -1.0f, 2, 31, 2);
-        this.Pole.setRotationPoint(-1.0f, -7.0f, -2.0f);
-        this.Pole.setTextureSize(128, 64);
-        this.Pole.mirror = true;
-        this.setRotation(this.Pole, 0.0f, 0.0f, 0.0f);
+        textureWidth = 128;
+        textureHeight = 64;
+        (B1 = new ModelRenderer(this, 0, 29)).addBox(-5.0f, -7.5f, -1.5f, 2, 3, 3);
+        B1.setRotationPoint(0.0f, 0.0f, 0.0f);
+        B1.setTextureSize(128, 64);
+        B1.mirror = true;
+        setRotation(B1, 0.0f, 0.0f, 0.0f);
+        (B2 = new ModelRenderer(this, 0, 29)).addBox(3.0f, -7.5f, -1.5f, 2, 3, 3);
+        B2.setRotationPoint(0.0f, 0.0f, 0.0f);
+        B2.setTextureSize(128, 64);
+        B2.mirror = true;
+        setRotation(B2, 0.0f, 0.0f, 0.0f);
+        (Beam = new ModelRenderer(this, 30, 0)).addBox(-7.0f, -7.0f, -1.0f, 14, 2, 2);
+        Beam.setRotationPoint(0.0f, 0.0f, 0.0f);
+        Beam.setTextureSize(128, 64);
+        Beam.mirror = true;
+        setRotation(Beam, 0.0f, 0.0f, 0.0f);
+        (Banner = new ModelRenderer(this, 0, 0)).addBox(-7.0f, 0.0f, -0.5f, 14, 28, 1);
+        Banner.setRotationPoint(0.0f, -5.0f, 0.0f);
+        Banner.setTextureSize(128, 64);
+        Banner.mirror = true;
+        setRotation(Banner, 0.0f, 0.0f, 0.0f);
+        (Pole = new ModelRenderer(this, 62, 0)).addBox(0.0f, 0.0f, -1.0f, 2, 31, 2);
+        Pole.setRotationPoint(-1.0f, -7.0f, -2.0f);
+        Pole.setTextureSize(128, 64);
+        Pole.mirror = true;
+        setRotation(Pole, 0.0f, 0.0f, 0.0f);
     }
     
     public void renderPole() {
-        this.Pole.render(0.0625f);
+        Pole.render(0.0625f);
     }
     
     public void renderBeam() {
-        this.Beam.render(0.0625f);
+        Beam.render(0.0625f);
     }
     
     public void renderTabs() {
-        this.B1.render(0.0625f);
-        this.B2.render(0.0625f);
+        B1.render(0.0625f);
+        B2.render(0.0625f);
     }
     
     public void renderBanner() {
-        this.Banner.render(0.0625f);
+        Banner.render(0.0625f);
     }
     
     private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {

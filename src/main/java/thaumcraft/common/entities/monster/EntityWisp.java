@@ -48,19 +48,19 @@ public class EntityWisp extends EntityFlying implements IMob
     
     public EntityWisp(final World world) {
         super(world);
-        this.courseChangeCooldown = 0;
-        this.aggroCooldown = 0;
-        this.prevAttackCounter = 0;
-        this.attackCounter = 0;
-        this.setSize(0.9f, 0.9f);
-        this.experienceValue = 5;
+        courseChangeCooldown = 0;
+        aggroCooldown = 0;
+        prevAttackCounter = 0;
+        attackCounter = 0;
+        setSize(0.9f, 0.9f);
+        experienceValue = 5;
     }
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(22.0);
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(22.0);
+        getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0);
     }
     
     protected boolean canTriggerWalking() {
@@ -73,130 +73,130 @@ public class EntityWisp extends EntityFlying implements IMob
     
     public boolean attackEntityFrom(final DamageSource damagesource, final float i) {
         if (damagesource.getTrueSource() instanceof EntityLivingBase) {
-            this.setAttackTarget((EntityLivingBase)damagesource.getTrueSource());
-            this.aggroCooldown = 200;
+            setAttackTarget((EntityLivingBase)damagesource.getTrueSource());
+            aggroCooldown = 200;
         }
         return super.attackEntityFrom(damagesource, i);
     }
     
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register(EntityWisp.TYPE, String.valueOf(""));
+        getDataManager().register(EntityWisp.TYPE, String.valueOf(""));
     }
     
     public void onDeath(final DamageSource par1DamageSource) {
         super.onDeath(par1DamageSource);
-        if (this.world.isRemote) {
-            FXDispatcher.INSTANCE.burst(this.posX, this.posY + 0.44999998807907104, this.posZ, 1.0f);
+        if (world.isRemote) {
+            FXDispatcher.INSTANCE.burst(posX, posY + 0.44999998807907104, posZ, 1.0f);
         }
     }
     
     public void onUpdate() {
         super.onUpdate();
-        if (this.world.isRemote && this.ticksExisted <= 1) {
-            FXDispatcher.INSTANCE.burst(this.posX, this.posY, this.posZ, 10.0f);
+        if (world.isRemote && ticksExisted <= 1) {
+            FXDispatcher.INSTANCE.burst(posX, posY, posZ, 10.0f);
         }
-        if (this.world.isRemote && this.world.rand.nextBoolean() && Aspect.getAspect(this.getType()) != null) {
-            FXDispatcher.INSTANCE.drawWispParticles(this.posX + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.7f, this.posY + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.7f, this.posZ + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.7f, 0.0, 0.0, 0.0, Aspect.getAspect(this.getType()).getColor(), 0);
+        if (world.isRemote && world.rand.nextBoolean() && Aspect.getAspect(getType()) != null) {
+            FXDispatcher.INSTANCE.drawWispParticles(posX + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.7f, posY + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.7f, posZ + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.7f, 0.0, 0.0, 0.0, Aspect.getAspect(getType()).getColor(), 0);
         }
-        this.motionY *= 0.6000000238418579;
+        motionY *= 0.6000000238418579;
     }
     
     public String getType() {
-        return (String)this.getDataManager().get((DataParameter)EntityWisp.TYPE);
+        return (String) getDataManager().get((DataParameter)EntityWisp.TYPE);
     }
     
     public void setType(final String t) {
-        this.getDataManager().set(EntityWisp.TYPE, String.valueOf(t));
+        getDataManager().set(EntityWisp.TYPE, String.valueOf(t));
     }
     
     public void onLivingUpdate() {
         super.onLivingUpdate();
-        if (this.isServerWorld()) {
-            if (!this.world.isRemote && Aspect.getAspect(this.getType()) == null) {
-                if (this.world.rand.nextInt(10) != 0) {
+        if (isServerWorld()) {
+            if (!world.isRemote && Aspect.getAspect(getType()) == null) {
+                if (world.rand.nextInt(10) != 0) {
                     final ArrayList<Aspect> as = Aspect.getPrimalAspects();
-                    this.setType(as.get(this.world.rand.nextInt(as.size())).getTag());
+                    setType(as.get(world.rand.nextInt(as.size())).getTag());
                 }
                 else {
                     final ArrayList<Aspect> as = Aspect.getCompoundAspects();
-                    this.setType(as.get(this.world.rand.nextInt(as.size())).getTag());
+                    setType(as.get(world.rand.nextInt(as.size())).getTag());
                 }
             }
-            if (!this.world.isRemote && this.world.getDifficulty() == EnumDifficulty.PEACEFUL) {
-                this.setDead();
+            if (!world.isRemote && world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+                setDead();
             }
-            this.prevAttackCounter = this.attackCounter;
+            prevAttackCounter = attackCounter;
             final double attackrange = 16.0;
-            if (this.getAttackTarget() == null || !this.canEntityBeSeen(this.getAttackTarget())) {
-                if (this.currentFlightTarget != null && (!this.world.isAirBlock(this.currentFlightTarget) || this.currentFlightTarget.getY() < 1 || this.currentFlightTarget.getY() > this.world.getPrecipitationHeight(this.currentFlightTarget).up(8).getY())) {
-                    this.currentFlightTarget = null;
+            if (getAttackTarget() == null || !canEntityBeSeen(getAttackTarget())) {
+                if (currentFlightTarget != null && (!world.isAirBlock(currentFlightTarget) || currentFlightTarget.getY() < 1 || currentFlightTarget.getY() > world.getPrecipitationHeight(currentFlightTarget).up(8).getY())) {
+                    currentFlightTarget = null;
                 }
-                if (this.currentFlightTarget == null || this.rand.nextInt(30) == 0 || this.getDistanceSqToCenter(this.currentFlightTarget) < 4.0) {
-                    this.currentFlightTarget = new BlockPos((int)this.posX + this.rand.nextInt(7) - this.rand.nextInt(7), (int)this.posY + this.rand.nextInt(6) - 2, (int)this.posZ + this.rand.nextInt(7) - this.rand.nextInt(7));
+                if (currentFlightTarget == null || rand.nextInt(30) == 0 || getDistanceSqToCenter(currentFlightTarget) < 4.0) {
+                    currentFlightTarget = new BlockPos((int) posX + rand.nextInt(7) - rand.nextInt(7), (int) posY + rand.nextInt(6) - 2, (int) posZ + rand.nextInt(7) - rand.nextInt(7));
                 }
-                final double var1 = this.currentFlightTarget.getX() + 0.5 - this.posX;
-                final double var2 = this.currentFlightTarget.getY() + 0.1 - this.posY;
-                final double var3 = this.currentFlightTarget.getZ() + 0.5 - this.posZ;
-                this.motionX += (Math.signum(var1) * 0.5 - this.motionX) * 0.10000000149011612;
-                this.motionY += (Math.signum(var2) * 0.699999988079071 - this.motionY) * 0.10000000149011612;
-                this.motionZ += (Math.signum(var3) * 0.5 - this.motionZ) * 0.10000000149011612;
-                final float var4 = (float)(Math.atan2(this.motionZ, this.motionX) * 180.0 / 3.141592653589793) - 90.0f;
-                final float var5 = MathHelper.wrapDegrees(var4 - this.rotationYaw);
-                this.moveForward = 0.15f;
-                this.rotationYaw += var5;
+                final double var1 = currentFlightTarget.getX() + 0.5 - posX;
+                final double var2 = currentFlightTarget.getY() + 0.1 - posY;
+                final double var3 = currentFlightTarget.getZ() + 0.5 - posZ;
+                motionX += (Math.signum(var1) * 0.5 - motionX) * 0.10000000149011612;
+                motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
+                motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.10000000149011612;
+                final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+                final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+                moveForward = 0.15f;
+                rotationYaw += var5;
             }
-            else if (this.getDistanceSq(this.getAttackTarget()) > attackrange * attackrange / 2.0 && this.canEntityBeSeen(this.getAttackTarget())) {
-                final double var1 = this.getAttackTarget().posX - this.posX;
-                final double var2 = this.getAttackTarget().posY + this.getAttackTarget().getEyeHeight() * 0.66f - this.posY;
-                final double var3 = this.getAttackTarget().posZ - this.posZ;
-                this.motionX += (Math.signum(var1) * 0.5 - this.motionX) * 0.10000000149011612;
-                this.motionY += (Math.signum(var2) * 0.699999988079071 - this.motionY) * 0.10000000149011612;
-                this.motionZ += (Math.signum(var3) * 0.5 - this.motionZ) * 0.10000000149011612;
-                final float var4 = (float)(Math.atan2(this.motionZ, this.motionX) * 180.0 / 3.141592653589793) - 90.0f;
-                final float var5 = MathHelper.wrapDegrees(var4 - this.rotationYaw);
-                this.moveForward = 0.5f;
-                this.rotationYaw += var5;
+            else if (getDistanceSq(getAttackTarget()) > attackrange * attackrange / 2.0 && canEntityBeSeen(getAttackTarget())) {
+                final double var1 = getAttackTarget().posX - posX;
+                final double var2 = getAttackTarget().posY + getAttackTarget().getEyeHeight() * 0.66f - posY;
+                final double var3 = getAttackTarget().posZ - posZ;
+                motionX += (Math.signum(var1) * 0.5 - motionX) * 0.10000000149011612;
+                motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
+                motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.10000000149011612;
+                final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+                final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+                moveForward = 0.5f;
+                rotationYaw += var5;
             }
-            if (this.getAttackTarget() instanceof EntityPlayer && ((EntityPlayer)this.getAttackTarget()).capabilities.disableDamage) {
-                this.setAttackTarget(null);
+            if (getAttackTarget() instanceof EntityPlayer && ((EntityPlayer) getAttackTarget()).capabilities.disableDamage) {
+                setAttackTarget(null);
             }
-            if (this.getAttackTarget() != null && this.getAttackTarget().isDead) {
-                this.setAttackTarget(null);
+            if (getAttackTarget() != null && getAttackTarget().isDead) {
+                setAttackTarget(null);
             }
-            --this.aggroCooldown;
-            if (this.world.rand.nextInt(1000) == 0 && (this.getAttackTarget() == null || this.aggroCooldown-- <= 0)) {
-                this.setAttackTarget(this.world.getClosestPlayerToEntity(this, 16.0));
-                if (this.getAttackTarget() != null) {
-                    this.aggroCooldown = 50;
+            --aggroCooldown;
+            if (world.rand.nextInt(1000) == 0 && (getAttackTarget() == null || aggroCooldown-- <= 0)) {
+                setAttackTarget(world.getClosestPlayerToEntity(this, 16.0));
+                if (getAttackTarget() != null) {
+                    aggroCooldown = 50;
                 }
             }
-            if (this.isEntityAlive() && this.getAttackTarget() != null && this.getAttackTarget().getDistanceSq(this) < attackrange * attackrange) {
-                final double d5 = this.getAttackTarget().posX - this.posX;
-                final double d6 = this.getAttackTarget().getEntityBoundingBox().minY + this.getAttackTarget().height / 2.0f - (this.posY + this.height / 2.0f);
-                final double d7 = this.getAttackTarget().posZ - this.posZ;
+            if (isEntityAlive() && getAttackTarget() != null && getAttackTarget().getDistanceSq(this) < attackrange * attackrange) {
+                final double d5 = getAttackTarget().posX - posX;
+                final double d6 = getAttackTarget().getEntityBoundingBox().minY + getAttackTarget().height / 2.0f - (posY + height / 2.0f);
+                final double d7 = getAttackTarget().posZ - posZ;
                 final float n = -(float)Math.atan2(d5, d7) * 180.0f / 3.141593f;
-                this.rotationYaw = n;
-                this.renderYawOffset = n;
-                if (this.canEntityBeSeen(this.getAttackTarget())) {
-                    ++this.attackCounter;
-                    if (this.attackCounter == 20) {
-                        this.playSound(SoundsTC.zap, 1.0f, 1.1f);
-                        PacketHandler.INSTANCE.sendToAllAround(new PacketFXWispZap(this.getEntityId(), this.getAttackTarget().getEntityId()), new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.posX, this.posY, this.posZ, 32.0));
-                        final float damage = (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
-                        if (Math.abs(this.getAttackTarget().motionX) > 0.10000000149011612 || Math.abs(this.getAttackTarget().motionY) > 0.10000000149011612 || Math.abs(this.getAttackTarget().motionZ) > 0.10000000149011612) {
-                            if (this.world.rand.nextFloat() < 0.4f) {
-                                this.getAttackTarget().attackEntityFrom(DamageSource.causeMobDamage(this), damage);
+                rotationYaw = n;
+                renderYawOffset = n;
+                if (canEntityBeSeen(getAttackTarget())) {
+                    ++attackCounter;
+                    if (attackCounter == 20) {
+                        playSound(SoundsTC.zap, 1.0f, 1.1f);
+                        PacketHandler.INSTANCE.sendToAllAround(new PacketFXWispZap(getEntityId(), getAttackTarget().getEntityId()), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 32.0));
+                        final float damage = (float) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+                        if (Math.abs(getAttackTarget().motionX) > 0.10000000149011612 || Math.abs(getAttackTarget().motionY) > 0.10000000149011612 || Math.abs(getAttackTarget().motionZ) > 0.10000000149011612) {
+                            if (world.rand.nextFloat() < 0.4f) {
+                                getAttackTarget().attackEntityFrom(DamageSource.causeMobDamage(this), damage);
                             }
                         }
-                        else if (this.world.rand.nextFloat() < 0.66f) {
-                            this.getAttackTarget().attackEntityFrom(DamageSource.causeMobDamage(this), damage + 1.0f);
+                        else if (world.rand.nextFloat() < 0.66f) {
+                            getAttackTarget().attackEntityFrom(DamageSource.causeMobDamage(this), damage + 1.0f);
                         }
-                        this.attackCounter = -20 + this.world.rand.nextInt(20);
+                        attackCounter = -20 + world.rand.nextInt(20);
                     }
                 }
-                else if (this.attackCounter > 0) {
-                    --this.attackCounter;
+                else if (attackCounter > 0) {
+                    --attackCounter;
                 }
             }
         }
@@ -219,8 +219,8 @@ public class EntityWisp extends EntityFlying implements IMob
     }
     
     protected void dropFewItems(final boolean flag, final int i) {
-        if (Aspect.getAspect(this.getType()) != null) {
-            this.entityDropItem(ThaumcraftApiHelper.makeCrystal(Aspect.getAspect(this.getType())), 0.0f);
+        if (Aspect.getAspect(getType()) != null) {
+            entityDropItem(ThaumcraftApiHelper.makeCrystal(Aspect.getAspect(getType())), 0.0f);
         }
     }
     
@@ -235,38 +235,38 @@ public class EntityWisp extends EntityFlying implements IMob
     public boolean getCanSpawnHere() {
         int count = 0;
         try {
-            final List l = this.world.getEntitiesWithinAABB(EntityWisp.class, this.getEntityBoundingBox().grow(16.0, 16.0, 16.0));
+            final List l = world.getEntitiesWithinAABB(EntityWisp.class, getEntityBoundingBox().grow(16.0, 16.0, 16.0));
             if (l != null) {
                 count = l.size();
             }
         }
         catch (final Exception ex) {}
-        return count < 8 && this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.getCanSpawnHere();
+        return count < 8 && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
     }
     
     protected boolean isValidLightLevel() {
-        final BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
-        if (this.world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
+        final BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
+        if (world.getLightFor(EnumSkyBlock.SKY, blockpos) > rand.nextInt(32)) {
             return false;
         }
-        int i = this.world.getLightFromNeighbors(blockpos);
-        if (this.world.isThundering()) {
-            final int j = this.world.getSkylightSubtracted();
-            this.world.setSkylightSubtracted(10);
-            i = this.world.getLightFromNeighbors(blockpos);
-            this.world.setSkylightSubtracted(j);
+        int i = world.getLightFromNeighbors(blockpos);
+        if (world.isThundering()) {
+            final int j = world.getSkylightSubtracted();
+            world.setSkylightSubtracted(10);
+            i = world.getLightFromNeighbors(blockpos);
+            world.setSkylightSubtracted(j);
         }
-        return i <= this.rand.nextInt(8);
+        return i <= rand.nextInt(8);
     }
     
     public void writeEntityToNBT(final NBTTagCompound nbttagcompound) {
         super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setString("Type", this.getType());
+        nbttagcompound.setString("Type", getType());
     }
     
     public void readEntityFromNBT(final NBTTagCompound nbttagcompound) {
         super.readEntityFromNBT(nbttagcompound);
-        this.setType(nbttagcompound.getString("Type"));
+        setType(nbttagcompound.getString("Type"));
     }
     
     public int getMaxSpawnedInChunk() {

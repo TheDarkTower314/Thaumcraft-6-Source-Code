@@ -44,9 +44,9 @@ public class SealGuard implements ISeal, ISealGui, ISealConfigArea
     ResourceLocation icon;
     
     public SealGuard() {
-        this.delay = new Random(System.nanoTime()).nextInt(22);
-        this.props = new ISealConfigToggles.SealToggle[] { new ISealConfigToggles.SealToggle(true, "pmob", "golem.prop.mob"), new ISealConfigToggles.SealToggle(false, "panimal", "golem.prop.animal"), new ISealConfigToggles.SealToggle(false, "pplayer", "golem.prop.player") };
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_guard");
+        delay = new Random(System.nanoTime()).nextInt(22);
+        props = new ISealConfigToggles.SealToggle[] { new ISealConfigToggles.SealToggle(true, "pmob", "golem.prop.mob"), new ISealConfigToggles.SealToggle(false, "panimal", "golem.prop.animal"), new ISealConfigToggles.SealToggle(false, "pplayer", "golem.prop.player") };
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_guard");
     }
     
     @Override
@@ -56,7 +56,7 @@ public class SealGuard implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public void tickSeal(final World world, final ISealEntity seal) {
-        if (this.delay++ % 20 != 0) {
+        if (delay++ % 20 != 0) {
             return;
         }
         final AxisAlignedBB area = GolemHelper.getBoundsForArea(seal);
@@ -64,7 +64,7 @@ public class SealGuard implements ISeal, ISealGui, ISealConfigArea
         if (list.size() > 0) {
             for (final Object e : list) {
                 final EntityLivingBase target = (EntityLivingBase)e;
-                if (this.isValidTarget(target)) {
+                if (isValidTarget(target)) {
                     final Task task = new Task(seal.getSealPos(), target);
                     task.setPriority(seal.getPriority());
                     task.setLifespan((short)10);
@@ -76,13 +76,13 @@ public class SealGuard implements ISeal, ISealGui, ISealConfigArea
     
     private boolean isValidTarget(final EntityLivingBase target) {
         boolean valid = false;
-        if (this.props[0].value && (target instanceof IMob || target instanceof EntityMob)) {
+        if (props[0].value && (target instanceof IMob || target instanceof EntityMob)) {
             valid = true;
         }
-        if (this.props[1].value && (target instanceof EntityAnimal || target instanceof IAnimals)) {
+        if (props[1].value && (target instanceof EntityAnimal || target instanceof IAnimals)) {
             valid = true;
         }
-        if (this.props[2].value && FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled() && target instanceof EntityPlayer) {
+        if (props[2].value && FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled() && target instanceof EntityPlayer) {
             valid = true;
         }
         return valid;
@@ -90,7 +90,7 @@ public class SealGuard implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public void onTaskStarted(final World world, final IGolemAPI golem, final Task task) {
-        if (task.getEntity() != null && task.getEntity() instanceof EntityLivingBase && this.isValidTarget((EntityLivingBase)task.getEntity())) {
+        if (task.getEntity() != null && task.getEntity() instanceof EntityLivingBase && isValidTarget((EntityLivingBase)task.getEntity())) {
             ((EntityLiving)golem).setAttackTarget((EntityLivingBase)task.getEntity());
             golem.addRankXp(1);
         }
@@ -115,7 +115,7 @@ public class SealGuard implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override

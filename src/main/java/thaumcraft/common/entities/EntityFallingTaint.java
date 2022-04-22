@@ -34,32 +34,32 @@ public class EntityFallingTaint extends Entity implements IEntityAdditionalSpawn
     private float fallHurtAmount;
     
     public IBlockState getBlock() {
-        return this.fallTile;
+        return fallTile;
     }
     
     public EntityFallingTaint(final World par1World) {
         super(par1World);
-        this.fallTime = 0;
-        this.fallHurtMax = 40;
-        this.fallHurtAmount = 2.0f;
+        fallTime = 0;
+        fallHurtMax = 40;
+        fallHurtAmount = 2.0f;
     }
     
     public EntityFallingTaint(final World par1World, final double par2, final double par4, final double par6, final IBlockState par8, final BlockPos o) {
         super(par1World);
-        this.fallTime = 0;
-        this.fallHurtMax = 40;
-        this.fallHurtAmount = 2.0f;
-        this.fallTile = par8;
-        this.preventEntitySpawning = true;
-        this.setSize(0.98f, 0.98f);
-        this.setPosition(par2, par4, par6);
-        this.motionX = 0.0;
-        this.motionY = 0.0;
-        this.motionZ = 0.0;
-        this.prevPosX = par2;
-        this.prevPosY = par4;
-        this.prevPosZ = par6;
-        this.oldPos = o;
+        fallTime = 0;
+        fallHurtMax = 40;
+        fallHurtAmount = 2.0f;
+        fallTile = par8;
+        preventEntitySpawning = true;
+        setSize(0.98f, 0.98f);
+        setPosition(par2, par4, par6);
+        motionX = 0.0;
+        motionY = 0.0;
+        motionZ = 0.0;
+        prevPosX = par2;
+        prevPosY = par4;
+        prevPosZ = par6;
+        oldPos = o;
     }
     
     protected boolean canTriggerWalking() {
@@ -70,59 +70,59 @@ public class EntityFallingTaint extends Entity implements IEntityAdditionalSpawn
     }
     
     public void writeSpawnData(final ByteBuf data) {
-        data.writeInt(Block.getIdFromBlock(this.fallTile.getBlock()));
-        data.writeByte(this.fallTile.getBlock().getMetaFromState(this.fallTile));
+        data.writeInt(Block.getIdFromBlock(fallTile.getBlock()));
+        data.writeByte(fallTile.getBlock().getMetaFromState(fallTile));
     }
     
     public void readSpawnData(final ByteBuf data) {
         try {
-            this.fallTile = Block.getBlockById(data.readInt()).getStateFromMeta(data.readByte());
+            fallTile = Block.getBlockById(data.readInt()).getStateFromMeta(data.readByte());
         }
         catch (final Exception ex) {}
     }
     
     public boolean canBeCollidedWith() {
-        return !this.isDead;
+        return !isDead;
     }
     
     public void onUpdate() {
-        if (this.fallTile == null || this.fallTile == Blocks.AIR) {
-            this.setDead();
+        if (fallTile == null || fallTile == Blocks.AIR) {
+            setDead();
         }
         else {
-            this.prevPosX = this.posX;
-            this.prevPosY = this.posY;
-            this.prevPosZ = this.posZ;
-            ++this.fallTime;
-            this.motionY -= 0.03999999910593033;
-            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-            this.motionX *= 0.9800000190734863;
-            this.motionY *= 0.9800000190734863;
-            this.motionZ *= 0.9800000190734863;
+            prevPosX = posX;
+            prevPosY = posY;
+            prevPosZ = posZ;
+            ++fallTime;
+            motionY -= 0.03999999910593033;
+            move(MoverType.SELF, motionX, motionY, motionZ);
+            motionX *= 0.9800000190734863;
+            motionY *= 0.9800000190734863;
+            motionZ *= 0.9800000190734863;
             final BlockPos bp = new BlockPos(this);
-            if (!this.world.isRemote) {
-                if (this.fallTime == 1) {
-                    if (this.world.getBlockState(this.oldPos) != this.fallTile) {
-                        this.setDead();
+            if (!world.isRemote) {
+                if (fallTime == 1) {
+                    if (world.getBlockState(oldPos) != fallTile) {
+                        setDead();
                         return;
                     }
-                    this.world.setBlockToAir(this.oldPos);
+                    world.setBlockToAir(oldPos);
                 }
-                if (this.onGround || this.world.getBlockState(bp.down()) == BlocksTC.fluxGoo) {
-                    this.motionX *= 0.699999988079071;
-                    this.motionZ *= 0.699999988079071;
-                    this.motionY *= -0.5;
-                    if (this.world.getBlockState(bp).getBlock() != Blocks.PISTON && this.world.getBlockState(bp).getBlock() != Blocks.PISTON_EXTENSION && this.world.getBlockState(bp).getBlock() != Blocks.PISTON_HEAD) {
-                        this.playSound(SoundsTC.gore, 0.5f, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2f + 1.0f) * 0.8f);
-                        this.setDead();
-                        if (this.canPlace(bp) && !BlockTaint.canFallBelow(this.world, bp.down()) && this.world.setBlockState(bp, this.fallTile)) {}
+                if (onGround || world.getBlockState(bp.down()) == BlocksTC.fluxGoo) {
+                    motionX *= 0.699999988079071;
+                    motionZ *= 0.699999988079071;
+                    motionY *= -0.5;
+                    if (world.getBlockState(bp).getBlock() != Blocks.PISTON && world.getBlockState(bp).getBlock() != Blocks.PISTON_EXTENSION && world.getBlockState(bp).getBlock() != Blocks.PISTON_HEAD) {
+                        playSound(SoundsTC.gore, 0.5f, ((rand.nextFloat() - rand.nextFloat()) * 0.2f + 1.0f) * 0.8f);
+                        setDead();
+                        if (canPlace(bp) && !BlockTaint.canFallBelow(world, bp.down()) && world.setBlockState(bp, fallTile)) {}
                     }
                 }
-                else if ((this.fallTime > 100 && !this.world.isRemote && (bp.getY() < 1 || bp.getY() > 256)) || this.fallTime > 600) {
-                    this.setDead();
+                else if ((fallTime > 100 && !world.isRemote && (bp.getY() < 1 || bp.getY() > 256)) || fallTime > 600) {
+                    setDead();
                 }
             }
-            else if (this.onGround || this.fallTime == 1) {
+            else if (onGround || fallTime == 1) {
                 for (int j = 0; j < 10; ++j) {
                     FXDispatcher.INSTANCE.taintLandFX(this);
                 }
@@ -131,49 +131,49 @@ public class EntityFallingTaint extends Entity implements IEntityAdditionalSpawn
     }
     
     private boolean canPlace(final BlockPos pos) {
-        return this.world.getBlockState(pos).getBlock() == BlocksTC.taintFibre || this.world.getBlockState(pos).getBlock() == BlocksTC.fluxGoo || this.world.mayPlace(this.fallTile.getBlock(), pos, true, EnumFacing.UP, null);
+        return world.getBlockState(pos).getBlock() == BlocksTC.taintFibre || world.getBlockState(pos).getBlock() == BlocksTC.fluxGoo || world.mayPlace(fallTile.getBlock(), pos, true, EnumFacing.UP, null);
     }
     
     public void fall(final float distance, final float damageMultiplier) {
     }
     
     protected void writeEntityToNBT(final NBTTagCompound par1NBTTagCompound) {
-        final Block block = (this.fallTile != null) ? this.fallTile.getBlock() : Blocks.AIR;
+        final Block block = (fallTile != null) ? fallTile.getBlock() : Blocks.AIR;
         final ResourceLocation resourcelocation = Block.REGISTRY.getNameForObject(block);
         par1NBTTagCompound.setString("Block", (resourcelocation == null) ? "" : resourcelocation.toString());
-        par1NBTTagCompound.setByte("Data", (byte)block.getMetaFromState(this.fallTile));
-        par1NBTTagCompound.setByte("Time", (byte)this.fallTime);
-        par1NBTTagCompound.setFloat("FallHurtAmount", this.fallHurtAmount);
-        par1NBTTagCompound.setInteger("FallHurtMax", this.fallHurtMax);
-        par1NBTTagCompound.setLong("Old", this.oldPos.toLong());
+        par1NBTTagCompound.setByte("Data", (byte)block.getMetaFromState(fallTile));
+        par1NBTTagCompound.setByte("Time", (byte) fallTime);
+        par1NBTTagCompound.setFloat("FallHurtAmount", fallHurtAmount);
+        par1NBTTagCompound.setInteger("FallHurtMax", fallHurtMax);
+        par1NBTTagCompound.setLong("Old", oldPos.toLong());
     }
     
     protected void readEntityFromNBT(final NBTTagCompound par1NBTTagCompound) {
         final int i = par1NBTTagCompound.getByte("Data") & 0xFF;
         if (par1NBTTagCompound.hasKey("Block", 8)) {
-            this.fallTile = Block.getBlockFromName(par1NBTTagCompound.getString("Block")).getStateFromMeta(i);
+            fallTile = Block.getBlockFromName(par1NBTTagCompound.getString("Block")).getStateFromMeta(i);
         }
         else if (par1NBTTagCompound.hasKey("TileID", 99)) {
-            this.fallTile = Block.getBlockById(par1NBTTagCompound.getInteger("TileID")).getStateFromMeta(i);
+            fallTile = Block.getBlockById(par1NBTTagCompound.getInteger("TileID")).getStateFromMeta(i);
         }
         else {
-            this.fallTile = Block.getBlockById(par1NBTTagCompound.getByte("Tile") & 0xFF).getStateFromMeta(i);
+            fallTile = Block.getBlockById(par1NBTTagCompound.getByte("Tile") & 0xFF).getStateFromMeta(i);
         }
-        this.fallTime = (par1NBTTagCompound.getByte("Time") & 0xFF);
-        this.oldPos = BlockPos.fromLong(par1NBTTagCompound.getLong("Old"));
+        fallTime = (par1NBTTagCompound.getByte("Time") & 0xFF);
+        oldPos = BlockPos.fromLong(par1NBTTagCompound.getLong("Old"));
         if (par1NBTTagCompound.hasKey("HurtEntities")) {
-            this.fallHurtAmount = par1NBTTagCompound.getFloat("FallHurtAmount");
-            this.fallHurtMax = par1NBTTagCompound.getInteger("FallHurtMax");
+            fallHurtAmount = par1NBTTagCompound.getFloat("FallHurtAmount");
+            fallHurtMax = par1NBTTagCompound.getInteger("FallHurtMax");
         }
-        if (this.fallTile == null) {
-            this.fallTile = Blocks.SAND.getDefaultState();
+        if (fallTile == null) {
+            fallTile = Blocks.SAND.getDefaultState();
         }
     }
     
     public void addEntityCrashInfo(final CrashReportCategory par1CrashReportCategory) {
         super.addEntityCrashInfo(par1CrashReportCategory);
-        par1CrashReportCategory.addCrashSection("Immitating block ID", Block.getIdFromBlock(this.fallTile.getBlock()));
-        par1CrashReportCategory.addCrashSection("Immitating block data", this.fallTile.getBlock().getMetaFromState(this.fallTile));
+        par1CrashReportCategory.addCrashSection("Immitating block ID", Block.getIdFromBlock(fallTile.getBlock()));
+        par1CrashReportCategory.addCrashSection("Immitating block data", fallTile.getBlock().getMetaFromState(fallTile));
     }
     
     public SoundCategory getSoundCategory() {
@@ -182,7 +182,7 @@ public class EntityFallingTaint extends Entity implements IEntityAdditionalSpawn
     
     @SideOnly(Side.CLIENT)
     public World getWorld() {
-        return this.world;
+        return world;
     }
     
     @SideOnly(Side.CLIENT)

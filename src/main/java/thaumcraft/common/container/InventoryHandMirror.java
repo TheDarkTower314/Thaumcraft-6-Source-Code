@@ -16,14 +16,14 @@ public class InventoryHandMirror extends InventoryBasic
     
     public InventoryHandMirror(final IInventoryChangedListener listener) {
         super("container.handmirror", false, 1);
-        this.addInventoryChangeListener(listener);
-        this.container = (Container)listener;
+        addInventoryChangeListener(listener);
+        container = (Container)listener;
     }
     
     public void setInventorySlotContents(final int index, final ItemStack stack) {
         super.setInventorySlotContents(index, stack);
         if (!stack.isEmpty()) {
-            this.container.onCraftMatrixChanged(this);
+            container.onCraftMatrixChanged(this);
         }
     }
 }

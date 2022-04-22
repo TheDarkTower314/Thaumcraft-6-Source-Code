@@ -26,23 +26,23 @@ public class TileVisGenerator extends TileThaumcraft implements ITickable, IEner
     protected final int maxExtract = 20;
     
     public void update() {
-        if (!this.world.isRemote && BlockStateUtils.isEnabled(this.getBlockMetadata())) {
-            this.recharge();
-            final EnumFacing face = BlockStateUtils.getFacing(this.getBlockMetadata());
-            final IBlockState state = this.getWorld().getBlockState(this.getPos().offset(face));
+        if (!world.isRemote && BlockStateUtils.isEnabled(getBlockMetadata())) {
+            recharge();
+            final EnumFacing face = BlockStateUtils.getFacing(getBlockMetadata());
+            final IBlockState state = getWorld().getBlockState(getPos().offset(face));
             final Block block = state.getBlock();
             if (block.hasTileEntity(state)) {
-                final TileEntity tileentity = this.getWorld().getTileEntity(this.getPos().offset(face));
+                final TileEntity tileentity = getWorld().getTileEntity(getPos().offset(face));
                 if (tileentity != null && tileentity.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
                     final IEnergyStorage capability = tileentity.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
                     if (capability.canReceive()) {
-                        int energyExtracted = Math.min(this.energy, 20);
+                        int energyExtracted = Math.min(energy, 20);
                         energyExtracted = capability.receiveEnergy(energyExtracted, false);
                         if (energyExtracted > 0) {
-                            this.energy -= energyExtracted;
-                            this.markDirty();
-                            if (this.energy == 0) {
-                                this.syncTile(false);
+                            energy -= energyExtracted;
+                            markDirty();
+                            if (energy == 0) {
+                                syncTile(false);
                             }
                         }
                     }
@@ -52,33 +52,33 @@ public class TileVisGenerator extends TileThaumcraft implements ITickable, IEner
     }
     
     private void recharge() {
-        if (this.energy == 0) {
-            final float vis = AuraHandler.drainVis(this.getWorld(), this.getPos(), 1.0f, false);
-            this.energy = (int)(vis * 1000.0f);
-            this.markDirty();
-            this.syncTile(false);
+        if (energy == 0) {
+            final float vis = AuraHandler.drainVis(getWorld(), getPos(), 1.0f, false);
+            energy = (int)(vis * 1000.0f);
+            markDirty();
+            syncTile(false);
         }
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbt) {
-        this.energy = nbt.getInteger("energy");
+        energy = nbt.getInteger("energy");
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbt) {
-        nbt.setInteger("energy", this.energy);
+        nbt.setInteger("energy", energy);
         return nbt;
     }
     
     public boolean hasCapability(@Nonnull final Capability<?> capability, @Nullable final EnumFacing facing) {
-        final EnumFacing face = BlockStateUtils.getFacing(this.getBlockMetadata());
+        final EnumFacing face = BlockStateUtils.getFacing(getBlockMetadata());
         return (face == facing && capability == CapabilityEnergy.ENERGY) || super.hasCapability(capability, facing);
     }
     
     @Nullable
     public <T> T getCapability(@Nonnull final Capability<T> capability, @Nullable final EnumFacing facing) {
-        final EnumFacing face = BlockStateUtils.getFacing(this.getBlockMetadata());
+        final EnumFacing face = BlockStateUtils.getFacing(getBlockMetadata());
         if (face == facing && capability == CapabilityEnergy.ENERGY) {
             return (T)this;
         }
@@ -94,7 +94,7 @@ public class TileVisGenerator extends TileThaumcraft implements ITickable, IEner
     }
     
     public int getEnergyStored() {
-        return this.energy;
+        return energy;
     }
     
     public int getMaxEnergyStored() {

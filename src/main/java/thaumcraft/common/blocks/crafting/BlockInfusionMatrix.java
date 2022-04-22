@@ -19,7 +19,7 @@ public class BlockInfusionMatrix extends BlockTCDevice
 {
     public BlockInfusionMatrix() {
         super(Material.ROCK, TileInfusionMatrix.class, "infusion_matrix");
-        this.setSoundType(SoundType.STONE);
+        setSoundType(SoundType.STONE);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {

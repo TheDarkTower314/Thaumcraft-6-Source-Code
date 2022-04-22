@@ -33,70 +33,70 @@ public class SealEntity implements ISealEntity
     private BlockPos area;
     
     public SealEntity() {
-        this.priority = 0;
-        this.color = 0;
-        this.locked = false;
-        this.redstone = false;
-        this.owner = "";
-        this.stopped = false;
-        this.area = new BlockPos(1, 1, 1);
+        priority = 0;
+        color = 0;
+        locked = false;
+        redstone = false;
+        owner = "";
+        stopped = false;
+        area = new BlockPos(1, 1, 1);
     }
     
     public SealEntity(final World world, final SealPos sealPos, final ISeal seal) {
-        this.priority = 0;
-        this.color = 0;
-        this.locked = false;
-        this.redstone = false;
-        this.owner = "";
-        this.stopped = false;
-        this.area = new BlockPos(1, 1, 1);
+        priority = 0;
+        color = 0;
+        locked = false;
+        redstone = false;
+        owner = "";
+        stopped = false;
+        area = new BlockPos(1, 1, 1);
         this.sealPos = sealPos;
         this.seal = seal;
         if (seal instanceof ISealConfigArea) {
             final int x = (sealPos.face.getFrontOffsetX() == 0) ? 3 : 1;
             final int y = (sealPos.face.getFrontOffsetY() == 0) ? 3 : 1;
             final int z = (sealPos.face.getFrontOffsetZ() == 0) ? 3 : 1;
-            this.area = new BlockPos(x, y, z);
+            area = new BlockPos(x, y, z);
         }
     }
     
     @Override
     public void tickSealEntity(final World world) {
-        if (this.seal != null) {
-            if (this.isStoppedByRedstone(world)) {
-                if (!this.stopped) {
+        if (seal != null) {
+            if (isStoppedByRedstone(world)) {
+                if (!stopped) {
                     for (final Task t : TaskHandler.getTasks(world.provider.getDimension()).values()) {
-                        if (t.getSealPos() != null && t.getSealPos().equals(this.sealPos)) {
+                        if (t.getSealPos() != null && t.getSealPos().equals(sealPos)) {
                             t.setSuspended(true);
                         }
                     }
                 }
-                this.stopped = true;
+                stopped = true;
                 return;
             }
-            this.stopped = false;
-            this.seal.tickSeal(world, this);
+            stopped = false;
+            seal.tickSeal(world, this);
         }
     }
     
     @Override
     public boolean isStoppedByRedstone(final World world) {
-        return this.isRedstoneSensitive() && (world.isBlockPowered(this.getSealPos().pos) || world.isBlockPowered(this.getSealPos().pos.offset(this.getSealPos().face)));
+        return isRedstoneSensitive() && (world.isBlockPowered(getSealPos().pos) || world.isBlockPowered(getSealPos().pos.offset(getSealPos().face)));
     }
     
     @Override
     public ISeal getSeal() {
-        return this.seal;
+        return seal;
     }
     
     @Override
     public SealPos getSealPos() {
-        return this.sealPos;
+        return sealPos;
     }
     
     @Override
     public byte getPriority() {
-        return this.priority;
+        return priority;
     }
     
     @Override
@@ -106,7 +106,7 @@ public class SealEntity implements ISealEntity
     
     @Override
     public byte getColor() {
-        return this.color;
+        return color;
     }
     
     @Override
@@ -116,7 +116,7 @@ public class SealEntity implements ISealEntity
     
     @Override
     public String getOwner() {
-        return this.owner;
+        return owner;
     }
     
     @Override
@@ -126,7 +126,7 @@ public class SealEntity implements ISealEntity
     
     @Override
     public boolean isLocked() {
-        return this.locked;
+        return locked;
     }
     
     @Override
@@ -136,7 +136,7 @@ public class SealEntity implements ISealEntity
     
     @Override
     public boolean isRedstoneSensitive() {
-        return this.redstone;
+        return redstone;
     }
     
     @Override
@@ -148,23 +148,23 @@ public class SealEntity implements ISealEntity
     public void readNBT(final NBTTagCompound nbt) {
         final BlockPos p = BlockPos.fromLong(nbt.getLong("pos"));
         final EnumFacing face = EnumFacing.VALUES[nbt.getByte("face")];
-        this.sealPos = new SealPos(p, face);
-        this.setPriority(nbt.getByte("priority"));
-        this.setColor(nbt.getByte("color"));
-        this.setLocked(nbt.getBoolean("locked"));
-        this.setRedstoneSensitive(nbt.getBoolean("redstone"));
-        this.setOwner(nbt.getString("owner"));
+        sealPos = new SealPos(p, face);
+        setPriority(nbt.getByte("priority"));
+        setColor(nbt.getByte("color"));
+        setLocked(nbt.getBoolean("locked"));
+        setRedstoneSensitive(nbt.getBoolean("redstone"));
+        setOwner(nbt.getString("owner"));
         try {
-            this.seal = SealHandler.getSeal(nbt.getString("type")).getClass().newInstance();
+            seal = SealHandler.getSeal(nbt.getString("type")).getClass().newInstance();
         }
         catch (final Exception ex) {}
-        if (this.seal != null) {
-            this.seal.readCustomNBT(nbt);
-            if (this.seal instanceof ISealConfigArea) {
-                this.area = BlockPos.fromLong(nbt.getLong("area"));
+        if (seal != null) {
+            seal.readCustomNBT(nbt);
+            if (seal instanceof ISealConfigArea) {
+                area = BlockPos.fromLong(nbt.getLong("area"));
             }
-            if (this.seal instanceof ISealConfigToggles) {
-                for (final ISealConfigToggles.SealToggle prop : ((ISealConfigToggles)this.seal).getToggles()) {
+            if (seal instanceof ISealConfigToggles) {
+                for (final ISealConfigToggles.SealToggle prop : ((ISealConfigToggles) seal).getToggles()) {
                     if (nbt.hasKey(prop.getKey())) {
                         prop.setValue(nbt.getBoolean(prop.getKey()));
                     }
@@ -176,21 +176,21 @@ public class SealEntity implements ISealEntity
     @Override
     public NBTTagCompound writeNBT() {
         final NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setLong("pos", this.sealPos.pos.toLong());
-        nbt.setByte("face", (byte)this.sealPos.face.ordinal());
-        nbt.setString("type", this.seal.getKey());
-        nbt.setByte("priority", this.getPriority());
-        nbt.setByte("color", this.getColor());
-        nbt.setBoolean("locked", this.isLocked());
-        nbt.setBoolean("redstone", this.isRedstoneSensitive());
-        nbt.setString("owner", this.getOwner());
-        if (this.seal != null) {
-            this.seal.writeCustomNBT(nbt);
-            if (this.seal instanceof ISealConfigArea) {
-                nbt.setLong("area", this.area.toLong());
+        nbt.setLong("pos", sealPos.pos.toLong());
+        nbt.setByte("face", (byte) sealPos.face.ordinal());
+        nbt.setString("type", seal.getKey());
+        nbt.setByte("priority", getPriority());
+        nbt.setByte("color", getColor());
+        nbt.setBoolean("locked", isLocked());
+        nbt.setBoolean("redstone", isRedstoneSensitive());
+        nbt.setString("owner", getOwner());
+        if (seal != null) {
+            seal.writeCustomNBT(nbt);
+            if (seal instanceof ISealConfigArea) {
+                nbt.setLong("area", area.toLong());
             }
-            if (this.seal instanceof ISealConfigToggles) {
-                for (final ISealConfigToggles.SealToggle prop : ((ISealConfigToggles)this.seal).getToggles()) {
+            if (seal instanceof ISealConfigToggles) {
+                for (final ISealConfigToggles.SealToggle prop : ((ISealConfigToggles) seal).getToggles()) {
                     nbt.setBoolean(prop.getKey(), prop.getValue());
                 }
             }
@@ -207,11 +207,11 @@ public class SealEntity implements ISealEntity
     
     @Override
     public BlockPos getArea() {
-        return this.area;
+        return area;
     }
     
     @Override
     public void setArea(final BlockPos v) {
-        this.area = v;
+        area = v;
     }
 }

@@ -27,9 +27,9 @@ public class ItemElementalHoe extends ItemHoe implements IThaumcraftItems
 {
     public ItemElementalHoe(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("elemental_hoe");
-        this.setUnlocalizedName("elemental_hoe");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("elemental_hoe");
+        setUnlocalizedName("elemental_hoe");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

@@ -16,14 +16,14 @@ public class UVTranslation extends UVTransformation
     public double dv;
     
     public UVTranslation(final double u, final double v) {
-        this.du = u;
-        this.dv = v;
+        du = u;
+        dv = v;
     }
     
     @Override
     public void apply(final UV uv) {
-        uv.u += this.du;
-        uv.v += this.dv;
+        uv.u += du;
+        uv.v += dv;
     }
     
     @Override
@@ -33,26 +33,26 @@ public class UVTranslation extends UVTransformation
     
     @Override
     public UVTransformation inverse() {
-        return new UVTranslation(-this.du, -this.dv);
+        return new UVTranslation(-du, -dv);
     }
     
     @Override
     public UVTransformation merge(final UVTransformation next) {
         if (next instanceof UVTranslation) {
             final UVTranslation t = (UVTranslation)next;
-            return new UVTranslation(this.du + t.du, this.dv + t.dv);
+            return new UVTranslation(du + t.du, dv + t.dv);
         }
         return null;
     }
     
     @Override
     public boolean isRedundant() {
-        return MathHelper.between(-1.0E-5, this.du, 1.0E-5) && MathHelper.between(-1.0E-5, this.dv, 1.0E-5);
+        return MathHelper.between(-1.0E-5, du, 1.0E-5) && MathHelper.between(-1.0E-5, dv, 1.0E-5);
     }
     
     @Override
     public String toString() {
         final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
-        return "UVTranslation(" + new BigDecimal(this.du, cont) + ", " + new BigDecimal(this.dv, cont) + ")";
+        return "UVTranslation(" + new BigDecimal(du, cont) + ", " + new BigDecimal(dv, cont) + ")";
     }
 }

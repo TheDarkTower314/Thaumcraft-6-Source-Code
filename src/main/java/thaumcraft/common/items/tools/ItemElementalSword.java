@@ -37,9 +37,9 @@ public class ItemElementalSword extends ItemSword implements IThaumcraftItems
 {
     public ItemElementalSword(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("elemental_sword");
-        this.setUnlocalizedName("elemental_sword");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("elemental_sword");
+        setUnlocalizedName("elemental_sword");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     
@@ -97,7 +97,7 @@ public class ItemElementalSword extends ItemSword implements IThaumcraftItems
     
     public void onUsingTick(final ItemStack stack, final EntityLivingBase player, final int count) {
         super.onUsingTick(stack, player, count);
-        final int ticks = this.getMaxItemUseDuration(stack) - count;
+        final int ticks = getMaxItemUseDuration(stack) - count;
         if (player.motionY < 0.0) {
             player.motionY /= 1.2000000476837158;
             player.fallDistance /= 1.2f;

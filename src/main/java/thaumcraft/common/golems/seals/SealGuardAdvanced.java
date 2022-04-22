@@ -13,7 +13,7 @@ public class SealGuardAdvanced extends SealGuard implements ISealConfigToggles
     ResourceLocation icon;
     
     public SealGuardAdvanced() {
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_guard_advanced");
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_guard_advanced");
     }
     
     @Override
@@ -23,17 +23,17 @@ public class SealGuardAdvanced extends SealGuard implements ISealConfigToggles
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override
     public SealToggle[] getToggles() {
-        return this.props;
+        return props;
     }
     
     @Override
     public void setToggle(final int indx, final boolean value) {
-        this.props[indx].setValue(value);
+        props[indx].setValue(value);
     }
     
     @Override

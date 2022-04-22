@@ -25,30 +25,30 @@ public class MeshModel
     public List<MeshPart> parts;
     
     public MeshModel() {
-        this.parts = new ArrayList<MeshPart>();
+        parts = new ArrayList<MeshPart>();
     }
     
     public MeshModel clone() {
         final MeshModel mm = new MeshModel();
         mm.parts = new ArrayList<MeshPart>();
-        for (final MeshPart mp : this.parts) {
+        for (final MeshPart mp : parts) {
             mm.parts.add(mp);
         }
-        if (this.positions != null) {
+        if (positions != null) {
             mm.positions = new ArrayList<Vector3f>();
-            for (final Vector3f mp2 : this.positions) {
+            for (final Vector3f mp2 : positions) {
                 mm.positions.add((Vector3f)mp2.clone());
             }
         }
-        if (this.normals != null) {
+        if (normals != null) {
             mm.normals = new ArrayList<Vector3f>();
-            for (final Vector3f mp2 : this.normals) {
+            for (final Vector3f mp2 : normals) {
                 mm.normals.add((Vector3f)mp2.clone());
             }
         }
-        if (this.texCoords != null) {
+        if (texCoords != null) {
             mm.texCoords = new ArrayList<Vector2f>();
-            for (final Vector2f mp3 : this.texCoords) {
+            for (final Vector2f mp3 : texCoords) {
                 mm.texCoords.add((Vector2f)mp3.clone());
             }
         }
@@ -58,42 +58,42 @@ public class MeshModel
     public void rotate(final double d, final Vector3 axis, final Vector3 offset) {
         final Rotation r = new Rotation(d, axis);
         final List<Vector3f> p = new ArrayList<Vector3f>();
-        for (final Vector3f v : this.positions) {
+        for (final Vector3f v : positions) {
             Vector3 vec = new Vector3(v.x, v.y, v.z);
             r.apply(vec);
             vec = vec.add(offset);
             p.add(new Vector3f((float)vec.x, (float)vec.y, (float)vec.z));
         }
-        this.positions = p;
+        positions = p;
     }
     
     public void addPosition(final float x, final float y, final float z) {
-        if (this.positions == null) {
-            this.positions = new ArrayList<Vector3f>();
+        if (positions == null) {
+            positions = new ArrayList<Vector3f>();
         }
-        this.positions.add(new Vector3f(x, y, z));
+        positions.add(new Vector3f(x, y, z));
     }
     
     public void addNormal(final float x, final float y, final float z) {
-        if (this.normals == null) {
-            this.normals = new ArrayList<Vector3f>();
+        if (normals == null) {
+            normals = new ArrayList<Vector3f>();
         }
-        this.normals.add(new Vector3f(x, y, z));
+        normals.add(new Vector3f(x, y, z));
     }
     
     public void addTexCoords(final float x, final float y) {
-        if (this.texCoords == null) {
-            this.texCoords = new ArrayList<Vector2f>();
+        if (texCoords == null) {
+            texCoords = new ArrayList<Vector2f>();
         }
-        this.texCoords.add(new Vector2f(x, y));
+        texCoords.add(new Vector2f(x, y));
     }
     
     public void addPart(final MeshPart part) {
-        this.parts.add(part);
+        parts.add(part);
     }
     
     public void addPart(final MeshPart part, final int ti) {
-        this.parts.add(new MeshPart(part, ti));
+        parts.add(new MeshPart(part, ti));
     }
     
     private int getColorValue(final Vector3f color) {
@@ -105,8 +105,8 @@ public class MeshModel
     
     public List<BakedQuad> bakeModel(final ModelManager manager) {
         final List<BakedQuad> bakeList = new ArrayList<BakedQuad>();
-        for (int j = 0; j < this.parts.size(); ++j) {
-            final MeshPart part = this.parts.get(j);
+        for (int j = 0; j < parts.size(); ++j) {
+            final MeshPart part = parts.get(j);
             TextureAtlasSprite sprite = null;
             int color = -1;
             if (part.material != null) {
@@ -117,11 +117,11 @@ public class MeshModel
                     sprite = manager.getTextureMap().getAtlasSprite(part.material.AmbientTextureMap);
                 }
                 if (part.material.DiffuseColor != null) {
-                    color = this.getColorValue(part.material.DiffuseColor);
+                    color = getColorValue(part.material.DiffuseColor);
                 }
             }
             for (int i = 0; i < part.indices.size(); i += 4) {
-                final BakedQuad quad = this.bakeQuad(part, i, sprite, color);
+                final BakedQuad quad = bakeQuad(part, i, sprite, color);
                 bakeList.add(quad);
             }
         }
@@ -130,11 +130,11 @@ public class MeshModel
     
     public List<BakedQuad> bakeModel(final TextureAtlasSprite sprite) {
         final List<BakedQuad> bakeList = new ArrayList<BakedQuad>();
-        for (int j = 0; j < this.parts.size(); ++j) {
-            final MeshPart part = this.parts.get(j);
+        for (int j = 0; j < parts.size(); ++j) {
+            final MeshPart part = parts.get(j);
             final int color = -1;
             for (int i = 0; i < part.indices.size(); i += 4) {
-                final BakedQuad quad = this.bakeQuad(part, i, sprite, color);
+                final BakedQuad quad = bakeQuad(part, i, sprite, color);
                 bakeList.add(quad);
             }
         }
@@ -148,14 +148,14 @@ public class MeshModel
             Vector2f texCoord = new Vector2f(0.0f, 0.0f);
             int p = 0;
             final int[] indices = part.indices.get(startIndex + i);
-            if (this.positions != null) {
-                position = this.positions.get(indices[p++]);
+            if (positions != null) {
+                position = positions.get(indices[p++]);
             }
-            if (this.normals != null) {
+            if (normals != null) {
                 ++p;
             }
-            if (this.texCoords != null) {
-                texCoord = this.texCoords.get(indices[p++]);
+            if (texCoords != null) {
+                texCoord = texCoords.get(indices[p++]);
             }
             storeVertexData(faceData, i, position, texCoord, sprite, color);
         }

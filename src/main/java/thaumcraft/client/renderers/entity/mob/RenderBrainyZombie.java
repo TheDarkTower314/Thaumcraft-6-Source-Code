@@ -29,7 +29,7 @@ public class RenderBrainyZombie extends RenderZombie
     
     public RenderBrainyZombie(final RenderManager rm) {
         super(rm);
-        this.field_82431_q = 1;
+        field_82431_q = 1;
     }
     
     protected ResourceLocation getEntityTexture(final EntityZombie entity) {
@@ -44,7 +44,7 @@ public class RenderBrainyZombie extends RenderZombie
     
     protected void preRenderCallback(final EntityZombie par1EntityLiving, final float par2) {
         if (par1EntityLiving instanceof EntityGiantBrainyZombie) {
-            this.preRenderScale((EntityGiantBrainyZombie)par1EntityLiving, par2);
+            preRenderScale((EntityGiantBrainyZombie)par1EntityLiving, par2);
         }
     }
     

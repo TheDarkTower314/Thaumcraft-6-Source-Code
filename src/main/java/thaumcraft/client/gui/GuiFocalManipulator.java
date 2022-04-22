@@ -104,64 +104,64 @@ public class GuiFocalManipulator extends GuiContainer
     
     public GuiFocalManipulator(final InventoryPlayer par1InventoryPlayer, final TileFocalManipulator table) {
         super(new ContainerFocalManipulator(par1InventoryPlayer, table));
-        this.isMouseButtonDown = 0;
-        this.mouseX = 0;
-        this.mouseY = 0;
-        this.tex = new ResourceLocation("thaumcraft", "textures/gui/gui_wandtable.png");
-        this.tex2 = new ResourceLocation("thaumcraft", "textures/gui/gui_wandtable2.png");
-        this.tex3 = new ResourceLocation("thaumcraft", "textures/gui/gui_wandtable3.png");
-        this.texbase = new ResourceLocation("thaumcraft", "textures/gui/gui_base.png");
-        this.buttonConfirm = new GuiImageButton(this, 0, this.guiLeft + 232, this.guiTop + 7, 24, 16, null, I18n.translateToLocal("wandtable.text3"), this.texbase, 232, 240, 24, 16);
-        this.totalComplexity = 0;
-        this.maxComplexity = 0;
-        this.lastNodeHover = -1;
-        this.myFormatter = new DecimalFormat("#######.##");
-        this.shownParts = new ArrayList<String>();
-        this.partsStart = 0;
-        this.components = null;
-        this.valid = false;
-        this.nodeID = 0;
-        this.sMinX = 0;
-        this.sMinY = 0;
-        this.sMaxX = 0;
-        this.sMaxY = 0;
-        this.selectedNode = -1;
-        this.costCast = 0.0f;
-        this.costXp = 0;
-        this.costVis = 0;
-        this.scrollX = 0;
-        this.scrollY = 0;
+        isMouseButtonDown = 0;
+        mouseX = 0;
+        mouseY = 0;
+        tex = new ResourceLocation("thaumcraft", "textures/gui/gui_wandtable.png");
+        tex2 = new ResourceLocation("thaumcraft", "textures/gui/gui_wandtable2.png");
+        tex3 = new ResourceLocation("thaumcraft", "textures/gui/gui_wandtable3.png");
+        texbase = new ResourceLocation("thaumcraft", "textures/gui/gui_base.png");
+        buttonConfirm = new GuiImageButton(this, 0, guiLeft + 232, guiTop + 7, 24, 16, null, I18n.translateToLocal("wandtable.text3"), texbase, 232, 240, 24, 16);
+        totalComplexity = 0;
+        maxComplexity = 0;
+        lastNodeHover = -1;
+        myFormatter = new DecimalFormat("#######.##");
+        shownParts = new ArrayList<String>();
+        partsStart = 0;
+        components = null;
+        valid = false;
+        nodeID = 0;
+        sMinX = 0;
+        sMinY = 0;
+        sMaxX = 0;
+        sMaxY = 0;
+        selectedNode = -1;
+        costCast = 0.0f;
+        costXp = 0;
+        costVis = 0;
+        scrollX = 0;
+        scrollY = 0;
         this.table = table;
-        this.xSize = 231;
-        this.ySize = 231;
+        xSize = 231;
+        ySize = 231;
     }
     
     public void initGui() {
         super.initGui();
-        this.gatherInfo(false);
-        this.setupNameField();
-        if (this.table.focusName.isEmpty() && !this.table.getStackInSlot(0).isEmpty()) {
-            this.table.focusName = this.table.getStackInSlot(0).getDisplayName();
+        gatherInfo(false);
+        setupNameField();
+        if (table.focusName.isEmpty() && !table.getStackInSlot(0).isEmpty()) {
+            table.focusName = table.getStackInSlot(0).getDisplayName();
         }
-        this.nameField.setText(this.table.focusName);
+        nameField.setText(table.focusName);
     }
     
     private void setupNameField() {
         Keyboard.enableRepeatEvents(true);
-        final int i = (this.width - this.xSize) / 2;
-        final int j = (this.height - this.ySize) / 2;
-        (this.nameField = new GuiTextField(2, this.fontRenderer, i + 30, j + 11, 170, 12)).setTextColor(-1);
-        this.nameField.setDisabledTextColour(-1);
-        this.nameField.setEnableBackgroundDrawing(false);
-        this.nameField.setMaxStringLength(50);
+        final int i = (width - xSize) / 2;
+        final int j = (height - ySize) / 2;
+        (nameField = new GuiTextField(2, fontRenderer, i + 30, j + 11, 170, 12)).setTextColor(-1);
+        nameField.setDisabledTextColour(-1);
+        nameField.setEnableBackgroundDrawing(false);
+        nameField.setMaxStringLength(50);
     }
     
     protected void actionPerformed(final GuiButton button) throws IOException {
-        if (button.id == 0 && this.buttonConfirm != null && this.buttonConfirm.active) {
-            this.mc.playerController.sendEnchantPacket(this.inventorySlots.windowId, 0);
+        if (button.id == 0 && buttonConfirm != null && buttonConfirm.active) {
+            mc.playerController.sendEnchantPacket(inventorySlots.windowId, 0);
         }
         else if (button.id >= 10) {
-            this.gatherInfo(true);
+            gatherInfo(true);
         }
         else {
             super.actionPerformed(button);
@@ -169,9 +169,9 @@ public class GuiFocalManipulator extends GuiContainer
     }
     
     protected void keyTyped(final char typedChar, final int keyCode) throws IOException {
-        if (this.nameField.textboxKeyTyped(typedChar, keyCode)) {
-            this.table.focusName = this.nameField.getText();
-            PacketHandler.INSTANCE.sendToServer(new PacketFocusNameToServer(this.table.getPos(), this.table.focusName));
+        if (nameField.textboxKeyTyped(typedChar, keyCode)) {
+            table.focusName = nameField.getText();
+            PacketHandler.INSTANCE.sendToServer(new PacketFocusNameToServer(table.getPos(), table.focusName));
         }
         else {
             super.keyTyped(typedChar, keyCode);
@@ -179,62 +179,62 @@ public class GuiFocalManipulator extends GuiContainer
     }
     
     public void drawScreen(final int mx, final int my, final float par3) {
-        this.drawDefaultBackground();
+        drawDefaultBackground();
         super.drawScreen(mx, my, par3);
         GlStateManager.enableBlend();
         GL11.glBlendFunc(770, 771);
-        this.xSize_lo = (float)mx;
-        this.ySize_lo = (float)my;
-        final int gx = (this.width - this.xSize) / 2;
-        final int gy = (this.height - this.ySize) / 2;
+        xSize_lo = (float)mx;
+        ySize_lo = (float)my;
+        final int gx = (width - xSize) / 2;
+        final int gy = (height - ySize) / 2;
         if (Mouse.isButtonDown(0)) {
-            if ((this.isMouseButtonDown == 0 || this.isMouseButtonDown == 1) && this.isPointInRegion(this.guiLeft + 63, this.guiTop + 31, 136, 160, mx + this.guiLeft, my + this.guiTop)) {
-                if (this.isMouseButtonDown == 0) {
-                    this.isMouseButtonDown = 1;
+            if ((isMouseButtonDown == 0 || isMouseButtonDown == 1) && isPointInRegion(guiLeft + 63, guiTop + 31, 136, 160, mx + guiLeft, my + guiTop)) {
+                if (isMouseButtonDown == 0) {
+                    isMouseButtonDown = 1;
                 }
                 else {
-                    final boolean b = this.scrollbarParts != null && this.scrollbarParts.isMouseOver();
-                    if (this.scrollbarMainBottom != null && !this.scrollbarMainBottom.isMouseOver() && !b) {
-                        this.scrollX -= mx - this.mouseX;
-                        this.curMouseX = this.scrollX;
-                        if (this.scrollX > this.scrollbarMainBottom.getMax()) {
-                            this.scrollX = (int)this.scrollbarMainBottom.getMax();
+                    final boolean b = scrollbarParts != null && scrollbarParts.isMouseOver();
+                    if (scrollbarMainBottom != null && !scrollbarMainBottom.isMouseOver() && !b) {
+                        scrollX -= mx - mouseX;
+                        curMouseX = scrollX;
+                        if (scrollX > scrollbarMainBottom.getMax()) {
+                            scrollX = (int) scrollbarMainBottom.getMax();
                         }
-                        if (this.scrollX < this.scrollbarMainBottom.getMin()) {
-                            this.scrollX = (int)this.scrollbarMainBottom.getMin();
+                        if (scrollX < scrollbarMainBottom.getMin()) {
+                            scrollX = (int) scrollbarMainBottom.getMin();
                         }
-                        this.scrollbarMainBottom.setSliderValue((float)this.scrollX, false);
+                        scrollbarMainBottom.setSliderValue((float) scrollX, false);
                     }
-                    if (this.scrollbarMainSide != null && !this.scrollbarMainSide.isMouseOver() && !b) {
-                        this.scrollY -= my - this.mouseY;
-                        this.curMouseY = this.scrollY;
-                        if (this.scrollY > this.scrollbarMainSide.getMax()) {
-                            this.scrollY = (int)this.scrollbarMainSide.getMax();
+                    if (scrollbarMainSide != null && !scrollbarMainSide.isMouseOver() && !b) {
+                        scrollY -= my - mouseY;
+                        curMouseY = scrollY;
+                        if (scrollY > scrollbarMainSide.getMax()) {
+                            scrollY = (int) scrollbarMainSide.getMax();
                         }
-                        if (this.scrollY < this.scrollbarMainSide.getMin()) {
-                            this.scrollY = (int)this.scrollbarMainSide.getMin();
+                        if (scrollY < scrollbarMainSide.getMin()) {
+                            scrollY = (int) scrollbarMainSide.getMin();
                         }
-                        this.scrollbarMainSide.setSliderValue((float)this.scrollY, false);
+                        scrollbarMainSide.setSliderValue((float) scrollY, false);
                     }
                 }
             }
-            this.mouseX = mx;
-            this.mouseY = my;
+            mouseX = mx;
+            mouseY = my;
         }
         else {
-            this.isMouseButtonDown = 0;
+            isMouseButtonDown = 0;
         }
         RenderHelper.disableStandardItemLighting();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         int count = 0;
         int index = 0;
-        for (final String sk : this.shownParts) {
-            if (++count - 1 < this.partsStart) {
+        for (final String sk : shownParts) {
+            if (++count - 1 < partsStart) {
                 continue;
             }
             GL11.glTranslated(0.0, 0.0, 5.0);
             final FocusNode node = (FocusNode)FocusEngine.getElement(sk);
-            drawPart(node, gx + 38, 43 + gy + 25 * index, (node.getType() == IFocusElement.EnumUnitType.MOD) ? 24.0f : 32.0f, 220, this.isPointInRegion(gx + 38 - 10, 32 + gy + 24 * index, 20, 20, mx + this.guiLeft, my + this.guiTop));
+            drawPart(node, gx + 38, 43 + gy + 25 * index, (node.getType() == IFocusElement.EnumUnitType.MOD) ? 24.0f : 32.0f, 220, isPointInRegion(gx + 38 - 10, 32 + gy + 24 * index, 20, 20, mx + guiLeft, my + guiTop));
             GL11.glTranslated(0.0, 0.0, -5.0);
             if (++index > 5) {
                 break;
@@ -242,35 +242,35 @@ public class GuiFocalManipulator extends GuiContainer
         }
         count = 0;
         index = 0;
-        for (final String sk : this.shownParts) {
-            if (++count - 1 < this.partsStart) {
+        for (final String sk : shownParts) {
+            if (++count - 1 < partsStart) {
                 continue;
             }
             final FocusNode node = (FocusNode)FocusEngine.getElement(sk);
-            if (this.isPointInRegion(gx + 38 - 10, 33 + gy + 25 * index, 20, 20, mx + this.guiLeft, my + this.guiTop)) {
-                final List list = this.genPartText(node, -1);
-                this.drawHoveringTextFixed(list, gx + 44, 46 + gy + 24 * index, this.fontRenderer, this.width - (this.guiLeft + this.xSize - 16));
+            if (isPointInRegion(gx + 38 - 10, 33 + gy + 25 * index, 20, 20, mx + guiLeft, my + guiTop)) {
+                final List list = genPartText(node, -1);
+                drawHoveringTextFixed(list, gx + 44, 46 + gy + 24 * index, fontRenderer, width - (guiLeft + xSize - 16));
             }
             if (++index > 5) {
                 break;
             }
         }
-        if (this.lastNodeHover >= 0) {
-            final FocusElementNode fn = this.table.data.get(this.lastNodeHover);
+        if (lastNodeHover >= 0) {
+            final FocusElementNode fn = table.data.get(lastNodeHover);
             if (fn != null && fn.node != null) {
-                final int xx = this.guiLeft + 140 - this.scrollX + fn.x * 24;
-                final int yy = this.guiTop + 50 - this.scrollY + fn.y * 32;
-                final List list = this.genPartText(fn.node, this.lastNodeHover);
-                this.drawHoveringTextFixed(list, xx, yy, this.fontRenderer, this.width - (this.guiLeft + this.xSize - 16));
+                final int xx = guiLeft + 140 - scrollX + fn.x * 24;
+                final int yy = guiTop + 50 - scrollY + fn.y * 32;
+                final List list = genPartText(fn.node, lastNodeHover);
+                drawHoveringTextFixed(list, xx, yy, fontRenderer, width - (guiLeft + xSize - 16));
             }
         }
-        this.buttonConfirm.active = (this.table.vis <= 0.0f && this.valid);
+        buttonConfirm.active = (table.vis <= 0.0f && valid);
         GlStateManager.disableBlend();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        if (this.table.data != null && !this.table.data.isEmpty() && this.nameField != null) {
-            this.nameField.drawTextBox();
+        if (table.data != null && !table.data.isEmpty() && nameField != null) {
+            nameField.drawTextBox();
         }
-        this.renderHoveredToolTip(mx, my);
+        renderHoveredToolTip(mx, my);
     }
     
     private List genPartText(final FocusNode node, final int idx) {
@@ -278,7 +278,7 @@ public class GuiFocalManipulator extends GuiContainer
         if (node != null) {
             FocusElementNode placed = null;
             if (idx >= 0) {
-                placed = this.table.data.get(idx);
+                placed = table.data.get(idx);
             }
             list.add(I18n.translateToLocal(node.getUnlocalizedName()));
             list.add(TextFormatting.DARK_PURPLE + I18n.translateToLocal(node.getUnlocalizedText()));
@@ -289,14 +289,14 @@ public class GuiFocalManipulator extends GuiContainer
             list.add(TextFormatting.GOLD + I18n.translateToLocal("focuspart.com") + ((placed != null && placed.complexityMultiplier > 1.0f) ? TextFormatting.RED : "") + " " + c);
             float p = node.getPowerMultiplier();
             if (placed != null) {
-                p = placed.getPower(this.table.data);
+                p = placed.getPower(table.data);
             }
             if (p != 1.0f) {
                 list.add(TextFormatting.GOLD + I18n.translateToLocal("focuspart.eff") + ((p < 1.0f) ? TextFormatting.RED : TextFormatting.GREEN) + " x" + ItemStack.DECIMALFORMAT.format(p));
             }
             if (node instanceof FocusEffect) {
                 final FocusEffect fe = (FocusEffect)node;
-                float d = fe.getDamageForDisplay((placed == null) ? 1.0f : placed.getPower(this.table.data));
+                float d = fe.getDamageForDisplay((placed == null) ? 1.0f : placed.getPower(table.data));
                 if (d > 0.0f) {
                     list.add(TextFormatting.DARK_RED + "" + I18n.translateToLocalFormatted("attribute.modifier.equals.0", new Object[] { ItemStack.DECIMALFORMAT.format(d), I18n.translateToLocal("attribute.name.generic.attackDamage") }));
                 }
@@ -311,71 +311,71 @@ public class GuiFocalManipulator extends GuiContainer
     
     protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.mc.renderEngine.bindTexture(this.tex2);
-        final int k = (this.width - this.xSize) / 2;
-        final int l = (this.height - this.ySize) / 2;
+        mc.renderEngine.bindTexture(tex2);
+        final int k = (width - xSize) / 2;
+        final int l = (height - ySize) / 2;
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
-        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-        this.mc.renderEngine.bindTexture(this.tex3);
-        this.drawTexturedModalRect(k - 71, l - 3, 0, 0, 71, 239);
-        if (this.table.getStackInSlot(0) == null || this.table.getStackInSlot(0).isEmpty() || this.table.doGuiReset) {
-            if (this.table.doGuiReset) {
-                this.resetNodes();
+        drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
+        mc.renderEngine.bindTexture(tex3);
+        drawTexturedModalRect(k - 71, l - 3, 0, 0, 71, 239);
+        if (table.getStackInSlot(0) == null || table.getStackInSlot(0).isEmpty() || table.doGuiReset) {
+            if (table.doGuiReset) {
+                resetNodes();
             }
             else {
-                this.table.data.clear();
-                this.gatherInfo(false);
+                table.data.clear();
+                gatherInfo(false);
             }
-            this.table.focusName = "";
-            if (this.table.getStackInSlot(0) != null && !this.table.getStackInSlot(0).isEmpty()) {
-                this.table.focusName = this.table.getStackInSlot(0).getDisplayName();
-                this.nameField.setText(this.table.focusName);
+            table.focusName = "";
+            if (table.getStackInSlot(0) != null && !table.getStackInSlot(0).isEmpty()) {
+                table.focusName = table.getStackInSlot(0).getDisplayName();
+                nameField.setText(table.focusName);
             }
-            this.table.doGuiReset = false;
+            table.doGuiReset = false;
         }
-        if (this.table.doGather) {
-            this.gatherInfo(false);
-            this.table.doGather = false;
+        if (table.doGather) {
+            gatherInfo(false);
+            table.doGather = false;
         }
-        this.drawNodes(this.guiLeft + 132 - this.scrollX, this.guiTop + 48 - this.scrollY, par2, par3);
+        drawNodes(guiLeft + 132 - scrollX, guiTop + 48 - scrollY, par2, par3);
         GL11.glTranslated(0.0, 0.0, 1.0);
-        this.mc.renderEngine.bindTexture(this.tex);
+        mc.renderEngine.bindTexture(tex);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-        if (this.maxComplexity > 0) {
-            this.fontRenderer.drawStringWithShadow(this.totalComplexity + "/" + this.maxComplexity, (float)(k + 242), (float)(l + 36), (this.totalComplexity > this.maxComplexity) ? 16151160 : 16761407);
+        drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
+        if (maxComplexity > 0) {
+            fontRenderer.drawStringWithShadow(totalComplexity + "/" + maxComplexity, (float)(k + 242), (float)(l + 36), (totalComplexity > maxComplexity) ? 16151160 : 16761407);
         }
-        this.fontRenderer.drawStringWithShadow("" + this.costXp, (float)(k + 242), (float)(l + 50), (this.costXp > this.mc.player.experienceLevel) ? 16151160 : 10092429);
-        int v = this.costVis;
-        if (this.table.vis > 0.0f) {
-            v = (int)this.table.vis;
+        fontRenderer.drawStringWithShadow("" + costXp, (float)(k + 242), (float)(l + 50), (costXp > mc.player.experienceLevel) ? 16151160 : 10092429);
+        int v = costVis;
+        if (table.vis > 0.0f) {
+            v = (int) table.vis;
         }
-        this.fontRenderer.drawStringWithShadow(TextFormatting.AQUA + "" + v, (float)(k + 242), (float)(l + 64), 10092429);
-        if (this.costCast > 0.0f) {
-            final String cost = this.myFormatter.format(this.costCast);
-            this.fontRenderer.drawStringWithShadow(TextFormatting.AQUA + I18n.translateToLocal("item.Focus.cost1") + ": " + cost, (float)(k + 230), (float)(l + 80), 10092429);
+        fontRenderer.drawStringWithShadow(TextFormatting.AQUA + "" + v, (float)(k + 242), (float)(l + 64), 10092429);
+        if (costCast > 0.0f) {
+            final String cost = myFormatter.format(costCast);
+            fontRenderer.drawStringWithShadow(TextFormatting.AQUA + I18n.translateToLocal("item.Focus.cost1") + ": " + cost, (float)(k + 230), (float)(l + 80), 10092429);
         }
-        if (this.components != null && this.components.length > 0) {
-            this.fontRenderer.drawStringWithShadow(TextFormatting.GOLD + I18n.translateToLocal("wandtable.text4"), (float)(k + 230), (float)(l + 92), 10092429);
+        if (components != null && components.length > 0) {
+            fontRenderer.drawStringWithShadow(TextFormatting.GOLD + I18n.translateToLocal("wandtable.text4"), (float)(k + 230), (float)(l + 92), 10092429);
         }
-        if (this.table.focusName != null && !this.table.data.isEmpty()) {
+        if (table.focusName != null && !table.data.isEmpty()) {
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-            this.mc.renderEngine.bindTexture(this.texbase);
-            this.drawTexturedModalRect(this.guiLeft + 24, this.guiTop + 8, 192, 224, 8, 14);
+            mc.renderEngine.bindTexture(texbase);
+            drawTexturedModalRect(guiLeft + 24, guiTop + 8, 192, 224, 8, 14);
             int a;
             for (a = 1, a = 1; a < 22; ++a) {
-                this.drawTexturedModalRect(this.guiLeft + 24 + a * 8, this.guiTop + 8, 200, 224, 8, 14);
+                drawTexturedModalRect(guiLeft + 24 + a * 8, guiTop + 8, 200, 224, 8, 14);
             }
-            this.drawTexturedModalRect(this.guiLeft + 24 + a * 8, this.guiTop + 8, 208, 224, 8, 14);
+            drawTexturedModalRect(guiLeft + 24 + a * 8, guiTop + 8, 208, 224, 8, 14);
         }
     }
     
     private void drawClippedRect(final int x, final int y, final int sx, final int sy, final int w, final int h) {
-        if (this.isPointInRegion(48, 26, 166, 174, x + w / 2, y + h / 2)) {
-            this.drawTexturedModalRect(x, y, sx, sy, w, h);
+        if (isPointInRegion(48, 26, 166, 174, x + w / 2, y + h / 2)) {
+            drawTexturedModalRect(x, y, sx, sy, w, h);
         }
     }
     
@@ -384,50 +384,50 @@ public class GuiFocalManipulator extends GuiContainer
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         GlStateManager.disableLighting();
-        if (this.table.data != null && !this.table.data.isEmpty()) {
+        if (table.data != null && !table.data.isEmpty()) {
             int hover = -1;
-            for (final FocusElementNode fn : this.table.data.values()) {
+            for (final FocusElementNode fn : table.data.values()) {
                 final int xx = x + fn.x * 24;
                 final int yy = y + fn.y * 32;
-                final boolean mouseover = this.isPointInRegion(this.guiLeft + 63, this.guiTop + 31, 136, 160, mx + this.guiLeft, my + this.guiTop) && this.isPointInRegion(xx - 10, yy - 10, 20, 20, mx + this.guiLeft, my + this.guiTop);
+                final boolean mouseover = isPointInRegion(guiLeft + 63, guiTop + 31, 136, 160, mx + guiLeft, my + guiTop) && isPointInRegion(xx - 10, yy - 10, 20, 20, mx + guiLeft, my + guiTop);
                 if (mouseover && fn.parent >= 0) {
                     hover = fn.id;
                 }
                 if (fn.node != null) {
-                    if (this.isPointInRegion(48, 16, 154, 192, xx - 8, yy - 8)) {
+                    if (isPointInRegion(48, 16, 154, 192, xx - 8, yy - 8)) {
                         drawPart(fn.node, xx, yy, 32.0f, 220, mouseover);
                     }
                 }
                 else {
-                    this.mc.renderEngine.bindTexture(this.tex);
+                    mc.renderEngine.bindTexture(tex);
                     GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-                    this.drawClippedRect(xx - 12, yy - 12, 120, 232, 24, 24);
+                    drawClippedRect(xx - 12, yy - 12, 120, 232, 24, 24);
                 }
-                if (this.selectedNode == fn.id || (mouseover && fn.parent >= 0)) {
-                    this.mc.renderEngine.bindTexture(this.tex);
+                if (selectedNode == fn.id || (mouseover && fn.parent >= 0)) {
+                    mc.renderEngine.bindTexture(tex);
                     GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-                    this.drawClippedRect(xx - 12, yy - 12, 96, 232, 24, 24);
+                    drawClippedRect(xx - 12, yy - 12, 96, 232, 24, 24);
                 }
-                final FocusElementNode parent = this.table.data.get(fn.parent);
+                final FocusElementNode parent = table.data.get(fn.parent);
                 if (parent != null) {
-                    this.mc.renderEngine.bindTexture(this.tex);
+                    mc.renderEngine.bindTexture(tex);
                     GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-                    this.drawClippedRect(xx - 6, yy - 22, 54, 232, 12, 12);
+                    drawClippedRect(xx - 6, yy - 22, 54, 232, 12, 12);
                     if (parent.node instanceof FocusModSplit) {
                         for (int q = Math.abs(fn.x - parent.x), a = 0; a < q; ++a) {
                             if (fn.x < parent.x) {
                                 if (a == 0) {
-                                    this.drawClippedRect(xx - 4, yy - 36, 8, 240, 16, 16);
+                                    drawClippedRect(xx - 4, yy - 36, 8, 240, 16, 16);
                                 }
                                 else {
-                                    this.drawClippedRect(xx - 12 + a * 24, yy - 36, 72, 240, 24, 16);
+                                    drawClippedRect(xx - 12 + a * 24, yy - 36, 72, 240, 24, 16);
                                 }
                             }
                             else if (a == 0) {
-                                this.drawClippedRect(xx - 12, yy - 36, 24, 240, 16, 16);
+                                drawClippedRect(xx - 12, yy - 36, 24, 240, 16, 16);
                             }
                             else {
-                                this.drawClippedRect(xx - 12 - a * 24, yy - 36, 72, 240, 24, 16);
+                                drawClippedRect(xx - 12 - a * 24, yy - 36, 72, 240, 24, 16);
                             }
                         }
                     }
@@ -435,7 +435,7 @@ public class GuiFocalManipulator extends GuiContainer
                         continue;
                     }
                     final int s = (parent.target && parent.trajectory) ? 4 : 0;
-                    if (!this.isPointInRegion(48, 16, 168, 192, xx - 4, yy - 4)) {
+                    if (!isPointInRegion(48, 16, 168, 192, xx - 4, yy - 4)) {
                         continue;
                     }
                     GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -443,7 +443,7 @@ public class GuiFocalManipulator extends GuiContainer
                         GL11.glPushMatrix();
                         GL11.glTranslated(xx - s, yy, 0.0);
                         GL11.glScaled(0.5, 0.5, 0.5);
-                        this.drawTexturedModalRect(-8, -8, 152, 240, 16, 16);
+                        drawTexturedModalRect(-8, -8, 152, 240, 16, 16);
                         GL11.glPopMatrix();
                     }
                     if (!parent.trajectory) {
@@ -452,19 +452,19 @@ public class GuiFocalManipulator extends GuiContainer
                     GL11.glPushMatrix();
                     GL11.glTranslated(xx + s, yy, 0.0);
                     GL11.glScaled(0.5, 0.5, 0.5);
-                    this.drawTexturedModalRect(-8, -8, 168, 240, 16, 16);
+                    drawTexturedModalRect(-8, -8, 168, 240, 16, 16);
                     GL11.glPopMatrix();
                 }
             }
-            if (hover >= 0 && this.lastNodeHover != hover) {
-                this.playRollover();
-                this.lastNodeHover = hover;
+            if (hover >= 0 && lastNodeHover != hover) {
+                playRollover();
+                lastNodeHover = hover;
             }
             if (hover < 0) {
-                this.lastNodeHover = -1;
+                lastNodeHover = -1;
             }
-            if (this.selectedNode >= 0) {
-                this.drawNodeSettings(this.selectedNode);
+            if (selectedNode >= 0) {
+                drawNodeSettings(selectedNode);
             }
         }
         GlStateManager.enableLighting();
@@ -473,17 +473,17 @@ public class GuiFocalManipulator extends GuiContainer
     }
     
     private void drawNodeSettings(final int selectedNode2) {
-        final FocusElementNode fn = this.table.data.get(selectedNode2);
+        final FocusElementNode fn = table.data.get(selectedNode2);
         if (fn != null && fn.node != null && !fn.node.getSettingList().isEmpty()) {
             int a = 0;
             for (final String sk : fn.node.getSettingList()) {
                 final NodeSetting setting = fn.node.getSetting(sk);
-                if (setting.getResearch() != null && !ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, setting.getResearch())) {
+                if (setting.getResearch() != null && !ThaumcraftCapabilities.knowsResearchStrict(mc.player, setting.getResearch())) {
                     continue;
                 }
-                final int x = this.guiLeft + this.xSize;
-                final int y = this.guiTop + this.ySize - 10 - fn.node.getSettingList().size() * 26 + a * 26;
-                this.fontRenderer.drawStringWithShadow(TextFormatting.GOLD + setting.getLocalizedName(), (float)x, (float)y, 16777215);
+                final int x = guiLeft + xSize;
+                final int y = guiTop + ySize - 10 - fn.node.getSettingList().size() * 26 + a * 26;
+                fontRenderer.drawStringWithShadow(TextFormatting.GOLD + setting.getLocalizedName(), (float)x, (float)y, 16777215);
                 ++a;
             }
         }
@@ -492,47 +492,47 @@ public class GuiFocalManipulator extends GuiContainer
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         final int k = Mouse.getDWheel();
-        final int i = Mouse.getEventX() * this.width / this.mc.displayWidth;
-        final int j = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
-        if (this.scrollbarParts != null && this.shownParts.size() > 6 && this.isPointInRegion(24, 24, 32, 157, i, j)) {
+        final int i = Mouse.getEventX() * width / mc.displayWidth;
+        final int j = height - Mouse.getEventY() * height / mc.displayHeight - 1;
+        if (scrollbarParts != null && shownParts.size() > 6 && isPointInRegion(24, 24, 32, 157, i, j)) {
             if (k > 0) {
-                if (this.partsStart > 0) {
-                    --this.partsStart;
-                    this.scrollbarParts.setSliderValue((float)this.partsStart, false);
+                if (partsStart > 0) {
+                    --partsStart;
+                    scrollbarParts.setSliderValue((float) partsStart, false);
                 }
             }
-            else if (k < 0 && this.partsStart < this.shownParts.size() - 6) {
-                ++this.partsStart;
-                this.scrollbarParts.setSliderValue((float)this.partsStart, false);
+            else if (k < 0 && partsStart < shownParts.size() - 6) {
+                ++partsStart;
+                scrollbarParts.setSliderValue((float) partsStart, false);
             }
         }
     }
     
     protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
         RenderHelper.disableStandardItemLighting();
-        for (final GuiButton guibutton : this.buttonList) {
+        for (final GuiButton guibutton : buttonList) {
             if (guibutton.isMouseOver()) {
-                guibutton.drawButtonForegroundLayer(mouseX - this.guiLeft, mouseY - this.guiTop);
+                guibutton.drawButtonForegroundLayer(mouseX - guiLeft, mouseY - guiTop);
                 break;
             }
         }
         RenderHelper.enableGUIStandardItemLighting();
-        if (this.scrollbarMainSide != null) {
-            final int sv = Math.round(this.scrollbarMainSide.getSliderValue());
-            if (sv != this.scrollY) {
-                this.scrollY = sv;
+        if (scrollbarMainSide != null) {
+            final int sv = Math.round(scrollbarMainSide.getSliderValue());
+            if (sv != scrollY) {
+                scrollY = sv;
             }
         }
-        if (this.scrollbarMainBottom != null) {
-            final int sv = Math.round(this.scrollbarMainBottom.getSliderValue());
-            if (sv != this.scrollX) {
-                this.scrollX = sv;
+        if (scrollbarMainBottom != null) {
+            final int sv = Math.round(scrollbarMainBottom.getSliderValue());
+            if (sv != scrollX) {
+                scrollX = sv;
             }
         }
-        if (this.scrollbarParts != null) {
-            final int sv = Math.round(this.scrollbarParts.getSliderValue());
-            if (sv != this.partsStart) {
-                this.partsStart = sv;
+        if (scrollbarParts != null) {
+            final int sv = Math.round(scrollbarParts.getSliderValue());
+            if (sv != partsStart) {
+                partsStart = sv;
             }
         }
     }
@@ -542,33 +542,33 @@ public class GuiFocalManipulator extends GuiContainer
             super.mouseClicked(mx, my, par3);
         }
         catch (final IOException ex) {}
-        final int gx = (this.width - this.xSize) / 2;
-        final int gy = (this.height - this.ySize) / 2;
-        if (this.table.vis <= 0.0f && this.table.data != null && !this.table.data.isEmpty()) {
-            if (this.nameField != null) {
-                this.nameField.mouseClicked(mx, my, par3);
+        final int gx = (width - xSize) / 2;
+        final int gy = (height - ySize) / 2;
+        if (table.vis <= 0.0f && table.data != null && !table.data.isEmpty()) {
+            if (nameField != null) {
+                nameField.mouseClicked(mx, my, par3);
             }
-            if (this.lastNodeHover >= 0) {
-                this.selectedNode = this.lastNodeHover;
+            if (lastNodeHover >= 0) {
+                selectedNode = lastNodeHover;
                 final boolean r = false;
-                if (par3 == 1 && this.table.data.get(this.selectedNode).node != null) {
-                    final FocusElementNode fn = this.table.data.get(this.selectedNode);
-                    if (this.table.data.get(fn.parent).node != null) {
-                        this.addNodeAt(this.table.data.get(fn.parent).node.getClass(), fn.parent, true);
+                if (par3 == 1 && table.data.get(selectedNode).node != null) {
+                    final FocusElementNode fn = table.data.get(selectedNode);
+                    if (table.data.get(fn.parent).node != null) {
+                        addNodeAt(table.data.get(fn.parent).node.getClass(), fn.parent, true);
                     }
                 }
-                this.gatherInfo(false);
-                this.playButtonClick();
+                gatherInfo(false);
+                playButtonClick();
             }
             int count = 0;
             int index = 0;
-            if (this.selectedNode >= 0) {
-                for (final String sk : this.shownParts) {
-                    if (++count - 1 < this.partsStart) {
+            if (selectedNode >= 0) {
+                for (final String sk : shownParts) {
+                    if (++count - 1 < partsStart) {
                         continue;
                     }
-                    if (this.isPointInRegion(gx + 28, gy + 32 + 24 * index, 20, 20, mx + this.guiLeft, my + this.guiTop)) {
-                        this.addNodeAt(FocusEngine.elements.get(sk), this.selectedNode, true);
+                    if (isPointInRegion(gx + 28, gy + 32 + 24 * index, 20, 20, mx + guiLeft, my + guiTop)) {
+                        addNodeAt(FocusEngine.elements.get(sk), selectedNode, true);
                         return;
                     }
                     if (++index > 5) {
@@ -580,15 +580,15 @@ public class GuiFocalManipulator extends GuiContainer
     }
     
     private void playButtonClick() {
-        this.mc.getRenderViewEntity().playSound(SoundsTC.clack, 0.4f, 1.0f);
+        mc.getRenderViewEntity().playSound(SoundsTC.clack, 0.4f, 1.0f);
     }
     
     private void playRollover() {
-        this.mc.getRenderViewEntity().playSound(SoundsTC.clack, 0.4f, 2.0f);
+        mc.getRenderViewEntity().playSound(SoundsTC.clack, 0.4f, 2.0f);
     }
     
     private void playSocketSound(final float pitch) {
-        this.mc.getRenderViewEntity().playSound(SoundsTC.crystal, 0.4f, pitch);
+        mc.getRenderViewEntity().playSound(SoundsTC.crystal, 0.4f, pitch);
     }
     
     protected void drawHoveringTextFixed(final List listin, final int x, final int y, final FontRenderer font, final int textWidth) {
@@ -600,7 +600,7 @@ public class GuiFocalManipulator extends GuiContainer
             final List<String> list = new ArrayList<>();
             for (final Object o : listin) {
                 String s = (String)o;
-                s = this.trimStringNewline(s);
+                s = trimStringNewline(s);
                 final List<String> list2 = font.listFormattedStringToWidth(s, textWidth);
                 for (final String s2 : list2) {
                     list.add(s2);
@@ -619,20 +619,20 @@ public class GuiFocalManipulator extends GuiContainer
             if (list.size() > 1) {
                 i1 += 2 + (list.size() - 1) * 10;
             }
-            this.zLevel = 300.0f;
-            this.itemRender.zLevel = 300.0f;
+            zLevel = 300.0f;
+            itemRender.zLevel = 300.0f;
             final int j3 = -267386864;
-            this.drawGradientRect(j2 - 3, k2 - 4, j2 + k + 3, k2 - 3, j3, j3);
-            this.drawGradientRect(j2 - 3, k2 + i1 + 3, j2 + k + 3, k2 + i1 + 4, j3, j3);
-            this.drawGradientRect(j2 - 3, k2 - 3, j2 + k + 3, k2 + i1 + 3, j3, j3);
-            this.drawGradientRect(j2 - 4, k2 - 3, j2 - 3, k2 + i1 + 3, j3, j3);
-            this.drawGradientRect(j2 + k + 3, k2 - 3, j2 + k + 4, k2 + i1 + 3, j3, j3);
+            drawGradientRect(j2 - 3, k2 - 4, j2 + k + 3, k2 - 3, j3, j3);
+            drawGradientRect(j2 - 3, k2 + i1 + 3, j2 + k + 3, k2 + i1 + 4, j3, j3);
+            drawGradientRect(j2 - 3, k2 - 3, j2 + k + 3, k2 + i1 + 3, j3, j3);
+            drawGradientRect(j2 - 4, k2 - 3, j2 - 3, k2 + i1 + 3, j3, j3);
+            drawGradientRect(j2 + k + 3, k2 - 3, j2 + k + 4, k2 + i1 + 3, j3, j3);
             final int k3 = 1347420415;
             final int l2 = (k3 & 0xFEFEFE) >> 1 | (k3 & 0xFF000000);
-            this.drawGradientRect(j2 - 3, k2 - 3 + 1, j2 - 3 + 1, k2 + i1 + 3 - 1, k3, l2);
-            this.drawGradientRect(j2 + k + 2, k2 - 3 + 1, j2 + k + 3, k2 + i1 + 3 - 1, k3, l2);
-            this.drawGradientRect(j2 - 3, k2 - 3, j2 + k + 3, k2 - 3 + 1, k3, k3);
-            this.drawGradientRect(j2 - 3, k2 + i1 + 2, j2 + k + 3, k2 + i1 + 3, l2, l2);
+            drawGradientRect(j2 - 3, k2 - 3 + 1, j2 - 3 + 1, k2 + i1 + 3 - 1, k3, l2);
+            drawGradientRect(j2 + k + 2, k2 - 3 + 1, j2 + k + 3, k2 + i1 + 3 - 1, k3, l2);
+            drawGradientRect(j2 - 3, k2 - 3, j2 + k + 3, k2 - 3 + 1, k3, k3);
+            drawGradientRect(j2 - 3, k2 + i1 + 2, j2 + k + 3, k2 + i1 + 3, l2, l2);
             for (int i2 = 0; i2 < list.size(); ++i2) {
                 final String s3 = list.get(i2);
                 font.drawStringWithShadow(s3, (float)j2, (float)k2, -1);
@@ -641,8 +641,8 @@ public class GuiFocalManipulator extends GuiContainer
                 }
                 k2 += 10;
             }
-            this.zLevel = 0.0f;
-            this.itemRender.zLevel = 0.0f;
+            zLevel = 0.0f;
+            itemRender.zLevel = 0.0f;
             GlStateManager.enableRescaleNormal();
         }
     }
@@ -687,17 +687,17 @@ public class GuiFocalManipulator extends GuiContainer
     }
     
     private int getNextId() {
-        while (this.table.data.containsKey(this.nodeID)) {
-            ++this.nodeID;
+        while (table.data.containsKey(nodeID)) {
+            ++nodeID;
         }
-        return this.nodeID;
+        return nodeID;
     }
     
     private void cullChildren(final int idx) {
-        if (this.table.data.containsKey(idx)) {
-            for (final int i : this.table.data.get(idx).children) {
-                this.cullChildren(i);
-                this.table.data.remove(i);
+        if (table.data.containsKey(idx)) {
+            for (final int i : table.data.get(idx).children) {
+                cullChildren(i);
+                table.data.remove(i);
             }
         }
     }
@@ -706,13 +706,13 @@ public class GuiFocalManipulator extends GuiContainer
         final ArrayList<Integer> ret = new ArrayList<Integer>();
         boolean same = false;
         FocusElementNode previous = null;
-        if (this.table.data.containsKey(idx)) {
-            this.cullChildren(idx);
-            if (this.table.data.get(idx).node != null && this.table.data.get(idx).node.getClass() == nodeClass) {
+        if (table.data.containsKey(idx)) {
+            cullChildren(idx);
+            if (table.data.get(idx).node != null && table.data.get(idx).node.getClass() == nodeClass) {
                 same = true;
             }
             else {
-                previous = this.table.data.remove(idx);
+                previous = table.data.remove(idx);
             }
         }
         try {
@@ -726,44 +726,44 @@ public class GuiFocalManipulator extends GuiContainer
                     fn.y = previous.y;
                     fn.x = previous.x;
                 }
-                fn.id = this.getNextId();
+                fn.id = getNextId();
                 ret.add(fn.id);
-                this.selectedNode = fn.id;
-                if (previous != null && this.table.data.containsKey(previous.parent)) {
+                selectedNode = fn.id;
+                if (previous != null && table.data.containsKey(previous.parent)) {
                     fn.parent = previous.parent;
-                    final int[] c = this.table.data.get(previous.parent).children;
+                    final int[] c = table.data.get(previous.parent).children;
                     for (int a = 0; a < c.length; ++a) {
                         if (c[a] == previous.id) {
-                            this.table.data.get(previous.parent).children[a] = fn.id;
+                            table.data.get(previous.parent).children[a] = fn.id;
                             break;
                         }
                     }
                 }
                 fn.target = node.canSupply(FocusNode.EnumSupplyType.TARGET);
                 fn.trajectory = node.canSupply(FocusNode.EnumSupplyType.TRAJECTORY);
-                this.table.data.put(this.nodeID, fn);
+                table.data.put(nodeID, fn);
             }
             else {
-                fn = this.table.data.get(idx);
+                fn = table.data.get(idx);
                 node = fn.node;
             }
             if (fn.target || fn.trajectory) {
                 if (node instanceof FocusModSplit) {
                     final FocusElementNode blank1 = new FocusElementNode();
                     blank1.parent = fn.id;
-                    blank1.id = this.getNextId();
-                    ret.add(this.nodeID);
+                    blank1.id = getNextId();
+                    ret.add(nodeID);
                     blank1.x = fn.x - 1;
                     blank1.y = fn.y + 1;
-                    this.table.data.put(this.nodeID, blank1);
-                    this.selectedNode = this.nodeID;
+                    table.data.put(nodeID, blank1);
+                    selectedNode = nodeID;
                     final FocusElementNode blank2 = new FocusElementNode();
                     blank2.parent = fn.id;
                     blank2.x = fn.x + 1;
                     blank2.y = fn.y + 1;
-                    blank2.id = this.getNextId();
-                    ret.add(this.nodeID);
-                    this.table.data.put(this.nodeID, blank2);
+                    blank2.id = getNextId();
+                    ret.add(nodeID);
+                    table.data.put(nodeID, blank2);
                     fn.children = new int[] { blank1.id, blank2.id };
                 }
                 else {
@@ -771,11 +771,11 @@ public class GuiFocalManipulator extends GuiContainer
                     blank3.parent = fn.id;
                     blank3.x = fn.x;
                     blank3.y = fn.y + 1;
-                    blank3.id = this.getNextId();
-                    ret.add(this.nodeID);
-                    this.table.data.put(this.nodeID, blank3);
+                    blank3.id = getNextId();
+                    ret.add(nodeID);
+                    table.data.put(nodeID, blank3);
                     fn.children = new int[] { blank3.id };
-                    this.selectedNode = this.nodeID;
+                    selectedNode = nodeID;
                 }
             }
         }
@@ -783,20 +783,20 @@ public class GuiFocalManipulator extends GuiContainer
             e.printStackTrace();
         }
         if (gather) {
-            this.calcNodeTreeLayout();
-            this.gatherInfo(true);
+            calcNodeTreeLayout();
+            gatherInfo(true);
         }
         return ret;
     }
     
     private void processLeftNodes(final FocusElementNode start, final Bounds bounds) {
         if (start.children.length > 0) {
-            this.processLeftNodes(this.table.data.get(start.children[0]), bounds);
+            processLeftNodes(table.data.get(start.children[0]), bounds);
         }
         int ox = 0;
         if (start.children.length == 1) {
             ox = bounds.x - 1;
-            bounds.x = this.table.data.get(start.children[0]).x;
+            bounds.x = table.data.get(start.children[0]).x;
         }
         start.x = bounds.x;
         if (start.children.length == 1) {
@@ -804,99 +804,99 @@ public class GuiFocalManipulator extends GuiContainer
         }
         ++bounds.x;
         if (start.children.length > 1) {
-            this.processLeftNodes(this.table.data.get(start.children[1]), bounds);
+            processLeftNodes(table.data.get(start.children[1]), bounds);
         }
     }
     
     private void centerNodes(final int start, final Bounds bounds) {
         final int x = bounds.x / 2;
-        final FocusElementNode sn = this.table.data.get(start);
-        this.moveNodes(sn, x);
+        final FocusElementNode sn = table.data.get(start);
+        moveNodes(sn, x);
     }
     
     private void moveNodes(final FocusElementNode start, final int amt) {
         for (final int ci : start.children) {
-            this.moveNodes(this.table.data.get(ci), amt);
+            moveNodes(table.data.get(ci), amt);
         }
         start.x -= amt;
     }
     
     private void calcNodeTreeLayout() {
         int fsi = -1;
-        for (final FocusElementNode node : this.table.data.values()) {
+        for (final FocusElementNode node : table.data.values()) {
             if (fsi < 0 && node.node != null && node.node instanceof FocusModSplit) {
                 fsi = node.id;
             }
         }
         if (fsi >= 0) {
             final Bounds bounds = new Bounds();
-            this.processLeftNodes(this.table.data.get(fsi), bounds);
-            this.centerNodes(fsi, bounds);
+            processLeftNodes(table.data.get(fsi), bounds);
+            centerNodes(fsi, bounds);
         }
-        for (final FocusElementNode node : this.table.data.values()) {
+        for (final FocusElementNode node : table.data.values()) {
             if (node.node != null && node.node instanceof FocusModSplit) {
-                if (this.table.data.containsKey(node.parent) && this.table.data.get(node.parent).node != null && !(this.table.data.get(node.parent).node instanceof FocusModSplit)) {
-                    node.x = this.table.data.get(node.parent).x;
+                if (table.data.containsKey(node.parent) && table.data.get(node.parent).node != null && !(table.data.get(node.parent).node instanceof FocusModSplit)) {
+                    node.x = table.data.get(node.parent).x;
                 }
                 else {
                     int xx = 0;
                     for (final int a : node.children) {
-                        xx += this.table.data.get(a).x;
+                        xx += table.data.get(a).x;
                     }
                     xx /= node.children.length;
                     node.x = xx;
                 }
             }
         }
-        if (this.selectedNode >= 0 && !this.table.data.containsKey(this.selectedNode)) {
-            this.selectedNode = -1;
+        if (selectedNode >= 0 && !table.data.containsKey(selectedNode)) {
+            selectedNode = -1;
         }
     }
     
     private void resetNodes() {
-        this.nodeID = 0;
-        this.table.data.clear();
-        final ArrayList<Integer> r1 = this.addNodeAt(FocusMediumRoot.class, 0, false);
-        this.selectedNode = r1.get(1);
-        this.calcNodeTreeLayout();
-        this.gatherInfo(true);
+        nodeID = 0;
+        table.data.clear();
+        final ArrayList<Integer> r1 = addNodeAt(FocusMediumRoot.class, 0, false);
+        selectedNode = r1.get(1);
+        calcNodeTreeLayout();
+        gatherInfo(true);
     }
     
     private void calcScrollBounds() {
-        this.sMinX = 0;
-        this.sMinY = 0;
-        this.sMaxX = 0;
-        this.sMaxY = 0;
-        for (final FocusElementNode fn : this.table.data.values()) {
-            if (fn.x < this.sMinX) {
-                this.sMinX = fn.x;
+        sMinX = 0;
+        sMinY = 0;
+        sMaxX = 0;
+        sMaxY = 0;
+        for (final FocusElementNode fn : table.data.values()) {
+            if (fn.x < sMinX) {
+                sMinX = fn.x;
             }
-            if (fn.y < this.sMinY) {
-                this.sMinY = fn.y;
+            if (fn.y < sMinY) {
+                sMinY = fn.y;
             }
-            if (fn.x > this.sMaxX) {
-                this.sMaxX = fn.x;
+            if (fn.x > sMaxX) {
+                sMaxX = fn.x;
             }
-            if (fn.y > this.sMaxY) {
-                this.sMaxY = fn.y;
+            if (fn.y > sMaxY) {
+                sMaxY = fn.y;
             }
         }
     }
     
     private void gatherPartsList() {
-        this.shownParts.clear();
-        if (this.mc == null) {
+        shownParts.clear();
+        if (mc == null) {
             return;
         }
-        if (this.selectedNode >= 0 && this.table.data.containsKey(this.selectedNode)) {
-            this.partsStart = 0;
+        if (selectedNode >= 0 && table.data.containsKey(selectedNode)) {
+            partsStart = 0;
             final ArrayList<String> pMed = new ArrayList<String>();
             final ArrayList<String> pEff = new ArrayList<String>();
             final ArrayList<String> pMod = new ArrayList<String>();
             final ArrayList<String> excluded = new ArrayList<String>();
             boolean hasExlusive = false;
             boolean hasMedium = false;
-            for (final FocusElementNode fn : this.table.data.values()) {
+            for (final FocusElementNode fn : table.data.values()) {
                 if (fn.node != null && fn.node instanceof FocusMedium) {
                     hasMedium = !(fn.node instanceof FocusMediumRoot);
                     if (fn.node.isExclusive()) {
@@ -908,12 +908,12 @@ public class GuiFocalManipulator extends GuiContainer
                     excluded.add(fn.node.getKey());
                 }
             }
-            final FocusElementNode node = this.table.data.get(this.selectedNode);
-            final FocusElementNode parent = this.table.data.get(node.parent);
+            final FocusElementNode node = table.data.get(selectedNode);
+            final FocusElementNode parent = table.data.get(node.parent);
             if (parent != null && parent.node != null) {
                 for (final String key : FocusEngine.elements.keySet()) {
                     final IFocusElement element = FocusEngine.getElement(key);
-                    if (!ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, element.getResearch())) {
+                    if (!ThaumcraftCapabilities.knowsResearchStrict(mc.player, element.getResearch())) {
                         continue;
                     }
                     if (element.getKey().equals("thaumcraft.ROOT")) {
@@ -956,56 +956,56 @@ public class GuiFocalManipulator extends GuiContainer
             Collections.sort(pMed);
             Collections.sort(pEff);
             Collections.sort(pMod);
-            this.shownParts.addAll(pMed);
-            this.shownParts.addAll(pEff);
-            this.shownParts.addAll(pMod);
+            shownParts.addAll(pMed);
+            shownParts.addAll(pEff);
+            shownParts.addAll(pMod);
         }
     }
     
     private void gatherInfo(final boolean sync) {
-        this.buttonList.clear();
-        this.buttonList.add(this.buttonConfirm);
-        this.buttonConfirm.x = this.guiLeft + 242;
-        this.buttonConfirm.y = this.guiTop + 18;
-        this.buttonList.add(new GuiHoverButton(this, 1, this.guiLeft + 241, this.guiTop + 39, 32, 16, I18n.translateToLocal("wandtable.text5"), null, new ResourceLocation("thaumcraft", "textures/gui/complex.png")));
-        this.buttonList.add(new GuiHoverButton(this, 2, this.guiLeft + 241, this.guiTop + 53, 32, 16, I18n.translateToLocal("wandtable.text2"), null, new ResourceLocation("thaumcraft", "textures/gui/costxp.png")));
-        this.buttonList.add(new GuiHoverButton(this, 3, this.guiLeft + 241, this.guiTop + 67, 32, 16, I18n.translateToLocal("wandtable.text1"), null, new ResourceLocation("thaumcraft", "textures/gui/costvis.png")));
-        final FocusElementNode fn = this.table.data.get(this.selectedNode);
+        buttonList.clear();
+        buttonList.add(buttonConfirm);
+        buttonConfirm.x = guiLeft + 242;
+        buttonConfirm.y = guiTop + 18;
+        buttonList.add(new GuiHoverButton(this, 1, guiLeft + 241, guiTop + 39, 32, 16, I18n.translateToLocal("wandtable.text5"), null, new ResourceLocation("thaumcraft", "textures/gui/complex.png")));
+        buttonList.add(new GuiHoverButton(this, 2, guiLeft + 241, guiTop + 53, 32, 16, I18n.translateToLocal("wandtable.text2"), null, new ResourceLocation("thaumcraft", "textures/gui/costxp.png")));
+        buttonList.add(new GuiHoverButton(this, 3, guiLeft + 241, guiTop + 67, 32, 16, I18n.translateToLocal("wandtable.text1"), null, new ResourceLocation("thaumcraft", "textures/gui/costvis.png")));
+        final FocusElementNode fn = table.data.get(selectedNode);
         if (fn != null && fn.node != null && !fn.node.getSettingList().isEmpty()) {
             int a = 0;
             for (final String sk : fn.node.getSettingList()) {
                 final NodeSetting setting = fn.node.getSetting(sk);
-                if (setting.getResearch() != null && !ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, setting.getResearch())) {
+                if (setting.getResearch() != null && !ThaumcraftCapabilities.knowsResearchStrict(mc.player, setting.getResearch())) {
                     continue;
                 }
-                final int x = this.guiLeft + this.xSize;
-                final int y = this.guiTop + this.ySize + 3 - fn.node.getSettingList().size() * 26 + a * 26;
+                final int x = guiLeft + xSize;
+                final int y = guiTop + ySize + 3 - fn.node.getSettingList().size() * 26 + a * 26;
                 int w = 32;
                 if (setting.getType() instanceof NodeSetting.NodeSettingIntList) {
                     w = 72;
                 }
-                this.buttonList.add(new GuiFocusSettingSpinnerButton(10 + a, x, y, w, setting));
+                buttonList.add(new GuiFocusSettingSpinnerButton(10 + a, x, y, w, setting));
                 ++a;
             }
         }
-        this.shownParts.clear();
-        this.components = null;
-        if (this.table.getStackInSlot(0) == null || this.table.getStackInSlot(0).isEmpty()) {
+        shownParts.clear();
+        components = null;
+        if (table.getStackInSlot(0) == null || table.getStackInSlot(0).isEmpty()) {
             return;
         }
         final HashMap<String, Integer> compCount = new HashMap<String, Integer>();
-        this.totalComplexity = 0;
-        this.maxComplexity = 0;
-        if (this.inventorySlots.getSlot(0).getHasStack()) {
-            final ItemStack is = this.inventorySlots.getSlot(0).getStack();
+        totalComplexity = 0;
+        maxComplexity = 0;
+        if (inventorySlots.getSlot(0).getHasStack()) {
+            final ItemStack is = inventorySlots.getSlot(0).getStack();
             if (is != null && !is.isEmpty() && is.getItem() instanceof ItemFocus) {
-                this.maxComplexity = ((ItemFocus)is.getItem()).getMaxComplexity();
+                maxComplexity = ((ItemFocus)is.getItem()).getMaxComplexity();
             }
         }
         boolean emptyNodes = false;
         final AspectList crystals = new AspectList();
-        if (this.table.data != null && !this.table.data.isEmpty()) {
-            for (final FocusElementNode node : this.table.data.values()) {
+        if (table.data != null && !table.data.isEmpty()) {
+            for (final FocusElementNode node : table.data.values()) {
                 if (node.node != null) {
                     int a2 = 0;
                     if (compCount.containsKey(node.node.getKey())) {
@@ -1014,7 +1014,7 @@ public class GuiFocalManipulator extends GuiContainer
                     ++a2;
                     node.complexityMultiplier = 0.5f * (a2 + 1);
                     compCount.put(node.node.getKey(), a2);
-                    this.totalComplexity += (int)(node.node.getComplexity() * node.complexityMultiplier);
+                    totalComplexity += (int)(node.node.getComplexity() * node.complexityMultiplier);
                     if (node.node.getAspect() == null) {
                         continue;
                     }
@@ -1025,32 +1025,32 @@ public class GuiFocalManipulator extends GuiContainer
                 }
             }
         }
-        this.costCast = this.totalComplexity / 5.0f;
-        this.costVis = this.totalComplexity * 10 + this.maxComplexity / 5;
-        this.costXp = (int)Math.min(1L, Math.round(Math.sqrt(this.totalComplexity)));
+        costCast = totalComplexity / 5.0f;
+        costVis = totalComplexity * 10 + maxComplexity / 5;
+        costXp = (int)Math.min(1L, Math.round(Math.sqrt(totalComplexity)));
         boolean validCrystals = false;
         if (crystals.getAspects().length > 0) {
             validCrystals = true;
-            this.components = new ItemStack[crystals.getAspects().length];
+            components = new ItemStack[crystals.getAspects().length];
             int r = 0;
             for (final Aspect as : crystals.getAspects()) {
-                this.components[r] = ThaumcraftApiHelper.makeCrystal(as, crystals.getAmount(as));
+                components[r] = ThaumcraftApiHelper.makeCrystal(as, crystals.getAmount(as));
                 ++r;
             }
-            if (this.components.length >= 0) {
-                final boolean[] owns = new boolean[this.components.length];
-                for (int a3 = 0; a3 < this.components.length; ++a3) {
-                    if (!(owns[a3] = InventoryUtils.isPlayerCarryingAmount(this.mc.player, this.components[a3], false))) {
+            if (components.length >= 0) {
+                final boolean[] owns = new boolean[components.length];
+                for (int a3 = 0; a3 < components.length; ++a3) {
+                    if (!(owns[a3] = InventoryUtils.isPlayerCarryingAmount(mc.player, components[a3], false))) {
                         validCrystals = false;
                     }
                 }
             }
-            if (this.components != null && this.components.length > 0) {
+            if (components != null && components.length > 0) {
                 int i = 0;
                 int q = 0;
                 int z = 0;
-                for (final ItemStack stack : this.components) {
-                    this.buttonList.add(new GuiHoverButton(this, 11 + z, this.guiLeft + 234 + i * 16, this.guiTop + 110 + 16 * q, 16, 16, stack.getDisplayName(), null, stack));
+                for (final ItemStack stack : components) {
+                    buttonList.add(new GuiHoverButton(this, 11 + z, guiLeft + 234 + i * 16, guiTop + 110 + 16 * q, 16, 16, stack.getDisplayName(), null, stack));
                     if (++i > 4) {
                         i = 0;
                         ++q;
@@ -1059,48 +1059,48 @@ public class GuiFocalManipulator extends GuiContainer
                 }
             }
         }
-        this.gatherPartsList();
-        this.scrollbarParts = null;
-        if (this.shownParts.size() > 6) {
-            this.scrollbarParts = new GuiSliderTC(4, this.guiLeft + 51, this.guiTop + 30, 8, 149, "logistics.scrollbar", 0.0f, (float)(this.shownParts.size() - 6), 0.0f, true);
-            this.buttonList.add(this.scrollbarParts);
+        gatherPartsList();
+        scrollbarParts = null;
+        if (shownParts.size() > 6) {
+            scrollbarParts = new GuiSliderTC(4, guiLeft + 51, guiTop + 30, 8, 149, "logistics.scrollbar", 0.0f, (float)(shownParts.size() - 6), 0.0f, true);
+            buttonList.add(scrollbarParts);
         }
-        this.valid = (this.totalComplexity <= this.maxComplexity && !emptyNodes && validCrystals && this.table.xpCost <= this.mc.player.experienceLevel);
-        this.calcScrollBounds();
-        if (this.scrollY > (this.sMaxY - 3) * 32) {
-            this.scrollY = (this.sMaxY - 3) * 32;
+        valid = (totalComplexity <= maxComplexity && !emptyNodes && validCrystals && table.xpCost <= mc.player.experienceLevel);
+        calcScrollBounds();
+        if (scrollY > (sMaxY - 3) * 32) {
+            scrollY = (sMaxY - 3) * 32;
         }
-        if (this.scrollX > this.sMaxX * 24) {
-            this.scrollX = this.sMaxX * 24;
+        if (scrollX > sMaxX * 24) {
+            scrollX = sMaxX * 24;
         }
-        if (this.scrollX < this.sMinX * 24) {
-            this.scrollX = this.sMinX * 24;
+        if (scrollX < sMinX * 24) {
+            scrollX = sMinX * 24;
         }
-        this.scrollbarMainSide = null;
-        this.scrollbarMainBottom = null;
-        if (this.sMaxY * 32 > 130) {
-            this.scrollbarMainSide = new GuiSliderTC(5, this.guiLeft + 203, this.guiTop + 32, 8, 156, "logistics.scrollbar", 0.0f, (float)((this.sMaxY - 3) * 32), (float)this.scrollY, true);
-            this.buttonList.add(this.scrollbarMainSide);
-        }
-        else {
-            this.scrollY = 0;
-        }
-        if (this.sMinX * 24 < -70 || this.sMaxX * 24 > 70) {
-            this.scrollbarMainBottom = new GuiSliderTC(6, this.guiLeft + 64, this.guiTop + 195, 132, 8, "logistics.scrollbar", (float)(this.sMinX * 24), (float)(this.sMaxX * 24), (float)this.scrollX, false);
-            this.buttonList.add(this.scrollbarMainBottom);
+        scrollbarMainSide = null;
+        scrollbarMainBottom = null;
+        if (sMaxY * 32 > 130) {
+            scrollbarMainSide = new GuiSliderTC(5, guiLeft + 203, guiTop + 32, 8, 156, "logistics.scrollbar", 0.0f, (float)((sMaxY - 3) * 32), (float) scrollY, true);
+            buttonList.add(scrollbarMainSide);
         }
         else {
-            this.scrollX = 0;
+            scrollY = 0;
         }
-        if (this.table.focusName.isEmpty() && !this.table.getStackInSlot(0).isEmpty()) {
-            this.table.focusName = this.table.getStackInSlot(0).getDisplayName();
+        if (sMinX * 24 < -70 || sMaxX * 24 > 70) {
+            scrollbarMainBottom = new GuiSliderTC(6, guiLeft + 64, guiTop + 195, 132, 8, "logistics.scrollbar", (float)(sMinX * 24), (float)(sMaxX * 24), (float) scrollX, false);
+            buttonList.add(scrollbarMainBottom);
         }
-        if (this.nameField == null) {
-            this.setupNameField();
+        else {
+            scrollX = 0;
         }
-        this.nameField.setText(this.table.focusName);
+        if (table.focusName.isEmpty() && !table.getStackInSlot(0).isEmpty()) {
+            table.focusName = table.getStackInSlot(0).getDisplayName();
+        }
+        if (nameField == null) {
+            setupNameField();
+        }
+        nameField.setText(table.focusName);
         if (sync) {
-            PacketHandler.INSTANCE.sendToServer(new PacketFocusNodesToServer(this.table.getPos(), this.table.data, this.table.focusName));
+            PacketHandler.INSTANCE.sendToServer(new PacketFocusNodesToServer(table.getPos(), table.data, table.focusName));
         }
     }
     
@@ -1114,7 +1114,7 @@ public class GuiFocalManipulator extends GuiContainer
         int x;
         
         private Bounds() {
-            this.x = 0;
+            x = 0;
         }
     }
 }

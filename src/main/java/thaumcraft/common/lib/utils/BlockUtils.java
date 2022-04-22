@@ -390,8 +390,8 @@ public class BlockUtils
             if (a.equals(b)) {
                 return 0;
             }
-            final double da = this.source.distanceSq(a);
-            final double db = this.source.distanceSq(b);
+            final double da = source.distanceSq(a);
+            final double db = source.distanceSq(b);
             return (da < db) ? -1 : ((da > db) ? 1 : 0);
         }
     }

@@ -43,17 +43,17 @@ public class PacketSyncProgressToServer implements IMessage, IMessageHandler<Pac
     }
     
     public void toBytes(final ByteBuf buffer) {
-        ByteBufUtils.writeUTF8String(buffer, this.key);
-        buffer.writeBoolean(this.first);
-        buffer.writeBoolean(this.checks);
-        buffer.writeBoolean(this.noFlags);
+        ByteBufUtils.writeUTF8String(buffer, key);
+        buffer.writeBoolean(first);
+        buffer.writeBoolean(checks);
+        buffer.writeBoolean(noFlags);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.key = ByteBufUtils.readUTF8String(buffer);
-        this.first = buffer.readBoolean();
-        this.checks = buffer.readBoolean();
-        this.noFlags = buffer.readBoolean();
+        key = ByteBufUtils.readUTF8String(buffer);
+        first = buffer.readBoolean();
+        checks = buffer.readBoolean();
+        noFlags = buffer.readBoolean();
     }
     
     public IMessage onMessage(final PacketSyncProgressToServer message, final MessageContext ctx) {
@@ -63,7 +63,7 @@ public class PacketSyncProgressToServer implements IMessage, IMessageHandler<Pac
             public void run() {
                 final EntityPlayer player = ctx.getServerHandler().player;
                 if (player != null && message.first != ThaumcraftCapabilities.knowsResearch(player, message.key)) {
-                    if (message.checks && !PacketSyncProgressToServer.this.checkRequisites(player, message.key)) {
+                    if (message.checks && !checkRequisites(player, message.key)) {
                         return;
                     }
                     if (message.noFlags) {

@@ -24,20 +24,20 @@ public class FocusElementNode
     public FocusNode node;
     
     public FocusElementNode() {
-        this.target = false;
-        this.trajectory = false;
-        this.parent = -1;
-        this.children = new int[0];
-        this.complexityMultiplier = 1.0f;
-        this.node = null;
+        target = false;
+        trajectory = false;
+        parent = -1;
+        children = new int[0];
+        complexityMultiplier = 1.0f;
+        node = null;
     }
     
     public float getPower(final HashMap<Integer, FocusElementNode> data) {
-        if (this.node == null) {
+        if (node == null) {
             return 1.0f;
         }
-        float pow = this.node.getPowerMultiplier();
-        final FocusElementNode p = data.get(this.parent);
+        float pow = node.getPowerMultiplier();
+        final FocusElementNode p = data.get(parent);
         if (p != null && p.node != null) {
             pow *= p.getPower(data);
         }
@@ -45,17 +45,17 @@ public class FocusElementNode
     }
     
     public void deserialize(final NBTTagCompound nbt) {
-        this.x = nbt.getInteger("x");
-        this.y = nbt.getInteger("y");
-        this.id = nbt.getInteger("id");
-        this.target = nbt.getBoolean("target");
-        this.trajectory = nbt.getBoolean("trajectory");
-        this.parent = nbt.getInteger("parent");
-        this.children = nbt.getIntArray("children");
-        this.complexityMultiplier = nbt.getFloat("complexity");
+        x = nbt.getInteger("x");
+        y = nbt.getInteger("y");
+        id = nbt.getInteger("id");
+        target = nbt.getBoolean("target");
+        trajectory = nbt.getBoolean("trajectory");
+        parent = nbt.getInteger("parent");
+        children = nbt.getIntArray("children");
+        complexityMultiplier = nbt.getFloat("complexity");
         final IFocusElement fe = FocusEngine.getElement(nbt.getString("key"));
         if (fe != null) {
-            this.node = (FocusNode)fe;
+            node = (FocusNode)fe;
             ((FocusNode)fe).initialize();
             if (((FocusNode)fe).getSettingList() != null) {
                 for (final String ns : ((FocusNode)fe).getSettingList()) {
@@ -67,19 +67,19 @@ public class FocusElementNode
     
     public NBTTagCompound serialize() {
         final NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setInteger("x", this.x);
-        nbt.setInteger("y", this.y);
-        nbt.setInteger("id", this.id);
-        nbt.setBoolean("target", this.target);
-        nbt.setBoolean("trajectory", this.trajectory);
-        nbt.setInteger("parent", this.parent);
-        nbt.setIntArray("children", this.children);
-        nbt.setFloat("complexity", this.complexityMultiplier);
-        if (this.node != null) {
-            nbt.setString("key", this.node.getKey());
-            if (this.node.getSettingList() != null) {
-                for (final String ns : this.node.getSettingList()) {
-                    nbt.setInteger("setting." + ns, this.node.getSettingValue(ns));
+        nbt.setInteger("x", x);
+        nbt.setInteger("y", y);
+        nbt.setInteger("id", id);
+        nbt.setBoolean("target", target);
+        nbt.setBoolean("trajectory", trajectory);
+        nbt.setInteger("parent", parent);
+        nbt.setIntArray("children", children);
+        nbt.setFloat("complexity", complexityMultiplier);
+        if (node != null) {
+            nbt.setString("key", node.getKey());
+            if (node.getSettingList() != null) {
+                for (final String ns : node.getSettingList()) {
+                    nbt.setInteger("setting." + ns, node.getSettingValue(ns));
                 }
             }
         }

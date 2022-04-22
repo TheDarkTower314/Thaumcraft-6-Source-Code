@@ -31,34 +31,34 @@ public class PacketFXBoreDig implements IMessage, IMessageHandler<PacketFXBoreDi
     }
     
     public PacketFXBoreDig(final BlockPos pos, final Entity bore, final int delay) {
-        this.x = pos.getX();
-        this.y = pos.getY();
-        this.z = pos.getZ();
+        x = pos.getX();
+        y = pos.getY();
+        z = pos.getZ();
         this.bore = bore.getEntityId();
         this.delay = delay;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.x);
-        buffer.writeInt(this.y);
-        buffer.writeInt(this.z);
-        buffer.writeInt(this.bore);
-        buffer.writeInt(this.delay);
+        buffer.writeInt(x);
+        buffer.writeInt(y);
+        buffer.writeInt(z);
+        buffer.writeInt(bore);
+        buffer.writeInt(delay);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.x = buffer.readInt();
-        this.y = buffer.readInt();
-        this.z = buffer.readInt();
-        this.bore = buffer.readInt();
-        this.delay = buffer.readInt();
+        x = buffer.readInt();
+        y = buffer.readInt();
+        z = buffer.readInt();
+        bore = buffer.readInt();
+        delay = buffer.readInt();
     }
     
     public IMessage onMessage(final PacketFXBoreDig message, final MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                PacketFXBoreDig.this.processMessage(message);
+                processMessage(message);
             }
         });
         return null;

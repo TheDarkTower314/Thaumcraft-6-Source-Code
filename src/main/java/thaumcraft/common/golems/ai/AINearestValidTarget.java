@@ -43,9 +43,9 @@ public class AINearestValidTarget extends EntityAITarget
         super(owner, checkSight, nearbyOnly);
         this.targetClass = targetClass;
         this.targetChance = targetChance;
-        this.theNearestAttackableTargetSorter = new EntityAINearestAttackableTarget.Sorter(owner);
-        this.setMutexBits(1);
-        this.targetEntitySelector = new Predicate<EntityLivingBase>() {
+        theNearestAttackableTargetSorter = new EntityAINearestAttackableTarget.Sorter(owner);
+        setMutexBits(1);
+        targetEntitySelector = new Predicate<EntityLivingBase>() {
             private static final String __OBFID = "CL_00001621";
             
             public boolean applySelection(final EntityLivingBase entity) {
@@ -64,44 +64,44 @@ public class AINearestValidTarget extends EntityAITarget
                         }
                         d0 *= 0.7f * f;
                     }
-                    if (entity.getDistance(AINearestValidTarget.this.taskOwner) > d0) {
+                    if (entity.getDistance(taskOwner) > d0) {
                         return false;
                     }
                 }
-                return AINearestValidTarget.this.isSuitableTarget(entity, false);
+                return isSuitableTarget(entity, false);
             }
             
             public boolean apply(final EntityLivingBase p_apply_1_) {
-                return this.applySelection(p_apply_1_);
+                return applySelection(p_apply_1_);
             }
         };
     }
     
     public boolean shouldContinueExecuting() {
-        final EntityLivingBase entitylivingbase = this.taskOwner.getAttackTarget();
+        final EntityLivingBase entitylivingbase = taskOwner.getAttackTarget();
         if (entitylivingbase == null) {
             return false;
         }
         if (!entitylivingbase.isEntityAlive()) {
             return false;
         }
-        final Team team = this.taskOwner.getTeam();
+        final Team team = taskOwner.getTeam();
         final Team team2 = entitylivingbase.getTeam();
-        if (team != null && team2 == team && !((ITargets)this.taskOwner).getTargetFriendly()) {
+        if (team != null && team2 == team && !((ITargets) taskOwner).getTargetFriendly()) {
             return false;
         }
-        if (team != null && team2 != team && ((ITargets)this.taskOwner).getTargetFriendly()) {
+        if (team != null && team2 != team && ((ITargets) taskOwner).getTargetFriendly()) {
             return false;
         }
-        final double d0 = this.getTargetDistance();
-        if (this.taskOwner.getDistanceSq(entitylivingbase) > d0 * d0) {
+        final double d0 = getTargetDistance();
+        if (taskOwner.getDistanceSq(entitylivingbase) > d0 * d0) {
             return false;
         }
-        if (this.shouldCheckSight) {
-            if (this.taskOwner.getEntitySenses().canSee(entitylivingbase)) {
-                this.targetUnseenTicks = 0;
+        if (shouldCheckSight) {
+            if (taskOwner.getEntitySenses().canSee(entitylivingbase)) {
+                targetUnseenTicks = 0;
             }
-            else if (++this.targetUnseenTicks > 60) {
+            else if (++targetUnseenTicks > 60) {
                 return false;
             }
         }
@@ -109,7 +109,7 @@ public class AINearestValidTarget extends EntityAITarget
     }
     
     protected boolean isSuitableTarget(final EntityLivingBase p_75296_1_, final boolean p_75296_2_) {
-        return this.isGoodTarget(this.taskOwner, p_75296_1_, p_75296_2_, this.shouldCheckSight) && this.taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(p_75296_1_));
+        return isGoodTarget(taskOwner, p_75296_1_, p_75296_2_, shouldCheckSight) && taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(p_75296_1_));
     }
     
     private boolean isGoodTarget(final EntityLiving attacker, final EntityLivingBase posTar, final boolean p_179445_2_, final boolean checkSight) {
@@ -154,22 +154,22 @@ public class AINearestValidTarget extends EntityAITarget
     }
     
     public boolean shouldExecute() {
-        if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(this.targetChance) != 0) {
+        if (targetChance > 0 && taskOwner.getRNG().nextInt(targetChance) != 0) {
             return false;
         }
-        final double d0 = this.getTargetDistance();
-        final List<EntityLivingBase> list = this.taskOwner.world.getEntitiesWithinAABB(this.targetClass, this.taskOwner.getEntityBoundingBox().grow(d0, 4.0, d0), Predicates.and(this.targetEntitySelector, EntitySelectors.NOT_SPECTATING));
-        Collections.sort(list, this.theNearestAttackableTargetSorter);
+        final double d0 = getTargetDistance();
+        final List<EntityLivingBase> list = taskOwner.world.getEntitiesWithinAABB(targetClass, taskOwner.getEntityBoundingBox().grow(d0, 4.0, d0), Predicates.and(targetEntitySelector, EntitySelectors.NOT_SPECTATING));
+        Collections.sort(list, theNearestAttackableTargetSorter);
         if (list.isEmpty()) {
             return false;
         }
-        this.targetEntity = list.get(0);
+        targetEntity = list.get(0);
         return true;
     }
     
     public void startExecuting() {
-        this.taskOwner.setAttackTarget(this.targetEntity);
-        this.targetUnseenTicks = 0;
+        taskOwner.setAttackTarget(targetEntity);
+        targetUnseenTicks = 0;
         super.startExecuting();
     }
     
@@ -183,18 +183,18 @@ public class AINearestValidTarget extends EntityAITarget
         private static final String __OBFID = "CL_00001622";
         
         public Sorter(final Entity p_i1662_1_) {
-            this.theEntity = p_i1662_1_;
+            theEntity = p_i1662_1_;
         }
         
         public int compare(final Entity p_compare_1_, final Entity p_compare_2_) {
-            final double d0 = this.theEntity.getDistanceSq(p_compare_1_);
-            final double d2 = this.theEntity.getDistanceSq(p_compare_2_);
+            final double d0 = theEntity.getDistanceSq(p_compare_1_);
+            final double d2 = theEntity.getDistanceSq(p_compare_2_);
             return (d0 < d2) ? -1 : ((d0 > d2) ? 1 : 0);
         }
         
         @Override
         public int compare(final Object p_compare_1_, final Object p_compare_2_) {
-            return this.compare((Entity)p_compare_1_, (Entity)p_compare_2_);
+            return compare((Entity)p_compare_1_, (Entity)p_compare_2_);
         }
     }
 }

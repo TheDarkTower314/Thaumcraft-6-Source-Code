@@ -30,50 +30,50 @@ public class ShaderHandler
             ShaderHandler.warpVignette = 10;
             if (!RenderEventHandler.shaderGroups.containsKey(0)) {
                 try {
-                    this.setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[0]), 0);
+                    setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[0]), 0);
                 }
                 catch (final JsonSyntaxException ex) {}
                 catch (final IOException ex2) {}
             }
         }
         else if (RenderEventHandler.shaderGroups.containsKey(0)) {
-            this.deactivateShader(0);
+            deactivateShader(0);
         }
         if (event.player.isPotionActive(PotionBlurredVision.instance)) {
             if (!RenderEventHandler.shaderGroups.containsKey(1)) {
                 try {
-                    this.setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[1]), 1);
+                    setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[1]), 1);
                 }
                 catch (final JsonSyntaxException ex3) {}
                 catch (final IOException ex4) {}
             }
         }
         else if (RenderEventHandler.shaderGroups.containsKey(1)) {
-            this.deactivateShader(1);
+            deactivateShader(1);
         }
         if (event.player.isPotionActive(PotionUnnaturalHunger.instance)) {
             if (!RenderEventHandler.shaderGroups.containsKey(2)) {
                 try {
-                    this.setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[2]), 2);
+                    setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[2]), 2);
                 }
                 catch (final JsonSyntaxException ex5) {}
                 catch (final IOException ex6) {}
             }
         }
         else if (RenderEventHandler.shaderGroups.containsKey(2)) {
-            this.deactivateShader(2);
+            deactivateShader(2);
         }
         if (event.player.isPotionActive(PotionSunScorned.instance)) {
             if (!RenderEventHandler.shaderGroups.containsKey(3)) {
                 try {
-                    this.setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[3]), 3);
+                    setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[3]), 3);
                 }
                 catch (final JsonSyntaxException ex7) {}
                 catch (final IOException ex8) {}
             }
         }
         else if (RenderEventHandler.shaderGroups.containsKey(3)) {
-            this.deactivateShader(3);
+            deactivateShader(3);
         }
     }
     
@@ -85,7 +85,7 @@ public class ShaderHandler
             }
             try {
                 if (target == null) {
-                    this.deactivateShader(shaderId);
+                    deactivateShader(shaderId);
                 }
                 else {
                     RenderEventHandler.resetShaders = true;

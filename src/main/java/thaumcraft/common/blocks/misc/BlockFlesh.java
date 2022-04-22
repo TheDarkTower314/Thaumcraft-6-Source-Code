@@ -13,8 +13,8 @@ public class BlockFlesh extends BlockTC
 {
     public BlockFlesh() {
         super(Material.SPONGE, "flesh_block");
-        this.setResistance(2.0f);
-        this.setHardness(0.25f);
+        setResistance(2.0f);
+        setHardness(0.25f);
     }
     
     public SoundType getSoundType() {

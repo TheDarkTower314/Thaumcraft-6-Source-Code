@@ -28,17 +28,17 @@ public class PacketSelectThaumotoriumRecipeToServer implements IMessage, IMessag
     
     public PacketSelectThaumotoriumRecipeToServer(final EntityPlayer player, final BlockPos pos, final int recipeHash) {
         this.pos = pos.toLong();
-        this.hash = recipeHash;
+        hash = recipeHash;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeLong(this.pos);
-        buffer.writeInt(this.hash);
+        buffer.writeLong(pos);
+        buffer.writeInt(hash);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.pos = buffer.readLong();
-        this.hash = buffer.readInt();
+        pos = buffer.readLong();
+        hash = buffer.readInt();
     }
     
     public IMessage onMessage(final PacketSelectThaumotoriumRecipeToServer message, final MessageContext ctx) {

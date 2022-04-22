@@ -19,34 +19,34 @@ public class ContainerPotionSprayer extends Container
     private int lastBreakTime;
     
     public ContainerPotionSprayer(final InventoryPlayer par1InventoryPlayer, final TilePotionSprayer tilePotionSprayer) {
-        this.sprayer = tilePotionSprayer;
-        this.addSlotToContainer(new SlotPotion(tilePotionSprayer, 0, 56, 64));
+        sprayer = tilePotionSprayer;
+        addSlotToContainer(new SlotPotion(tilePotionSprayer, 0, 56, 64));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 16 + j * 18, 151 + i * 18));
+                addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 16 + j * 18, 151 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(par1InventoryPlayer, i, 16 + i * 18, 209));
+            addSlotToContainer(new Slot(par1InventoryPlayer, i, 16 + i * 18, 209));
         }
     }
     
     public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
-        return this.sprayer.isUsableByPlayer(par1EntityPlayer);
+        return sprayer.isUsableByPlayer(par1EntityPlayer);
     }
     
     public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = this.inventorySlots.get(slot);
+        final Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
             final ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot == 0) {
-                if (!this.sprayer.isItemValidForSlot(slot, stackInSlot) || !this.mergeItemStack(stackInSlot, 1, this.inventorySlots.size(), true)) {
+                if (!sprayer.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.sprayer.isItemValidForSlot(slot, stackInSlot) || !this.mergeItemStack(stackInSlot, 0, 1, false)) {
+            else if (!sprayer.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
             if (stackInSlot.getCount() == 0) {

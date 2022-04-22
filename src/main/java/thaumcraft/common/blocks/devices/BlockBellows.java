@@ -24,8 +24,8 @@ public class BlockBellows extends BlockTCDevice implements IBlockFacing, IBlockE
 {
     public BlockBellows() {
         super(Material.WOOD, TileBellows.class, "bellows");
-        this.setSoundType(SoundType.WOOD);
-        this.setHardness(1.0f);
+        setSoundType(SoundType.WOOD);
+        setHardness(1.0f);
     }
     
     @Override
@@ -51,7 +51,7 @@ public class BlockBellows extends BlockTCDevice implements IBlockFacing, IBlockE
     
     @Override
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         if (this instanceof IBlockFacing) {
             bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)facing.getOpposite());
         }

@@ -34,14 +34,14 @@ public class RenderCultistLeader extends RenderBiped<EntityCultistLeader>
     
     public RenderCultistLeader(final RenderManager p_i46127_1_) {
         super(p_i46127_1_, new ModelBiped(), 0.5f);
-        this.addLayer((LayerRenderer)new LayerHeldItem(this));
+        addLayer((LayerRenderer)new LayerHeldItem(this));
         final LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this) {
             protected void initArmor() {
-                this.modelLeggings = new ModelBiped();
-                this.modelArmor = new ModelBiped();
+                modelLeggings = new ModelBiped();
+                modelArmor = new ModelBiped();
             }
         };
-        this.addLayer((LayerRenderer)layerbipedarmor);
+        addLayer((LayerRenderer)layerbipedarmor);
     }
     
     protected ResourceLocation getEntityTexture(final EntityCultistLeader p_110775_1_) {
@@ -79,7 +79,7 @@ public class RenderCultistLeader extends RenderBiped<EntityCultistLeader>
         final double dc1x = (float)(dd1x - ds1x);
         final double dc1y = (float)(dd1y - ds1y);
         final double dc1z = (float)(dd1z - ds1z);
-        this.bindTexture(RenderCultistLeader.fl);
+        bindTexture(RenderCultistLeader.fl);
         tessellator.getBuffer().begin(5, DefaultVertexFormats.POSITION_TEX_COLOR);
         final double dx2 = 0.0;
         final double dy2 = 0.0;

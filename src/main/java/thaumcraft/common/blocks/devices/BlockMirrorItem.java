@@ -45,7 +45,7 @@ public class BlockMirrorItem extends ItemBlock
                 player.swingArm(hand);
                 return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
             }
-            if (this.block == BlocksTC.mirror) {
+            if (block == BlocksTC.mirror) {
                 final TileEntity tm = world.getTileEntity(pos);
                 if (tm != null && tm instanceof TileMirror && !((TileMirror)tm).isLinkValid()) {
                     final ItemStack st = player.getHeldItem(hand).copy();
@@ -98,7 +98,7 @@ public class BlockMirrorItem extends ItemBlock
     public boolean placeBlockAt(final ItemStack stack, final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final IBlockState newState) {
         final boolean ret = super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState);
         if (ret && !world.isRemote) {
-            if (this.block == BlocksTC.mirror) {
+            if (block == BlocksTC.mirror) {
                 final TileEntity te = world.getTileEntity(pos);
                 if (te != null && te instanceof TileMirror && stack.hasTagCompound()) {
                     ((TileMirror)te).linkX = stack.getTagCompound().getInteger("linkX");

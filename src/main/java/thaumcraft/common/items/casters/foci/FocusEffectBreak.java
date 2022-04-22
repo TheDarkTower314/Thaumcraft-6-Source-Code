@@ -44,20 +44,20 @@ public class FocusEffectBreak extends FocusEffect
     
     @Override
     public int getComplexity() {
-        return this.getSettingValue("power") * 3 + this.getSettingValue("silk") * 4 + ((this.getSettingValue("fortune") == 0) ? 0 : ((this.getSettingValue("fortune") + 1) * 3));
+        return getSettingValue("power") * 3 + getSettingValue("silk") * 4 + ((getSettingValue("fortune") == 0) ? 0 : ((getSettingValue("fortune") + 1) * 3));
     }
     
     @Override
     public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
         if (target.typeOfHit == RayTraceResult.Type.BLOCK) {
-            PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.getBlockPos().getX() + 0.5, target.getBlockPos().getY() + 0.5, target.getBlockPos().getZ() + 0.5, new String[] { this.getKey() }), new NetworkRegistry.TargetPoint(this.getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
-            final boolean silk = this.getSettingValue("silk") > 0;
-            final int fortune = this.getSettingValue("fortune");
-            final float strength = this.getSettingValue("power") * finalPower;
-            float dur = this.getPackage().world.getBlockState(target.getBlockPos()).getBlockHardness(this.getPackage().world, target.getBlockPos()) * 100.0f;
+            PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.getBlockPos().getX() + 0.5, target.getBlockPos().getY() + 0.5, target.getBlockPos().getZ() + 0.5, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
+            final boolean silk = getSettingValue("silk") > 0;
+            final int fortune = getSettingValue("fortune");
+            final float strength = getSettingValue("power") * finalPower;
+            float dur = getPackage().world.getBlockState(target.getBlockPos()).getBlockHardness(getPackage().world, target.getBlockPos()) * 100.0f;
             dur = (float)Math.sqrt(dur);
-            if (this.getPackage().getCaster() instanceof EntityPlayer) {
-                ServerEvents.addBreaker(this.getPackage().world, target.getBlockPos(), this.getPackage().world.getBlockState(target.getBlockPos()), (EntityPlayer)this.getPackage().getCaster(), true, silk, fortune, strength, dur, dur, (int)(dur / strength / 3.0f * num), 0.25f + (silk ? 0.25f : 0.0f) + fortune * 0.1f, null);
+            if (getPackage().getCaster() instanceof EntityPlayer) {
+                ServerEvents.addBreaker(getPackage().world, target.getBlockPos(), getPackage().world.getBlockState(target.getBlockPos()), (EntityPlayer) getPackage().getCaster(), true, silk, fortune, strength, dur, dur, (int)(dur / strength / 3.0f * num), 0.25f + (silk ? 0.25f : 0.0f) + fortune * 0.1f, null);
             }
             return true;
         }

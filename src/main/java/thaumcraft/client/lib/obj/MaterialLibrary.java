@@ -26,42 +26,42 @@ class MaterialLibrary extends Dictionary<String, Material>
     private Material currentMaterial;
     
     public MaterialLibrary() {
-        this.materialLibrary = new Hashtable<String, Material>();
+        materialLibrary = new Hashtable<String, Material>();
     }
     
     @Override
     public int size() {
-        return this.materialLibrary.size();
+        return materialLibrary.size();
     }
     
     @Override
     public boolean isEmpty() {
-        return this.materialLibrary.isEmpty();
+        return materialLibrary.isEmpty();
     }
     
     @Override
     public Enumeration<String> keys() {
-        return this.materialLibrary.keys();
+        return materialLibrary.keys();
     }
     
     @Override
     public Enumeration<Material> elements() {
-        return this.materialLibrary.elements();
+        return materialLibrary.elements();
     }
     
     @Override
     public Material get(final Object key) {
-        return this.materialLibrary.get(key);
+        return materialLibrary.get(key);
     }
     
     @Override
     public Material put(final String key, final Material value) {
-        return this.materialLibrary.put(key, value);
+        return materialLibrary.put(key, value);
     }
     
     @Override
     public Material remove(final Object key) {
-        return this.materialLibrary.remove(key);
+        return materialLibrary.remove(key);
     }
     
     public void loadFromStream(final ResourceLocation loc) throws IOException {
@@ -83,54 +83,54 @@ class MaterialLibrary extends Dictionary<String, Material>
             final String keyword = fields[0];
             final String data = fields[1];
             if (keyword.equalsIgnoreCase("newmtl")) {
-                this.pushMaterial(data);
+                pushMaterial(data);
             }
             else if (keyword.equalsIgnoreCase("Ka")) {
-                this.currentMaterial.AmbientColor = this.parseVector3f(data);
+                currentMaterial.AmbientColor = parseVector3f(data);
             }
             else if (keyword.equalsIgnoreCase("Kd")) {
-                this.currentMaterial.DiffuseColor = this.parseVector3f(data);
+                currentMaterial.DiffuseColor = parseVector3f(data);
             }
             else if (keyword.equalsIgnoreCase("Ks")) {
-                this.currentMaterial.SpecularColor = this.parseVector3f(data);
+                currentMaterial.SpecularColor = parseVector3f(data);
             }
             else if (keyword.equalsIgnoreCase("Ns")) {
-                this.currentMaterial.SpecularCoefficient = this.parseFloat(data);
+                currentMaterial.SpecularCoefficient = parseFloat(data);
             }
             else if (keyword.equalsIgnoreCase("Tr")) {
-                this.currentMaterial.Transparency = this.parseFloat(data);
+                currentMaterial.Transparency = parseFloat(data);
             }
             else if (keyword.equalsIgnoreCase("illum")) {
-                this.currentMaterial.IlluminationModel = this.parseInt(data);
+                currentMaterial.IlluminationModel = parseInt(data);
             }
             else if (keyword.equalsIgnoreCase("map_Ka")) {
-                this.currentMaterial.AmbientTextureMap = data;
+                currentMaterial.AmbientTextureMap = data;
                 final ResourceLocation resourceLocation = new ResourceLocation(data);
             }
             else if (keyword.equalsIgnoreCase("map_Kd")) {
-                this.currentMaterial.DiffuseTextureMap = data;
+                currentMaterial.DiffuseTextureMap = data;
                 final ResourceLocation resourceLocation2 = new ResourceLocation(data);
             }
             else if (keyword.equalsIgnoreCase("map_Ks")) {
-                this.currentMaterial.SpecularTextureMap = data;
+                currentMaterial.SpecularTextureMap = data;
             }
             else if (keyword.equalsIgnoreCase("map_Ns")) {
-                this.currentMaterial.SpecularHighlightTextureMap = data;
+                currentMaterial.SpecularHighlightTextureMap = data;
             }
             else if (keyword.equalsIgnoreCase("map_d")) {
-                this.currentMaterial.AlphaTextureMap = data;
+                currentMaterial.AlphaTextureMap = data;
             }
             else if (keyword.equalsIgnoreCase("map_bump")) {
-                this.currentMaterial.BumpMap = data;
+                currentMaterial.BumpMap = data;
             }
             else if (keyword.equalsIgnoreCase("bump")) {
-                this.currentMaterial.BumpMap = data;
+                currentMaterial.BumpMap = data;
             }
             else if (keyword.equalsIgnoreCase("disp")) {
-                this.currentMaterial.DisplacementMap = data;
+                currentMaterial.DisplacementMap = data;
             }
             else if (keyword.equalsIgnoreCase("decal")) {
-                this.currentMaterial.StencilDecalMap = data;
+                currentMaterial.StencilDecalMap = data;
             }
             else {
                 if (MaterialLibrary.unknownCommands.contains(keyword)) {
@@ -155,8 +155,8 @@ class MaterialLibrary extends Dictionary<String, Material>
     }
     
     private void pushMaterial(final String materialName) {
-        this.currentMaterial = new Material(materialName);
-        this.materialLibrary.put(this.currentMaterial.Name, this.currentMaterial);
+        currentMaterial = new Material(materialName);
+        materialLibrary.put(currentMaterial.Name, currentMaterial);
     }
     
     static {

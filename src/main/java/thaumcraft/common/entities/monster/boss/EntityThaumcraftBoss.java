@@ -45,58 +45,58 @@ public class EntityThaumcraftBoss extends EntityMob
     
     public EntityThaumcraftBoss(final World world) {
         super(world);
-        this.bossInfo = (BossInfoServer)new BossInfoServer(this.getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS).setDarkenSky(true);
-        this.aggro = new HashMap<Integer, Integer>();
-        this.spawnTimer = 0;
-        this.experienceValue = 50;
+        bossInfo = (BossInfoServer)new BossInfoServer(getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS).setDarkenSky(true);
+        aggro = new HashMap<Integer, Integer>();
+        spawnTimer = 0;
+        experienceValue = 50;
     }
     
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         if (nbt.hasKey("HomeD")) {
-            this.setHomePosAndDistance(new BlockPos(nbt.getInteger("HomeX"), nbt.getInteger("HomeY"), nbt.getInteger("HomeZ")), nbt.getInteger("HomeD"));
+            setHomePosAndDistance(new BlockPos(nbt.getInteger("HomeX"), nbt.getInteger("HomeY"), nbt.getInteger("HomeZ")), nbt.getInteger("HomeD"));
         }
     }
     
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        if (this.getHomePosition() != null && this.getMaximumHomeDistance() > 0.0f) {
-            nbt.setInteger("HomeD", (int)this.getMaximumHomeDistance());
-            nbt.setInteger("HomeX", this.getHomePosition().getX());
-            nbt.setInteger("HomeY", this.getHomePosition().getY());
-            nbt.setInteger("HomeZ", this.getHomePosition().getZ());
+        if (getHomePosition() != null && getMaximumHomeDistance() > 0.0f) {
+            nbt.setInteger("HomeD", (int) getMaximumHomeDistance());
+            nbt.setInteger("HomeX", getHomePosition().getX());
+            nbt.setInteger("HomeY", getHomePosition().getY());
+            nbt.setInteger("HomeZ", getHomePosition().getZ());
         }
     }
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.95);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0);
+        getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.95);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0);
     }
     
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register(EntityThaumcraftBoss.AGGRO, 0);
+        getDataManager().register(EntityThaumcraftBoss.AGGRO, 0);
     }
     
     protected void updateAITasks() {
-        if (this.getSpawnTimer() == 0) {
+        if (getSpawnTimer() == 0) {
             super.updateAITasks();
         }
-        if (this.getAttackTarget() != null && this.getAttackTarget().isDead) {
-            this.setAttackTarget(null);
+        if (getAttackTarget() != null && getAttackTarget().isDead) {
+            setAttackTarget(null);
         }
-        this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
+        bossInfo.setPercent(getHealth() / getMaxHealth());
     }
     
     public void removeTrackingPlayer(final EntityPlayerMP player) {
         super.removeTrackingPlayer(player);
-        this.bossInfo.removePlayer(player);
+        bossInfo.removePlayer(player);
     }
     
     public void addTrackingPlayer(final EntityPlayerMP player) {
         super.addTrackingPlayer(player);
-        this.bossInfo.addPlayer(player);
+        bossInfo.addPlayer(player);
     }
     
     public boolean isNonBoss() {
@@ -104,54 +104,54 @@ public class EntityThaumcraftBoss extends EntityMob
     }
     
     public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
-        this.setHomePosAndDistance(this.getPosition(), 24);
-        this.generateName();
-        this.bossInfo.setName(this.getDisplayName());
+        setHomePosAndDistance(getPosition(), 24);
+        generateName();
+        bossInfo.setName(getDisplayName());
         return data;
     }
     
     public int getAnger() {
-        return (int)this.getDataManager().get((DataParameter)EntityThaumcraftBoss.AGGRO);
+        return (int) getDataManager().get((DataParameter)EntityThaumcraftBoss.AGGRO);
     }
     
     public void setAnger(final int par1) {
-        this.getDataManager().set(EntityThaumcraftBoss.AGGRO, par1);
+        getDataManager().set(EntityThaumcraftBoss.AGGRO, par1);
     }
     
     public int getSpawnTimer() {
-        return this.spawnTimer;
+        return spawnTimer;
     }
     
     public void onUpdate() {
         super.onUpdate();
-        if (this.getSpawnTimer() > 0) {
-            --this.spawnTimer;
+        if (getSpawnTimer() > 0) {
+            --spawnTimer;
         }
-        if (this.getAnger() > 0) {
-            this.setAnger(this.getAnger() - 1);
+        if (getAnger() > 0) {
+            setAnger(getAnger() - 1);
         }
-        if (this.world.isRemote && this.rand.nextInt(15) == 0 && this.getAnger() > 0) {
-            final double d0 = this.rand.nextGaussian() * 0.02;
-            final double d2 = this.rand.nextGaussian() * 0.02;
-            final double d3 = this.rand.nextGaussian() * 0.02;
-            this.world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, this.posX + this.rand.nextFloat() * this.width - this.width / 2.0, this.getEntityBoundingBox().minY + this.height + this.rand.nextFloat() * 0.5, this.posZ + this.rand.nextFloat() * this.width - this.width / 2.0, d0, d2, d3);
+        if (world.isRemote && rand.nextInt(15) == 0 && getAnger() > 0) {
+            final double d0 = rand.nextGaussian() * 0.02;
+            final double d2 = rand.nextGaussian() * 0.02;
+            final double d3 = rand.nextGaussian() * 0.02;
+            world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, posX + rand.nextFloat() * width - width / 2.0, getEntityBoundingBox().minY + height + rand.nextFloat() * 0.5, posZ + rand.nextFloat() * width - width / 2.0, d0, d2, d3);
         }
-        if (!this.world.isRemote) {
-            if (this.ticksExisted % 30 == 0) {
-                this.heal(1.0f);
+        if (!world.isRemote) {
+            if (ticksExisted % 30 == 0) {
+                heal(1.0f);
             }
-            if (this.getAttackTarget() != null && this.ticksExisted % 20 == 0) {
+            if (getAttackTarget() != null && ticksExisted % 20 == 0) {
                 final ArrayList<Integer> dl = new ArrayList<Integer>();
                 int players = 0;
-                int hei = this.getAttackTarget().getEntityId();
+                int hei = getAttackTarget().getEntityId();
                 int ld;
-                final int ad = ld = (this.aggro.containsKey(hei) ? this.aggro.get(hei) : 0);
+                final int ad = ld = (aggro.containsKey(hei) ? aggro.get(hei) : 0);
                 Entity newTarget = null;
-                for (final Integer ei : this.aggro.keySet()) {
-                    final int ca = this.aggro.get(ei);
+                for (final Integer ei : aggro.keySet()) {
+                    final int ca = aggro.get(ei);
                     if (ca > ad + 25 && ca > ad * 1.1 && ca > ld) {
-                        newTarget = this.world.getEntityByID(hei);
-                        if (newTarget == null || newTarget.isDead || this.getDistanceSq(newTarget) > 16384.0) {
+                        newTarget = world.getEntityByID(hei);
+                        if (newTarget == null || newTarget.isDead || getDistanceSq(newTarget) > 16384.0) {
                             dl.add(ei);
                         }
                         else {
@@ -165,14 +165,14 @@ public class EntityThaumcraftBoss extends EntityMob
                     }
                 }
                 for (final Integer ei : dl) {
-                    this.aggro.remove(ei);
+                    aggro.remove(ei);
                 }
-                if (newTarget != null && hei != this.getAttackTarget().getEntityId()) {
-                    this.setAttackTarget((EntityLivingBase)newTarget);
+                if (newTarget != null && hei != getAttackTarget().getEntityId()) {
+                    setAttackTarget((EntityLivingBase)newTarget);
                 }
-                final float om = this.getMaxHealth();
-                final IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
-                final IAttributeInstance iattributeinstance2 = this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+                final float om = getMaxHealth();
+                final IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
+                final IAttributeInstance iattributeinstance2 = getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
                 for (int a = 0; a < 5; ++a) {
                     iattributeinstance2.removeModifier(EntityUtils.DMGBUFF[a]);
                     iattributeinstance.removeModifier(EntityUtils.HPBUFF[a]);
@@ -181,14 +181,14 @@ public class EntityThaumcraftBoss extends EntityMob
                     iattributeinstance.applyModifier(EntityUtils.HPBUFF[a]);
                     iattributeinstance2.applyModifier(EntityUtils.DMGBUFF[a]);
                 }
-                final double mm = this.getMaxHealth() / om;
-                this.setHealth((float)(this.getHealth() * mm));
+                final double mm = getMaxHealth() / om;
+                setHealth((float)(getHealth() * mm));
             }
         }
     }
     
     public boolean isEntityInvulnerable(final DamageSource ds) {
-        return super.isEntityInvulnerable(ds) || this.getSpawnTimer() > 0;
+        return super.isEntityInvulnerable(ds) || getSpawnTimer() > 0;
     }
     
     public boolean canBreatheUnderwater() {
@@ -196,7 +196,7 @@ public class EntityThaumcraftBoss extends EntityMob
     }
     
     public boolean canBePushed() {
-        return super.canBePushed() && !this.isEntityInvulnerable(DamageSource.STARVE);
+        return super.canBePushed() && !isEntityInvulnerable(DamageSource.STARVE);
     }
     
     protected int decreaseAirSupply(final int air) {
@@ -222,34 +222,34 @@ public class EntityThaumcraftBoss extends EntityMob
     }
     
     protected void dropFewItems(final boolean flag, final int fortune) {
-        EntityUtils.entityDropSpecialItem(this, new ItemStack(ItemsTC.primordialPearl), this.height / 2.0f);
-        this.entityDropItem(new ItemStack(ItemsTC.lootBag, 1, 2), 1.5f);
+        EntityUtils.entityDropSpecialItem(this, new ItemStack(ItemsTC.primordialPearl), height / 2.0f);
+        entityDropItem(new ItemStack(ItemsTC.lootBag, 1, 2), 1.5f);
     }
     
     public boolean attackEntityFrom(final DamageSource source, float damage) {
-        if (!this.world.isRemote) {
+        if (!world.isRemote) {
             if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityLivingBase) {
                 final int target = source.getTrueSource().getEntityId();
                 int ad = (int)damage;
-                if (this.aggro.containsKey(target)) {
-                    ad += this.aggro.get(target);
+                if (aggro.containsKey(target)) {
+                    ad += aggro.get(target);
                 }
-                this.aggro.put(target, ad);
+                aggro.put(target, ad);
             }
             if (damage > 35.0f) {
-                if (this.getAnger() == 0) {
+                if (getAnger() == 0) {
                     try {
                         try {
-                            this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200, (int)(damage / 15.0f)));
-                            this.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 200, (int)(damage / 10.0f)));
-                            this.addPotionEffect(new PotionEffect(MobEffects.HASTE, 200, (int)(damage / 40.0f)));
+                            addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200, (int)(damage / 15.0f)));
+                            addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 200, (int)(damage / 10.0f)));
+                            addPotionEffect(new PotionEffect(MobEffects.HASTE, 200, (int)(damage / 40.0f)));
                         }
                         catch (final Exception ex) {}
-                        this.setAnger(200);
+                        setAnger(200);
                     }
                     catch (final Exception ex2) {}
                     if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityPlayer) {
-                        ((EntityPlayer)source.getTrueSource()).sendStatusMessage(new TextComponentTranslation(this.getName() + " " + I18n.translateToLocal("tc.boss.enrage")), true);
+                        ((EntityPlayer)source.getTrueSource()).sendStatusMessage(new TextComponentTranslation(getName() + " " + I18n.translateToLocal("tc.boss.enrage")), true);
                     }
                 }
                 damage = 35.0f;

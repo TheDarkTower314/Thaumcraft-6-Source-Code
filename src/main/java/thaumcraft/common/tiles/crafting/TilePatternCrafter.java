@@ -43,61 +43,61 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
     ItemStack outStack;
     
     public TilePatternCrafter() {
-        this.type = 0;
-        this.count = new Random(System.currentTimeMillis()).nextInt(20);
-        this.craftMatrix = new InventoryCrafting(new Container() {
+        type = 0;
+        count = new Random(System.currentTimeMillis()).nextInt(20);
+        craftMatrix = new InventoryCrafting(new Container() {
             public boolean canInteractWith(final EntityPlayer playerIn) {
                 return false;
             }
         }, 3, 3);
-        this.power = 0.0f;
-        this.rotTicks = 0;
-        this.outStack = null;
+        power = 0.0f;
+        rotTicks = 0;
+        outStack = null;
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbt) {
-        this.type = nbt.getByte("type");
+        type = nbt.getByte("type");
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbt) {
-        nbt.setByte("type", this.type);
+        nbt.setByte("type", type);
         return nbt;
     }
     
     @Override
     public void readFromNBT(final NBTTagCompound nbt) {
-        this.power = nbt.getFloat("power");
+        power = nbt.getFloat("power");
         super.readFromNBT(nbt);
     }
     
     @Override
     public NBTTagCompound writeToNBT(final NBTTagCompound nbt) {
-        nbt.setFloat("power", this.power);
+        nbt.setFloat("power", power);
         return super.writeToNBT(nbt);
     }
     
     public void update() {
-        if (this.world.isRemote) {
-            if (this.rotTicks > 0) {
-                --this.rotTicks;
-                if (this.rotTicks % Math.floor(Math.max(1.0f, this.rp)) == 0.0) {
-                    this.world.playSound(this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5, SoundsTC.clack, SoundCategory.BLOCKS, 0.2f, 1.7f, false);
+        if (world.isRemote) {
+            if (rotTicks > 0) {
+                --rotTicks;
+                if (rotTicks % Math.floor(Math.max(1.0f, rp)) == 0.0) {
+                    world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundsTC.clack, SoundCategory.BLOCKS, 0.2f, 1.7f, false);
                 }
-                ++this.rp;
+                ++rp;
             }
             else {
-                this.rp *= 0.8f;
+                rp *= 0.8f;
             }
-            this.rot += this.rp;
+            rot += rp;
         }
-        if (!this.world.isRemote && this.count++ % 20 == 0 && BlockStateUtils.isEnabled(this.getBlockMetadata())) {
-            if (this.power <= 0.0f) {
-                this.power += AuraHelper.drainVis(this.getWorld(), this.getPos(), 5.0f, false);
+        if (!world.isRemote && count++ % 20 == 0 && BlockStateUtils.isEnabled(getBlockMetadata())) {
+            if (power <= 0.0f) {
+                power += AuraHelper.drainVis(getWorld(), getPos(), 5.0f, false);
             }
             int amt = 9;
-            switch (this.type) {
+            switch (type) {
                 case 0: {
                     amt = 9;
                     break;
@@ -130,31 +130,31 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
                     break;
                 }
             }
-            final IItemHandler above = ThaumcraftInvHelper.getItemHandlerAt(this.getWorld(), this.getPos().up(), EnumFacing.DOWN);
-            final IItemHandler below = ThaumcraftInvHelper.getItemHandlerAt(this.getWorld(), this.getPos().down(), EnumFacing.UP);
+            final IItemHandler above = ThaumcraftInvHelper.getItemHandlerAt(getWorld(), getPos().up(), EnumFacing.DOWN);
+            final IItemHandler below = ThaumcraftInvHelper.getItemHandlerAt(getWorld(), getPos().down(), EnumFacing.UP);
             if (above != null && below != null) {
                 for (int a = 0; a < above.getSlots(); ++a) {
                     final ItemStack testStack = above.getStackInSlot(a).copy();
                     if (!testStack.isEmpty()) {
                         testStack.setCount(amt);
-                        if (InventoryUtils.removeStackFrom(this.getWorld(), this.getPos().up(), EnumFacing.DOWN, testStack.copy(), ThaumcraftInvHelper.InvFilter.BASEORE, true).getCount() == amt && this.craft(testStack) && this.power >= 1.0f && ItemHandlerHelper.insertItem(below, this.outStack.copy(), true).isEmpty()) {
+                        if (InventoryUtils.removeStackFrom(getWorld(), getPos().up(), EnumFacing.DOWN, testStack.copy(), ThaumcraftInvHelper.InvFilter.BASEORE, true).getCount() == amt && craft(testStack) && power >= 1.0f && ItemHandlerHelper.insertItem(below, outStack.copy(), true).isEmpty()) {
                             boolean b = true;
                             for (int i = 0; i < 9; ++i) {
-                                if (this.craftMatrix.getStackInSlot(i) != null && !ItemHandlerHelper.insertItem(below, this.craftMatrix.getStackInSlot(i).copy(), true).isEmpty()) {
+                                if (craftMatrix.getStackInSlot(i) != null && !ItemHandlerHelper.insertItem(below, craftMatrix.getStackInSlot(i).copy(), true).isEmpty()) {
                                     b = false;
                                     break;
                                 }
                             }
                             if (b) {
-                                ItemHandlerHelper.insertItem(below, this.outStack.copy(), false);
+                                ItemHandlerHelper.insertItem(below, outStack.copy(), false);
                                 for (int i = 0; i < 9; ++i) {
-                                    if (this.craftMatrix.getStackInSlot(i) != null) {
-                                        ItemHandlerHelper.insertItem(below, this.craftMatrix.getStackInSlot(i).copy(), false);
+                                    if (craftMatrix.getStackInSlot(i) != null) {
+                                        ItemHandlerHelper.insertItem(below, craftMatrix.getStackInSlot(i).copy(), false);
                                     }
                                 }
-                                InventoryUtils.removeStackFrom(this.getWorld(), this.getPos().up(), EnumFacing.DOWN, testStack, ThaumcraftInvHelper.InvFilter.BASEORE, false);
-                                this.world.addBlockEvent(this.getPos(), this.getBlockType(), 1, 0);
-                                --this.power;
+                                InventoryUtils.removeStackFrom(getWorld(), getPos().up(), EnumFacing.DOWN, testStack, ThaumcraftInvHelper.InvFilter.BASEORE, false);
+                                world.addBlockEvent(getPos(), getBlockType(), 1, 0);
+                                --power;
                                 break;
                             }
                         }
@@ -165,61 +165,61 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
     }
     
     private boolean craft(final ItemStack inStack) {
-        this.outStack = ItemStack.EMPTY;
-        this.craftMatrix.clear();
-        switch (this.type) {
+        outStack = ItemStack.EMPTY;
+        craftMatrix.clear();
+        switch (type) {
             case 0: {
                 for (int a = 0; a < 9; ++a) {
-                    this.craftMatrix.setInventorySlotContents(a, ItemHandlerHelper.copyStackWithSize(inStack, 1));
+                    craftMatrix.setInventorySlotContents(a, ItemHandlerHelper.copyStackWithSize(inStack, 1));
                 }
                 break;
             }
             case 1: {
-                this.craftMatrix.setInventorySlotContents(0, ItemHandlerHelper.copyStackWithSize(inStack, 1));
+                craftMatrix.setInventorySlotContents(0, ItemHandlerHelper.copyStackWithSize(inStack, 1));
                 break;
             }
             case 2: {
                 for (int a = 0; a < 2; ++a) {
-                    this.craftMatrix.setInventorySlotContents(a, ItemHandlerHelper.copyStackWithSize(inStack, 1));
+                    craftMatrix.setInventorySlotContents(a, ItemHandlerHelper.copyStackWithSize(inStack, 1));
                 }
                 break;
             }
             case 3: {
                 for (int a = 0; a < 2; ++a) {
-                    this.craftMatrix.setInventorySlotContents(a * 3, ItemHandlerHelper.copyStackWithSize(inStack, 1));
+                    craftMatrix.setInventorySlotContents(a * 3, ItemHandlerHelper.copyStackWithSize(inStack, 1));
                 }
                 break;
             }
             case 4: {
                 for (int a = 0; a < 2; ++a) {
                     for (int b = 0; b < 2; ++b) {
-                        this.craftMatrix.setInventorySlotContents(a + b * 3, ItemHandlerHelper.copyStackWithSize(inStack, 1));
+                        craftMatrix.setInventorySlotContents(a + b * 3, ItemHandlerHelper.copyStackWithSize(inStack, 1));
                     }
                 }
                 break;
             }
             case 5: {
                 for (int a = 0; a < 3; ++a) {
-                    this.craftMatrix.setInventorySlotContents(a, ItemHandlerHelper.copyStackWithSize(inStack, 1));
+                    craftMatrix.setInventorySlotContents(a, ItemHandlerHelper.copyStackWithSize(inStack, 1));
                 }
                 break;
             }
             case 6: {
                 for (int a = 0; a < 3; ++a) {
-                    this.craftMatrix.setInventorySlotContents(a * 3, ItemHandlerHelper.copyStackWithSize(inStack, 1));
+                    craftMatrix.setInventorySlotContents(a * 3, ItemHandlerHelper.copyStackWithSize(inStack, 1));
                 }
                 break;
             }
             case 7: {
                 for (int a = 0; a < 6; ++a) {
-                    this.craftMatrix.setInventorySlotContents(a, ItemHandlerHelper.copyStackWithSize(inStack, 1));
+                    craftMatrix.setInventorySlotContents(a, ItemHandlerHelper.copyStackWithSize(inStack, 1));
                 }
                 break;
             }
             case 8: {
                 for (int a = 0; a < 2; ++a) {
                     for (int b = 0; b < 3; ++b) {
-                        this.craftMatrix.setInventorySlotContents(a + b * 3, ItemHandlerHelper.copyStackWithSize(inStack, 1));
+                        craftMatrix.setInventorySlotContents(a + b * 3, ItemHandlerHelper.copyStackWithSize(inStack, 1));
                     }
                 }
                 break;
@@ -227,44 +227,44 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
             case 9: {
                 for (int a = 0; a < 9; ++a) {
                     if (a != 4) {
-                        this.craftMatrix.setInventorySlotContents(a, ItemHandlerHelper.copyStackWithSize(inStack, 1));
+                        craftMatrix.setInventorySlotContents(a, ItemHandlerHelper.copyStackWithSize(inStack, 1));
                     }
                 }
                 break;
             }
         }
-        final IRecipe ir = CraftingManager.findMatchingRecipe(this.craftMatrix, this.world);
+        final IRecipe ir = CraftingManager.findMatchingRecipe(craftMatrix, world);
         if (ir == null) {
             return false;
         }
-        this.outStack = ir.getCraftingResult(this.craftMatrix);
-        final NonNullList<ItemStack> aitemstack = CraftingManager.getRemainingItems(this.craftMatrix, this.world);
+        outStack = ir.getCraftingResult(craftMatrix);
+        final NonNullList<ItemStack> aitemstack = CraftingManager.getRemainingItems(craftMatrix, world);
         for (int i = 0; i < aitemstack.size(); ++i) {
-            final ItemStack itemstack1 = this.craftMatrix.getStackInSlot(i);
+            final ItemStack itemstack1 = craftMatrix.getStackInSlot(i);
             final ItemStack itemstack2 = aitemstack.get(i);
             if (!itemstack1.isEmpty()) {
-                this.craftMatrix.setInventorySlotContents(i, ItemStack.EMPTY);
+                craftMatrix.setInventorySlotContents(i, ItemStack.EMPTY);
             }
-            if (!itemstack1.isEmpty() && this.craftMatrix.getStackInSlot(i).isEmpty()) {
-                this.craftMatrix.setInventorySlotContents(i, itemstack2);
+            if (!itemstack1.isEmpty() && craftMatrix.getStackInSlot(i).isEmpty()) {
+                craftMatrix.setInventorySlotContents(i, itemstack2);
             }
         }
-        return !this.outStack.isEmpty();
+        return !outStack.isEmpty();
     }
     
     public void cycle() {
-        ++this.type;
-        if (this.type > 9) {
-            this.type = 0;
+        ++type;
+        if (type > 9) {
+            type = 0;
         }
-        this.syncTile(false);
-        this.markDirty();
+        syncTile(false);
+        markDirty();
     }
     
     public boolean receiveClientEvent(final int i, final int j) {
         if (i == 1) {
-            if (this.world.isRemote) {
-                this.rotTicks = 10;
+            if (world.isRemote) {
+                rotTicks = 10;
             }
             return true;
         }
@@ -276,23 +276,23 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
     }
     
     public void addTraceableCuboids(final List<IndexedCuboid6> cuboids) {
-        final EnumFacing facing = BlockStateUtils.getFacing(this.getBlockMetadata());
-        cuboids.add(new IndexedCuboid6(0, this.getCuboidByFacing(facing)));
+        final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
+        cuboids.add(new IndexedCuboid6(0, getCuboidByFacing(facing)));
     }
     
     public Cuboid6 getCuboidByFacing(final EnumFacing facing) {
         switch (facing) {
             default: {
-                return new Cuboid6(this.getPos().getX() + 0.75, this.getPos().getY() + 0.125, this.getPos().getZ() + 0.375, this.getPos().getX() + 0.875, this.getPos().getY() + 0.375, this.getPos().getZ() + 0.625);
+                return new Cuboid6(getPos().getX() + 0.75, getPos().getY() + 0.125, getPos().getZ() + 0.375, getPos().getX() + 0.875, getPos().getY() + 0.375, getPos().getZ() + 0.625);
             }
             case EAST: {
-                return new Cuboid6(this.getPos().getX() + 0.125, this.getPos().getY() + 0.125, this.getPos().getZ() + 0.375, this.getPos().getX() + 0.25, this.getPos().getY() + 0.375, this.getPos().getZ() + 0.625);
+                return new Cuboid6(getPos().getX() + 0.125, getPos().getY() + 0.125, getPos().getZ() + 0.375, getPos().getX() + 0.25, getPos().getY() + 0.375, getPos().getZ() + 0.625);
             }
             case NORTH: {
-                return new Cuboid6(this.getPos().getX() + 0.375, this.getPos().getY() + 0.125, this.getPos().getZ() + 0.75, this.getPos().getX() + 0.625, this.getPos().getY() + 0.375, this.getPos().getZ() + 0.875);
+                return new Cuboid6(getPos().getX() + 0.375, getPos().getY() + 0.125, getPos().getZ() + 0.75, getPos().getX() + 0.625, getPos().getY() + 0.375, getPos().getZ() + 0.875);
             }
             case SOUTH: {
-                return new Cuboid6(this.getPos().getX() + 0.375, this.getPos().getY() + 0.125, this.getPos().getZ() + 0.125, this.getPos().getX() + 0.625, this.getPos().getY() + 0.375, this.getPos().getZ() + 0.25);
+                return new Cuboid6(getPos().getX() + 0.375, getPos().getY() + 0.125, getPos().getZ() + 0.125, getPos().getX() + 0.625, getPos().getY() + 0.375, getPos().getZ() + 0.25);
             }
         }
     }

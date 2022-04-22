@@ -47,12 +47,12 @@ public class ItemVoidRobeArmor extends ItemArmor implements IVisDiscountGear, IG
     
     public ItemVoidRobeArmor(final String name, final ItemArmor.ArmorMaterial enumarmormaterial, final int j, final EntityEquipmentSlot k) {
         super(enumarmormaterial, j, k);
-        this.model1 = null;
-        this.model2 = null;
-        this.model = null;
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        model1 = null;
+        model2 = null;
+        model = null;
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName(name);
+        setUnlocalizedName(name);
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     
@@ -119,13 +119,13 @@ public class ItemVoidRobeArmor extends ItemArmor implements IVisDiscountGear, IG
     
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(final EntityLivingBase entityLiving, final ItemStack itemStack, final EntityEquipmentSlot armorSlot, final ModelBiped _default) {
-        if (this.model1 == null) {
-            this.model1 = new ModelRobe(1.0f);
+        if (model1 == null) {
+            model1 = new ModelRobe(1.0f);
         }
-        if (this.model2 == null) {
-            this.model2 = new ModelRobe(0.5f);
+        if (model2 == null) {
+            model2 = new ModelRobe(0.5f);
         }
-        return this.model = CustomArmorHelper.getCustomArmorModel(entityLiving, itemStack, armorSlot, this.model, this.model1, this.model2);
+        return model = CustomArmorHelper.getCustomArmorModel(entityLiving, itemStack, armorSlot, model, model1, model2);
     }
     
     public boolean hasColor(final ItemStack stack1) {
@@ -166,10 +166,10 @@ public class ItemVoidRobeArmor extends ItemArmor implements IVisDiscountGear, IG
     
     public ISpecialArmor.ArmorProperties getProperties(final EntityLivingBase player, final ItemStack armor, final DamageSource source, final double damage, final int slot) {
         int priority = 0;
-        double ratio = this.damageReduceAmount / 25.0;
+        double ratio = damageReduceAmount / 25.0;
         if (source.isMagicDamage()) {
             priority = 1;
-            ratio = this.damageReduceAmount / 35.0;
+            ratio = damageReduceAmount / 35.0;
         }
         else if (source.isUnblockable()) {
             priority = 0;
@@ -179,7 +179,7 @@ public class ItemVoidRobeArmor extends ItemArmor implements IVisDiscountGear, IG
     }
     
     public int getArmorDisplay(final EntityPlayer player, final ItemStack armor, final int slot) {
-        return this.damageReduceAmount;
+        return damageReduceAmount;
     }
     
     public void damageArmor(final EntityLivingBase entity, final ItemStack stack, final DamageSource source, final int damage, final int slot) {
@@ -195,7 +195,7 @@ public class ItemVoidRobeArmor extends ItemArmor implements IVisDiscountGear, IG
             final BlockCauldron cauldron = Blocks.CAULDRON;
             final int i = (int)blockState.getValue((IProperty)BlockCauldron.LEVEL);
             if (!world.isRemote && i > 0) {
-                this.removeColor(player.getHeldItem(hand));
+                removeColor(player.getHeldItem(hand));
                 Blocks.CAULDRON.setWaterLevel(world, pos, bs, i - 1);
                 return EnumActionResult.SUCCESS;
             }

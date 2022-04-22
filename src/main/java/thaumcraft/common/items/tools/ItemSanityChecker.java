@@ -12,7 +12,7 @@ public class ItemSanityChecker extends ItemTCBase
 {
     public ItemSanityChecker() {
         super("sanity_checker");
-        this.setMaxStackSize(1);
+        setMaxStackSize(1);
     }
     
     public EnumRarity getRarity(final ItemStack itemstack) {

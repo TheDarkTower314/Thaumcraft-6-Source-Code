@@ -28,44 +28,44 @@ public class TileVoidSiphon extends TileThaumcraftInventory
     
     public TileVoidSiphon() {
         super(1);
-        this.counter = 0;
-        this.progress = 0;
+        counter = 0;
+        progress = 0;
     }
     
     @Override
     public void update() {
         super.update();
-        ++this.counter;
-        if (!this.getWorld().isRemote || !BlockStateUtils.isEnabled(this.getBlockMetadata())) {
-            if (!this.getWorld().isRemote && BlockStateUtils.isEnabled(this.getBlockMetadata()) && this.counter % 20 == 0 && this.progress < 2000 && (this.getStackInSlot(0).isEmpty() || (this.getStackInSlot(0).getItem() == ItemsTC.voidSeed && this.getStackInSlot(0).getCount() < this.getStackInSlot(0).getMaxStackSize()))) {
-                final List<EntityFluxRift> frl = this.getValidRifts();
+        ++counter;
+        if (!getWorld().isRemote || !BlockStateUtils.isEnabled(getBlockMetadata())) {
+            if (!getWorld().isRemote && BlockStateUtils.isEnabled(getBlockMetadata()) && counter % 20 == 0 && progress < 2000 && (getStackInSlot(0).isEmpty() || (getStackInSlot(0).getItem() == ItemsTC.voidSeed && getStackInSlot(0).getCount() < getStackInSlot(0).getMaxStackSize()))) {
+                final List<EntityFluxRift> frl = getValidRifts();
                 boolean b = false;
                 for (final EntityFluxRift fr : frl) {
                     final double d = Math.sqrt(fr.getRiftSize());
-                    this.progress += (int)d;
+                    progress += (int)d;
                     fr.setRiftStability((float)(fr.getRiftStability() - d / 15.0));
-                    if (this.world.rand.nextInt(33) == 0) {
+                    if (world.rand.nextInt(33) == 0) {
                         fr.setRiftSize(fr.getRiftSize() - 1);
                     }
                     b = (d >= 1.0);
                 }
-                if (b && this.counter % 40 == 0) {
-                    this.world.addBlockEvent(this.pos, this.getBlockType(), 5, this.counter);
+                if (b && counter % 40 == 0) {
+                    world.addBlockEvent(pos, getBlockType(), 5, counter);
                 }
                 b = false;
-                while (this.progress >= 2000 && (this.getStackInSlot(0).isEmpty() || (this.getStackInSlot(0).getItem() == ItemsTC.voidSeed && this.getStackInSlot(0).getCount() < this.getStackInSlot(0).getMaxStackSize()))) {
-                    this.progress -= 2000;
-                    if (this.getStackInSlot(0).isEmpty()) {
-                        this.setInventorySlotContents(0, new ItemStack(ItemsTC.voidSeed));
+                while (progress >= 2000 && (getStackInSlot(0).isEmpty() || (getStackInSlot(0).getItem() == ItemsTC.voidSeed && getStackInSlot(0).getCount() < getStackInSlot(0).getMaxStackSize()))) {
+                    progress -= 2000;
+                    if (getStackInSlot(0).isEmpty()) {
+                        setInventorySlotContents(0, new ItemStack(ItemsTC.voidSeed));
                     }
                     else {
-                        this.getStackInSlot(0).setCount(this.getStackInSlot(0).getCount() + 1);
+                        getStackInSlot(0).setCount(getStackInSlot(0).getCount() + 1);
                     }
                     b = true;
                 }
                 if (b) {
-                    this.syncTile(false);
-                    this.markDirty();
+                    syncTile(false);
+                    markDirty();
                 }
             }
         }
@@ -73,15 +73,15 @@ public class TileVoidSiphon extends TileThaumcraftInventory
     
     private List<EntityFluxRift> getValidRifts() {
         final ArrayList<EntityFluxRift> ret = new ArrayList<EntityFluxRift>();
-        final List<EntityFluxRift> frl = EntityUtils.getEntitiesInRange(this.getWorld(), this.getPos(), null, EntityFluxRift.class, 8.0);
+        final List<EntityFluxRift> frl = EntityUtils.getEntitiesInRange(getWorld(), getPos(), null, EntityFluxRift.class, 8.0);
         for (final EntityFluxRift fr : frl) {
             if (!fr.isDead) {
                 if (fr.getRiftSize() < 2) {
                     continue;
                 }
-                final double xx = this.getPos().getX() + 0.5;
-                final double yy = this.getPos().getY() + 1;
-                final double zz = this.getPos().getZ() + 0.5;
+                final double xx = getPos().getX() + 0.5;
+                final double yy = getPos().getY() + 1;
+                final double zz = getPos().getZ() + 0.5;
                 Vec3d v1 = new Vec3d(xx, yy, zz);
                 final Vec3d v2 = new Vec3d(fr.posX, fr.posY, fr.posZ);
                 v1 = v1.add(v2.subtract(v1).normalize());
@@ -97,13 +97,13 @@ public class TileVoidSiphon extends TileThaumcraftInventory
     @Override
     public void readFromNBT(final NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        this.progress = nbt.getShort("progress");
+        progress = nbt.getShort("progress");
     }
     
     @Override
     public NBTTagCompound writeToNBT(final NBTTagCompound nbt) {
         super.writeToNBT(nbt);
-        nbt.setShort("progress", (short)this.progress);
+        nbt.setShort("progress", (short) progress);
         return nbt;
     }
     
@@ -129,10 +129,10 @@ public class TileVoidSiphon extends TileThaumcraftInventory
     
     public boolean receiveClientEvent(final int i, final int j) {
         if (i == 5) {
-            if (this.world.isRemote) {
-                final List<EntityFluxRift> frl = this.getValidRifts();
+            if (world.isRemote) {
+                final List<EntityFluxRift> frl = getValidRifts();
                 for (final EntityFluxRift fr : frl) {
-                    FXDispatcher.INSTANCE.voidStreak(fr.posX, fr.posY, fr.posZ, this.getPos().getX() + 0.5, this.getPos().getY() + 0.5625f, this.getPos().getZ() + 0.5, j, 0.04f);
+                    FXDispatcher.INSTANCE.voidStreak(fr.posX, fr.posY, fr.posZ, getPos().getX() + 0.5, getPos().getY() + 0.5625f, getPos().getZ() + 0.5, j, 0.04f);
                 }
             }
             return true;

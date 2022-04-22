@@ -19,9 +19,9 @@ public class ItemThaumiumShovel extends ItemSpade implements IThaumcraftItems
 {
     public ItemThaumiumShovel(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("thaumium_shovel");
-        this.setUnlocalizedName("thaumium_shovel");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("thaumium_shovel");
+        setUnlocalizedName("thaumium_shovel");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

@@ -34,9 +34,9 @@ public class CommandThaumcraft extends CommandBase
     private List aliases;
     
     public CommandThaumcraft() {
-        (this.aliases = new ArrayList()).add("thaumcraft");
-        this.aliases.add("thaum");
-        this.aliases.add("tc");
+        (aliases = new ArrayList()).add("thaumcraft");
+        aliases.add("thaum");
+        aliases.add("tc");
     }
     
     public String getName() {
@@ -44,7 +44,7 @@ public class CommandThaumcraft extends CommandBase
     }
     
     public List<String> getAliases() {
-        return this.aliases;
+        return aliases;
     }
     
     public String getUsage(final ICommandSender icommandsender) {
@@ -86,28 +86,28 @@ public class CommandThaumcraft extends CommandBase
         }
         else if (args.length >= 2) {
             if (args[0].equalsIgnoreCase("research") && args[1].equalsIgnoreCase("list")) {
-                this.listResearch(sender);
+                listResearch(sender);
             }
             else {
                 final EntityPlayerMP entityplayermp = getPlayer(server, sender, args[1]);
                 if (args[0].equalsIgnoreCase("research")) {
                     if (args.length == 3) {
                         if (args[2].equalsIgnoreCase("list")) {
-                            this.listAllResearch(sender, entityplayermp);
+                            listAllResearch(sender, entityplayermp);
                         }
                         else if (args[2].equalsIgnoreCase("all")) {
-                            this.giveAllResearch(sender, entityplayermp);
+                            giveAllResearch(sender, entityplayermp);
                         }
                         else if (args[2].equalsIgnoreCase("reset")) {
-                            this.resetResearch(sender, entityplayermp);
+                            resetResearch(sender, entityplayermp);
                         }
                         else {
-                            this.giveResearch(sender, entityplayermp, args[2]);
+                            giveResearch(sender, entityplayermp, args[2]);
                         }
                     }
                     else if (args.length == 4) {
                         if (args[2].equalsIgnoreCase("revoke")) {
-                            this.revokeResearch(sender, entityplayermp, args[3]);
+                            revokeResearch(sender, entityplayermp, args[3]);
                         }
                     }
                     else {
@@ -118,11 +118,11 @@ public class CommandThaumcraft extends CommandBase
                 else if (args[0].equalsIgnoreCase("warp")) {
                     if (args.length >= 4 && args[2].equalsIgnoreCase("set")) {
                         final int i = parseInt(args[3], 0);
-                        this.setWarp(sender, entityplayermp, i, (args.length == 5) ? args[4] : "");
+                        setWarp(sender, entityplayermp, i, (args.length == 5) ? args[4] : "");
                     }
                     else if (args.length >= 4 && args[2].equalsIgnoreCase("add")) {
                         final int i = parseInt(args[3], -100, 100);
-                        this.addWarp(sender, entityplayermp, i, (args.length == 5) ? args[4] : "");
+                        addWarp(sender, entityplayermp, i, (args.length == 5) ? args[4] : "");
                     }
                     else {
                         sender.sendMessage(new TextComponentTranslation("§cInvalid arguments"));

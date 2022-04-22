@@ -47,8 +47,8 @@ public class BlockJar extends BlockTCTile implements ILabelable
 {
     public BlockJar(final Class t, final String name) {
         super(Material.GLASS, t, name);
-        this.setHardness(0.3f);
-        this.setSoundType(SoundsTC.JAR);
+        setHardness(0.3f);
+        setSoundType(SoundsTC.JAR);
     }
     
     public SoundType getSoundType() {
@@ -77,7 +77,7 @@ public class BlockJar extends BlockTCTile implements ILabelable
     }
     
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        return this.getStateFromMeta(meta);
+        return getStateFromMeta(meta);
     }
     
     @Override
@@ -90,10 +90,10 @@ public class BlockJar extends BlockTCTile implements ILabelable
     public void dropBlockAsItemWithChance(final World worldIn, final BlockPos pos, final IBlockState state, final float chance, final int fortune) {
         final TileEntity te = worldIn.getTileEntity(pos);
         if (te instanceof TileJarFillable) {
-            this.spawnFilledJar(worldIn, pos, state, (TileJarFillable)te);
+            spawnFilledJar(worldIn, pos, state, (TileJarFillable)te);
         }
         else if (te instanceof TileJarBrain) {
-            this.spawnBrainJar(worldIn, pos, state, (TileJarBrain)te);
+            spawnBrainJar(worldIn, pos, state, (TileJarBrain)te);
         }
         else {
             super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
@@ -102,10 +102,10 @@ public class BlockJar extends BlockTCTile implements ILabelable
     
     public void harvestBlock(final World worldIn, final EntityPlayer player, final BlockPos pos, final IBlockState state, final TileEntity te, final ItemStack stack) {
         if (te instanceof TileJarFillable) {
-            this.spawnFilledJar(worldIn, pos, state, (TileJarFillable)te);
+            spawnFilledJar(worldIn, pos, state, (TileJarFillable)te);
         }
         else if (te instanceof TileJarBrain) {
-            this.spawnBrainJar(worldIn, pos, state, (TileJarBrain)te);
+            spawnBrainJar(worldIn, pos, state, (TileJarBrain)te);
         }
         else {
             super.harvestBlock(worldIn, player, pos, state, null, stack);
@@ -113,7 +113,7 @@ public class BlockJar extends BlockTCTile implements ILabelable
     }
     
     private void spawnFilledJar(final World world, final BlockPos pos, final IBlockState state, final TileJarFillable te) {
-        final ItemStack drop = new ItemStack(this, 1, this.getMetaFromState(state));
+        final ItemStack drop = new ItemStack(this, 1, getMetaFromState(state));
         if (te.amount > 0) {
             ((BlockJarItem)drop.getItem()).setAspects(drop, new AspectList().add(te.aspect, te.amount));
         }
@@ -130,7 +130,7 @@ public class BlockJar extends BlockTCTile implements ILabelable
     }
     
     private void spawnBrainJar(final World world, final BlockPos pos, final IBlockState state, final TileJarBrain te) {
-        final ItemStack drop = new ItemStack(this, 1, this.getMetaFromState(state));
+        final ItemStack drop = new ItemStack(this, 1, getMetaFromState(state));
         if (te.xp > 0) {
             drop.setTagInfo("xp", new NBTTagInt(te.xp));
         }
@@ -227,7 +227,7 @@ public class BlockJar extends BlockTCTile implements ILabelable
         if (((TileJarFillable)te).amount == 0 && ((IEssentiaContainerItem)labelstack.getItem()).getAspects(labelstack) != null) {
             ((TileJarFillable)te).aspect = ((IEssentiaContainerItem)labelstack.getItem()).getAspects(labelstack).getAspects()[0];
         }
-        this.onBlockPlacedBy(player.world, pos, player.world.getBlockState(pos), player, null);
+        onBlockPlacedBy(player.world, pos, player.world.getBlockState(pos), player, null);
         ((TileJarFillable)te).aspectFilter = ((TileJarFillable)te).aspect;
         player.world.markAndNotifyBlock(pos, player.world.getChunkFromBlockCoords(pos), player.world.getBlockState(pos), player.world.getBlockState(pos), 3);
         te.markDirty();

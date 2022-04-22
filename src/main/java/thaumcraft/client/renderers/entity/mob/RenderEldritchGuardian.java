@@ -27,7 +27,7 @@ public class RenderEldritchGuardian extends RenderLiving
     
     public RenderEldritchGuardian(final RenderManager rm, final ModelEldritchGuardian par1ModelBiped, final float par2) {
         super(rm, par1ModelBiped, par2);
-        this.modelMain = par1ModelBiped;
+        modelMain = par1ModelBiped;
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {
@@ -67,7 +67,7 @@ public class RenderEldritchGuardian extends RenderLiving
     }
     
     public void doRender(final EntityLiving par1Entity, final double par2, final double par4, final double par6, final float par8, final float par9) {
-        this.doRenderLiving(par1Entity, par2, par4, par6, par8, par9);
+        doRenderLiving(par1Entity, par2, par4, par6, par8, par9);
     }
     
     static {

@@ -27,13 +27,13 @@ public class PacketMiscStringToServer implements IMessage, IMessageHandler<Packe
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.id);
-        ByteBufUtils.writeUTF8String(buffer, this.text);
+        buffer.writeInt(id);
+        ByteBufUtils.writeUTF8String(buffer, text);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.id = buffer.readInt();
-        this.text = ByteBufUtils.readUTF8String(buffer);
+        id = buffer.readInt();
+        text = ByteBufUtils.readUTF8String(buffer);
     }
     
     public IMessage onMessage(final PacketMiscStringToServer message, final MessageContext ctx) {
@@ -42,7 +42,7 @@ public class PacketMiscStringToServer implements IMessage, IMessageHandler<Packe
             @Override
             public void run() {
                 final EntityPlayerMP player = ctx.getServerHandler().player;
-                if (PacketMiscStringToServer.this.id == 0 && player.openContainer instanceof ContainerLogistics) {
+                if (id == 0 && player.openContainer instanceof ContainerLogistics) {
                     final ContainerLogistics container = (ContainerLogistics)player.openContainer;
                     container.searchText = message.text;
                     container.refreshItemList(true);

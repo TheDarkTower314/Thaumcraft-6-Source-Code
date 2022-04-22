@@ -14,6 +14,6 @@ public class IrreversibleTransformationException extends RuntimeException
     
     @Override
     public String getMessage() {
-        return "The following transformation is irreversible:\n" + this.t;
+        return "The following transformation is irreversible:\n" + t;
     }
 }

@@ -31,8 +31,8 @@ public class ItemGolemBell extends ItemTCBase implements ISealDisplayer
 {
     public ItemGolemBell() {
         super("golem_bell");
-        this.setHasSubtypes(false);
-        this.setMaxStackSize(1);
+        setHasSubtypes(false);
+        setMaxStackSize(1);
     }
     
     public ActionResult<ItemStack> onItemRightClick(final World worldIn, final EntityPlayer playerIn, final EnumHand hand) {

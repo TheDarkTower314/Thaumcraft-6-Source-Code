@@ -50,18 +50,18 @@ public class FocusMediumTouch extends FocusMedium
     
     @Override
     public Trajectory[] supplyTrajectories() {
-        if (this.getParent() == null) {
+        if (getParent() == null) {
             return new Trajectory[0];
         }
         final ArrayList<Trajectory> trajectories = new ArrayList<Trajectory>();
-        final double range = (this instanceof FocusMediumBolt) ? 16.0 : RayTracer.getBlockReachDistance((EntityPlayer)this.getPackage().getCaster());
-        for (final Trajectory sT : this.getParent().supplyTrajectories()) {
+        final double range = (this instanceof FocusMediumBolt) ? 16.0 : RayTracer.getBlockReachDistance((EntityPlayer) getPackage().getCaster());
+        for (final Trajectory sT : getParent().supplyTrajectories()) {
             Vec3d end = sT.direction.normalize();
-            RayTraceResult ray = EntityUtils.getPointedEntityRay(this.getPackage().world, this.getPackage().getCaster(), sT.source, end, 0.25, range, 0.25f, false);
+            RayTraceResult ray = EntityUtils.getPointedEntityRay(getPackage().world, getPackage().getCaster(), sT.source, end, 0.25, range, 0.25f, false);
             if (ray == null) {
                 end = end.scale(range);
                 end = end.add(sT.source);
-                ray = this.getPackage().world.rayTraceBlocks(sT.source, end);
+                ray = getPackage().world.rayTraceBlocks(sT.source, end);
                 if (ray != null) {
                     end = ray.hitVec;
                 }
@@ -77,18 +77,18 @@ public class FocusMediumTouch extends FocusMedium
     
     @Override
     public RayTraceResult[] supplyTargets() {
-        if (this.getParent() == null || !(this.getPackage().getCaster() instanceof EntityPlayer)) {
+        if (getParent() == null || !(getPackage().getCaster() instanceof EntityPlayer)) {
             return new RayTraceResult[0];
         }
         final ArrayList<RayTraceResult> targets = new ArrayList<RayTraceResult>();
-        final double range = (this instanceof FocusMediumBolt) ? 16.0 : RayTracer.getBlockReachDistance((EntityPlayer)this.getPackage().getCaster());
-        for (final Trajectory sT : this.getParent().supplyTrajectories()) {
+        final double range = (this instanceof FocusMediumBolt) ? 16.0 : RayTracer.getBlockReachDistance((EntityPlayer) getPackage().getCaster());
+        for (final Trajectory sT : getParent().supplyTrajectories()) {
             Vec3d end = sT.direction.normalize();
-            RayTraceResult ray = EntityUtils.getPointedEntityRay(this.getPackage().world, this.getPackage().getCaster(), sT.source, end, 0.25, range, 0.25f, false);
+            RayTraceResult ray = EntityUtils.getPointedEntityRay(getPackage().world, getPackage().getCaster(), sT.source, end, 0.25, range, 0.25f, false);
             if (ray == null) {
                 end = end.scale(range);
                 end = end.add(sT.source);
-                ray = this.getPackage().world.rayTraceBlocks(sT.source, end);
+                ray = getPackage().world.rayTraceBlocks(sT.source, end);
             }
             if (ray != null) {
                 targets.add(ray);
@@ -99,13 +99,13 @@ public class FocusMediumTouch extends FocusMedium
     
     @Override
     public boolean execute(final Trajectory trajectory) {
-        final FocusEffect[] fe = this.getPackage().getFocusEffects();
+        final FocusEffect[] fe = getPackage().getFocusEffects();
         if (fe != null && fe.length > 0) {
             final String[] effects = new String[fe.length];
             for (int a = 0; a < fe.length; ++a) {
                 effects[a] = fe[a].getKey();
             }
-            PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusEffect((float)trajectory.source.x, (float)trajectory.source.y, (float)trajectory.source.z, (float)trajectory.direction.x / 2.0f, (float)trajectory.direction.y / 2.0f, (float)trajectory.direction.z / 2.0f, effects), new NetworkRegistry.TargetPoint(this.getPackage().world.provider.getDimension(), (float)trajectory.source.x, (float)trajectory.source.y, (float)trajectory.source.z, 64.0));
+            PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusEffect((float)trajectory.source.x, (float)trajectory.source.y, (float)trajectory.source.z, (float)trajectory.direction.x / 2.0f, (float)trajectory.direction.y / 2.0f, (float)trajectory.direction.z / 2.0f, effects), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), (float)trajectory.source.x, (float)trajectory.source.y, (float)trajectory.source.z, 64.0));
         }
         return true;
     }

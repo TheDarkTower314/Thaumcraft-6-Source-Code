@@ -23,12 +23,12 @@ public class GuiGolemRedstoneButton extends GuiButton
     }
     
     public void drawButton(final Minecraft mc, final int xx, final int yy, final float partialTicks) {
-        if (this.visible) {
+        if (visible) {
             final FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiGolemRedstoneButton.tex);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            this.hovered = (xx >= this.x && yy >= this.y && xx < this.x + this.width && yy < this.y + this.height);
-            final int k = this.getHoverState(this.hovered);
+            hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);
+            final int k = getHoverState(hovered);
             if (k == 2) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             }
@@ -38,19 +38,19 @@ public class GuiGolemRedstoneButton extends GuiButton
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.blendFunc(770, 771);
-            if (this.seal.isRedstoneSensitive()) {
-                this.drawTexturedModalRect(this.x, this.y, 64, 136, 16, 16);
+            if (seal.isRedstoneSensitive()) {
+                drawTexturedModalRect(x, y, 64, 136, 16, 16);
             }
             else {
-                this.drawTexturedModalRect(this.x, this.y, 80, 136, 16, 16);
+                drawTexturedModalRect(x, y, 80, 136, 16, 16);
             }
             if (k == 2) {
-                this.zLevel += 90.0f;
-                final String s = this.seal.isRedstoneSensitive() ? I18n.translateToLocal("golem.prop.redon") : I18n.translateToLocal("golem.prop.redoff");
-                this.drawString(fontrenderer, s, this.x - 2 - fontrenderer.getStringWidth(s), this.y + 4, 16777215);
-                this.zLevel -= 90.0f;
+                zLevel += 90.0f;
+                final String s = seal.isRedstoneSensitive() ? I18n.translateToLocal("golem.prop.redon") : I18n.translateToLocal("golem.prop.redoff");
+                drawString(fontrenderer, s, x - 2 - fontrenderer.getStringWidth(s), y + 4, 16777215);
+                zLevel -= 90.0f;
             }
-            this.mouseDragged(mc, xx, yy);
+            mouseDragged(mc, xx, yy);
         }
     }
     

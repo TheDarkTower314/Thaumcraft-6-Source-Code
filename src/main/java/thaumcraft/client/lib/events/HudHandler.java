@@ -57,14 +57,14 @@ public class HudHandler
     final ResourceLocation TAGBACK;
     
     public HudHandler() {
-        this.HUD = new ResourceLocation("thaumcraft", "textures/gui/hud.png");
-        this.knowledgeGainTrackers = new LinkedBlockingQueue<KnowledgeGainTracker>();
-        this.kgFade = 0.0f;
-        this.nextsync = 0L;
-        this.secondsFormatter = new DecimalFormat("#######.#");
-        this.lastItem = null;
-        this.lastCount = 0;
-        this.TAGBACK = new ResourceLocation("thaumcraft", "textures/aspects/_back.png");
+        HUD = new ResourceLocation("thaumcraft", "textures/gui/hud.png");
+        knowledgeGainTrackers = new LinkedBlockingQueue<KnowledgeGainTracker>();
+        kgFade = 0.0f;
+        nextsync = 0L;
+        secondsFormatter = new DecimalFormat("#######.#");
+        lastItem = null;
+        lastCount = 0;
+        TAGBACK = new ResourceLocation("thaumcraft", "textures/aspects/_back.png");
     }
     
     @SideOnly(Side.CLIENT)
@@ -82,9 +82,9 @@ public class HudHandler
         final int hh = sr.getScaledHeight();
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
-        this.renderHudsInGUI(mc, renderTickTime, player, time, ww, hh);
+        renderHudsInGUI(mc, renderTickTime, player, time, ww, hh);
         if (mc.inGameHasFocus && Minecraft.isGuiEnabled()) {
-            mc.renderEngine.bindTexture(this.HUD);
+            mc.renderEngine.bindTexture(HUD);
             ItemStack handStack = player.getHeldItemMainhand();
             boolean rC = false;
             boolean rT = false;
@@ -93,19 +93,19 @@ public class HudHandler
             for (int a = 0; a < 2; ++a) {
                 if (handStack != null && !handStack.isEmpty()) {
                     if (!rC && handStack.getItem() instanceof ICaster) {
-                        this.renderCastingWandHud(mc, renderTickTime, player, time, handStack, start);
+                        renderCastingWandHud(mc, renderTickTime, player, time, handStack, start);
                         rC = true;
                         if (!ModConfig.CONFIG_GRAPHICS.dialBottom) {
                             start += 33;
                         }
                     }
                     else if (!rT && handStack.getItem() instanceof ItemThaumometer) {
-                        this.renderThaumometerHud(mc, renderTickTime, player, time, ww, hh, start);
+                        renderThaumometerHud(mc, renderTickTime, player, time, ww, hh, start);
                         rT = true;
                         start += 80;
                     }
                     else if (!rS && handStack.getItem() instanceof ItemSanityChecker) {
-                        this.renderSanityHud(mc, renderTickTime, player, time, start);
+                        renderSanityHud(mc, renderTickTime, player, time, start);
                         rS = true;
                         start += 75;
                     }
@@ -119,21 +119,21 @@ public class HudHandler
     
     @SideOnly(Side.CLIENT)
     void renderHudsInGUI(final Minecraft mc, final float renderTickTime, final EntityPlayer player, final long time, final int ww, final int hh) {
-        if (this.kgFade > 0.0f) {
-            this.renderKnowledgeGains(mc, renderTickTime, player, time, ww, hh);
+        if (kgFade > 0.0f) {
+            renderKnowledgeGains(mc, renderTickTime, player, time, ww, hh);
         }
     }
     
     @SideOnly(Side.CLIENT)
     void renderKnowledgeGains(final Minecraft mc, final float renderTickTime, final EntityPlayer player, final long time, final int ww, final int hh) {
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, this.kgFade / 40.0f);
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, kgFade / 40.0f);
         mc.renderEngine.bindTexture(HudHandler.BOOK);
         UtilsFX.drawTexturedQuadFull((float)(ww - 17), (float)(hh - 17), -90.0);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         final LinkedBlockingQueue<KnowledgeGainTracker> temp = new LinkedBlockingQueue<KnowledgeGainTracker>();
         int a = 0;
-        while (!this.knowledgeGainTrackers.isEmpty()) {
-            final KnowledgeGainTracker current = this.knowledgeGainTrackers.poll();
+        while (!knowledgeGainTrackers.isEmpty()) {
+            final KnowledgeGainTracker current = knowledgeGainTrackers.poll();
             if (current != null) {
                 mc.renderEngine.bindTexture(HudHandler.KNOW_TYPE[current.type.ordinal()]);
                 final Random rand = new Random(current.seed);
@@ -203,7 +203,7 @@ public class HudHandler
             ++a;
         }
         while (!temp.isEmpty()) {
-            this.knowledgeGainTrackers.offer(temp.poll());
+            knowledgeGainTrackers.offer(temp.poll());
         }
     }
     
@@ -244,10 +244,10 @@ public class HudHandler
                 GL11.glPushMatrix();
                 GL11.glTranslated(16.0, start, 0.0);
                 GL11.glScaled(0.5, 0.5, 0.5);
-                final String msg = this.secondsFormatter.format(HudHandler.currentAura.getVis());
+                final String msg = secondsFormatter.format(HudHandler.currentAura.getVis());
                 mc.ingameGUI.drawString(mc.fontRenderer, msg, 0, 0, 15641343);
                 GL11.glPopMatrix();
-                mc.renderEngine.bindTexture(this.HUD);
+                mc.renderEngine.bindTexture(HUD);
             }
         }
         if (flux > 0.0f) {
@@ -269,10 +269,10 @@ public class HudHandler
                 GL11.glPushMatrix();
                 GL11.glTranslated(16.0, start - 4.0f, 0.0);
                 GL11.glScaled(0.5, 0.5, 0.5);
-                final String msg = this.secondsFormatter.format(HudHandler.currentAura.getFlux());
+                final String msg = secondsFormatter.format(HudHandler.currentAura.getFlux());
                 mc.ingameGUI.drawString(mc.fontRenderer, msg, 0, 0, 11145659);
                 GL11.glPopMatrix();
-                mc.renderEngine.bindTexture(this.HUD);
+                mc.renderEngine.bindTexture(HUD);
             }
         }
         GL11.glPushMatrix();
@@ -366,7 +366,7 @@ public class HudHandler
         GL11.glTranslatef(0.0f, (float)dailLocation, -2000.0f);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
-        mc.renderEngine.bindTexture(this.HUD);
+        mc.renderEngine.bindTexture(HUD);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glPushMatrix();
         GL11.glScaled(0.5, 0.5, 0.5);
@@ -395,23 +395,23 @@ public class HudHandler
         if (player.isSneaking()) {
             GL11.glPushMatrix();
             GL11.glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
-            String msg = this.secondsFormatter.format(amt);
+            String msg = secondsFormatter.format(amt);
             mc.ingameGUI.drawString(mc.fontRenderer, msg, -32, -4, 16777215);
             GL11.glPopMatrix();
             if (focus != null && focus.getVisCost(focusStack) > 0.0f) {
                 final float mod = wand.getConsumptionModifier(wandstack, player, false);
                 GL11.glPushMatrix();
-                msg = this.secondsFormatter.format(focus.getVisCost(focusStack) * mod);
+                msg = secondsFormatter.format(focus.getVisCost(focusStack) * mod);
                 mc.ingameGUI.drawString(mc.fontRenderer, msg, -32 - mc.ingameGUI.getFontRenderer().getStringWidth(msg) / 2, 32, 16777215);
                 GL11.glPopMatrix();
             }
-            mc.renderEngine.bindTexture(this.HUD);
+            mc.renderEngine.bindTexture(HUD);
         }
         GL11.glPopMatrix();
         if (focus != null) {
             final ItemStack pickedStack = wand.getPickedBlock(player.inventory.getCurrentItem());
             if (pickedStack != null && !pickedStack.isEmpty()) {
-                this.renderWandTradeHud(partialTicks, player, time, pickedStack);
+                renderWandTradeHud(partialTicks, player, time, pickedStack);
             }
             else {
                 GL11.glPushMatrix();
@@ -439,18 +439,18 @@ public class HudHandler
             return;
         }
         final Minecraft mc = Minecraft.getMinecraft();
-        int amount = this.lastCount;
-        if (this.lastItem == null || this.lastItem.isEmpty() || player.inventory.getTimesChanged() > 0 || !picked.isItemEqual(this.lastItem)) {
+        int amount = lastCount;
+        if (lastItem == null || lastItem.isEmpty() || player.inventory.getTimesChanged() > 0 || !picked.isItemEqual(lastItem)) {
             amount = 0;
             for (final ItemStack is : player.inventory.mainInventory) {
                 if (is != null && !is.isEmpty() && is.isItemEqual(picked)) {
                     amount += is.getCount();
                 }
             }
-            this.lastItem = picked;
+            lastItem = picked;
             player.inventory.markDirty();
         }
-        this.lastCount = amount;
+        lastCount = amount;
         GL11.glPushMatrix();
         RenderHelper.enableGUIStandardItemLighting();
         GL11.glDisable(2896);
@@ -525,14 +525,14 @@ public class HudHandler
         boolean sparks;
         
         public KnowledgeGainTracker(final IPlayerKnowledge.EnumKnowledgeType type, final ResearchCategory category, int progress, final long seed) {
-            this.sparks = false;
+            sparks = false;
             this.type = type;
             this.category = category;
             if (type == IPlayerKnowledge.EnumKnowledgeType.THEORY) {
                 progress += 10;
             }
             this.progress = progress;
-            this.max = progress;
+            max = progress;
             this.seed = seed;
         }
     }

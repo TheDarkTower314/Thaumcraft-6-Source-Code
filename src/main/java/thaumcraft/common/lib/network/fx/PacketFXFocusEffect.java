@@ -47,30 +47,30 @@ public class PacketFXFocusEffect implements IMessage, IMessageHandler<PacketFXFo
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeFloat(this.x);
-        buffer.writeFloat(this.y);
-        buffer.writeFloat(this.z);
-        buffer.writeFloat(this.mx);
-        buffer.writeFloat(this.my);
-        buffer.writeFloat(this.mz);
-        ByteBufUtils.writeUTF8String(buffer, this.parts);
+        buffer.writeFloat(x);
+        buffer.writeFloat(y);
+        buffer.writeFloat(z);
+        buffer.writeFloat(mx);
+        buffer.writeFloat(my);
+        buffer.writeFloat(mz);
+        ByteBufUtils.writeUTF8String(buffer, parts);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.x = buffer.readFloat();
-        this.y = buffer.readFloat();
-        this.z = buffer.readFloat();
-        this.mx = buffer.readFloat();
-        this.my = buffer.readFloat();
-        this.mz = buffer.readFloat();
-        this.parts = ByteBufUtils.readUTF8String(buffer);
+        x = buffer.readFloat();
+        y = buffer.readFloat();
+        z = buffer.readFloat();
+        mx = buffer.readFloat();
+        my = buffer.readFloat();
+        mz = buffer.readFloat();
+        parts = ByteBufUtils.readUTF8String(buffer);
     }
     
     public IMessage onMessage(final PacketFXFocusEffect message, final MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                PacketFXFocusEffect.this.processMessage(message);
+                processMessage(message);
             }
         });
         return null;

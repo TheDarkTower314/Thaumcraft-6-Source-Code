@@ -19,11 +19,11 @@ public class PotionDeathGaze extends Potion
     
     public PotionDeathGaze(final boolean par2, final int par3) {
         super(par2, par3);
-        this.statusIconIndex = -1;
-        this.setIconIndex(0, 0);
-        this.setPotionName("potion.deathgaze");
-        this.setIconIndex(4, 2);
-        this.setEffectiveness(0.25);
+        statusIconIndex = -1;
+        setIconIndex(0, 0);
+        setPotionName("potion.deathgaze");
+        setIconIndex(4, 2);
+        setEffectiveness(0.25);
     }
     
     public boolean isBadEffect() {

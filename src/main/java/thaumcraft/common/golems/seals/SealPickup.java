@@ -41,10 +41,10 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
     protected ISealConfigToggles.SealToggle[] props;
     
     public SealPickup() {
-        this.delay = new Random(System.nanoTime()).nextInt(100);
-        this.itemEntities = new HashMap<Integer, Integer>();
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_pickup");
-        this.props = new ISealConfigToggles.SealToggle[] { new ISealConfigToggles.SealToggle(true, "pmeta", "golem.prop.meta"), new ISealConfigToggles.SealToggle(true, "pnbt", "golem.prop.nbt"), new ISealConfigToggles.SealToggle(false, "pore", "golem.prop.ore"), new ISealConfigToggles.SealToggle(false, "pmod", "golem.prop.mod") };
+        delay = new Random(System.nanoTime()).nextInt(100);
+        itemEntities = new HashMap<Integer, Integer>();
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_pickup");
+        props = new ISealConfigToggles.SealToggle[] { new ISealConfigToggles.SealToggle(true, "pmeta", "golem.prop.meta"), new ISealConfigToggles.SealToggle(true, "pnbt", "golem.prop.nbt"), new ISealConfigToggles.SealToggle(false, "pore", "golem.prop.ore"), new ISealConfigToggles.SealToggle(false, "pmod", "golem.prop.mod") };
     }
     
     @Override
@@ -54,7 +54,7 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
     
     @Override
     public void tickSeal(final World world, final ISealEntity seal) {
-        if (this.delay++ % 5 != 0) {
+        if (delay++ % 5 != 0) {
             return;
         }
         final AxisAlignedBB area = GolemHelper.getBoundsForArea(seal);
@@ -62,12 +62,12 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
         if (list.size() > 0) {
             for (final Object e : list) {
                 final EntityItem ent = (EntityItem)e;
-                if (ent != null && ent.onGround && !ent.cannotPickup() && ent.getItem() != null && !this.itemEntities.containsValue(ent.getEntityId())) {
-                    final ItemStack stack = InventoryUtils.findFirstMatchFromFilter(this.filter, this.filterSize, this.isBlacklist(), NonNullList.withSize(1, ent.getItem()), new ThaumcraftInvHelper.InvFilter(!this.props[0].value, !this.props[1].value, this.props[2].value, this.props[3].value));
+                if (ent != null && ent.onGround && !ent.cannotPickup() && ent.getItem() != null && !itemEntities.containsValue(ent.getEntityId())) {
+                    final ItemStack stack = InventoryUtils.findFirstMatchFromFilter(filter, filterSize, isBlacklist(), NonNullList.withSize(1, ent.getItem()), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
                     if (stack != null && !stack.isEmpty()) {
                         final Task task = new Task(seal.getSealPos(), ent);
                         task.setPriority(seal.getPriority());
-                        this.itemEntities.put(task.getId(), ent.getEntityId());
+                        itemEntities.put(task.getId(), ent.getEntityId());
                         TaskHandler.addTask(world.provider.getDimension(), task);
                         break;
                     }
@@ -75,8 +75,8 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
                 }
             }
         }
-        if (this.delay % 100 != 0) {
-            final Iterator<Integer> it = this.itemEntities.values().iterator();
+        if (delay % 100 != 0) {
+            final Iterator<Integer> it = itemEntities.values().iterator();
             while (it.hasNext()) {
                 final Entity e2 = world.getEntityByID(it.next());
                 if (e2 != null) {
@@ -94,9 +94,9 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
     
     @Override
     public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
-        final EntityItem ei = this.getItemEntity(world, task);
+        final EntityItem ei = getItemEntity(world, task);
         if (ei != null && !ei.getItem().isEmpty()) {
-            final ItemStack stack = InventoryUtils.findFirstMatchFromFilter(this.filter, this.filterSize, this.isBlacklist(), NonNullList.withSize(1, ei.getItem()), new ThaumcraftInvHelper.InvFilter(!this.props[0].value, !this.props[1].value, this.props[2].value, this.props[3].value));
+            final ItemStack stack = InventoryUtils.findFirstMatchFromFilter(filter, filterSize, isBlacklist(), NonNullList.withSize(1, ei.getItem()), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
             if (stack != null && !stack.isEmpty()) {
                 final ItemStack is = golem.holdItem(ei.getItem());
                 if (is != null && !is.isEmpty() && is.getCount() > 0) {
@@ -110,10 +110,10 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
             }
         }
         task.setSuspended(true);
-        this.itemEntities.remove(task.getId());
+        itemEntities.remove(task.getId());
         final ArrayList<Task> localTasks = TaskHandler.getEntityTasksSorted(world.provider.getDimension(), null, (Entity)golem);
         for (final Task ticket : localTasks) {
-            if (this.itemEntities.containsKey(ticket.getId()) && ticket.canGolemPerformTask(golem) && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(ticket.getEntity().getPosition())) {
+            if (itemEntities.containsKey(ticket.getId()) && ticket.canGolemPerformTask(golem) && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(ticket.getEntity().getPosition())) {
                 ((EntityThaumcraftGolem)golem).setTask(ticket);
                 ((EntityThaumcraftGolem)golem).getTask().setReserved(true);
                 if (ModConfig.CONFIG_GRAPHICS.showGolemEmotes) {
@@ -127,7 +127,7 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
     }
     
     protected EntityItem getItemEntity(final World world, final Task task) {
-        final Integer ei = this.itemEntities.get(task.getId());
+        final Integer ei = itemEntities.get(task.getId());
         if (ei != null) {
             final Entity ent = world.getEntityByID(ei);
             if (ent != null && ent instanceof EntityItem) {
@@ -139,7 +139,7 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
     
     @Override
     public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
-        final EntityItem ei = this.getItemEntity(golem.getGolemWorld(), task);
+        final EntityItem ei = getItemEntity(golem.getGolemWorld(), task);
         if (ei == null || ei.getItem() == null) {
             return false;
         }
@@ -157,7 +157,7 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override

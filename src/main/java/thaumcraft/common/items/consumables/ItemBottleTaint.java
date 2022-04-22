@@ -21,10 +21,10 @@ public class ItemBottleTaint extends ItemTCBase
 {
     public ItemBottleTaint() {
         super("bottle_taint");
-        this.maxStackSize = 8;
-        this.setMaxDamage(0);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setHasSubtypes(false);
+        maxStackSize = 8;
+        setMaxDamage(0);
+        setCreativeTab(ConfigItems.TABTC);
+        setHasSubtypes(false);
     }
     
     public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {

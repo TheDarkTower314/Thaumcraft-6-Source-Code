@@ -25,47 +25,47 @@ public class GuiPech extends GuiContainer
     
     public GuiPech(final InventoryPlayer par1InventoryPlayer, final World world, final EntityPech pech) {
         super(new ContainerPech(par1InventoryPlayer, world, pech));
-        this.tex = new ResourceLocation("thaumcraft", "textures/gui/gui_pech.png");
-        this.xSize = 175;
-        this.ySize = 232;
+        tex = new ResourceLocation("thaumcraft", "textures/gui/gui_pech.png");
+        xSize = 175;
+        ySize = 232;
         this.pech = pech;
     }
     
     public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
-        this.drawDefaultBackground();
+        drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.renderHoveredToolTip(mouseX, mouseY);
+        renderHoveredToolTip(mouseX, mouseY);
     }
     
     protected void drawGuiContainerForegroundLayer(final int par1, final int par2) {
     }
     
     protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
-        this.mc.renderEngine.bindTexture(this.tex);
+        mc.renderEngine.bindTexture(tex);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        final int var5 = (this.width - this.xSize) / 2;
-        final int var6 = (this.height - this.ySize) / 2;
+        final int var5 = (width - xSize) / 2;
+        final int var6 = (height - ySize) / 2;
         GL11.glEnable(3042);
-        this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, this.ySize);
-        if (this.pech.isValued(this.inventorySlots.getSlot(0).getStack()) && !this.inventorySlots.getSlot(0).getStack().isEmpty() && this.inventorySlots.getSlot(1).getStack().isEmpty() && this.inventorySlots.getSlot(2).getStack().isEmpty() && this.inventorySlots.getSlot(3).getStack().isEmpty() && this.inventorySlots.getSlot(4).getStack().isEmpty()) {
-            this.drawTexturedModalRect(var5 + 67, var6 + 24, 176, 0, 25, 25);
+        drawTexturedModalRect(var5, var6, 0, 0, xSize, ySize);
+        if (pech.isValued(inventorySlots.getSlot(0).getStack()) && !inventorySlots.getSlot(0).getStack().isEmpty() && inventorySlots.getSlot(1).getStack().isEmpty() && inventorySlots.getSlot(2).getStack().isEmpty() && inventorySlots.getSlot(3).getStack().isEmpty() && inventorySlots.getSlot(4).getStack().isEmpty()) {
+            drawTexturedModalRect(var5 + 67, var6 + 24, 176, 0, 25, 25);
         }
         GL11.glDisable(3042);
     }
     
     protected void mouseClicked(final int mx, final int my, final int par3) throws IOException {
         super.mouseClicked(mx, my, par3);
-        final int gx = (this.width - this.xSize) / 2;
-        final int gy = (this.height - this.ySize) / 2;
+        final int gx = (width - xSize) / 2;
+        final int gy = (height - ySize) / 2;
         final int var7 = mx - (gx + 67);
         final int var8 = my - (gy + 24);
-        if (var7 >= 0 && var8 >= 0 && var7 < 25 && var8 < 25 && this.pech.isValued(this.inventorySlots.getSlot(0).getStack()) && !this.inventorySlots.getSlot(0).getStack().isEmpty() && this.inventorySlots.getSlot(1).getStack().isEmpty() && this.inventorySlots.getSlot(2).getStack().isEmpty() && this.inventorySlots.getSlot(3).getStack().isEmpty() && this.inventorySlots.getSlot(4).getStack().isEmpty()) {
-            this.mc.playerController.sendEnchantPacket(this.inventorySlots.windowId, 0);
-            this.playButton();
+        if (var7 >= 0 && var8 >= 0 && var7 < 25 && var8 < 25 && pech.isValued(inventorySlots.getSlot(0).getStack()) && !inventorySlots.getSlot(0).getStack().isEmpty() && inventorySlots.getSlot(1).getStack().isEmpty() && inventorySlots.getSlot(2).getStack().isEmpty() && inventorySlots.getSlot(3).getStack().isEmpty() && inventorySlots.getSlot(4).getStack().isEmpty()) {
+            mc.playerController.sendEnchantPacket(inventorySlots.windowId, 0);
+            playButton();
         }
     }
     
     private void playButton() {
-        this.mc.getRenderViewEntity().playSound(SoundsTC.pech_dice, 0.5f, 0.95f + this.mc.getRenderViewEntity().world.rand.nextFloat() * 0.1f);
+        mc.getRenderViewEntity().playSound(SoundsTC.pech_dice, 0.5f, 0.95f + mc.getRenderViewEntity().world.rand.nextFloat() * 0.1f);
     }
 }

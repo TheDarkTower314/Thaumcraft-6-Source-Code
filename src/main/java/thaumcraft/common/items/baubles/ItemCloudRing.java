@@ -29,9 +29,9 @@ public class ItemCloudRing extends ItemTCBase implements IBauble
     
     public ItemCloudRing() {
         super("cloud_ring");
-        this.maxStackSize = 1;
-        this.canRepair = false;
-        this.setMaxDamage(0);
+        maxStackSize = 1;
+        canRepair = false;
+        setMaxDamage(0);
     }
     
     public EnumRarity getRarity(final ItemStack itemstack) {

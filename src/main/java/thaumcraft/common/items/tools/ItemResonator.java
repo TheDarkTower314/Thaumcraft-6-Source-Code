@@ -32,9 +32,9 @@ public class ItemResonator extends ItemTCBase
 {
     public ItemResonator() {
         super("resonator");
-        this.setMaxStackSize(1);
-        this.setMaxStackSize(1);
-        this.setCreativeTab(ConfigItems.TABTC);
+        setMaxStackSize(1);
+        setMaxStackSize(1);
+        setCreativeTab(ConfigItems.TABTC);
     }
     
     public EnumRarity getRarity(final ItemStack itemstack) {

@@ -25,27 +25,27 @@ public class CardMindOverMatter extends TheorycraftCard
     static ItemStack[] options;
     
     public CardMindOverMatter() {
-        this.stack = ItemStack.EMPTY;
+        stack = ItemStack.EMPTY;
     }
     
     @Override
     public NBTTagCompound serialize() {
         final NBTTagCompound nbt = super.serialize();
-        nbt.setTag("stack", this.stack.serializeNBT());
+        nbt.setTag("stack", stack.serializeNBT());
         return nbt;
     }
     
     @Override
     public void deserialize(final NBTTagCompound nbt) {
         super.deserialize(nbt);
-        this.stack = new ItemStack(nbt.getCompoundTag("stack"));
+        stack = new ItemStack(nbt.getCompoundTag("stack"));
     }
     
     @Override
     public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(this.getSeed());
-        this.stack = CardMindOverMatter.options[r.nextInt(CardMindOverMatter.options.length)].copy();
-        return this.stack != null;
+        final Random r = new Random(getSeed());
+        stack = CardMindOverMatter.options[r.nextInt(CardMindOverMatter.options.length)].copy();
+        return stack != null;
     }
     
     @Override
@@ -65,13 +65,13 @@ public class CardMindOverMatter extends TheorycraftCard
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.mindmatter.text", this.getVal()).getFormattedText();
+        return new TextComponentTranslation("card.mindmatter.text", getVal()).getFormattedText();
     }
     
     private int getVal() {
         int q = 10;
         try {
-            q += (int)Math.sqrt(ThaumcraftCraftingManager.getObjectTags(this.stack).visSize());
+            q += (int)Math.sqrt(ThaumcraftCraftingManager.getObjectTags(stack).visSize());
         }
         catch (final Exception ex) {}
         return q;
@@ -79,7 +79,7 @@ public class CardMindOverMatter extends TheorycraftCard
     
     @Override
     public ItemStack[] getRequiredItems() {
-        return new ItemStack[] { this.stack };
+        return new ItemStack[] { stack };
     }
     
     @Override
@@ -89,7 +89,7 @@ public class CardMindOverMatter extends TheorycraftCard
     
     @Override
     public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        data.addTotal(this.getResearchCategory(), this.getVal());
+        data.addTotal(getResearchCategory(), getVal());
         return true;
     }
     

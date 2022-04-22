@@ -24,8 +24,8 @@ public class ProvisionRequest {
 		this.stack = stack.copy();
 		String s = seal.getSealPos().pos.toString() + seal.getSealPos().face.name() +stack.toString();
 		if (stack.hasTagCompound()) s += stack.getTagCompound().toString();
-		this.id = s.hashCode();
-		this.timeout = System.currentTimeMillis() + 10000;
+		id = s.hashCode();
+		timeout = System.currentTimeMillis() + 10000;
 	}
 	
 	ProvisionRequest(BlockPos pos, EnumFacing side, ItemStack stack) {
@@ -34,8 +34,8 @@ public class ProvisionRequest {
 		this.stack = stack.copy();
 		String s = pos.toString() + side.name() +stack.toString();
 		if (stack.hasTagCompound()) s += stack.getTagCompound().toString();
-		this.id = s.hashCode();
-		this.timeout = System.currentTimeMillis() + 10000;
+		id = s.hashCode();
+		timeout = System.currentTimeMillis() + 10000;
 	}
 	
 	ProvisionRequest(Entity entity, ItemStack stack) {
@@ -43,8 +43,8 @@ public class ProvisionRequest {
 		this.stack = stack.copy();
 		String s = entity.getEntityId() + stack.toString();
 		if (stack.hasTagCompound()) s += stack.getTagCompound().toString();
-		this.id = s.hashCode();
-		this.timeout = System.currentTimeMillis() + 10000;
+		id = s.hashCode();
+		timeout = System.currentTimeMillis() + 10000;
 	}
 		
 	
@@ -99,7 +99,7 @@ public class ProvisionRequest {
 
 	public void setLinkedTask(Task linkedTask) {
 		this.linkedTask = linkedTask;
-		this.timeout = System.currentTimeMillis() + 120000;
+		timeout = System.currentTimeMillis() + 120000;
 	}
 
 	public boolean isInvalid() {
@@ -124,7 +124,7 @@ public class ProvisionRequest {
         else
         {        	
         	ProvisionRequest pr = (ProvisionRequest)p_equals_1_;        	
-            return this.id == pr.id && this.ui == pr.ui;
+            return id == pr.id && ui == pr.ui;
         }
     }
 	

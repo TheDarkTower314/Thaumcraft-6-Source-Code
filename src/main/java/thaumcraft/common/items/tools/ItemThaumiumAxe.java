@@ -19,9 +19,9 @@ public class ItemThaumiumAxe extends ItemAxe implements IThaumcraftItems
 {
     public ItemThaumiumAxe(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial, 8.0f, -3.0f);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("thaumium_axe");
-        this.setUnlocalizedName("thaumium_axe");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("thaumium_axe");
+        setUnlocalizedName("thaumium_axe");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

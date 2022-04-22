@@ -30,12 +30,12 @@ public class BlockTaintLog extends BlockTC implements ITaintBlock
     
     public BlockTaintLog() {
         super(ThaumcraftMaterials.MATERIAL_TAINT, "taint_log");
-        this.setHarvestLevel("axe", 0);
-        this.setHardness(3.0f);
-        this.setResistance(100.0f);
-        this.setSoundType(SoundsTC.GORE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(BlockTaintLog.AXIS, (Comparable)EnumFacing.Axis.Y));
-        this.setTickRandomly(true);
+        setHarvestLevel("axe", 0);
+        setHardness(3.0f);
+        setResistance(100.0f);
+        setSoundType(SoundsTC.GORE);
+        setDefaultState(blockState.getBaseState().withProperty(BlockTaintLog.AXIS, (Comparable)EnumFacing.Axis.Y));
+        setTickRandomly(true);
     }
     
     public SoundType getSoundType() {
@@ -58,7 +58,7 @@ public class BlockTaintLog extends BlockTC implements ITaintBlock
     public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random random) {
         if (!world.isRemote) {
             if (!TaintHelper.isNearTaintSeed(world, pos)) {
-                this.die(world, pos, state);
+                die(world, pos, state);
             }
             else {
                 TaintHelper.spreadFibres(world, pos);
@@ -71,7 +71,7 @@ public class BlockTaintLog extends BlockTC implements ITaintBlock
     }
     
     protected ItemStack getSilkTouchDrop(final IBlockState state) {
-        return new ItemStack(Item.getItemFromBlock(this), 1, this.damageDropped(state));
+        return new ItemStack(Item.getItemFromBlock(this), 1, damageDropped(state));
     }
     
     @Override
@@ -81,7 +81,7 @@ public class BlockTaintLog extends BlockTC implements ITaintBlock
     
     public IBlockState getStateFromMeta(final int meta) {
         final int axis = meta % 3;
-        return this.getDefaultState().withProperty(BlockTaintLog.AXIS, (Comparable)EnumFacing.Axis.values()[axis]);
+        return getDefaultState().withProperty(BlockTaintLog.AXIS, (Comparable)EnumFacing.Axis.values()[axis]);
     }
     
     public int getMetaFromState(final IBlockState state) {

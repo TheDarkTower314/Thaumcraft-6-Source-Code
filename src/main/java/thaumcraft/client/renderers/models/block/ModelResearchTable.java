@@ -16,38 +16,38 @@ public class ModelResearchTable extends ModelBase
     ModelRenderer ScrollRibbon;
     
     public ModelResearchTable() {
-        this.textureWidth = 64;
-        this.textureHeight = 32;
-        (this.Inkwell = new ModelRenderer(this, 0, 16)).addBox(0.0f, 0.0f, 0.0f, 3, 2, 3);
-        this.Inkwell.setRotationPoint(-6.0f, -2.0f, 3.0f);
-        this.Inkwell.mirror = true;
-        this.setRotation(this.Inkwell, 0.0f, 0.0f, 0.0f);
-        (this.ScrollTube = new ModelRenderer(this, 0, 0)).addBox(-8.0f, -0.5f, 0.0f, 8, 2, 2);
-        this.ScrollTube.setRotationPoint(-2.0f, -2.0f, 2.0f);
-        this.ScrollTube.mirror = true;
-        this.setRotation(this.ScrollTube, 0.0f, 10.0f, 0.0f);
-        (this.ScrollRibbon = new ModelRenderer(this, 0, 4)).addBox(-4.25f, -0.275f, 0.0f, 1, 2, 2);
-        this.ScrollRibbon.setRotationPoint(-2.0f, -2.0f, 2.0f);
-        this.ScrollRibbon.mirror = true;
-        this.setRotation(this.ScrollRibbon, 0.0f, 10.0f, 0.0f);
+        textureWidth = 64;
+        textureHeight = 32;
+        (Inkwell = new ModelRenderer(this, 0, 16)).addBox(0.0f, 0.0f, 0.0f, 3, 2, 3);
+        Inkwell.setRotationPoint(-6.0f, -2.0f, 3.0f);
+        Inkwell.mirror = true;
+        setRotation(Inkwell, 0.0f, 0.0f, 0.0f);
+        (ScrollTube = new ModelRenderer(this, 0, 0)).addBox(-8.0f, -0.5f, 0.0f, 8, 2, 2);
+        ScrollTube.setRotationPoint(-2.0f, -2.0f, 2.0f);
+        ScrollTube.mirror = true;
+        setRotation(ScrollTube, 0.0f, 10.0f, 0.0f);
+        (ScrollRibbon = new ModelRenderer(this, 0, 4)).addBox(-4.25f, -0.275f, 0.0f, 1, 2, 2);
+        ScrollRibbon.setRotationPoint(-2.0f, -2.0f, 2.0f);
+        ScrollRibbon.mirror = true;
+        setRotation(ScrollRibbon, 0.0f, 10.0f, 0.0f);
     }
     
     public void renderInkwell() {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
-        this.Inkwell.render(0.0625f);
+        Inkwell.render(0.0625f);
         GL11.glDisable(3042);
         GL11.glPopMatrix();
     }
     
     public void renderScroll(final int color) {
         GL11.glPushMatrix();
-        this.ScrollTube.render(0.0625f);
+        ScrollTube.render(0.0625f);
         final Color c = new Color(color);
         GL11.glColor4f(c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f, 1.0f);
         GL11.glScalef(1.2f, 1.2f, 1.2f);
-        this.ScrollRibbon.render(0.0625f);
+        ScrollRibbon.render(0.0625f);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glPopMatrix();
     }

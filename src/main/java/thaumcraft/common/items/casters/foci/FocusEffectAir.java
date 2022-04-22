@@ -45,27 +45,27 @@ public class FocusEffectAir extends FocusEffect
     
     @Override
     public int getComplexity() {
-        return this.getSettingValue("power") * 2;
+        return getSettingValue("power") * 2;
     }
     
     @Override
     public float getDamageForDisplay(final float finalPower) {
-        return (1 + this.getSettingValue("power")) * finalPower;
+        return (1 + getSettingValue("power")) * finalPower;
     }
     
     @Override
     public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
-        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { this.getKey() }), new NetworkRegistry.TargetPoint(this.getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
-        this.getPackage().world.playSound(null, target.hitVec.x, target.hitVec.y, target.hitVec.z, SoundEvents.ENTITY_ENDERDRAGON_FLAP, SoundCategory.PLAYERS, 0.5f, 0.66f);
+        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
+        getPackage().world.playSound(null, target.hitVec.x, target.hitVec.y, target.hitVec.z, SoundEvents.ENTITY_ENDERDRAGON_FLAP, SoundCategory.PLAYERS, 0.5f, 0.66f);
         if (target.typeOfHit == RayTraceResult.Type.ENTITY && target.entityHit != null) {
-            final float damage = this.getDamageForDisplay(finalPower);
-            target.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((target.entityHit != null) ? target.entityHit : this.getPackage().getCaster(), this.getPackage().getCaster()), damage);
+            final float damage = getDamageForDisplay(finalPower);
+            target.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((target.entityHit != null) ? target.entityHit : getPackage().getCaster(), getPackage().getCaster()), damage);
             if (target.entityHit instanceof EntityLivingBase) {
                 if (trajectory != null) {
-                    ((EntityLivingBase)target.entityHit).knockBack(this.getPackage().getCaster(), damage * 0.25f, -trajectory.direction.x, -trajectory.direction.z);
+                    ((EntityLivingBase)target.entityHit).knockBack(getPackage().getCaster(), damage * 0.25f, -trajectory.direction.x, -trajectory.direction.z);
                 }
                 else {
-                    ((EntityLivingBase)target.entityHit).knockBack(this.getPackage().getCaster(), damage * 0.25f, -MathHelper.sin(target.entityHit.rotationYaw * 0.017453292f), MathHelper.cos(target.entityHit.rotationYaw * 0.017453292f));
+                    ((EntityLivingBase)target.entityHit).knockBack(getPackage().getCaster(), damage * 0.25f, -MathHelper.sin(target.entityHit.rotationYaw * 0.017453292f), MathHelper.cos(target.entityHit.rotationYaw * 0.017453292f));
                 }
             }
             return true;

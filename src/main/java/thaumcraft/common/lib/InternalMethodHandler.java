@@ -64,7 +64,7 @@ public class InternalMethodHandler implements IInternalMethodHandler
             pw.setCounter(pw.get(IPlayerWarp.EnumWarpType.TEMPORARY) + pw.get(IPlayerWarp.EnumWarpType.PERMANENT) + pw.get(IPlayerWarp.EnumWarpType.NORMAL));
         }
         if (type != IPlayerWarp.EnumWarpType.TEMPORARY && ThaumcraftCapabilities.knowsResearchStrict(player, "FIRSTSTEPS") && !ThaumcraftCapabilities.knowsResearchStrict(player, "WARP")) {
-            this.completeResearch(player, "WARP");
+            completeResearch(player, "WARP");
             player.sendStatusMessage(new TextComponentTranslation("research.WARP.warn"), true);
         }
         pw.sync((EntityPlayerMP)player);

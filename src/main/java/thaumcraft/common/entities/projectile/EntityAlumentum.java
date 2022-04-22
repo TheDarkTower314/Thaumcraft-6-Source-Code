@@ -31,19 +31,19 @@ public class EntityAlumentum extends EntityThrowable
     
     public void onUpdate() {
         super.onUpdate();
-        if (this.world.isRemote) {
+        if (world.isRemote) {
             for (double i = 0.0; i < 3.0; ++i) {
                 final double coeff = i / 3.0;
-                FXDispatcher.INSTANCE.drawAlumentum((float)(this.prevPosX + (this.posX - this.prevPosX) * coeff), (float)(this.prevPosY + (this.posY - this.prevPosY) * coeff) + this.height / 2.0f, (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * coeff), 0.0125f * (this.rand.nextFloat() - 0.5f), 0.0125f * (this.rand.nextFloat() - 0.5f), 0.0125f * (this.rand.nextFloat() - 0.5f), this.rand.nextFloat() * 0.2f, this.rand.nextFloat() * 0.1f, this.rand.nextFloat() * 0.1f, 0.5f, 4.0f);
-                FXDispatcher.INSTANCE.drawGenericParticles(this.posX + this.world.rand.nextGaussian() * 0.20000000298023224, this.posY + this.world.rand.nextGaussian() * 0.20000000298023224, this.posZ + this.world.rand.nextGaussian() * 0.20000000298023224, 0.0, 0.0, 0.0, 1.0f, 1.0f, 1.0f, 0.7f, false, 448, 8, 1, 8, 0, 0.3f, 0.0f, 1);
+                FXDispatcher.INSTANCE.drawAlumentum((float)(prevPosX + (posX - prevPosX) * coeff), (float)(prevPosY + (posY - prevPosY) * coeff) + height / 2.0f, (float)(prevPosZ + (posZ - prevPosZ) * coeff), 0.0125f * (rand.nextFloat() - 0.5f), 0.0125f * (rand.nextFloat() - 0.5f), 0.0125f * (rand.nextFloat() - 0.5f), rand.nextFloat() * 0.2f, rand.nextFloat() * 0.1f, rand.nextFloat() * 0.1f, 0.5f, 4.0f);
+                FXDispatcher.INSTANCE.drawGenericParticles(posX + world.rand.nextGaussian() * 0.20000000298023224, posY + world.rand.nextGaussian() * 0.20000000298023224, posZ + world.rand.nextGaussian() * 0.20000000298023224, 0.0, 0.0, 0.0, 1.0f, 1.0f, 1.0f, 0.7f, false, 448, 8, 1, 8, 0, 0.3f, 0.0f, 1);
             }
         }
     }
     
     protected void onImpact(final RayTraceResult par1RayTraceResult) {
-        if (!this.world.isRemote) {
-            this.world.createExplosion(this, this.posX, this.posY, this.posZ, 1.1f, true);
-            this.setDead();
+        if (!world.isRemote) {
+            world.createExplosion(this, posX, posY, posZ, 1.1f, true);
+            setDead();
         }
     }
 }

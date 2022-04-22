@@ -14,8 +14,8 @@ public class SealBreakerAdvanced extends SealBreaker
     protected ISealConfigToggles.SealToggle[] props;
     
     public SealBreakerAdvanced() {
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_breaker_advanced");
-        this.props = new ISealConfigToggles.SealToggle[] { new ISealConfigToggles.SealToggle(true, "pmeta", "golem.prop.meta"), new ISealConfigToggles.SealToggle(false, "psilk", "golem.prop.silk") };
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_breaker_advanced");
+        props = new ISealConfigToggles.SealToggle[] { new ISealConfigToggles.SealToggle(true, "pmeta", "golem.prop.meta"), new ISealConfigToggles.SealToggle(false, "psilk", "golem.prop.silk") };
     }
     
     @Override
@@ -30,17 +30,17 @@ public class SealBreakerAdvanced extends SealBreaker
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override
     public ISealConfigToggles.SealToggle[] getToggles() {
-        return this.props;
+        return props;
     }
     
     @Override
     public void setToggle(final int indx, final boolean value) {
-        this.props[indx].setValue(value);
+        props[indx].setValue(value);
     }
     
     @Override

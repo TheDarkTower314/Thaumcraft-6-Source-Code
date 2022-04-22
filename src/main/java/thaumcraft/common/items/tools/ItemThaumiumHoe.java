@@ -17,9 +17,9 @@ public class ItemThaumiumHoe extends ItemHoe implements IThaumcraftItems
 {
     public ItemThaumiumHoe(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("thaumium_hoe");
-        this.setUnlocalizedName("thaumium_hoe");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("thaumium_hoe");
+        setUnlocalizedName("thaumium_hoe");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

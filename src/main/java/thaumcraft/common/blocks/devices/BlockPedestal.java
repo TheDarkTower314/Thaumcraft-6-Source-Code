@@ -39,11 +39,11 @@ public class BlockPedestal extends BlockTCTile implements IInfusionStabiliserExt
     
     public BlockPedestal(final String name) {
         super(Material.ROCK, TilePedestal.class, name);
-        this.setSoundType(SoundType.STONE);
+        setSoundType(SoundType.STONE);
         BlockPedestal.instance = this;
-        final IBlockState bs = this.blockState.getBaseState();
+        final IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)BlockInlay.CHARGE, (Comparable)0);
-        this.setDefaultState(bs);
+        setDefaultState(bs);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {
@@ -87,7 +87,7 @@ public class BlockPedestal extends BlockTCTile implements IInfusionStabiliserExt
     }
     
     public IBlockState getStateFromMeta(final int meta) {
-        return this.getDefaultState().withProperty((IProperty)BlockInlay.CHARGE, (Comparable)meta);
+        return getDefaultState().withProperty((IProperty)BlockInlay.CHARGE, (Comparable)meta);
     }
     
     public int getMetaFromState(final IBlockState state) {

@@ -51,54 +51,54 @@ public class FocusEffectCurse extends FocusEffect
     
     @Override
     public int getComplexity() {
-        return this.getSettingValue("duration") + this.getSettingValue("power") * 3;
+        return getSettingValue("duration") + getSettingValue("power") * 3;
     }
     
     @Override
     public float getDamageForDisplay(final float finalPower) {
-        return (1.0f + this.getSettingValue("power")) * finalPower;
+        return (1.0f + getSettingValue("power")) * finalPower;
     }
     
     @Override
     public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
-        PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockBamf(target.hitVec.x, target.hitVec.y, target.hitVec.z, 6946821, true, true, null), new NetworkRegistry.TargetPoint(this.getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
+        PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockBamf(target.hitVec.x, target.hitVec.y, target.hitVec.z, 6946821, true, true, null), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
         if (target.typeOfHit == RayTraceResult.Type.ENTITY && target.entityHit != null) {
-            final float damage = this.getDamageForDisplay(finalPower);
-            final int duration = 20 * this.getSettingValue("duration");
-            int eff = (int)(this.getSettingValue("power") * finalPower / 2.0f);
+            final float damage = getDamageForDisplay(finalPower);
+            final int duration = 20 * getSettingValue("duration");
+            int eff = (int)(getSettingValue("power") * finalPower / 2.0f);
             if (eff < 0) {
                 eff = 0;
             }
-            target.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage((target.entityHit != null) ? target.entityHit : this.getPackage().getCaster(), this.getPackage().getCaster()), damage);
+            target.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage((target.entityHit != null) ? target.entityHit : getPackage().getCaster(), getPackage().getCaster()), damage);
             if (target.entityHit instanceof EntityLivingBase) {
                 ((EntityLivingBase)target.entityHit).addPotionEffect(new PotionEffect(MobEffects.POISON, duration, Math.round((float)eff)));
                 float c = 0.85f;
-                if (this.getPackage().world.rand.nextFloat() < c) {
+                if (getPackage().world.rand.nextFloat() < c) {
                     ((EntityLivingBase)target.entityHit).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, duration, Math.round((float)eff)));
                     c -= 0.15f;
                 }
-                if (this.getPackage().world.rand.nextFloat() < c) {
+                if (getPackage().world.rand.nextFloat() < c) {
                     ((EntityLivingBase)target.entityHit).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, duration, Math.round((float)eff)));
                     c -= 0.15f;
                 }
-                if (this.getPackage().world.rand.nextFloat() < c) {
+                if (getPackage().world.rand.nextFloat() < c) {
                     ((EntityLivingBase)target.entityHit).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, duration * 2, Math.round((float)eff)));
                     c -= 0.15f;
                 }
-                if (this.getPackage().world.rand.nextFloat() < c) {
+                if (getPackage().world.rand.nextFloat() < c) {
                     ((EntityLivingBase)target.entityHit).addPotionEffect(new PotionEffect(MobEffects.HUNGER, duration * 3, Math.round((float)eff)));
                     c -= 0.15f;
                 }
-                if (this.getPackage().world.rand.nextFloat() < c) {
+                if (getPackage().world.rand.nextFloat() < c) {
                     ((EntityLivingBase)target.entityHit).addPotionEffect(new PotionEffect(MobEffects.UNLUCK, duration * 3, Math.round((float)eff)));
                 }
             }
         }
         else if (target.typeOfHit == RayTraceResult.Type.BLOCK) {
-            final float f = (float)Math.min(8.0, 1.5 * this.getSettingValue("power") * finalPower);
+            final float f = (float)Math.min(8.0, 1.5 * getSettingValue("power") * finalPower);
             for (final BlockPos.MutableBlockPos blockpos$mutableblockpos1 : BlockPos.getAllInBoxMutable(target.getBlockPos().add(-f, -f, -f), target.getBlockPos().add(f, f, f))) {
-                if (blockpos$mutableblockpos1.distanceSqToCenter(target.hitVec.x, target.hitVec.y, target.hitVec.z) <= f * f && this.getPackage().world.isAirBlock(blockpos$mutableblockpos1.up()) && this.getPackage().world.isBlockFullCube(blockpos$mutableblockpos1)) {
-                    this.getPackage().world.setBlockState(blockpos$mutableblockpos1.up(), BlocksTC.effectSap.getDefaultState());
+                if (blockpos$mutableblockpos1.distanceSqToCenter(target.hitVec.x, target.hitVec.y, target.hitVec.z) <= f * f && getPackage().world.isAirBlock(blockpos$mutableblockpos1.up()) && getPackage().world.isBlockFullCube(blockpos$mutableblockpos1)) {
+                    getPackage().world.setBlockState(blockpos$mutableblockpos1.up(), BlocksTC.effectSap.getDefaultState());
                 }
             }
         }

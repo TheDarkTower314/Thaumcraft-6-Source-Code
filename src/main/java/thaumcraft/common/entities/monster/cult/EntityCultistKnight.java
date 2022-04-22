@@ -37,55 +37,55 @@ public class EntityCultistKnight extends EntityCultist
     }
     
     protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0, false));
-        this.tasks.addTask(4, new EntityAIRestrictOpenDoor(this));
-        this.tasks.addTask(5, new EntityAIOpenDoor(this, true));
-        this.tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.8));
-        this.tasks.addTask(7, new EntityAIWander(this, 0.8));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new AICultistHurtByTarget(this, true));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityEldritchGuardian.class, true));
-        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, AbstractIllager.class, true));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(3, new EntityAIAttackMelee(this, 1.0, false));
+        tasks.addTask(4, new EntityAIRestrictOpenDoor(this));
+        tasks.addTask(5, new EntityAIOpenDoor(this, true));
+        tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.8));
+        tasks.addTask(7, new EntityAIWander(this, 0.8));
+        tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
+        tasks.addTask(8, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new AICultistHurtByTarget(this, true));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityEldritchGuardian.class, true));
+        targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, AbstractIllager.class, true));
     }
     
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0);
     }
     
     @Override
     protected void setLoot(final DifficultyInstance diff) {
-        this.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ItemsTC.crimsonPlateHelm));
-        this.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ItemsTC.crimsonPlateChest));
-        this.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ItemsTC.crimsonPlateLegs));
-        this.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ItemsTC.crimsonBoots));
-        if (this.rand.nextFloat() < ((this.world.getDifficulty() == EnumDifficulty.HARD) ? 0.05f : 0.01f)) {
-            final int i = this.rand.nextInt(5);
+        setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ItemsTC.crimsonPlateHelm));
+        setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ItemsTC.crimsonPlateChest));
+        setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ItemsTC.crimsonPlateLegs));
+        setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ItemsTC.crimsonBoots));
+        if (rand.nextFloat() < ((world.getDifficulty() == EnumDifficulty.HARD) ? 0.05f : 0.01f)) {
+            final int i = rand.nextInt(5);
             if (i == 0) {
-                this.setHeldItem(this.getActiveHand(), new ItemStack(ItemsTC.voidSword));
-                this.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ItemsTC.crimsonRobeHelm));
+                setHeldItem(getActiveHand(), new ItemStack(ItemsTC.voidSword));
+                setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ItemsTC.crimsonRobeHelm));
             }
             else {
-                this.setHeldItem(this.getActiveHand(), new ItemStack(ItemsTC.thaumiumSword));
-                if (this.rand.nextBoolean()) {
-                    this.setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
+                setHeldItem(getActiveHand(), new ItemStack(ItemsTC.thaumiumSword));
+                if (rand.nextBoolean()) {
+                    setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
                 }
             }
         }
         else {
-            this.setHeldItem(this.getActiveHand(), new ItemStack(Items.IRON_SWORD));
+            setHeldItem(getActiveHand(), new ItemStack(Items.IRON_SWORD));
         }
     }
     
     @Override
     protected void setEnchantmentBasedOnDifficulty(final DifficultyInstance diff) {
         final float f = diff.getClampedAdditionalDifficulty();
-        if (this.getHeldItemMainhand() != null && !this.getHeldItemMainhand().isEmpty() && this.rand.nextFloat() < 0.25f * f) {
-            EnchantmentHelper.addRandomEnchantment(this.rand, this.getHeldItemMainhand(), (int)(5.0f + f * this.rand.nextInt(18)), false);
+        if (getHeldItemMainhand() != null && !getHeldItemMainhand().isEmpty() && rand.nextFloat() < 0.25f * f) {
+            EnchantmentHelper.addRandomEnchantment(rand, getHeldItemMainhand(), (int)(5.0f + f * rand.nextInt(18)), false);
         }
     }
 }

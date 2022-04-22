@@ -27,9 +27,9 @@ public class RenderRiftBlast extends Render
     
     public RenderRiftBlast(final RenderManager rm) {
         super(rm);
-        this.gle = new CoreGLE();
-        this.shadowSize = 0.0f;
-        this.shaderCallback = new ShaderCallback() {
+        gle = new CoreGLE();
+        shadowSize = 0.0f;
+        shaderCallback = new ShaderCallback() {
             @Override
             public void call(final int shader) {
                 final Minecraft mc = Minecraft.getMinecraft();
@@ -57,7 +57,7 @@ public class RenderRiftBlast extends Render
             GL11.glBlendFunc(770, (q < 1) ? 1 : 771);
             if (entity.points != null && entity.points.length > 2) {
                 Minecraft.getMinecraft().renderEngine.bindTexture(RenderRiftBlast.starsTexture);
-                ShaderHelper.useShader(ShaderHelper.endShader, this.shaderCallback);
+                ShaderHelper.useShader(ShaderHelper.endShader, shaderCallback);
                 final double[] r2 = new double[entity.radii.length];
                 int ri = 0;
                 final float m = (1.5f - q) / 1.0f;
@@ -65,10 +65,10 @@ public class RenderRiftBlast extends Render
                     r2[ri] = entity.radii[ri] * m;
                     ++ri;
                 }
-                this.gle.set_POLYCYL_TESS(3);
-                this.gle.set__ROUND_TESS_PIECES(1);
-                this.gle.gleSetJoinStyle(1042);
-                this.gle.glePolyCone(entity.points.length, entity.points, entity.colours, r2, 1.0f / entity.points.length, 0.0f);
+                gle.set_POLYCYL_TESS(3);
+                gle.set__ROUND_TESS_PIECES(1);
+                gle.gleSetJoinStyle(1042);
+                gle.glePolyCone(entity.points.length, entity.points, entity.colours, r2, 1.0f / entity.points.length, 0.0f);
                 ShaderHelper.releaseShader();
             }
             if (q < 1) {
@@ -82,7 +82,7 @@ public class RenderRiftBlast extends Render
     }
     
     public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
-        this.renderEntityAt((EntityRiftBlast)entity, d, d1, d2, f, f1);
+        renderEntityAt((EntityRiftBlast)entity, d, d1, d2, f, f1);
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {

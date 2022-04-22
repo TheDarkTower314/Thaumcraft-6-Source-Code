@@ -39,7 +39,7 @@ public class ItemThaumometer extends ItemTCBase
 {
     public ItemThaumometer() {
         super("thaumometer");
-        this.setMaxStackSize(1);
+        setMaxStackSize(1);
     }
     
     public EnumRarity getRarity(final ItemStack itemstack) {
@@ -48,11 +48,11 @@ public class ItemThaumometer extends ItemTCBase
     
     public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer p, final EnumHand hand) {
         if (world.isRemote) {
-            this.drawFX(world, p);
+            drawFX(world, p);
             p.world.playSound(p.posX, p.posY, p.posZ, SoundsTC.scan, SoundCategory.PLAYERS, 0.5f, 1.0f, false);
         }
         else {
-            this.doScan(world, p);
+            doScan(world, p);
         }
         return (ActionResult<ItemStack>)new ActionResult(EnumActionResult.SUCCESS, p.getHeldItem(hand));
     }
@@ -60,7 +60,7 @@ public class ItemThaumometer extends ItemTCBase
     public void onUpdate(final ItemStack stack, final World world, final Entity entity, final int itemSlot, final boolean isSelected) {
         final boolean held = isSelected || itemSlot == 0;
         if (held && !world.isRemote && entity.ticksExisted % 20 == 0 && entity instanceof EntityPlayerMP) {
-            this.updateAura(stack, world, (EntityPlayerMP)entity);
+            updateAura(stack, world, (EntityPlayerMP)entity);
         }
         if (held && world.isRemote && entity.ticksExisted % 5 == 0 && entity instanceof EntityPlayer) {
             final Entity target = EntityUtils.getPointedEntity(world, entity, 1.0, 16.0, 5.0f, true);
@@ -68,7 +68,7 @@ public class ItemThaumometer extends ItemTCBase
                 FXDispatcher.INSTANCE.scanHighlight(target);
             }
             RenderEventHandler.thaumTarget = target;
-            final RayTraceResult mop = this.getRayTraceResultFromPlayerWild(world, (EntityPlayer)entity, true);
+            final RayTraceResult mop = getRayTraceResultFromPlayerWild(world, (EntityPlayer)entity, true);
             if (mop != null && mop.getBlockPos() != null && ScanningManager.isThingStillScannable((EntityPlayer)entity, mop.getBlockPos())) {
                 FXDispatcher.INSTANCE.scanHighlight(mop.getBlockPos());
             }
@@ -112,7 +112,7 @@ public class ItemThaumometer extends ItemTCBase
             }
         }
         else {
-            final RayTraceResult mop = this.rayTrace(worldIn, playerIn, true);
+            final RayTraceResult mop = rayTrace(worldIn, playerIn, true);
             if (mop != null && mop.getBlockPos() != null) {
                 for (int a2 = 0; a2 < 10; ++a2) {
                     FXDispatcher.INSTANCE.blockRunes(mop.getBlockPos().getX(), mop.getBlockPos().getY() + 0.25, mop.getBlockPos().getZ(), 0.3f + worldIn.rand.nextFloat() * 0.7f, 0.0f, 0.3f + worldIn.rand.nextFloat() * 0.7f, 15, 0.03f);
@@ -128,7 +128,7 @@ public class ItemThaumometer extends ItemTCBase
                 ScanningManager.scanTheThing(playerIn, target);
             }
             else {
-                final RayTraceResult mop = this.rayTrace(worldIn, playerIn, true);
+                final RayTraceResult mop = rayTrace(worldIn, playerIn, true);
                 if (mop != null && mop.getBlockPos() != null) {
                     ScanningManager.scanTheThing(playerIn, mop.getBlockPos());
                 }

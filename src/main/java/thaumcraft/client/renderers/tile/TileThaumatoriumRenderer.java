@@ -26,7 +26,7 @@ public class TileThaumatoriumRenderer extends TileEntitySpecialRenderer
     EntityItem entityitem;
     
     public TileThaumatoriumRenderer() {
-        this.entityitem = null;
+        entityitem = null;
     }
     
     public void renderTileEntityAt(final TileThaumatorium tile, final double par2, final double par4, final double par6, final float par8) {
@@ -54,10 +54,10 @@ public class TileThaumatoriumRenderer extends TileEntitySpecialRenderer
                 GL11.glScaled(0.75, 0.75, 0.75);
                 final ItemStack is = recipe.getRecipeOutput().copy();
                 is.setCount(1);
-                this.entityitem = new EntityItem(tile.getWorld(), 0.0, 0.0, 0.0, is);
-                this.entityitem.hoverStart = 0.0f;
+                entityitem = new EntityItem(tile.getWorld(), 0.0, 0.0, 0.0, is);
+                entityitem.hoverStart = 0.0f;
                 final RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-                rendermanager.renderEntity(this.entityitem, 0.0, 0.0, 0.0, 0.0f, 0.0f, false);
+                rendermanager.renderEntity(entityitem, 0.0, 0.0, 0.0, 0.0f, 0.0f, false);
                 GL11.glPopMatrix();
             }
         }
@@ -65,6 +65,6 @@ public class TileThaumatoriumRenderer extends TileEntitySpecialRenderer
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderTileEntityAt((TileThaumatorium)te, x, y, z, partialTicks);
+        renderTileEntityAt((TileThaumatorium)te, x, y, z, partialTicks);
     }
 }

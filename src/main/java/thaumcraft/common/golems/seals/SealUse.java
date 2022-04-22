@@ -40,10 +40,10 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     protected SealToggle[] props;
     
     public SealUse() {
-        this.delay = new Random(System.nanoTime()).nextInt(49);
-        this.watchedTask = Integer.MIN_VALUE;
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_use");
-        this.props = new SealToggle[] { new SealToggle(true, "pmeta", "golem.prop.meta"), new SealToggle(true, "pnbt", "golem.prop.nbt"), new SealToggle(false, "pore", "golem.prop.ore"), new SealToggle(false, "pmod", "golem.prop.mod"), new SealToggle(false, "pleft", "golem.prop.left"), new SealToggle(false, "pempty", "golem.prop.empty"), new SealToggle(false, "pemptyhand", "golem.prop.emptyhand"), new SealToggle(false, "psneak", "golem.prop.sneak"), new SealToggle(false, "ppro", "golem.prop.provision.wl") };
+        delay = new Random(System.nanoTime()).nextInt(49);
+        watchedTask = Integer.MIN_VALUE;
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_use");
+        props = new SealToggle[] { new SealToggle(true, "pmeta", "golem.prop.meta"), new SealToggle(true, "pnbt", "golem.prop.nbt"), new SealToggle(false, "pore", "golem.prop.ore"), new SealToggle(false, "pmod", "golem.prop.mod"), new SealToggle(false, "pleft", "golem.prop.left"), new SealToggle(false, "pempty", "golem.prop.empty"), new SealToggle(false, "pemptyhand", "golem.prop.emptyhand"), new SealToggle(false, "psneak", "golem.prop.sneak"), new SealToggle(false, "ppro", "golem.prop.provision.wl") };
     }
     
     @Override
@@ -53,18 +53,18 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     
     @Override
     public void tickSeal(final World world, final ISealEntity seal) {
-        if (this.delay++ % 5 != 0) {
+        if (delay++ % 5 != 0) {
             return;
         }
-        final Task oldTask = TaskHandler.getTask(world.provider.getDimension(), this.watchedTask);
+        final Task oldTask = TaskHandler.getTask(world.provider.getDimension(), watchedTask);
         if (oldTask == null || oldTask.isSuspended() || oldTask.isCompleted()) {
-            if (this.getToggles()[5].value != world.isAirBlock(seal.getSealPos().pos)) {
+            if (getToggles()[5].value != world.isAirBlock(seal.getSealPos().pos)) {
                 return;
             }
             final Task task = new Task(seal.getSealPos(), seal.getSealPos().pos);
             task.setPriority(seal.getPriority());
             TaskHandler.addTask(world.provider.getDimension(), task);
-            this.watchedTask = task.getId();
+            watchedTask = task.getId();
         }
     }
     
@@ -80,18 +80,18 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     
     @Override
     public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
-        if (this.getToggles()[5].value == world.isAirBlock(task.getPos())) {
+        if (getToggles()[5].value == world.isAirBlock(task.getPos())) {
             ItemStack clickStack = golem.getCarrying().get(0);
-            if (!this.filter.get(0).isEmpty()) {
-                clickStack = InventoryUtils.findFirstMatchFromFilter(this.filter, this.filterSize, this.blacklist, golem.getCarrying(), new ThaumcraftInvHelper.InvFilter(!this.props[0].value, !this.props[1].value, this.props[2].value, this.props[3].value));
+            if (!filter.get(0).isEmpty()) {
+                clickStack = InventoryUtils.findFirstMatchFromFilter(filter, filterSize, blacklist, golem.getCarrying(), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
             }
-            if (!clickStack.isEmpty() || this.props[6].value) {
+            if (!clickStack.isEmpty() || props[6].value) {
                 ItemStack ss = ItemStack.EMPTY;
                 if (!clickStack.isEmpty()) {
                     ss = clickStack.copy();
                     golem.dropItem(clickStack.copy());
                 }
-                GolemInteractionHelper.golemClick(world, golem, task.getPos(), task.getSealPos().face, this.props[6].value ? ItemStack.EMPTY : ss, this.props[7].value, !this.getToggles()[4].value);
+                GolemInteractionHelper.golemClick(world, golem, task.getPos(), task.getSealPos().face, props[6].value ? ItemStack.EMPTY : ss, props[7].value, !getToggles()[4].value);
             }
         }
         task.setSuspended(true);
@@ -125,13 +125,13 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     
     @Override
     public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
-        if (!this.props[6].value) {
-            final boolean found = !InventoryUtils.findFirstMatchFromFilter(this.filter, this.filterSize, this.blacklist, golem.getCarrying(), new ThaumcraftInvHelper.InvFilter(!this.props[0].value, !this.props[1].value, this.props[2].value, this.props[3].value)).isEmpty();
-            if (!found && this.getToggles()[8].value && !this.blacklist && this.getInv().get(0) != null) {
+        if (!props[6].value) {
+            final boolean found = !InventoryUtils.findFirstMatchFromFilter(filter, filterSize, blacklist, golem.getCarrying(), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value)).isEmpty();
+            if (!found && getToggles()[8].value && !blacklist && getInv().get(0) != null) {
                 final ISealEntity se = SealHandler.getSealEntity(golem.getGolemWorld().provider.getDimension(), task.getSealPos());
                 if (se != null) {
-                    final ItemStack stack = this.getInv().get(0).copy();
-                    if (!this.props[0].value) {
+                    final ItemStack stack = getInv().get(0).copy();
+                    if (!props[0].value) {
                         stack.setItemDamage(32767);
                     }
                     GolemHelper.requestProvisioning(golem.getGolemWorld(), se, stack);
@@ -153,7 +153,7 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override
@@ -188,11 +188,11 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     
     @Override
     public SealToggle[] getToggles() {
-        return this.props;
+        return props;
     }
     
     @Override
     public void setToggle(final int indx, final boolean value) {
-        this.props[indx].setValue(value);
+        props[indx].setValue(value);
     }
 }

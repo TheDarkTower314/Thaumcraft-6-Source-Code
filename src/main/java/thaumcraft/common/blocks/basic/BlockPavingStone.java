@@ -29,9 +29,9 @@ public class BlockPavingStone extends BlockTC
 {
     public BlockPavingStone(final String name) {
         super(Material.ROCK, name);
-        this.setHardness(2.5f);
-        this.setSoundType(SoundType.STONE);
-        this.setTickRandomly(true);
+        setHardness(2.5f);
+        setSoundType(SoundType.STONE);
+        setTickRandomly(true);
     }
     
     public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {

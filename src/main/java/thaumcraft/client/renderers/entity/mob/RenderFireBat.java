@@ -27,14 +27,14 @@ public class RenderFireBat extends RenderLiving
     
     public RenderFireBat(final RenderManager rm) {
         super(rm, new ModelFireBat(), 0.25f);
-        this.renderedBatSize = ((ModelFireBat)this.mainModel).getBatSize();
+        renderedBatSize = ((ModelFireBat) mainModel).getBatSize();
     }
     
     public void func_82443_a(final EntityFireBat par1EntityBat, final double par2, final double par4, final double par6, final float par8, final float par9) {
-        final int var10 = ((ModelFireBat)this.mainModel).getBatSize();
-        if (var10 != this.renderedBatSize) {
-            this.renderedBatSize = var10;
-            this.mainModel = new ModelBat();
+        final int var10 = ((ModelFireBat) mainModel).getBatSize();
+        if (var10 != renderedBatSize) {
+            renderedBatSize = var10;
+            mainModel = new ModelBat();
         }
         super.doRender(par1EntityBat, par2, par4, par6, par8, par9);
     }
@@ -58,19 +58,19 @@ public class RenderFireBat extends RenderLiving
     }
     
     protected void preRenderCallback(final EntityLivingBase par1EntityLiving, final float par2) {
-        this.func_82442_a((EntityFireBat)par1EntityLiving, par2);
+        func_82442_a((EntityFireBat)par1EntityLiving, par2);
     }
     
     protected void applyRotations(final EntityLivingBase par1EntityLiving, final float par2, final float par3, final float par4) {
-        this.func_82444_a((EntityFireBat)par1EntityLiving, par2, par3, par4);
+        func_82444_a((EntityFireBat)par1EntityLiving, par2, par3, par4);
     }
     
     protected void renderLivingAt(final EntityLivingBase par1EntityLiving, final double par2, final double par4, final double par6) {
-        this.func_82445_a((EntityFireBat)par1EntityLiving, par2, par4, par6);
+        func_82445_a((EntityFireBat)par1EntityLiving, par2, par4, par6);
     }
     
     public void doRender(final EntityLiving par1EntityLiving, final double par2, final double par4, final double par6, final float par8, final float par9) {
-        this.func_82443_a((EntityFireBat)par1EntityLiving, par2, par4, par6, par8, par9);
+        func_82443_a((EntityFireBat)par1EntityLiving, par2, par4, par6, par8, par9);
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {

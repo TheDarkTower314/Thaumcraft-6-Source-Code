@@ -24,12 +24,12 @@ public class BlockEssentiaTransport extends BlockTCDevice implements IBlockFacin
 {
     public BlockEssentiaTransport(final Class te, final String name) {
         super(Material.IRON, te, name);
-        this.setSoundType(SoundType.METAL);
-        this.setHardness(1.0f);
-        this.setResistance(10.0f);
-        final IBlockState bs = this.blockState.getBaseState();
+        setSoundType(SoundType.METAL);
+        setHardness(1.0f);
+        setResistance(10.0f);
+        final IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)EnumFacing.UP);
-        this.setDefaultState(bs);
+        setDefaultState(bs);
     }
     
     public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
@@ -56,7 +56,7 @@ public class BlockEssentiaTransport extends BlockTCDevice implements IBlockFacin
     
     @Override
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)facing);
         return bs;
     }

@@ -18,12 +18,12 @@ public class ScanEnchantment implements IScanThing
     Enchantment enchantment;
     
     public ScanEnchantment(final Enchantment ench) {
-        this.enchantment = ench;
+        enchantment = ench;
     }
     
     @Override
     public boolean checkThing(final EntityPlayer player, final Object obj) {
-        return this.getEnchantment(player, obj) != null;
+        return getEnchantment(player, obj) != null;
     }
     
     private Enchantment getEnchantment(final EntityPlayer player, final Object obj) {
@@ -34,7 +34,7 @@ public class ScanEnchantment implements IScanThing
         if (is != null && !is.isEmpty()) {
             final Map<Enchantment, Integer> e = EnchantmentHelper.getEnchantments(is);
             for (final Enchantment ench : e.keySet()) {
-                if (ench == this.enchantment) {
+                if (ench == enchantment) {
                     return ench;
                 }
             }
@@ -44,6 +44,6 @@ public class ScanEnchantment implements IScanThing
     
     @Override
     public String getResearchKey(final EntityPlayer player, final Object obj) {
-        return "!" + this.enchantment.getName();
+        return "!" + enchantment.getName();
     }
 }

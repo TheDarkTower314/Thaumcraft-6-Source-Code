@@ -44,7 +44,7 @@ public class ParticleEngine
     private Random rand;
     
     public ParticleEngine() {
-        this.rand = new Random();
+        rand = new Random();
     }
     
     @SideOnly(Side.CLIENT)

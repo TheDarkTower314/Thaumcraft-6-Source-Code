@@ -30,62 +30,62 @@ public class ContainerFocusPouch extends Container implements IInventoryChangedL
     EntityPlayer player;
     
     public ContainerFocusPouch(final InventoryPlayer iinventory, final World par2World, final int par3, final int par4, final int par5) {
-        this.input = new InventoryFocusPouch(this);
-        this.pouch = null;
-        this.player = null;
-        this.worldObj = par2World;
-        this.posX = par3;
-        this.posY = par4;
-        this.posZ = par5;
-        this.player = iinventory.player;
-        this.pouch = iinventory.getCurrentItem();
-        this.blockSlot = iinventory.currentItem + 45;
+        input = new InventoryFocusPouch(this);
+        pouch = null;
+        player = null;
+        worldObj = par2World;
+        posX = par3;
+        posY = par4;
+        posZ = par5;
+        player = iinventory.player;
+        pouch = iinventory.getCurrentItem();
+        blockSlot = iinventory.currentItem + 45;
         for (int a = 0; a < 18; ++a) {
-            this.addSlotToContainer(new SlotLimitedByClass(ItemFocus.class, this.input, a, 37 + a % 6 * 18, 51 + a / 6 * 18));
+            addSlotToContainer(new SlotLimitedByClass(ItemFocus.class, input, a, 37 + a % 6 * 18, 51 + a / 6 * 18));
         }
-        this.bindPlayerInventory(iinventory);
+        bindPlayerInventory(iinventory);
         if (!par2World.isRemote) {
             try {
-                final NonNullList<ItemStack> list = ((ItemFocusPouch)this.pouch.getItem()).getInventory(this.pouch);
+                final NonNullList<ItemStack> list = ((ItemFocusPouch) pouch.getItem()).getInventory(pouch);
                 for (int a2 = 0; a2 < list.size(); ++a2) {
-                    this.input.setInventorySlotContents(a2, list.get(a2));
+                    input.setInventorySlotContents(a2, list.get(a2));
                 }
             }
             catch (final Exception ex) {}
         }
-        this.onCraftMatrixChanged(this.input);
+        onCraftMatrixChanged(input);
     }
     
     public void onInventoryChanged(final IInventory invBasic) {
-        this.detectAndSendChanges();
+        detectAndSendChanges();
     }
     
     protected void bindPlayerInventory(final InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 151 + i * 18));
+                addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 151 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 209));
+            addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 209));
         }
     }
     
     public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
-        if (slot == this.blockSlot) {
+        if (slot == blockSlot) {
             return ItemStack.EMPTY;
         }
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = this.inventorySlots.get(slot);
+        final Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
             final ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot < 18) {
-                if (!this.input.isItemValidForSlot(slot, stackInSlot) || !this.mergeItemStack(stackInSlot, 18, this.inventorySlots.size(), true)) {
+                if (!input.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 18, inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.input.isItemValidForSlot(slot, stackInSlot) || !this.mergeItemStack(stackInSlot, 0, 18, false)) {
+            else if (!input.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 0, 18, false)) {
                 return ItemStack.EMPTY;
             }
             if (stackInSlot.getCount() == 0) {
@@ -103,7 +103,7 @@ public class ContainerFocusPouch extends Container implements IInventoryChangedL
     }
     
     public ItemStack slotClick(final int slotId, final int dragType, final ClickType clickTypeIn, final EntityPlayer player) {
-        if (slotId == this.blockSlot) {
+        if (slotId == blockSlot) {
             return ItemStack.EMPTY;
         }
         return super.slotClick(slotId, dragType, clickTypeIn, player);
@@ -111,21 +111,21 @@ public class ContainerFocusPouch extends Container implements IInventoryChangedL
     
     public void onContainerClosed(final EntityPlayer par1EntityPlayer) {
         super.onContainerClosed(par1EntityPlayer);
-        if (!this.worldObj.isRemote) {
+        if (!worldObj.isRemote) {
             final NonNullList<ItemStack> list = NonNullList.withSize(18, ItemStack.EMPTY);
             for (int a = 0; a < list.size(); ++a) {
-                list.set(a, this.input.getStackInSlot(a));
+                list.set(a, input.getStackInSlot(a));
             }
-            if (this.pouch.getItem() instanceof ItemFocusPouch) {
-                ((ItemFocusPouch)this.pouch.getItem()).setInventory(this.pouch, list);
+            if (pouch.getItem() instanceof ItemFocusPouch) {
+                ((ItemFocusPouch) pouch.getItem()).setInventory(pouch, list);
             }
-            if (this.player == null) {
+            if (player == null) {
                 return;
             }
-            if (this.player.getHeldItem(this.player.getActiveHand()).isItemEqual(this.pouch)) {
-                this.player.setHeldItem(this.player.getActiveHand(), this.pouch);
+            if (player.getHeldItem(player.getActiveHand()).isItemEqual(pouch)) {
+                player.setHeldItem(player.getActiveHand(), pouch);
             }
-            this.player.inventory.markDirty();
+            player.inventory.markDirty();
         }
     }
 }

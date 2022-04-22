@@ -26,36 +26,36 @@ public class PacketFXEssentiaSource implements IMessage, IMessageHandler<PacketF
     }
     
     public PacketFXEssentiaSource(final BlockPos p1, final byte dx, final byte dy, final byte dz, final int color, final int e) {
-        this.x = p1.getX();
-        this.y = p1.getY();
-        this.z = p1.getZ();
+        x = p1.getX();
+        y = p1.getY();
+        z = p1.getZ();
         this.dx = dx;
         this.dy = dy;
         this.dz = dz;
         this.color = color;
-        this.ext = e;
+        ext = e;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.x);
-        buffer.writeInt(this.y);
-        buffer.writeInt(this.z);
-        buffer.writeInt(this.color);
-        buffer.writeByte(this.dx);
-        buffer.writeByte(this.dy);
-        buffer.writeByte(this.dz);
-        buffer.writeShort(this.ext);
+        buffer.writeInt(x);
+        buffer.writeInt(y);
+        buffer.writeInt(z);
+        buffer.writeInt(color);
+        buffer.writeByte(dx);
+        buffer.writeByte(dy);
+        buffer.writeByte(dz);
+        buffer.writeShort(ext);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.x = buffer.readInt();
-        this.y = buffer.readInt();
-        this.z = buffer.readInt();
-        this.color = buffer.readInt();
-        this.dx = buffer.readByte();
-        this.dy = buffer.readByte();
-        this.dz = buffer.readByte();
-        this.ext = buffer.readShort();
+        x = buffer.readInt();
+        y = buffer.readInt();
+        z = buffer.readInt();
+        color = buffer.readInt();
+        dx = buffer.readByte();
+        dy = buffer.readByte();
+        dz = buffer.readByte();
+        ext = buffer.readShort();
     }
     
     public IMessage onMessage(final PacketFXEssentiaSource message, final MessageContext ctx) {

@@ -113,7 +113,7 @@ public class RenderEventHandler
     protected static final ResourceLocation vignetteTexPath;
     
     public RenderEventHandler() {
-        this.random = new Random();
+        random = new Random();
     }
     
     @SideOnly(Side.CLIENT)
@@ -802,7 +802,7 @@ public class RenderEventHandler
         
         public ChargeEntry(final long time, final ItemStack item, final float charge) {
             this.charge = 0.0f;
-            this.diff = 0;
+            diff = 0;
             this.time = time;
             this.item = item;
             this.charge = charge;

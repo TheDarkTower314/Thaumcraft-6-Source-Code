@@ -25,10 +25,10 @@ public class GolemLeg
         this.key = key;
         this.research = research;
         this.icon = icon;
-        this.components = comp;
-        this.traits = tags;
+        components = comp;
+        traits = tags;
         this.model = model;
-        this.function = null;
+        function = null;
     }
     
     public GolemLeg(final String key, final String[] research, final ResourceLocation icon, final PartModel model, final Object[] comp, final ILegFunction function, final EnumGolemTrait[] tags) {
@@ -48,11 +48,11 @@ public class GolemLeg
     }
     
     public String getLocalizedName() {
-        return I18n.translateToLocal("golem.leg." + this.key.toLowerCase());
+        return I18n.translateToLocal("golem.leg." + key.toLowerCase());
     }
     
     public String getLocalizedDescription() {
-        return I18n.translateToLocal("golem.leg.text." + this.key.toLowerCase());
+        return I18n.translateToLocal("golem.leg.text." + key.toLowerCase());
     }
     
     public static GolemLeg[] getLegs() {

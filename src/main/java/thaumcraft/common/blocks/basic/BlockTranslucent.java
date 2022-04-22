@@ -22,8 +22,8 @@ public class BlockTranslucent extends BlockTC
 {
     public BlockTranslucent(final String name) {
         super(Material.GLASS, name);
-        this.setHardness(0.5f);
-        this.setSoundType(SoundType.STONE);
+        setHardness(0.5f);
+        setSoundType(SoundType.STONE);
     }
     
     public boolean isBeaconBase(final IBlockAccess world, final BlockPos pos, final BlockPos beacon) {

@@ -45,23 +45,23 @@ public class FocusEffectHeal extends FocusEffect
     
     @Override
     public int getComplexity() {
-        return this.getSettingValue("power") * 4;
+        return getSettingValue("power") * 4;
     }
     
     @Override
     public float getDamageForDisplay(final float finalPower) {
-        return -this.getSettingValue("power") * finalPower;
+        return -getSettingValue("power") * finalPower;
     }
     
     @Override
     public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
-        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { this.getKey() }), new NetworkRegistry.TargetPoint(this.getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
+        PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
         if (target.typeOfHit == RayTraceResult.Type.ENTITY && target.entityHit != null && target.entityHit instanceof EntityLivingBase) {
             if (((EntityLivingBase)target.entityHit).isEntityUndead()) {
-                target.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this.getPackage().getCaster(), this.getPackage().getCaster()), this.getSettingValue("power") * finalPower * 1.5f);
+                target.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(getPackage().getCaster(), getPackage().getCaster()), getSettingValue("power") * finalPower * 1.5f);
             }
             else {
-                ((EntityLivingBase)target.entityHit).heal(this.getSettingValue("power") * finalPower);
+                ((EntityLivingBase)target.entityHit).heal(getSettingValue("power") * finalPower);
             }
         }
         return false;

@@ -19,20 +19,20 @@ public class TileBarrierStone extends TileEntity implements ITickable
     int count;
     
     public TileBarrierStone() {
-        this.count = 0;
+        count = 0;
     }
     
     public boolean gettingPower() {
-        return this.world.isBlockIndirectlyGettingPowered(this.pos) > 0;
+        return world.isBlockIndirectlyGettingPowered(pos) > 0;
     }
     
     public void update() {
-        if (!this.world.isRemote) {
-            if (this.count == 0) {
-                this.count = this.world.rand.nextInt(100);
+        if (!world.isRemote) {
+            if (count == 0) {
+                count = world.rand.nextInt(100);
             }
-            if (this.count % 5 == 0 && !this.gettingPower()) {
-                final List<EntityLivingBase> targets = this.world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.pos.getX() + 1, this.pos.getY() + 3, this.pos.getZ() + 1).grow(0.1, 0.1, 0.1));
+            if (count % 5 == 0 && !gettingPower()) {
+                final List<EntityLivingBase> targets = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 3, pos.getZ() + 1).grow(0.1, 0.1, 0.1));
                 if (targets.size() > 0) {
                     for (final EntityLivingBase e : targets) {
                         if (!e.onGround && !(e instanceof EntityPlayer)) {
@@ -41,12 +41,12 @@ public class TileBarrierStone extends TileEntity implements ITickable
                     }
                 }
             }
-            if (++this.count % 100 == 0) {
-                if (this.world.getBlockState(this.pos.up(1)) != BlocksTC.barrier.getDefaultState() && this.world.isAirBlock(this.pos.up(1))) {
-                    this.world.setBlockState(this.pos.up(1), BlocksTC.barrier.getDefaultState(), 3);
+            if (++count % 100 == 0) {
+                if (world.getBlockState(pos.up(1)) != BlocksTC.barrier.getDefaultState() && world.isAirBlock(pos.up(1))) {
+                    world.setBlockState(pos.up(1), BlocksTC.barrier.getDefaultState(), 3);
                 }
-                if (this.world.getBlockState(this.pos.up(2)) != BlocksTC.barrier.getDefaultState() && this.world.isAirBlock(this.pos.up(2))) {
-                    this.world.setBlockState(this.pos.up(2), BlocksTC.barrier.getDefaultState(), 3);
+                if (world.getBlockState(pos.up(2)) != BlocksTC.barrier.getDefaultState() && world.isAirBlock(pos.up(2))) {
+                    world.setBlockState(pos.up(2), BlocksTC.barrier.getDefaultState(), 3);
                 }
             }
         }

@@ -26,7 +26,7 @@ public class BlockSpa extends BlockTCDevice
 {
     public BlockSpa() {
         super(Material.ROCK, TileSpa.class, "spa");
-        this.setSoundType(SoundType.STONE);
+        setSoundType(SoundType.STONE);
     }
     
     public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {

@@ -28,51 +28,51 @@ public class PacketFXBlockArc implements IMessage, IMessageHandler<PacketFXBlock
     }
     
     public PacketFXBlockArc(final BlockPos pos, final Entity source, final float r, final float g, final float b) {
-        this.x = pos.getX();
-        this.y = pos.getY();
-        this.z = pos.getZ();
-        this.tx = (float)source.posX;
-        this.ty = (float)(source.getEntityBoundingBox().minY + source.height / 2.0f);
-        this.tz = (float)source.posZ;
+        x = pos.getX();
+        y = pos.getY();
+        z = pos.getZ();
+        tx = (float)source.posX;
+        ty = (float)(source.getEntityBoundingBox().minY + source.height / 2.0f);
+        tz = (float)source.posZ;
         this.r = r;
         this.g = g;
         this.b = b;
     }
     
     public PacketFXBlockArc(final BlockPos pos, final BlockPos pos2, final float r, final float g, final float b) {
-        this.x = pos.getX();
-        this.y = pos.getY();
-        this.z = pos.getZ();
-        this.tx = pos2.getX() + 0.5f;
-        this.ty = pos2.getY() + 0.5f;
-        this.tz = pos2.getZ() + 0.5f;
+        x = pos.getX();
+        y = pos.getY();
+        z = pos.getZ();
+        tx = pos2.getX() + 0.5f;
+        ty = pos2.getY() + 0.5f;
+        tz = pos2.getZ() + 0.5f;
         this.r = r;
         this.g = g;
         this.b = b;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeInt(this.x);
-        buffer.writeInt(this.y);
-        buffer.writeInt(this.z);
-        buffer.writeFloat(this.tx);
-        buffer.writeFloat(this.ty);
-        buffer.writeFloat(this.tz);
-        buffer.writeFloat(this.r);
-        buffer.writeFloat(this.g);
-        buffer.writeFloat(this.b);
+        buffer.writeInt(x);
+        buffer.writeInt(y);
+        buffer.writeInt(z);
+        buffer.writeFloat(tx);
+        buffer.writeFloat(ty);
+        buffer.writeFloat(tz);
+        buffer.writeFloat(r);
+        buffer.writeFloat(g);
+        buffer.writeFloat(b);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.x = buffer.readInt();
-        this.y = buffer.readInt();
-        this.z = buffer.readInt();
-        this.tx = buffer.readFloat();
-        this.ty = buffer.readFloat();
-        this.tz = buffer.readFloat();
-        this.r = buffer.readFloat();
-        this.g = buffer.readFloat();
-        this.b = buffer.readFloat();
+        x = buffer.readInt();
+        y = buffer.readInt();
+        z = buffer.readInt();
+        tx = buffer.readFloat();
+        ty = buffer.readFloat();
+        tz = buffer.readFloat();
+        r = buffer.readFloat();
+        g = buffer.readFloat();
+        b = buffer.readFloat();
     }
     
     public IMessage onMessage(final PacketFXBlockArc message, final MessageContext ctx) {

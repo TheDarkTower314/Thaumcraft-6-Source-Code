@@ -25,9 +25,9 @@ public class TileDioptraRenderer extends TileEntitySpecialRenderer
     private final float[] alphas;
     
     public TileDioptraRenderer() {
-        this.gridTexture = new ResourceLocation("thaumcraft", "textures/misc/gridblock.png");
-        this.sideTexture = new ResourceLocation("thaumcraft", "textures/models/dioptra_side.png");
-        this.alphas = new float[] { 0.9f, 0.9f, 0.9f, 0.9f };
+        gridTexture = new ResourceLocation("thaumcraft", "textures/misc/gridblock.png");
+        sideTexture = new ResourceLocation("thaumcraft", "textures/models/dioptra_side.png");
+        alphas = new float[] { 0.9f, 0.9f, 0.9f, 0.9f };
     }
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
@@ -38,7 +38,7 @@ public class TileDioptraRenderer extends TileEntitySpecialRenderer
         GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
-        final float t = (this.rendererDispatcher.entity != null) ? (this.rendererDispatcher.entity.ticksExisted + partialTicks) : 0.0f;
+        final float t = (rendererDispatcher.entity != null) ? (rendererDispatcher.entity.ticksExisted + partialTicks) : 0.0f;
         float rc = 1.0f;
         float gc = 1.0f;
         float bc = 1.0f;
@@ -56,19 +56,19 @@ public class TileDioptraRenderer extends TileEntitySpecialRenderer
         GL11.glBlendFunc(770, 1);
         GL11.glPushMatrix();
         GL11.glTranslated(-0.495, 0.501, -0.495);
-        this.bindTexture(this.gridTexture);
+        bindTexture(gridTexture);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glScaled(0.99, 1.0, 0.99);
         for (int a = 0; a < 12; ++a) {
             for (int b = 0; b < 12; ++b) {
-                final int[] colors = this.calcColorMap(new float[] { 0.0f, 0.0f, 0.0f, 0.0f }, rc, gc, bc);
+                final int[] colors = calcColorMap(new float[] { 0.0f, 0.0f, 0.0f, 0.0f }, rc, gc, bc);
                 final double d3 = a - 6;
                 final double d4 = b - 6;
                 final double dis = Math.sqrt(d3 * d3 + d4 * d4);
                 final float s = MathHelper.sin((float)((tco.counter - dis * 10.0) / 8.0));
                 TexturedQuadTC quad = new TexturedQuadTC(new PositionTextureVertex[] { new PositionTextureVertex(a / 12.0f, tco.grid_amt[a + b * 13] / 96.0f, b / 12.0f, 0.0f, 1.0f), new PositionTextureVertex((a + 1) / 12.0f, tco.grid_amt[a + 1 + b * 13] / 96.0f, b / 12.0f, 1.0f, 1.0f), new PositionTextureVertex((a + 1) / 12.0f, tco.grid_amt[a + 1 + (b + 1) * 13] / 96.0f, (b + 1) / 12.0f, 1.0f, 0.0f), new PositionTextureVertex(a / 12.0f, tco.grid_amt[a + (b + 1) * 13] / 96.0f, (b + 1) / 12.0f, 0.0f, 0.0f) });
                 quad.flipFace();
-                quad.draw(tessellator.getBuffer(), 1.0f, (int)(200.0f + s * 15.0f), colors, this.alphas);
+                quad.draw(tessellator.getBuffer(), 1.0f, (int)(200.0f + s * 15.0f), colors, alphas);
                 if (a == 0) {
                     quad = new TexturedQuadTC(new PositionTextureVertex[] { new PositionTextureVertex(0.0f, 0.0f, b / 12.0f, 0.0f, 1.0f), new PositionTextureVertex(0.0f, tco.grid_amt[b * 13] / 96.0f, b / 12.0f, 1.0f, 1.0f), new PositionTextureVertex(0.0f, tco.grid_amt[(b + 1) * 13] / 96.0f, (b + 1) / 12.0f, 1.0f, 0.0f), new PositionTextureVertex(0.0f, 0.0f, (b + 1) / 12.0f, 0.0f, 0.0f) });
                     quad.flipFace();
@@ -98,7 +98,7 @@ public class TileDioptraRenderer extends TileEntitySpecialRenderer
             GL11.glPushMatrix();
             GL11.glRotatef(90.0f * q, 1.0f, 0.0f, 0.0f);
             GL11.glTranslated(0.0, 0.0, -0.5);
-            UtilsFX.renderQuadCentered(this.sideTexture, 1.0f, rc, gc, bc, 220, 1, 0.8f);
+            UtilsFX.renderQuadCentered(sideTexture, 1.0f, rc, gc, bc, 220, 1, 0.8f);
             GL11.glPopMatrix();
         }
         GlStateManager.enableCull();

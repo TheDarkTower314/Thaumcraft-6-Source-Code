@@ -46,42 +46,42 @@ public class TileFocalManipulator extends TileThaumcraftInventory
     
     public TileFocalManipulator() {
         super(1);
-        this.vis = 0.0f;
-        this.data = new HashMap<Integer, FocusElementNode>();
-        this.focusName = "";
-        this.ticks = 0;
-        this.visCost = 0.0f;
-        this.xpCost = 0;
-        this.crystals = new AspectList();
-        this.crystalsSync = new AspectList();
-        this.doGuiReset = false;
-        this.syncedSlots = new int[] { 0 };
+        vis = 0.0f;
+        data = new HashMap<Integer, FocusElementNode>();
+        focusName = "";
+        ticks = 0;
+        visCost = 0.0f;
+        xpCost = 0;
+        crystals = new AspectList();
+        crystalsSync = new AspectList();
+        doGuiReset = false;
+        syncedSlots = new int[] { 0 };
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbt) {
         super.readSyncNBT(nbt);
-        this.vis = nbt.getFloat("vis");
-        this.focusName = nbt.getString("focusName");
-        (this.crystalsSync = new AspectList()).readFromNBT(nbt, "crystals");
+        vis = nbt.getFloat("vis");
+        focusName = nbt.getString("focusName");
+        (crystalsSync = new AspectList()).readFromNBT(nbt, "crystals");
         final NBTTagList nodelist = nbt.getTagList("nodes", 10);
-        this.data.clear();
+        data.clear();
         for (int x = 0; x < nodelist.tagCount(); ++x) {
             final NBTTagCompound nodenbt = nodelist.getCompoundTagAt(x);
             final FocusElementNode node = new FocusElementNode();
             node.deserialize(nodenbt);
-            this.data.put(node.id, node);
+            data.put(node.id, node);
         }
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbt) {
         super.writeSyncNBT(nbt);
-        nbt.setFloat("vis", this.vis);
-        nbt.setString("focusName", this.focusName);
-        this.crystalsSync.writeToNBT(nbt, "crystals");
+        nbt.setFloat("vis", vis);
+        nbt.setString("focusName", focusName);
+        crystalsSync.writeToNBT(nbt, "crystals");
         final NBTTagList nodelist = new NBTTagList();
-        for (final FocusElementNode node : this.data.values()) {
+        for (final FocusElementNode node : data.values()) {
             nodelist.appendTag(node.serialize());
         }
         nbt.setTag("nodes", nodelist);
@@ -90,29 +90,29 @@ public class TileFocalManipulator extends TileThaumcraftInventory
     
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return new AxisAlignedBB(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.pos.getX() + 1, this.pos.getY() + 1, this.pos.getZ() + 1);
+        return new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
     }
     
     @Override
     public void setInventorySlotContents(final int par1, final ItemStack stack) {
-        final ItemStack prev = this.getStackInSlot(par1);
+        final ItemStack prev = getStackInSlot(par1);
         super.setInventorySlotContents(par1, stack);
         if (stack.isEmpty() || !ItemStack.areItemStacksEqual(stack, prev)) {
-            if (this.world.isRemote) {
-                this.data.clear();
-                this.doGuiReset = true;
+            if (world.isRemote) {
+                data.clear();
+                doGuiReset = true;
             }
             else {
-                this.vis = 0.0f;
-                this.crystalsSync = new AspectList();
-                this.markDirty();
-                this.syncSlots(null);
+                vis = 0.0f;
+                crystalsSync = new AspectList();
+                markDirty();
+                syncSlots(null);
             }
         }
     }
     
     public float spendAura(final float vis) {
-        if (this.world.getBlockState(this.getPos().up()).getBlock() == BlocksTC.arcaneWorkbenchCharger) {
+        if (world.getBlockState(getPos().up()).getBlock() == BlocksTC.arcaneWorkbenchCharger) {
             float q = vis;
             float z = vis / 9.0f;
         Label_0110:
@@ -121,7 +121,7 @@ public class TileFocalManipulator extends TileThaumcraftInventory
                     if (z > q) {
                         z = q;
                     }
-                    q -= AuraHandler.drainVis(this.getWorld(), this.getPos().add(xx * 16, 0, zz * 16), z, false);
+                    q -= AuraHandler.drainVis(getWorld(), getPos().add(xx * 16, 0, zz * 16), z, false);
                     if (q <= 0.0f) {
                         break Label_0110;
                     }
@@ -129,52 +129,52 @@ public class TileFocalManipulator extends TileThaumcraftInventory
             }
             return vis - q;
         }
-        return AuraHandler.drainVis(this.getWorld(), this.getPos(), vis, false);
+        return AuraHandler.drainVis(getWorld(), getPos(), vis, false);
     }
     
     @Override
     public void update() {
         super.update();
         boolean complete = false;
-        ++this.ticks;
-        if (!this.world.isRemote) {
-            if (this.ticks % 20 == 0) {
-                if (this.vis > 0.0f && (this.getStackInSlot(0) == null || this.getStackInSlot(0).isEmpty() || !(this.getStackInSlot(0).getItem() instanceof ItemFocus))) {
+        ++ticks;
+        if (!world.isRemote) {
+            if (ticks % 20 == 0) {
+                if (vis > 0.0f && (getStackInSlot(0) == null || getStackInSlot(0).isEmpty() || !(getStackInSlot(0).getItem() instanceof ItemFocus))) {
                     complete = true;
-                    this.vis = 0.0f;
-                    this.world.playSound(null, this.pos, SoundsTC.wandfail, SoundCategory.BLOCKS, 0.33f, 1.0f);
+                    vis = 0.0f;
+                    world.playSound(null, pos, SoundsTC.wandfail, SoundCategory.BLOCKS, 0.33f, 1.0f);
                 }
-                if (!complete && this.vis > 0.0f) {
-                    final float amt = this.spendAura(Math.min(20.0f, this.vis));
+                if (!complete && vis > 0.0f) {
+                    final float amt = spendAura(Math.min(20.0f, vis));
                     if (amt > 0.0f) {
-                        this.world.addBlockEvent(this.pos, this.getBlockType(), 5, 1);
-                        this.vis -= amt;
-                        this.syncTile(false);
-                        this.markDirty();
+                        world.addBlockEvent(pos, getBlockType(), 5, 1);
+                        vis -= amt;
+                        syncTile(false);
+                        markDirty();
                     }
-                    if (this.vis <= 0.0f && this.getStackInSlot(0) != null && !this.getStackInSlot(0).isEmpty() && this.getStackInSlot(0).getItem() instanceof ItemFocus) {
+                    if (vis <= 0.0f && getStackInSlot(0) != null && !getStackInSlot(0).isEmpty() && getStackInSlot(0).getItem() instanceof ItemFocus) {
                         complete = true;
-                        this.endCraft();
+                        endCraft();
                     }
                 }
             }
         }
-        else if (this.vis > 0.0f) {
-            FXDispatcher.INSTANCE.drawGenericParticles(this.pos.getX() + 0.5 + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.3f, this.pos.getY() + 1.4 + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.3f, this.pos.getZ() + 0.5 + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.3f, 0.0, 0.0, 0.0, 0.5f + this.world.rand.nextFloat() * 0.4f, 1.0f - this.world.rand.nextFloat() * 0.4f, 1.0f - this.world.rand.nextFloat() * 0.4f, 0.8f, false, 448, 9, 1, 6 + this.world.rand.nextInt(5), 0, 0.3f + this.world.rand.nextFloat() * 0.3f, 0.0f, 0);
+        else if (vis > 0.0f) {
+            FXDispatcher.INSTANCE.drawGenericParticles(pos.getX() + 0.5 + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3f, pos.getY() + 1.4 + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3f, pos.getZ() + 0.5 + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3f, 0.0, 0.0, 0.0, 0.5f + world.rand.nextFloat() * 0.4f, 1.0f - world.rand.nextFloat() * 0.4f, 1.0f - world.rand.nextFloat() * 0.4f, 0.8f, false, 448, 9, 1, 6 + world.rand.nextInt(5), 0, 0.3f + world.rand.nextFloat() * 0.3f, 0.0f, 0);
         }
         if (complete) {
-            this.vis = 0.0f;
-            this.syncTile(false);
-            this.markDirty();
+            vis = 0.0f;
+            syncTile(false);
+            markDirty();
         }
     }
     
     private FocusPackage generateFocus() {
-        if (this.data != null && !this.data.isEmpty()) {
+        if (data != null && !data.isEmpty()) {
             final FocusPackage core = new FocusPackage();
             int totalComplexity = 0;
             final HashMap<String, Integer> compCount = new HashMap<String, Integer>();
-            for (final FocusElementNode node : this.data.values()) {
+            for (final FocusElementNode node : data.values()) {
                 if (node.node != null) {
                     int a = 0;
                     if (compCount.containsKey(node.node.getKey())) {
@@ -187,8 +187,8 @@ public class TileFocalManipulator extends TileThaumcraftInventory
                 }
             }
             core.setComplexity(totalComplexity);
-            final FocusElementNode root = this.data.get(0);
-            this.traverseChildren(core, root);
+            final FocusElementNode root = data.get(0);
+            traverseChildren(core, root);
             return core;
         }
         return null;
@@ -203,49 +203,49 @@ public class TileFocalManipulator extends TileThaumcraftInventory
             return;
         }
         if (currentNode.children.length == 1) {
-            this.traverseChildren(currentPackage, this.data.get(currentNode.children[0]));
+            traverseChildren(currentPackage, data.get(currentNode.children[0]));
         }
         else {
             final FocusModSplit splitNode = (FocusModSplit)currentNode.node;
             splitNode.getSplitPackages().clear();
             for (final int c : currentNode.children) {
                 final FocusPackage splitPackage = new FocusPackage();
-                this.traverseChildren(splitPackage, this.data.get(c));
+                traverseChildren(splitPackage, data.get(c));
                 splitNode.getSplitPackages().add(splitPackage);
             }
         }
     }
     
     public void endCraft() {
-        this.vis = 0.0f;
-        if (this.getStackInSlot(0) != null && !this.getStackInSlot(0).isEmpty() && this.getStackInSlot(0).getItem() instanceof ItemFocus) {
-            final FocusPackage core = this.generateFocus();
+        vis = 0.0f;
+        if (getStackInSlot(0) != null && !getStackInSlot(0).isEmpty() && getStackInSlot(0).getItem() instanceof ItemFocus) {
+            final FocusPackage core = generateFocus();
             if (core != null) {
-                this.world.playSound(null, this.pos, SoundsTC.wand, SoundCategory.BLOCKS, 1.0f, 1.0f);
-                final ItemStack focus = this.getStackInSlot(0);
+                world.playSound(null, pos, SoundsTC.wand, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                final ItemStack focus = getStackInSlot(0);
                 if (focus.getTagCompound() != null) {
                     focus.getTagCompound().removeTag("color");
                 }
-                focus.setStackDisplayName(this.focusName);
+                focus.setStackDisplayName(focusName);
                 ItemFocus.setPackage(focus, core);
-                this.setInventorySlotContents(0, focus);
-                this.crystalsSync = new AspectList();
-                this.data.clear();
-                this.syncTile(false);
-                this.markDirty();
+                setInventorySlotContents(0, focus);
+                crystalsSync = new AspectList();
+                data.clear();
+                syncTile(false);
+                markDirty();
             }
         }
     }
     
     public boolean startCraft(final int id, final EntityPlayer p) {
-        if (this.data == null || this.data.isEmpty() || this.vis > 0.0f || this.getStackInSlot(0) == null || this.getStackInSlot(0).isEmpty() || !(this.getStackInSlot(0).getItem() instanceof ItemFocus)) {
+        if (data == null || data.isEmpty() || vis > 0.0f || getStackInSlot(0) == null || getStackInSlot(0).isEmpty() || !(getStackInSlot(0).getItem() instanceof ItemFocus)) {
             return false;
         }
-        final int maxComplexity = ((ItemFocus)this.getStackInSlot(0).getItem()).getMaxComplexity();
+        final int maxComplexity = ((ItemFocus) getStackInSlot(0).getItem()).getMaxComplexity();
         int totalComplexity = 0;
-        this.crystals = new AspectList();
+        crystals = new AspectList();
         final HashMap<String, Integer> compCount = new HashMap<String, Integer>();
-        for (final FocusElementNode node : this.data.values()) {
+        for (final FocusElementNode node : data.values()) {
             if (node.node == null) {
                 return false;
             }
@@ -263,42 +263,42 @@ public class TileFocalManipulator extends TileThaumcraftInventory
             if (node.node.getAspect() == null) {
                 continue;
             }
-            this.crystals.add(node.node.getAspect(), 1);
+            crystals.add(node.node.getAspect(), 1);
         }
-        this.vis = (float)(totalComplexity * 10 + maxComplexity / 5);
-        this.xpCost = (int)Math.max(1L, Math.round(Math.sqrt(totalComplexity)));
-        if (!p.capabilities.isCreativeMode && p.experienceLevel < this.xpCost) {
-            this.vis = 0.0f;
+        vis = (float)(totalComplexity * 10 + maxComplexity / 5);
+        xpCost = (int)Math.max(1L, Math.round(Math.sqrt(totalComplexity)));
+        if (!p.capabilities.isCreativeMode && p.experienceLevel < xpCost) {
+            vis = 0.0f;
             return false;
         }
         if (!p.capabilities.isCreativeMode) {
-            p.addExperienceLevel(-this.xpCost);
+            p.addExperienceLevel(-xpCost);
         }
-        if (this.crystals.getAspects().length > 0) {
-            final ItemStack[] components = new ItemStack[this.crystals.getAspects().length];
+        if (crystals.getAspects().length > 0) {
+            final ItemStack[] components = new ItemStack[crystals.getAspects().length];
             int r = 0;
-            for (final Aspect as : this.crystals.getAspects()) {
-                components[r] = ThaumcraftApiHelper.makeCrystal(as, this.crystals.getAmount(as));
+            for (final Aspect as : crystals.getAspects()) {
+                components[r] = ThaumcraftApiHelper.makeCrystal(as, crystals.getAmount(as));
                 ++r;
             }
             if (components.length >= 0) {
                 for (int a = 0; a < components.length; ++a) {
                     if (!InventoryUtils.isPlayerCarryingAmount(p, components[a], false)) {
-                        this.vis = 0.0f;
+                        vis = 0.0f;
                         return false;
                     }
                 }
                 for (int a = 0; a < components.length; ++a) {
                     InventoryUtils.consumePlayerItem(p, components[a], true, false);
                 }
-                this.crystalsSync = this.crystals.copy();
+                crystalsSync = crystals.copy();
             }
-            this.markDirty();
-            this.syncTile(false);
-            this.world.playSound(null, this.pos, SoundsTC.craftstart, SoundCategory.BLOCKS, 1.0f, 1.0f);
+            markDirty();
+            syncTile(false);
+            world.playSound(null, pos, SoundsTC.craftstart, SoundCategory.BLOCKS, 1.0f, 1.0f);
             return true;
         }
-        this.vis = 0.0f;
+        vis = 0.0f;
         return false;
     }
     
@@ -309,11 +309,11 @@ public class TileFocalManipulator extends TileThaumcraftInventory
     
     public boolean receiveClientEvent(final int i, final int j) {
         if (i == 1) {
-            this.doGuiReset = true;
+            doGuiReset = true;
         }
         if (i == 5) {
-            if (this.world.isRemote) {
-                FXDispatcher.INSTANCE.visSparkle(this.pos.getX() + this.getWorld().rand.nextInt(3) - this.getWorld().rand.nextInt(3), this.pos.getY() + this.getWorld().rand.nextInt(3), this.pos.getZ() + this.getWorld().rand.nextInt(3) - this.getWorld().rand.nextInt(3), this.pos.getX(), this.pos.getY() + 1, this.pos.getZ(), j);
+            if (world.isRemote) {
+                FXDispatcher.INSTANCE.visSparkle(pos.getX() + getWorld().rand.nextInt(3) - getWorld().rand.nextInt(3), pos.getY() + getWorld().rand.nextInt(3), pos.getZ() + getWorld().rand.nextInt(3) - getWorld().rand.nextInt(3), pos.getX(), pos.getY() + 1, pos.getZ(), j);
             }
             return true;
         }

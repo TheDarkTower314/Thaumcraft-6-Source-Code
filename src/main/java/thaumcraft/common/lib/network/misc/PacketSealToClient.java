@@ -42,93 +42,93 @@ public class PacketSealToClient implements IMessage, IMessageHandler<PacketSealT
     String owner;
     
     public PacketSealToClient() {
-        this.props = null;
+        props = null;
     }
     
     public PacketSealToClient(final ISealEntity se) {
-        this.props = null;
-        this.pos = se.getSealPos().pos;
-        this.face = se.getSealPos().face;
-        this.type = ((se.getSeal() == null) ? "REMOVE" : se.getSeal().getKey());
+        props = null;
+        pos = se.getSealPos().pos;
+        face = se.getSealPos().face;
+        type = ((se.getSeal() == null) ? "REMOVE" : se.getSeal().getKey());
         if (se.getSeal() != null && se.getSeal() instanceof ISealConfigArea) {
-            this.area = se.getArea().toLong();
+            area = se.getArea().toLong();
         }
         if (se.getSeal() != null && se.getSeal() instanceof ISealConfigToggles) {
             final ISealConfigToggles cp = (ISealConfigToggles)se.getSeal();
-            this.props = new boolean[cp.getToggles().length];
+            props = new boolean[cp.getToggles().length];
             for (int a = 0; a < cp.getToggles().length; ++a) {
-                this.props[a] = cp.getToggles()[a].getValue();
+                props[a] = cp.getToggles()[a].getValue();
             }
         }
         if (se.getSeal() != null && se.getSeal() instanceof ISealConfigFilter) {
             final ISealConfigFilter cp2 = (ISealConfigFilter)se.getSeal();
-            this.blacklist = cp2.isBlacklist();
-            this.filtersize = (byte)cp2.getFilterSize();
-            this.filter = cp2.getInv();
-            this.filterStackSize = cp2.getSizes();
+            blacklist = cp2.isBlacklist();
+            filtersize = (byte)cp2.getFilterSize();
+            filter = cp2.getInv();
+            filterStackSize = cp2.getSizes();
         }
-        this.priority = se.getPriority();
-        this.color = se.getColor();
-        this.locked = se.isLocked();
-        this.redstone = se.isRedstoneSensitive();
-        this.owner = se.getOwner();
+        priority = se.getPriority();
+        color = se.getColor();
+        locked = se.isLocked();
+        redstone = se.isRedstoneSensitive();
+        owner = se.getOwner();
     }
     
     public void toBytes(final ByteBuf dos) {
-        dos.writeLong(this.pos.toLong());
-        dos.writeByte(this.face.ordinal());
-        dos.writeByte(this.priority);
-        dos.writeByte(this.color);
-        dos.writeBoolean(this.locked);
-        dos.writeBoolean(this.redstone);
-        ByteBufUtils.writeUTF8String(dos, this.owner);
-        ByteBufUtils.writeUTF8String(dos, this.type);
-        dos.writeBoolean(this.blacklist);
-        dos.writeByte(this.filtersize);
-        for (int a = 0; a < this.filtersize; ++a) {
-            Utils.writeItemStackToBuffer(dos, this.filter.get(a));
-            dos.writeShort(this.filterStackSize.get(a));
+        dos.writeLong(pos.toLong());
+        dos.writeByte(face.ordinal());
+        dos.writeByte(priority);
+        dos.writeByte(color);
+        dos.writeBoolean(locked);
+        dos.writeBoolean(redstone);
+        ByteBufUtils.writeUTF8String(dos, owner);
+        ByteBufUtils.writeUTF8String(dos, type);
+        dos.writeBoolean(blacklist);
+        dos.writeByte(filtersize);
+        for (int a = 0; a < filtersize; ++a) {
+            Utils.writeItemStackToBuffer(dos, filter.get(a));
+            dos.writeShort(filterStackSize.get(a));
         }
-        if (this.area != 0L) {
-            dos.writeLong(this.area);
+        if (area != 0L) {
+            dos.writeLong(area);
         }
-        if (this.props != null) {
-            for (final boolean b : this.props) {
+        if (props != null) {
+            for (final boolean b : props) {
                 dos.writeBoolean(b);
             }
         }
     }
     
     public void fromBytes(final ByteBuf dat) {
-        this.pos = BlockPos.fromLong(dat.readLong());
-        this.face = EnumFacing.VALUES[dat.readByte()];
-        this.priority = dat.readByte();
-        this.color = dat.readByte();
-        this.locked = dat.readBoolean();
-        this.redstone = dat.readBoolean();
-        this.owner = ByteBufUtils.readUTF8String(dat);
-        this.type = ByteBufUtils.readUTF8String(dat);
-        this.blacklist = dat.readBoolean();
-        this.filtersize = dat.readByte();
-        this.filter = NonNullList.withSize(this.filtersize, ItemStack.EMPTY);
-        this.filterStackSize = NonNullList.withSize(this.filtersize, 0);
-        for (int a = 0; a < this.filtersize; ++a) {
-            this.filter.set(a, Utils.readItemStackFromBuffer(dat));
-            this.filterStackSize.set(a, (int)dat.readShort());
+        pos = BlockPos.fromLong(dat.readLong());
+        face = EnumFacing.VALUES[dat.readByte()];
+        priority = dat.readByte();
+        color = dat.readByte();
+        locked = dat.readBoolean();
+        redstone = dat.readBoolean();
+        owner = ByteBufUtils.readUTF8String(dat);
+        type = ByteBufUtils.readUTF8String(dat);
+        blacklist = dat.readBoolean();
+        filtersize = dat.readByte();
+        filter = NonNullList.withSize(filtersize, ItemStack.EMPTY);
+        filterStackSize = NonNullList.withSize(filtersize, 0);
+        for (int a = 0; a < filtersize; ++a) {
+            filter.set(a, Utils.readItemStackFromBuffer(dat));
+            filterStackSize.set(a, (int)dat.readShort());
         }
-        if (!this.type.equals("REMOVE") && SealHandler.getSeal(this.type) != null) {
-            if (SealHandler.getSeal(this.type) instanceof ISealConfigArea) {
+        if (!type.equals("REMOVE") && SealHandler.getSeal(type) != null) {
+            if (SealHandler.getSeal(type) instanceof ISealConfigArea) {
                 try {
-                    this.area = dat.readLong();
+                    area = dat.readLong();
                 }
                 catch (final Exception ex) {}
             }
-            if (SealHandler.getSeal(this.type) instanceof ISealConfigToggles) {
+            if (SealHandler.getSeal(type) instanceof ISealConfigToggles) {
                 try {
-                    final ISealConfigToggles cp = (ISealConfigToggles)SealHandler.getSeal(this.type);
-                    this.props = new boolean[cp.getToggles().length];
+                    final ISealConfigToggles cp = (ISealConfigToggles)SealHandler.getSeal(type);
+                    props = new boolean[cp.getToggles().length];
                     for (int a2 = 0; a2 < cp.getToggles().length; ++a2) {
-                        this.props[a2] = dat.readBoolean();
+                        props[a2] = dat.readBoolean();
                     }
                 }
                 catch (final Exception ex2) {}

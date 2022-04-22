@@ -30,13 +30,13 @@ public class PacketTileToServer implements IMessage, IMessageHandler<PacketTileT
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeLong(this.pos);
-        Utils.writeNBTTagCompoundToBuffer(buffer, this.nbt);
+        buffer.writeLong(pos);
+        Utils.writeNBTTagCompoundToBuffer(buffer, nbt);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.pos = buffer.readLong();
-        this.nbt = Utils.readNBTTagCompoundFromBuffer(buffer);
+        pos = buffer.readLong();
+        nbt = Utils.readNBTTagCompoundFromBuffer(buffer);
     }
     
     public IMessage onMessage(final PacketTileToServer message, final MessageContext ctx) {

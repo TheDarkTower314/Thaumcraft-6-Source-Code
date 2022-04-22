@@ -41,8 +41,8 @@ public class FocusMediumMine extends FocusMedium
     
     @Override
     public boolean execute(final Trajectory trajectory) {
-        final EntityFocusMine projectile = new EntityFocusMine(this.getRemainingPackage(), trajectory, this.getSettingValue("target") == 1);
-        return this.getPackage().getCaster().world.spawnEntity(projectile);
+        final EntityFocusMine projectile = new EntityFocusMine(getRemainingPackage(), trajectory, getSettingValue("target") == 1);
+        return getPackage().getCaster().world.spawnEntity(projectile);
     }
     
     @Override

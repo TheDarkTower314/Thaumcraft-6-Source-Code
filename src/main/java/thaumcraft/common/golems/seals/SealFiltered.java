@@ -31,38 +31,38 @@ public abstract class SealFiltered implements ISeal, ISealGui, ISealConfigFilter
     boolean blacklist;
     
     public SealFiltered() {
-        this.filter = NonNullList.withSize(this.getFilterSize(), ItemStack.EMPTY);
-        this.filterSize = NonNullList.withSize(this.getFilterSize(), 0);
-        this.blacklist = true;
+        filter = NonNullList.withSize(getFilterSize(), ItemStack.EMPTY);
+        filterSize = NonNullList.withSize(getFilterSize(), 0);
+        blacklist = true;
     }
     
     @Override
     public void readCustomNBT(final NBTTagCompound nbt) {
-        ItemStackHelper.loadAllItems(nbt, this.filter = NonNullList.withSize(this.getFilterSize(), ItemStack.EMPTY));
-        for (final ItemStack s : this.filter) {
+        ItemStackHelper.loadAllItems(nbt, filter = NonNullList.withSize(getFilterSize(), ItemStack.EMPTY));
+        for (final ItemStack s : filter) {
             if (s.getCount() > 1) {
                 s.setCount(1);
             }
         }
-        this.blacklist = nbt.getBoolean("bl");
-        this.filterSize = NonNullList.withSize(this.getFilterSize(), 0);
+        blacklist = nbt.getBoolean("bl");
+        filterSize = NonNullList.withSize(getFilterSize(), 0);
         final NBTTagList nbttaglist = nbt.getTagList("Sizes", 10);
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
             final NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
             final int j = nbttagcompound.getByte("Slot") & 0xFF;
-            if (j >= 0 && j < this.filterSize.size()) {
-                this.filterSize.set(j, nbttagcompound.getInteger("Size"));
+            if (j >= 0 && j < filterSize.size()) {
+                filterSize.set(j, nbttagcompound.getInteger("Size"));
             }
         }
     }
     
     @Override
     public void writeCustomNBT(final NBTTagCompound nbt) {
-        ItemStackHelper.saveAllItems(nbt, this.filter);
-        nbt.setBoolean("bl", this.blacklist);
+        ItemStackHelper.saveAllItems(nbt, filter);
+        nbt.setBoolean("bl", blacklist);
         final NBTTagList nbttaglist = new NBTTagList();
-        for (int i = 0; i < this.filterSize.size(); ++i) {
-            final int size = this.filterSize.get(i);
+        for (int i = 0; i < filterSize.size(); ++i) {
+            final int size = filterSize.get(i);
             if (size != 0) {
                 final NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setByte("Slot", (byte)i);
@@ -96,42 +96,42 @@ public abstract class SealFiltered implements ISeal, ISealGui, ISealConfigFilter
     
     @Override
     public NonNullList<ItemStack> getInv() {
-        return this.filter;
+        return filter;
     }
     
     @Override
     public NonNullList<Integer> getSizes() {
-        return this.filterSize;
+        return filterSize;
     }
     
     @Override
     public ItemStack getFilterSlot(final int i) {
-        return this.filter.get(i);
+        return filter.get(i);
     }
     
     @Override
     public int getFilterSlotSize(final int i) {
-        return this.filterSize.get(i);
+        return filterSize.get(i);
     }
     
     @Override
     public void setFilterSlot(final int i, final ItemStack stack) {
-        this.filter.set(i, stack.copy());
+        filter.set(i, stack.copy());
     }
     
     @Override
     public void setFilterSlotSize(final int i, final int size) {
-        this.filterSize.set(i, size);
+        filterSize.set(i, size);
     }
     
     @Override
     public boolean isBlacklist() {
-        return this.blacklist;
+        return blacklist;
     }
     
     @Override
     public void setBlacklist(final boolean black) {
-        this.blacklist = black;
+        blacklist = black;
     }
     
     @Override

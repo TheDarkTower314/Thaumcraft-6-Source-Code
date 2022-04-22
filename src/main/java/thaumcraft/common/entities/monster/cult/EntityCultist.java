@@ -26,20 +26,20 @@ public class EntityCultist extends EntityMob
     
     public EntityCultist(final World p_i1745_1_) {
         super(p_i1745_1_);
-        this.setSize(0.6f, 1.8f);
-        this.experienceValue = 10;
-        ((PathNavigateGround)this.getNavigator()).setBreakDoors(true);
-        this.setDropChance(EntityEquipmentSlot.CHEST, 0.05f);
-        this.setDropChance(EntityEquipmentSlot.FEET, 0.05f);
-        this.setDropChance(EntityEquipmentSlot.HEAD, 0.05f);
-        this.setDropChance(EntityEquipmentSlot.LEGS, 0.05f);
+        setSize(0.6f, 1.8f);
+        experienceValue = 10;
+        ((PathNavigateGround) getNavigator()).setBreakDoors(true);
+        setDropChance(EntityEquipmentSlot.CHEST, 0.05f);
+        setDropChance(EntityEquipmentSlot.FEET, 0.05f);
+        setDropChance(EntityEquipmentSlot.HEAD, 0.05f);
+        setDropChance(EntityEquipmentSlot.LEGS, 0.05f);
     }
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(32.0);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(32.0);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0);
     }
     
     protected void entityInit() {
@@ -69,8 +69,8 @@ public class EntityCultist extends EntityMob
     }
     
     public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
-        this.setLoot(diff);
-        this.setEnchantmentBasedOnDifficulty(diff);
+        setLoot(diff);
+        setEnchantmentBasedOnDifficulty(diff);
         return super.onInitialSpawn(diff, data);
     }
     
@@ -81,17 +81,17 @@ public class EntityCultist extends EntityMob
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         if (nbt.hasKey("HomeD")) {
-            this.setHomePosAndDistance(new BlockPos(nbt.getInteger("HomeX"), nbt.getInteger("HomeY"), nbt.getInteger("HomeZ")), nbt.getInteger("HomeD"));
+            setHomePosAndDistance(new BlockPos(nbt.getInteger("HomeX"), nbt.getInteger("HomeY"), nbt.getInteger("HomeZ")), nbt.getInteger("HomeD"));
         }
     }
     
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        if (this.getHomePosition() != null && this.getMaximumHomeDistance() > 0.0f) {
-            nbt.setInteger("HomeD", (int)this.getMaximumHomeDistance());
-            nbt.setInteger("HomeX", this.getHomePosition().getX());
-            nbt.setInteger("HomeY", this.getHomePosition().getY());
-            nbt.setInteger("HomeZ", this.getHomePosition().getZ());
+        if (getHomePosition() != null && getMaximumHomeDistance() > 0.0f) {
+            nbt.setInteger("HomeD", (int) getMaximumHomeDistance());
+            nbt.setInteger("HomeX", getHomePosition().getX());
+            nbt.setInteger("HomeY", getHomePosition().getY());
+            nbt.setInteger("HomeZ", getHomePosition().getZ());
         }
     }
     
@@ -104,17 +104,17 @@ public class EntityCultist extends EntityMob
     }
     
     public void spawnExplosionParticle() {
-        if (this.world.isRemote) {
+        if (world.isRemote) {
             for (int i = 0; i < 20; ++i) {
-                final double d0 = this.rand.nextGaussian() * 0.05;
-                final double d2 = this.rand.nextGaussian() * 0.05;
-                final double d3 = this.rand.nextGaussian() * 0.05;
+                final double d0 = rand.nextGaussian() * 0.05;
+                final double d2 = rand.nextGaussian() * 0.05;
+                final double d3 = rand.nextGaussian() * 0.05;
                 final double d4 = 2.0;
-                FXDispatcher.INSTANCE.cultistSpawn(this.posX + this.rand.nextFloat() * this.width * 2.0f - this.width + d0 * d4, this.posY + this.rand.nextFloat() * this.height + d2 * d4, this.posZ + this.rand.nextFloat() * this.width * 2.0f - this.width + d3 * d4, d0, d2, d3);
+                FXDispatcher.INSTANCE.cultistSpawn(posX + rand.nextFloat() * width * 2.0f - width + d0 * d4, posY + rand.nextFloat() * height + d2 * d4, posZ + rand.nextFloat() * width * 2.0f - width + d3 * d4, d0, d2, d3);
             }
         }
         else {
-            this.world.setEntityState(this, (byte)20);
+            world.setEntityState(this, (byte)20);
         }
     }
     

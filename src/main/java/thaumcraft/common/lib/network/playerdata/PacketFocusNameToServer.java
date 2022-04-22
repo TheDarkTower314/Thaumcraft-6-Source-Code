@@ -23,18 +23,18 @@ public class PacketFocusNameToServer implements IMessage, IMessageHandler<Packet
     }
     
     public PacketFocusNameToServer(final BlockPos pos, final String name) {
-        this.loc = pos.toLong();
+        loc = pos.toLong();
         this.name = name;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeLong(this.loc);
-        ByteBufUtils.writeUTF8String(buffer, this.name);
+        buffer.writeLong(loc);
+        ByteBufUtils.writeUTF8String(buffer, name);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.loc = buffer.readLong();
-        this.name = ByteBufUtils.readUTF8String(buffer);
+        loc = buffer.readLong();
+        name = ByteBufUtils.readUTF8String(buffer);
     }
     
     public IMessage onMessage(final PacketFocusNameToServer message, final MessageContext ctx) {

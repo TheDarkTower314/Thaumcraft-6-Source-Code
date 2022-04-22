@@ -25,7 +25,7 @@ public class FocusModScatter extends FocusMod
     
     @Override
     public int getComplexity() {
-        return (int)Math.max(2.0f, 2.0f * (this.getSettingValue("forks") - this.getSettingValue("cone") / 45.0f));
+        return (int)Math.max(2.0f, 2.0f * (getSettingValue("forks") - getSettingValue("cone") / 45.0f));
     }
     
     @Override
@@ -47,19 +47,19 @@ public class FocusModScatter extends FocusMod
     
     @Override
     public Trajectory[] supplyTrajectories() {
-        if (this.getParent() == null) {
+        if (getParent() == null) {
             return new Trajectory[0];
         }
         final ArrayList<Trajectory> tT = new ArrayList<Trajectory>();
-        final int forks = this.getSettingValue("forks");
-        final int angle = this.getSettingValue("cone");
-        if (this.getParent().supplyTrajectories() != null) {
-            for (final Trajectory sT : this.getParent().supplyTrajectories()) {
+        final int forks = getSettingValue("forks");
+        final int angle = getSettingValue("cone");
+        if (getParent().supplyTrajectories() != null) {
+            for (final Trajectory sT : getParent().supplyTrajectories()) {
                 for (int a = 0; a < forks; ++a) {
                     final Vec3d sV = sT.source;
                     Vec3d dV = sT.direction;
                     dV = dV.normalize();
-                    dV = dV.addVector(this.getPackage().world.rand.nextGaussian() * 0.007499999832361937 * angle, this.getPackage().world.rand.nextGaussian() * 0.007499999832361937 * angle, this.getPackage().world.rand.nextGaussian() * 0.007499999832361937 * angle);
+                    dV = dV.addVector(getPackage().world.rand.nextGaussian() * 0.007499999832361937 * angle, getPackage().world.rand.nextGaussian() * 0.007499999832361937 * angle, getPackage().world.rand.nextGaussian() * 0.007499999832361937 * angle);
                     tT.add(new Trajectory(sV, dV.normalize()));
                 }
             }
@@ -69,7 +69,7 @@ public class FocusModScatter extends FocusMod
     
     @Override
     public float getPowerMultiplier() {
-        return 1.0f / (this.getSettingValue("forks") / 2.0f);
+        return 1.0f / (getSettingValue("forks") / 2.0f);
     }
     
     @Override

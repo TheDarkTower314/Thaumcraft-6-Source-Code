@@ -36,7 +36,7 @@ public class BlockAlembic extends BlockTCTile implements ILabelable
 {
     public BlockAlembic() {
         super(Material.WOOD, TileAlembic.class, "alembic");
-        this.setSoundType(SoundType.WOOD);
+        setSoundType(SoundType.WOOD);
     }
     
     @Override
@@ -60,7 +60,7 @@ public class BlockAlembic extends BlockTCTile implements ILabelable
     }
     
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        return this.getStateFromMeta(meta);
+        return getStateFromMeta(meta);
     }
     
     public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
@@ -135,7 +135,7 @@ public class BlockAlembic extends BlockTCTile implements ILabelable
             return false;
         }
         final IBlockState state = player.world.getBlockState(pos);
-        this.onBlockPlacedBy(player.world, pos, state, player, null);
+        onBlockPlacedBy(player.world, pos, state, player, null);
         ((TileAlembic)te).aspectFilter = aspect;
         ((TileAlembic)te).facing = side.ordinal();
         te.markDirty();

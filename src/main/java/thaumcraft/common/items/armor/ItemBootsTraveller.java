@@ -31,11 +31,11 @@ public class ItemBootsTraveller extends ItemArmor implements IThaumcraftItems, I
 {
     public ItemBootsTraveller() {
         super(ThaumcraftMaterials.ARMORMAT_SPECIAL, 4, EntityEquipmentSlot.FEET);
-        this.setMaxDamage(350);
-        this.setRegistryName("traveller_boots");
-        this.setUnlocalizedName("traveller_boots");
+        setMaxDamage(350);
+        setRegistryName("traveller_boots");
+        setUnlocalizedName("traveller_boots");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
-        this.setCreativeTab(ConfigItems.TABTC);
+        setCreativeTab(ConfigItems.TABTC);
     }
     
     public Item getItem() {

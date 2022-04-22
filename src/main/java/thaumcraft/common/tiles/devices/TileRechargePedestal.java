@@ -26,31 +26,31 @@ public class TileRechargePedestal extends TileThaumcraftInventory implements IAs
     
     public TileRechargePedestal() {
         super(1);
-        this.counter = 0;
-        this.syncedSlots = new int[] { 0 };
+        counter = 0;
+        syncedSlots = new int[] { 0 };
     }
     
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 1, this.getPos().getZ() + 1).grow(2.0, 2.0, 2.0);
+        return new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1).grow(2.0, 2.0, 2.0);
     }
     
     @Override
     public void update() {
         super.update();
-        if (!this.getWorld().isRemote && this.counter++ % 10 == 0 && this.getStackInSlot(0) != null && RechargeHelper.rechargeItem(this.getWorld(), this.getStackInSlot(0), this.pos, null, 5) > 0.0f) {
-            this.syncTile(false);
-            this.markDirty();
+        if (!getWorld().isRemote && counter++ % 10 == 0 && getStackInSlot(0) != null && RechargeHelper.rechargeItem(getWorld(), getStackInSlot(0), pos, null, 5) > 0.0f) {
+            syncTile(false);
+            markDirty();
             final ArrayList<Aspect> al = Aspect.getPrimalAspects();
-            this.world.addBlockEvent(this.pos, this.getBlockType(), 5, al.get(this.getWorld().rand.nextInt(al.size())).getColor());
+            world.addBlockEvent(pos, getBlockType(), 5, al.get(getWorld().rand.nextInt(al.size())).getColor());
         }
     }
     
     public void setInventorySlotContentsFromInfusion(final int par1, final ItemStack stack2) {
-        this.setInventorySlotContents(par1, stack2);
-        this.markDirty();
-        if (!this.world.isRemote) {
-            this.syncTile(false);
+        setInventorySlotContents(par1, stack2);
+        markDirty();
+        if (!world.isRemote) {
+            syncTile(false);
         }
     }
     
@@ -76,7 +76,7 @@ public class TileRechargePedestal extends TileThaumcraftInventory implements IAs
     
     @Override
     public AspectList getAspects() {
-        final ItemStack s = (this.world == null || this.world.isRemote) ? this.getSyncedStackInSlot(0) : this.getStackInSlot(0);
+        final ItemStack s = (world == null || world.isRemote) ? getSyncedStackInSlot(0) : getStackInSlot(0);
         if (s != null && s.getItem() instanceof IRechargable) {
             final float c = (float)RechargeHelper.getCharge(s);
             return new AspectList().add(Aspect.ENERGY, Math.round(c));
@@ -125,8 +125,8 @@ public class TileRechargePedestal extends TileThaumcraftInventory implements IAs
     
     public boolean receiveClientEvent(final int i, final int j) {
         if (i == 5) {
-            if (this.world.isRemote) {
-                FXDispatcher.INSTANCE.visSparkle(this.pos.getX() + this.getWorld().rand.nextInt(3) - this.getWorld().rand.nextInt(3), this.pos.up().getY() + this.getWorld().rand.nextInt(3), this.pos.getZ() + this.getWorld().rand.nextInt(3) - this.getWorld().rand.nextInt(3), this.pos.getX(), this.pos.up().getY(), this.pos.getZ(), j);
+            if (world.isRemote) {
+                FXDispatcher.INSTANCE.visSparkle(pos.getX() + getWorld().rand.nextInt(3) - getWorld().rand.nextInt(3), pos.up().getY() + getWorld().rand.nextInt(3), pos.getZ() + getWorld().rand.nextInt(3) - getWorld().rand.nextInt(3), pos.getX(), pos.up().getY(), pos.getZ(), j);
             }
             return true;
         }

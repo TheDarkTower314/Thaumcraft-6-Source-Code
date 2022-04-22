@@ -22,57 +22,57 @@ public class ContainerVoidSiphon extends Container
     private int lastProgress;
     
     public ContainerVoidSiphon(final InventoryPlayer par1InventoryPlayer, final TileVoidSiphon tileEntity) {
-        this.siphon = tileEntity;
-        this.addSlotToContainer(new SlotOutput(tileEntity, 0, 80, 32));
+        siphon = tileEntity;
+        addSlotToContainer(new SlotOutput(tileEntity, 0, 80, 32));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
+            addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
         }
     }
     
     public void addListener(final IContainerListener par1ICrafting) {
         super.addListener(par1ICrafting);
-        par1ICrafting.sendWindowProperty(this, 0, this.siphon.progress);
+        par1ICrafting.sendWindowProperty(this, 0, siphon.progress);
     }
     
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (int i = 0; i < this.listeners.size(); ++i) {
-            final IContainerListener icrafting = this.listeners.get(i);
-            if (this.lastProgress != this.siphon.progress) {
-                icrafting.sendWindowProperty(this, 0, this.siphon.progress);
+        for (int i = 0; i < listeners.size(); ++i) {
+            final IContainerListener icrafting = listeners.get(i);
+            if (lastProgress != siphon.progress) {
+                icrafting.sendWindowProperty(this, 0, siphon.progress);
             }
         }
-        this.lastProgress = this.siphon.progress;
+        lastProgress = siphon.progress;
     }
     
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(final int par1, final int par2) {
         if (par1 == 0) {
-            this.siphon.progress = par2;
+            siphon.progress = par2;
         }
     }
     
     public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
-        return this.siphon.isUsableByPlayer(par1EntityPlayer);
+        return siphon.isUsableByPlayer(par1EntityPlayer);
     }
     
     public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = this.inventorySlots.get(slot);
+        final Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
             final ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot == 0) {
-                if (!this.siphon.isItemValidForSlot(slot, stackInSlot) || !this.mergeItemStack(stackInSlot, 1, this.inventorySlots.size(), true)) {
+                if (!siphon.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.siphon.isItemValidForSlot(slot, stackInSlot) || !this.mergeItemStack(stackInSlot, 0, 1, false)) {
+            else if (!siphon.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
             if (stackInSlot.getCount() == 0) {

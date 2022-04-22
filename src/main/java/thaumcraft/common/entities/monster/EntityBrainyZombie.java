@@ -18,14 +18,14 @@ public class EntityBrainyZombie extends EntityZombie
 {
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0);
-        this.getEntityAttribute(EntityBrainyZombie.SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(0.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0);
+        getEntityAttribute(EntityBrainyZombie.SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(0.0);
     }
     
     public EntityBrainyZombie(final World world) {
         super(world);
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
     }
     
     public int getTotalArmorValue() {
@@ -33,8 +33,8 @@ public class EntityBrainyZombie extends EntityZombie
     }
     
     protected void dropLoot(final boolean wasRecentlyHit, final int lootingModifier, final DamageSource source) {
-        if (this.world.rand.nextInt(10) - lootingModifier <= 4) {
-            this.entityDropItem(new ItemStack(ItemsTC.brain), 1.5f);
+        if (world.rand.nextInt(10) - lootingModifier <= 4) {
+            entityDropItem(new ItemStack(ItemsTC.brain), 1.5f);
         }
         super.dropLoot(wasRecentlyHit, lootingModifier, source);
     }

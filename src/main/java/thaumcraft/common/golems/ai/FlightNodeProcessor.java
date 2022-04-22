@@ -17,17 +17,17 @@ import net.minecraft.pathfinding.NodeProcessor;
 public class FlightNodeProcessor extends NodeProcessor
 {
     public PathPoint getPathPointToCoords(final double x, final double y, final double z) {
-        return this.openPoint(MathHelper.floor(x - this.entity.width / 2.0f), MathHelper.floor(y + 0.5), MathHelper.floor(z - this.entity.width / 2.0f));
+        return openPoint(MathHelper.floor(x - entity.width / 2.0f), MathHelper.floor(y + 0.5), MathHelper.floor(z - entity.width / 2.0f));
     }
     
     public PathPoint getStart() {
-        return this.openPoint(MathHelper.floor(this.entity.getEntityBoundingBox().minX), MathHelper.floor(this.entity.getEntityBoundingBox().minY + 0.5), MathHelper.floor(this.entity.getEntityBoundingBox().minZ));
+        return openPoint(MathHelper.floor(entity.getEntityBoundingBox().minX), MathHelper.floor(entity.getEntityBoundingBox().minY + 0.5), MathHelper.floor(entity.getEntityBoundingBox().minZ));
     }
     
     public int findPathOptions(final PathPoint[] p_186320_1_, final PathPoint p_186320_2_, final PathPoint p_186320_3_, final float p_186320_4_) {
         int i = 0;
         for (final EnumFacing enumfacing : EnumFacing.values()) {
-            final PathPoint pathpoint = this.getWaterNode(p_186320_2_.x + enumfacing.getFrontOffsetX(), p_186320_2_.y + enumfacing.getFrontOffsetY(), p_186320_2_.z + enumfacing.getFrontOffsetZ());
+            final PathPoint pathpoint = getWaterNode(p_186320_2_.x + enumfacing.getFrontOffsetX(), p_186320_2_.y + enumfacing.getFrontOffsetY(), p_186320_2_.z + enumfacing.getFrontOffsetZ());
             if (pathpoint != null && !pathpoint.visited && pathpoint.distanceTo(p_186320_3_) < p_186320_4_) {
                 p_186320_1_[i++] = pathpoint;
             }
@@ -44,17 +44,17 @@ public class FlightNodeProcessor extends NodeProcessor
     }
     
     private PathPoint getWaterNode(final int p_186328_1_, final int p_186328_2_, final int p_186328_3_) {
-        final PathNodeType pathnodetype = this.isFree(p_186328_1_, p_186328_2_, p_186328_3_);
-        return (pathnodetype == PathNodeType.WALKABLE) ? this.openPoint(p_186328_1_, p_186328_2_, p_186328_3_) : null;
+        final PathNodeType pathnodetype = isFree(p_186328_1_, p_186328_2_, p_186328_3_);
+        return (pathnodetype == PathNodeType.WALKABLE) ? openPoint(p_186328_1_, p_186328_2_, p_186328_3_) : null;
     }
     
     private PathNodeType isFree(final int p_186327_1_, final int p_186327_2_, final int p_186327_3_) {
         final BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
-        for (int i = p_186327_1_; i < p_186327_1_ + this.entitySizeX; ++i) {
-            for (int j = p_186327_2_; j < p_186327_2_ + this.entitySizeY; ++j) {
-                for (int k = p_186327_3_; k < p_186327_3_ + this.entitySizeZ; ++k) {
-                    final IBlockState iblockstate = this.blockaccess.getBlockState(blockpos$mutableblockpos.setPos(i, j, k));
-                    if (!this.blockaccess.isAirBlock(blockpos$mutableblockpos.setPos(i, j, k)) && !iblockstate.getBlock().isPassable(this.blockaccess, blockpos$mutableblockpos.setPos(i, j, k))) {
+        for (int i = p_186327_1_; i < p_186327_1_ + entitySizeX; ++i) {
+            for (int j = p_186327_2_; j < p_186327_2_ + entitySizeY; ++j) {
+                for (int k = p_186327_3_; k < p_186327_3_ + entitySizeZ; ++k) {
+                    final IBlockState iblockstate = blockaccess.getBlockState(blockpos$mutableblockpos.setPos(i, j, k));
+                    if (!blockaccess.isAirBlock(blockpos$mutableblockpos.setPos(i, j, k)) && !iblockstate.getBlock().isPassable(blockaccess, blockpos$mutableblockpos.setPos(i, j, k))) {
                         return PathNodeType.BLOCKED;
                     }
                 }

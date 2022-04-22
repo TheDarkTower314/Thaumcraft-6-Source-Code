@@ -19,9 +19,9 @@ public class BlockStoneTC extends BlockTC
     public BlockStoneTC(final String name, final boolean spawn) {
         super(Material.ROCK, name);
         this.spawn = spawn;
-        this.setHardness(2.0f);
-        this.setResistance(10.0f);
-        this.setSoundType(SoundType.STONE);
+        setHardness(2.0f);
+        setResistance(10.0f);
+        setSoundType(SoundType.STONE);
     }
     
     public boolean isBeaconBase(final IBlockAccess world, final BlockPos pos, final BlockPos beacon) {
@@ -29,6 +29,6 @@ public class BlockStoneTC extends BlockTC
     }
     
     public boolean canEntityDestroy(final IBlockState state, final IBlockAccess world, final BlockPos pos, final Entity entity) {
-        return this.blockHardness >= 0.0f;
+        return blockHardness >= 0.0f;
     }
 }

@@ -18,21 +18,21 @@ public class InventoryFake extends InventoryBasic
     public InventoryFake(final NonNullList<ItemStack> inv) {
         super("container.fake", false, inv.size());
         for (int a = 0; a < inv.size(); ++a) {
-            this.setInventorySlotContents(a, inv.get(a));
+            setInventorySlotContents(a, inv.get(a));
         }
     }
     
     public InventoryFake(final ItemStack... stacks) {
         super("container.fake", false, stacks.length);
         for (int a = 0; a < stacks.length; ++a) {
-            this.setInventorySlotContents(a, stacks[a]);
+            setInventorySlotContents(a, stacks[a]);
         }
     }
     
     public InventoryFake(final ArrayList<ItemStack> inv) {
         super("container.fake", false, inv.size());
         for (int a = 0; a < inv.size(); ++a) {
-            this.setInventorySlotContents(a, inv.get(a));
+            setInventorySlotContents(a, inv.get(a));
         }
     }
 }

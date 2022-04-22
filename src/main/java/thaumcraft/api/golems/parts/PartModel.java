@@ -15,20 +15,20 @@ public class PartModel
     
     public PartModel(final ResourceLocation objModel, final ResourceLocation objTexture, final EnumAttachPoint attachPoint) {
         this.objModel = objModel;
-        this.texture = objTexture;
+        texture = objTexture;
         this.attachPoint = attachPoint;
     }
     
     public ResourceLocation getObjModel() {
-        return this.objModel;
+        return objModel;
     }
     
     public ResourceLocation getTexture() {
-        return this.texture;
+        return texture;
     }
     
     public EnumAttachPoint getAttachPoint() {
-        return this.attachPoint;
+        return attachPoint;
     }
     
     public boolean useMaterialTextureForObjectPart(final String partName) {

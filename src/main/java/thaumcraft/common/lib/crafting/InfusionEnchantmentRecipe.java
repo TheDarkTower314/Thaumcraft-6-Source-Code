@@ -35,32 +35,32 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe
     
     public InfusionEnchantmentRecipe(final EnumInfusionEnchantment ench, final AspectList as, final Object... components) {
         super(ench.research, null, 4, as, Ingredient.EMPTY, components);
-        this.enchantment = ench;
+        enchantment = ench;
     }
     
     public InfusionEnchantmentRecipe(final InfusionEnchantmentRecipe recipe, final ItemStack in) {
         super(recipe.enchantment.research, null, recipe.instability, recipe.aspects, in, recipe.components.toArray());
-        this.enchantment = recipe.enchantment;
+        enchantment = recipe.enchantment;
     }
     
     @Override
     public boolean matches(final List<ItemStack> input, final ItemStack central, final World world, final EntityPlayer player) {
-        if (central == null || central.isEmpty() || !ThaumcraftCapabilities.knowsResearch(player, this.research)) {
+        if (central == null || central.isEmpty() || !ThaumcraftCapabilities.knowsResearch(player, research)) {
             return false;
         }
-        if (EnumInfusionEnchantment.getInfusionEnchantmentLevel(central, this.enchantment) >= this.enchantment.maxLevel) {
+        if (EnumInfusionEnchantment.getInfusionEnchantmentLevel(central, enchantment) >= enchantment.maxLevel) {
             return false;
         }
-        if (!this.enchantment.toolClasses.contains("all")) {
+        if (!enchantment.toolClasses.contains("all")) {
             final Multimap<String, AttributeModifier> itemMods = central.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
             boolean cool = false;
-            if (itemMods != null && itemMods.containsKey(SharedMonsterAttributes.ATTACK_DAMAGE.getName()) && this.enchantment.toolClasses.contains("weapon")) {
+            if (itemMods != null && itemMods.containsKey(SharedMonsterAttributes.ATTACK_DAMAGE.getName()) && enchantment.toolClasses.contains("weapon")) {
                 cool = true;
             }
             if (!cool && central.getItem() instanceof ItemTool) {
                 final Set<String> tcs = central.getItem().getToolClasses(central);
                 for (final String tc : tcs) {
-                    if (this.enchantment.toolClasses.contains(tc)) {
+                    if (enchantment.toolClasses.contains(tc)) {
                         cool = true;
                         break;
                     }
@@ -86,7 +86,7 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe
                         break;
                     }
                 }
-                if (this.enchantment.toolClasses.contains("armor") || this.enchantment.toolClasses.contains(at)) {
+                if (enchantment.toolClasses.contains("armor") || enchantment.toolClasses.contains(at)) {
                     cool = true;
                 }
             }
@@ -106,18 +106,18 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe
                         break;
                     }
                 }
-                if (this.enchantment.toolClasses.contains("bauble") || this.enchantment.toolClasses.contains(at)) {
+                if (enchantment.toolClasses.contains("bauble") || enchantment.toolClasses.contains(at)) {
                     cool = true;
                 }
             }
-            if (!cool && central.getItem() instanceof IRechargable && this.enchantment.toolClasses.contains("chargable")) {
+            if (!cool && central.getItem() instanceof IRechargable && enchantment.toolClasses.contains("chargable")) {
                 cool = true;
             }
             if (!cool) {
                 return false;
             }
         }
-        return (this.getRecipeInput() == Ingredient.EMPTY || this.getRecipeInput().apply(central)) && RecipeMatcher.findMatches((List)input, (List)this.getComponents()) != null;
+        return (getRecipeInput() == Ingredient.EMPTY || getRecipeInput().apply(central)) && RecipeMatcher.findMatches((List)input, (List) getComponents()) != null;
     }
     
     @Override
@@ -126,8 +126,8 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe
             return null;
         }
         final ItemStack out = input.copy();
-        final int cl = EnumInfusionEnchantment.getInfusionEnchantmentLevel(out, this.enchantment);
-        if (cl >= this.enchantment.maxLevel) {
+        final int cl = EnumInfusionEnchantment.getInfusionEnchantmentLevel(out, enchantment);
+        if (cl >= enchantment.maxLevel) {
             return null;
         }
         final List<EnumInfusionEnchantment> el = EnumInfusionEnchantment.getInfusionEnchantments(input);
@@ -139,7 +139,7 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe
             }
             out.setTagInfo("TC.WARP", new NBTTagByte((byte)base));
         }
-        EnumInfusionEnchantment.addInfusionEnchantment(out, this.enchantment, cl + 1);
+        EnumInfusionEnchantment.addInfusionEnchantment(out, enchantment, cl + 1);
         return out;
     }
     
@@ -149,18 +149,18 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe
         if (input == null || input.isEmpty()) {
             return out;
         }
-        final int cl = EnumInfusionEnchantment.getInfusionEnchantmentLevel(input, this.enchantment) + 1;
-        if (cl > this.enchantment.maxLevel) {
+        final int cl = EnumInfusionEnchantment.getInfusionEnchantmentLevel(input, enchantment) + 1;
+        if (cl > enchantment.maxLevel) {
             return out;
         }
         final List<EnumInfusionEnchantment> el = EnumInfusionEnchantment.getInfusionEnchantments(input);
         int otherEnchantments = el.size();
-        if (el.contains(this.enchantment)) {
+        if (el.contains(enchantment)) {
             --otherEnchantments;
         }
         final float modifier = cl + otherEnchantments * 0.33f;
-        for (final Aspect a : this.getAspects().getAspects()) {
-            out.add(a, (int)(this.getAspects().getAmount(a) * modifier));
+        for (final Aspect a : getAspects().getAspects()) {
+            out.add(a, (int)(getAspects().getAmount(a) * modifier));
         }
         return out;
     }

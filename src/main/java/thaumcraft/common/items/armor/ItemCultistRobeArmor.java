@@ -32,12 +32,12 @@ public class ItemCultistRobeArmor extends ItemArmor implements IVisDiscountGear,
     
     public ItemCultistRobeArmor(final String name, final ItemArmor.ArmorMaterial enumarmormaterial, final int j, final EntityEquipmentSlot k) {
         super(enumarmormaterial, j, k);
-        this.model1 = null;
-        this.model2 = null;
-        this.model = null;
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        model1 = null;
+        model2 = null;
+        model = null;
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName(name);
+        setUnlocalizedName(name);
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     
@@ -80,13 +80,13 @@ public class ItemCultistRobeArmor extends ItemArmor implements IVisDiscountGear,
     
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(final EntityLivingBase entityLiving, final ItemStack itemStack, final EntityEquipmentSlot armorSlot, final ModelBiped _default) {
-        if (this.model1 == null) {
-            this.model1 = new ModelRobe(1.0f);
+        if (model1 == null) {
+            model1 = new ModelRobe(1.0f);
         }
-        if (this.model2 == null) {
-            this.model2 = new ModelRobe(0.5f);
+        if (model2 == null) {
+            model2 = new ModelRobe(0.5f);
         }
-        return this.model = CustomArmorHelper.getCustomArmorModel(entityLiving, itemStack, armorSlot, this.model, this.model1, this.model2);
+        return model = CustomArmorHelper.getCustomArmorModel(entityLiving, itemStack, armorSlot, model, model1, model2);
     }
     
     public int getWarp(final ItemStack itemstack, final EntityPlayer player) {

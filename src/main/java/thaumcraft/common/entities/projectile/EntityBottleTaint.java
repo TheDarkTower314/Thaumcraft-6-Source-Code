@@ -42,13 +42,13 @@ public class EntityBottleTaint extends EntityThrowable
             for (int a = 0; a < 100; ++a) {
                 FXDispatcher.INSTANCE.taintsplosionFX(this);
             }
-            FXDispatcher.INSTANCE.bottleTaintBreak(this.posX, this.posY, this.posZ);
+            FXDispatcher.INSTANCE.bottleTaintBreak(posX, posY, posZ);
         }
     }
     
     protected void onImpact(final RayTraceResult ray) {
-        if (!this.world.isRemote) {
-            final List ents = this.world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX, this.posY, this.posZ).grow(5.0, 5.0, 5.0));
+        if (!world.isRemote) {
+            final List ents = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX, posY, posZ, posX, posY, posZ).grow(5.0, 5.0, 5.0));
             if (ents.size() > 0) {
                 for (final Object ent : ents) {
                     final EntityLivingBase el = (EntityLivingBase)ent;
@@ -58,23 +58,23 @@ public class EntityBottleTaint extends EntityThrowable
                 }
             }
             for (int a = 0; a < 10; ++a) {
-                final int xx = (int)((this.rand.nextFloat() - this.rand.nextFloat()) * 4.0f);
-                final int zz = (int)((this.rand.nextFloat() - this.rand.nextFloat()) * 4.0f);
-                BlockPos p = this.getPosition().add(xx, 0, zz);
-                if (this.world.rand.nextBoolean()) {
-                    if (this.world.isBlockNormalCube(p.down(), false) && this.world.getBlockState(p).getBlock().isReplaceable(this.world, p)) {
-                        this.world.setBlockState(p, BlocksTC.fluxGoo.getDefaultState());
+                final int xx = (int)((rand.nextFloat() - rand.nextFloat()) * 4.0f);
+                final int zz = (int)((rand.nextFloat() - rand.nextFloat()) * 4.0f);
+                BlockPos p = getPosition().add(xx, 0, zz);
+                if (world.rand.nextBoolean()) {
+                    if (world.isBlockNormalCube(p.down(), false) && world.getBlockState(p).getBlock().isReplaceable(world, p)) {
+                        world.setBlockState(p, BlocksTC.fluxGoo.getDefaultState());
                     }
                     else {
                         p = p.down();
-                        if (this.world.isBlockNormalCube(p.down(), false) && this.world.getBlockState(p).getBlock().isReplaceable(this.world, p)) {
-                            this.world.setBlockState(p, BlocksTC.fluxGoo.getDefaultState());
+                        if (world.isBlockNormalCube(p.down(), false) && world.getBlockState(p).getBlock().isReplaceable(world, p)) {
+                            world.setBlockState(p, BlocksTC.fluxGoo.getDefaultState());
                         }
                     }
                 }
             }
-            this.world.setEntityState(this, (byte)3);
-            this.setDead();
+            world.setEntityState(this, (byte)3);
+            setDead();
         }
     }
 }

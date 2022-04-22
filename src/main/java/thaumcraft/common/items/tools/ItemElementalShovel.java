@@ -47,10 +47,10 @@ public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaum
     
     public ItemElementalShovel(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.side = EnumFacing.DOWN;
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("elemental_shovel");
-        this.setUnlocalizedName("elemental_shovel");
+        side = EnumFacing.DOWN;
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("elemental_shovel");
+        setUnlocalizedName("elemental_shovel");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

@@ -38,130 +38,130 @@ public class FXBolt extends Particle
     public FXBolt(final World par1World, final double x, final double y, final double z, final double tx, final double ty, final double tz, final float red, final float green, final float blue, final float width) {
         super(par1World, x, y, z, 0.0, 0.0, 0.0);
         this.width = 0.0f;
-        this.points = new ArrayList<Vec3d>();
-        this.pointsWidth = new ArrayList<Float>();
-        this.dr = 0.0f;
-        this.seed = 0L;
-        this.targetEntity = null;
-        this.tX = 0.0;
-        this.tY = 0.0;
-        this.tZ = 0.0;
-        this.beam = new ResourceLocation("thaumcraft", "textures/misc/essentia.png");
-        this.length = 1.0f;
-        this.gle = new CoreGLE();
-        this.particleRed = red;
-        this.particleGreen = green;
-        this.particleBlue = blue;
-        this.setSize(0.02f, 0.02f);
-        this.motionX = 0.0;
-        this.motionY = 0.0;
-        this.motionZ = 0.0;
-        this.tX = tx - x;
-        this.tY = ty - y;
-        this.tZ = tz - z;
+        points = new ArrayList<Vec3d>();
+        pointsWidth = new ArrayList<Float>();
+        dr = 0.0f;
+        seed = 0L;
+        targetEntity = null;
+        tX = 0.0;
+        tY = 0.0;
+        tZ = 0.0;
+        beam = new ResourceLocation("thaumcraft", "textures/misc/essentia.png");
+        length = 1.0f;
+        gle = new CoreGLE();
+        particleRed = red;
+        particleGreen = green;
+        particleBlue = blue;
+        setSize(0.02f, 0.02f);
+        motionX = 0.0;
+        motionY = 0.0;
+        motionZ = 0.0;
+        tX = tx - x;
+        tY = ty - y;
+        tZ = tz - z;
         this.width = width;
-        this.particleMaxAge = 3;
+        particleMaxAge = 3;
         final Vec3d vs = new Vec3d(0.0, 0.0, 0.0);
-        final Vec3d ve = new Vec3d(this.tX, this.tY, this.tZ);
-        this.length = (float)(ve.lengthVector() * 3.141592653589793);
-        final int steps = (int)this.length;
-        this.points.add(vs);
-        this.pointsWidth.add(width);
-        this.dr = (float)(this.rand.nextInt(50) * 3.141592653589793);
+        final Vec3d ve = new Vec3d(tX, tY, tZ);
+        length = (float)(ve.lengthVector() * 3.141592653589793);
+        final int steps = (int) length;
+        points.add(vs);
+        pointsWidth.add(width);
+        dr = (float)(rand.nextInt(50) * 3.141592653589793);
         final float ampl = 0.1f;
         for (int a = 1; a < steps - 1; ++a) {
-            final float dist = a * (this.length / steps) + this.dr;
-            double dx = this.tX / steps * a + MathHelper.sin(dist / 4.0f) * ampl;
-            double dy = this.tY / steps * a + MathHelper.sin(dist / 3.0f) * ampl;
-            double dz = this.tZ / steps * a + MathHelper.sin(dist / 2.0f) * ampl;
-            dx += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1f;
-            dy += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1f;
-            dz += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1f;
+            final float dist = a * (length / steps) + dr;
+            double dx = tX / steps * a + MathHelper.sin(dist / 4.0f) * ampl;
+            double dy = tY / steps * a + MathHelper.sin(dist / 3.0f) * ampl;
+            double dz = tZ / steps * a + MathHelper.sin(dist / 2.0f) * ampl;
+            dx += (rand.nextFloat() - rand.nextFloat()) * 0.1f;
+            dy += (rand.nextFloat() - rand.nextFloat()) * 0.1f;
+            dz += (rand.nextFloat() - rand.nextFloat()) * 0.1f;
             final Vec3d vp = new Vec3d(dx, dy, dz);
-            this.points.add(vp);
-            this.pointsWidth.add(width);
+            points.add(vp);
+            pointsWidth.add(width);
         }
-        this.pointsWidth.add(width);
-        this.points.add(ve);
-        this.seed = this.rand.nextInt(1000);
+        pointsWidth.add(width);
+        points.add(ve);
+        seed = rand.nextInt(1000);
     }
     
     public void onUpdate() {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-        if (this.particleAge++ >= this.particleMaxAge) {
-            this.setExpired();
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
+        if (particleAge++ >= particleMaxAge) {
+            setExpired();
         }
     }
     
     private void calcSteps(final float f) {
-        final Random rr = new Random(this.seed);
-        this.points.clear();
-        this.pointsWidth.clear();
+        final Random rr = new Random(seed);
+        points.clear();
+        pointsWidth.clear();
         final Vec3d vs = new Vec3d(0.0, 0.0, 0.0);
-        final Vec3d ve = new Vec3d(this.tX, this.tY, this.tZ);
-        final int steps = (int)this.length;
-        this.points.add(vs);
-        this.pointsWidth.add(this.width);
-        final float ampl = (this.particleAge + f) / 10.0f;
+        final Vec3d ve = new Vec3d(tX, tY, tZ);
+        final int steps = (int) length;
+        points.add(vs);
+        pointsWidth.add(width);
+        final float ampl = (particleAge + f) / 10.0f;
         for (int a = 1; a < steps - 1; ++a) {
-            final float dist = a * (this.length / steps) + this.dr;
-            double dx = this.tX / steps * a + MathHelper.sin(dist / 4.0f) * ampl;
-            double dy = this.tY / steps * a + MathHelper.sin(dist / 3.0f) * ampl;
-            double dz = this.tZ / steps * a + MathHelper.sin(dist / 2.0f) * ampl;
+            final float dist = a * (length / steps) + dr;
+            double dx = tX / steps * a + MathHelper.sin(dist / 4.0f) * ampl;
+            double dy = tY / steps * a + MathHelper.sin(dist / 3.0f) * ampl;
+            double dz = tZ / steps * a + MathHelper.sin(dist / 2.0f) * ampl;
             dx += (rr.nextFloat() - rr.nextFloat()) * 0.1f;
             dy += (rr.nextFloat() - rr.nextFloat()) * 0.1f;
             dz += (rr.nextFloat() - rr.nextFloat()) * 0.1f;
             final Vec3d vp = new Vec3d(dx, dy, dz);
-            this.points.add(vp);
-            this.pointsWidth.add(((rr.nextInt(4) == 0) ? (1.0f - this.particleAge * 0.25f) : 1.0f) * this.width);
+            points.add(vp);
+            pointsWidth.add(((rr.nextInt(4) == 0) ? (1.0f - particleAge * 0.25f) : 1.0f) * width);
         }
-        this.pointsWidth.add(this.width);
-        this.points.add(ve);
+        pointsWidth.add(width);
+        points.add(ve);
     }
     
     public void setRGB(final float r, final float g, final float b) {
-        this.particleRed = r;
-        this.particleGreen = g;
-        this.particleBlue = b;
+        particleRed = r;
+        particleGreen = g;
+        particleBlue = b;
     }
     
     public void renderParticle(final BufferBuilder wr, final Entity entity, final float f, final float cosyaw, final float cospitch, final float sinyaw, final float cossinpitch, final float f5) {
         Tessellator.getInstance().draw();
         GL11.glPushMatrix();
-        final double ePX = this.prevPosX + (this.posX - this.prevPosX) * f - FXBolt.interpPosX;
-        final double ePY = this.prevPosY + (this.posY - this.prevPosY) * f - FXBolt.interpPosY;
-        final double ePZ = this.prevPosZ + (this.posZ - this.prevPosZ) * f - FXBolt.interpPosZ;
+        final double ePX = prevPosX + (posX - prevPosX) * f - FXBolt.interpPosX;
+        final double ePY = prevPosY + (posY - prevPosY) * f - FXBolt.interpPosY;
+        final double ePZ = prevPosZ + (posZ - prevPosZ) * f - FXBolt.interpPosZ;
         GL11.glTranslated(ePX, ePY, ePZ);
-        Minecraft.getMinecraft().renderEngine.bindTexture(this.beam);
+        Minecraft.getMinecraft().renderEngine.bindTexture(beam);
         GL11.glDepthMask(false);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 1);
         GL11.glDisable(2884);
-        this.calcSteps(f);
-        final float alpha = MathHelper.clamp(1.0f - this.particleAge / (float)this.particleMaxAge, 0.1f, 1.0f);
-        if (this.points != null && this.points.size() > 2) {
-            final double[][] pp = new double[this.points.size()][3];
-            final float[][] colours = new float[this.points.size()][4];
-            final double[] radii = new double[this.points.size()];
-            for (int a = 0; a < this.points.size(); ++a) {
-                pp[a][0] = this.points.get(a).x;
-                pp[a][1] = this.points.get(a).y;
-                pp[a][2] = this.points.get(a).z;
-                colours[a][0] = this.particleRed;
-                colours[a][1] = this.particleGreen;
-                colours[a][2] = this.particleBlue;
+        calcSteps(f);
+        final float alpha = MathHelper.clamp(1.0f - particleAge / (float) particleMaxAge, 0.1f, 1.0f);
+        if (points != null && points.size() > 2) {
+            final double[][] pp = new double[points.size()][3];
+            final float[][] colours = new float[points.size()][4];
+            final double[] radii = new double[points.size()];
+            for (int a = 0; a < points.size(); ++a) {
+                pp[a][0] = points.get(a).x;
+                pp[a][1] = points.get(a).y;
+                pp[a][2] = points.get(a).z;
+                colours[a][0] = particleRed;
+                colours[a][1] = particleGreen;
+                colours[a][2] = particleBlue;
                 colours[a][3] = alpha;
-                radii[a] = this.pointsWidth.get(a) / 10.0f;
+                radii[a] = pointsWidth.get(a) / 10.0f;
             }
-            this.gle.set_POLYCYL_TESS(5);
-            this.gle.gleSetJoinStyle(1042);
-            this.gle.glePolyCone(pp.length, pp, colours, radii, 1.0f, 0.0f);
-            for (int a = 0; a < this.points.size(); ++a) {
+            gle.set_POLYCYL_TESS(5);
+            gle.gleSetJoinStyle(1042);
+            gle.glePolyCone(pp.length, pp, colours, radii, 1.0f, 0.0f);
+            for (int a = 0; a < points.size(); ++a) {
                 radii[a] /= 3.0;
             }
-            this.gle.glePolyCone(pp.length, pp, colours, radii, 1.0f, 0.0f);
+            gle.glePolyCone(pp.length, pp, colours, radii, 1.0f, 0.0f);
         }
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(2884);

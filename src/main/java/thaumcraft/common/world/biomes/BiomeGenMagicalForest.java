@@ -43,28 +43,28 @@ public class BiomeGenMagicalForest extends Biome
     
     public BiomeGenMagicalForest(final Biome.BiomeProperties par1) {
         super(par1);
-        this.setRegistryName("thaumcraft", "magical_forest");
-        this.bigTree = new WorldGenBigMagicTree(false);
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityWolf.class, 2, 1, 3));
-        this.spawnableCreatureList.add(new Biome.SpawnListEntry(EntityHorse.class, 2, 1, 3));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWitch.class, 3, 1, 1));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEnderman.class, 3, 1, 1));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityVex.class, 1, 1, 1));
+        setRegistryName("thaumcraft", "magical_forest");
+        bigTree = new WorldGenBigMagicTree(false);
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityWolf.class, 2, 1, 3));
+        spawnableCreatureList.add(new Biome.SpawnListEntry(EntityHorse.class, 2, 1, 3));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWitch.class, 3, 1, 1));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEnderman.class, 3, 1, 1));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityVex.class, 1, 1, 1));
         if (ModConfig.CONFIG_WORLD.allowSpawnPech) {
-            this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityPech.class, 20, 1, 2));
+            spawnableMonsterList.add(new Biome.SpawnListEntry(EntityPech.class, 20, 1, 2));
         }
         if (ModConfig.CONFIG_WORLD.allowSpawnWisp) {
-            this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWisp.class, 20, 1, 2));
+            spawnableMonsterList.add(new Biome.SpawnListEntry(EntityWisp.class, 20, 1, 2));
         }
-        this.decorator.treesPerChunk = 2;
-        this.decorator.flowersPerChunk = 10;
-        this.decorator.grassPerChunk = 12;
-        this.decorator.waterlilyPerChunk = 6;
-        this.decorator.mushroomsPerChunk = 6;
+        decorator.treesPerChunk = 2;
+        decorator.flowersPerChunk = 10;
+        decorator.grassPerChunk = 12;
+        decorator.waterlilyPerChunk = 6;
+        decorator.mushroomsPerChunk = 6;
     }
     
     public WorldGenAbstractTree getRandomTreeFeature(final Random par1Random) {
-        return (par1Random.nextInt(18) == 0) ? new WorldGenSilverwoodTrees(false, 8, 5) : ((par1Random.nextInt(12) == 0) ? new WorldGenGreatwoodTrees(false, par1Random.nextInt(8) == 0) : this.bigTree);
+        return (par1Random.nextInt(18) == 0) ? new WorldGenSilverwoodTrees(false, 8, 5) : ((par1Random.nextInt(12) == 0) ? new WorldGenGreatwoodTrees(false, par1Random.nextInt(8) == 0) : bigTree);
     }
     
     public WorldGenerator getRandomWorldGenForGrass(final Random par1Random) {
@@ -120,7 +120,7 @@ public class BiomeGenMagicalForest extends Biome
             BlockPos p3;
             for (p3 = new BlockPos(pos), p3 = p3.add(random.nextInt(16), 0, random.nextInt(16)), p3 = world.getHeight(p3); p3.getY() > 50 && world.getBlockState(p3).getBlock() != Blocks.GRASS; p3 = p3.down()) {}
             final Block l2 = world.getBlockState(p3).getBlock();
-            if (l2 == Blocks.GRASS && world.getBlockState(p3.up()).getBlock().isReplaceable(world, p3.up()) && this.isBlockAdjacentToWood(world, p3.up())) {
+            if (l2 == Blocks.GRASS && world.getBlockState(p3.up()).getBlock().isReplaceable(world, p3.up()) && isBlockAdjacentToWood(world, p3.up())) {
                 world.setBlockState(p3.up(), BlocksTC.vishroom.getDefaultState(), 2);
             }
         }

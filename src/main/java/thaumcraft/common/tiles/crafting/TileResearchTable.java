@@ -46,25 +46,25 @@ public class TileResearchTable extends TileThaumcraftInventory
     
     public TileResearchTable() {
         super(2);
-        this.data = null;
-        this.syncedSlots = new int[] { 0, 1 };
+        data = null;
+        syncedSlots = new int[] { 0, 1 };
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
         super.readSyncNBT(nbttagcompound);
         if (nbttagcompound.hasKey("note")) {
-            (this.data = new ResearchTableData(this)).deserialize(nbttagcompound.getCompoundTag("note"));
+            (data = new ResearchTableData(this)).deserialize(nbttagcompound.getCompoundTag("note"));
         }
         else {
-            this.data = null;
+            data = null;
         }
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
-        if (this.data != null) {
-            nbttagcompound.setTag("note", this.data.serialize());
+        if (data != null) {
+            nbttagcompound.setTag("note", data.serialize());
         }
         else {
             nbttagcompound.removeTag("note");
@@ -74,31 +74,31 @@ public class TileResearchTable extends TileThaumcraftInventory
     
     protected void setWorldCreate(final World worldIn) {
         super.setWorldCreate(worldIn);
-        if (!this.hasWorld()) {
-            this.setWorld(worldIn);
+        if (!hasWorld()) {
+            setWorld(worldIn);
         }
     }
     
     public void startNewTheory(final EntityPlayer player, final Set<String> mutators) {
-        (this.data = new ResearchTableData(player, this)).initialize(player, mutators);
-        this.syncTile(false);
-        this.markDirty();
+        (data = new ResearchTableData(player, this)).initialize(player, mutators);
+        syncTile(false);
+        markDirty();
     }
     
     public void finishTheory(final EntityPlayer player) {
         final Comparator<Map.Entry<String, Integer>> valueComparator = (e1, e2) -> e2.getValue().compareTo(e1.getValue());
-        final Map<String, Integer> sortedMap = this.data.categoryTotals.entrySet().stream().sorted(valueComparator).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+        final Map<String, Integer> sortedMap = data.categoryTotals.entrySet().stream().sorted(valueComparator).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         int i = 0;
         for (final String cat : sortedMap.keySet()) {
             int tot = Math.round(sortedMap.get(cat) / 100.0f * IPlayerKnowledge.EnumKnowledgeType.THEORY.getProgression());
-            if (i > this.data.penaltyStart) {
+            if (i > data.penaltyStart) {
                 tot = (int)Math.max(1.0, tot * 0.666666667);
             }
             final ResearchCategory rc = ResearchCategories.getResearchCategory(cat);
             ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.THEORY, rc, tot);
             ++i;
         }
-        this.data = null;
+        data = null;
     }
     
     public Set<String> checkSurroundingAids() {
@@ -108,7 +108,7 @@ public class TileResearchTable extends TileThaumcraftInventory
                 for (int z = -4; z <= 4; ++z) {
                     for (final String muk : TheorycraftManager.aids.keySet()) {
                         final ITheorycraftAid mu = TheorycraftManager.aids.get(muk);
-                        final IBlockState state = this.world.getBlockState(this.getPos().add(x, y, z));
+                        final IBlockState state = world.getBlockState(getPos().add(x, y, z));
                         if (mu.getAidObject() instanceof Block) {
                             if (state.getBlock() != mu.getAidObject()) {
                                 continue;
@@ -119,7 +119,7 @@ public class TileResearchTable extends TileThaumcraftInventory
                             if (!(mu.getAidObject() instanceof ItemStack)) {
                                 continue;
                             }
-                            final ItemStack is = state.getBlock().getItem(this.getWorld(), this.getPos().add(x, y, z), state);
+                            final ItemStack is = state.getBlock().getItem(getWorld(), getPos().add(x, y, z), state);
                             if (is == null || is.isEmpty() || !is.isItemEqualIgnoreDurability((ItemStack)mu.getAidObject())) {
                                 continue;
                             }
@@ -129,7 +129,7 @@ public class TileResearchTable extends TileThaumcraftInventory
                 }
             }
         }
-        final List<Entity> l = EntityUtils.getEntitiesInRange(this.getWorld(), this.getPos(), null, Entity.class, 5.0);
+        final List<Entity> l = EntityUtils.getEntitiesInRange(getWorld(), getPos(), null, Entity.class, 5.0);
         if (l != null && !l.isEmpty()) {
             for (final Entity e : l) {
                 for (final String muk : TheorycraftManager.aids.keySet()) {
@@ -144,20 +144,20 @@ public class TileResearchTable extends TileThaumcraftInventory
     }
     
     public boolean consumeInkFromTable() {
-        if (this.getStackInSlot(0).getItem() instanceof IScribeTools && this.getStackInSlot(0).getItemDamage() < this.getStackInSlot(0).getMaxDamage()) {
-            this.getStackInSlot(0).setItemDamage(this.getStackInSlot(0).getItemDamage() + 1);
-            this.syncTile(false);
-            this.markDirty();
+        if (getStackInSlot(0).getItem() instanceof IScribeTools && getStackInSlot(0).getItemDamage() < getStackInSlot(0).getMaxDamage()) {
+            getStackInSlot(0).setItemDamage(getStackInSlot(0).getItemDamage() + 1);
+            syncTile(false);
+            markDirty();
             return true;
         }
         return false;
     }
     
     public boolean consumepaperFromTable() {
-        if (this.getStackInSlot(1).getItem() == Items.PAPER && this.getStackInSlot(1).getCount() > 0) {
-            this.decrStackSize(1, 1);
-            this.syncTile(false);
-            this.markDirty();
+        if (getStackInSlot(1).getItem() == Items.PAPER && getStackInSlot(1).getCount() > 0) {
+            decrStackSize(1, 1);
+            syncTile(false);
+            markDirty();
             return true;
         }
         return false;
@@ -190,15 +190,15 @@ public class TileResearchTable extends TileThaumcraftInventory
     @Override
     public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
-        if (this.world != null && this.world.isRemote) {
-            this.syncTile(false);
+        if (world != null && world.isRemote) {
+            syncTile(false);
         }
     }
     
     public boolean receiveClientEvent(final int i, final int j) {
         if (i == 1) {
-            if (this.world.isRemote) {
-                this.world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), SoundsTC.learn, SoundCategory.BLOCKS, 1.0f, 1.0f, false);
+            if (world.isRemote) {
+                world.playSound(getPos().getX(), getPos().getY(), getPos().getZ(), SoundsTC.learn, SoundCategory.BLOCKS, 1.0f, 1.0f, false);
             }
             return true;
         }

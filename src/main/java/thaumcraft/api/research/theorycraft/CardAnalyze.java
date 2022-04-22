@@ -37,7 +37,7 @@ public class CardAnalyze extends TheorycraftCard {
 	
 	@Override
 	public boolean initialize(EntityPlayer player, ResearchTableData data) { 
-		Random r = new Random(this.getSeed());
+		Random r = new Random(getSeed());
 		ArrayList<String> cats = new ArrayList<>();
 		for (ResearchCategory rc:ResearchCategories.researchCategories.values()) {
 			if (rc.key=="BASICS") continue;

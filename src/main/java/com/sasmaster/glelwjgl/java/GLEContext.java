@@ -18,23 +18,23 @@ public class GLEContext
     protected double[][][] xformArray;
     
     public GLEContext() {
-        this.joinStyle = 1;
-        this.ncp = 0;
-        this.contour = null;
-        this.contourNormal = null;
-        this.up = null;
-        this.npoints = 0;
-        this.pointArray = null;
-        this.colourArray = null;
-        this.xformArray = null;
+        joinStyle = 1;
+        ncp = 0;
+        contour = null;
+        contourNormal = null;
+        up = null;
+        npoints = 0;
+        pointArray = null;
+        colourArray = null;
+        xformArray = null;
     }
     
     protected final int getJoinStyle() {
-        return this.joinStyle;
+        return joinStyle;
     }
     
     protected final void setJoinStyle(final int style) {
-        this.joinStyle = style;
+        joinStyle = style;
     }
     
     static {

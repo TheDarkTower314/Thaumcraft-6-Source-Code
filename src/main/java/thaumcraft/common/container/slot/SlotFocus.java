@@ -15,7 +15,7 @@ public class SlotFocus extends Slot
     
     public SlotFocus(final IInventory par2IInventory, final int par3, final int par4, final int par5) {
         super(par2IInventory, par3, par4, par5);
-        this.limit = 64;
+        limit = 64;
     }
     
     public SlotFocus(final int limit, final IInventory par2IInventory, final int par3, final int par4, final int par5) {
@@ -29,6 +29,6 @@ public class SlotFocus extends Slot
     }
     
     public int getSlotStackLimit() {
-        return this.limit;
+        return limit;
     }
 }

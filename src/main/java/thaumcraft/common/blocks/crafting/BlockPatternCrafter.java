@@ -51,8 +51,8 @@ public class BlockPatternCrafter extends BlockTCDevice implements IBlockFacingHo
     
     public BlockPatternCrafter() {
         super(Material.IRON, TilePatternCrafter.class, "pattern_crafter");
-        this.rayTracer = new RayTracer();
-        this.setSoundType(SoundType.METAL);
+        rayTracer = new RayTracer();
+        setSoundType(SoundType.METAL);
     }
     
     @Override
@@ -78,7 +78,7 @@ public class BlockPatternCrafter extends BlockTCDevice implements IBlockFacingHo
     
     @Override
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)placer.getHorizontalFacing());
         return bs;
     }
@@ -136,7 +136,7 @@ public class BlockPatternCrafter extends BlockTCDevice implements IBlockFacingHo
             ((TilePatternCrafter)tile).addTraceableCuboids(cuboids);
         }
         final ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
-        this.rayTracer.rayTraceCuboids(new Vector3(start), new Vector3(end), cuboids, new BlockCoord(pos), this, list);
+        rayTracer.rayTraceCuboids(new Vector3(start), new Vector3(end), cuboids, new BlockCoord(pos), this, list);
         return (list.size() > 0) ? list.get(0) : super.collisionRayTrace(state, world, pos, start, end);
     }
 }

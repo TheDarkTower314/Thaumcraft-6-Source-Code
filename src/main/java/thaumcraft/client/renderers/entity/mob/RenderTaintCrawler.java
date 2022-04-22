@@ -34,11 +34,11 @@ public class RenderTaintCrawler extends RenderLiving
     }
     
     protected float getDeathMaxRotation(final EntityLivingBase p_77037_1_) {
-        return this.func_180584_a((EntityTaintCrawler)p_77037_1_);
+        return func_180584_a((EntityTaintCrawler)p_77037_1_);
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {
-        return this.getEntityTexture((EntityTaintCrawler)entity);
+        return getEntityTexture((EntityTaintCrawler)entity);
     }
     
     protected void preRenderCallback(final EntityLivingBase par1EntityLiving, final float par2) {

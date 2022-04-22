@@ -34,21 +34,21 @@ public class InfusionRunicAugmentRecipe extends InfusionRecipe
         super("RUNICSHIELDING", null, 0, null, in, new ItemStack(ItemsTC.salisMundus), "gemAmber");
         final int fc = PlayerEvents.getRunicCharge(in);
         if (fc > 0) {
-            this.components.clear();
+            components.clear();
             final ArrayList<ItemStack> com = new ArrayList<ItemStack>();
-            this.components.add(Ingredient.fromItem(ItemsTC.salisMundus));
-            this.components.add(ThaumcraftApiHelper.getIngredient("gemAmber"));
+            components.add(Ingredient.fromItem(ItemsTC.salisMundus));
+            components.add(ThaumcraftApiHelper.getIngredient("gemAmber"));
             int c = 0;
             while (c < fc) {
                 ++c;
-                this.components.add(ThaumcraftApiHelper.getIngredient("gemAmber"));
+                components.add(ThaumcraftApiHelper.getIngredient("gemAmber"));
             }
         }
     }
     
     @Override
     public boolean matches(final List<ItemStack> input, final ItemStack central, final World world, final EntityPlayer player) {
-        return this.getRecipeInput() != null && ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(this.research) && (central.getItem() instanceof ItemArmor || central.getItem() instanceof IBauble) && (this.getRecipeInput() == Ingredient.EMPTY || this.getRecipeInput().apply(central)) && RecipeMatcher.findMatches((List)input, (List)this.getComponents(central)) != null;
+        return getRecipeInput() != null && ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(research) && (central.getItem() instanceof ItemArmor || central.getItem() instanceof IBauble) && (getRecipeInput() == Ingredient.EMPTY || getRecipeInput().apply(central)) && RecipeMatcher.findMatches((List)input, (List) getComponents(central)) != null;
     }
     
     @Override

@@ -32,16 +32,16 @@ public class GuiVoidSiphon extends GuiContainer
     
     public GuiVoidSiphon(final InventoryPlayer par1InventoryPlayer, final TileVoidSiphon tileVoidSiphon) {
         super(new ContainerVoidSiphon(par1InventoryPlayer, tileVoidSiphon));
-        this.container = null;
-        this.player = null;
-        this.gle = new CoreGLE();
-        this.tex = new ResourceLocation("thaumcraft", "textures/gui/gui_void_siphon.png");
-        this.xSize = 176;
-        this.ySize = 166;
-        this.inventory = tileVoidSiphon;
-        this.container = (ContainerVoidSiphon)this.inventorySlots;
-        this.player = par1InventoryPlayer.player;
-        this.shaderCallback = new ShaderCallback() {
+        container = null;
+        player = null;
+        gle = new CoreGLE();
+        tex = new ResourceLocation("thaumcraft", "textures/gui/gui_void_siphon.png");
+        xSize = 176;
+        ySize = 166;
+        inventory = tileVoidSiphon;
+        container = (ContainerVoidSiphon) inventorySlots;
+        player = par1InventoryPlayer.player;
+        shaderCallback = new ShaderCallback() {
             @Override
             public void call(final int shader) {
                 final Minecraft mc = Minecraft.getMinecraft();
@@ -54,18 +54,18 @@ public class GuiVoidSiphon extends GuiContainer
     }
     
     public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
-        this.drawDefaultBackground();
+        drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.renderHoveredToolTip(mouseX, mouseY);
+        renderHoveredToolTip(mouseX, mouseY);
     }
     
     protected void drawGuiContainerBackgroundLayer(final float par1, final int mx, final int my) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.mc.renderEngine.bindTexture(this.tex);
-        final int k = (this.width - this.xSize) / 2;
-        final int l = (this.height - this.ySize) / 2;
+        mc.renderEngine.bindTexture(tex);
+        final int k = (width - xSize) / 2;
+        final int l = (height - ySize) / 2;
         GL11.glEnable(3042);
-        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+        drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
     }
     
     static {

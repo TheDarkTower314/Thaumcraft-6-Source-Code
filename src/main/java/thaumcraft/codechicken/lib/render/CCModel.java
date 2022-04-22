@@ -52,33 +52,33 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
     public static final Matcher polyMatcher;
     
     protected CCModel(final int vertexMode) {
-        this.attributes = new ArrayList<Object>();
+        attributes = new ArrayList<Object>();
         if (vertexMode != 7 && vertexMode != 4) {
             throw new IllegalArgumentException("Models must be GL_QUADS or GL_TRIANGLES");
         }
-        this.vp = (((this.vertexMode = vertexMode) == 7) ? 4 : 3);
+        vp = (((this.vertexMode = vertexMode) == 7) ? 4 : 3);
     }
     
     public Vector3[] normals() {
-        return this.getAttributes(CCRenderState.normalAttrib);
+        return getAttributes(CCRenderState.normalAttrib);
     }
     
     @Override
     public Vertex5[] getVertices() {
-        return this.verts;
+        return verts;
     }
     
     @Override
     public <T> T getAttributes(final CCRenderState.VertexAttribute<T> attr) {
-        if (attr.attributeIndex < this.attributes.size()) {
-            return (T)this.attributes.get(attr.attributeIndex);
+        if (attr.attributeIndex < attributes.size()) {
+            return (T) attributes.get(attr.attributeIndex);
         }
         return null;
     }
     
     @Override
     public boolean hasAttribute(final CCRenderState.VertexAttribute<?> attrib) {
-        return attrib.attributeIndex < this.attributes.size() && this.attributes.get(attrib.attributeIndex) != null;
+        return attrib.attributeIndex < attributes.size() && attributes.get(attrib.attributeIndex) != null;
     }
     
     @Override
@@ -86,12 +86,12 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
     }
     
     public <T> T getOrAllocate(final CCRenderState.VertexAttribute<T> attrib) {
-        T array = (T)this.getAttributes((CCRenderState.VertexAttribute<Object>)attrib);
+        T array = (T) getAttributes((CCRenderState.VertexAttribute<Object>)attrib);
         if (array == null) {
-            while (this.attributes.size() <= attrib.attributeIndex) {
-                this.attributes.add(null);
+            while (attributes.size() <= attrib.attributeIndex) {
+                attributes.add(null);
             }
-            this.attributes.set(attrib.attributeIndex, array = attrib.newArray(this.verts.length));
+            attributes.set(attrib.attributeIndex, array = attrib.newArray(verts.length));
         }
         return array;
     }
@@ -110,63 +110,63 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
         double v1 = (ty + d) / th;
         double u2 = (tx + d * 2.0 + w) / tw;
         double v2 = ty / th;
-        this.verts[i++] = new Vertex5(x1, y1, z2, u1, v2);
-        this.verts[i++] = new Vertex5(x1, y1, z1, u1, v1);
-        this.verts[i++] = new Vertex5(x2, y1, z1, u2, v1);
-        this.verts[i++] = new Vertex5(x2, y1, z2, u2, v2);
+        verts[i++] = new Vertex5(x1, y1, z2, u1, v2);
+        verts[i++] = new Vertex5(x1, y1, z1, u1, v1);
+        verts[i++] = new Vertex5(x2, y1, z1, u2, v1);
+        verts[i++] = new Vertex5(x2, y1, z2, u2, v2);
         u1 = (tx + d) / tw;
         v1 = (ty + d) / th;
         u2 = (tx + d + w) / tw;
         v2 = ty / th;
-        this.verts[i++] = new Vertex5(x2, y2, z2, u2, v2);
-        this.verts[i++] = new Vertex5(x2, y2, z1, u2, v1);
-        this.verts[i++] = new Vertex5(x1, y2, z1, u1, v1);
-        this.verts[i++] = new Vertex5(x1, y2, z2, u1, v2);
+        verts[i++] = new Vertex5(x2, y2, z2, u2, v2);
+        verts[i++] = new Vertex5(x2, y2, z1, u2, v1);
+        verts[i++] = new Vertex5(x1, y2, z1, u1, v1);
+        verts[i++] = new Vertex5(x1, y2, z2, u1, v2);
         u1 = (tx + d + w) / tw;
         v1 = (ty + d) / th;
         u2 = (tx + d) / tw;
         v2 = (ty + d + h) / th;
-        this.verts[i++] = new Vertex5(x1, y2, z1, u2, v1);
-        this.verts[i++] = new Vertex5(x2, y2, z1, u1, v1);
-        this.verts[i++] = new Vertex5(x2, y1, z1, u1, v2);
-        this.verts[i++] = new Vertex5(x1, y1, z1, u2, v2);
+        verts[i++] = new Vertex5(x1, y2, z1, u2, v1);
+        verts[i++] = new Vertex5(x2, y2, z1, u1, v1);
+        verts[i++] = new Vertex5(x2, y1, z1, u1, v2);
+        verts[i++] = new Vertex5(x1, y1, z1, u2, v2);
         u1 = (tx + d * 2.0 + w * 2.0) / tw;
         v1 = (ty + d) / th;
         u2 = (tx + d * 2.0 + w) / tw;
         v2 = (ty + d + h) / th;
-        this.verts[i++] = new Vertex5(x1, y2, z2, u1, v1);
-        this.verts[i++] = new Vertex5(x1, y1, z2, u1, v2);
-        this.verts[i++] = new Vertex5(x2, y1, z2, u2, v2);
-        this.verts[i++] = new Vertex5(x2, y2, z2, u2, v1);
+        verts[i++] = new Vertex5(x1, y2, z2, u1, v1);
+        verts[i++] = new Vertex5(x1, y1, z2, u1, v2);
+        verts[i++] = new Vertex5(x2, y1, z2, u2, v2);
+        verts[i++] = new Vertex5(x2, y2, z2, u2, v1);
         u1 = (tx + d) / tw;
         v1 = (ty + d) / th;
         u2 = tx / tw;
         v2 = (ty + d + h) / th;
-        this.verts[i++] = new Vertex5(x1, y2, z2, u2, v1);
-        this.verts[i++] = new Vertex5(x1, y2, z1, u1, v1);
-        this.verts[i++] = new Vertex5(x1, y1, z1, u1, v2);
-        this.verts[i++] = new Vertex5(x1, y1, z2, u2, v2);
+        verts[i++] = new Vertex5(x1, y2, z2, u2, v1);
+        verts[i++] = new Vertex5(x1, y2, z1, u1, v1);
+        verts[i++] = new Vertex5(x1, y1, z1, u1, v2);
+        verts[i++] = new Vertex5(x1, y1, z2, u2, v2);
         u1 = (tx + d * 2.0 + w) / tw;
         v1 = (ty + d) / th;
         u2 = (tx + d + w) / tw;
         v2 = (ty + d + h) / th;
-        this.verts[i++] = new Vertex5(x2, y1, z2, u1, v2);
-        this.verts[i++] = new Vertex5(x2, y1, z1, u2, v2);
-        this.verts[i++] = new Vertex5(x2, y2, z1, u2, v1);
-        this.verts[i++] = new Vertex5(x2, y2, z2, u1, v1);
+        verts[i++] = new Vertex5(x2, y1, z2, u1, v2);
+        verts[i++] = new Vertex5(x2, y1, z1, u2, v2);
+        verts[i++] = new Vertex5(x2, y2, z1, u2, v1);
+        verts[i++] = new Vertex5(x2, y2, z2, u1, v1);
         return this;
     }
     
     public CCModel generateBlock(final int i, final Cuboid6 bounds) {
-        return this.generateBlock(i, bounds, 0);
+        return generateBlock(i, bounds, 0);
     }
     
     public CCModel generateBlock(final int i, final Cuboid6 bounds, final int mask) {
-        return this.generateBlock(i, bounds.min.x, bounds.min.y, bounds.min.z, bounds.max.x, bounds.max.y, bounds.max.z, mask);
+        return generateBlock(i, bounds.min.x, bounds.min.y, bounds.min.z, bounds.max.x, bounds.max.y, bounds.max.z, mask);
     }
     
     public CCModel generateBlock(final int i, final double x1, final double y1, final double z1, final double x2, final double y2, final double z2) {
-        return this.generateBlock(i, x1, y1, z1, x2, y2, z2, 0);
+        return generateBlock(i, x1, y1, z1, x2, y2, z2, 0);
     }
     
     public CCModel generateBlock(int i, final double x1, final double y1, final double z1, final double x2, final double y2, final double z2, final int mask) {
@@ -175,79 +175,79 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
             final double v1 = z1;
             final double u2 = x2;
             final double v2 = z2;
-            this.verts[i++] = new Vertex5(x1, y1, z2, u1, v2);
-            this.verts[i++] = new Vertex5(x1, y1, z1, u1, v1);
-            this.verts[i++] = new Vertex5(x2, y1, z1, u2, v1);
-            this.verts[i++] = new Vertex5(x2, y1, z2, u2, v2);
+            verts[i++] = new Vertex5(x1, y1, z2, u1, v2);
+            verts[i++] = new Vertex5(x1, y1, z1, u1, v1);
+            verts[i++] = new Vertex5(x2, y1, z1, u2, v1);
+            verts[i++] = new Vertex5(x2, y1, z2, u2, v2);
         }
         if ((mask & 0x2) == 0x0) {
             final double u1 = x1 + 2.0;
             final double v1 = z1;
             final double u2 = x2 + 2.0;
             final double v2 = z2;
-            this.verts[i++] = new Vertex5(x2, y2, z2, u2, v2);
-            this.verts[i++] = new Vertex5(x2, y2, z1, u2, v1);
-            this.verts[i++] = new Vertex5(x1, y2, z1, u1, v1);
-            this.verts[i++] = new Vertex5(x1, y2, z2, u1, v2);
+            verts[i++] = new Vertex5(x2, y2, z2, u2, v2);
+            verts[i++] = new Vertex5(x2, y2, z1, u2, v1);
+            verts[i++] = new Vertex5(x1, y2, z1, u1, v1);
+            verts[i++] = new Vertex5(x1, y2, z2, u1, v2);
         }
         if ((mask & 0x4) == 0x0) {
             final double u1 = 1.0 - x1 + 4.0;
             final double v1 = 1.0 - y2;
             final double u2 = 1.0 - x2 + 4.0;
             final double v2 = 1.0 - y1;
-            this.verts[i++] = new Vertex5(x1, y1, z1, u1, v2);
-            this.verts[i++] = new Vertex5(x1, y2, z1, u1, v1);
-            this.verts[i++] = new Vertex5(x2, y2, z1, u2, v1);
-            this.verts[i++] = new Vertex5(x2, y1, z1, u2, v2);
+            verts[i++] = new Vertex5(x1, y1, z1, u1, v2);
+            verts[i++] = new Vertex5(x1, y2, z1, u1, v1);
+            verts[i++] = new Vertex5(x2, y2, z1, u2, v1);
+            verts[i++] = new Vertex5(x2, y1, z1, u2, v2);
         }
         if ((mask & 0x8) == 0x0) {
             final double u1 = x1 + 6.0;
             final double v1 = 1.0 - y2;
             final double u2 = x2 + 6.0;
             final double v2 = 1.0 - y1;
-            this.verts[i++] = new Vertex5(x2, y1, z2, u2, v2);
-            this.verts[i++] = new Vertex5(x2, y2, z2, u2, v1);
-            this.verts[i++] = new Vertex5(x1, y2, z2, u1, v1);
-            this.verts[i++] = new Vertex5(x1, y1, z2, u1, v2);
+            verts[i++] = new Vertex5(x2, y1, z2, u2, v2);
+            verts[i++] = new Vertex5(x2, y2, z2, u2, v1);
+            verts[i++] = new Vertex5(x1, y2, z2, u1, v1);
+            verts[i++] = new Vertex5(x1, y1, z2, u1, v2);
         }
         if ((mask & 0x10) == 0x0) {
             final double u1 = z1 + 8.0;
             final double v1 = 1.0 - y2;
             final double u2 = z2 + 8.0;
             final double v2 = 1.0 - y1;
-            this.verts[i++] = new Vertex5(x1, y1, z2, u2, v2);
-            this.verts[i++] = new Vertex5(x1, y2, z2, u2, v1);
-            this.verts[i++] = new Vertex5(x1, y2, z1, u1, v1);
-            this.verts[i++] = new Vertex5(x1, y1, z1, u1, v2);
+            verts[i++] = new Vertex5(x1, y1, z2, u2, v2);
+            verts[i++] = new Vertex5(x1, y2, z2, u2, v1);
+            verts[i++] = new Vertex5(x1, y2, z1, u1, v1);
+            verts[i++] = new Vertex5(x1, y1, z1, u1, v2);
         }
         if ((mask & 0x20) == 0x0) {
             final double u1 = 1.0 - z1 + 10.0;
             final double v1 = 1.0 - y2;
             final double u2 = 1.0 - z2 + 10.0;
             final double v2 = 1.0 - y1;
-            this.verts[i++] = new Vertex5(x2, y1, z1, u1, v2);
-            this.verts[i++] = new Vertex5(x2, y2, z1, u1, v1);
-            this.verts[i++] = new Vertex5(x2, y2, z2, u2, v1);
-            this.verts[i++] = new Vertex5(x2, y1, z2, u2, v2);
+            verts[i++] = new Vertex5(x2, y1, z1, u1, v2);
+            verts[i++] = new Vertex5(x2, y2, z1, u1, v1);
+            verts[i++] = new Vertex5(x2, y2, z2, u2, v1);
+            verts[i++] = new Vertex5(x2, y1, z2, u2, v2);
         }
         return this;
     }
     
     public CCModel computeNormals() {
-        return this.computeNormals(0, this.verts.length);
+        return computeNormals(0, verts.length);
     }
     
     public CCModel computeNormals(final int start, final int length) {
-        if (length % this.vp != 0 || start % this.vp != 0) {
+        if (length % vp != 0 || start % vp != 0) {
             throw new IllegalArgumentException("Cannot generate normals across polygons");
         }
-        final Vector3[] normals = this.getOrAllocate(CCRenderState.normalAttrib);
-        for (int k = 0; k < length; k += this.vp) {
+        final Vector3[] normals = getOrAllocate(CCRenderState.normalAttrib);
+        for (int k = 0; k < length; k += vp) {
             final int i = k + start;
-            final Vector3 diff1 = this.verts[i + 1].vec.copy().subtract(this.verts[i].vec);
-            final Vector3 diff2 = this.verts[i + this.vp - 1].vec.copy().subtract(this.verts[i].vec);
+            final Vector3 diff1 = verts[i + 1].vec.copy().subtract(verts[i].vec);
+            final Vector3 diff2 = verts[i + vp - 1].vec.copy().subtract(verts[i].vec);
             normals[i] = diff1.crossProduct(diff2).normalize();
-            for (int d = 1; d < this.vp; ++d) {
+            for (int d = 1; d < vp; ++d) {
                 normals[i + d] = normals[i].copy();
             }
         }
@@ -255,40 +255,40 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
     }
     
     public CCModel computeLighting(final LightModel light) {
-        final Vector3[] normals = this.normals();
-        int[] colours = this.getAttributes(CCRenderState.colourAttrib);
+        final Vector3[] normals = normals();
+        int[] colours = getAttributes(CCRenderState.colourAttrib);
         if (colours == null) {
-            this.setColour(-1);
-            colours = this.getAttributes(CCRenderState.colourAttrib);
+            setColour(-1);
+            colours = getAttributes(CCRenderState.colourAttrib);
         }
-        for (int k = 0; k < this.verts.length; ++k) {
+        for (int k = 0; k < verts.length; ++k) {
             colours[k] = light.apply(colours[k], normals[k]);
         }
         return this;
     }
     
     public CCModel setColour(final int c) {
-        final int[] colours = this.getOrAllocate(CCRenderState.colourAttrib);
+        final int[] colours = getOrAllocate(CCRenderState.colourAttrib);
         Arrays.fill(colours, c);
         return this;
     }
     
     public CCModel computeLightCoords() {
-        final LC[] lcs = this.getOrAllocate(CCRenderState.lightCoordAttrib);
-        final Vector3[] normals = this.normals();
-        for (int i = 0; i < this.verts.length; ++i) {
-            lcs[i] = new LC().compute(this.verts[i].vec, normals[i]);
+        final LC[] lcs = getOrAllocate(CCRenderState.lightCoordAttrib);
+        final Vector3[] normals = normals();
+        for (int i = 0; i < verts.length; ++i) {
+            lcs[i] = new LC().compute(verts[i].vec, normals[i]);
         }
         return this;
     }
     
     public CCModel smoothNormals() {
         final ArrayList<PositionNormalEntry> map = new ArrayList<PositionNormalEntry>();
-        final Vector3[] normals = this.normals();
+        final Vector3[] normals = normals();
         int k = 0;
     Label_0015:
-        while (k < this.verts.length) {
-            final Vector3 vec = this.verts[k].vec;
+        while (k < verts.length) {
+            final Vector3 vec = verts[k].vec;
             while (true) {
                 for (final PositionNormalEntry e : map) {
                     if (e.positionEqual(vec)) {
@@ -318,10 +318,10 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
     }
     
     public CCModel apply(final Transformation t) {
-        for (int k = 0; k < this.verts.length; ++k) {
-            this.verts[k].apply(t);
+        for (int k = 0; k < verts.length; ++k) {
+            verts[k].apply(t);
         }
-        final Vector3[] normals = this.normals();
+        final Vector3[] normals = normals();
         if (normals != null) {
             for (int i = 0; i < normals.length; ++i) {
                 t.applyN(normals[i]);
@@ -331,18 +331,18 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
     }
     
     public CCModel apply(final UVTransformation uvt) {
-        for (int k = 0; k < this.verts.length; ++k) {
-            this.verts[k].apply(uvt);
+        for (int k = 0; k < verts.length; ++k) {
+            verts[k].apply(uvt);
         }
         return this;
     }
     
     public CCModel expand(final int extraVerts) {
-        final int newLen = this.verts.length + extraVerts;
-        this.verts = Arrays.copyOf(this.verts, newLen);
-        for (int i = 0; i < this.attributes.size(); ++i) {
-            if (this.attributes.get(i) != null) {
-                this.attributes.set(i, CCRenderState.copyOf((CCRenderState.VertexAttribute)CCRenderState.getAttribute(i), this.attributes.get(i), newLen));
+        final int newLen = verts.length + extraVerts;
+        verts = Arrays.copyOf(verts, newLen);
+        for (int i = 0; i < attributes.size(); ++i) {
+            if (attributes.get(i) != null) {
+                attributes.set(i, CCRenderState.copyOf((CCRenderState.VertexAttribute)CCRenderState.getAttribute(i), attributes.get(i), newLen));
             }
         }
         return this;
@@ -613,14 +613,14 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
     }
     
     public CCModel shrinkUVs(final double d) {
-        for (int k = 0; k < this.verts.length; k += this.vp) {
+        for (int k = 0; k < verts.length; k += vp) {
             final UV uv = new UV();
-            for (int i = 0; i < this.vp; ++i) {
-                uv.add(this.verts[k + i].uv);
+            for (int i = 0; i < vp; ++i) {
+                uv.add(verts[k + i].uv);
             }
-            uv.multiply(1.0 / this.vp);
-            for (int i = 0; i < this.vp; ++i) {
-                final Vertex5 vert = this.verts[k + i];
+            uv.multiply(1.0 / vp);
+            for (int i = 0; i < vp; ++i) {
+                final Vertex5 vert = verts[k + i];
                 final UV uv2 = vert.uv;
                 uv2.u += ((vert.uv.u < uv.u) ? d : (-d));
                 final UV uv3 = vert.uv;
@@ -631,7 +631,7 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
     }
     
     public CCModel sidedCopy(final int side1, final int side2, final Vector3 point) {
-        final CCModel model = newModel(this.vertexMode, this.verts.length);
+        final CCModel model = newModel(vertexMode, verts.length);
         copy(this, 0, model, 0, model.verts.length);
         return model.apply(new TransformationList(new Transformation[] { (Rotation.sideRotations[side1]).inverse(), Rotation.sideRotations[side2] }).at(point));
     }
@@ -664,7 +664,7 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
     }
     
     public CCModel backfacedCopy() {
-        return generateBackface(this, 0, this.copy(), 0, this.verts.length);
+        return generateBackface(this, 0, copy(), 0, verts.length);
     }
     
     public static CCModel generateBackface(final CCModel src, final int srcpos, final CCModel dst, final int destpos, final int length) {
@@ -692,41 +692,41 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
     }
     
     public CCModel generateSidedParts(final int side, final Vector3 point) {
-        if (this.verts.length % (6 * this.vp) != 0) {
+        if (verts.length % (6 * vp) != 0) {
             throw new IllegalArgumentException("Invalid number of vertices for sided part generation");
         }
-        final int length = this.verts.length / 6;
+        final int length = verts.length / 6;
         for (int s = 0; s < 6; ++s) {
             if (s != side) {
-                this.generateSidedPart(side, s, point, length * side, length * s, length);
+                generateSidedPart(side, s, point, length * side, length * s, length);
             }
         }
         return this;
     }
     
     public CCModel generateSidedPartsH(final int side, final Vector3 point) {
-        if (this.verts.length % (4 * this.vp) != 0) {
+        if (verts.length % (4 * vp) != 0) {
             throw new IllegalArgumentException("Invalid number of vertices for sided part generation");
         }
-        final int length = this.verts.length / 4;
+        final int length = verts.length / 4;
         for (int s = 2; s < 6; ++s) {
             if (s != side) {
-                this.generateSidedPart(side, s, point, length * (side - 2), length * (s - 2), length);
+                generateSidedPart(side, s, point, length * (side - 2), length * (s - 2), length);
             }
         }
         return this;
     }
     
     public CCModel generateSidedPart(final int side1, final int side2, final Vector3 point, final int srcpos, final int destpos, final int length) {
-        return this.apply(new TransformationList(new Transformation[] { (Rotation.sideRotations[side1]).inverse(), Rotation.sideRotations[side2] }).at(point), srcpos, destpos, length);
+        return apply(new TransformationList(new Transformation[] { (Rotation.sideRotations[side1]).inverse(), Rotation.sideRotations[side2] }).at(point), srcpos, destpos, length);
     }
     
     public CCModel apply(final Transformation t, final int srcpos, final int destpos, final int length) {
         for (int k = 0; k < length; ++k) {
-            this.verts[destpos + k] = this.verts[srcpos + k].copy();
-            this.verts[destpos + k].vec.apply(t);
+            verts[destpos + k] = verts[srcpos + k].copy();
+            verts[destpos + k].vec.apply(t);
         }
-        final Vector3[] normals = this.normals();
+        final Vector3[] normals = normals();
         if (normals != null) {
             for (int i = 0; i < length; ++i) {
                 t.applyN(normals[destpos + i] = normals[srcpos + i].copy());
@@ -760,31 +760,31 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
     }
     
     public CCModel twoFacedCopy() {
-        final CCModel model = newModel(this.vertexMode, this.verts.length * 2);
-        copy(this, 0, model, 0, this.verts.length);
-        return generateBackface(model, 0, model, this.verts.length, this.verts.length);
+        final CCModel model = newModel(vertexMode, verts.length * 2);
+        copy(this, 0, model, 0, verts.length);
+        return generateBackface(model, 0, model, verts.length, verts.length);
     }
     
     @Override
     public CCModel copy() {
-        final CCModel model = newModel(this.vertexMode, this.verts.length);
-        copy(this, 0, model, 0, this.verts.length);
+        final CCModel model = newModel(vertexMode, verts.length);
+        copy(this, 0, model, 0, verts.length);
         return model;
     }
     
     public Vector3 collapse() {
         final Vector3 v = new Vector3();
-        for (final Vertex5 vert : this.verts) {
+        for (final Vertex5 vert : verts) {
             v.add(vert.vec);
         }
-        v.multiply(1.0 / this.verts.length);
+        v.multiply(1.0 / verts.length);
         return v;
     }
     
     public CCModel zOffset(final Cuboid6 offsets) {
-        for (int k = 0; k < this.verts.length; ++k) {
-            final Vertex5 vert = this.verts[k];
-            final Vector3 normal = this.normals()[k];
+        for (int k = 0; k < verts.length; ++k) {
+            final Vertex5 vert = verts[k];
+            final Vector3 normal = normals()[k];
             switch (findSide(normal)) {
                 case 0: {
                     final Vector3 vec = vert.vec;
@@ -844,10 +844,10 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
     }
     
     public Cuboid6 bounds() {
-        final Vector3 vec1 = this.verts[0].vec;
+        final Vector3 vec1 = verts[0].vec;
         final Cuboid6 c = new Cuboid6(vec1.copy(), vec1.copy());
-        for (int i = 1; i < this.verts.length; ++i) {
-            c.enclose(this.verts[i].vec);
+        for (int i = 1; i < verts.length; ++i) {
+            c.enclose(verts[i].vec);
         }
         return c;
     }
@@ -869,16 +869,16 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
         public LinkedList<Vector3> normals;
         
         public PositionNormalEntry(final Vector3 position) {
-            this.normals = new LinkedList<Vector3>();
-            this.pos = position;
+            normals = new LinkedList<Vector3>();
+            pos = position;
         }
         
         public boolean positionEqual(final Vector3 v) {
-            return this.pos.x == v.x && this.pos.y == v.y && this.pos.z == v.z;
+            return pos.x == v.x && pos.y == v.y && pos.z == v.z;
         }
         
         public PositionNormalEntry addNormal(final Vector3 normal) {
-            this.normals.add(normal);
+            normals.add(normal);
             return this;
         }
     }

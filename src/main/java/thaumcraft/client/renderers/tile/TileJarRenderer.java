@@ -40,8 +40,8 @@ public class TileJarRenderer extends TileEntitySpecialRenderer
     private static final ResourceLocation TEX_BRINE;
     
     public TileJarRenderer() {
-        this.model = new ModelJar();
-        this.brain = new ModelBrain();
+        model = new ModelJar();
+        brain = new ModelBrain();
     }
     
     public void renderTileEntityAt(final TileJar tile, final double x, final double y, final double z, final float f) {
@@ -51,22 +51,22 @@ public class TileJarRenderer extends TileEntitySpecialRenderer
         GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         if (tile instanceof TileJarBrain) {
-            this.renderBrain((TileJarBrain)tile, x, y, z, f);
+            renderBrain((TileJarBrain)tile, x, y, z, f);
         }
         else if (tile instanceof TileJarFillable) {
             GL11.glDisable(2896);
             if (((TileJarFillable)tile).blocked) {
                 GL11.glPushMatrix();
-                this.bindTexture(TileJarRenderer.TEX_BRINE);
+                bindTexture(TileJarRenderer.TEX_BRINE);
                 GL11.glScaled(1.001, 1.001, 1.001);
-                this.model.renderLidBrace();
+                model.renderLidBrace();
                 GL11.glPopMatrix();
             }
             if (ThaumcraftApiHelper.getConnectableTile(tile.getWorld(), tile.getPos(), EnumFacing.UP) != null) {
                 GL11.glPushMatrix();
-                this.bindTexture(TileJarRenderer.TEX_BRINE);
+                bindTexture(TileJarRenderer.TEX_BRINE);
                 GL11.glScaled(0.9, 1.0, 0.9);
-                this.model.renderLidExtension();
+                model.renderLidExtension();
                 GL11.glPopMatrix();
             }
             if (((TileJarFillable)tile).aspectFilter != null) {
@@ -106,7 +106,7 @@ public class TileJarRenderer extends TileEntitySpecialRenderer
                 GL11.glPopMatrix();
             }
             if (((TileJarFillable)tile).amount > 0) {
-                this.renderLiquid((TileJarFillable)tile, x, y, z, f);
+                renderLiquid((TileJarFillable)tile, x, y, z, f);
             }
             GL11.glEnable(2896);
         }
@@ -129,7 +129,7 @@ public class TileJarRenderer extends TileEntitySpecialRenderer
             co = new Color(te.aspect.getColor());
         }
         final TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("thaumcraft:blocks/animatedglow");
-        this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         renderBlocks.renderFaceYNeg(BlocksTC.jarNormal, -0.5, 0.0, -0.5, icon, co.getRed() / 255.0f, co.getGreen() / 255.0f, co.getBlue() / 255.0f, 200);
         renderBlocks.renderFaceYPos(BlocksTC.jarNormal, -0.5, 0.0, -0.5, icon, co.getRed() / 255.0f, co.getGreen() / 255.0f, co.getBlue() / 255.0f, 200);
         renderBlocks.renderFaceZNeg(BlocksTC.jarNormal, -0.5, 0.0, -0.5, icon, co.getRed() / 255.0f, co.getGreen() / 255.0f, co.getBlue() / 255.0f, 200);
@@ -154,20 +154,20 @@ public class TileJarRenderer extends TileEntitySpecialRenderer
         final float f3 = te.rotb + f2 * f;
         GL11.glRotatef(f3 * 180.0f / 3.141593f, 0.0f, 1.0f, 0.0f);
         GL11.glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
-        this.bindTexture(TileJarRenderer.TEX_BRAIN);
+        bindTexture(TileJarRenderer.TEX_BRAIN);
         GL11.glScalef(0.4f, 0.4f, 0.4f);
-        this.brain.render();
+        brain.render();
         GL11.glScalef(1.0f, 1.0f, 1.0f);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
-        this.bindTexture(TileJarRenderer.TEX_BRINE);
-        this.model.renderBrine();
+        bindTexture(TileJarRenderer.TEX_BRINE);
+        model.renderBrine();
         GL11.glPopMatrix();
     }
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderTileEntityAt((TileJar)te, x, y, z, partialTicks);
+        renderTileEntityAt((TileJar)te, x, y, z, partialTicks);
     }
     
     static {

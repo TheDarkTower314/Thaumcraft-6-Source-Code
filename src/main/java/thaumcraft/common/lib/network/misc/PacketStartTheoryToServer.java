@@ -26,7 +26,7 @@ public class PacketStartTheoryToServer implements IMessage, IMessageHandler<Pack
     private Set<String> aids;
     
     public PacketStartTheoryToServer() {
-        this.aids = new HashSet<String>();
+        aids = new HashSet<String>();
     }
     
     public PacketStartTheoryToServer(final BlockPos pos, final Set<String> aids) {
@@ -36,17 +36,17 @@ public class PacketStartTheoryToServer implements IMessage, IMessageHandler<Pack
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeLong(this.pos);
-        buffer.writeByte(this.aids.size());
-        for (final String aid : this.aids) {
+        buffer.writeLong(pos);
+        buffer.writeByte(aids.size());
+        for (final String aid : aids) {
             ByteBufUtils.writeUTF8String(buffer, aid);
         }
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.pos = buffer.readLong();
+        pos = buffer.readLong();
         for (int s = buffer.readByte(), a = 0; a < s; ++a) {
-            this.aids.add(ByteBufUtils.readUTF8String(buffer));
+            aids.add(ByteBufUtils.readUTF8String(buffer));
         }
     }
     

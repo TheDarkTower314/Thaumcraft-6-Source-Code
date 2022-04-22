@@ -19,11 +19,11 @@ public class TileTubeBufferRenderer extends TileEntitySpecialRenderer
     private static final ResourceLocation TEX_VALVE;
     
     public TileTubeBufferRenderer() {
-        this.model = new ModelTubeValve();
+        model = new ModelTubeValve();
     }
     
     public void renderEntityAt(final TileTubeBuffer buffer, final double x, final double y, final double z, final float fq) {
-        this.bindTexture(TileTubeBufferRenderer.TEX_VALVE);
+        bindTexture(TileTubeBufferRenderer.TEX_VALVE);
         if (buffer.getWorld() != null) {
             for (final EnumFacing dir : EnumFacing.VALUES) {
                 if (buffer.chokedSides[dir.ordinal()] != 0 && buffer.openSides[dir.ordinal()]) {
@@ -47,7 +47,7 @@ public class TileTubeBufferRenderer extends TileEntitySpecialRenderer
                         }
                         GL11.glScaled(2.0, 1.0, 2.0);
                         GL11.glTranslated(0.0, -0.5, 0.0);
-                        this.model.renderRod();
+                        model.renderRod();
                         GL11.glPopMatrix();
                         GL11.glColor3f(1.0f, 1.0f, 1.0f);
                         GL11.glPopMatrix();
@@ -59,7 +59,7 @@ public class TileTubeBufferRenderer extends TileEntitySpecialRenderer
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderEntityAt((TileTubeBuffer)te, x, y, z, partialTicks);
+        renderEntityAt((TileTubeBuffer)te, x, y, z, partialTicks);
     }
     
     static {

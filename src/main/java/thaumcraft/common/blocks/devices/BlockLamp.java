@@ -29,12 +29,12 @@ public class BlockLamp extends BlockTCDevice implements IBlockFacing, IBlockEnab
 {
     public BlockLamp(final Class tc, final String name) {
         super(Material.IRON, tc, name);
-        this.setSoundType(SoundType.METAL);
-        this.setHardness(1.0f);
-        final IBlockState bs = this.blockState.getBaseState();
+        setSoundType(SoundType.METAL);
+        setHardness(1.0f);
+        final IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)EnumFacing.DOWN);
         bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)true);
-        this.setDefaultState(bs);
+        setDefaultState(bs);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {
@@ -60,7 +60,7 @@ public class BlockLamp extends BlockTCDevice implements IBlockFacing, IBlockEnab
     
     @Override
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)facing.getOpposite());
         bs = bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false);
         return bs;
@@ -78,7 +78,7 @@ public class BlockLamp extends BlockTCDevice implements IBlockFacing, IBlockEnab
     @Override
     public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
         if (worldIn.isAirBlock(pos.offset(BlockStateUtils.getFacing(state)))) {
-            this.dropBlockAsItem(worldIn, pos, this.getDefaultState(), 0);
+            dropBlockAsItem(worldIn, pos, getDefaultState(), 0);
             worldIn.setBlockToAir(pos);
             return;
         }

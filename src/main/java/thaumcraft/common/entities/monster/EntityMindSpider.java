@@ -28,9 +28,9 @@ public class EntityMindSpider extends EntitySpider implements IEldritchMob
     
     public EntityMindSpider(final World par1World) {
         super(par1World);
-        this.lifeSpan = Integer.MAX_VALUE;
-        this.setSize(0.7f, 0.5f);
-        this.experienceValue = 1;
+        lifeSpan = Integer.MAX_VALUE;
+        setSize(0.7f, 0.5f);
+        experienceValue = 1;
     }
     
     @Nullable
@@ -43,38 +43,38 @@ public class EntityMindSpider extends EntitySpider implements IEldritchMob
     }
     
     protected int getExperiencePoints(final EntityPlayer p_70693_1_) {
-        return this.isHarmless() ? 0 : super.getExperiencePoints(p_70693_1_);
+        return isHarmless() ? 0 : super.getExperiencePoints(p_70693_1_);
     }
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0);
     }
     
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register(EntityMindSpider.HARMLESS, false);
-        this.getDataManager().register(EntityMindSpider.VIEWER, String.valueOf(""));
+        getDataManager().register(EntityMindSpider.HARMLESS, false);
+        getDataManager().register(EntityMindSpider.VIEWER, String.valueOf(""));
     }
     
     public String getViewer() {
-        return (String)this.getDataManager().get((DataParameter)EntityMindSpider.VIEWER);
+        return (String) getDataManager().get((DataParameter)EntityMindSpider.VIEWER);
     }
     
     public void setViewer(final String player) {
-        this.getDataManager().set(EntityMindSpider.VIEWER, String.valueOf(player));
+        getDataManager().set(EntityMindSpider.VIEWER, String.valueOf(player));
     }
     
     public boolean isHarmless() {
-        return (boolean)this.getDataManager().get((DataParameter)EntityMindSpider.HARMLESS);
+        return (boolean) getDataManager().get((DataParameter)EntityMindSpider.HARMLESS);
     }
     
     public void setHarmless(final boolean h) {
         if (h) {
-            this.lifeSpan = 1200;
+            lifeSpan = 1200;
         }
-        this.getDataManager().set(EntityMindSpider.HARMLESS, h);
+        getDataManager().set(EntityMindSpider.HARMLESS, h);
     }
     
     protected float getSoundPitch() {
@@ -83,8 +83,8 @@ public class EntityMindSpider extends EntitySpider implements IEldritchMob
     
     public void onUpdate() {
         super.onUpdate();
-        if (!this.world.isRemote && this.ticksExisted > this.lifeSpan) {
-            this.setDead();
+        if (!world.isRemote && ticksExisted > lifeSpan) {
+            setDead();
         }
     }
     
@@ -104,19 +104,19 @@ public class EntityMindSpider extends EntitySpider implements IEldritchMob
     }
     
     public boolean attackEntityAsMob(final Entity p_70652_1_) {
-        return !this.isHarmless() && super.attackEntityAsMob(p_70652_1_);
+        return !isHarmless() && super.attackEntityAsMob(p_70652_1_);
     }
     
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        this.setHarmless(nbt.getBoolean("harmless"));
-        this.setViewer(nbt.getString("viewer"));
+        setHarmless(nbt.getBoolean("harmless"));
+        setViewer(nbt.getString("viewer"));
     }
     
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setBoolean("harmless", this.isHarmless());
-        nbt.setString("viewer", this.getViewer());
+        nbt.setBoolean("harmless", isHarmless());
+        nbt.setString("viewer", getViewer());
     }
     
     public IEntityLivingData onInitialSpawn(final DifficultyInstance p_180482_1_, final IEntityLivingData p_180482_2_) {

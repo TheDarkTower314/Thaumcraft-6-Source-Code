@@ -18,14 +18,14 @@ public class TileCentrifugeRenderer extends TileEntitySpecialRenderer
     private static final ResourceLocation TEX;
     
     public TileCentrifugeRenderer() {
-        this.model = new ModelCentrifuge();
+        model = new ModelCentrifuge();
     }
     
     public void renderEntityAt(final TileCentrifuge cf, final double x, final double y, final double z, final float fq, final int destroyStage) {
-        this.bindTexture(TileCentrifugeRenderer.TEX);
+        bindTexture(TileCentrifugeRenderer.TEX);
         GL11.glPushMatrix();
         if (destroyStage >= 0) {
-            this.bindTexture(TileCentrifugeRenderer.DESTROY_STAGES[destroyStage]);
+            bindTexture(TileCentrifugeRenderer.DESTROY_STAGES[destroyStage]);
             GlStateManager.matrixMode(5890);
             GlStateManager.pushMatrix();
             GlStateManager.scale(4.0f, 4.0f, 1.0f);
@@ -33,9 +33,9 @@ public class TileCentrifugeRenderer extends TileEntitySpecialRenderer
             GlStateManager.matrixMode(5888);
         }
         GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
-        this.model.renderBoxes();
+        model.renderBoxes();
         GL11.glRotated(cf.rotation, 0.0, 1.0, 0.0);
-        this.model.renderSpinnyBit();
+        model.renderSpinnyBit();
         if (destroyStage >= 0) {
             GlStateManager.matrixMode(5890);
             GlStateManager.popMatrix();
@@ -46,7 +46,7 @@ public class TileCentrifugeRenderer extends TileEntitySpecialRenderer
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderEntityAt((TileCentrifuge)te, x, y, z, partialTicks, destroyStage);
+        renderEntityAt((TileCentrifuge)te, x, y, z, partialTicks, destroyStage);
     }
     
     static {

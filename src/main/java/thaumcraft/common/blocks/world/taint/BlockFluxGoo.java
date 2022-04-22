@@ -35,11 +35,11 @@ public class BlockFluxGoo extends BlockFluidFinite
 {
     public BlockFluxGoo() {
         super(ConfigBlocks.FluidFluxGoo.instance, ThaumcraftMaterials.MATERIAL_TAINT);
-        this.setRegistryName("flux_goo");
-        this.setUnlocalizedName("flux_goo");
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setSoundType(SoundsTC.GORE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty((IProperty)BlockFluxGoo.LEVEL, (Comparable)7));
+        setRegistryName("flux_goo");
+        setUnlocalizedName("flux_goo");
+        setCreativeTab(ConfigItems.TABTC);
+        setSoundType(SoundsTC.GORE);
+        setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockFluxGoo.LEVEL, (Comparable)7));
     }
     
     public SoundType getSoundType() {
@@ -61,8 +61,8 @@ public class BlockFluxGoo extends BlockFluidFinite
             }
         }
         else {
-            entity.motionX *= 1.0f - this.getQuantaPercentage(world, pos);
-            entity.motionZ *= 1.0f - this.getQuantaPercentage(world, pos);
+            entity.motionX *= 1.0f - getQuantaPercentage(world, pos);
+            entity.motionZ *= 1.0f - getQuantaPercentage(world, pos);
             if (entity instanceof EntityLivingBase) {
                 final PotionEffect pe = new PotionEffect(PotionVisExhaust.instance, 600, md / 3, true, true);
                 pe.getCurativeItems().clear();
@@ -120,7 +120,7 @@ public class BlockFluxGoo extends BlockFluidFinite
     
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random rand) {
-        final int meta = this.getMetaFromState(state);
+        final int meta = getMetaFromState(state);
         if (rand.nextInt(44) <= meta) {
             final FXGeneric fb = new FXGeneric(world, pos.getX() + rand.nextFloat(), pos.getY() + 0.125f * meta, pos.getZ() + rand.nextFloat(), 0.0, 0.0, 0.0);
             fb.setMaxAge(2 + world.rand.nextInt(3));

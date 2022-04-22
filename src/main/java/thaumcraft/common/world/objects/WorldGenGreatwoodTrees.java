@@ -45,43 +45,43 @@ public class WorldGenGreatwoodTrees extends WorldGenAbstractTree
     
     public WorldGenGreatwoodTrees(final boolean par1, final boolean spiders) {
         super(par1);
-        this.rand = new Random();
-        this.basePos = new int[] { 0, 0, 0 };
-        this.heightLimit = 0;
-        this.heightAttenuation = 0.618;
-        this.branchDensity = 1.0;
-        this.branchSlope = 0.38;
-        this.scaleWidth = 1.2;
-        this.leafDensity = 0.9;
-        this.trunkSize = 2;
-        this.heightLimitLimit = 11;
-        this.leafDistanceLimit = 4;
+        rand = new Random();
+        basePos = new int[] { 0, 0, 0 };
+        heightLimit = 0;
+        heightAttenuation = 0.618;
+        branchDensity = 1.0;
+        branchSlope = 0.38;
+        scaleWidth = 1.2;
+        leafDensity = 0.9;
+        trunkSize = 2;
+        heightLimitLimit = 11;
+        leafDistanceLimit = 4;
         this.spiders = false;
         this.spiders = spiders;
     }
     
     void generateLeafNodeList() {
-        this.height = (int)(this.heightLimit * this.heightAttenuation);
-        if (this.height >= this.heightLimit) {
-            this.height = this.heightLimit - 1;
+        height = (int)(heightLimit * heightAttenuation);
+        if (height >= heightLimit) {
+            height = heightLimit - 1;
         }
-        int var1 = (int)(1.382 + Math.pow(this.leafDensity * this.heightLimit / 13.0, 2.0));
+        int var1 = (int)(1.382 + Math.pow(leafDensity * heightLimit / 13.0, 2.0));
         if (var1 < 1) {
             var1 = 1;
         }
-        final int[][] var2 = new int[var1 * this.heightLimit][4];
-        int var3 = this.basePos[1] + this.heightLimit - this.leafDistanceLimit;
+        final int[][] var2 = new int[var1 * heightLimit][4];
+        int var3 = basePos[1] + heightLimit - leafDistanceLimit;
         int var4 = 1;
-        final int var5 = this.basePos[1] + this.height;
-        int var6 = var3 - this.basePos[1];
-        var2[0][0] = this.basePos[0];
+        final int var5 = basePos[1] + height;
+        int var6 = var3 - basePos[1];
+        var2[0][0] = basePos[0];
         var2[0][1] = var3;
-        var2[0][2] = this.basePos[2];
+        var2[0][2] = basePos[2];
         var2[0][3] = var5;
         --var3;
         while (var6 >= 0) {
             int var7 = 0;
-            final float var8 = this.layerSize(var6);
+            final float var8 = layerSize(var6);
             if (var8 < 0.0f) {
                 --var3;
                 --var6;
@@ -89,23 +89,23 @@ public class WorldGenGreatwoodTrees extends WorldGenAbstractTree
             else {
                 final double var9 = 0.5;
                 while (var7 < var1) {
-                    final double var10 = this.scaleWidth * var8 * (this.rand.nextFloat() + 0.328);
-                    final double var11 = this.rand.nextFloat() * 2.0 * 3.141592653589793;
-                    final int var12 = MathHelper.floor(var10 * Math.sin(var11) + this.basePos[0] + var9);
-                    final int var13 = MathHelper.floor(var10 * Math.cos(var11) + this.basePos[2] + var9);
+                    final double var10 = scaleWidth * var8 * (rand.nextFloat() + 0.328);
+                    final double var11 = rand.nextFloat() * 2.0 * 3.141592653589793;
+                    final int var12 = MathHelper.floor(var10 * Math.sin(var11) + basePos[0] + var9);
+                    final int var13 = MathHelper.floor(var10 * Math.cos(var11) + basePos[2] + var9);
                     final int[] var14 = { var12, var3, var13 };
-                    final int[] var15 = { var12, var3 + this.leafDistanceLimit, var13 };
-                    if (this.checkBlockLine(var14, var15) == -1) {
-                        final int[] var16 = { this.basePos[0], this.basePos[1], this.basePos[2] };
-                        final double var17 = Math.sqrt(Math.pow(Math.abs(this.basePos[0] - var14[0]), 2.0) + Math.pow(Math.abs(this.basePos[2] - var14[2]), 2.0));
-                        final double var18 = var17 * this.branchSlope;
+                    final int[] var15 = { var12, var3 + leafDistanceLimit, var13 };
+                    if (checkBlockLine(var14, var15) == -1) {
+                        final int[] var16 = { basePos[0], basePos[1], basePos[2] };
+                        final double var17 = Math.sqrt(Math.pow(Math.abs(basePos[0] - var14[0]), 2.0) + Math.pow(Math.abs(basePos[2] - var14[2]), 2.0));
+                        final double var18 = var17 * branchSlope;
                         if (var14[1] - var18 > var5) {
                             var16[1] = var5;
                         }
                         else {
                             var16[1] = (int)(var14[1] - var18);
                         }
-                        if (this.checkBlockLine(var16, var14) == -1) {
+                        if (checkBlockLine(var16, var14) == -1) {
                             var2[var4][0] = var12;
                             var2[var4][1] = var3;
                             var2[var4][2] = var13;
@@ -119,7 +119,7 @@ public class WorldGenGreatwoodTrees extends WorldGenAbstractTree
                 --var6;
             }
         }
-        System.arraycopy(var2, 0, this.leafNodes = new int[var4][4], 0, var4);
+        System.arraycopy(var2, 0, leafNodes = new int[var4][4], 0, var4);
     }
     
     void genTreeLayer(final int par1, final int par2, final int par3, final float par4, final byte par5, final Block par6) {
@@ -138,11 +138,11 @@ public class WorldGenGreatwoodTrees extends WorldGenAbstractTree
                 if (var14 <= par4 * par4) {
                     try {
                         var11[var9] = var10[var9] + var13;
-                        final IBlockState state = this.world.getBlockState(new BlockPos(var11[0], var11[1], var11[2]));
+                        final IBlockState state = world.getBlockState(new BlockPos(var11[0], var11[1], var11[2]));
                         final Block block = state.getBlock();
                         if (block == Blocks.AIR || block == BlocksTC.leafGreatwood) {
-                            if (block == null || block.canBeReplacedByLeaves(state, this.world, new BlockPos(var11[0], var11[1], var11[2]))) {
-                                this.setBlockAndNotifyAdequately(this.world, new BlockPos(var11[0], var11[1], var11[2]), par6.getDefaultState());
+                            if (block == null || block.canBeReplacedByLeaves(state, world, new BlockPos(var11[0], var11[1], var11[2]))) {
+                                setBlockAndNotifyAdequately(world, new BlockPos(var11[0], var11[1], var11[2]), par6.getDefaultState());
                             }
                         }
                     }
@@ -154,11 +154,11 @@ public class WorldGenGreatwoodTrees extends WorldGenAbstractTree
     }
     
     float layerSize(final int par1) {
-        if (par1 < (float)this.heightLimit * 0.3) {
+        if (par1 < (float) heightLimit * 0.3) {
             return -1.618f;
         }
-        final float var2 = this.heightLimit / 2.0f;
-        final float var3 = this.heightLimit / 2.0f - par1;
+        final float var2 = heightLimit / 2.0f;
+        final float var3 = heightLimit / 2.0f - par1;
         float var4;
         if (var3 == 0.0f) {
             var4 = var2;
@@ -174,13 +174,13 @@ public class WorldGenGreatwoodTrees extends WorldGenAbstractTree
     }
     
     float leafSize(final int par1) {
-        return (par1 >= 0 && par1 < this.leafDistanceLimit) ? ((par1 != 0 && par1 != this.leafDistanceLimit - 1) ? 3.0f : 2.0f) : -1.0f;
+        return (par1 >= 0 && par1 < leafDistanceLimit) ? ((par1 != 0 && par1 != leafDistanceLimit - 1) ? 3.0f : 2.0f) : -1.0f;
     }
     
     void generateLeafNode(final int par1, final int par2, final int par3) {
-        for (int var4 = par2, var5 = par2 + this.leafDistanceLimit; var4 < var5; ++var4) {
-            final float var6 = this.leafSize(var4 - par2);
-            this.genTreeLayer(par1, var4, par3, var6, (byte)1, BlocksTC.leafGreatwood);
+        for (int var4 = par2, var5 = par2 + leafDistanceLimit; var4 < var5; ++var4) {
+            final float var6 = leafSize(var4 - par2);
+            genTreeLayer(par1, var4, par3, var6, (byte)1, BlocksTC.leafGreatwood);
         }
     }
     
@@ -224,70 +224,70 @@ public class WorldGenGreatwoodTrees extends WorldGenAbstractTree
                         var15 = 2;
                     }
                 }
-                if (this.isReplaceable(this.world, new BlockPos(var12[0], var12[1], var12[2]))) {
-                    this.setBlockAndNotifyAdequately(this.world, new BlockPos(var12[0], var12[1], var12[2]), par3.getStateFromMeta(var15));
+                if (isReplaceable(world, new BlockPos(var12[0], var12[1], var12[2]))) {
+                    setBlockAndNotifyAdequately(world, new BlockPos(var12[0], var12[1], var12[2]), par3.getStateFromMeta(var15));
                 }
             }
         }
     }
     
     void generateLeaves() {
-        for (int var1 = 0, var2 = this.leafNodes.length; var1 < var2; ++var1) {
-            final int var3 = this.leafNodes[var1][0];
-            final int var4 = this.leafNodes[var1][1];
-            final int var5 = this.leafNodes[var1][2];
-            this.generateLeafNode(var3, var4, var5);
+        for (int var1 = 0, var2 = leafNodes.length; var1 < var2; ++var1) {
+            final int var3 = leafNodes[var1][0];
+            final int var4 = leafNodes[var1][1];
+            final int var5 = leafNodes[var1][2];
+            generateLeafNode(var3, var4, var5);
         }
     }
     
     boolean leafNodeNeedsBase(final int par1) {
-        return par1 >= this.heightLimit * 0.2;
+        return par1 >= heightLimit * 0.2;
     }
     
     void generateTrunk() {
-        final int var1 = this.basePos[0];
-        final int var2 = this.basePos[1];
-        final int var3 = this.basePos[1] + this.height;
-        final int var4 = this.basePos[2];
+        final int var1 = basePos[0];
+        final int var2 = basePos[1];
+        final int var3 = basePos[1] + height;
+        final int var4 = basePos[2];
         final int[] var5 = { var1, var2, var4 };
         final int[] var6 = { var1, var3, var4 };
-        this.placeBlockLine(var5, var6, BlocksTC.logGreatwood);
-        if (this.trunkSize == 2) {
+        placeBlockLine(var5, var6, BlocksTC.logGreatwood);
+        if (trunkSize == 2) {
             final int[] array = var5;
             final int n = 0;
             ++array[n];
             final int[] array2 = var6;
             final int n2 = 0;
             ++array2[n2];
-            this.placeBlockLine(var5, var6, BlocksTC.logGreatwood);
+            placeBlockLine(var5, var6, BlocksTC.logGreatwood);
             final int[] array3 = var5;
             final int n3 = 2;
             ++array3[n3];
             final int[] array4 = var6;
             final int n4 = 2;
             ++array4[n4];
-            this.placeBlockLine(var5, var6, BlocksTC.logGreatwood);
+            placeBlockLine(var5, var6, BlocksTC.logGreatwood);
             final int[] array5 = var5;
             final int n5 = 0;
             --array5[n5];
             final int[] array6 = var6;
             final int n6 = 0;
             --array6[n6];
-            this.placeBlockLine(var5, var6, BlocksTC.logGreatwood);
+            placeBlockLine(var5, var6, BlocksTC.logGreatwood);
         }
     }
     
     void generateLeafNodeBases() {
         int var1 = 0;
-        final int var2 = this.leafNodes.length;
-        final int[] var3 = { this.basePos[0], this.basePos[1], this.basePos[2] };
+        final int var2 = leafNodes.length;
+        final int[] var3 = { basePos[0], basePos[1], basePos[2] };
         while (var1 < var2) {
-            final int[] var4 = this.leafNodes[var1];
+            final int[] var4 = leafNodes[var1];
             final int[] var5 = { var4[0], var4[1], var4[2] };
             var3[1] = var4[3];
-            final int var6 = var3[1] - this.basePos[1];
-            if (this.leafNodeNeedsBase(var6)) {
-                this.placeBlockLine(var3, var5, BlocksTC.logGreatwood);
+            final int var6 = var3[1] - basePos[1];
+            if (leafNodeNeedsBase(var6)) {
+                placeBlockLine(var3, var5, BlocksTC.logGreatwood);
             }
             ++var1;
         }
@@ -326,7 +326,7 @@ public class WorldGenGreatwoodTrees extends WorldGenAbstractTree
             var11[var6] = MathHelper.floor(par1ArrayOfInteger[var6] + var12 * var9);
             var11[var7] = MathHelper.floor(par1ArrayOfInteger[var7] + var12 * var10);
             try {
-                final Block var14 = this.world.getBlockState(new BlockPos(var11[0], var11[1], var11[2])).getBlock();
+                final Block var14 = world.getBlockState(new BlockPos(var11[0], var11[1], var11[2])).getBlock();
                 if (var14 != Blocks.AIR && var14 != BlocksTC.leafGreatwood) {
                     break;
                 }
@@ -337,23 +337,23 @@ public class WorldGenGreatwoodTrees extends WorldGenAbstractTree
     }
     
     boolean validTreeLocation(final int x, final int z) {
-        final int[] var1 = { this.basePos[0] + x, this.basePos[1], this.basePos[2] + z };
-        final int[] var2 = { this.basePos[0] + x, this.basePos[1] + this.heightLimit - 1, this.basePos[2] + z };
+        final int[] var1 = { basePos[0] + x, basePos[1], basePos[2] + z };
+        final int[] var2 = { basePos[0] + x, basePos[1] + heightLimit - 1, basePos[2] + z };
         try {
-            final IBlockState state = this.world.getBlockState(new BlockPos(this.basePos[0] + x, this.basePos[1] - 1, this.basePos[2] + z));
+            final IBlockState state = world.getBlockState(new BlockPos(basePos[0] + x, basePos[1] - 1, basePos[2] + z));
             final Block var3 = state.getBlock();
-            final boolean isSoil = var3.canSustainPlant(state, this.world, new BlockPos(this.basePos[0] + x, this.basePos[1] - 1, this.basePos[2] + z), EnumFacing.UP, (IPlantable)Blocks.SAPLING);
+            final boolean isSoil = var3.canSustainPlant(state, world, new BlockPos(basePos[0] + x, basePos[1] - 1, basePos[2] + z), EnumFacing.UP, (IPlantable)Blocks.SAPLING);
             if (!isSoil) {
                 return false;
             }
-            final int var4 = this.checkBlockLine(var1, var2);
+            final int var4 = checkBlockLine(var1, var2);
             if (var4 == -1) {
                 return true;
             }
             if (var4 < 6) {
                 return false;
             }
-            this.heightLimit = var4;
+            heightLimit = var4;
             return true;
         }
         catch (final Exception e) {
@@ -365,40 +365,40 @@ public class WorldGenGreatwoodTrees extends WorldGenAbstractTree
     }
     
     public boolean generate(final World par1World, final Random par2Random, final BlockPos pos) {
-        this.world = par1World;
+        world = par1World;
         final long var6 = par2Random.nextLong();
-        this.rand.setSeed(var6);
-        this.basePos[0] = pos.getX();
-        this.basePos[1] = pos.getY();
-        this.basePos[2] = pos.getZ();
-        if (this.heightLimit == 0) {
-            this.heightLimit = this.heightLimitLimit + this.rand.nextInt(this.heightLimitLimit);
+        rand.setSeed(var6);
+        basePos[0] = pos.getX();
+        basePos[1] = pos.getY();
+        basePos[2] = pos.getZ();
+        if (heightLimit == 0) {
+            heightLimit = heightLimitLimit + rand.nextInt(heightLimitLimit);
         }
         int x = 0;
         int z = 0;
-        for (x = 0; x < this.trunkSize; ++x) {
-            for (z = 0; z < this.trunkSize; ++z) {
-                if (!this.validTreeLocation(x, z)) {
-                    this.world = null;
+        for (x = 0; x < trunkSize; ++x) {
+            for (z = 0; z < trunkSize; ++z) {
+                if (!validTreeLocation(x, z)) {
+                    world = null;
                     return false;
                 }
             }
         }
-        this.world.setBlockToAir(pos);
-        this.generateLeafNodeList();
-        this.generateLeaves();
-        this.generateLeafNodeBases();
-        this.generateTrunk();
-        this.scaleWidth = 1.66;
-        this.basePos[0] = pos.getX();
-        this.basePos[1] = pos.getY() + this.height;
-        this.basePos[2] = pos.getZ();
-        this.generateLeafNodeList();
-        this.generateLeaves();
-        this.generateLeafNodeBases();
-        this.generateTrunk();
-        if (this.spiders) {
-            this.world.setBlockState(pos.down(), Blocks.MOB_SPAWNER.getDefaultState());
+        world.setBlockToAir(pos);
+        generateLeafNodeList();
+        generateLeaves();
+        generateLeafNodeBases();
+        generateTrunk();
+        scaleWidth = 1.66;
+        basePos[0] = pos.getX();
+        basePos[1] = pos.getY() + height;
+        basePos[2] = pos.getZ();
+        generateLeafNodeList();
+        generateLeaves();
+        generateLeafNodeBases();
+        generateTrunk();
+        if (spiders) {
+            world.setBlockState(pos.down(), Blocks.MOB_SPAWNER.getDefaultState());
             final TileEntityMobSpawner var7 = (TileEntityMobSpawner)par1World.getTileEntity(pos.down());
             if (var7 != null) {
                 var7.getSpawnerBaseLogic().setEntityId(EntityList.getKey(EntityCaveSpider.class));
@@ -407,17 +407,17 @@ public class WorldGenGreatwoodTrees extends WorldGenAbstractTree
                     final int yy = pos.getY() + par2Random.nextInt(10);
                     final int zz = pos.getZ() - 7 + par2Random.nextInt(14);
                     if (par1World.isAirBlock(new BlockPos(xx, yy, zz)) && (BlockUtils.isBlockTouching(par1World, new BlockPos(xx, yy, zz), BlocksTC.leafGreatwood) || BlockUtils.isBlockTouching(par1World, new BlockPos(xx, yy, zz), BlocksTC.logGreatwood))) {
-                        this.world.setBlockState(new BlockPos(xx, yy, zz), Blocks.WEB.getDefaultState());
+                        world.setBlockState(new BlockPos(xx, yy, zz), Blocks.WEB.getDefaultState());
                     }
                 }
                 par1World.setBlockState(pos.down(2), Blocks.CHEST.getDefaultState());
                 final TileEntityChest var8 = (TileEntityChest)par1World.getTileEntity(pos.down(2));
                 if (var8 != null) {
-                    var8.setLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, this.rand.nextLong());
+                    var8.setLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, rand.nextLong());
                 }
             }
         }
-        this.world = null;
+        world = null;
         return true;
     }
     

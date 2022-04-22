@@ -31,29 +31,29 @@ public class PacketLogisticsRequestToServer implements IMessage, IMessageHandler
         this.pos = pos;
         this.stack = stack;
         this.side = side;
-        this.stacksize = size;
+        stacksize = size;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        if (this.pos == null || this.side == null) {
+        if (pos == null || side == null) {
             buffer.writeBoolean(false);
         }
         else {
             buffer.writeBoolean(true);
-            buffer.writeLong(this.pos.toLong());
-            buffer.writeByte(this.side.getIndex());
+            buffer.writeLong(pos.toLong());
+            buffer.writeByte(side.getIndex());
         }
-        Utils.writeItemStackToBuffer(buffer, this.stack);
-        buffer.writeInt(this.stacksize);
+        Utils.writeItemStackToBuffer(buffer, stack);
+        buffer.writeInt(stacksize);
     }
     
     public void fromBytes(final ByteBuf buffer) {
         if (buffer.readBoolean()) {
-            this.pos = BlockPos.fromLong(buffer.readLong());
-            this.side = EnumFacing.values()[buffer.readByte()];
+            pos = BlockPos.fromLong(buffer.readLong());
+            side = EnumFacing.values()[buffer.readByte()];
         }
-        this.stack = Utils.readItemStackFromBuffer(buffer);
-        this.stacksize = buffer.readInt();
+        stack = Utils.readItemStackFromBuffer(buffer);
+        stacksize = buffer.readInt();
     }
     
     public IMessage onMessage(final PacketLogisticsRequestToServer message, final MessageContext ctx) {

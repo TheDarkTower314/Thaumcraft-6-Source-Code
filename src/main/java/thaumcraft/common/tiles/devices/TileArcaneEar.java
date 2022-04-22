@@ -30,71 +30,71 @@ public class TileArcaneEar extends TileEntity implements ITickable
     public static WeakHashMap<Integer, ArrayList<Integer[]>> noteBlockEvents;
     
     public TileArcaneEar() {
-        this.note = 0;
-        this.tone = 0;
-        this.redstoneSignal = 0;
+        note = 0;
+        tone = 0;
+        redstoneSignal = 0;
     }
     
     public NBTTagCompound writeToNBT(final NBTTagCompound par1NBTTagCompound) {
         super.writeToNBT(par1NBTTagCompound);
-        par1NBTTagCompound.setByte("note", this.note);
-        par1NBTTagCompound.setByte("tone", this.tone);
+        par1NBTTagCompound.setByte("note", note);
+        par1NBTTagCompound.setByte("tone", tone);
         return par1NBTTagCompound;
     }
     
     public void readFromNBT(final NBTTagCompound par1NBTTagCompound) {
         super.readFromNBT(par1NBTTagCompound);
-        this.note = par1NBTTagCompound.getByte("note");
-        this.tone = par1NBTTagCompound.getByte("tone");
-        if (this.note < 0) {
-            this.note = 0;
+        note = par1NBTTagCompound.getByte("note");
+        tone = par1NBTTagCompound.getByte("tone");
+        if (note < 0) {
+            note = 0;
         }
-        if (this.note > 24) {
-            this.note = 24;
+        if (note > 24) {
+            note = 24;
         }
     }
     
     public void update() {
-        if (!this.world.isRemote) {
-            if (this.redstoneSignal > 0) {
-                --this.redstoneSignal;
-                if (this.redstoneSignal == 0) {
-                    final EnumFacing facing = BlockStateUtils.getFacing(this.getBlockMetadata()).getOpposite();
-                    final TileEntity tileentity = this.world.getTileEntity(this.pos);
-                    this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false), 3);
+        if (!world.isRemote) {
+            if (redstoneSignal > 0) {
+                --redstoneSignal;
+                if (redstoneSignal == 0) {
+                    final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata()).getOpposite();
+                    final TileEntity tileentity = world.getTileEntity(pos);
+                    world.setBlockState(pos, world.getBlockState(pos).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false), 3);
                     if (tileentity != null) {
                         tileentity.validate();
-                        this.world.setTileEntity(this.pos, tileentity);
+                        world.setTileEntity(pos, tileentity);
                     }
-                    this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
-                    this.world.notifyNeighborsOfStateChange(this.pos.offset(facing), this.getBlockType(), true);
-                    final IBlockState state = this.world.getBlockState(this.pos);
-                    this.world.markAndNotifyBlock(this.pos, this.world.getChunkFromBlockCoords(this.pos), state, state, 3);
+                    world.notifyNeighborsOfStateChange(pos, getBlockType(), true);
+                    world.notifyNeighborsOfStateChange(pos.offset(facing), getBlockType(), true);
+                    final IBlockState state = world.getBlockState(pos);
+                    world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, state, 3);
                 }
             }
-            final ArrayList<Integer[]> nbe = TileArcaneEar.noteBlockEvents.get(this.world.provider.getDimension());
+            final ArrayList<Integer[]> nbe = TileArcaneEar.noteBlockEvents.get(world.provider.getDimension());
             if (nbe != null) {
                 for (final Integer[] dat : nbe) {
-                    if (dat[3] == this.tone && dat[4] == this.note && this.getDistanceSq(dat[0] + 0.5, dat[1] + 0.5, dat[2] + 0.5) <= 4096.0) {
-                        final EnumFacing facing2 = BlockStateUtils.getFacing(this.getBlockMetadata()).getOpposite();
-                        this.triggerNote(this.world, this.pos, true);
-                        final TileEntity tileentity2 = this.world.getTileEntity(this.pos);
-                        final IBlockState state2 = this.world.getBlockState(this.pos);
-                        if (this.getBlockType() instanceof BlockArcaneEarToggle) {
-                            this.world.setBlockState(this.pos, state2.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)!BlockStateUtils.isEnabled(state2)), 3);
+                    if (dat[3] == tone && dat[4] == note && getDistanceSq(dat[0] + 0.5, dat[1] + 0.5, dat[2] + 0.5) <= 4096.0) {
+                        final EnumFacing facing2 = BlockStateUtils.getFacing(getBlockMetadata()).getOpposite();
+                        triggerNote(world, pos, true);
+                        final TileEntity tileentity2 = world.getTileEntity(pos);
+                        final IBlockState state2 = world.getBlockState(pos);
+                        if (getBlockType() instanceof BlockArcaneEarToggle) {
+                            world.setBlockState(pos, state2.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)!BlockStateUtils.isEnabled(state2)), 3);
                         }
                         else {
-                            this.redstoneSignal = 10;
-                            this.world.setBlockState(this.pos, state2.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)true), 3);
+                            redstoneSignal = 10;
+                            world.setBlockState(pos, state2.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)true), 3);
                         }
                         if (tileentity2 != null) {
                             tileentity2.validate();
-                            this.world.setTileEntity(this.pos, tileentity2);
+                            world.setTileEntity(pos, tileentity2);
                         }
-                        this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
-                        this.world.notifyNeighborsOfStateChange(this.pos.offset(facing2), this.getBlockType(), true);
-                        final IBlockState state3 = this.world.getBlockState(this.pos);
-                        this.world.markAndNotifyBlock(this.pos, this.world.getChunkFromBlockCoords(this.pos), state3, state3, 3);
+                        world.notifyNeighborsOfStateChange(pos, getBlockType(), true);
+                        world.notifyNeighborsOfStateChange(pos.offset(facing2), getBlockType(), true);
+                        final IBlockState state3 = world.getBlockState(pos);
+                        world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state3, state3, 3);
                         break;
                     }
                 }
@@ -104,52 +104,52 @@ public class TileArcaneEar extends TileEntity implements ITickable
     
     public void updateTone() {
         try {
-            final EnumFacing facing = BlockStateUtils.getFacing(this.getBlockMetadata()).getOpposite();
-            final IBlockState iblockstate = this.world.getBlockState(this.pos.offset(facing));
+            final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata()).getOpposite();
+            final IBlockState iblockstate = world.getBlockState(pos.offset(facing));
             final Material material = iblockstate.getMaterial();
-            this.tone = 0;
+            tone = 0;
             if (material == Material.ROCK) {
-                this.tone = 1;
+                tone = 1;
             }
             if (material == Material.SAND) {
-                this.tone = 2;
+                tone = 2;
             }
             if (material == Material.GLASS) {
-                this.tone = 3;
+                tone = 3;
             }
             if (material == Material.WOOD) {
-                this.tone = 4;
+                tone = 4;
             }
             final Block block = iblockstate.getBlock();
             if (block == Blocks.CLAY) {
-                this.tone = 5;
+                tone = 5;
             }
             if (block == Blocks.GOLD_BLOCK) {
-                this.tone = 6;
+                tone = 6;
             }
             if (block == Blocks.WOOL) {
-                this.tone = 7;
+                tone = 7;
             }
             if (block == Blocks.PACKED_ICE) {
-                this.tone = 8;
+                tone = 8;
             }
             if (block == Blocks.BONE_BLOCK) {
-                this.tone = 9;
+                tone = 9;
             }
-            this.markDirty();
+            markDirty();
         }
         catch (final Exception ex) {}
     }
     
     public void changePitch() {
-        this.note = (byte)((this.note + 1) % 25);
-        this.markDirty();
+        note = (byte)((note + 1) % 25);
+        markDirty();
     }
     
     public void triggerNote(final World world, final BlockPos pos, final boolean sound) {
         byte i = -1;
         if (sound) {
-            final EnumFacing facing = BlockStateUtils.getFacing(this.getBlockMetadata()).getOpposite();
+            final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata()).getOpposite();
             final IBlockState iblockstate = world.getBlockState(pos.offset(facing));
             final Material material = iblockstate.getMaterial();
             i = 0;
@@ -182,7 +182,7 @@ public class TileArcaneEar extends TileEntity implements ITickable
                 i = 9;
             }
         }
-        world.addBlockEvent(pos, this.getBlockType(), i, this.note);
+        world.addBlockEvent(pos, getBlockType(), i, note);
     }
     
     static {

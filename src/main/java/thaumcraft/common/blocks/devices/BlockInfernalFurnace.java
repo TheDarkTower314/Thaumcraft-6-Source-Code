@@ -36,12 +36,12 @@ public class BlockInfernalFurnace extends BlockTCDevice implements IBlockFacingH
     
     public BlockInfernalFurnace() {
         super(Material.ROCK, TileInfernalFurnace.class, "infernal_furnace");
-        this.setSoundType(SoundType.STONE);
-        this.setLightLevel(0.9f);
-        final IBlockState bs = this.blockState.getBaseState();
+        setSoundType(SoundType.STONE);
+        setLightLevel(0.9f);
+        final IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)EnumFacing.NORTH);
-        this.setDefaultState(bs);
-        this.setCreativeTab(null);
+        setDefaultState(bs);
+        setCreativeTab(null);
     }
     
     @Override
@@ -64,7 +64,7 @@ public class BlockInfernalFurnace extends BlockTCDevice implements IBlockFacingH
     
     @Override
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)placer.getHorizontalFacing().getOpposite());
         return bs;
     }

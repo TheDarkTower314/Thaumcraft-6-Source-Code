@@ -25,8 +25,8 @@ public class BlockOreTC extends BlockTC
 {
     public BlockOreTC(final String name) {
         super(Material.ROCK, name);
-        this.setResistance(5.0f);
-        this.setSoundType(SoundType.STONE);
+        setResistance(5.0f);
+        setSoundType(SoundType.STONE);
     }
     
     public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
@@ -53,7 +53,7 @@ public class BlockOreTC extends BlockTC
     
     public int getExpDrop(final IBlockState state, final IBlockAccess world, final BlockPos pos, final int fortune) {
         final Random rand = (world instanceof World) ? ((World)world).rand : new Random();
-        if (this.getItemDropped(state, rand, fortune) != Item.getItemFromBlock(this)) {
+        if (getItemDropped(state, rand, fortune) != Item.getItemFromBlock(this)) {
             int j = 0;
             if (this == BlocksTC.oreAmber || this == BlocksTC.oreQuartz) {
                 j = MathHelper.getInt(rand, 1, 4);
@@ -64,13 +64,13 @@ public class BlockOreTC extends BlockTC
     }
     
     public int quantityDroppedWithBonus(final int fortune, final Random random) {
-        if (fortune > 0 && Item.getItemFromBlock(this) != this.getItemDropped(this.getBlockState().getValidStates().iterator().next(), random, fortune)) {
+        if (fortune > 0 && Item.getItemFromBlock(this) != getItemDropped(getBlockState().getValidStates().iterator().next(), random, fortune)) {
             int j = random.nextInt(fortune + 2) - 1;
             if (j < 0) {
                 j = 0;
             }
-            return this.quantityDropped(random) * (j + 1);
+            return quantityDropped(random) * (j + 1);
         }
-        return this.quantityDropped(random);
+        return quantityDropped(random);
     }
 }

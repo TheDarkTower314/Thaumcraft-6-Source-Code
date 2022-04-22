@@ -22,10 +22,10 @@ public class ItemThaumiumArmor extends ItemArmor implements IThaumcraftItems
 {
     public ItemThaumiumArmor(final String name, final ItemArmor.ArmorMaterial enumarmormaterial, final int j, final EntityEquipmentSlot k) {
         super(enumarmormaterial, j, k);
-        this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        setRegistryName(name);
+        setUnlocalizedName(name);
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
-        this.setCreativeTab(ConfigItems.TABTC);
+        setCreativeTab(ConfigItems.TABTC);
     }
     
     public Item getItem() {

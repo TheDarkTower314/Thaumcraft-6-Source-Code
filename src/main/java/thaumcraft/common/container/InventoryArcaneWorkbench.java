@@ -15,7 +15,7 @@ public class InventoryArcaneWorkbench extends InventoryCrafting implements IArca
     
     public InventoryArcaneWorkbench(final TileEntity tileEntity, final Container container) {
         super(container, 5, 3);
-        this.workbench = tileEntity;
+        workbench = tileEntity;
     }
     
     public String getName() {
@@ -24,6 +24,6 @@ public class InventoryArcaneWorkbench extends InventoryCrafting implements IArca
     
     public void markDirty() {
         super.markDirty();
-        this.workbench.markDirty();
+        workbench.markDirty();
     }
 }

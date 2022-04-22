@@ -21,7 +21,7 @@ public class ItemEnchantmentPlaceholder extends ItemTCBase
 {
     public ItemEnchantmentPlaceholder() {
         super("enchanted_placeholder");
-        this.setMaxStackSize(1);
+        setMaxStackSize(1);
     }
     
     @SideOnly(Side.CLIENT)

@@ -43,7 +43,7 @@ public class FocusEffectExchange extends FocusEffect implements IFocusBlockPicke
     
     @Override
     public int getComplexity() {
-        return (5 + this.getSettingValue("silk") * 4 + this.getSettingValue("fortune") == 0) ? 0 : ((this.getSettingValue("fortune") + 1) * 3);
+        return (5 + getSettingValue("silk") * 4 + getSettingValue("fortune") == 0) ? 0 : ((getSettingValue("fortune") + 1) * 3);
     }
     
     @Override
@@ -52,19 +52,19 @@ public class FocusEffectExchange extends FocusEffect implements IFocusBlockPicke
             return false;
         }
         ItemStack casterStack = ItemStack.EMPTY;
-        if (this.getPackage().getCaster().getHeldItemMainhand() != null && this.getPackage().getCaster().getHeldItemMainhand().getItem() instanceof ItemCaster) {
-            casterStack = this.getPackage().getCaster().getHeldItemMainhand();
+        if (getPackage().getCaster().getHeldItemMainhand() != null && getPackage().getCaster().getHeldItemMainhand().getItem() instanceof ItemCaster) {
+            casterStack = getPackage().getCaster().getHeldItemMainhand();
         }
-        else if (this.getPackage().getCaster().getHeldItemOffhand() != null && this.getPackage().getCaster().getHeldItemOffhand().getItem() instanceof ItemCaster) {
-            casterStack = this.getPackage().getCaster().getHeldItemOffhand();
+        else if (getPackage().getCaster().getHeldItemOffhand() != null && getPackage().getCaster().getHeldItemOffhand().getItem() instanceof ItemCaster) {
+            casterStack = getPackage().getCaster().getHeldItemOffhand();
         }
         if (casterStack.isEmpty()) {
             return false;
         }
-        final boolean silk = this.getSettingValue("silk") > 0;
-        final int fortune = this.getSettingValue("fortune");
-        if (this.getPackage().getCaster() instanceof EntityPlayer && ((ItemCaster)casterStack.getItem()).getPickedBlock(casterStack) != null && !((ItemCaster)casterStack.getItem()).getPickedBlock(casterStack).isEmpty()) {
-            ServerEvents.addSwapper(this.getPackage().world, target.getBlockPos(), this.getPackage().world.getBlockState(target.getBlockPos()), ((ItemCaster)casterStack.getItem()).getPickedBlock(casterStack), true, 0, (EntityPlayer)this.getPackage().getCaster(), true, false, 8038177, true, silk, fortune, ServerEvents.DEFAULT_PREDICATE, 0.25f + (silk ? 0.25f : 0.0f) + fortune * 0.1f);
+        final boolean silk = getSettingValue("silk") > 0;
+        final int fortune = getSettingValue("fortune");
+        if (getPackage().getCaster() instanceof EntityPlayer && ((ItemCaster)casterStack.getItem()).getPickedBlock(casterStack) != null && !((ItemCaster)casterStack.getItem()).getPickedBlock(casterStack).isEmpty()) {
+            ServerEvents.addSwapper(getPackage().world, target.getBlockPos(), getPackage().world.getBlockState(target.getBlockPos()), ((ItemCaster)casterStack.getItem()).getPickedBlock(casterStack), true, 0, (EntityPlayer) getPackage().getCaster(), true, false, 8038177, true, silk, fortune, ServerEvents.DEFAULT_PREDICATE, 0.25f + (silk ? 0.25f : 0.0f) + fortune * 0.1f);
         }
         return true;
     }

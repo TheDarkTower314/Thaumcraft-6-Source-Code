@@ -13,8 +13,8 @@ public class NodeSetting {
 	
 	public NodeSetting(String key, String description, INodeSettingType setting, String research) {
 		this.key = key;
-		this.type = setting;
-		this.value = setting.getDefault();
+		type = setting;
+		value = setting.getDefault();
 		this.description = description;
 		this.research = research;
 	}
@@ -50,12 +50,12 @@ public class NodeSetting {
 
 	public void increment() {
 		value++;
-		this.value = getType().clamp(value);
+		value = getType().clamp(value);
 	}
 	
 	public void decrement() {
 		value--;
-		this.value = getType().clamp(value);
+		value = getType().clamp(value);
 	}
 
 	public INodeSettingType getType() {

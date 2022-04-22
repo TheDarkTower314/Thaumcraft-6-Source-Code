@@ -17,25 +17,25 @@ public class GuiPlusMinusButton extends GuiButton
     
     public GuiPlusMinusButton(final int buttonId, final int x, final int y, final int width, final int height, final boolean left) {
         super(buttonId, x, y, width, height, "");
-        this.minus = false;
-        this.minus = left;
+        minus = false;
+        minus = left;
     }
     
     public void drawButton(final Minecraft mc, final int xx, final int yy, final float pt) {
-        if (this.visible) {
+        if (visible) {
             final FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiPlusMinusButton.tex);
             GlStateManager.color(0.9f, 0.9f, 0.9f, 0.9f);
-            this.hovered = (xx >= this.x && yy >= this.y && xx < this.x + this.width && yy < this.y + this.height);
-            final int k = this.getHoverState(this.hovered);
+            hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);
+            final int k = getHoverState(hovered);
             if (k == 2) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             }
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.blendFunc(770, 771);
-            this.drawTexturedModalRect(this.x, this.y, this.minus ? 0 : 10, 0, 10, 10);
-            this.mouseDragged(mc, xx, yy);
+            drawTexturedModalRect(x, y, minus ? 0 : 10, 0, 10, 10);
+            mouseDragged(mc, xx, yy);
         }
     }
     

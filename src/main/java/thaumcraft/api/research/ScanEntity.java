@@ -27,7 +27,7 @@ public class ScanEntity implements IScanThing {
 		this.research = research;
 		this.entityClass = entityClass;
 		this.inheritedClasses = inheritedClasses;
-		this.NBTData = nbt;
+		NBTData = nbt;
 	}
 
 	@Override

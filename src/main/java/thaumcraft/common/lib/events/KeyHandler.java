@@ -36,7 +36,7 @@ public class KeyHandler
     public static long lastPressG;
     
     public KeyHandler() {
-        this.keyPressedH = false;
+        keyPressedH = false;
         ClientRegistry.registerKeyBinding(KeyHandler.keyF);
         ClientRegistry.registerKeyBinding(KeyHandler.keyG);
     }

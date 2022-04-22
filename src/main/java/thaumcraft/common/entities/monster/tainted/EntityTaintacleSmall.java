@@ -16,23 +16,23 @@ public class EntityTaintacleSmall extends EntityTaintacle implements ITaintedMob
     
     public EntityTaintacleSmall(final World par1World) {
         super(par1World);
-        this.lifetime = 200;
-        this.setSize(0.22f, 1.0f);
-        this.experienceValue = 0;
+        lifetime = 200;
+        setSize(0.22f, 1.0f);
+        experienceValue = 0;
     }
     
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(5.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(5.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0);
     }
     
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (this.lifetime-- <= 0) {
-            this.damageEntity(DamageSource.MAGIC, 10.0f);
+        if (lifetime-- <= 0) {
+            damageEntity(DamageSource.MAGIC, 10.0f);
         }
     }
     

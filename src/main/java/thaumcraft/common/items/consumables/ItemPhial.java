@@ -52,18 +52,18 @@ public class ItemPhial extends ItemTCEssentiaContainer
             items.add(new ItemStack(this, 1, 0));
             for (final Aspect tag : Aspect.aspects.values()) {
                 final ItemStack i = new ItemStack(this, 1, 1);
-                this.setAspects(i, new AspectList().add(tag, this.base));
+                setAspects(i, new AspectList().add(tag, base));
                 items.add(i);
             }
         }
     }
     
     public String getItemStackDisplayName(final ItemStack stack) {
-        return (this.getAspects(stack) != null && !this.getAspects(stack).aspects.isEmpty()) ? String.format(super.getItemStackDisplayName(stack), this.getAspects(stack).getAspects()[0].getName()) : super.getItemStackDisplayName(stack);
+        return (getAspects(stack) != null && !getAspects(stack).aspects.isEmpty()) ? String.format(super.getItemStackDisplayName(stack), getAspects(stack).getAspects()[0].getName()) : super.getItemStackDisplayName(stack);
     }
     
     public String getUnlocalizedName(final ItemStack stack) {
-        return super.getUnlocalizedName() + "." + this.getVariantNames()[stack.getItemDamage()];
+        return super.getUnlocalizedName() + "." + getVariantNames()[stack.getItemDamage()];
     }
     
     @Override
@@ -88,14 +88,14 @@ public class ItemPhial extends ItemTCEssentiaContainer
         final IBlockState bi = world.getBlockState(pos);
         if (player.getHeldItem(hand).getItemDamage() == 0 && bi.getBlock() == BlocksTC.alembic) {
             final TileAlembic tile = (TileAlembic)world.getTileEntity(pos);
-            if (tile.amount >= this.base) {
+            if (tile.amount >= base) {
                 if (world.isRemote) {
                     player.swingArm(hand);
                     return EnumActionResult.PASS;
                 }
                 final ItemStack phial = new ItemStack(this, 1, 1);
-                this.setAspects(phial, new AspectList().add(tile.aspect, this.base));
-                if (tile.takeFromContainer(tile.aspect, this.base)) {
+                setAspects(phial, new AspectList().add(tile.aspect, base));
+                if (tile.takeFromContainer(tile.aspect, base)) {
                     player.getHeldItem(hand).shrink(1);
                     if (!player.inventory.addItemStackToInventory(phial)) {
                         world.spawnEntity(new EntityItem(world, player.posX, player.posY, player.posZ, phial));
@@ -108,16 +108,16 @@ public class ItemPhial extends ItemTCEssentiaContainer
         }
         if (player.getHeldItem(hand).getItemDamage() == 0 && (bi.getBlock() == BlocksTC.jarNormal || bi.getBlock() == BlocksTC.jarVoid)) {
             final TileJarFillable tile2 = (TileJarFillable)world.getTileEntity(pos);
-            if (tile2.amount >= this.base) {
+            if (tile2.amount >= base) {
                 if (world.isRemote) {
                     player.swingArm(hand);
                     return EnumActionResult.PASS;
                 }
                 final Aspect asp = Aspect.getAspect(tile2.aspect.getTag());
-                if (tile2.takeFromContainer(asp, this.base)) {
+                if (tile2.takeFromContainer(asp, base)) {
                     player.getHeldItem(hand).shrink(1);
                     final ItemStack phial2 = new ItemStack(this, 1, 1);
-                    this.setAspects(phial2, new AspectList().add(asp, this.base));
+                    setAspects(phial2, new AspectList().add(asp, base));
                     if (!player.inventory.addItemStackToInventory(phial2)) {
                         world.spawnEntity(new EntityItem(world, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, phial2));
                     }
@@ -127,17 +127,17 @@ public class ItemPhial extends ItemTCEssentiaContainer
                 }
             }
         }
-        final AspectList al = this.getAspects(player.getHeldItem(hand));
+        final AspectList al = getAspects(player.getHeldItem(hand));
         if (al != null && al.size() == 1) {
             final Aspect aspect = al.getAspects()[0];
             if (player.getHeldItem(hand).getItemDamage() != 0 && (bi.getBlock() == BlocksTC.jarNormal || bi.getBlock() == BlocksTC.jarVoid)) {
                 final TileJarFillable tile3 = (TileJarFillable)world.getTileEntity(pos);
-                if (tile3.amount <= 250 - this.base && tile3.doesContainerAccept(aspect)) {
+                if (tile3.amount <= 250 - base && tile3.doesContainerAccept(aspect)) {
                     if (world.isRemote) {
                         player.swingArm(hand);
                         return EnumActionResult.PASS;
                     }
-                    if (tile3.addToContainer(aspect, this.base) == 0) {
+                    if (tile3.addToContainer(aspect, base) == 0) {
                         world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), bi, bi, 3);
                         tile3.markDirty();
                         player.getHeldItem(hand).shrink(1);

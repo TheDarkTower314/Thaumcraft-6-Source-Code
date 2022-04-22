@@ -35,7 +35,7 @@ public enum EnumInfusionEnchantment
     
     private EnumInfusionEnchantment(final Set<String> toolClasses, final int ml, final String research) {
         this.toolClasses = toolClasses;
-        this.maxLevel = ml;
+        maxLevel = ml;
         this.research = research;
     }
     

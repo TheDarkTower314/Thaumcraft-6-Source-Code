@@ -48,8 +48,8 @@ public class BlockCrucible extends BlockTCTile
     
     public BlockCrucible() {
         super(Material.IRON, TileCrucible.class, "crucible");
-        this.delay = 0;
-        this.setSoundType(SoundType.METAL);
+        delay = 0;
+        setSoundType(SoundType.METAL);
     }
     
     public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
@@ -59,11 +59,11 @@ public class BlockCrucible extends BlockTCTile
                 tile.attemptSmelt((EntityItem)entity);
             }
             else {
-                ++this.delay;
-                if (this.delay < 10) {
+                ++delay;
+                if (delay < 10) {
                     return;
                 }
-                this.delay = 0;
+                delay = 0;
                 if (entity instanceof EntityLivingBase && tile != null && tile.heat > 150 && tile.tank.getFluidAmount() > 0) {
                     entity.attackEntityFrom(DamageSource.IN_FIRE, 1.0f);
                     world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.4f, 2.0f + world.rand.nextFloat() * 0.4f);

@@ -45,7 +45,7 @@ public class CardSculpting extends TheorycraftCard
     
     @Override
     public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        data.addTotal(this.getResearchCategory(), 20);
+        data.addTotal(getResearchCategory(), 20);
         ++data.bonusDraws;
         return true;
     }

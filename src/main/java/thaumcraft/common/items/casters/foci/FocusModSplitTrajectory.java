@@ -37,7 +37,7 @@ public class FocusModSplitTrajectory extends FocusModSplit
     
     @Override
     public Trajectory[] supplyTrajectories() {
-        return this.getParent().supplyTrajectories();
+        return getParent().supplyTrajectories();
     }
     
     @Override

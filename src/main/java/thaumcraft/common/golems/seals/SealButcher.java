@@ -43,9 +43,9 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
     ResourceLocation icon;
     
     public SealButcher() {
-        this.delay = new Random(System.nanoTime()).nextInt(200);
-        this.wait = false;
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_butcher");
+        delay = new Random(System.nanoTime()).nextInt(200);
+        wait = false;
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_butcher");
     }
     
     @Override
@@ -55,7 +55,7 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public void tickSeal(final World world, final ISealEntity seal) {
-        if (this.delay++ % 200 != 0 || this.wait) {
+        if (delay++ % 200 != 0 || wait) {
             return;
         }
         final AxisAlignedBB area = GolemHelper.getBoundsForArea(seal);
@@ -63,21 +63,21 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
         if (list.size() > 0) {
             for (final Object e : list) {
                 final EntityLivingBase target = (EntityLivingBase)e;
-                if (this.isValidTarget(target)) {
+                if (isValidTarget(target)) {
                     final List<EntityLivingBase> var55 = world.getEntitiesWithinAABB(target.getClass(), area);
                     Iterator<EntityLivingBase> var56;
                     int count;
                     EntityLivingBase var57;
                     for (var56 = var55.iterator(), count = 0; var56.hasNext() && count < 3; ++count) {
                         var57 = var56.next();
-                        if (this.isValidTarget(var57)) {}
+                        if (isValidTarget(var57)) {}
                     }
                     if (count > 2) {
                         final Task task = new Task(seal.getSealPos(), target);
                         task.setPriority(seal.getPriority());
                         task.setLifespan((short)10);
                         TaskHandler.addTask(world.provider.getDimension(), task);
-                        this.wait = true;
+                        wait = true;
                         break;
                     }
                     continue;
@@ -92,18 +92,18 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public void onTaskStarted(final World world, final IGolemAPI golem, final Task task) {
-        if (task.getEntity() != null && task.getEntity() instanceof EntityLivingBase && this.isValidTarget((EntityLivingBase)task.getEntity())) {
+        if (task.getEntity() != null && task.getEntity() instanceof EntityLivingBase && isValidTarget((EntityLivingBase)task.getEntity())) {
             ((EntityLiving)golem).setAttackTarget((EntityLivingBase)task.getEntity());
             golem.addRankXp(1);
         }
         task.setSuspended(true);
-        this.wait = false;
+        wait = false;
     }
     
     @Override
     public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
         task.setSuspended(true);
-        this.wait = false;
+        wait = false;
         return true;
     }
     
@@ -119,7 +119,7 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override
@@ -139,7 +139,7 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public void onTaskSuspension(final World world, final Task task) {
-        this.wait = false;
+        wait = false;
     }
     
     @Override
@@ -152,7 +152,7 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public void onRemoval(final World world, final BlockPos pos, final EnumFacing side) {
-        this.wait = false;
+        wait = false;
     }
     
     @Override

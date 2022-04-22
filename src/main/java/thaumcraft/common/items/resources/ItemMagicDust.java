@@ -51,7 +51,7 @@ public class ItemMagicDust extends ItemTCBase
                 }
                 trigger.execute(world, player, pos, place, side);
                 if (world.isRemote) {
-                    this.doSparkles(player, world, pos, hitX, hitY, hitZ, hand, trigger, place);
+                    doSparkles(player, world, pos, hitX, hitY, hitZ, hand, trigger, place);
                     break;
                 }
                 return EnumActionResult.SUCCESS;

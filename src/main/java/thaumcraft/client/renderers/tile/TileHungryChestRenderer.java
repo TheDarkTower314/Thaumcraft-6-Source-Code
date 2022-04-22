@@ -21,7 +21,7 @@ public class TileHungryChestRenderer extends TileEntitySpecialRenderer
     private static final ResourceLocation textureNormal;
     
     public TileHungryChestRenderer() {
-        this.chestModel = new ModelChest();
+        chestModel = new ModelChest();
     }
     
     public void renderTileEntityChestAt(final TileHungryChest chest, final double par2, final double par4, final double par6, final float par8, final int bp) {
@@ -32,9 +32,9 @@ public class TileHungryChestRenderer extends TileEntitySpecialRenderer
         else {
             var9 = chest.getBlockMetadata();
         }
-        final ModelChest var10 = this.chestModel;
+        final ModelChest var10 = chestModel;
         if (bp >= 0) {
-            this.bindTexture(TileHungryChestRenderer.DESTROY_STAGES[bp]);
+            bindTexture(TileHungryChestRenderer.DESTROY_STAGES[bp]);
             GlStateManager.matrixMode(5890);
             GlStateManager.pushMatrix();
             GlStateManager.scale(4.0f, 4.0f, 1.0f);
@@ -42,7 +42,7 @@ public class TileHungryChestRenderer extends TileEntitySpecialRenderer
             GlStateManager.matrixMode(5888);
         }
         else {
-            this.bindTexture(TileHungryChestRenderer.textureNormal);
+            bindTexture(TileHungryChestRenderer.textureNormal);
         }
         GL11.glPushMatrix();
         GL11.glEnable(32826);
@@ -83,7 +83,7 @@ public class TileHungryChestRenderer extends TileEntitySpecialRenderer
     }
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
-        this.renderTileEntityChestAt((TileHungryChest)te, x, y, z, partialTicks, destroyStage);
+        renderTileEntityChestAt((TileHungryChest)te, x, y, z, partialTicks, destroyStage);
     }
     
     static {

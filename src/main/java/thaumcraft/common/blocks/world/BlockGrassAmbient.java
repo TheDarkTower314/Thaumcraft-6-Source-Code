@@ -22,11 +22,11 @@ import net.minecraft.block.BlockGrass;
 public class BlockGrassAmbient extends BlockGrass
 {
     public BlockGrassAmbient() {
-        this.setUnlocalizedName("grass_ambient");
-        this.setRegistryName("thaumcraft", "grass_ambient");
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setHardness(0.6f);
-        this.setSoundType(SoundType.GROUND);
+        setUnlocalizedName("grass_ambient");
+        setRegistryName("thaumcraft", "grass_ambient");
+        setCreativeTab(ConfigItems.TABTC);
+        setHardness(0.6f);
+        setSoundType(SoundType.GROUND);
     }
     
     @SideOnly(Side.CLIENT)

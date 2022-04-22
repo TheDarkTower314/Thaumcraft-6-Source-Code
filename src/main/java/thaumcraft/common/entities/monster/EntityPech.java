@@ -109,23 +109,23 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
     
     public EntityPech(final World world) {
         super(world);
-        this.loot = NonNullList.withSize(9, ItemStack.EMPTY);
-        this.trading = false;
-        this.aiArrowAttack = new EntityAIAttackRanged(this, 0.6, 20, 50, 15.0f);
-        this.aiBlastAttack = new EntityAIAttackRanged(this, 0.6, 20, 50, 15.0f);
-        this.aiMeleeAttack = new EntityAIAttackMelee(this, 0.6, false);
-        this.aiAvoidPlayer = new EntityAIAvoidEntity(this, EntityPlayer.class, 8.0f, 0.5, 0.6);
-        this.mumble = 0.0f;
-        this.chargecount = 0;
-        this.setSize(0.6f, 1.8f);
-        this.experienceValue = 8;
+        loot = NonNullList.withSize(9, ItemStack.EMPTY);
+        trading = false;
+        aiArrowAttack = new EntityAIAttackRanged(this, 0.6, 20, 50, 15.0f);
+        aiBlastAttack = new EntityAIAttackRanged(this, 0.6, 20, 50, 15.0f);
+        aiMeleeAttack = new EntityAIAttackMelee(this, 0.6, false);
+        aiAvoidPlayer = new EntityAIAvoidEntity(this, EntityPlayer.class, 8.0f, 0.5, 0.6);
+        mumble = 0.0f;
+        chargecount = 0;
+        setSize(0.6f, 1.8f);
+        experienceValue = 8;
     }
     
     public String getName() {
-        if (this.hasCustomName()) {
-            return this.getCustomNameTag();
+        if (hasCustomName()) {
+            return getCustomNameTag();
         }
-        switch (this.getPechType()) {
+        switch (getPechType()) {
             case 0: {
                 return I18n.translateToLocal("entity.Pech.name");
             }
@@ -142,63 +142,63 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
     }
     
     protected void initEntityAI() {
-        ((PathNavigateGround)this.getNavigator()).setCanSwim(false);
-        this.setDropChance(EntityEquipmentSlot.MAINHAND, 0.2f);
-        this.setDropChance(EntityEquipmentSlot.OFFHAND, 0.2f);
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new AIPechTradePlayer(this));
-        this.tasks.addTask(3, new AIPechItemEntityGoto(this));
-        this.tasks.addTask(5, new EntityAIOpenDoor(this, true));
-        this.tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.5));
-        this.tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0, false));
-        this.tasks.addTask(9, new EntityAIWander(this, 0.6));
-        this.tasks.addTask(9, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0f, 1.0f));
-        this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0f));
-        this.tasks.addTask(11, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new AINearestAttackableTargetPech(this, EntityPlayer.class, true));
+        ((PathNavigateGround) getNavigator()).setCanSwim(false);
+        setDropChance(EntityEquipmentSlot.MAINHAND, 0.2f);
+        setDropChance(EntityEquipmentSlot.OFFHAND, 0.2f);
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new AIPechTradePlayer(this));
+        tasks.addTask(3, new AIPechItemEntityGoto(this));
+        tasks.addTask(5, new EntityAIOpenDoor(this, true));
+        tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.5));
+        tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0, false));
+        tasks.addTask(9, new EntityAIWander(this, 0.6));
+        tasks.addTask(9, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0f, 1.0f));
+        tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0f));
+        tasks.addTask(11, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        targetTasks.addTask(2, new AINearestAttackableTargetPech(this, EntityPlayer.class, true));
     }
     
     public void setCombatTask() {
-        if (this.world != null && !this.world.isRemote) {
-            this.tasks.removeTask(this.aiMeleeAttack);
-            this.tasks.removeTask(this.aiArrowAttack);
-            this.tasks.removeTask(this.aiBlastAttack);
-            final ItemStack itemstack = this.getHeldItemMainhand();
+        if (world != null && !world.isRemote) {
+            tasks.removeTask(aiMeleeAttack);
+            tasks.removeTask(aiArrowAttack);
+            tasks.removeTask(aiBlastAttack);
+            final ItemStack itemstack = getHeldItemMainhand();
             if (itemstack.getItem() == Items.BOW) {
-                this.tasks.addTask(2, this.aiArrowAttack);
+                tasks.addTask(2, aiArrowAttack);
             }
             else if (itemstack.getItem() == ItemsTC.pechWand) {
-                this.tasks.addTask(2, this.aiBlastAttack);
+                tasks.addTask(2, aiBlastAttack);
             }
             else {
-                this.tasks.addTask(2, this.aiMeleeAttack);
+                tasks.addTask(2, aiMeleeAttack);
             }
-            if (this.isTamed()) {
-                this.tasks.removeTask(this.aiAvoidPlayer);
+            if (isTamed()) {
+                tasks.removeTask(aiAvoidPlayer);
             }
             else {
-                this.tasks.addTask(4, this.aiAvoidPlayer);
+                tasks.addTask(4, aiAvoidPlayer);
             }
         }
     }
     
     public void attackEntityWithRangedAttack(final EntityLivingBase target, final float f) {
-        if (this.getPechType() == 2) {
-            final EntityTippedArrow entityarrow = new EntityTippedArrow(this.world, this);
-            if (this.world.rand.nextFloat() < 0.2) {
+        if (getPechType() == 2) {
+            final EntityTippedArrow entityarrow = new EntityTippedArrow(world, this);
+            if (world.rand.nextFloat() < 0.2) {
                 final ItemStack itemstack = new ItemStack(Items.TIPPED_ARROW);
                 PotionUtils.appendEffects(itemstack, Collections.singletonList(new PotionEffect(MobEffects.POISON, 40)));
                 entityarrow.setPotionEffect(itemstack);
             }
-            final double d0 = target.posX - this.posX;
+            final double d0 = target.posX - posX;
             final double d2 = target.getEntityBoundingBox().minY + target.height / 3.0f - entityarrow.posY;
-            final double d3 = target.posZ - this.posZ;
+            final double d3 = target.posZ - posZ;
             final double d4 = MathHelper.sqrt(d0 * d0 + d3 * d3);
-            entityarrow.shoot(d0, d2 + d4 * 0.20000000298023224, d3, 1.6f, (float)(14 - this.world.getDifficulty().getDifficultyId() * 4));
+            entityarrow.shoot(d0, d2 + d4 * 0.20000000298023224, d3, 1.6f, (float)(14 - world.getDifficulty().getDifficultyId() * 4));
             final int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, this);
             final int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, this);
-            entityarrow.setDamage(f * 2.0f + this.rand.nextGaussian() * 0.25 + this.world.getDifficulty().getDifficultyId() * 0.11f);
+            entityarrow.setDamage(f * 2.0f + rand.nextGaussian() * 0.25 + world.getDifficulty().getDifficultyId() * 0.11f);
             if (i > 0) {
                 entityarrow.setDamage(entityarrow.getDamage() + i * 0.5 + 0.5);
             }
@@ -208,66 +208,66 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
             if (EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FLAME, this) > 0) {
                 entityarrow.setFire(100);
             }
-            this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0f, 1.0f / (this.getRNG().nextFloat() * 0.4f + 0.8f));
-            this.world.spawnEntity(entityarrow);
+            playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0f, 1.0f / (getRNG().nextFloat() * 0.4f + 0.8f));
+            world.spawnEntity(entityarrow);
         }
-        else if (this.getPechType() == 1) {
+        else if (getPechType() == 1) {
             final FocusPackage p = new FocusPackage(this);
             final FocusMediumRoot root = new FocusMediumRoot();
-            final double off = this.getDistance(target) / 6.0f;
+            final double off = getDistance(target) / 6.0f;
             root.setupFromCasterToTarget(this, target, off);
             p.addNode(root);
             final FocusMediumProjectile fp = new FocusMediumProjectile();
             fp.initialize();
             fp.getSetting("speed").setValue(2);
             p.addNode(fp);
-            p.addNode(this.rand.nextBoolean() ? new FocusEffectCurse() : (this.rand.nextBoolean() ? new FocusEffectFlux() : (this.rand.nextBoolean() ? new FocusEffectEarth() : (this.rand.nextBoolean() ? new FocusEffectAir() : new FocusEffectFire()))));
+            p.addNode(rand.nextBoolean() ? new FocusEffectCurse() : (rand.nextBoolean() ? new FocusEffectFlux() : (rand.nextBoolean() ? new FocusEffectEarth() : (rand.nextBoolean() ? new FocusEffectAir() : new FocusEffectFire()))));
             FocusEngine.castFocusPackage(this, p, true);
-            this.swingArm(this.getActiveHand());
+            swingArm(getActiveHand());
         }
     }
     
     public void setItemStackToSlot(final EntityEquipmentSlot slotIn, @Nullable final ItemStack stack) {
         super.setItemStackToSlot(slotIn, stack);
-        if (!this.world.isRemote && slotIn == EntityEquipmentSlot.MAINHAND) {
-            this.setCombatTask();
+        if (!world.isRemote && slotIn == EntityEquipmentSlot.MAINHAND) {
+            setCombatTask();
         }
     }
     
     protected void setEquipmentBasedOnDifficulty(final DifficultyInstance difficulty) {
         super.setEquipmentBasedOnDifficulty(difficulty);
-        switch (this.rand.nextInt(20)) {
+        switch (rand.nextInt(20)) {
             case 0:
             case 12: {
-                this.setHeldItem(this.getActiveHand(), new ItemStack(ItemsTC.pechWand));
+                setHeldItem(getActiveHand(), new ItemStack(ItemsTC.pechWand));
                 break;
             }
             case 1: {
-                this.setHeldItem(this.getActiveHand(), new ItemStack(Items.STONE_SWORD));
+                setHeldItem(getActiveHand(), new ItemStack(Items.STONE_SWORD));
                 break;
             }
             case 3: {
-                this.setHeldItem(this.getActiveHand(), new ItemStack(Items.STONE_AXE));
+                setHeldItem(getActiveHand(), new ItemStack(Items.STONE_AXE));
                 break;
             }
             case 5: {
-                this.setHeldItem(this.getActiveHand(), new ItemStack(Items.IRON_SWORD));
+                setHeldItem(getActiveHand(), new ItemStack(Items.IRON_SWORD));
                 break;
             }
             case 6: {
-                this.setHeldItem(this.getActiveHand(), new ItemStack(Items.IRON_AXE));
+                setHeldItem(getActiveHand(), new ItemStack(Items.IRON_AXE));
                 break;
             }
             case 7: {
-                this.setHeldItem(this.getActiveHand(), new ItemStack(Items.FISHING_ROD));
+                setHeldItem(getActiveHand(), new ItemStack(Items.FISHING_ROD));
                 break;
             }
             case 8: {
-                this.setHeldItem(this.getActiveHand(), new ItemStack(Items.STONE_PICKAXE));
+                setHeldItem(getActiveHand(), new ItemStack(Items.STONE_PICKAXE));
                 break;
             }
             case 9: {
-                this.setHeldItem(this.getActiveHand(), new ItemStack(Items.IRON_PICKAXE));
+                setHeldItem(getActiveHand(), new ItemStack(Items.IRON_PICKAXE));
                 break;
             }
             case 2:
@@ -275,53 +275,53 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
             case 10:
             case 11:
             case 13: {
-                this.setHeldItem(this.getActiveHand(), new ItemStack(Items.BOW));
+                setHeldItem(getActiveHand(), new ItemStack(Items.BOW));
                 break;
             }
         }
     }
     
     public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
-        this.setEquipmentBasedOnDifficulty(diff);
-        final ItemStack itemstack = this.getHeldItem(this.getActiveHand());
+        setEquipmentBasedOnDifficulty(diff);
+        final ItemStack itemstack = getHeldItem(getActiveHand());
         if (itemstack.getItem() == ItemsTC.pechWand) {
-            this.setPechType(1);
-            this.setDropChance((this.getActiveHand() == EnumHand.MAIN_HAND) ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, 0.1f);
+            setPechType(1);
+            setDropChance((getActiveHand() == EnumHand.MAIN_HAND) ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, 0.1f);
         }
         else if (!itemstack.isEmpty()) {
             if (itemstack.getItem() == Items.BOW) {
-                this.setPechType(2);
+                setPechType(2);
             }
-            this.setEnchantmentBasedOnDifficulty(diff);
+            setEnchantmentBasedOnDifficulty(diff);
         }
         final float f = diff.getClampedAdditionalDifficulty();
-        this.setCanPickUpLoot(this.rand.nextFloat() < 0.75f * f);
-        this.setCombatTask();
+        setCanPickUpLoot(rand.nextFloat() < 0.75f * f);
+        setCombatTask();
         return super.onInitialSpawn(diff, data);
     }
     
     public boolean getCanSpawnHere() {
-        final Biome biome = this.world.getBiome(new BlockPos(this));
+        final Biome biome = world.getBiome(new BlockPos(this));
         boolean magicBiome = false;
         if (biome != null) {
             magicBiome = BiomeDictionary.hasType(biome, BiomeDictionary.Type.MAGICAL);
         }
         int count = 0;
         try {
-            final List l = this.world.getEntitiesWithinAABB(EntityPech.class, this.getEntityBoundingBox().grow(16.0, 16.0, 16.0));
+            final List l = world.getEntitiesWithinAABB(EntityPech.class, getEntityBoundingBox().grow(16.0, 16.0, 16.0));
             if (l != null) {
                 count = l.size();
             }
         }
         catch (final Exception ex) {}
-        if (this.world.provider.getDimension() != ModConfig.CONFIG_WORLD.overworldDim && biome != BiomeHandler.MAGICAL_FOREST && biome != BiomeHandler.EERIE) {
+        if (world.provider.getDimension() != ModConfig.CONFIG_WORLD.overworldDim && biome != BiomeHandler.MAGICAL_FOREST && biome != BiomeHandler.EERIE) {
             magicBiome = false;
         }
         return count < 4 && magicBiome && super.getCanSpawnHere();
     }
     
     public float getEyeHeight() {
-        return this.height * 0.66f;
+        return height * 0.66f;
     }
     
     public void onLivingUpdate() {
@@ -330,69 +330,69 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
     
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register(EntityPech.TYPE, (byte)0);
-        this.getDataManager().register(EntityPech.ANGER, 0);
-        this.getDataManager().register(EntityPech.TAMED, false);
+        getDataManager().register(EntityPech.TYPE, (byte)0);
+        getDataManager().register(EntityPech.ANGER, 0);
+        getDataManager().register(EntityPech.TAMED, false);
     }
     
     public int getPechType() {
-        return this.getDataManager().get(EntityPech.TYPE);
+        return getDataManager().get(EntityPech.TYPE);
     }
     
     public int getAnger() {
-        return this.getDataManager().get(EntityPech.ANGER);
+        return getDataManager().get(EntityPech.ANGER);
     }
     
     public boolean isTamed() {
-        return this.getDataManager().get(EntityPech.TAMED);
+        return getDataManager().get(EntityPech.TAMED);
     }
     
     public void setPechType(final int par1) {
-        this.getDataManager().set(EntityPech.TYPE, (byte)par1);
+        getDataManager().set(EntityPech.TYPE, (byte)par1);
     }
     
     public void setAnger(final int par1) {
-        this.getDataManager().set(EntityPech.ANGER, par1);
+        getDataManager().set(EntityPech.ANGER, par1);
     }
     
     public void setTamed(final boolean par1) {
-        this.getDataManager().set(EntityPech.TAMED, par1);
+        getDataManager().set(EntityPech.TAMED, par1);
     }
     
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5);
     }
     
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setByte("PechType", (byte)this.getPechType());
-        nbt.setShort("Anger", (short)this.getAnger());
-        nbt.setBoolean("Tamed", this.isTamed());
-        ItemStackHelper.saveAllItems(nbt, this.loot);
+        nbt.setByte("PechType", (byte) getPechType());
+        nbt.setShort("Anger", (short) getAnger());
+        nbt.setBoolean("Tamed", isTamed());
+        ItemStackHelper.saveAllItems(nbt, loot);
     }
     
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         if (nbt.hasKey("PechType")) {
             final byte b0 = nbt.getByte("PechType");
-            this.setPechType(b0);
+            setPechType(b0);
         }
-        this.setAnger(nbt.getShort("Anger"));
-        this.setTamed(nbt.getBoolean("Tamed"));
-        ItemStackHelper.loadAllItems(nbt, this.loot = NonNullList.withSize(9, ItemStack.EMPTY));
-        this.setCombatTask();
+        setAnger(nbt.getShort("Anger"));
+        setTamed(nbt.getBoolean("Tamed"));
+        ItemStackHelper.loadAllItems(nbt, loot = NonNullList.withSize(9, ItemStack.EMPTY));
+        setCombatTask();
     }
     
     protected boolean canDespawn() {
         try {
-            if (this.loot == null) {
+            if (loot == null) {
                 return true;
             }
             int q = 0;
-            for (final ItemStack is : this.loot) {
+            for (final ItemStack is : loot) {
                 if (is != null && is.getCount() > 0) {
                     ++q;
                 }
@@ -413,9 +413,9 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
     }
     
     protected void dropLoot(final boolean wasRecentlyHit, final int lootingModifier, final DamageSource source) {
-        for (int a = 0; a < this.loot.size(); ++a) {
-            if (!this.loot.get(a).isEmpty() && this.world.rand.nextFloat() < 0.33f) {
-                this.entityDropItem(this.loot.get(a).copy(), 1.5f);
+        for (int a = 0; a < loot.size(); ++a) {
+            if (!loot.get(a).isEmpty() && world.rand.nextFloat() < 0.33f) {
+                entityDropItem(loot.get(a).copy(), 1.5f);
             }
         }
         super.dropLoot(wasRecentlyHit, lootingModifier, source);
@@ -424,27 +424,27 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
     @SideOnly(Side.CLIENT)
     public void handleStatusUpdate(final byte par1) {
         if (par1 == 16) {
-            this.mumble = 3.1415927f;
+            mumble = 3.1415927f;
         }
         else if (par1 == 17) {
-            this.mumble = 6.2831855f;
+            mumble = 6.2831855f;
         }
         else if (par1 == 18) {
             for (int i = 0; i < 5; ++i) {
-                final double d0 = this.rand.nextGaussian() * 0.02;
-                final double d2 = this.rand.nextGaussian() * 0.02;
-                final double d3 = this.rand.nextGaussian() * 0.02;
-                this.world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, this.posX + this.rand.nextFloat() * this.width * 2.0f - this.width, this.posY + 0.5 + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0f - this.width, d0, d2, d3);
+                final double d0 = rand.nextGaussian() * 0.02;
+                final double d2 = rand.nextGaussian() * 0.02;
+                final double d3 = rand.nextGaussian() * 0.02;
+                world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + rand.nextFloat() * width * 2.0f - width, posY + 0.5 + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0f - width, d0, d2, d3);
             }
         }
         if (par1 == 19) {
             for (int i = 0; i < 5; ++i) {
-                final double d0 = this.rand.nextGaussian() * 0.02;
-                final double d2 = this.rand.nextGaussian() * 0.02;
-                final double d3 = this.rand.nextGaussian() * 0.02;
-                this.world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, this.posX + this.rand.nextFloat() * this.width * 2.0f - this.width, this.posY + 0.5 + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0f - this.width, d0, d2, d3);
+                final double d0 = rand.nextGaussian() * 0.02;
+                final double d2 = rand.nextGaussian() * 0.02;
+                final double d3 = rand.nextGaussian() * 0.02;
+                world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, posX + rand.nextFloat() * width * 2.0f - width, posY + 0.5 + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0f - width, d0, d2, d3);
             }
-            this.mumble = 6.2831855f;
+            mumble = 6.2831855f;
         }
         else {
             super.handleStatusUpdate(par1);
@@ -452,19 +452,19 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
     }
     
     public void playLivingSound() {
-        if (!this.world.isRemote) {
-            if (this.rand.nextInt(3) == 0) {
-                final List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().grow(4.0, 2.0, 4.0));
+        if (!world.isRemote) {
+            if (rand.nextInt(3) == 0) {
+                final List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(4.0, 2.0, 4.0));
                 for (int i = 0; i < list.size(); ++i) {
                     final Entity entity1 = list.get(i);
                     if (entity1 instanceof EntityPech) {
-                        this.world.setEntityState(this, (byte)17);
-                        this.playSound(SoundsTC.pech_trade, this.getSoundVolume(), this.getSoundPitch());
+                        world.setEntityState(this, (byte)17);
+                        playSound(SoundsTC.pech_trade, getSoundVolume(), getSoundPitch());
                         return;
                     }
                 }
             }
-            this.world.setEntityState(this, (byte)16);
+            world.setEntityState(this, (byte)16);
         }
         super.playLivingSound();
     }
@@ -493,14 +493,14 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         if (entity instanceof EntityPlayer && ((EntityPlayer)entity).isCreative()) {
             return;
         }
-        if (this.getAnger() <= 0) {
-            this.world.setEntityState(this, (byte)19);
-            this.playSound(SoundsTC.pech_charge, this.getSoundVolume(), this.getSoundPitch());
+        if (getAnger() <= 0) {
+            world.setEntityState(this, (byte)19);
+            playSound(SoundsTC.pech_charge, getSoundVolume(), getSoundPitch());
         }
-        this.setAttackTarget((EntityLivingBase)entity);
-        this.setAnger(400 + this.rand.nextInt(400));
-        this.setTamed(false);
-        this.setCombatTask();
+        setAttackTarget((EntityLivingBase)entity);
+        setAnger(400 + rand.nextInt(400));
+        setTamed(false);
+        setCombatTask();
     }
     
     public int getTotalArmorValue() {
@@ -512,12 +512,12 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
     }
     
     public boolean attackEntityFrom(final DamageSource damSource, final float par2) {
-        if (this.isEntityInvulnerable(damSource)) {
+        if (isEntityInvulnerable(damSource)) {
             return false;
         }
         final Entity entity = damSource.getTrueSource();
         if (entity instanceof EntityPlayer) {
-            final List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().grow(32.0, 16.0, 32.0));
+            final List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(32.0, 16.0, 32.0));
             for (int i = 0; i < list.size(); ++i) {
                 final Entity entity2 = list.get(i);
                 if (entity2 instanceof EntityPech) {
@@ -525,47 +525,47 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
                     entitypech.becomeAngryAt(entity);
                 }
             }
-            this.becomeAngryAt(entity);
+            becomeAngryAt(entity);
         }
         return super.attackEntityFrom(damSource, par2);
     }
     
     public void onUpdate() {
-        if (this.mumble > 0.0f) {
-            this.mumble *= 0.75f;
+        if (mumble > 0.0f) {
+            mumble *= 0.75f;
         }
-        if (this.getAnger() > 0) {
-            this.setAnger(this.getAnger() - 1);
+        if (getAnger() > 0) {
+            setAnger(getAnger() - 1);
         }
-        if (this.getAnger() > 0 && this.getAttackTarget() != null) {
-            if (this.chargecount > 0) {
-                --this.chargecount;
+        if (getAnger() > 0 && getAttackTarget() != null) {
+            if (chargecount > 0) {
+                --chargecount;
             }
-            if (this.chargecount == 0) {
-                this.chargecount = 100;
-                this.playSound(SoundsTC.pech_charge, this.getSoundVolume(), this.getSoundPitch());
+            if (chargecount == 0) {
+                chargecount = 100;
+                playSound(SoundsTC.pech_charge, getSoundVolume(), getSoundPitch());
             }
-            this.world.setEntityState(this, (byte)17);
+            world.setEntityState(this, (byte)17);
         }
-        if (this.world.isRemote && this.rand.nextInt(15) == 0 && this.getAnger() > 0) {
-            final double d0 = this.rand.nextGaussian() * 0.02;
-            final double d2 = this.rand.nextGaussian() * 0.02;
-            final double d3 = this.rand.nextGaussian() * 0.02;
-            this.world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, this.posX + this.rand.nextFloat() * this.width * 2.0f - this.width, this.posY + 0.5 + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0f - this.width, d0, d2, d3);
+        if (world.isRemote && rand.nextInt(15) == 0 && getAnger() > 0) {
+            final double d0 = rand.nextGaussian() * 0.02;
+            final double d2 = rand.nextGaussian() * 0.02;
+            final double d3 = rand.nextGaussian() * 0.02;
+            world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, posX + rand.nextFloat() * width * 2.0f - width, posY + 0.5 + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0f - width, d0, d2, d3);
         }
-        if (this.world.isRemote && this.rand.nextInt(25) == 0 && this.isTamed()) {
-            final double d0 = this.rand.nextGaussian() * 0.02;
-            final double d2 = this.rand.nextGaussian() * 0.02;
-            final double d3 = this.rand.nextGaussian() * 0.02;
-            this.world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, this.posX + this.rand.nextFloat() * this.width * 2.0f - this.width, this.posY + 0.5 + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0f - this.width, d0, d2, d3);
+        if (world.isRemote && rand.nextInt(25) == 0 && isTamed()) {
+            final double d0 = rand.nextGaussian() * 0.02;
+            final double d2 = rand.nextGaussian() * 0.02;
+            final double d3 = rand.nextGaussian() * 0.02;
+            world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + rand.nextFloat() * width * 2.0f - width, posY + 0.5 + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0f - width, d0, d2, d3);
         }
         super.onUpdate();
     }
     
     public void updateAITasks() {
         super.updateAITasks();
-        if (this.ticksExisted % 40 == 0) {
-            this.heal(1.0f);
+        if (ticksExisted % 40 == 0) {
+            heal(1.0f);
         }
     }
     
@@ -573,17 +573,17 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         if (entityItem == null) {
             return false;
         }
-        if (!this.isTamed() && EntityPech.valuedItems.containsKey(Item.getIdFromItem(entityItem.getItem()))) {
+        if (!isTamed() && EntityPech.valuedItems.containsKey(Item.getIdFromItem(entityItem.getItem()))) {
             return true;
         }
-        for (int a = 0; a < this.loot.size(); ++a) {
-            if (!this.loot.get(a).isEmpty() && this.loot.get(a).getCount() <= 0) {
-                this.loot.set(a, ItemStack.EMPTY);
+        for (int a = 0; a < loot.size(); ++a) {
+            if (!loot.get(a).isEmpty() && loot.get(a).getCount() <= 0) {
+                loot.set(a, ItemStack.EMPTY);
             }
-            if (this.loot.get(a).isEmpty()) {
+            if (loot.get(a).isEmpty()) {
                 return true;
             }
-            if (InventoryUtils.areItemStacksEqualStrict(entityItem, this.loot.get(a)) && entityItem.getCount() + this.loot.get(a).getCount() <= this.loot.get(a).getMaxStackSize()) {
+            if (InventoryUtils.areItemStacksEqualStrict(entityItem, loot.get(a)) && entityItem.getCount() + loot.get(a).getCount() <= loot.get(a).getMaxStackSize()) {
                 return true;
             }
         }
@@ -594,30 +594,30 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         if (entityItem == null || entityItem.isEmpty()) {
             return ItemStack.EMPTY;
         }
-        if (this.isTamed() || !this.isValued(entityItem)) {
-            for (int a = 0; a < this.loot.size(); ++a) {
-                if (this.loot.get(a) != null && this.loot.get(a).getCount() <= 0) {
-                    this.loot.set(a, ItemStack.EMPTY);
+        if (isTamed() || !isValued(entityItem)) {
+            for (int a = 0; a < loot.size(); ++a) {
+                if (loot.get(a) != null && loot.get(a).getCount() <= 0) {
+                    loot.set(a, ItemStack.EMPTY);
                 }
-                if (entityItem != null && !entityItem.isEmpty() && entityItem.getCount() > 0 && !this.loot.get(a).isEmpty() && this.loot.get(a).getCount() < this.loot.get(a).getMaxStackSize() && InventoryUtils.areItemStacksEqualStrict(entityItem, this.loot.get(a))) {
-                    if (entityItem.getCount() + this.loot.get(a).getCount() <= this.loot.get(a).getMaxStackSize()) {
-                        this.loot.get(a).grow(entityItem.getCount());
+                if (entityItem != null && !entityItem.isEmpty() && entityItem.getCount() > 0 && !loot.get(a).isEmpty() && loot.get(a).getCount() < loot.get(a).getMaxStackSize() && InventoryUtils.areItemStacksEqualStrict(entityItem, loot.get(a))) {
+                    if (entityItem.getCount() + loot.get(a).getCount() <= loot.get(a).getMaxStackSize()) {
+                        loot.get(a).grow(entityItem.getCount());
                         return ItemStack.EMPTY;
                     }
-                    final int sz = Math.min(entityItem.getCount(), this.loot.get(a).getMaxStackSize() - this.loot.get(a).getCount());
-                    this.loot.get(a).grow(sz);
+                    final int sz = Math.min(entityItem.getCount(), loot.get(a).getMaxStackSize() - loot.get(a).getCount());
+                    loot.get(a).grow(sz);
                     entityItem.shrink(sz);
                 }
                 if (entityItem != null && !entityItem.isEmpty() && entityItem.getCount() <= 0) {
                     entityItem = ItemStack.EMPTY;
                 }
             }
-            for (int a = 0; a < this.loot.size(); ++a) {
-                if (!this.loot.get(a).isEmpty() && this.loot.get(a).getCount() <= 0) {
-                    this.loot.set(a, ItemStack.EMPTY);
+            for (int a = 0; a < loot.size(); ++a) {
+                if (!loot.get(a).isEmpty() && loot.get(a).getCount() <= 0) {
+                    loot.set(a, ItemStack.EMPTY);
                 }
-                if (entityItem != null && entityItem.getCount() > 0 && this.loot.get(a).isEmpty()) {
-                    this.loot.set(a, entityItem.copy());
+                if (entityItem != null && entityItem.getCount() > 0 && loot.get(a).isEmpty()) {
+                    loot.set(a, entityItem.copy());
                     return null;
                 }
             }
@@ -626,10 +626,10 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
             }
             return entityItem;
         }
-        if (this.rand.nextInt(10) < this.getValue(entityItem)) {
-            this.setTamed(true);
-            this.setCombatTask();
-            this.world.setEntityState(this, (byte)18);
+        if (rand.nextInt(10) < getValue(entityItem)) {
+            setTamed(true);
+            setCombatTask();
+            world.setEntityState(this, (byte)18);
         }
         entityItem.shrink(1);
         if (entityItem.getCount() <= 0) {
@@ -642,9 +642,9 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         if (player.isSneaking() || (player.getHeldItem(hand) != null && player.getHeldItem(hand).getItem() instanceof ItemNameTag)) {
             return false;
         }
-        if (this.isTamed()) {
-            if (!this.world.isRemote) {
-                player.openGui(Thaumcraft.instance, 1, this.world, this.getEntityId(), 0, 0);
+        if (isTamed()) {
+            if (!world.isRemote) {
+                player.openGui(Thaumcraft.instance, 1, world, getEntityId(), 0, 0);
             }
             return true;
         }

@@ -19,16 +19,16 @@ public class BlockTC extends Block
 {
     public BlockTC(final Material material, final String name) {
         super(material);
-        this.setUnlocalizedName(name);
-        this.setRegistryName("thaumcraft", name);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setResistance(2.0f);
-        this.setHardness(1.5f);
+        setUnlocalizedName(name);
+        setRegistryName("thaumcraft", name);
+        setCreativeTab(ConfigItems.TABTC);
+        setResistance(2.0f);
+        setHardness(1.5f);
     }
     
     public BlockTC(final Material mat, final String name, final SoundType st) {
         this(mat, name);
-        this.setSoundType(st);
+        setSoundType(st);
     }
     
     @SideOnly(Side.CLIENT)

@@ -56,83 +56,83 @@ public class EntityCultistLeader extends EntityThaumcraftBoss implements IRanged
     
     public EntityCultistLeader(final World p_i1745_1_) {
         super(p_i1745_1_);
-        this.titles = new String[] { "Alberic", "Anselm", "Bastian", "Beturian", "Chabier", "Chorache", "Chuse", "Dodorol", "Ebardo", "Ferrando", "Fertus", "Guillen", "Larpe", "Obano", "Zelipe" };
-        this.setSize(0.75f, 2.25f);
-        this.experienceValue = 40;
+        titles = new String[] { "Alberic", "Anselm", "Bastian", "Beturian", "Chabier", "Chorache", "Chuse", "Dodorol", "Ebardo", "Ferrando", "Fertus", "Guillen", "Larpe", "Obano", "Zelipe" };
+        setSize(0.75f, 2.25f);
+        experienceValue = 40;
     }
     
     protected void initEntityAI() {
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(2, new AILongRangeAttack(this, 16.0, 1.0, 30, 40, 24.0f));
-        this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.1, false));
-        this.tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.8));
-        this.tasks.addTask(7, new EntityAIWander(this, 0.8));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new AICultistHurtByTarget(this, true));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(2, new AILongRangeAttack(this, 16.0, 1.0, 30, 40, 24.0f));
+        tasks.addTask(3, new EntityAIAttackMelee(this, 1.1, false));
+        tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.8));
+        tasks.addTask(7, new EntityAIWander(this, 0.8));
+        tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
+        tasks.addTask(8, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new AICultistHurtByTarget(this, true));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
     
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.32);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(150.0);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.32);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(150.0);
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0);
     }
     
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register((DataParameter)EntityCultistLeader.NAME, 0);
+        getDataManager().register((DataParameter)EntityCultistLeader.NAME, 0);
     }
     
     @Override
     public void generateName() {
-        final int t = (int)this.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
+        final int t = (int) getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
         if (t >= 0) {
-            this.setCustomNameTag(String.format(I18n.translateToLocal("entity.Thaumcraft.CultistLeader.name.custom"), this.getTitle(), ChampionModifier.mods[t].getModNameLocalized()));
+            setCustomNameTag(String.format(I18n.translateToLocal("entity.Thaumcraft.CultistLeader.name.custom"), getTitle(), ChampionModifier.mods[t].getModNameLocalized()));
         }
     }
     
     private String getTitle() {
-        return this.titles[(byte)this.getDataManager().get((DataParameter)EntityCultistLeader.NAME)];
+        return titles[(byte) getDataManager().get((DataParameter)EntityCultistLeader.NAME)];
     }
     
     private void setTitle(final int title) {
-        this.getDataManager().set(EntityCultistLeader.NAME, (byte)title);
+        getDataManager().set(EntityCultistLeader.NAME, (byte)title);
     }
     
     @Override
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setByte("title", (byte)this.getDataManager().get((DataParameter)EntityCultistLeader.NAME));
+        nbt.setByte("title", (byte) getDataManager().get((DataParameter)EntityCultistLeader.NAME));
     }
     
     @Override
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        this.setTitle(nbt.getByte("title"));
+        setTitle(nbt.getByte("title"));
     }
     
     protected void setEquipmentBasedOnDifficulty(final DifficultyInstance difficulty) {
-        this.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ItemsTC.crimsonPraetorHelm));
-        this.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ItemsTC.crimsonPraetorChest));
-        this.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ItemsTC.crimsonPraetorLegs));
-        this.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ItemsTC.crimsonBoots));
-        if (this.world.getDifficulty() == EnumDifficulty.EASY) {
-            this.setHeldItem(this.getActiveHand(), new ItemStack(ItemsTC.voidSword));
+        setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ItemsTC.crimsonPraetorHelm));
+        setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ItemsTC.crimsonPraetorChest));
+        setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ItemsTC.crimsonPraetorLegs));
+        setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ItemsTC.crimsonBoots));
+        if (world.getDifficulty() == EnumDifficulty.EASY) {
+            setHeldItem(getActiveHand(), new ItemStack(ItemsTC.voidSword));
         }
         else {
-            this.setHeldItem(this.getActiveHand(), new ItemStack(ItemsTC.crimsonBlade));
+            setHeldItem(getActiveHand(), new ItemStack(ItemsTC.crimsonBlade));
         }
     }
     
     @Override
     protected void setEnchantmentBasedOnDifficulty(final DifficultyInstance diff) {
         final float f = diff.getClampedAdditionalDifficulty();
-        if (this.getHeldItemMainhand() != null && this.rand.nextFloat() < 0.5f * f) {
-            EnchantmentHelper.addRandomEnchantment(this.rand, this.getHeldItemMainhand(), (int)(7.0f + f * this.rand.nextInt(22)), false);
+        if (getHeldItemMainhand() != null && rand.nextFloat() < 0.5f * f) {
+            EnchantmentHelper.addRandomEnchantment(rand, getHeldItemMainhand(), (int)(7.0f + f * rand.nextInt(22)), false);
         }
     }
     
@@ -151,21 +151,21 @@ public class EntityCultistLeader extends EntityThaumcraftBoss implements IRanged
     
     @Override
     protected void dropFewItems(final boolean flag, final int i) {
-        this.entityDropItem(new ItemStack(ItemsTC.lootBag, 1, 2), 1.5f);
+        entityDropItem(new ItemStack(ItemsTC.lootBag, 1, 2), 1.5f);
     }
     
     @Override
     public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
-        this.setEquipmentBasedOnDifficulty(diff);
-        this.setEnchantmentBasedOnDifficulty(diff);
-        this.setTitle(this.rand.nextInt(this.titles.length));
+        setEquipmentBasedOnDifficulty(diff);
+        setEnchantmentBasedOnDifficulty(diff);
+        setTitle(rand.nextInt(titles.length));
         return super.onInitialSpawn(diff, data);
     }
     
     @Override
     protected void updateAITasks() {
         super.updateAITasks();
-        final List<Entity> list = EntityUtils.getEntitiesInRange(this.world, this.posX, this.posY, this.posZ, this, EntityCultist.class, 8.0);
+        final List<Entity> list = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityCultist.class, 8.0);
         for (final Entity e : list) {
             try {
                 if (!(e instanceof EntityCultist) || ((EntityCultist)e).isPotionActive(MobEffects.REGENERATION)) {
@@ -178,36 +178,36 @@ public class EntityCultistLeader extends EntityThaumcraftBoss implements IRanged
     }
     
     public void attackEntityWithRangedAttack(final EntityLivingBase entitylivingbase, final float f) {
-        if (this.canEntityBeSeen(entitylivingbase)) {
-            this.swingArm(this.getActiveHand());
-            this.getLookHelper().setLookPosition(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY + entitylivingbase.height / 2.0f, entitylivingbase.posZ, 30.0f, 30.0f);
+        if (canEntityBeSeen(entitylivingbase)) {
+            swingArm(getActiveHand());
+            getLookHelper().setLookPosition(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY + entitylivingbase.height / 2.0f, entitylivingbase.posZ, 30.0f, 30.0f);
             final EntityGolemOrb entityGolemOrb;
-            final EntityGolemOrb blast = entityGolemOrb = new EntityGolemOrb(this.world, this, entitylivingbase, true);
+            final EntityGolemOrb blast = entityGolemOrb = new EntityGolemOrb(world, this, entitylivingbase, true);
             entityGolemOrb.posX += blast.motionX / 2.0;
             final EntityGolemOrb entityGolemOrb2 = blast;
             entityGolemOrb2.posZ += blast.motionZ / 2.0;
             blast.setPosition(blast.posX, blast.posY, blast.posZ);
-            final double d0 = entitylivingbase.posX - this.posX;
-            final double d2 = entitylivingbase.getEntityBoundingBox().minY + entitylivingbase.height / 2.0f - (this.posY + this.height / 2.0f);
-            final double d3 = entitylivingbase.posZ - this.posZ;
+            final double d0 = entitylivingbase.posX - posX;
+            final double d2 = entitylivingbase.getEntityBoundingBox().minY + entitylivingbase.height / 2.0f - (posY + height / 2.0f);
+            final double d3 = entitylivingbase.posZ - posZ;
             blast.shoot(d0, d2 + 2.0, d3, 0.66f, 3.0f);
-            this.playSound(SoundsTC.egattack, 1.0f, 1.0f + this.rand.nextFloat() * 0.1f);
-            this.world.spawnEntity(blast);
+            playSound(SoundsTC.egattack, 1.0f, 1.0f + rand.nextFloat() * 0.1f);
+            world.spawnEntity(blast);
         }
     }
     
     public void spawnExplosionParticle() {
-        if (this.world.isRemote) {
+        if (world.isRemote) {
             for (int i = 0; i < 20; ++i) {
-                final double d0 = this.rand.nextGaussian() * 0.05;
-                final double d2 = this.rand.nextGaussian() * 0.05;
-                final double d3 = this.rand.nextGaussian() * 0.05;
+                final double d0 = rand.nextGaussian() * 0.05;
+                final double d2 = rand.nextGaussian() * 0.05;
+                final double d3 = rand.nextGaussian() * 0.05;
                 final double d4 = 2.0;
-                FXDispatcher.INSTANCE.cultistSpawn(this.posX + this.rand.nextFloat() * this.width * 2.0f - this.width + d0 * d4, this.posY + this.rand.nextFloat() * this.height + d2 * d4, this.posZ + this.rand.nextFloat() * this.width * 2.0f - this.width + d3 * d4, d0, d2, d3);
+                FXDispatcher.INSTANCE.cultistSpawn(posX + rand.nextFloat() * width * 2.0f - width + d0 * d4, posY + rand.nextFloat() * height + d2 * d4, posZ + rand.nextFloat() * width * 2.0f - width + d3 * d4, d0, d2, d3);
             }
         }
         else {
-            this.world.setEntityState(this, (byte)20);
+            world.setEntityState(this, (byte)20);
         }
     }
     

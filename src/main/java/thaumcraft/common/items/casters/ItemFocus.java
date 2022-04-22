@@ -34,9 +34,9 @@ public class ItemFocus extends ItemTCBase
     
     public ItemFocus(final String name, final int complexity) {
         super(name);
-        this.maxStackSize = 1;
-        this.setMaxDamage(0);
-        this.maxComplexity = complexity;
+        maxStackSize = 1;
+        setMaxDamage(0);
+        maxComplexity = complexity;
     }
     
     public int getFocusColor(final ItemStack focusstack) {
@@ -105,19 +105,19 @@ public class ItemFocus extends ItemTCBase
     
     @SideOnly(Side.CLIENT)
     public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
-        this.addFocusInformation(stack, worldIn, tooltip, flagIn);
+        addFocusInformation(stack, worldIn, tooltip, flagIn);
     }
     
     @SideOnly(Side.CLIENT)
     public void addFocusInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
         final FocusPackage p = getPackage(stack);
         if (p != null) {
-            final float al = this.getVisCost(stack);
+            final float al = getVisCost(stack);
             final String amount = ItemStack.DECIMALFORMAT.format(al);
             tooltip.add(amount + " " + I18n.translateToLocal("item.Focus.cost1"));
             for (final IFocusElement fe : p.nodes) {
                 if (fe instanceof FocusNode && !(fe instanceof FocusMediumRoot)) {
-                    this.buildInfo(tooltip, (FocusNode)fe, 0);
+                    buildInfo(tooltip, (FocusNode)fe, 0);
                 }
             }
         }
@@ -146,7 +146,7 @@ public class ItemFocus extends ItemTCBase
                 for (final FocusPackage p : split.getSplitPackages()) {
                     for (final IFocusElement fe : p.nodes) {
                         if (fe instanceof FocusNode && !(fe instanceof FocusMediumRoot)) {
-                            this.buildInfo(list, (FocusNode)fe, depth + 1);
+                            buildInfo(list, (FocusNode)fe, depth + 1);
                         }
                     }
                 }
@@ -169,6 +169,6 @@ public class ItemFocus extends ItemTCBase
     }
     
     public int getMaxComplexity() {
-        return this.maxComplexity;
+        return maxComplexity;
     }
 }

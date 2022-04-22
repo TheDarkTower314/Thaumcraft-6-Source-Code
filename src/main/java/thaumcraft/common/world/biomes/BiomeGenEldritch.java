@@ -18,15 +18,15 @@ public class BiomeGenEldritch extends Biome
 {
     public BiomeGenEldritch(final Biome.BiomeProperties p_i1990_1_) {
         super(p_i1990_1_);
-        this.setRegistryName("thaumcraft", "eldritch");
-        this.spawnableMonsterList.clear();
-        this.spawnableCreatureList.clear();
-        this.spawnableWaterCreatureList.clear();
-        this.spawnableCaveCreatureList.clear();
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityInhabitedZombie.class, 1, 1, 1));
-        this.spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEldritchGuardian.class, 1, 1, 1));
-        this.topBlock = Blocks.DIRT.getDefaultState();
-        this.fillerBlock = Blocks.DIRT.getDefaultState();
+        setRegistryName("thaumcraft", "eldritch");
+        spawnableMonsterList.clear();
+        spawnableCreatureList.clear();
+        spawnableWaterCreatureList.clear();
+        spawnableCaveCreatureList.clear();
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityInhabitedZombie.class, 1, 1, 1));
+        spawnableMonsterList.add(new Biome.SpawnListEntry(EntityEldritchGuardian.class, 1, 1, 1));
+        topBlock = Blocks.DIRT.getDefaultState();
+        fillerBlock = Blocks.DIRT.getDefaultState();
     }
     
     @SideOnly(Side.CLIENT)

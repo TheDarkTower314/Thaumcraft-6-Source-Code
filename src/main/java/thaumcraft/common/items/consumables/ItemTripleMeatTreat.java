@@ -17,11 +17,11 @@ public class ItemTripleMeatTreat extends ItemFood implements IThaumcraftItems
 {
     public ItemTripleMeatTreat() {
         super(6, 0.8f, true);
-        this.setAlwaysEdible();
-        this.setRegistryName("triple_meat_treat");
-        this.setUnlocalizedName("triple_meat_treat");
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 0), 0.66f);
+        setAlwaysEdible();
+        setRegistryName("triple_meat_treat");
+        setUnlocalizedName("triple_meat_treat");
+        setCreativeTab(ConfigItems.TABTC);
+        setPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 0), 0.66f);
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

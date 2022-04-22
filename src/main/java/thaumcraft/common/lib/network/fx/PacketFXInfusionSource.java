@@ -24,21 +24,21 @@ public class PacketFXInfusionSource implements IMessage, IMessageHandler<PacketF
     }
     
     public PacketFXInfusionSource(final BlockPos pos, final BlockPos pos2, final int color) {
-        this.p1 = pos.toLong();
-        this.p2 = pos2.toLong();
+        p1 = pos.toLong();
+        p2 = pos2.toLong();
         this.color = color;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeLong(this.p1);
-        buffer.writeLong(this.p2);
-        buffer.writeInt(this.color);
+        buffer.writeLong(p1);
+        buffer.writeLong(p2);
+        buffer.writeInt(color);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.p1 = buffer.readLong();
-        this.p2 = buffer.readLong();
-        this.color = buffer.readInt();
+        p1 = buffer.readLong();
+        p2 = buffer.readLong();
+        color = buffer.readInt();
     }
     
     public IMessage onMessage(final PacketFXInfusionSource message, final MessageContext ctx) {

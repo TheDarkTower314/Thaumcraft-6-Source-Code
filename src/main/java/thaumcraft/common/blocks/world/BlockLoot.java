@@ -26,14 +26,14 @@ public class BlockLoot extends BlockTC
     
     public BlockLoot(final Material mat, final String name, final LootType type) {
         super(mat, name);
-        this.rand = new Random();
-        this.setHardness(0.15f);
-        this.setResistance(0.0f);
+        rand = new Random();
+        setHardness(0.15f);
+        setResistance(0.0f);
         this.type = type;
     }
     
     public SoundType getSoundType() {
-        return (this.blockMaterial == Material.WOOD) ? SoundType.WOOD : SoundsTC.URN;
+        return (blockMaterial == Material.WOOD) ? SoundType.WOOD : SoundsTC.URN;
     }
     
     public boolean isOpaqueCube(final IBlockState state) {
@@ -53,7 +53,7 @@ public class BlockLoot extends BlockTC
     }
     
     public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
-        if (this.getMaterial(state) == Material.ROCK) {
+        if (getMaterial(state) == Material.ROCK) {
             return new AxisAlignedBB(0.125, 0.0625, 0.125, 0.875, 0.8125, 0.875);
         }
         return new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.875, 0.9375);
@@ -61,8 +61,8 @@ public class BlockLoot extends BlockTC
     
     public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
         final ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
-        for (int q = 1 + this.type.ordinal() + this.rand.nextInt(3), a = 0; a < q; ++a) {
-            final ItemStack is = Utils.generateLoot(this.type.ordinal(), this.rand);
+        for (int q = 1 + type.ordinal() + rand.nextInt(3), a = 0; a < q; ++a) {
+            final ItemStack is = Utils.generateLoot(type.ordinal(), rand);
             if (is != null && !is.isEmpty()) {
                 ret.add(is.copy());
             }

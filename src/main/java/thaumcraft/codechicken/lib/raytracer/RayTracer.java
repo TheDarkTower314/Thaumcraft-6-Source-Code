@@ -34,9 +34,9 @@ public class RayTracer
     private static ThreadLocal<RayTracer> t_inst;
     
     public RayTracer() {
-        this.vec = new Vector3();
-        this.vec2 = new Vector3();
-        this.s_vec = new Vector3();
+        vec = new Vector3();
+        vec2 = new Vector3();
+        s_vec = new Vector3();
     }
     
     public static RayTracer instance() {
@@ -48,31 +48,31 @@ public class RayTracer
     }
     
     private void traceSide(final int side, final Vector3 start, final Vector3 end, final Cuboid6 cuboid) {
-        this.vec.set(start);
+        vec.set(start);
         Vector3 hit = null;
         switch (side) {
             case 0: {
-                hit = this.vec.XZintercept(end, cuboid.min.y);
+                hit = vec.XZintercept(end, cuboid.min.y);
                 break;
             }
             case 1: {
-                hit = this.vec.XZintercept(end, cuboid.max.y);
+                hit = vec.XZintercept(end, cuboid.max.y);
                 break;
             }
             case 2: {
-                hit = this.vec.XYintercept(end, cuboid.min.z);
+                hit = vec.XYintercept(end, cuboid.min.z);
                 break;
             }
             case 3: {
-                hit = this.vec.XYintercept(end, cuboid.max.z);
+                hit = vec.XYintercept(end, cuboid.max.z);
                 break;
             }
             case 4: {
-                hit = this.vec.YZintercept(end, cuboid.min.x);
+                hit = vec.YZintercept(end, cuboid.min.x);
                 break;
             }
             case 5: {
-                hit = this.vec.YZintercept(end, cuboid.max.x);
+                hit = vec.YZintercept(end, cuboid.max.x);
                 break;
             }
         }
@@ -102,34 +102,34 @@ public class RayTracer
                 break;
             }
         }
-        final double dist = this.vec2.set(hit).subtract(start).magSquared();
-        if (dist < this.s_dist) {
-            this.s_side = side;
-            this.s_dist = dist;
-            this.s_vec.set(this.vec);
+        final double dist = vec2.set(hit).subtract(start).magSquared();
+        if (dist < s_dist) {
+            s_side = side;
+            s_dist = dist;
+            s_vec.set(vec);
         }
     }
     
     private boolean rayTraceCuboid(final Vector3 start, final Vector3 end, final Cuboid6 cuboid) {
-        this.s_dist = Double.MAX_VALUE;
-        this.s_side = -1;
+        s_dist = Double.MAX_VALUE;
+        s_side = -1;
         for (int i = 0; i < 6; ++i) {
-            this.traceSide(i, start, end, cuboid);
+            traceSide(i, start, end, cuboid);
         }
-        return this.s_side >= 0;
+        return s_side >= 0;
     }
     
     public ExtendedMOP rayTraceCuboid(final Vector3 start, final Vector3 end, final Cuboid6 cuboid, final BlockCoord pos, final Object data) {
-        return this.rayTraceCuboid(start, end, cuboid) ? new ExtendedMOP(this.s_vec, this.s_side, pos, data, this.s_dist) : null;
+        return rayTraceCuboid(start, end, cuboid) ? new ExtendedMOP(s_vec, s_side, pos, data, s_dist) : null;
     }
     
     public ExtendedMOP rayTraceCuboid(final Vector3 start, final Vector3 end, final Cuboid6 cuboid, final Entity entity, final Object data) {
-        return this.rayTraceCuboid(start, end, cuboid) ? new ExtendedMOP(entity, this.s_vec, data, this.s_dist) : null;
+        return rayTraceCuboid(start, end, cuboid) ? new ExtendedMOP(entity, s_vec, data, s_dist) : null;
     }
     
     public void rayTraceCuboids(final Vector3 start, final Vector3 end, final List<IndexedCuboid6> cuboids, final BlockCoord pos, final Block block, final List<ExtendedMOP> hitList) {
         for (final IndexedCuboid6 cuboid : cuboids) {
-            final ExtendedMOP mop = this.rayTraceCuboid(start, end, cuboid, pos, cuboid.data);
+            final ExtendedMOP mop = rayTraceCuboid(start, end, cuboid, pos, cuboid.data);
             if (mop != null) {
                 hitList.add(mop);
             }

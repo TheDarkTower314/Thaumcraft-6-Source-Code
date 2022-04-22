@@ -38,9 +38,9 @@ public class ItemPrimalCrusher extends ItemTool implements IWarpingGear, IThaumc
     
     public ItemPrimalCrusher() {
         super(3.5f, -2.8f, ItemPrimalCrusher.material, ItemPrimalCrusher.isEffective);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("primal_crusher");
-        this.setUnlocalizedName("primal_crusher");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("primal_crusher");
+        setUnlocalizedName("primal_crusher");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     
@@ -69,7 +69,7 @@ public class ItemPrimalCrusher extends ItemTool implements IWarpingGear, IThaumc
     }
     
     public float getDestroySpeed(final ItemStack stack, final IBlockState state) {
-        return (state.getMaterial() != Material.IRON && state.getMaterial() != Material.ANVIL && state.getMaterial() != Material.ROCK) ? super.getDestroySpeed(stack, state) : this.efficiency;
+        return (state.getMaterial() != Material.IRON && state.getMaterial() != Material.ANVIL && state.getMaterial() != Material.ROCK) ? super.getDestroySpeed(stack, state) : efficiency;
     }
     
     public Set<String> getToolClasses(final ItemStack stack) {

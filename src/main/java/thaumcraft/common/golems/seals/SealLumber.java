@@ -43,9 +43,9 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
     ResourceLocation icon;
     
     public SealLumber() {
-        this.delay = new Random(System.nanoTime()).nextInt(33);
-        this.cache = new HashMap<Integer, Long>();
-        this.icon = new ResourceLocation("thaumcraft", "items/seals/seal_lumber");
+        delay = new Random(System.nanoTime()).nextInt(33);
+        cache = new HashMap<Integer, Long>();
+        icon = new ResourceLocation("thaumcraft", "items/seals/seal_lumber");
     }
     
     @Override
@@ -55,8 +55,8 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public void tickSeal(final World world, final ISealEntity seal) {
-        if (this.delay % 100 == 0) {
-            final Iterator<Integer> it = this.cache.keySet().iterator();
+        if (delay % 100 == 0) {
+            final Iterator<Integer> it = cache.keySet().iterator();
             while (it.hasNext()) {
                 final Task t = TaskHandler.getTask(world.provider.getDimension(), it.next());
                 if (t == null) {
@@ -64,19 +64,19 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
                 }
             }
         }
-        ++this.delay;
-        final BlockPos p = GolemHelper.getPosInArea(seal, this.delay);
-        if (!this.cache.containsValue(p.toLong()) && Utils.isWoodLog(world, p)) {
+        ++delay;
+        final BlockPos p = GolemHelper.getPosInArea(seal, delay);
+        if (!cache.containsValue(p.toLong()) && Utils.isWoodLog(world, p)) {
             final Task task = new Task(seal.getSealPos(), p);
             task.setPriority(seal.getPriority());
             TaskHandler.addTask(world.provider.getDimension(), task);
-            this.cache.put(task.getId(), p.toLong());
+            cache.put(task.getId(), p.toLong());
         }
     }
     
     @Override
     public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
-        if (this.cache.containsKey(task.getId()) && Utils.isWoodLog(world, task.getPos())) {
+        if (cache.containsKey(task.getId()) && Utils.isWoodLog(world, task.getPos())) {
             final FakePlayer fp = FakePlayerFactory.get((WorldServer)world, new GameProfile(null, "FakeThaumcraftGolem"));
             fp.setPosition(golem.getGolemEntity().posX, golem.getGolemEntity().posY, golem.getGolemEntity().posZ);
             final IBlockState bs = world.getBlockState(task.getPos());
@@ -86,7 +86,7 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
                 golem.addRankXp(1);
                 return false;
             }
-            this.cache.remove(task.getId());
+            cache.remove(task.getId());
         }
         task.setSuspended(true);
         return true;
@@ -94,7 +94,7 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
-        if (this.cache.containsKey(task.getId()) && Utils.isWoodLog(golem.getGolemWorld(), task.getPos())) {
+        if (cache.containsKey(task.getId()) && Utils.isWoodLog(golem.getGolemWorld(), task.getPos())) {
             return true;
         }
         task.setSuspended(true);
@@ -103,7 +103,7 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public void onTaskSuspension(final World world, final Task task) {
-        this.cache.remove(task.getId());
+        cache.remove(task.getId());
     }
     
     @Override
@@ -121,7 +121,7 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
     
     @Override
     public ResourceLocation getSealIcon() {
-        return this.icon;
+        return icon;
     }
     
     @Override

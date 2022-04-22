@@ -22,10 +22,10 @@ public class ItemZombieBrain extends ItemFood implements IThaumcraftItems
 {
     public ItemZombieBrain() {
         super(4, 0.2f, true);
-        this.setPotionEffect(new PotionEffect(MobEffects.HUNGER, 30, 0), 0.8f);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("brain");
-        this.setUnlocalizedName("brain");
+        setPotionEffect(new PotionEffect(MobEffects.HUNGER, 30, 0), 0.8f);
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("brain");
+        setUnlocalizedName("brain");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

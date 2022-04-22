@@ -20,15 +20,15 @@ public class SlotMobEquipment extends Slot
     }
     
     public ItemStack getStack() {
-        return this.entity.getHeldItem(EnumHand.MAIN_HAND);
+        return entity.getHeldItem(EnumHand.MAIN_HAND);
     }
     
     public void putStack(final ItemStack stack) {
-        this.entity.setHeldItem(EnumHand.MAIN_HAND, stack);
-        if (stack != null && !stack.isEmpty() && stack.getCount() > this.getSlotStackLimit()) {
-            stack.setCount(this.getSlotStackLimit());
+        entity.setHeldItem(EnumHand.MAIN_HAND, stack);
+        if (stack != null && !stack.isEmpty() && stack.getCount() > getSlotStackLimit()) {
+            stack.setCount(getSlotStackLimit());
         }
-        this.onSlotChanged();
+        onSlotChanged();
     }
     
     public void onSlotChanged() {
@@ -39,22 +39,22 @@ public class SlotMobEquipment extends Slot
     }
     
     public ItemStack decrStackSize(final int amount) {
-        if (this.getStack().isEmpty()) {
+        if (getStack().isEmpty()) {
             return ItemStack.EMPTY;
         }
-        if (this.getStack().getCount() <= amount) {
-            final ItemStack itemstack = this.getStack();
-            this.putStack(ItemStack.EMPTY);
+        if (getStack().getCount() <= amount) {
+            final ItemStack itemstack = getStack();
+            putStack(ItemStack.EMPTY);
             return itemstack;
         }
-        final ItemStack itemstack = this.getStack().splitStack(amount);
-        if (this.getStack().getCount() == 0) {
-            this.putStack(ItemStack.EMPTY);
+        final ItemStack itemstack = getStack().splitStack(amount);
+        if (getStack().getCount() == 0) {
+            putStack(ItemStack.EMPTY);
         }
         return itemstack;
     }
     
     public boolean isHere(final IInventory inv, final int slotIn) {
-        return slotIn == this.getSlotIndex();
+        return slotIn == getSlotIndex();
     }
 }

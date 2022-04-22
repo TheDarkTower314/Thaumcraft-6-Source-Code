@@ -28,7 +28,7 @@ public class ItemLabel extends ItemTCEssentiaContainer
     }
     
     public String getUnlocalizedName(final ItemStack stack) {
-        return super.getUnlocalizedName() + "." + this.getVariantNames()[stack.getItemDamage()];
+        return super.getUnlocalizedName() + "." + getVariantNames()[stack.getItemDamage()];
     }
     
     @Override

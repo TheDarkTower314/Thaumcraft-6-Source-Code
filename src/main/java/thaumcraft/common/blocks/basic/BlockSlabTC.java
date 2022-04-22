@@ -33,23 +33,23 @@ public class BlockSlabTC extends BlockSlab
     protected BlockSlabTC(final String name, final Block b, final boolean wood) {
         super(wood ? Material.WOOD : Material.ROCK);
         this.wood = false;
-        this.drop = null;
-        this.drop = b;
+        drop = null;
+        drop = b;
         this.wood = wood;
-        this.setUnlocalizedName(name);
-        this.setRegistryName("thaumcraft", name);
-        IBlockState iblockstate = this.blockState.getBaseState();
-        if (!this.isDouble()) {
+        setUnlocalizedName(name);
+        setRegistryName("thaumcraft", name);
+        IBlockState iblockstate = blockState.getBaseState();
+        if (!isDouble()) {
             iblockstate = iblockstate.withProperty((IProperty)BlockSlabTC.HALF, (Comparable)BlockSlab.EnumBlockHalf.BOTTOM);
-            this.setCreativeTab(ConfigItems.TABTC);
+            setCreativeTab(ConfigItems.TABTC);
         }
-        this.setSoundType(wood ? SoundType.WOOD : SoundType.STONE);
-        this.setDefaultState(iblockstate.withProperty((IProperty)BlockSlabTC.VARIANT, (Comparable)Variant.DEFAULT));
-        this.useNeighborBrightness = !this.isDouble();
+        setSoundType(wood ? SoundType.WOOD : SoundType.STONE);
+        setDefaultState(iblockstate.withProperty((IProperty)BlockSlabTC.VARIANT, (Comparable)Variant.DEFAULT));
+        useNeighborBrightness = !isDouble();
     }
     
     public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
-        return (this.drop == null) ? Item.getItemFromBlock(state.getBlock()) : Item.getItemFromBlock(this.drop);
+        return (drop == null) ? Item.getItemFromBlock(state.getBlock()) : Item.getItemFromBlock(drop);
     }
     
     @SideOnly(Side.CLIENT)
@@ -58,8 +58,8 @@ public class BlockSlabTC extends BlockSlab
     }
     
     public IBlockState getStateFromMeta(final int meta) {
-        IBlockState iblockstate = this.getDefaultState().withProperty((IProperty)BlockSlabTC.VARIANT, (Comparable)Variant.DEFAULT);
-        if (!this.isDouble()) {
+        IBlockState iblockstate = getDefaultState().withProperty((IProperty)BlockSlabTC.VARIANT, (Comparable)Variant.DEFAULT);
+        if (!isDouble()) {
             iblockstate = iblockstate.withProperty((IProperty)BlockSlabTC.HALF, (Comparable)(((meta & 0x8) == 0x0) ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP));
         }
         return iblockstate;
@@ -67,14 +67,14 @@ public class BlockSlabTC extends BlockSlab
     
     public int getMetaFromState(final IBlockState state) {
         int i = 0;
-        if (!this.isDouble() && state.getValue((IProperty)BlockSlabTC.HALF) == BlockSlab.EnumBlockHalf.TOP) {
+        if (!isDouble() && state.getValue((IProperty)BlockSlabTC.HALF) == BlockSlab.EnumBlockHalf.TOP) {
             i |= 0x8;
         }
         return i;
     }
     
     protected BlockStateContainer createBlockState() {
-        return this.isDouble() ? new BlockStateContainer(this, BlockSlabTC.VARIANT) : new BlockStateContainer(this, BlockSlabTC.HALF, BlockSlabTC.VARIANT);
+        return isDouble() ? new BlockStateContainer(this, BlockSlabTC.VARIANT) : new BlockStateContainer(this, BlockSlabTC.HALF, BlockSlabTC.VARIANT);
     }
     
     public int damageDropped(final IBlockState state) {
@@ -86,7 +86,7 @@ public class BlockSlabTC extends BlockSlab
     }
     
     public String getUnlocalizedName(final int meta) {
-        return this.getUnlocalizedName();
+        return getUnlocalizedName();
     }
     
     public IProperty<?> getVariantProperty() {
@@ -98,11 +98,11 @@ public class BlockSlabTC extends BlockSlab
     }
     
     public int getFlammability(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
-        return this.wood ? 20 : super.getFlammability(world, pos, face);
+        return wood ? 20 : super.getFlammability(world, pos, face);
     }
     
     public int getFireSpreadSpeed(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
-        return this.wood ? 5 : super.getFireSpreadSpeed(world, pos, face);
+        return wood ? 5 : super.getFireSpreadSpeed(world, pos, face);
     }
     
     static {

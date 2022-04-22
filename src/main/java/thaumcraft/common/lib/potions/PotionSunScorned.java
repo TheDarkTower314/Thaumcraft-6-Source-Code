@@ -21,11 +21,11 @@ public class PotionSunScorned extends Potion
     
     public PotionSunScorned(final boolean par2, final int par3) {
         super(par2, par3);
-        this.statusIconIndex = -1;
-        this.setIconIndex(0, 0);
-        this.setPotionName("potion.sunscorned");
-        this.setIconIndex(6, 2);
-        this.setEffectiveness(0.25);
+        statusIconIndex = -1;
+        setIconIndex(0, 0);
+        setPotionName("potion.sunscorned");
+        setIconIndex(6, 2);
+        setEffectiveness(0.25);
     }
     
     public boolean isBadEffect() {

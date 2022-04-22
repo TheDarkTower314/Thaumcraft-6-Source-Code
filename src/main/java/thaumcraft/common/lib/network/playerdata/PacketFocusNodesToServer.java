@@ -25,33 +25,33 @@ public class PacketFocusNodesToServer implements IMessage, IMessageHandler<Packe
     private String name;
     
     public PacketFocusNodesToServer() {
-        this.data = new HashMap<Integer, FocusElementNode>();
+        data = new HashMap<Integer, FocusElementNode>();
     }
     
     public PacketFocusNodesToServer(final BlockPos pos, final HashMap<Integer, FocusElementNode> data, final String name) {
         this.data = new HashMap<Integer, FocusElementNode>();
-        this.loc = pos.toLong();
+        loc = pos.toLong();
         this.data = data;
         this.name = name;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeLong(this.loc);
-        buffer.writeByte(this.data.size());
-        for (final FocusElementNode node : this.data.values()) {
+        buffer.writeLong(loc);
+        buffer.writeByte(data.size());
+        for (final FocusElementNode node : data.values()) {
             Utils.writeNBTTagCompoundToBuffer(buffer, node.serialize());
         }
-        ByteBufUtils.writeUTF8String(buffer, this.name);
+        ByteBufUtils.writeUTF8String(buffer, name);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.loc = buffer.readLong();
+        loc = buffer.readLong();
         for (int m = buffer.readByte(), a = 0; a < m; ++a) {
             final FocusElementNode node = new FocusElementNode();
             node.deserialize(Utils.readNBTTagCompoundFromBuffer(buffer));
-            this.data.put(node.id, node);
+            data.put(node.id, node);
         }
-        this.name = ByteBufUtils.readUTF8String(buffer);
+        name = ByteBufUtils.readUTF8String(buffer);
     }
     
     public IMessage onMessage(final PacketFocusNodesToServer message, final MessageContext ctx) {

@@ -34,7 +34,7 @@ public class BlockVoidSiphon extends BlockTCDevice implements IBlockEnabled
     
     public BlockVoidSiphon() {
         super(Material.IRON, TileVoidSiphon.class, "void_siphon");
-        this.setSoundType(SoundType.METAL);
+        setSoundType(SoundType.METAL);
     }
     
     @Override

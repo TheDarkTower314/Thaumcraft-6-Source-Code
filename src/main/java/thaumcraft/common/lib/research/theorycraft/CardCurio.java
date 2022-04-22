@@ -23,20 +23,20 @@ public class CardCurio extends TheorycraftCard
     ItemStack curio;
     
     public CardCurio() {
-        this.curio = ItemStack.EMPTY;
+        curio = ItemStack.EMPTY;
     }
     
     @Override
     public NBTTagCompound serialize() {
         final NBTTagCompound nbt = super.serialize();
-        nbt.setTag("stack", this.curio.serializeNBT());
+        nbt.setTag("stack", curio.serializeNBT());
         return nbt;
     }
     
     @Override
     public void deserialize(final NBTTagCompound nbt) {
         super.deserialize(nbt);
-        this.curio = new ItemStack(nbt.getCompoundTag("stack"));
+        curio = new ItemStack(nbt.getCompoundTag("stack"));
     }
     
     @Override
@@ -56,7 +56,7 @@ public class CardCurio extends TheorycraftCard
     
     @Override
     public ItemStack[] getRequiredItems() {
-        return new ItemStack[] { this.curio };
+        return new ItemStack[] { curio };
     }
     
     @Override
@@ -66,7 +66,7 @@ public class CardCurio extends TheorycraftCard
     
     @Override
     public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(this.getSeed());
+        final Random r = new Random(getSeed());
         final ArrayList<ItemStack> curios = new ArrayList<ItemStack>();
         for (final ItemStack stack : player.inventory.mainInventory) {
             if (stack != null && !stack.isEmpty() && stack.getItem() instanceof ItemCurio) {
@@ -76,9 +76,9 @@ public class CardCurio extends TheorycraftCard
             }
         }
         if (!curios.isEmpty()) {
-            this.curio = curios.get(r.nextInt(curios.size()));
+            curio = curios.get(r.nextInt(curios.size()));
         }
-        return !this.curio.isEmpty();
+        return !curio.isEmpty();
     }
     
     @Override
@@ -87,7 +87,7 @@ public class CardCurio extends TheorycraftCard
         final String[] s = ResearchCategories.researchCategories.keySet().toArray(new String[0]);
         data.addTotal(s[player.getRNG().nextInt(s.length)], 5);
         final String s2;
-        final String type = s2 = ((ItemCurio)this.getRequiredItems()[0].getItem()).getVariantNames()[this.getRequiredItems()[0].getItemDamage()];
+        final String type = s2 = ((ItemCurio) getRequiredItems()[0].getItem()).getVariantNames()[getRequiredItems()[0].getItemDamage()];
         switch (s2) {
             case "arcane": {
                 data.addTotal("AUROMANCY", MathHelper.getInt(player.getRNG(), 25, 35));

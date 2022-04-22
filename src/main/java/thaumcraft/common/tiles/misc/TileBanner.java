@@ -19,57 +19,57 @@ public class TileBanner extends TileThaumcraft
     private boolean onWall;
     
     public TileBanner() {
-        this.facing = 0;
-        this.aspect = null;
-        this.onWall = false;
+        facing = 0;
+        aspect = null;
+        onWall = false;
     }
     
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return new AxisAlignedBB(this.getPos().getX(), this.getPos().getY() - 1, this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 2, this.getPos().getZ() + 1);
+        return new AxisAlignedBB(getPos().getX(), getPos().getY() - 1, getPos().getZ(), getPos().getX() + 1, getPos().getY() + 2, getPos().getZ() + 1);
     }
     
     public byte getBannerFacing() {
-        return this.facing;
+        return facing;
     }
     
     public void setBannerFacing(final byte face) {
-        this.facing = face;
-        this.markDirty();
+        facing = face;
+        markDirty();
     }
     
     public boolean getWall() {
-        return this.onWall;
+        return onWall;
     }
     
     public void setWall(final boolean b) {
-        this.onWall = b;
-        this.markDirty();
+        onWall = b;
+        markDirty();
     }
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
-        this.facing = nbttagcompound.getByte("facing");
+        facing = nbttagcompound.getByte("facing");
         final String as = nbttagcompound.getString("aspect");
         if (as != null && as.length() > 0) {
-            this.setAspect(Aspect.getAspect(as));
+            setAspect(Aspect.getAspect(as));
         }
         else {
-            this.aspect = null;
+            aspect = null;
         }
-        this.onWall = nbttagcompound.getBoolean("wall");
+        onWall = nbttagcompound.getBoolean("wall");
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
-        nbttagcompound.setByte("facing", this.facing);
-        nbttagcompound.setString("aspect", (this.getAspect() == null) ? "" : this.getAspect().getTag());
-        nbttagcompound.setBoolean("wall", this.onWall);
+        nbttagcompound.setByte("facing", facing);
+        nbttagcompound.setString("aspect", (getAspect() == null) ? "" : getAspect().getTag());
+        nbttagcompound.setBoolean("wall", onWall);
         return nbttagcompound;
     }
     
     public Aspect getAspect() {
-        return this.aspect;
+        return aspect;
     }
     
     public void setAspect(final Aspect aspect) {
@@ -78,6 +78,6 @@ public class TileBanner extends TileThaumcraft
     
     @SideOnly(Side.CLIENT)
     public int getColor() {
-        return (this.getBlockType() == null || !(this.getBlockType() instanceof BlockBannerTC) || ((BlockBannerTC)this.getBlockType()).dye == null) ? -1 : ((BlockBannerTC)this.getBlockType()).dye.getColorValue();
+        return (getBlockType() == null || !(getBlockType() instanceof BlockBannerTC) || ((BlockBannerTC) getBlockType()).dye == null) ? -1 : ((BlockBannerTC) getBlockType()).dye.getColorValue();
     }
 }

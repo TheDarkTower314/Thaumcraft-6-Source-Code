@@ -25,10 +25,10 @@ public class ItemCuriosityBand extends ItemTCBase implements IBauble, IRenderBau
     
     public ItemCuriosityBand() {
         super("curiosity_band");
-        this.tex = new ResourceLocation("thaumcraft", "textures/items/curiosity_band_worn.png");
-        this.maxStackSize = 1;
-        this.canRepair = false;
-        this.setMaxDamage(0);
+        tex = new ResourceLocation("thaumcraft", "textures/items/curiosity_band_worn.png");
+        maxStackSize = 1;
+        canRepair = false;
+        setMaxDamage(0);
     }
     
     public EnumRarity getRarity(final ItemStack itemstack) {
@@ -43,7 +43,7 @@ public class ItemCuriosityBand extends ItemTCBase implements IBauble, IRenderBau
     public void onPlayerBaubleRender(final ItemStack stack, final EntityPlayer player, final IRenderBauble.RenderType type, final float ticks) {
         if (type == IRenderBauble.RenderType.HEAD) {
             final boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
-            Minecraft.getMinecraft().renderEngine.bindTexture(this.tex);
+            Minecraft.getMinecraft().renderEngine.bindTexture(tex);
             IRenderBauble.Helper.translateToHeadLevel(player);
             IRenderBauble.Helper.translateToFace();
             IRenderBauble.Helper.defaultTransforms();

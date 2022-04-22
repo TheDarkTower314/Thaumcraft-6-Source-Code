@@ -52,7 +52,7 @@ public class CommonProxy implements IGuiHandler, IProxy
     ProxyGUI proxyGUI;
     
     public CommonProxy() {
-        this.proxyGUI = new ProxyGUI();
+        proxyGUI = new ProxyGUI();
     }
     
     public void preInit(final FMLPreInitializationEvent event) {
@@ -88,11 +88,11 @@ public class CommonProxy implements IGuiHandler, IProxy
     }
     
     public Object getClientGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
-        return this.proxyGUI.getClientGuiElement(ID, player, world, x, y, z);
+        return proxyGUI.getClientGuiElement(ID, player, world, x, y, z);
     }
     
     public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
-        return this.proxyGUI.getServerGuiElement(ID, player, world, x, y, z);
+        return proxyGUI.getServerGuiElement(ID, player, world, x, y, z);
     }
     
     public boolean isShiftKeyDown() {

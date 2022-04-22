@@ -16,7 +16,7 @@ public class RenderNoProjectile extends Render
 {
     public RenderNoProjectile(final RenderManager rm) {
         super(rm);
-        this.shadowSize = 0.1f;
+        shadowSize = 0.1f;
     }
     
     public void renderEntityAt(final EntityThrowable tg, final double x, final double y, final double z, final float fq) {
@@ -33,7 +33,7 @@ public class RenderNoProjectile extends Render
     }
     
     public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
-        this.renderEntityAt((EntityThrowable)entity, d, d1, d2, f1);
+        renderEntityAt((EntityThrowable)entity, d, d1, d2, f1);
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {

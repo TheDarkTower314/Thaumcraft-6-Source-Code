@@ -17,9 +17,9 @@ public class ItemThaumiumSword extends ItemSword implements IThaumcraftItems
 {
     public ItemThaumiumSword(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("thaumium_sword");
-        this.setUnlocalizedName("thaumium_sword");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("thaumium_sword");
+        setUnlocalizedName("thaumium_sword");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     

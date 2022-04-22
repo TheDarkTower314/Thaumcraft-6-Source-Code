@@ -32,18 +32,18 @@ public class PacketSyncKnowledge implements IMessage, IMessageHandler<PacketSync
     
     public PacketSyncKnowledge(final EntityPlayer player) {
         final IPlayerKnowledge pk = ThaumcraftCapabilities.getKnowledge(player);
-        this.data = pk.serializeNBT();
+        data = pk.serializeNBT();
         for (final String key : pk.getResearchList()) {
             pk.clearResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.POPUP);
         }
     }
     
     public void toBytes(final ByteBuf buffer) {
-        Utils.writeNBTTagCompoundToBuffer(buffer, this.data);
+        Utils.writeNBTTagCompoundToBuffer(buffer, data);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.data = Utils.readNBTTagCompoundFromBuffer(buffer);
+        data = Utils.readNBTTagCompoundFromBuffer(buffer);
     }
     
     @SideOnly(Side.CLIENT)

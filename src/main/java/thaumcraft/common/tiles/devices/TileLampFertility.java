@@ -33,45 +33,45 @@ public class TileLampFertility extends TileThaumcraft implements IEssentiaTransp
     int drawDelay;
     
     public TileLampFertility() {
-        this.charges = 0;
-        this.count = 0;
-        this.drawDelay = 0;
+        charges = 0;
+        count = 0;
+        drawDelay = 0;
     }
     
     @Override
     public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
-        if (this.world != null && this.world.isRemote) {
-            this.world.checkLightFor(EnumSkyBlock.BLOCK, this.getPos());
+        if (world != null && world.isRemote) {
+            world.checkLightFor(EnumSkyBlock.BLOCK, getPos());
         }
     }
     
     public void update() {
-        if (!this.world.isRemote) {
-            if (this.charges < 10) {
-                if (this.drawEssentia()) {
-                    ++this.charges;
-                    this.markDirty();
-                    this.syncTile(true);
+        if (!world.isRemote) {
+            if (charges < 10) {
+                if (drawEssentia()) {
+                    ++charges;
+                    markDirty();
+                    syncTile(true);
                 }
-                if (this.charges <= 1) {
-                    if (BlockStateUtils.isEnabled(this.getBlockMetadata())) {
-                        this.world.setBlockState(this.pos, this.world.getBlockState(this.getPos()).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false), 3);
+                if (charges <= 1) {
+                    if (BlockStateUtils.isEnabled(getBlockMetadata())) {
+                        world.setBlockState(pos, world.getBlockState(getPos()).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false), 3);
                     }
                 }
-                else if (!this.gettingPower() && !BlockStateUtils.isEnabled(this.getBlockMetadata())) {
-                    this.world.setBlockState(this.pos, this.world.getBlockState(this.getPos()).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)true), 3);
+                else if (!gettingPower() && !BlockStateUtils.isEnabled(getBlockMetadata())) {
+                    world.setBlockState(pos, world.getBlockState(getPos()).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)true), 3);
                 }
             }
-            if (!this.gettingPower() && this.charges > 1 && this.count++ % 300 == 0) {
-                this.updateAnimals();
+            if (!gettingPower() && charges > 1 && count++ % 300 == 0) {
+                updateAnimals();
             }
         }
     }
     
     private void updateAnimals() {
         final int distance = 7;
-        final List<EntityAnimal> var5 = this.world.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.pos.getX() + 1, this.pos.getY() + 1, this.pos.getZ() + 1).grow(distance, distance, distance));
+        final List<EntityAnimal> var5 = world.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1).grow(distance, distance, distance));
     Label_0314:
         for (final EntityLivingBase var8 : var5) {
             final EntityAnimal var7 = (EntityAnimal)var8;
@@ -97,7 +97,7 @@ public class TileLampFertility extends TileThaumcraft implements IEssentiaTransp
                             continue;
                         }
                         if (partner != null) {
-                            this.charges -= 5;
+                            charges -= 5;
                             var11.setInLove(null);
                             partner.setInLove(null);
                             break Label_0314;
@@ -111,26 +111,26 @@ public class TileLampFertility extends TileThaumcraft implements IEssentiaTransp
     
     @Override
     public void readSyncNBT(final NBTTagCompound nbttagcompound) {
-        this.charges = nbttagcompound.getInteger("charges");
+        charges = nbttagcompound.getInteger("charges");
     }
     
     @Override
     public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
-        nbttagcompound.setInteger("charges", this.charges);
+        nbttagcompound.setInteger("charges", charges);
         return nbttagcompound;
     }
     
     boolean drawEssentia() {
-        if (++this.drawDelay % 5 != 0) {
+        if (++drawDelay % 5 != 0) {
             return false;
         }
-        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(this.world, this.getPos(), BlockStateUtils.getFacing(this.getBlockMetadata()));
+        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), BlockStateUtils.getFacing(getBlockMetadata()));
         if (te != null) {
             final IEssentiaTransport ic = (IEssentiaTransport)te;
-            if (!ic.canOutputTo(BlockStateUtils.getFacing(this.getBlockMetadata()).getOpposite())) {
+            if (!ic.canOutputTo(BlockStateUtils.getFacing(getBlockMetadata()).getOpposite())) {
                 return false;
             }
-            if (ic.getSuctionAmount(BlockStateUtils.getFacing(this.getBlockMetadata()).getOpposite()) < this.getSuctionAmount(BlockStateUtils.getFacing(this.getBlockMetadata())) && ic.takeEssentia(Aspect.DESIRE, 1, BlockStateUtils.getFacing(this.getBlockMetadata()).getOpposite()) == 1) {
+            if (ic.getSuctionAmount(BlockStateUtils.getFacing(getBlockMetadata()).getOpposite()) < getSuctionAmount(BlockStateUtils.getFacing(getBlockMetadata())) && ic.takeEssentia(Aspect.DESIRE, 1, BlockStateUtils.getFacing(getBlockMetadata()).getOpposite()) == 1) {
                 return true;
             }
         }
@@ -139,12 +139,12 @@ public class TileLampFertility extends TileThaumcraft implements IEssentiaTransp
     
     @Override
     public boolean isConnectable(final EnumFacing face) {
-        return face == BlockStateUtils.getFacing(this.getBlockMetadata());
+        return face == BlockStateUtils.getFacing(getBlockMetadata());
     }
     
     @Override
     public boolean canInputFrom(final EnumFacing face) {
-        return face == BlockStateUtils.getFacing(this.getBlockMetadata());
+        return face == BlockStateUtils.getFacing(getBlockMetadata());
     }
     
     @Override
@@ -168,7 +168,7 @@ public class TileLampFertility extends TileThaumcraft implements IEssentiaTransp
     
     @Override
     public int getSuctionAmount(final EnumFacing face) {
-        return (face == BlockStateUtils.getFacing(this.getBlockMetadata())) ? (128 - this.charges * 10) : 0;
+        return (face == BlockStateUtils.getFacing(getBlockMetadata())) ? (128 - charges * 10) : 0;
     }
     
     @Override

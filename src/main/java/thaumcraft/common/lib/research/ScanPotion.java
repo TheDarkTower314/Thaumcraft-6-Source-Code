@@ -24,7 +24,7 @@ public class ScanPotion implements IScanThing
     
     @Override
     public boolean checkThing(final EntityPlayer player, final Object obj) {
-        return this.getPotionEffect(player, obj) != null;
+        return getPotionEffect(player, obj) != null;
     }
     
     private PotionEffect getPotionEffect(final EntityPlayer player, final Object obj) {
@@ -34,7 +34,7 @@ public class ScanPotion implements IScanThing
         if (obj instanceof EntityLivingBase) {
             final EntityLivingBase e = (EntityLivingBase)obj;
             for (final PotionEffect potioneffect : e.getActivePotionEffects()) {
-                if (potioneffect.getPotion() == this.potion) {
+                if (potioneffect.getPotion() == potion) {
                     return potioneffect;
                 }
             }
@@ -43,7 +43,7 @@ public class ScanPotion implements IScanThing
             final ItemStack is = ScanningManager.getItemFromParms(player, obj);
             if (is != null && !is.isEmpty()) {
                 for (final PotionEffect potioneffect : PotionUtils.getEffectsFromStack(is)) {
-                    if (potioneffect.getPotion() == this.potion) {
+                    if (potioneffect.getPotion() == potion) {
                         return potioneffect;
                     }
                 }
@@ -54,6 +54,6 @@ public class ScanPotion implements IScanThing
     
     @Override
     public String getResearchKey(final EntityPlayer player, final Object obj) {
-        return "!" + this.potion.getName();
+        return "!" + potion.getName();
     }
 }

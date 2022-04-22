@@ -17,28 +17,28 @@ public class AIOwnerHurtByTarget extends EntityAITarget
     
     public AIOwnerHurtByTarget(final EntityOwnedConstruct p_i1667_1_) {
         super(p_i1667_1_, false);
-        this.theDefendingTameable = p_i1667_1_;
-        this.setMutexBits(1);
+        theDefendingTameable = p_i1667_1_;
+        setMutexBits(1);
     }
     
     public boolean shouldExecute() {
-        if (!this.theDefendingTameable.isOwned()) {
+        if (!theDefendingTameable.isOwned()) {
             return false;
         }
-        final EntityLivingBase entitylivingbase = this.theDefendingTameable.getOwnerEntity();
+        final EntityLivingBase entitylivingbase = theDefendingTameable.getOwnerEntity();
         if (entitylivingbase == null) {
             return false;
         }
-        this.theOwnerAttacker = entitylivingbase.getRevengeTarget();
+        theOwnerAttacker = entitylivingbase.getRevengeTarget();
         final int i = entitylivingbase.getRevengeTimer();
-        return i != this.timestamp && this.isSuitableTarget(this.theOwnerAttacker, false);
+        return i != timestamp && isSuitableTarget(theOwnerAttacker, false);
     }
     
     public void startExecuting() {
-        this.taskOwner.setAttackTarget(this.theOwnerAttacker);
-        final EntityLivingBase entitylivingbase = this.theDefendingTameable.getOwnerEntity();
+        taskOwner.setAttackTarget(theOwnerAttacker);
+        final EntityLivingBase entitylivingbase = theDefendingTameable.getOwnerEntity();
         if (entitylivingbase != null) {
-            this.timestamp = entitylivingbase.getRevengeTimer();
+            timestamp = entitylivingbase.getRevengeTimer();
         }
         super.startExecuting();
     }

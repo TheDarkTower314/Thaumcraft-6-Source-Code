@@ -26,9 +26,9 @@ public class ItemVoidseerCharm extends ItemTCBase implements IBauble, IVisDiscou
 {
     public ItemVoidseerCharm() {
         super("voidseer_charm");
-        this.maxStackSize = 1;
-        this.canRepair = false;
-        this.setMaxDamage(0);
+        maxStackSize = 1;
+        canRepair = false;
+        setMaxDamage(0);
     }
     
     public EnumRarity getRarity(final ItemStack itemstack) {
@@ -56,6 +56,6 @@ public class ItemVoidseerCharm extends ItemTCBase implements IBauble, IVisDiscou
     }
     
     public int getWarp(final ItemStack itemstack, final EntityPlayer player) {
-        return this.getVisDiscount(itemstack, player) / 5;
+        return getVisDiscount(itemstack, player) / 5;
     }
 }

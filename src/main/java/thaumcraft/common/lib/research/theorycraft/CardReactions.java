@@ -24,26 +24,26 @@ public class CardReactions extends TheorycraftCard
     @Override
     public NBTTagCompound serialize() {
         final NBTTagCompound nbt = super.serialize();
-        nbt.setString("aspect1", this.aspect1.getTag());
-        nbt.setString("aspect2", this.aspect2.getTag());
+        nbt.setString("aspect1", aspect1.getTag());
+        nbt.setString("aspect2", aspect2.getTag());
         return nbt;
     }
     
     @Override
     public void deserialize(final NBTTagCompound nbt) {
         super.deserialize(nbt);
-        this.aspect1 = Aspect.getAspect(nbt.getString("aspect1"));
-        this.aspect2 = Aspect.getAspect(nbt.getString("aspect2"));
+        aspect1 = Aspect.getAspect(nbt.getString("aspect1"));
+        aspect2 = Aspect.getAspect(nbt.getString("aspect2"));
     }
     
     @Override
     public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(this.getSeed());
+        final Random r = new Random(getSeed());
         final int num = MathHelper.getInt(r, 0, Aspect.getCompoundAspects().size() - 1);
-        this.aspect1 = Aspect.getCompoundAspects().get(num);
+        aspect1 = Aspect.getCompoundAspects().get(num);
         int num2;
         for (num2 = num; num2 == num; num2 = MathHelper.getInt(r, 0, Aspect.getCompoundAspects().size() - 1)) {}
-        this.aspect2 = Aspect.getCompoundAspects().get(num2);
+        aspect2 = Aspect.getCompoundAspects().get(num2);
         return true;
     }
     
@@ -64,17 +64,17 @@ public class CardReactions extends TheorycraftCard
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.reactions.text", TextFormatting.BOLD + this.aspect1.getName() + TextFormatting.RESET, TextFormatting.BOLD + this.aspect2.getName() + TextFormatting.RESET).getFormattedText();
+        return new TextComponentTranslation("card.reactions.text", TextFormatting.BOLD + aspect1.getName() + TextFormatting.RESET, TextFormatting.BOLD + aspect2.getName() + TextFormatting.RESET).getFormattedText();
     }
     
     @Override
     public ItemStack[] getRequiredItems() {
-        return new ItemStack[] { ThaumcraftApiHelper.makeCrystal(this.aspect1), ThaumcraftApiHelper.makeCrystal(this.aspect2) };
+        return new ItemStack[] { ThaumcraftApiHelper.makeCrystal(aspect1), ThaumcraftApiHelper.makeCrystal(aspect2) };
     }
     
     @Override
     public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        data.addTotal(this.getResearchCategory(), 25);
+        data.addTotal(getResearchCategory(), 25);
         if (player.getRNG().nextFloat() < 0.33) {
             data.addInspiration(1);
         }

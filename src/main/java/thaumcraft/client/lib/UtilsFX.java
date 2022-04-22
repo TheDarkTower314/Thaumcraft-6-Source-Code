@@ -760,24 +760,24 @@ public class UtilsFX
         }
         
         public float getX() {
-            return this.x;
+            return x;
         }
         
         public float getY() {
-            return this.y;
+            return y;
         }
         
         public float getZ() {
-            return this.z;
+            return z;
         }
         
         public float norm() {
-            return (float)Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+            return (float)Math.sqrt(x * x + y * y + z * z);
         }
         
         public Vector normalize() {
-            final float n = this.norm();
-            return new Vector(this.x / n, this.y / n, this.z / n);
+            final float n = norm();
+            return new Vector(x / n, y / n, z / n);
         }
     }
 }

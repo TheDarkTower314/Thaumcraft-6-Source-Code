@@ -34,7 +34,7 @@ public class Translation extends Transformation
     
     @Override
     public void apply(final Matrix4 mat) {
-        mat.translate(this.vec);
+        mat.translate(vec);
     }
     
     @Override
@@ -45,30 +45,30 @@ public class Translation extends Transformation
     @SideOnly(Side.CLIENT)
     @Override
     public void glApply() {
-        GlStateManager.translate(this.vec.x, this.vec.y, this.vec.z);
+        GlStateManager.translate(vec.x, vec.y, vec.z);
     }
     
     @Override
     public Transformation inverse() {
-        return new Translation(-this.vec.x, -this.vec.y, -this.vec.z);
+        return new Translation(-vec.x, -vec.y, -vec.z);
     }
     
     @Override
     public Transformation merge(final Transformation next) {
         if (next instanceof Translation) {
-            return new Translation(this.vec.copy().add(((Translation)next).vec));
+            return new Translation(vec.copy().add(((Translation)next).vec));
         }
         return null;
     }
     
     @Override
     public boolean isRedundant() {
-        return this.vec.equalsT(Vector3.zero);
+        return vec.equalsT(Vector3.zero);
     }
     
     @Override
     public String toString() {
         final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
-        return "Translation(" + new BigDecimal(this.vec.x, cont) + ", " + new BigDecimal(this.vec.y, cont) + ", " + new BigDecimal(this.vec.z, cont) + ")";
+        return "Translation(" + new BigDecimal(vec.x, cont) + ", " + new BigDecimal(vec.y, cont) + ", " + new BigDecimal(vec.z, cont) + ")";
     }
 }

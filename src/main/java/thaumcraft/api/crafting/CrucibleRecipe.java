@@ -19,12 +19,12 @@ public class CrucibleRecipe implements IThaumcraftRecipe  {
 	
 	public CrucibleRecipe(String researchKey, ItemStack result, Object catalyst, AspectList tags) {
 		recipeOutput = result;
-		this.name="";
-		this.setAspects(tags);
-		this.research = researchKey;
-		this.setCatalyst(ThaumcraftApiHelper.getIngredient(catalyst));
+		name="";
+		setAspects(tags);
+		research = researchKey;
+		setCatalyst(ThaumcraftApiHelper.getIngredient(catalyst));
 		
-		if (this.getCatalyst() == null)
+		if (getCatalyst() == null)
         {
             throw new RuntimeException("Invalid crucible recipe catalyst: "+ catalyst);
         }
@@ -103,7 +103,7 @@ public class CrucibleRecipe implements IThaumcraftRecipe  {
 	}
 	
 	public CrucibleRecipe setGroup(ResourceLocation s) {
-		this.group=s.toString();
+		group=s.toString();
 		return this;
 	}
 }

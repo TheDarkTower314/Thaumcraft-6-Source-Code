@@ -17,11 +17,11 @@ public class TileTubeValveRenderer extends TileEntitySpecialRenderer
     private static final ResourceLocation TEX_VALVE;
     
     public TileTubeValveRenderer() {
-        this.model = new ModelTubeValve();
+        model = new ModelTubeValve();
     }
     
     public void renderEntityAt(final TileTubeValve valve, final double x, final double y, final double z, final float fq) {
-        this.bindTexture(TileTubeValveRenderer.TEX_VALVE);
+        bindTexture(TileTubeValveRenderer.TEX_VALVE);
         GL11.glPushMatrix();
         GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
         if (valve.facing.getFrontOffsetY() == 0) {
@@ -35,16 +35,16 @@ public class TileTubeValveRenderer extends TileEntitySpecialRenderer
         GL11.glRotated(-valve.rotation * 1.5, 0.0, 1.0, 0.0);
         GL11.glTranslated(0.0, -0.03f - valve.rotation / 360.0f * 0.09f, 0.0);
         GL11.glPushMatrix();
-        this.model.renderRing();
+        model.renderRing();
         GL11.glScaled(0.75, 1.0, 0.75);
-        this.model.renderRod();
+        model.renderRod();
         GL11.glPopMatrix();
         GL11.glPopMatrix();
     }
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderEntityAt((TileTubeValve)te, x, y, z, partialTicks);
+        renderEntityAt((TileTubeValve)te, x, y, z, partialTicks);
     }
     
     static {

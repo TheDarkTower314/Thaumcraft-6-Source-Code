@@ -28,9 +28,9 @@ public class ItemAmuletVis extends ItemTCBase implements IBauble
 {
     public ItemAmuletVis() {
         super("amulet_vis", "found", "crafted");
-        this.maxStackSize = 1;
-        this.setMaxDamage(0);
-        this.setHasSubtypes(true);
+        maxStackSize = 1;
+        setMaxDamage(0);
+        setHasSubtypes(true);
     }
     
     public EnumRarity getRarity(final ItemStack itemstack) {

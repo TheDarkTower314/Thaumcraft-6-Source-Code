@@ -29,71 +29,71 @@ public class PathNavigateGolemGround extends PathNavigateGround
     }
     
     protected PathFinder getPathFinder() {
-        (this.nodeProcessor = new GolemNodeProcessor()).setCanEnterDoors(true);
-        return new PathFinder(this.nodeProcessor);
+        (nodeProcessor = new GolemNodeProcessor()).setCanEnterDoors(true);
+        return new PathFinder(nodeProcessor);
     }
     
     protected boolean canNavigate() {
-        return this.entity.onGround || (this.getCanSwim() && this.isInLiquid()) || this.entity.isRiding();
+        return entity.onGround || (getCanSwim() && isInLiquid()) || entity.isRiding();
     }
     
     protected Vec3d getEntityPosition() {
-        return new Vec3d(this.entity.posX, this.getPathablePosY(), this.entity.posZ);
+        return new Vec3d(entity.posX, getPathablePosY(), entity.posZ);
     }
     
     public Path getPathToPos(BlockPos pos) {
-        if (this.world.getBlockState(pos).getMaterial() == Material.AIR) {
+        if (world.getBlockState(pos).getMaterial() == Material.AIR) {
             BlockPos blockpos;
-            for (blockpos = pos.down(); blockpos.getY() > 0 && this.world.getBlockState(blockpos).getMaterial() == Material.AIR; blockpos = blockpos.down()) {}
+            for (blockpos = pos.down(); blockpos.getY() > 0 && world.getBlockState(blockpos).getMaterial() == Material.AIR; blockpos = blockpos.down()) {}
             if (blockpos.getY() > 0) {
                 return super.getPathToPos(blockpos.up());
             }
-            while (blockpos.getY() < this.world.getHeight() && this.world.getBlockState(blockpos).getMaterial() == Material.AIR) {
+            while (blockpos.getY() < world.getHeight() && world.getBlockState(blockpos).getMaterial() == Material.AIR) {
                 blockpos = blockpos.up();
             }
             pos = blockpos;
         }
-        if (!this.world.getBlockState(pos).getMaterial().isSolid()) {
+        if (!world.getBlockState(pos).getMaterial().isSolid()) {
             return super.getPathToPos(pos);
         }
         BlockPos blockpos2;
-        for (blockpos2 = pos.up(); blockpos2.getY() < this.world.getHeight() && this.world.getBlockState(blockpos2).getMaterial().isSolid(); blockpos2 = blockpos2.up()) {}
+        for (blockpos2 = pos.up(); blockpos2.getY() < world.getHeight() && world.getBlockState(blockpos2).getMaterial().isSolid(); blockpos2 = blockpos2.up()) {}
         return super.getPathToPos(blockpos2);
     }
     
     public Path getPathToEntityLiving(final Entity entityIn) {
         final BlockPos blockpos = new BlockPos(entityIn);
-        return this.getPathToPos(blockpos);
+        return getPathToPos(blockpos);
     }
     
     private int getPathablePosY() {
-        if (this.entity.isInWater() && this.getCanSwim()) {
-            int i = (int)this.entity.getEntityBoundingBox().minY;
-            Block block = this.world.getBlockState(new BlockPos(MathHelper.floor(this.entity.posX), i, MathHelper.floor(this.entity.posZ))).getBlock();
+        if (entity.isInWater() && getCanSwim()) {
+            int i = (int) entity.getEntityBoundingBox().minY;
+            Block block = world.getBlockState(new BlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ))).getBlock();
             int j = 0;
             while (block == Blocks.FLOWING_WATER || block == Blocks.WATER) {
                 ++i;
-                block = this.world.getBlockState(new BlockPos(MathHelper.floor(this.entity.posX), i, MathHelper.floor(this.entity.posZ))).getBlock();
+                block = world.getBlockState(new BlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ))).getBlock();
                 if (++j > 16) {
-                    return (int)this.entity.getEntityBoundingBox().minY;
+                    return (int) entity.getEntityBoundingBox().minY;
                 }
             }
             return i;
         }
-        return (int)(this.entity.getEntityBoundingBox().minY + 0.5);
+        return (int)(entity.getEntityBoundingBox().minY + 0.5);
     }
     
     protected void removeSunnyPath() {
         super.removeSunnyPath();
-        for (int i = 0; i < this.currentPath.getCurrentPathLength(); ++i) {
-            final PathPoint pathpoint = this.currentPath.getPathPointFromIndex(i);
-            final PathPoint pathpoint2 = (i + 1 < this.currentPath.getCurrentPathLength()) ? this.currentPath.getPathPointFromIndex(i + 1) : null;
-            final IBlockState iblockstate = this.world.getBlockState(new BlockPos(pathpoint.x, pathpoint.y, pathpoint.z));
+        for (int i = 0; i < currentPath.getCurrentPathLength(); ++i) {
+            final PathPoint pathpoint = currentPath.getPathPointFromIndex(i);
+            final PathPoint pathpoint2 = (i + 1 < currentPath.getCurrentPathLength()) ? currentPath.getPathPointFromIndex(i + 1) : null;
+            final IBlockState iblockstate = world.getBlockState(new BlockPos(pathpoint.x, pathpoint.y, pathpoint.z));
             final Block block = iblockstate.getBlock();
             if (block == Blocks.CAULDRON) {
-                this.currentPath.setPoint(i, pathpoint.cloneMove(pathpoint.x, pathpoint.y + 1, pathpoint.z));
+                currentPath.setPoint(i, pathpoint.cloneMove(pathpoint.x, pathpoint.y + 1, pathpoint.z));
                 if (pathpoint2 != null && pathpoint.y >= pathpoint2.y) {
-                    this.currentPath.setPoint(i + 1, pathpoint2.cloneMove(pathpoint2.x, pathpoint.y + 1, pathpoint2.z));
+                    currentPath.setPoint(i + 1, pathpoint2.cloneMove(pathpoint2.x, pathpoint.y + 1, pathpoint2.z));
                 }
             }
         }
@@ -113,7 +113,7 @@ public class PathNavigateGolemGround extends PathNavigateGround
         d2 *= d4;
         sizeX += 2;
         sizeZ += 2;
-        if (!this.isSafeToStandAt(i, (int)posVec31.y, j, sizeX, sizeY, sizeZ, posVec31, d0, d2)) {
+        if (!isSafeToStandAt(i, (int)posVec31.y, j, sizeX, sizeY, sizeZ, posVec31, d0, d2)) {
             return false;
         }
         sizeX -= 2;
@@ -147,7 +147,7 @@ public class PathNavigateGolemGround extends PathNavigateGround
                 j += l;
                 l2 = j2 - j;
             }
-            if (!this.isSafeToStandAt(i, (int)posVec31.y, j, sizeX, sizeY, sizeZ, posVec31, d0, d2)) {
+            if (!isSafeToStandAt(i, (int)posVec31.y, j, sizeX, sizeY, sizeZ, posVec31, d0, d2)) {
                 return false;
             }
         }
@@ -157,7 +157,7 @@ public class PathNavigateGolemGround extends PathNavigateGround
     private boolean isSafeToStandAt(final int x, final int y, final int z, final int sizeX, final int sizeY, final int sizeZ, final Vec3d vec31, final double p_179683_8_, final double p_179683_10_) {
         final int i = x - sizeX / 2;
         final int j = z - sizeZ / 2;
-        if (!this.isPositionClear(i, y, j, sizeX, sizeY, sizeZ, vec31, p_179683_8_, p_179683_10_)) {
+        if (!isPositionClear(i, y, j, sizeX, sizeY, sizeZ, vec31, p_179683_8_, p_179683_10_)) {
             return false;
         }
         for (int k = i; k < i + sizeX; ++k) {
@@ -165,7 +165,7 @@ public class PathNavigateGolemGround extends PathNavigateGround
                 final double d0 = k + 0.5 - vec31.x;
                 final double d2 = l + 0.5 - vec31.z;
                 if (d0 * p_179683_8_ + d2 * p_179683_10_ >= 0.0) {
-                    PathNodeType pathnodetype = this.nodeProcessor.getPathNodeType(this.world, k, y - 1, l, this.entity, sizeX, sizeY, sizeZ, true, true);
+                    PathNodeType pathnodetype = nodeProcessor.getPathNodeType(world, k, y - 1, l, entity, sizeX, sizeY, sizeZ, true, true);
                     if (pathnodetype == PathNodeType.WATER) {
                         return false;
                     }
@@ -175,8 +175,8 @@ public class PathNavigateGolemGround extends PathNavigateGround
                     if (pathnodetype == PathNodeType.OPEN) {
                         return false;
                     }
-                    pathnodetype = this.nodeProcessor.getPathNodeType(this.world, k, y, l, this.entity, sizeX, sizeY, sizeZ, true, true);
-                    final float f = this.entity.getPathPriority(pathnodetype);
+                    pathnodetype = nodeProcessor.getPathNodeType(world, k, y, l, entity, sizeX, sizeY, sizeZ, true, true);
+                    final float f = entity.getPathPriority(pathnodetype);
                     if (f < 0.0f || f >= 8.0f) {
                         return false;
                     }
@@ -194,8 +194,8 @@ public class PathNavigateGolemGround extends PathNavigateGround
             final double d0 = blockpos.getX() + 0.5 - p_179692_7_.x;
             final double d2 = blockpos.getZ() + 0.5 - p_179692_7_.z;
             if (d0 * p_179692_8_ + d2 * p_179692_10_ >= 0.0) {
-                final Block block = this.world.getBlockState(blockpos).getBlock();
-                if (!block.isPassable(this.world, blockpos)) {
+                final Block block = world.getBlockState(blockpos).getBlock();
+                if (!block.isPassable(world, blockpos)) {
                     return false;
                 }
                 continue;
@@ -205,19 +205,19 @@ public class PathNavigateGolemGround extends PathNavigateGround
     }
     
     public void setEnterDoors(final boolean enterDoors) {
-        this.nodeProcessor.setCanEnterDoors(enterDoors);
+        nodeProcessor.setCanEnterDoors(enterDoors);
     }
     
     public boolean getEnterDoors() {
-        return this.nodeProcessor.getCanEnterDoors();
+        return nodeProcessor.getCanEnterDoors();
     }
     
     public void setCanSwim(final boolean canSwim) {
-        this.nodeProcessor.setCanSwim(canSwim);
+        nodeProcessor.setCanSwim(canSwim);
     }
     
     public boolean getCanSwim() {
-        return this.nodeProcessor.getCanSwim();
+        return nodeProcessor.getCanSwim();
     }
     
     public void setAvoidSun(final boolean avoidSun) {

@@ -23,12 +23,12 @@ public class GuiGolemLockButton extends GuiButton
     }
     
     public void drawButton(final Minecraft mc, final int xx, final int yy, final float partialTicks) {
-        if (this.visible) {
+        if (visible) {
             final FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiGolemLockButton.tex);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            this.hovered = (xx >= this.x && yy >= this.y && xx < this.x + this.width && yy < this.y + this.height);
-            final int k = this.getHoverState(this.hovered);
+            hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);
+            final int k = getHoverState(hovered);
             if (k == 2) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             }
@@ -38,17 +38,17 @@ public class GuiGolemLockButton extends GuiButton
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.blendFunc(770, 771);
-            if (this.seal.isLocked()) {
-                this.drawTexturedModalRect(this.x, this.y, 32, 136, 16, 16);
+            if (seal.isLocked()) {
+                drawTexturedModalRect(x, y, 32, 136, 16, 16);
             }
             else {
-                this.drawTexturedModalRect(this.x, this.y, 48, 136, 16, 16);
+                drawTexturedModalRect(x, y, 48, 136, 16, 16);
             }
             if (k == 2) {
-                final String s = this.seal.isLocked() ? I18n.translateToLocal("golem.prop.lock") : I18n.translateToLocal("golem.prop.unlock");
-                this.drawCenteredString(fontrenderer, s, this.x + 8, this.y + 17, 16777215);
+                final String s = seal.isLocked() ? I18n.translateToLocal("golem.prop.lock") : I18n.translateToLocal("golem.prop.unlock");
+                drawCenteredString(fontrenderer, s, x + 8, y + 17, 16777215);
             }
-            this.mouseDragged(mc, xx, yy);
+            mouseDragged(mc, xx, yy);
         }
     }
     

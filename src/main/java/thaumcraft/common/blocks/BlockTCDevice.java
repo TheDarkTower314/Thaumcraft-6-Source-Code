@@ -21,7 +21,7 @@ public class BlockTCDevice extends BlockTCTile
 {
     public BlockTCDevice(final Material mat, final Class tc, final String name) {
         super(mat, tc, name);
-        final IBlockState bs = this.blockState.getBaseState();
+        final IBlockState bs = blockState.getBaseState();
         if (this instanceof IBlockFacingHorizontal) {
             bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)EnumFacing.NORTH);
         }
@@ -31,7 +31,7 @@ public class BlockTCDevice extends BlockTCTile
         if (this instanceof IBlockEnabled) {
             bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)true);
         }
-        this.setDefaultState(bs);
+        setDefaultState(bs);
     }
     
     public boolean rotateBlock(final World world, final BlockPos pos, final EnumFacing axis) {
@@ -47,16 +47,16 @@ public class BlockTCDevice extends BlockTCTile
     
     public void onBlockAdded(final World worldIn, final BlockPos pos, final IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
-        this.updateState(worldIn, pos, state);
+        updateState(worldIn, pos, state);
     }
     
     public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos frompos) {
-        this.updateState(worldIn, pos, state);
+        updateState(worldIn, pos, state);
         super.neighborChanged(state, worldIn, pos, blockIn, frompos);
     }
     
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         if (this instanceof IBlockFacingHorizontal) {
             bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)(placer.isSneaking() ? placer.getHorizontalFacing() : placer.getHorizontalFacing().getOpposite()));
         }
@@ -93,7 +93,7 @@ public class BlockTCDevice extends BlockTCTile
     }
     
     public IBlockState getStateFromMeta(final int meta) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         try {
             if (this instanceof IBlockFacingHorizontal) {
                 bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)BlockStateUtils.getFacing(meta));

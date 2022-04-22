@@ -33,28 +33,28 @@ public class BlockFluidDeath extends BlockFluidClassic
     
     public BlockFluidDeath() {
         super(ConfigBlocks.FluidDeath.instance, BlockFluidDeath.FLUID_DEATH_MATERIAL);
-        this.setRegistryName("liquid_death");
-        this.setUnlocalizedName("liquid_death");
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setQuantaPerBlock(4);
+        setRegistryName("liquid_death");
+        setUnlocalizedName("liquid_death");
+        setCreativeTab(ConfigItems.TABTC);
+        setQuantaPerBlock(4);
     }
     
     public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
-        entity.motionX *= 1.0f - this.getQuantaPercentage(world, pos) / 2.0f;
-        entity.motionZ *= 1.0f - this.getQuantaPercentage(world, pos) / 2.0f;
+        entity.motionX *= 1.0f - getQuantaPercentage(world, pos) / 2.0f;
+        entity.motionZ *= 1.0f - getQuantaPercentage(world, pos) / 2.0f;
         if (!world.isRemote && entity instanceof EntityLivingBase) {
-            entity.attackEntityFrom(DamageSourceThaumcraft.dissolve, (float)(4 - this.getMetaFromState(state) + 1));
+            entity.attackEntityFrom(DamageSourceThaumcraft.dissolve, (float)(4 - getMetaFromState(state) + 1));
         }
     }
     
     public int getQuanta() {
-        return this.quantaPerBlock;
+        return quantaPerBlock;
     }
     
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random rand) {
         if (rand.nextInt(20) == 0) {
-            final int meta = this.getMetaFromState(state);
+            final int meta = getMetaFromState(state);
             final float h = rand.nextFloat() * 0.075f;
             final FXSlimyBubble ef = new FXSlimyBubble(world, pos.getX() + rand.nextFloat(), pos.getY() + 0.1f + 0.225f * (4 - meta), pos.getZ() + rand.nextFloat(), 0.075f + h);
             ef.setAlphaF(0.8f);
@@ -63,7 +63,7 @@ public class BlockFluidDeath extends BlockFluidClassic
         }
         if (rand.nextInt(50) == 0) {
             final double var21 = pos.getX() + rand.nextFloat();
-            final double var22 = pos.getY() + (double)(this.getMaxRenderHeightMeta() / 4.0f);
+            final double var22 = pos.getY() + (double)(getMaxRenderHeightMeta() / 4.0f);
             final double var23 = pos.getZ() + rand.nextFloat();
             world.playSound(var21, var22, var23, SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS, 0.1f + rand.nextFloat() * 0.1f, 0.9f + rand.nextFloat() * 0.15f, false);
         }

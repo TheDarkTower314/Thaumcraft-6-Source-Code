@@ -19,21 +19,21 @@ public class ItemTCEssentiaContainer extends ItemGenericEssentiaContainer implem
     
     public ItemTCEssentiaContainer(final String name, final int base, final String... variants) {
         super(base);
-        this.setRegistryName(name);
-        this.setUnlocalizedName(name);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setNoRepair();
-        this.setHasSubtypes(variants.length > 1);
-        this.BASE_NAME = name;
+        setRegistryName(name);
+        setUnlocalizedName(name);
+        setCreativeTab(ConfigItems.TABTC);
+        setNoRepair();
+        setHasSubtypes(variants.length > 1);
+        BASE_NAME = name;
         if (variants.length == 0) {
-            this.VARIANTS = new String[] { name };
+            VARIANTS = new String[] { name };
         }
         else {
-            this.VARIANTS = variants;
+            VARIANTS = variants;
         }
-        this.VARIANTS_META = new int[this.VARIANTS.length];
-        for (int m = 0; m < this.VARIANTS.length; ++m) {
-            this.VARIANTS_META[m] = m;
+        VARIANTS_META = new int[VARIANTS.length];
+        for (int m = 0; m < VARIANTS.length; ++m) {
+            VARIANTS_META[m] = m;
         }
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
@@ -45,12 +45,12 @@ public class ItemTCEssentiaContainer extends ItemGenericEssentiaContainer implem
     
     @Override
     public String[] getVariantNames() {
-        return this.VARIANTS;
+        return VARIANTS;
     }
     
     @Override
     public int[] getVariantMeta() {
-        return this.VARIANTS_META;
+        return VARIANTS_META;
     }
     
     @Override
@@ -60,9 +60,9 @@ public class ItemTCEssentiaContainer extends ItemGenericEssentiaContainer implem
     
     @Override
     public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
-        if (variant.equals(this.BASE_NAME)) {
-            return new ModelResourceLocation("thaumcraft:" + this.BASE_NAME);
+        if (variant.equals(BASE_NAME)) {
+            return new ModelResourceLocation("thaumcraft:" + BASE_NAME);
         }
-        return new ModelResourceLocation("thaumcraft:" + this.BASE_NAME, variant);
+        return new ModelResourceLocation("thaumcraft:" + BASE_NAME, variant);
     }
 }

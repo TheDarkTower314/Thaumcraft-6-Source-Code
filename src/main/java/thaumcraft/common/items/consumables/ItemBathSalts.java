@@ -12,7 +12,7 @@ public class ItemBathSalts extends ItemTCBase
 {
     public ItemBathSalts() {
         super("bath_salts");
-        this.setHasSubtypes(false);
+        setHasSubtypes(false);
     }
     
     public int getEntityLifespan(final ItemStack itemStack, final World world) {

@@ -81,50 +81,50 @@ public class Rotation extends Transformation
     
     public Rotation(final Quat quat) {
         this.quat = quat;
-        this.angle = Math.acos(quat.s) * 2.0;
-        if (this.angle == 0.0) {
-            this.axis = new Vector3(0.0, 1.0, 0.0);
+        angle = Math.acos(quat.s) * 2.0;
+        if (angle == 0.0) {
+            axis = new Vector3(0.0, 1.0, 0.0);
         }
         else {
-            final double sa = Math.sin(this.angle * 0.5);
-            this.axis = new Vector3(quat.x / sa, quat.y / sa, quat.z / sa);
+            final double sa = Math.sin(angle * 0.5);
+            axis = new Vector3(quat.x / sa, quat.y / sa, quat.z / sa);
         }
     }
     
     @Override
     public void apply(final Vector3 vec) {
-        if (this.quat == null) {
-            this.quat = Quat.aroundAxis(this.axis, this.angle);
+        if (quat == null) {
+            quat = Quat.aroundAxis(axis, angle);
         }
-        vec.rotate(this.quat);
+        vec.rotate(quat);
     }
     
     @Override
     public void applyN(final Vector3 normal) {
-        this.apply(normal);
+        apply(normal);
     }
     
     @Override
     public void apply(final Matrix4 mat) {
-        mat.rotate(this.angle, this.axis);
+        mat.rotate(angle, axis);
     }
     
     public Quat toQuat() {
-        if (this.quat == null) {
-            this.quat = Quat.aroundAxis(this.axis, this.angle);
+        if (quat == null) {
+            quat = Quat.aroundAxis(axis, angle);
         }
-        return this.quat;
+        return quat;
     }
     
     @SideOnly(Side.CLIENT)
     @Override
     public void glApply() {
-        GlStateManager.rotate((float)(this.angle * 57.29577951308232), (float)this.axis.x, (float)this.axis.y, (float)this.axis.z);
+        GlStateManager.rotate((float)(angle * 57.29577951308232), (float) axis.x, (float) axis.y, (float) axis.z);
     }
     
     @Override
     public Transformation inverse() {
-        return new Rotation(-this.angle, this.axis);
+        return new Rotation(-angle, axis);
     }
     
     @Override
@@ -133,21 +133,21 @@ public class Rotation extends Transformation
             return null;
         }
         final Rotation r = (Rotation)next;
-        if (r.axis.equalsT(this.axis)) {
-            return new Rotation(this.angle + r.angle, this.axis);
+        if (r.axis.equalsT(axis)) {
+            return new Rotation(angle + r.angle, axis);
         }
-        return new Rotation(this.toQuat().copy().multiply(r.toQuat()));
+        return new Rotation(toQuat().copy().multiply(r.toQuat()));
     }
     
     @Override
     public boolean isRedundant() {
-        return MathHelper.between(-1.0E-5, this.angle, 1.0E-5);
+        return MathHelper.between(-1.0E-5, angle, 1.0E-5);
     }
     
     @Override
     public String toString() {
         final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
-        return "Rotation(" + new BigDecimal(this.angle, cont) + ", " + new BigDecimal(this.axis.x, cont) + ", " + new BigDecimal(this.axis.y, cont) + ", " + new BigDecimal(this.axis.z, cont) + ")";
+        return "Rotation(" + new BigDecimal(angle, cont) + ", " + new BigDecimal(axis.x, cont) + ", " + new BigDecimal(axis.y, cont) + ", " + new BigDecimal(axis.z, cont) + ")";
     }
     
     static {

@@ -20,8 +20,8 @@ public class ItemCausalityCollapser extends ItemTCBase
 {
     public ItemCausalityCollapser() {
         super("causality_collapser");
-        this.setMaxStackSize(16);
-        this.setMaxDamage(0);
+        setMaxStackSize(16);
+        setMaxDamage(0);
     }
     
     public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {

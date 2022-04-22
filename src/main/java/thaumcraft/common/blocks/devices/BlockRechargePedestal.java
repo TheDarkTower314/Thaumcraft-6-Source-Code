@@ -28,7 +28,7 @@ public class BlockRechargePedestal extends BlockTCDevice
 {
     public BlockRechargePedestal() {
         super(Material.ROCK, TileRechargePedestal.class, "recharge_pedestal");
-        this.setSoundType(SoundType.STONE);
+        setSoundType(SoundType.STONE);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {

@@ -26,49 +26,49 @@ public class TileBellows extends TileThaumcraft implements ITickable
     public int delay;
     
     public TileBellows() {
-        this.inflation = 1.0f;
-        this.direction = false;
-        this.firstrun = true;
-        this.delay = 0;
+        inflation = 1.0f;
+        direction = false;
+        firstrun = true;
+        delay = 0;
     }
     
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return new AxisAlignedBB(this.getPos().getX() - 0.3, this.getPos().getY() - 0.3, this.getPos().getZ() - 0.3, this.getPos().getX() + 1.3, this.getPos().getY() + 1.3, this.getPos().getZ() + 1.3);
+        return new AxisAlignedBB(getPos().getX() - 0.3, getPos().getY() - 0.3, getPos().getZ() - 0.3, getPos().getX() + 1.3, getPos().getY() + 1.3, getPos().getZ() + 1.3);
     }
     
     public void update() {
-        if (this.world.isRemote) {
-            if (BlockStateUtils.isEnabled(this.getBlockMetadata())) {
-                if (this.firstrun) {
-                    this.inflation = 0.35f + this.world.rand.nextFloat() * 0.55f;
+        if (world.isRemote) {
+            if (BlockStateUtils.isEnabled(getBlockMetadata())) {
+                if (firstrun) {
+                    inflation = 0.35f + world.rand.nextFloat() * 0.55f;
                 }
-                this.firstrun = false;
-                if (this.inflation > 0.35f && !this.direction) {
-                    this.inflation -= 0.075f;
+                firstrun = false;
+                if (inflation > 0.35f && !direction) {
+                    inflation -= 0.075f;
                 }
-                if (this.inflation <= 0.35f && !this.direction) {
-                    this.direction = true;
+                if (inflation <= 0.35f && !direction) {
+                    direction = true;
                 }
-                if (this.inflation < 1.0f && this.direction) {
-                    this.inflation += 0.025f;
+                if (inflation < 1.0f && direction) {
+                    inflation += 0.025f;
                 }
-                if (this.inflation >= 1.0f && this.direction) {
-                    this.direction = false;
-                    this.world.playSound(this.pos.getX(), this.pos.getY(), this.pos.getZ(), SoundEvents.ENTITY_GHAST_SHOOT, SoundCategory.BLOCKS, 0.01f, 0.5f + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2f, false);
+                if (inflation >= 1.0f && direction) {
+                    direction = false;
+                    world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_GHAST_SHOOT, SoundCategory.BLOCKS, 0.01f, 0.5f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2f, false);
                 }
             }
         }
-        else if (BlockStateUtils.isEnabled(this.getBlockMetadata())) {
-            ++this.delay;
-            if (this.delay >= 2) {
-                this.delay = 0;
-                final TileEntity tile = this.world.getTileEntity(this.pos.offset(BlockStateUtils.getFacing(this.getBlockMetadata())));
+        else if (BlockStateUtils.isEnabled(getBlockMetadata())) {
+            ++delay;
+            if (delay >= 2) {
+                delay = 0;
+                final TileEntity tile = world.getTileEntity(pos.offset(BlockStateUtils.getFacing(getBlockMetadata())));
                 if (tile != null && tile instanceof TileEntityFurnace) {
                     final TileEntityFurnace tf = (TileEntityFurnace)tile;
-                    final int ct = this.getCooktime(tf);
+                    final int ct = getCooktime(tf);
                     if (ct > 0 && ct < 199) {
-                        this.setCooktime(tf, ct + 1);
+                        setCooktime(tf, ct + 1);
                     }
                 }
             }

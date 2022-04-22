@@ -39,8 +39,8 @@ public class ItemThaumonomicon extends ItemTCBase
 {
     public ItemThaumonomicon() {
         super("thaumonomicon", "normal", "cheat");
-        this.setHasSubtypes(true);
-        this.setMaxStackSize(1);
+        setHasSubtypes(true);
+        setMaxStackSize(1);
     }
     
     @Override

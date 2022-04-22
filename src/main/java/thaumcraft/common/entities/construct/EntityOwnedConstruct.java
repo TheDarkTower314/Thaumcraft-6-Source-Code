@@ -36,35 +36,35 @@ public class EntityOwnedConstruct extends EntityCreature implements IEntityOwnab
     
     public EntityOwnedConstruct(final World worldIn) {
         super(worldIn);
-        this.validSpawn = false;
+        validSpawn = false;
     }
     
     protected void entityInit() {
         super.entityInit();
-        this.getDataManager().register((DataParameter)EntityOwnedConstruct.TAMED, 0);
-        this.getDataManager().register((DataParameter)EntityOwnedConstruct.OWNER_UNIQUE_ID, Optional.absent());
+        getDataManager().register((DataParameter)EntityOwnedConstruct.TAMED, 0);
+        getDataManager().register((DataParameter)EntityOwnedConstruct.OWNER_UNIQUE_ID, Optional.absent());
     }
     
     public boolean isOwned() {
-        return ((byte)this.getDataManager().get((DataParameter)EntityOwnedConstruct.TAMED) & 0x4) != 0x0;
+        return ((byte) getDataManager().get((DataParameter)EntityOwnedConstruct.TAMED) & 0x4) != 0x0;
     }
     
     public void setOwned(final boolean tamed) {
-        final byte b0 = (byte)this.getDataManager().get((DataParameter)EntityOwnedConstruct.TAMED);
+        final byte b0 = (byte) getDataManager().get((DataParameter)EntityOwnedConstruct.TAMED);
         if (tamed) {
-            this.getDataManager().set(EntityOwnedConstruct.TAMED, (byte)(b0 | 0x4));
+            getDataManager().set(EntityOwnedConstruct.TAMED, (byte)(b0 | 0x4));
         }
         else {
-            this.getDataManager().set(EntityOwnedConstruct.TAMED, (byte)(b0 & 0xFFFFFFFB));
+            getDataManager().set(EntityOwnedConstruct.TAMED, (byte)(b0 & 0xFFFFFFFB));
         }
     }
     
     public UUID getOwnerId() {
-        return (UUID)((Optional)this.getDataManager().get((DataParameter)EntityOwnedConstruct.OWNER_UNIQUE_ID)).orNull();
+        return (UUID)((Optional) getDataManager().get((DataParameter)EntityOwnedConstruct.OWNER_UNIQUE_ID)).orNull();
     }
     
     public void setOwnerId(final UUID p_184754_1_) {
-        this.getDataManager().set(EntityOwnedConstruct.OWNER_UNIQUE_ID, Optional.fromNullable(p_184754_1_));
+        getDataManager().set(EntityOwnedConstruct.OWNER_UNIQUE_ID, Optional.fromNullable(p_184754_1_));
     }
     
     protected int decreaseAirSupply(final int air) {
@@ -97,55 +97,55 @@ public class EntityOwnedConstruct extends EntityCreature implements IEntityOwnab
     
     public void onUpdate() {
         super.onUpdate();
-        if (this.getAttackTarget() != null && this.isOnSameTeam(this.getAttackTarget())) {
-            this.setAttackTarget(null);
+        if (getAttackTarget() != null && isOnSameTeam(getAttackTarget())) {
+            setAttackTarget(null);
         }
-        if (!this.world.isRemote && !this.validSpawn) {
-            this.setDead();
+        if (!world.isRemote && !validSpawn) {
+            setDead();
         }
     }
     
     public void setValidSpawn() {
-        this.validSpawn = true;
+        validSpawn = true;
     }
     
     public void writeEntityToNBT(final NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
-        tagCompound.setBoolean("v", this.validSpawn);
-        if (this.getOwnerId() == null) {
+        tagCompound.setBoolean("v", validSpawn);
+        if (getOwnerId() == null) {
             tagCompound.setString("OwnerUUID", "");
         }
         else {
-            tagCompound.setString("OwnerUUID", this.getOwnerId().toString());
+            tagCompound.setString("OwnerUUID", getOwnerId().toString());
         }
     }
     
     public void readEntityFromNBT(final NBTTagCompound tagCompound) {
         super.readEntityFromNBT(tagCompound);
-        this.validSpawn = tagCompound.getBoolean("v");
+        validSpawn = tagCompound.getBoolean("v");
         String s = "";
         if (tagCompound.hasKey("OwnerUUID", 8)) {
             s = tagCompound.getString("OwnerUUID");
         }
         else {
             final String s2 = tagCompound.getString("Owner");
-            s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s2);
+            s = PreYggdrasilConverter.convertMobOwnerIfNeeded(getServer(), s2);
         }
         if (!s.isEmpty()) {
             try {
-                this.setOwnerId(UUID.fromString(s));
-                this.setOwned(true);
+                setOwnerId(UUID.fromString(s));
+                setOwned(true);
             }
             catch (final Throwable var4) {
-                this.setOwned(false);
+                setOwned(false);
             }
         }
     }
     
     public EntityLivingBase getOwnerEntity() {
         try {
-            final UUID uuid = this.getOwnerId();
-            return (uuid == null) ? null : this.world.getPlayerEntityByUUID(uuid);
+            final UUID uuid = getOwnerId();
+            return (uuid == null) ? null : world.getPlayerEntityByUUID(uuid);
         }
         catch (final IllegalArgumentException var2) {
             return null;
@@ -153,12 +153,12 @@ public class EntityOwnedConstruct extends EntityCreature implements IEntityOwnab
     }
     
     public boolean isOwner(final EntityLivingBase entityIn) {
-        return entityIn == this.getOwnerEntity();
+        return entityIn == getOwnerEntity();
     }
     
     public Team getTeam() {
-        if (this.isOwned()) {
-            final EntityLivingBase entitylivingbase = this.getOwnerEntity();
+        if (isOwned()) {
+            final EntityLivingBase entitylivingbase = getOwnerEntity();
             if (entitylivingbase != null) {
                 return entitylivingbase.getTeam();
             }
@@ -167,8 +167,8 @@ public class EntityOwnedConstruct extends EntityCreature implements IEntityOwnab
     }
     
     public boolean isOnSameTeam(final Entity otherEntity) {
-        if (this.isOwned()) {
-            final EntityLivingBase entitylivingbase1 = this.getOwnerEntity();
+        if (isOwned()) {
+            final EntityLivingBase entitylivingbase1 = getOwnerEntity();
             if (otherEntity == entitylivingbase1) {
                 return true;
             }
@@ -180,24 +180,24 @@ public class EntityOwnedConstruct extends EntityCreature implements IEntityOwnab
     }
     
     public void onDeath(final DamageSource cause) {
-        if (!this.world.isRemote && this.world.getGameRules().getBoolean("showDeathMessages") && this.hasCustomName() && this.getOwnerEntity() instanceof EntityPlayerMP) {
-            this.getOwnerEntity().sendMessage(this.getCombatTracker().getDeathMessage());
+        if (!world.isRemote && world.getGameRules().getBoolean("showDeathMessages") && hasCustomName() && getOwnerEntity() instanceof EntityPlayerMP) {
+            getOwnerEntity().sendMessage(getCombatTracker().getDeathMessage());
         }
         super.onDeath(cause);
     }
     
     public Entity getOwner() {
-        return this.getOwnerEntity();
+        return getOwnerEntity();
     }
     
     protected boolean processInteract(final EntityPlayer player, final EnumHand hand) {
-        if (this.isDead) {
+        if (isDead) {
             return false;
         }
         if (player.isSneaking() || (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ItemNameTag)) {
             return false;
         }
-        if (!this.world.isRemote && !this.isOwner(player)) {
+        if (!world.isRemote && !isOwner(player)) {
             player.sendStatusMessage(new TextComponentTranslation("§5§o" + I18n.translateToLocal("tc.notowned")), true);
             return true;
         }

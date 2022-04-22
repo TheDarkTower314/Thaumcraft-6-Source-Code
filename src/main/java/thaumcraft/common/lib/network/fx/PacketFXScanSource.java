@@ -49,18 +49,18 @@ public class PacketFXScanSource implements IMessage, IMessageHandler<PacketFXSca
     }
     
     public PacketFXScanSource(final BlockPos pos, final int size) {
-        this.loc = pos.toLong();
+        loc = pos.toLong();
         this.size = size;
     }
     
     public void toBytes(final ByteBuf buffer) {
-        buffer.writeLong(this.loc);
-        buffer.writeByte(this.size);
+        buffer.writeLong(loc);
+        buffer.writeByte(size);
     }
     
     public void fromBytes(final ByteBuf buffer) {
-        this.loc = buffer.readLong();
-        this.size = buffer.readByte();
+        loc = buffer.readLong();
+        size = buffer.readByte();
     }
     
     @SideOnly(Side.CLIENT)
@@ -68,7 +68,7 @@ public class PacketFXScanSource implements IMessage, IMessageHandler<PacketFXSca
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                PacketFXScanSource.this.startScan(Minecraft.getMinecraft().player.world, BlockPos.fromLong(message.loc), message.size);
+                startScan(Minecraft.getMinecraft().player.world, BlockPos.fromLong(message.loc), message.size);
             }
         });
         return null;
@@ -93,9 +93,9 @@ public class PacketFXScanSource implements IMessage, IMessageHandler<PacketFXSca
             final ArrayList<BlockPos> coll = new ArrayList<BlockPos>();
             coll.add(start);
             positions.remove(0);
-            this.calcGroup(world, start, coll, positions);
+            calcGroup(world, start, coll, positions);
             if (!coll.isEmpty()) {
-                final int c = this.getOreColor(world, start);
+                final int c = getOreColor(world, start);
                 double x = 0.0;
                 double y = 0.0;
                 double z = 0.0;
@@ -139,7 +139,7 @@ public class PacketFXScanSource implements IMessage, IMessageHandler<PacketFXSca
                         if (positions.isEmpty()) {
                             break Label_0132;
                         }
-                        this.calcGroup(world, t, coll, positions);
+                        calcGroup(world, t, coll, positions);
                     }
                 }
             }

@@ -36,15 +36,15 @@ public class BlockFluidPure extends BlockFluidClassic
     
     public BlockFluidPure() {
         super(ConfigBlocks.FluidPure.instance, BlockFluidPure.FLUID_PURE_MATERIAL);
-        this.setRegistryName("purifying_fluid");
-        this.setUnlocalizedName("purifying_fluid");
-        this.setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("purifying_fluid");
+        setUnlocalizedName("purifying_fluid");
+        setCreativeTab(ConfigItems.TABTC);
     }
     
     public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
-        entity.motionX *= 1.0f - this.getQuantaPercentage(world, pos) / 2.0f;
-        entity.motionZ *= 1.0f - this.getQuantaPercentage(world, pos) / 2.0f;
-        if (!world.isRemote && this.isSourceBlock(world, pos) && entity instanceof EntityPlayer && !((EntityPlayer)entity).isPotionActive(PotionWarpWard.instance)) {
+        entity.motionX *= 1.0f - getQuantaPercentage(world, pos) / 2.0f;
+        entity.motionZ *= 1.0f - getQuantaPercentage(world, pos) / 2.0f;
+        if (!world.isRemote && isSourceBlock(world, pos) && entity instanceof EntityPlayer && !((EntityPlayer)entity).isPotionActive(PotionWarpWard.instance)) {
             final int warp = ThaumcraftCapabilities.getWarp((EntityPlayer)entity).get(IPlayerWarp.EnumWarpType.PERMANENT);
             int div = 1;
             if (warp > 0) {
@@ -60,7 +60,7 @@ public class BlockFluidPure extends BlockFluidClassic
     
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random rand) {
-        final int meta = this.getMetaFromState(state);
+        final int meta = getMetaFromState(state);
         if (rand.nextInt(10) == 0) {
             final FXGeneric fb = new FXGeneric(world, pos.getX() + rand.nextFloat(), pos.getY() + 0.125f * (8 - meta), pos.getZ() + rand.nextFloat(), 0.0, 0.0, 0.0);
             fb.setMaxAge(10 + world.rand.nextInt(10));

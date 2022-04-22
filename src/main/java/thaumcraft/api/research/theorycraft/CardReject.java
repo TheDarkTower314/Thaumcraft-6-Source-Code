@@ -48,7 +48,7 @@ public class CardReject extends TheorycraftCard {
 				s.add(c);
 		}
 		if (s.size()<1) return false;
-		Random r = new Random(this.getSeed());
+		Random r = new Random(getSeed());
 		cat1 = s.get(r.nextInt(s.size()));
 		return cat1!=null;
 	}

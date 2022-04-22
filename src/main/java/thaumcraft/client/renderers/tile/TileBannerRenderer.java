@@ -26,16 +26,16 @@ public class TileBannerRenderer extends TileEntitySpecialRenderer
     private static final ResourceLocation TEX_BLANK;
     
     public TileBannerRenderer() {
-        this.model = new ModelBanner();
+        model = new ModelBanner();
     }
     
     public void renderTileEntityAt(final TileBanner banner, final double par2, final double par4, final double par6, final float par8) {
         GL11.glPushMatrix();
         if (banner.getAspect() == null && banner.getColor() == -1) {
-            this.bindTexture(TileBannerRenderer.TEX_CULT);
+            bindTexture(TileBannerRenderer.TEX_CULT);
         }
         else {
-            this.bindTexture(TileBannerRenderer.TEX_BLANK);
+            bindTexture(TileBannerRenderer.TEX_BLANK);
         }
         GL11.glTranslatef((float)par2 + 0.5f, (float)par4 + 1.5f, (float)par6 + 0.5f);
         GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
@@ -46,22 +46,22 @@ public class TileBannerRenderer extends TileEntitySpecialRenderer
             GL11.glRotatef(f2, 0.0f, 1.0f, 0.0f);
         }
         if (!banner.getWall()) {
-            this.model.renderPole();
+            model.renderPole();
         }
         else {
             GL11.glTranslated(0.0, 1.0, -0.4125);
         }
-        this.model.renderBeam();
+        model.renderBeam();
         if (banner.getColor() != -1) {
             final Color c = new Color(banner.getColor());
             GL11.glColor4f(c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f, 1.0f);
         }
-        this.model.renderTabs();
+        model.renderTabs();
         final EntityPlayer p = Minecraft.getMinecraft().player;
         final float f3 = banner.getPos().getX() * 7 + banner.getPos().getY() * 9 + banner.getPos().getZ() * 13 + (float)p.ticksExisted + par8;
         final float rx = 0.02f - MathHelper.sin(f3 / 11.0f) * 0.02f;
-        this.model.Banner.rotateAngleX = rx;
-        this.model.renderBanner();
+        model.Banner.rotateAngleX = rx;
+        model.renderBanner();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         if (banner.getAspect() != null) {
             GL11.glPushMatrix();
@@ -77,7 +77,7 @@ public class TileBannerRenderer extends TileEntitySpecialRenderer
     
     public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        this.renderTileEntityAt((TileBanner)te, x, y, z, partialTicks);
+        renderTileEntityAt((TileBanner)te, x, y, z, partialTicks);
     }
     
     static {

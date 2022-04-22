@@ -27,10 +27,10 @@ public class BlockSmelterVent extends BlockTC implements IBlockFacingHorizontal
 {
     public BlockSmelterVent() {
         super(Material.IRON, "smelter_vent");
-        this.setSoundType(SoundType.METAL);
-        this.setDefaultState(this.blockState.getBaseState().withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)EnumFacing.NORTH));
-        this.setHardness(1.0f);
-        this.setResistance(10.0f);
+        setSoundType(SoundType.METAL);
+        setDefaultState(blockState.getBaseState().withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)EnumFacing.NORTH));
+        setHardness(1.0f);
+        setResistance(10.0f);
     }
     
     public boolean rotateBlock(final World world, final BlockPos pos, final EnumFacing axis) {
@@ -58,7 +58,7 @@ public class BlockSmelterVent extends BlockTC implements IBlockFacingHorizontal
     }
     
     public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         if (!facing.getAxis().isHorizontal()) {
             facing = EnumFacing.NORTH;
         }
@@ -67,7 +67,7 @@ public class BlockSmelterVent extends BlockTC implements IBlockFacingHorizontal
     }
     
     public IBlockState getStateFromMeta(final int meta) {
-        IBlockState bs = this.getDefaultState();
+        IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)EnumFacing.getHorizontal(BlockStateUtils.getFacing(meta).getHorizontalIndex()));
         return bs;
     }

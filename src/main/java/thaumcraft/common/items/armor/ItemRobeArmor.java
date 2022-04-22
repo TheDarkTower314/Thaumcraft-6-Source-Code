@@ -35,10 +35,10 @@ public class ItemRobeArmor extends ItemArmor implements IVisDiscountGear, IThaum
 {
     public ItemRobeArmor(final String name, final ItemArmor.ArmorMaterial enumarmormaterial, final int j, final EntityEquipmentSlot k) {
         super(enumarmormaterial, j, k);
-        this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        setRegistryName(name);
+        setUnlocalizedName(name);
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
-        this.setCreativeTab(ConfigItems.TABTC);
+        setCreativeTab(ConfigItems.TABTC);
     }
     
     public Item getItem() {
@@ -117,7 +117,7 @@ public class ItemRobeArmor extends ItemArmor implements IVisDiscountGear, IThaum
     }
     
     public int getVisDiscount(final ItemStack stack, final EntityPlayer player) {
-        return (this.armorType == EntityEquipmentSlot.FEET) ? 2 : 3;
+        return (armorType == EntityEquipmentSlot.FEET) ? 2 : 3;
     }
     
     public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
@@ -127,7 +127,7 @@ public class ItemRobeArmor extends ItemArmor implements IVisDiscountGear, IThaum
             final BlockCauldron cauldron = Blocks.CAULDRON;
             final int i = (int)blockState.getValue((IProperty)BlockCauldron.LEVEL);
             if (!world.isRemote && i > 0) {
-                this.removeColor(player.getHeldItem(hand));
+                removeColor(player.getHeldItem(hand));
                 Blocks.CAULDRON.setWaterLevel(world, pos, bs, i - 1);
                 return EnumActionResult.SUCCESS;
             }

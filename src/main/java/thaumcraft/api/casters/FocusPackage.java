@@ -35,9 +35,9 @@ public class FocusPackage implements IFocusElement {
 
 	public FocusPackage(EntityLivingBase caster) {
 		super();
-		this.world = caster.world;
+		world = caster.world;
 		this.caster = caster;
-		this.casterUUID = caster.getUniqueID();
+		casterUUID = caster.getUniqueID();
 	}	
 		
 	@Override
@@ -63,7 +63,7 @@ public class FocusPackage implements IFocusElement {
 	}
 
 	public void setUniqueID(UUID id) {
-		this.uid = id;
+		uid = id;
 	}
 	
 	public int getExecutionIndex() {
@@ -71,7 +71,7 @@ public class FocusPackage implements IFocusElement {
 	}
 
 	public void setExecutionIndex(int idx) {
-		this.index = idx;
+		index = idx;
 	}
 	
 	public void addNode(IFocusElement e) {
@@ -160,7 +160,7 @@ public class FocusPackage implements IFocusElement {
 								((FocusModSplit)fn).deserialize(nodenbt.getCompoundTag("packages"));		
 							}
 						}
-						this.addNode(fn);
+						addNode(fn);
 					}
 				}
 			}
@@ -211,12 +211,12 @@ public class FocusPackage implements IFocusElement {
 	}
 
 	public void multiplyPower(float pow) {
-		this.power *= pow;
+		power *= pow;
 	}
 
 	public FocusPackage copy(EntityLivingBase caster) {
 		FocusPackage fp = new FocusPackage(caster);
-		fp.deserialize(this.serialize());
+		fp.deserialize(serialize());
 		return fp;
 	}
 	
@@ -230,7 +230,7 @@ public class FocusPackage implements IFocusElement {
 
 	public int getSortingHelper() {
 		String s="";
-		for (IFocusElement k:this.nodes) {
+		for (IFocusElement k: nodes) {
 			s+=k.getKey();
 			if (k instanceof FocusNode && ((FocusNode)k).getSettingList()!=null)
 				for (String ns : ((FocusNode)k).getSettingList()) {

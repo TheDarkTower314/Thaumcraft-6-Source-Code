@@ -14,24 +14,24 @@ public class Part {
 	private boolean applyPlayerFacing;
 
 	public Part(Object source, Object target, boolean opp, int priority) {
-		this.setSource(source);
-		this.setTarget(target);
-		this.setOpp(opp);
-		this.setPriority(priority);
+		setSource(source);
+		setTarget(target);
+		setOpp(opp);
+		setPriority(priority);
 	}
 	
 	public Part(Object source, Object target, boolean opp) {
-		this.setSource(source);
-		this.setTarget(target);
-		this.setOpp(opp);
-		this.setPriority(50);
+		setSource(source);
+		setTarget(target);
+		setOpp(opp);
+		setPriority(50);
 	}
 	
 	public Part(Object source, Object target) {
-		this.setSource(source);
-		this.setTarget(target);
-		this.setOpp(false);
-		this.setPriority(50);
+		setSource(source);
+		setTarget(target);
+		setOpp(false);
+		setPriority(50);
 	}
 
 	public Object getSource() {
@@ -71,7 +71,7 @@ public class Part {
 	}
 
 	public Part setApplyPlayerFacing(boolean applyFacing) {
-		this.applyPlayerFacing = applyFacing;
+		applyPlayerFacing = applyFacing;
 		return this;
 	}
 }

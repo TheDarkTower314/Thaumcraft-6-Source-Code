@@ -19,22 +19,22 @@ public class FlightMoveHelper extends EntityMoveHelper
     }
     
     public void onUpdateMoveHelper() {
-        if (this.action == EntityMoveHelper.Action.MOVE_TO && !this.entity.getNavigator().noPath()) {
-            this.action = EntityMoveHelper.Action.WAIT;
-            final double d0 = this.posX - this.entity.posX;
-            double d2 = this.posY - this.entity.posY;
-            final double d3 = this.posZ - this.entity.posZ;
+        if (action == EntityMoveHelper.Action.MOVE_TO && !entity.getNavigator().noPath()) {
+            action = EntityMoveHelper.Action.WAIT;
+            final double d0 = posX - entity.posX;
+            double d2 = posY - entity.posY;
+            final double d3 = posZ - entity.posZ;
             double d4 = d0 * d0 + d2 * d2 + d3 * d3;
             d4 = MathHelper.sqrt(d4);
             d2 /= d4;
             final float f = (float)(Math.atan2(d3, d0) * 180.0 / 3.141592653589793) - 90.0f;
-            this.entity.rotationYaw = this.limitAngle(this.entity.rotationYaw, f, 30.0f);
-            this.entity.renderYawOffset = this.entity.rotationYaw;
-            final float f2 = (float)(this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
-            this.entity.setAIMoveSpeed(this.entity.getAIMoveSpeed() + (f2 - this.entity.getAIMoveSpeed()) * 0.125f);
-            double d5 = Math.sin((this.entity.ticksExisted + this.entity.getEntityId()) * 0.5) * 0.05;
-            final double d6 = Math.cos(this.entity.rotationYaw * 3.1415927f / 180.0f);
-            final double d7 = Math.sin(this.entity.rotationYaw * 3.1415927f / 180.0f);
+            entity.rotationYaw = limitAngle(entity.rotationYaw, f, 30.0f);
+            entity.renderYawOffset = entity.rotationYaw;
+            final float f2 = (float)(speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+            entity.setAIMoveSpeed(entity.getAIMoveSpeed() + (f2 - entity.getAIMoveSpeed()) * 0.125f);
+            double d5 = Math.sin((entity.ticksExisted + entity.getEntityId()) * 0.5) * 0.05;
+            final double d6 = Math.cos(entity.rotationYaw * 3.1415927f / 180.0f);
+            final double d7 = Math.sin(entity.rotationYaw * 3.1415927f / 180.0f);
             final EntityLiving entity = this.entity;
             entity.motionX += d5 * d6;
             final EntityLiving entity2 = this.entity;
@@ -59,7 +59,7 @@ public class FlightMoveHelper extends EntityMoveHelper
             this.entity.getLookHelper().setLookPosition(d11 + (d8 - d11) * 0.125, d12 + (d9 - d12) * 0.125, d13 + (d10 - d13) * 0.125, 10.0f, 40.0f);
         }
         else {
-            this.entity.setAIMoveSpeed(0.0f);
+            entity.setAIMoveSpeed(0.0f);
         }
     }
 }

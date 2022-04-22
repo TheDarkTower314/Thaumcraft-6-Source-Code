@@ -27,14 +27,14 @@ public class BlockCandle extends BlockTC implements IInfusionStabiliserExt
     
     public BlockCandle(final String name, final EnumDyeColor dye) {
         super(Material.CIRCUITS, name);
-        this.setHardness(0.1f);
-        this.setSoundType(SoundType.CLOTH);
-        this.setLightLevel(0.9375f);
+        setHardness(0.1f);
+        setSoundType(SoundType.CLOTH);
+        setLightLevel(0.9375f);
         this.dye = dye;
     }
     
     public MapColor getMapColor(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
-        return MapColor.getBlockColor(this.dye);
+        return MapColor.getBlockColor(dye);
     }
     
     public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
@@ -46,14 +46,14 @@ public class BlockCandle extends BlockTC implements IInfusionStabiliserExt
     }
     
     public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
-        if (!this.canPlaceBlockAt(worldIn, pos.down())) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+        if (!canPlaceBlockAt(worldIn, pos.down())) {
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
     
     public boolean canPlaceBlockOnSide(final World par1World, final BlockPos pos, final EnumFacing par5) {
-        return this.canPlaceBlockAt(par1World, pos.down());
+        return canPlaceBlockAt(par1World, pos.down());
     }
     
     public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {

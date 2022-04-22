@@ -17,7 +17,7 @@ public class TileNitor extends TileEntity implements ITickable
     int count;
     
     public TileNitor() {
-        this.count = 0;
+        count = 0;
     }
     
     public boolean shouldRefresh(final World world, final BlockPos pos, final IBlockState oldState, final IBlockState newState) {
@@ -25,11 +25,11 @@ public class TileNitor extends TileEntity implements ITickable
     }
     
     public void update() {
-        if (this.world.isRemote) {
-            final IBlockState state = this.world.getBlockState(this.getPos());
-            FXDispatcher.INSTANCE.drawNitorFlames(this.pos.getX() + 0.5f + this.world.rand.nextGaussian() * 0.025, this.pos.getY() + 0.45f + this.world.rand.nextGaussian() * 0.025, this.pos.getZ() + 0.5f + this.world.rand.nextGaussian() * 0.025, this.world.rand.nextGaussian() * 0.0025, this.world.rand.nextFloat() * 0.06, this.world.rand.nextGaussian() * 0.0025, state.getBlock().getMapColor(state, this.world, this.getPos()).colorValue, 0);
-            if (this.count++ % 10 == 0) {
-                FXDispatcher.INSTANCE.drawNitorCore(this.pos.getX() + 0.5f, this.pos.getY() + 0.49f, this.pos.getZ() + 0.5f, 0.0, 0.0, 0.0);
+        if (world.isRemote) {
+            final IBlockState state = world.getBlockState(getPos());
+            FXDispatcher.INSTANCE.drawNitorFlames(pos.getX() + 0.5f + world.rand.nextGaussian() * 0.025, pos.getY() + 0.45f + world.rand.nextGaussian() * 0.025, pos.getZ() + 0.5f + world.rand.nextGaussian() * 0.025, world.rand.nextGaussian() * 0.0025, world.rand.nextFloat() * 0.06, world.rand.nextGaussian() * 0.0025, state.getBlock().getMapColor(state, world, getPos()).colorValue, 0);
+            if (count++ % 10 == 0) {
+                FXDispatcher.INSTANCE.drawNitorCore(pos.getX() + 0.5f, pos.getY() + 0.49f, pos.getZ() + 0.5f, 0.0, 0.0, 0.0);
             }
         }
     }

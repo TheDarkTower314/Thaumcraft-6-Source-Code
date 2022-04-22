@@ -29,7 +29,7 @@ public class RenderArcaneBore extends RenderLiving
     
     public RenderArcaneBore(final RenderManager rm) {
         super(rm, new ModelArcaneBore(), 0.5f);
-        this.beam = new ResourceLocation("thaumcraft", "textures/misc/beam1.png");
+        beam = new ResourceLocation("thaumcraft", "textures/misc/beam1.png");
     }
     
     protected ResourceLocation getEntityTexture(final Entity entity) {
@@ -75,7 +75,7 @@ public class RenderArcaneBore extends RenderLiving
             final float rot = bore.world.provider.getWorldTime() % 72L * 5L + 5.0f * partialTicks;
             final float size = 1.0f;
             final float op = 0.4f;
-            Minecraft.getMinecraft().renderEngine.bindTexture(this.beam);
+            Minecraft.getMinecraft().renderEngine.bindTexture(beam);
             GL11.glTexParameterf(3553, 10242, 10497.0f);
             GL11.glTexParameterf(3553, 10243, 10497.0f);
             GL11.glDisable(2884);

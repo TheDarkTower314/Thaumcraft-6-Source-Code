@@ -24,9 +24,9 @@ public class ItemVoidHoe extends ItemHoe implements IWarpingGear, IThaumcraftIte
 {
     public ItemVoidHoe(final Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
-        this.setCreativeTab(ConfigItems.TABTC);
-        this.setRegistryName("void_hoe");
-        this.setUnlocalizedName("void_hoe");
+        setCreativeTab(ConfigItems.TABTC);
+        setRegistryName("void_hoe");
+        setUnlocalizedName("void_hoe");
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     
