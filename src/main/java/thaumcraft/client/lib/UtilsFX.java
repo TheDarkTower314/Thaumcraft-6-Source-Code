@@ -429,10 +429,10 @@ public class UtilsFX
                 tl3 = tl3.replaceAll("@@", "");
                 if (subTipColor != -99) {
                     if (i == 0) {
-                        tl3 = "�" + Integer.toHexString(subTipColor) + tl3;
+                        tl3 = "§" + Integer.toHexString(subTipColor) + tl3;
                     }
                     else {
-                        tl3 = "�7" + tl3;
+                        tl3 = "§7" + tl3;
                     }
                 }
                 GL11.glTranslated(0.0, 0.0, 301.0);
@@ -740,7 +740,7 @@ public class UtilsFX
         nodeTexture = new ResourceLocation("thaumcraft", "textures/misc/auranodes.png");
         VERTEXFORMAT_POS_TEX_CO_LM_NO = new VertexFormat().addElement(DefaultVertexFormats.POSITION_3F).addElement(DefaultVertexFormats.TEX_2F).addElement(DefaultVertexFormats.COLOR_4UB).addElement(DefaultVertexFormats.TEX_2S).addElement(DefaultVertexFormats.NORMAL_3B).addElement(DefaultVertexFormats.PADDING_1B);
         colorNames = new String[] { "White", "Orange", "Magenta", "Light Blue", "Yellow", "Lime", "Pink", "Gray", "Light Gray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black" };
-        colorCodes = new String[] { "�f", "�6", "�d", "�9", "�e", "�a", "�d", "�8", "�7", "�b", "�5", "�9", "�4", "�2", "�c", "�8" };
+        colorCodes = new String[] { "§f", "§6", "§d", "§9", "§e", "§a", "§d", "§8", "§7", "§b", "§5", "§9", "§4", "§2", "§c", "§8" };
         colors = new int[] { 15790320, 15435844, 12801229, 6719955, 14602026, 4312372, 14188952, 4408131, 10526880, 2651799, 8073150, 2437522, 5320730, 3887386, 11743532, 1973019 };
         UtilsFX.sysPartialTicks = 0.0f;
         UtilsFX.myFormatter = new DecimalFormat("#######.##");

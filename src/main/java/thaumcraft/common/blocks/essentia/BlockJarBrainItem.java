@@ -45,7 +45,7 @@ public class BlockJarBrainItem extends ItemBlock
     public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("xp")) {
             final int tf = stack.getTagCompound().getInteger("xp");
-            tooltip.add("�a" + tf + " xp");
+            tooltip.add("§a" + tf + " xp");
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }

@@ -132,7 +132,7 @@ public class BlockJarItem extends ItemBlock implements IEssentiaContainerItem
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("AspectFilter")) {
             final String tf = stack.getTagCompound().getString("AspectFilter");
             final Aspect tag = Aspect.getAspect(tf);
-            tooltip.add("�5" + tag.getName());
+            tooltip.add("§5" + tag.getName());
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }

@@ -72,17 +72,17 @@ public class ItemGolemPlacer extends ItemTCBase implements ISealDisplayer
             final IGolemProperties props = GolemProperties.fromLong(stack.getTagCompound().getLong("props"));
             if (props.hasTrait(EnumGolemTrait.SMART)) {
                 if (props.getRank() >= 10) {
-                    tooltip.add("�6" + I18n.translateToLocal("golem.rank") + " " + props.getRank());
+                    tooltip.add("§6" + I18n.translateToLocal("golem.rank") + " " + props.getRank());
                 }
                 else {
                     final int rx = stack.getTagCompound().getInteger("xp");
                     final int xn = (props.getRank() + 1) * (props.getRank() + 1) * 1000;
-                    tooltip.add("�6" + I18n.translateToLocal("golem.rank") + " " + props.getRank() + " �2(" + rx + "/" + xn + ")");
+                    tooltip.add("§6" + I18n.translateToLocal("golem.rank") + " " + props.getRank() + " §2(" + rx + "/" + xn + ")");
                 }
             }
-            tooltip.add("�a" + props.getMaterial().getLocalizedName());
+            tooltip.add("§a" + props.getMaterial().getLocalizedName());
             for (final EnumGolemTrait tag : props.getTraits()) {
-                tooltip.add("�9-" + tag.getLocalizedName());
+                tooltip.add("§9-" + tag.getLocalizedName());
             }
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);

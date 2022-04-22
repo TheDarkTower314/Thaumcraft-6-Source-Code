@@ -198,7 +198,7 @@ public class EntityOwnedConstruct extends EntityCreature implements IEntityOwnab
             return false;
         }
         if (!this.world.isRemote && !this.isOwner(player)) {
-            player.sendStatusMessage(new TextComponentTranslation("�5�o" + I18n.translateToLocal("tc.notowned"), new Object[0]), true);
+            player.sendStatusMessage(new TextComponentTranslation("§5§o" + I18n.translateToLocal("tc.notowned"), new Object[0]), true);
             return true;
         }
         return super.processInteract(player, hand);

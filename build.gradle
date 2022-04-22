@@ -17,7 +17,10 @@ group = 'griglog.thaumcraft'
 archivesBaseName = 'thaumcraft'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
-
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 sourceSets { main { output.resourcesDir = output.classesDir } } //essential for Idea to load resources
 
 minecraft {

@@ -358,10 +358,10 @@ public class PlayerEvents
                     pe.addCurativeItem(new ItemStack(Items.ROTTEN_FLESH));
                     event.getEntityLiving().addPotionEffect(pe);
                 }
-                event.getEntityLiving().sendMessage(new TextComponentString("�2�o" + I18n.translateToLocal("warp.text.hunger.2")));
+                event.getEntityLiving().sendMessage(new TextComponentString("§2§o" + I18n.translateToLocal("warp.text.hunger.2")));
             }
             else if (event.getItem().getItem() instanceof ItemFood) {
-                event.getEntityLiving().sendMessage(new TextComponentString("�4�o" + I18n.translateToLocal("warp.text.hunger.1")));
+                event.getEntityLiving().sendMessage(new TextComponentString("§4§o" + I18n.translateToLocal("warp.text.hunger.1")));
             }
         }
     }

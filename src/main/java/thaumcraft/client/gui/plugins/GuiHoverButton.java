@@ -113,7 +113,7 @@ public class GuiHoverButton extends GuiButton
         int m = 8;
         if (this.description != null) {
             m = 0;
-            text.add("�o�9" + this.description);
+            text.add("§o§9" + this.description);
         }
         UtilsFX.drawCustomTooltip(this.screen, fontrenderer, text, xx + 4, yy + m, -99);
         this.zLevel -= 90.0f;

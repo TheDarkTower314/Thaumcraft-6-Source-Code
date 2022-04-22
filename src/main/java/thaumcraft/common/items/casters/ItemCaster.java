@@ -246,7 +246,7 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
             if (focus != null && !focus.isEmpty()) {
                 final float amt = ((ItemFocus)focus.getItem()).getVisCost(focus);
                 if (amt > 0.0f) {
-                    text = "�r" + this.myFormatter.format(amt) + " " + I18n.translateToLocal("item.Focus.cost1");
+                    text = "§r" + this.myFormatter.format(amt) + " " + I18n.translateToLocal("item.Focus.cost1");
                 }
             }
             tooltip.add(TextFormatting.ITALIC + "" + TextFormatting.AQUA + I18n.translateToLocal("tc.vis.cost") + " " + text);

@@ -82,7 +82,7 @@ public class WarpEvents
                     }
                 }
                 else if (eff <= 12) {
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.11")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.11")), true);
                 }
                 else if (eff <= 16) {
                     final PotionEffect pe = new PotionEffect(PotionVisExhaust.instance, 5000, Math.min(3, warp / 15), true, true);
@@ -93,7 +93,7 @@ public class WarpEvents
                     catch (final Exception e) {
                         e.printStackTrace();
                     }
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.1")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.1")), true);
                 }
                 else if (eff <= 20) {
                     final PotionEffect pe = new PotionEffect(PotionThaumarhia.instance, Math.min(32000, 10 * warp), 0, true, true);
@@ -104,7 +104,7 @@ public class WarpEvents
                     catch (final Exception e) {
                         e.printStackTrace();
                     }
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.15")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.15")), true);
                 }
                 else if (eff <= 24) {
                     final PotionEffect pe = new PotionEffect(PotionUnnaturalHunger.instance, 5000, Math.min(3, warp / 15), true, true);
@@ -117,10 +117,10 @@ public class WarpEvents
                     catch (final Exception e) {
                         e.printStackTrace();
                     }
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.2")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.2")), true);
                 }
                 else if (eff <= 28) {
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.12")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.12")), true);
                 }
                 else if (eff <= 32) {
                     spawnMist(player, warp, 1);
@@ -142,7 +142,7 @@ public class WarpEvents
                     catch (final Exception e) {
                         e.printStackTrace();
                     }
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.5")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.5")), true);
                 }
                 else if (eff <= 44) {
                     try {
@@ -151,7 +151,7 @@ public class WarpEvents
                     catch (final Exception e2) {
                         e2.printStackTrace();
                     }
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.9")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.9")), true);
                 }
                 else if (eff <= 48) {
                     final PotionEffect pe = new PotionEffect(PotionInfectiousVisExhaust.instance, 6000, Math.min(3, warp / 15));
@@ -162,11 +162,11 @@ public class WarpEvents
                     catch (final Exception e) {
                         e.printStackTrace();
                     }
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.1")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.1")), true);
                 }
                 else if (eff <= 52) {
                     player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, Math.min(40 * warp, 6000), 0, true, true));
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.10")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.10")), true);
                 }
                 else if (eff <= 56) {
                     final PotionEffect pe = new PotionEffect(PotionDeathGaze.instance, 6000, Math.min(3, warp / 15), true, true);
@@ -177,13 +177,13 @@ public class WarpEvents
                     catch (final Exception e) {
                         e.printStackTrace();
                     }
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.4")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.4")), true);
                 }
                 else if (eff <= 60) {
                     suddenlySpiders(player, warp, false);
                 }
                 else if (eff <= 64) {
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.13")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.13")), true);
                 }
                 else if (eff <= 68) {
                     spawnMist(player, warp, warp / 30);
@@ -200,7 +200,7 @@ public class WarpEvents
                     if (nw > 0) {
                         ThaumcraftApi.internalMethods.addWarpToPlayer(player, -1, IPlayerWarp.EnumWarpType.NORMAL);
                     }
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.14")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.14")), true);
                 }
                 else if (eff <= 80) {
                     final PotionEffect pe = new PotionEffect(PotionUnnaturalHunger.instance, 6000, Math.min(3, warp / 15), true, true);
@@ -213,7 +213,7 @@ public class WarpEvents
                     catch (final Exception e) {
                         e.printStackTrace();
                     }
-                    player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.2")), true);
+                    player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.2")), true);
                 }
                 else if (eff <= 88) {
                     spawnPortal(player);
@@ -226,7 +226,7 @@ public class WarpEvents
                 }
             }
             if (actualwarp > 10 && !ThaumcraftCapabilities.knowsResearch(player, "BATHSALTS") && !ThaumcraftCapabilities.knowsResearch(player, "!BATHSALTS")) {
-                player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.8")), true);
+                player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.8")), true);
                 ThaumcraftApi.internalMethods.completeResearch(player, "!BATHSALTS");
             }
             if (actualwarp > 25 && !ThaumcraftCapabilities.knowsResearch(player, "ELDRITCHMINOR")) {
@@ -246,7 +246,7 @@ public class WarpEvents
                 spawnGuardian(player);
             }
         }
-        player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.6")), true);
+        player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.6")), true);
     }
     
     private static void spawnPortal(final EntityPlayer player) {
@@ -262,7 +262,7 @@ public class WarpEvents
             if (player.world.getBlockState(new BlockPos(i2, j2 - 1, k2)).isOpaqueCube() && player.world.checkNoEntityCollision(eg.getEntityBoundingBox()) && player.world.getCollisionBoxes(eg, eg.getEntityBoundingBox()).isEmpty() && !player.world.containsAnyLiquid(eg.getEntityBoundingBox())) {
                 eg.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(eg)), null);
                 player.world.spawnEntity(eg);
-                player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.16")), true);
+                player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.16")), true);
                 break;
             }
         }
@@ -316,7 +316,7 @@ public class WarpEvents
                 player.world.spawnEntity(spider);
             }
         }
-        player.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("warp.text.7")), true);
+        player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.7")), true);
     }
     
     public static void checkDeathGaze(final EntityPlayer player) {

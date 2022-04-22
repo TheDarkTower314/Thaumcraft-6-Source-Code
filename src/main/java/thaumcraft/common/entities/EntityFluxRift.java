@@ -318,7 +318,7 @@ public class EntityFluxRift extends Entity
                     for (final EntityPlayer target : targets2) {
                         final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(target);
                         if (!knowledge.isResearchKnown("f_toomuchflux")) {
-                            target.sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("tc.fluxevent.3")), true);
+                            target.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("tc.fluxevent.3")), true);
                             ThaumcraftApi.internalMethods.completeResearch(target, "f_toomuchflux");
                         }
                     }
@@ -368,7 +368,7 @@ public class EntityFluxRift extends Entity
                     for (final EntityLivingBase target : targets2) {
                         didit = true;
                         if (target instanceof EntityPlayer) {
-                            ((EntityPlayer)target).sendStatusMessage(new TextComponentString("�5�o" + I18n.translateToLocal("tc.fluxevent.2")), true);
+                            ((EntityPlayer)target).sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("tc.fluxevent.2")), true);
                         }
                         final PotionEffect pe = new PotionEffect(PotionInfectiousVisExhaust.instance, 3000, 2);
                         pe.getCurativeItems().clear();
