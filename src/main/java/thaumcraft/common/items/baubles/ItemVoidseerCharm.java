@@ -25,7 +25,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemVoidseerCharm extends ItemTCBase implements IBauble, IVisDiscountGear, IWarpingGear
 {
     public ItemVoidseerCharm() {
-        super("voidseer_charm", new String[0]);
+        super("voidseer_charm");
         this.maxStackSize = 1;
         this.canRepair = false;
         this.setMaxDamage(0);

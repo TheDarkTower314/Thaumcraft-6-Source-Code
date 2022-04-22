@@ -155,7 +155,7 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         this.tasks.addTask(9, new EntityAIWatchClosest2(this, EntityPlayer.class, 3.0f, 1.0f));
         this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0f));
         this.tasks.addTask(11, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(2, new AINearestAttackableTargetPech(this, EntityPlayer.class, true));
     }
     

@@ -28,7 +28,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemMagicDust extends ItemTCBase
 {
     public ItemMagicDust() {
-        super("salis_mundus", new String[0]);
+        super("salis_mundus");
     }
     
     public EnumRarity getRarity(final ItemStack itemstack) {

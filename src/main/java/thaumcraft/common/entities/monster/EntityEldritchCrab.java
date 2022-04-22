@@ -65,7 +65,7 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
         this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0, false));
         this.tasks.addTask(7, new EntityAIWander(this, 0.8));
         this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCultist.class, true));
     }

@@ -79,7 +79,7 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
         this.tasks.addTask(7, new EntityAIWander(this, 0.8));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
         this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
     
@@ -162,7 +162,7 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
         if (this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7 && this.rand.nextInt(5) == 0) {
             final IBlockState bs = this.world.getBlockState(this.getPosition());
             if (bs.getMaterial() != Material.AIR) {
-                this.world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX + (this.rand.nextFloat() - 0.5) * this.width, this.getEntityBoundingBox().minY + 0.1, this.posZ + (this.rand.nextFloat() - 0.5) * this.width, 4.0 * (this.rand.nextFloat() - 0.5), 0.5, (this.rand.nextFloat() - 0.5) * 4.0, new int[] { Block.getStateId(bs) });
+                this.world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX + (this.rand.nextFloat() - 0.5) * this.width, this.getEntityBoundingBox().minY + 0.1, this.posZ + (this.rand.nextFloat() - 0.5) * this.width, 4.0 * (this.rand.nextFloat() - 0.5), 0.5, (this.rand.nextFloat() - 0.5) * 4.0, Block.getStateId(bs));
             }
             if (!this.world.isRemote && bs.getBlock() instanceof BlockLoot) {
                 this.world.destroyBlock(this.getPosition(), true);

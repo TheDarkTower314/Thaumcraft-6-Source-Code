@@ -127,7 +127,7 @@ public class BlockLeavesTC extends BlockLeaves
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {BlockLeavesTC.CHECK_DECAY, BlockLeavesTC.DECAYABLE});
+        return new BlockStateContainer(this, BlockLeavesTC.CHECK_DECAY, BlockLeavesTC.DECAYABLE);
     }
     
     public List<ItemStack> onSheared(final ItemStack item, final IBlockAccess world, final BlockPos pos, final int fortune) {

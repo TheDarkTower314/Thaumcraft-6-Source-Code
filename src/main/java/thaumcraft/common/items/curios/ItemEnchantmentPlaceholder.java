@@ -20,7 +20,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemEnchantmentPlaceholder extends ItemTCBase
 {
     public ItemEnchantmentPlaceholder() {
-        super("enchanted_placeholder", new String[0]);
+        super("enchanted_placeholder");
         this.setMaxStackSize(1);
     }
     

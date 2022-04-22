@@ -11,7 +11,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemSanityChecker extends ItemTCBase
 {
     public ItemSanityChecker() {
-        super("sanity_checker", new String[0]);
+        super("sanity_checker");
         this.setMaxStackSize(1);
     }
     

@@ -33,7 +33,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemPechWand extends ItemTCBase
 {
     public ItemPechWand() {
-        super("pech_wand", new String[0]);
+        super("pech_wand");
     }
     
     public EnumRarity getRarity(final ItemStack itemstack) {

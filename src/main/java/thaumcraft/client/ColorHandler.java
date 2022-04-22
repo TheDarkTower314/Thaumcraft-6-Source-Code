@@ -68,7 +68,7 @@ public class ColorHandler
         }
         blockColors.registerBlockColorHandler(basicColourHandler, basicBlocks);
         final IBlockColor grassColourHandler = (state, blockAccess, pos, tintIndex) -> (blockAccess != null && pos != null) ? BiomeColorHelper.getGrassColorAtPos(blockAccess, pos) : ColorizerGrass.getGrassColor(0.5, 1.0);
-        blockColors.registerBlockColorHandler(grassColourHandler, new Block[] { BlocksTC.grassAmbient });
+        blockColors.registerBlockColorHandler(grassColourHandler, BlocksTC.grassAmbient);
         final IBlockColor leafColourHandler = (state, blockAccess, pos, tintIndex) -> {
             if (state.getBlock() == BlocksTC.leafSilverwood) {
                 return 16777215;
@@ -78,14 +78,14 @@ public class ColorHandler
             }
             return ColorizerFoliage.getFoliageColorBasic();
         };
-        blockColors.registerBlockColorHandler(leafColourHandler, new Block[] { BlocksTC.leafGreatwood, BlocksTC.leafSilverwood });
+        blockColors.registerBlockColorHandler(leafColourHandler, BlocksTC.leafGreatwood, BlocksTC.leafSilverwood);
         final IBlockColor crystalColourHandler = (state, blockAccess, pos, tintIndex) -> {
             if (state.getBlock() instanceof BlockCrystal) {
                 return ((BlockCrystal)state.getBlock()).aspect.getColor();
             }
             return 16777215;
         };
-        blockColors.registerBlockColorHandler(crystalColourHandler, new Block[] { BlocksTC.crystalAir, BlocksTC.crystalEarth, BlocksTC.crystalFire, BlocksTC.crystalWater, BlocksTC.crystalEntropy, BlocksTC.crystalOrder, BlocksTC.crystalTaint });
+        blockColors.registerBlockColorHandler(crystalColourHandler, BlocksTC.crystalAir, BlocksTC.crystalEarth, BlocksTC.crystalFire, BlocksTC.crystalWater, BlocksTC.crystalEntropy, BlocksTC.crystalOrder, BlocksTC.crystalTaint);
         final IBlockColor tubeFilterColourHandler = (state, blockAccess, pos, tintIndex) -> {
             if (state.getBlock() instanceof BlockTube && tintIndex == 1) {
                 final TileEntity te = blockAccess.getTileEntity(pos);
@@ -95,7 +95,7 @@ public class ColorHandler
             }
             return 16777215;
         };
-        blockColors.registerBlockColorHandler(tubeFilterColourHandler, new Block[] { BlocksTC.tubeFilter });
+        blockColors.registerBlockColorHandler(tubeFilterColourHandler, BlocksTC.tubeFilter);
         final IBlockColor inlayColourHandler = (state, blockAccess, pos, tintIndex) -> {
             if (state.getBlock() instanceof BlockInlay && tintIndex == 0) {
                 final BlockInlay blockInlay = (BlockInlay)state.getBlock();
@@ -103,7 +103,7 @@ public class ColorHandler
             }
             return 16777215;
         };
-        blockColors.registerBlockColorHandler(inlayColourHandler, new Block[] { BlocksTC.inlay });
+        blockColors.registerBlockColorHandler(inlayColourHandler, BlocksTC.inlay);
         final IBlockColor stabilizerColourHandler = (state, blockAccess, pos, tintIndex) -> {
             if (state.getBlock() instanceof BlockStabilizer && tintIndex == 0) {
                 int charge = 0;
@@ -116,7 +116,7 @@ public class ColorHandler
             }
             return 16777215;
         };
-        blockColors.registerBlockColorHandler(stabilizerColourHandler, new Block[] { BlocksTC.stabilizer });
+        blockColors.registerBlockColorHandler(stabilizerColourHandler, BlocksTC.stabilizer);
     }
     
     private static void registerItemColourHandlers(final BlockColors blockColors, final ItemColors itemColors) {
@@ -151,7 +151,7 @@ public class ColorHandler
             catch (final Exception ex) {}
             return 16777215;
         };
-        itemColors.registerItemColorHandler(itemEssentiaColourHandler, new Item[] { ItemsTC.crystalEssence });
+        itemColors.registerItemColorHandler(itemEssentiaColourHandler, ItemsTC.crystalEssence);
         final IItemColor itemJarColourHandler = (stack, tintIndex) -> {
             final BlockJarItem item = (BlockJarItem)stack.getItem();
             try {
@@ -162,8 +162,8 @@ public class ColorHandler
             catch (final Exception ex) {}
             return 16777215;
         };
-        itemColors.registerItemColorHandler(itemJarColourHandler, new Block[] { BlocksTC.jarNormal });
-        itemColors.registerItemColorHandler(itemJarColourHandler, new Block[] { BlocksTC.jarVoid });
+        itemColors.registerItemColorHandler(itemJarColourHandler, BlocksTC.jarNormal);
+        itemColors.registerItemColorHandler(itemJarColourHandler, BlocksTC.jarVoid);
         final IItemColor itemCrystalPlanterColourHandler = (stack, tintIndex) -> {
             final Item item = stack.getItem();
             if (item instanceof ItemBlock && ((ItemBlock)item).getBlock() instanceof BlockCrystal) {
@@ -171,13 +171,13 @@ public class ColorHandler
             }
             return 16777215;
         };
-        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, new Block[] { BlocksTC.crystalAir });
-        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, new Block[] { BlocksTC.crystalEarth });
-        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, new Block[] { BlocksTC.crystalFire });
-        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, new Block[] { BlocksTC.crystalWater });
-        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, new Block[] { BlocksTC.crystalEntropy });
-        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, new Block[] { BlocksTC.crystalOrder });
-        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, new Block[] { BlocksTC.crystalTaint });
+        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, BlocksTC.crystalAir);
+        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, BlocksTC.crystalEarth);
+        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, BlocksTC.crystalFire);
+        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, BlocksTC.crystalWater);
+        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, BlocksTC.crystalEntropy);
+        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, BlocksTC.crystalOrder);
+        itemColors.registerItemColorHandler(itemCrystalPlanterColourHandler, BlocksTC.crystalTaint);
         final IItemColor itemEssentiaAltColourHandler = (stack, tintIndex) -> {
             final ItemGenericEssentiaContainer item = (ItemGenericEssentiaContainer)stack.getItem();
             if (stack.getItemDamage() == 1 && item.getAspects(stack) != null && tintIndex == 1) {
@@ -185,26 +185,26 @@ public class ColorHandler
             }
             return 16777215;
         };
-        itemColors.registerItemColorHandler(itemEssentiaAltColourHandler, new Item[] { ItemsTC.phial, ItemsTC.label });
+        itemColors.registerItemColorHandler(itemEssentiaAltColourHandler, ItemsTC.phial, ItemsTC.label);
         final IItemColor itemArmorColourHandler = (stack, tintIndex) -> {
             final ItemArmor item = (ItemArmor)stack.getItem();
             return (tintIndex > 0) ? -1 : item.getColor(stack);
         };
-        itemColors.registerItemColorHandler(itemArmorColourHandler, new Item[] { ItemsTC.voidRobeChest, ItemsTC.voidRobeHelm, ItemsTC.voidRobeLegs, ItemsTC.clothChest, ItemsTC.clothLegs, ItemsTC.clothBoots });
+        itemColors.registerItemColorHandler(itemArmorColourHandler, ItemsTC.voidRobeChest, ItemsTC.voidRobeHelm, ItemsTC.voidRobeLegs, ItemsTC.clothChest, ItemsTC.clothLegs, ItemsTC.clothBoots);
         final IItemColor itemCasterColourHandler = (stack, tintIndex) -> {
             final ItemCaster item = (ItemCaster)stack.getItem();
             final ItemFocus focus = item.getFocus(stack);
             return (tintIndex > 0 && focus != null) ? focus.getFocusColor(item.getFocusStack(stack)) : -1;
         };
-        itemColors.registerItemColorHandler(itemCasterColourHandler, new Item[] { ItemsTC.casterBasic });
+        itemColors.registerItemColorHandler(itemCasterColourHandler, ItemsTC.casterBasic);
         final IItemColor itemFocusColourHandler = (stack, tintIndex) -> {
             final ItemFocus item = (ItemFocus)stack.getItem();
             final int color = item.getFocusColor(stack);
             return color;
         };
-        itemColors.registerItemColorHandler(itemFocusColourHandler, new Item[] { ItemsTC.focus1 });
-        itemColors.registerItemColorHandler(itemFocusColourHandler, new Item[] { ItemsTC.focus2 });
-        itemColors.registerItemColorHandler(itemFocusColourHandler, new Item[] { ItemsTC.focus3 });
+        itemColors.registerItemColorHandler(itemFocusColourHandler, ItemsTC.focus1);
+        itemColors.registerItemColorHandler(itemFocusColourHandler, ItemsTC.focus2);
+        itemColors.registerItemColorHandler(itemFocusColourHandler, ItemsTC.focus3);
         final IItemColor itemGolemColourHandler = (stack, tintIndex) -> {
             if (stack.hasTagCompound() && stack.getTagCompound().hasKey("props")) {
                 final IGolemProperties props = GolemProperties.fromLong(stack.getTagCompound().getLong("props"));
@@ -212,7 +212,7 @@ public class ColorHandler
             }
             return 16777215;
         };
-        itemColors.registerItemColorHandler(itemGolemColourHandler, new Item[] { ItemsTC.golemPlacer });
+        itemColors.registerItemColorHandler(itemGolemColourHandler, ItemsTC.golemPlacer);
         final IItemColor itemBannerColourHandler = (stack, tintIndex) -> {
             if (tintIndex == 1) {
                 final IBlockState state = ((ItemBlock)stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());

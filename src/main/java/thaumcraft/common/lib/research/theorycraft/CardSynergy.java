@@ -23,12 +23,12 @@ public class CardSynergy extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.synergy.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.synergy.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.synergy.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.synergy.text").getFormattedText();
     }
     
     @Override

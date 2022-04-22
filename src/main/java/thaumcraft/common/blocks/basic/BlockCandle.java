@@ -80,8 +80,8 @@ public class BlockCandle extends BlockTC implements IInfusionStabiliserExt
         final double var7 = pos.getX() + 0.5f;
         final double var8 = pos.getY() + 0.7f;
         final double var9 = pos.getZ() + 0.5f;
-        par1World.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, var7, var8, var9, 0.0, 0.0, 0.0, new int[0]);
-        par1World.spawnParticle(EnumParticleTypes.FLAME, var7, var8, var9, 0.0, 0.0, 0.0, new int[0]);
+        par1World.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, var7, var8, var9, 0.0, 0.0, 0.0);
+        par1World.spawnParticle(EnumParticleTypes.FLAME, var7, var8, var9, 0.0, 0.0, 0.0);
     }
     
     public boolean canStabaliseInfusion(final World world, final BlockPos pos) {

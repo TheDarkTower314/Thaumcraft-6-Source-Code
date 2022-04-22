@@ -38,7 +38,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemThaumometer extends ItemTCBase
 {
     public ItemThaumometer() {
-        super("thaumometer", new String[0]);
+        super("thaumometer");
         this.setMaxStackSize(1);
     }
     

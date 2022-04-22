@@ -38,7 +38,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemHandMirror extends ItemTCBase
 {
     public ItemHandMirror() {
-        super("hand_mirror", new String[0]);
+        super("hand_mirror");
         this.setMaxStackSize(1);
     }
     
@@ -70,7 +70,7 @@ public class ItemHandMirror extends ItemTCBase
             player.getHeldItem(hand).setTagInfo("linkZ", new NBTTagInt(pos.getZ()));
             player.getHeldItem(hand).setTagInfo("linkDim", new NBTTagInt(world.provider.getDimension()));
             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundsTC.jar, SoundCategory.BLOCKS, 1.0f, 2.0f);
-            player.sendMessage(new TextComponentTranslation("tc.handmirrorlinked", new Object[0]));
+            player.sendMessage(new TextComponentTranslation("tc.handmirrorlinked"));
             player.inventoryContainer.detectAndSendChanges();
         }
         return EnumActionResult.PASS;
@@ -90,7 +90,7 @@ public class ItemHandMirror extends ItemTCBase
             if (te == null || !(te instanceof TileMirror)) {
                 player.getHeldItem(hand).setTagCompound(null);
                 player.playSound(SoundsTC.zap, 1.0f, 0.8f);
-                player.sendMessage(new TextComponentTranslation("tc.handmirrorerror", new Object[0]));
+                player.sendMessage(new TextComponentTranslation("tc.handmirrorerror"));
                 return super.onItemRightClick(world, player, hand);
             }
             player.openGui(Thaumcraft.instance, 4, world, MathHelper.floor(player.posX), MathHelper.floor(player.posY), MathHelper.floor(player.posZ));
@@ -125,7 +125,7 @@ public class ItemHandMirror extends ItemTCBase
         if (te == null || !(te instanceof TileMirror)) {
             mirror.setTagCompound(null);
             player.playSound(SoundsTC.zap, 1.0f, 0.8f);
-            player.sendMessage(new TextComponentTranslation("tc.handmirrorerror", new Object[0]));
+            player.sendMessage(new TextComponentTranslation("tc.handmirrorerror"));
             return false;
         }
         final TileMirror tm = (TileMirror)te;

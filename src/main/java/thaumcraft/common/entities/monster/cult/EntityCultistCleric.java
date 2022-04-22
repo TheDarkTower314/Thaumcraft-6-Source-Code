@@ -209,7 +209,7 @@ public class EntityCultistCleric extends EntityCultist implements IRangedAttackM
                 final double d0 = this.rand.nextGaussian() * 0.02;
                 final double d2 = this.rand.nextGaussian() * 0.02;
                 final double d3 = this.rand.nextGaussian() * 0.02;
-                this.world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, this.posX + this.rand.nextFloat() * this.width * 2.0f - this.width, this.posY + 0.5 + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0f - this.width, d0, d2, d3, new int[0]);
+                this.world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, this.posX + this.rand.nextFloat() * this.width * 2.0f - this.width, this.posY + 0.5 + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0f - this.width, d0, d2, d3);
             }
         }
         else {

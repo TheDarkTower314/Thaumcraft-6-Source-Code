@@ -1758,7 +1758,7 @@ public class GuiResearchPage extends GuiScreen
             for (final ResearchAddendum addendum : addenda) {
                 if (ThaumcraftCapabilities.knowsResearchStrict(this.mc.player, addendum.getResearch())) {
                     ++ac;
-                    final ITextComponent text = new TextComponentTranslation("tc.addendumtext", new Object[] { ac });
+                    final ITextComponent text = new TextComponentTranslation("tc.addendumtext", ac);
                     rawText = rawText + "<PAGE>" + text.getFormattedText() + "<BR>" + addendum.getTextLocalized();
                 }
             }

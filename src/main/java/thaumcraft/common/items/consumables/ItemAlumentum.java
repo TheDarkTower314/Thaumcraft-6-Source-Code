@@ -19,7 +19,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemAlumentum extends ItemTCBase
 {
     public ItemAlumentum() {
-        super("alumentum", new String[0]);
+        super("alumentum");
         this.setMaxStackSize(64);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);

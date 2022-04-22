@@ -145,7 +145,7 @@ public class ItemElementalSword extends ItemSword implements IThaumcraftItems
                 final float r2 = player.world.rand.nextFloat() * 360.0f;
                 final float mx = -MathHelper.sin(r2 / 180.0f * 3.1415927f) / 5.0f;
                 final float mz = MathHelper.cos(r2 / 180.0f * 3.1415927f) / 5.0f;
-                player.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX, player.getEntityBoundingBox().minY + 0.10000000149011612, player.posZ, mx, 0.0, mz, new int[0]);
+                player.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX, player.getEntityBoundingBox().minY + 0.10000000149011612, player.posZ, mx, 0.0, mz);
             }
         }
         else if (ticks == 0 || ticks % 20 == 0) {

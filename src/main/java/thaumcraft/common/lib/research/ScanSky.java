@@ -73,7 +73,7 @@ public class ScanSky implements IScanThing
             final String pk = "CEL_" + worldDay + "_";
             final String key = pk + (night ? ("Moon" + player.world.provider.getMoonPhase(player.world.getWorldTime())) : "Sun");
             if (ThaumcraftCapabilities.knowsResearch(player, key)) {
-                player.sendStatusMessage(new TextComponentTranslation("tc.celestial.fail.1", new Object[] { "" }), true);
+                player.sendStatusMessage(new TextComponentTranslation("tc.celestial.fail.1", ""), true);
                 return;
             }
             if (InventoryUtils.isPlayerCarryingAmount(player, new ItemStack(ItemsTC.scribingTools, 1, 32767), true) && InventoryUtils.consumePlayerItem(player, new ItemStack(Items.PAPER), false, true)) {
@@ -84,7 +84,7 @@ public class ScanSky implements IScanThing
                 ThaumcraftApi.internalMethods.progressResearch(player, key);
             }
             else {
-                player.sendStatusMessage(new TextComponentTranslation("tc.celestial.fail.2", new Object[] { "" }), true);
+                player.sendStatusMessage(new TextComponentTranslation("tc.celestial.fail.2", ""), true);
             }
             this.cleanResearch(player, pk);
         }
@@ -97,7 +97,7 @@ public class ScanSky implements IScanThing
             final String pk2 = "CEL_" + worldDay + "_";
             final String key2 = pk2 + "Star" + num;
             if (ThaumcraftCapabilities.knowsResearch(player, key2)) {
-                player.sendStatusMessage(new TextComponentTranslation("tc.celestial.fail.1", new Object[] { "" }), true);
+                player.sendStatusMessage(new TextComponentTranslation("tc.celestial.fail.1", ""), true);
                 return;
             }
             if (InventoryUtils.isPlayerCarryingAmount(player, new ItemStack(ItemsTC.scribingTools, 1, 32767), true) && InventoryUtils.consumePlayerItem(player, new ItemStack(Items.PAPER), false, true)) {
@@ -108,7 +108,7 @@ public class ScanSky implements IScanThing
                 ThaumcraftApi.internalMethods.progressResearch(player, key2);
             }
             else {
-                player.sendStatusMessage(new TextComponentTranslation("tc.celestial.fail.2", new Object[] { "" }), true);
+                player.sendStatusMessage(new TextComponentTranslation("tc.celestial.fail.2", ""), true);
             }
             this.cleanResearch(player, pk2);
         }

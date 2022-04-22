@@ -27,13 +27,13 @@ public class AdvancedModelLoader
         final String name = resource.getResourcePath();
         final int i = name.lastIndexOf(46);
         if (i == -1) {
-            FMLLog.severe("The resource name %s is not valid", new Object[] { resource });
+            FMLLog.severe("The resource name %s is not valid", resource);
             throw new IllegalArgumentException("The resource name is not valid");
         }
         final String suffix = name.substring(i + 1);
         final IModelCustomLoader loader = AdvancedModelLoader.instances.get(suffix);
         if (loader == null) {
-            FMLLog.severe("The resource name %s is not supported", new Object[] { resource });
+            FMLLog.severe("The resource name %s is not supported", resource);
             throw new IllegalArgumentException("The resource name is not supported");
         }
         return loader.loadInstance(resource);

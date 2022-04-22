@@ -134,7 +134,7 @@ public class EntityThaumcraftBoss extends EntityMob
             final double d0 = this.rand.nextGaussian() * 0.02;
             final double d2 = this.rand.nextGaussian() * 0.02;
             final double d3 = this.rand.nextGaussian() * 0.02;
-            this.world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, this.posX + this.rand.nextFloat() * this.width - this.width / 2.0, this.getEntityBoundingBox().minY + this.height + this.rand.nextFloat() * 0.5, this.posZ + this.rand.nextFloat() * this.width - this.width / 2.0, d0, d2, d3, new int[0]);
+            this.world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, this.posX + this.rand.nextFloat() * this.width - this.width / 2.0, this.getEntityBoundingBox().minY + this.height + this.rand.nextFloat() * 0.5, this.posZ + this.rand.nextFloat() * this.width - this.width / 2.0, d0, d2, d3);
         }
         if (!this.world.isRemote) {
             if (this.ticksExisted % 30 == 0) {
@@ -249,7 +249,7 @@ public class EntityThaumcraftBoss extends EntityMob
                     }
                     catch (final Exception ex2) {}
                     if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityPlayer) {
-                        ((EntityPlayer)source.getTrueSource()).sendStatusMessage(new TextComponentTranslation(this.getName() + " " + I18n.translateToLocal("tc.boss.enrage"), new Object[0]), true);
+                        ((EntityPlayer)source.getTrueSource()).sendStatusMessage(new TextComponentTranslation(this.getName() + " " + I18n.translateToLocal("tc.boss.enrage")), true);
                     }
                 }
                 damage = 35.0f;

@@ -100,7 +100,7 @@ public class UVTransformationList extends UVTransformation
     
     @Override
     public UVTransformation inverse() {
-        final UVTransformationList rev = new UVTransformationList(new UVTransformation[0]);
+        final UVTransformationList rev = new UVTransformationList();
         for (int i = this.transformations.size() - 1; i >= 0; --i) {
             rev.with(transformations.get(i).inverse());
         }

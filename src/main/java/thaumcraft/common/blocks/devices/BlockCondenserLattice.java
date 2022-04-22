@@ -57,7 +57,7 @@ public class BlockCondenserLattice extends BlockTC
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {BlockCondenserLattice.NORTH, BlockCondenserLattice.EAST, BlockCondenserLattice.SOUTH, BlockCondenserLattice.WEST, BlockCondenserLattice.UP, BlockCondenserLattice.DOWN});
+        return new BlockStateContainer(this, BlockCondenserLattice.NORTH, BlockCondenserLattice.EAST, BlockCondenserLattice.SOUTH, BlockCondenserLattice.WEST, BlockCondenserLattice.UP, BlockCondenserLattice.DOWN);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {

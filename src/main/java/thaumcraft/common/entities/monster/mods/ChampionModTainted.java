@@ -57,7 +57,7 @@ public class ChampionModTainted implements IChampionModifierEffect
                 critter.tasks.addTask(8, new EntityAIWatchClosest(critter, EntityPlayer.class, 8.0f));
                 critter.tasks.addTask(8, new EntityAILookIdle(critter));
                 critter.tasks.addTask(6, new EntityAIMoveThroughVillage(critter, 1.0, false));
-                critter.targetTasks.addTask(1, new EntityAIHurtByTarget(critter, true, new Class[] { EntityPigZombie.class }));
+                critter.targetTasks.addTask(1, new EntityAIHurtByTarget(critter, true, EntityPigZombie.class));
                 critter.targetTasks.addTask(2, new EntityAINearestAttackableTarget(critter, EntityPlayer.class, true));
                 modai.removeModifier(new AttributeModifier(UUID.fromString("2cb22137-a9d8-4417-ae06-de0e70f11b4c"), "istainted", 0.0, 0));
                 modai.applyModifier(new AttributeModifier(UUID.fromString("2cb22137-a9d8-4417-ae06-de0e70f11b4c"), "istainted", 1.0, 0));

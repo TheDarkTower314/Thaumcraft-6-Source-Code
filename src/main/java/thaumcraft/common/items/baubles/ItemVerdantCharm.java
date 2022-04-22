@@ -35,7 +35,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemVerdantCharm extends ItemTCBase implements IBauble, IRechargable
 {
     public ItemVerdantCharm() {
-        super("verdant_charm", new String[0]);
+        super("verdant_charm");
         this.maxStackSize = 1;
         this.canRepair = false;
         this.setMaxDamage(0);

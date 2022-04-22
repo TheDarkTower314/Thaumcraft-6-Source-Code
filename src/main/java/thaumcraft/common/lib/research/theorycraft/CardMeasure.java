@@ -23,12 +23,12 @@ public class CardMeasure extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.measure.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.measure.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.measure.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.measure.text").getFormattedText();
     }
     
     @Override

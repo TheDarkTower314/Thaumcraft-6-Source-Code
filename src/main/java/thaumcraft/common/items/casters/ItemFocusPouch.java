@@ -23,7 +23,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemFocusPouch extends ItemTCBase implements IBauble
 {
     public ItemFocusPouch() {
-        super("focus_pouch", new String[0]);
+        super("focus_pouch");
         this.setMaxStackSize(1);
         this.setHasSubtypes(false);
         this.setMaxDamage(0);

@@ -62,12 +62,12 @@ public class ProxyBlock
         for (final Block b : BlocksTC.nitor.values()) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(b), 0, new ModelResourceLocation(new ResourceLocation("thaumcraft:nitor"), "inventory"));
         }
-        ModelBakery.registerItemVariants(Item.getItemFromBlock(BlocksTC.mirror), new ResourceLocation[] { new ResourceLocation("thaumcraft:mirror"), new ResourceLocation("thaumcraft:mirror_on") });
-        ModelBakery.registerItemVariants(Item.getItemFromBlock(BlocksTC.mirrorEssentia), new ResourceLocation[] { new ResourceLocation("thaumcraft:mirror_essentia"), new ResourceLocation("thaumcraft:mirror_essentia_on") });
+        ModelBakery.registerItemVariants(Item.getItemFromBlock(BlocksTC.mirror), new ResourceLocation("thaumcraft:mirror"), new ResourceLocation("thaumcraft:mirror_on"));
+        ModelBakery.registerItemVariants(Item.getItemFromBlock(BlocksTC.mirrorEssentia), new ResourceLocation("thaumcraft:mirror_essentia"), new ResourceLocation("thaumcraft:mirror_essentia_on"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlocksTC.mirror), 1, new ModelResourceLocation(new ResourceLocation("thaumcraft:mirror_on"), "inventory"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlocksTC.mirrorEssentia), 1, new ModelResourceLocation(new ResourceLocation("thaumcraft:mirror_essentia_on"), "inventory"));
         final Item fluxGooItem = Item.getItemFromBlock(BlocksTC.fluxGoo);
-        ModelBakery.registerItemVariants(fluxGooItem, new ResourceLocation[0]);
+        ModelBakery.registerItemVariants(fluxGooItem);
         ModelLoader.setCustomMeshDefinition(fluxGooItem, new ItemMeshDefinition() {
             public ModelResourceLocation getModelLocation(final ItemStack stack) {
                 return ProxyBlock.fluidGooLocation;
@@ -79,7 +79,7 @@ public class ProxyBlock
             }
         });
         final Item liquidDeathItem = Item.getItemFromBlock(BlocksTC.liquidDeath);
-        ModelBakery.registerItemVariants(liquidDeathItem, new ResourceLocation[0]);
+        ModelBakery.registerItemVariants(liquidDeathItem);
         ModelLoader.setCustomMeshDefinition(liquidDeathItem, new ItemMeshDefinition() {
             public ModelResourceLocation getModelLocation(final ItemStack stack) {
                 return ProxyBlock.fluidDeathLocation;
@@ -91,7 +91,7 @@ public class ProxyBlock
             }
         });
         final Item purifyingFluidItem = Item.getItemFromBlock(BlocksTC.purifyingFluid);
-        ModelBakery.registerItemVariants(purifyingFluidItem, new ResourceLocation[0]);
+        ModelBakery.registerItemVariants(purifyingFluidItem);
         ModelLoader.setCustomMeshDefinition(purifyingFluidItem, new ItemMeshDefinition() {
             public ModelResourceLocation getModelLocation(final ItemStack stack) {
                 return ProxyBlock.fluidPureLocation;

@@ -596,7 +596,7 @@ public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
             p.println();
             for (int i = 0; i < polys.size(); ++i) {
                 if (i % m.vp == 0) {
-                    p.format("f", new Object[0]);
+                    p.format("f");
                 }
                 final int[] ia = polys.get(i);
                 if (hasNormals) {

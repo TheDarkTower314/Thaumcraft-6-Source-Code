@@ -156,7 +156,7 @@ public class TransformationList extends Transformation
     
     @Override
     public Transformation inverse() {
-        final TransformationList rev = new TransformationList(new Transformation[0]);
+        final TransformationList rev = new TransformationList();
         for (int i = this.transformations.size() - 1; i >= 0; --i) {
             rev.with(transformations.get(i).inverse());
         }

@@ -31,7 +31,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemGrappleGun extends ItemTCBase implements IRechargable
 {
     public ItemGrappleGun() {
-        super("grapple_gun", new String[0]);
+        super("grapple_gun");
         this.setMaxStackSize(1);
         this.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)

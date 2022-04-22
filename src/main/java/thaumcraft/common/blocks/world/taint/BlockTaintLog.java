@@ -89,7 +89,7 @@ public class BlockTaintLog extends BlockTC implements ITaintBlock
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {BlockTaintLog.AXIS});
+        return new BlockStateContainer(this, BlockTaintLog.AXIS);
     }
     
     public boolean canSustainLeaves(final IBlockState state, final IBlockAccess world, final BlockPos pos) {

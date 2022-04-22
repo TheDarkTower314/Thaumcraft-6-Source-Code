@@ -44,7 +44,7 @@ public class GolemLegWheels implements GolemLeg.ILegFunction
                 final IBlockState iblockstate = golem.getGolemEntity().world.getBlockState(blockpos);
                 final Block block = iblockstate.getBlock();
                 if (block.getRenderType(iblockstate) != EnumBlockRenderType.INVISIBLE) {
-                    golem.getGolemEntity().world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, golem.getGolemEntity().posX + (golem.getGolemWorld().rand.nextFloat() - 0.5) * golem.getGolemEntity().width, golem.getGolemEntity().getEntityBoundingBox().minY + 0.1, golem.getGolemEntity().posZ + (golem.getGolemWorld().rand.nextFloat() - 0.5) * golem.getGolemEntity().width, -golem.getGolemEntity().motionX * 4.0, 1.5, -golem.getGolemEntity().motionZ * 4.0, new int[] { Block.getStateId(iblockstate) });
+                    golem.getGolemEntity().world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, golem.getGolemEntity().posX + (golem.getGolemWorld().rand.nextFloat() - 0.5) * golem.getGolemEntity().width, golem.getGolemEntity().getEntityBoundingBox().minY + 0.1, golem.getGolemEntity().posZ + (golem.getGolemWorld().rand.nextFloat() - 0.5) * golem.getGolemEntity().width, -golem.getGolemEntity().motionX * 4.0, 1.5, -golem.getGolemEntity().motionZ * 4.0, Block.getStateId(iblockstate));
                 }
             }
         }

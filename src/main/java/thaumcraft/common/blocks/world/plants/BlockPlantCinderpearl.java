@@ -45,8 +45,8 @@ public class BlockPlantCinderpearl extends BlockBush
             final float xr = pos.getX() + 0.5f + (rand.nextFloat() - rand.nextFloat()) * 0.1f;
             final float yr = pos.getY() + 0.6f + (rand.nextFloat() - rand.nextFloat()) * 0.1f;
             final float zr = pos.getZ() + 0.5f + (rand.nextFloat() - rand.nextFloat()) * 0.1f;
-            world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, xr, yr, zr, 0.0, 0.0, 0.0, new int[0]);
-            world.spawnParticle(EnumParticleTypes.FLAME, xr, yr, zr, 0.0, 0.0, 0.0, new int[0]);
+            world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, xr, yr, zr, 0.0, 0.0, 0.0);
+            world.spawnParticle(EnumParticleTypes.FLAME, xr, yr, zr, 0.0, 0.0, 0.0);
         }
     }
     

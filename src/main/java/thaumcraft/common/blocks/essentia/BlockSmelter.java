@@ -124,20 +124,20 @@ public class BlockSmelter extends BlockTCDevice implements IBlockEnabled, IBlock
             final float f4 = 0.52f;
             final float f5 = r.nextFloat() * 0.5f - 0.25f;
             if (BlockStateUtils.getFacing(state) == EnumFacing.WEST) {
-                w.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, f - f4, f2, f3 + f5, 0.0, 0.0, 0.0, new int[0]);
-                w.spawnParticle(EnumParticleTypes.FLAME, f - f4, f2, f3 + f5, 0.0, 0.0, 0.0, new int[0]);
+                w.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, f - f4, f2, f3 + f5, 0.0, 0.0, 0.0);
+                w.spawnParticle(EnumParticleTypes.FLAME, f - f4, f2, f3 + f5, 0.0, 0.0, 0.0);
             }
             if (BlockStateUtils.getFacing(state) == EnumFacing.EAST) {
-                w.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, f + f4, f2, f3 + f5, 0.0, 0.0, 0.0, new int[0]);
-                w.spawnParticle(EnumParticleTypes.FLAME, f + f4, f2, f3 + f5, 0.0, 0.0, 0.0, new int[0]);
+                w.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, f + f4, f2, f3 + f5, 0.0, 0.0, 0.0);
+                w.spawnParticle(EnumParticleTypes.FLAME, f + f4, f2, f3 + f5, 0.0, 0.0, 0.0);
             }
             if (BlockStateUtils.getFacing(state) == EnumFacing.NORTH) {
-                w.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, f + f5, f2, f3 - f4, 0.0, 0.0, 0.0, new int[0]);
-                w.spawnParticle(EnumParticleTypes.FLAME, f + f5, f2, f3 - f4, 0.0, 0.0, 0.0, new int[0]);
+                w.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, f + f5, f2, f3 - f4, 0.0, 0.0, 0.0);
+                w.spawnParticle(EnumParticleTypes.FLAME, f + f5, f2, f3 - f4, 0.0, 0.0, 0.0);
             }
             if (BlockStateUtils.getFacing(state) == EnumFacing.SOUTH) {
-                w.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, f + f5, f2, f3 + f4, 0.0, 0.0, 0.0, new int[0]);
-                w.spawnParticle(EnumParticleTypes.FLAME, f + f5, f2, f3 + f4, 0.0, 0.0, 0.0, new int[0]);
+                w.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, f + f5, f2, f3 + f4, 0.0, 0.0, 0.0);
+                w.spawnParticle(EnumParticleTypes.FLAME, f + f5, f2, f3 + f4, 0.0, 0.0, 0.0);
             }
         }
     }

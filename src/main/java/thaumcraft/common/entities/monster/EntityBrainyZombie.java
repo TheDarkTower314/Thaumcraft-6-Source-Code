@@ -25,7 +25,7 @@ public class EntityBrainyZombie extends EntityZombie
     
     public EntityBrainyZombie(final World world) {
         super(world);
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
     }
     
     public int getTotalArmorValue() {

@@ -19,7 +19,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemPrimordialPearl extends ItemTCBase
 {
     public ItemPrimordialPearl() {
-        super("primordial_pearl", new String[0]);
+        super("primordial_pearl");
         this.maxStackSize = 1;
         this.setMaxDamage(8);
         this.addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {

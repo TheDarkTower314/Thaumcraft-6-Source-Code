@@ -50,7 +50,7 @@ public class EntityTaintacle extends EntityMob implements ITaintedMob
         this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.0, false));
         this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0f));
         this.tasks.addTask(3, new EntityAILookIdle(this));
-        this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
     

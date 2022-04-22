@@ -99,7 +99,7 @@ public class BlockVisBattery extends Block
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {BlockVisBattery.CHARGE});
+        return new BlockStateContainer(this, BlockVisBattery.CHARGE);
     }
     
     public IBlockState getStateFromMeta(final int meta) {

@@ -42,7 +42,7 @@ public class EntityInhabitedZombie extends EntityZombie implements IEldritchMob
     
     public EntityInhabitedZombie(final World world) {
         super(world);
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCultist.class, true));
     }
     
@@ -87,7 +87,7 @@ public class EntityInhabitedZombie extends EntityZombie implements IEldritchMob
             final double d2 = this.rand.nextGaussian() * 0.02;
             final double d3 = this.rand.nextGaussian() * 0.02;
             final double d4 = this.rand.nextGaussian() * 0.02;
-            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + this.rand.nextFloat() * this.width * 2.0f - this.width, this.posY + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0f - this.width, d2, d3, d4, new int[0]);
+            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + this.rand.nextFloat() * this.width * 2.0f - this.width, this.posY + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0f - this.width, d2, d3, d4);
         }
         this.setDead();
     }

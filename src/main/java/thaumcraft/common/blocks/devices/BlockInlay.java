@@ -178,7 +178,7 @@ public class BlockInlay extends BlockTC implements IInfusionStabiliserExt
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {BlockInlay.NORTH, BlockInlay.EAST, BlockInlay.SOUTH, BlockInlay.WEST, BlockInlay.CHARGE});
+        return new BlockStateContainer(this, BlockInlay.NORTH, BlockInlay.EAST, BlockInlay.SOUTH, BlockInlay.WEST, BlockInlay.CHARGE);
     }
     
     public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {

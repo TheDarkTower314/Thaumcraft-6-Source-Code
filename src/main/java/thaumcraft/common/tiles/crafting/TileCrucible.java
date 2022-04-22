@@ -183,7 +183,7 @@ public class TileCrucible extends TileThaumcraft implements ITickable, IFluidHan
             if (rc != null && this.tank.getFluidAmount() > 0) {
                 final ItemStack out = rc.getRecipeOutput().copy();
                 if (player != null) {
-                    FMLCommonHandler.instance().firePlayerCraftingEvent(player, out, new InventoryFake(new ItemStack[] { item }));
+                    FMLCommonHandler.instance().firePlayerCraftingEvent(player, out, new InventoryFake(item));
                 }
                 this.aspects = rc.removeMatching(this.aspects);
                 this.tank.drain(50, true);

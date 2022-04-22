@@ -70,14 +70,14 @@ public class CardTinker extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.tinker.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.tinker.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
         final int a = this.getVal() * 2;
         final int b = a + 10;
-        return new TextComponentTranslation("card.tinker.text", new Object[] { a, b }).getFormattedText();
+        return new TextComponentTranslation("card.tinker.text", a, b).getFormattedText();
     }
     
     @Override

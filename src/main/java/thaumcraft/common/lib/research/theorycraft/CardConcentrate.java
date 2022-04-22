@@ -52,12 +52,12 @@ public class CardConcentrate extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.concentrate.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.concentrate.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.concentrate.text", new Object[] { TextFormatting.BOLD + this.aspect.getName() + TextFormatting.RESET }).getFormattedText();
+        return new TextComponentTranslation("card.concentrate.text", TextFormatting.BOLD + this.aspect.getName() + TextFormatting.RESET).getFormattedText();
     }
     
     @Override

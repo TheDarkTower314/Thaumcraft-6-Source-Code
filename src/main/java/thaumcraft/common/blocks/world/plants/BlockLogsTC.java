@@ -69,7 +69,7 @@ public class BlockLogsTC extends BlockTC
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {BlockLogsTC.AXIS});
+        return new BlockStateContainer(this, BlockLogsTC.AXIS);
     }
     
     public boolean canSustainLeaves(final IBlockState state, final IBlockAccess world, final BlockPos pos) {

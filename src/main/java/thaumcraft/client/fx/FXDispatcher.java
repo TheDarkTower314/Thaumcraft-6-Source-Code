@@ -678,7 +678,7 @@ public class FXDispatcher
                 f2 = this.getWorld().rand.nextFloat() * 0.5f + 0.5f;
                 f3 = MathHelper.sin(f) * e.height * 0.25f * f2;
                 f4 = MathHelper.cos(f) * e.height * 0.25f * f2;
-                this.getWorld().spawnParticle(EnumParticleTypes.BLOCK_CRACK, e.posX + f3, e.posY, e.posZ + f4, 0.0, 0.0, 0.0, new int[] { Block.getStateId(this.getWorld().getBlockState(e.getPosition().down())) });
+                this.getWorld().spawnParticle(EnumParticleTypes.BLOCK_CRACK, e.posX + f3, e.posY, e.posZ + f4, 0.0, 0.0, 0.0, Block.getStateId(this.getWorld().getBlockState(e.getPosition().down())));
             }
         }
     }
@@ -900,7 +900,7 @@ public class FXDispatcher
     public void furnaceLavaFx(final int x, final int y, final int z, final int facingX, final int facingZ) {
         final float qx = (facingX == 0) ? ((this.getWorld().rand.nextFloat() - this.getWorld().rand.nextFloat()) * 0.5f) : (facingX * this.getWorld().rand.nextFloat());
         final float qz = (facingZ == 0) ? ((this.getWorld().rand.nextFloat() - this.getWorld().rand.nextFloat()) * 0.5f) : (facingZ * this.getWorld().rand.nextFloat());
-        final Particle fb = new ParticleLava.Factory().createParticle(0, this.getWorld(), x + 0.5f + (this.getWorld().rand.nextFloat() - this.getWorld().rand.nextFloat()) * 0.3f + facingX * 1.0f, y + 0.3f, z + 0.5f + (this.getWorld().rand.nextFloat() - this.getWorld().rand.nextFloat()) * 0.3f + facingZ * 1.0f, 0.15f * qx, 0.2f * this.getWorld().rand.nextFloat(), 0.15f * qz, new int[0]);
+        final Particle fb = new ParticleLava.Factory().createParticle(0, this.getWorld(), x + 0.5f + (this.getWorld().rand.nextFloat() - this.getWorld().rand.nextFloat()) * 0.3f + facingX * 1.0f, y + 0.3f, z + 0.5f + (this.getWorld().rand.nextFloat() - this.getWorld().rand.nextFloat()) * 0.3f + facingZ * 1.0f, 0.15f * qx, 0.2f * this.getWorld().rand.nextFloat(), 0.15f * qz);
         FMLClientHandler.instance().getClient().effectRenderer.addEffect(fb);
     }
     
@@ -936,7 +936,7 @@ public class FXDispatcher
     
     public void bottleTaintBreak(final double x, final double y, final double z) {
         for (int k1 = 0; k1 < 8; ++k1) {
-            this.getWorld().spawnParticle(EnumParticleTypes.ITEM_CRACK, x, y, z, this.getWorld().rand.nextGaussian() * 0.15, this.getWorld().rand.nextDouble() * 0.2, this.getWorld().rand.nextGaussian() * 0.15, new int[] { Item.getIdFromItem(ItemsTC.bottleTaint) });
+            this.getWorld().spawnParticle(EnumParticleTypes.ITEM_CRACK, x, y, z, this.getWorld().rand.nextGaussian() * 0.15, this.getWorld().rand.nextDouble() * 0.2, this.getWorld().rand.nextGaussian() * 0.15, Item.getIdFromItem(ItemsTC.bottleTaint));
         }
         this.getWorld().playSound(x, y, z, SoundEvents.ENTITY_SPLASH_POTION_BREAK, SoundCategory.NEUTRAL, 1.0f, this.getWorld().rand.nextFloat() * 0.1f + 0.9f, false);
     }

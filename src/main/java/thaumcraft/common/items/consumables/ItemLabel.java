@@ -24,7 +24,7 @@ import thaumcraft.common.items.ItemTCEssentiaContainer;
 public class ItemLabel extends ItemTCEssentiaContainer
 {
     public ItemLabel() {
-        super("label", 1, new String[] { "blank", "filled" });
+        super("label", 1, "blank", "filled");
     }
     
     public String getUnlocalizedName(final ItemStack stack) {

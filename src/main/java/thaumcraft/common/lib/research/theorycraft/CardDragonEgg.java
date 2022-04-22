@@ -25,12 +25,12 @@ public class CardDragonEgg extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.dragonegg.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.dragonegg.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.dragonegg.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.dragonegg.text").getFormattedText();
     }
     
     @Override

@@ -87,7 +87,7 @@ public class BlockTube extends BlockTCDevice
     
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {BlockTube.NORTH, BlockTube.EAST, BlockTube.SOUTH, BlockTube.WEST, BlockTube.UP, BlockTube.DOWN});
+        return new BlockStateContainer(this, BlockTube.NORTH, BlockTube.EAST, BlockTube.SOUTH, BlockTube.WEST, BlockTube.UP, BlockTube.DOWN);
     }
     
     public boolean isOpaqueCube(final IBlockState state) {

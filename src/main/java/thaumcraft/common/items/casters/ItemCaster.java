@@ -62,7 +62,7 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
     ArrayList<BlockPos> checked;
     
     public ItemCaster(final String name, final int area) {
-        super(name, new String[0]);
+        super(name);
         this.area = 0;
         this.myFormatter = new DecimalFormat("#######.#");
         this.checked = new ArrayList<BlockPos>();

@@ -26,12 +26,12 @@ public class CardTruth extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.truth.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.truth.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.truth.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.truth.text").getFormattedText();
     }
     
     @Override

@@ -23,12 +23,12 @@ public class CardFocus extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.focus.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.focus.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.focus.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.focus.text").getFormattedText();
     }
     
     @Override

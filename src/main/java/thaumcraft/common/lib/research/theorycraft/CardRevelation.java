@@ -27,12 +27,12 @@ public class CardRevelation extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.revelation.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.revelation.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.revelation.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.revelation.text").getFormattedText();
     }
     
     @Override

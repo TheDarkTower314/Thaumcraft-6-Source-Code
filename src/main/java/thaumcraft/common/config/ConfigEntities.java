@@ -218,14 +218,14 @@ public class ConfigEntities
         if (ModConfig.CONFIG_WORLD.allowSpawnAngryZombie) {
             for (final Biome bgb : biomes) {
                 if (bgb != null && (bgb.getSpawnableList(EnumCreatureType.MONSTER) != null & bgb.getSpawnableList(EnumCreatureType.MONSTER).size() > 0)) {
-                    EntityRegistry.addSpawn(EntityBrainyZombie.class, 10, 1, 1, EnumCreatureType.MONSTER, new Biome[] { bgb });
+                    EntityRegistry.addSpawn(EntityBrainyZombie.class, 10, 1, 1, EnumCreatureType.MONSTER, bgb);
                 }
             }
         }
         if (ModConfig.CONFIG_WORLD.allowSpawnPech) {
             for (final Biome bgb : BiomeDictionary.getBiomes(BiomeDictionary.Type.MAGICAL)) {
                 if (bgb != null && (bgb.getSpawnableList(EnumCreatureType.MONSTER) != null & bgb.getSpawnableList(EnumCreatureType.MONSTER).size() > 0)) {
-                    EntityRegistry.addSpawn(EntityPech.class, 10, 1, 1, EnumCreatureType.MONSTER, new Biome[] { bgb });
+                    EntityRegistry.addSpawn(EntityPech.class, 10, 1, 1, EnumCreatureType.MONSTER, bgb);
                 }
             }
         }

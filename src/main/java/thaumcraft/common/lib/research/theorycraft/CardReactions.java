@@ -59,12 +59,12 @@ public class CardReactions extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.reactions.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.reactions.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.reactions.text", new Object[] { TextFormatting.BOLD + this.aspect1.getName() + TextFormatting.RESET, TextFormatting.BOLD + this.aspect2.getName() + TextFormatting.RESET }).getFormattedText();
+        return new TextComponentTranslation("card.reactions.text", TextFormatting.BOLD + this.aspect1.getName() + TextFormatting.RESET, TextFormatting.BOLD + this.aspect2.getName() + TextFormatting.RESET).getFormattedText();
     }
     
     @Override

@@ -360,7 +360,7 @@ public class BlockUtils
     public static ItemStack getSilkTouchDrop(final IBlockState bs) {
         ItemStack dropped = ItemStack.EMPTY;
         try {
-            final Method m = ReflectionHelper.findMethod(Block.class, "getSilkTouchDrop", "func_180643_i", new Class[] { IBlockState.class });
+            final Method m = ReflectionHelper.findMethod(Block.class, "getSilkTouchDrop", "func_180643_i", IBlockState.class);
             dropped = (ItemStack)m.invoke(bs.getBlock(), bs);
         }
         catch (final Exception e) {

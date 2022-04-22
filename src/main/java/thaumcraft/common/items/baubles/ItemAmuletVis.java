@@ -27,7 +27,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemAmuletVis extends ItemTCBase implements IBauble
 {
     public ItemAmuletVis() {
-        super("amulet_vis", new String[] { "found", "crafted" });
+        super("amulet_vis", "found", "crafted");
         this.maxStackSize = 1;
         this.setMaxDamage(0);
         this.setHasSubtypes(true);

@@ -32,12 +32,12 @@ public class CardPortal extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.portal.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.portal.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.portal.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.portal.text").getFormattedText();
     }
     
     @Override

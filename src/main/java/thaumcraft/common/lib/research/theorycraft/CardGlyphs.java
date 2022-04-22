@@ -32,12 +32,12 @@ public class CardGlyphs extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.glyph.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.glyph.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.glyph.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.glyph.text").getFormattedText();
     }
     
     @Override

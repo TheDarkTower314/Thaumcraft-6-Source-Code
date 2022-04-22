@@ -155,7 +155,7 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {BlockSaplingTC.STAGE});
+        return new BlockStateContainer(this, BlockSaplingTC.STAGE);
     }
     
     static {

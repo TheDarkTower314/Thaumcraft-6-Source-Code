@@ -20,7 +20,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemBottleTaint extends ItemTCBase
 {
     public ItemBottleTaint() {
-        super("bottle_taint", new String[0]);
+        super("bottle_taint");
         this.maxStackSize = 8;
         this.setMaxDamage(0);
         this.setCreativeTab(ConfigItems.TABTC);

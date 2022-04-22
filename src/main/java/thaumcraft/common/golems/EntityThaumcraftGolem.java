@@ -230,7 +230,7 @@ public class EntityThaumcraftGolem extends EntityOwnedConstruct implements IGole
                 this.targetTasks.addTask(1, new AIOwnerHurtByTarget(this));
                 this.targetTasks.addTask(2, new AIOwnerHurtTarget(this));
             }
-            this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
+            this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
         }
     }
     
@@ -452,14 +452,14 @@ public class EntityThaumcraftGolem extends EntityOwnedConstruct implements IGole
                 this.playSound(SoundsTC.scan, 1.0f, 1.0f);
                 this.setFollowingOwner(!this.isFollowingOwner());
                 if (this.isFollowingOwner()) {
-                    player.sendStatusMessage(new TextComponentTranslation("golem.follow", new Object[] { "" }), true);
+                    player.sendStatusMessage(new TextComponentTranslation("golem.follow", ""), true);
                     if (ModConfig.CONFIG_GRAPHICS.showGolemEmotes) {
                         this.world.setEntityState(this, (byte)5);
                     }
                     this.detachHome();
                 }
                 else {
-                    player.sendStatusMessage(new TextComponentTranslation("golem.stay", new Object[] { "" }), true);
+                    player.sendStatusMessage(new TextComponentTranslation("golem.stay", ""), true);
                     if (ModConfig.CONFIG_GRAPHICS.showGolemEmotes) {
                         this.world.setEntityState(this, (byte)8);
                     }

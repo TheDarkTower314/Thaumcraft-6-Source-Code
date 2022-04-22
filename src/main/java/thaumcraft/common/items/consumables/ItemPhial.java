@@ -33,7 +33,7 @@ import thaumcraft.common.items.ItemTCEssentiaContainer;
 public class ItemPhial extends ItemTCEssentiaContainer
 {
     public ItemPhial() {
-        super("phial", 10, new String[] { "empty", "filled" });
+        super("phial", 10, "empty", "filled");
     }
     
     public static ItemStack makePhial(final Aspect aspect, final int amt) {

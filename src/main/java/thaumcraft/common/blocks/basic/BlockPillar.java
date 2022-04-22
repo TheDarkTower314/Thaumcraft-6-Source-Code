@@ -113,7 +113,7 @@ public class BlockPillar extends BlockTC
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {BlockPillar.FACING});
+        return new BlockStateContainer(this, BlockPillar.FACING);
     }
     
     static {

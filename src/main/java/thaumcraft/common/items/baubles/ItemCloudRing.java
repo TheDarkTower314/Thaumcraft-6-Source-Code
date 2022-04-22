@@ -28,7 +28,7 @@ public class ItemCloudRing extends ItemTCBase implements IBauble
     public static HashMap<String, Boolean> jumpList;
     
     public ItemCloudRing() {
-        super("cloud_ring", new String[0]);
+        super("cloud_ring");
         this.maxStackSize = 1;
         this.canRepair = false;
         this.setMaxDamage(0);

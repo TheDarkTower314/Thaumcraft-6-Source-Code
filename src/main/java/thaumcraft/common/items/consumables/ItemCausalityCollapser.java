@@ -19,7 +19,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemCausalityCollapser extends ItemTCBase
 {
     public ItemCausalityCollapser() {
-        super("causality_collapser", new String[0]);
+        super("causality_collapser");
         this.setMaxStackSize(16);
         this.setMaxDamage(0);
     }

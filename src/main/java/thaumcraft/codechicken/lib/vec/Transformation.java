@@ -18,12 +18,12 @@ public abstract class Transformation extends ITransformation<Vector3, Transforma
     
     @Override
     public Transformation at(final Vector3 point) {
-        return new TransformationList(new Transformation[] { new Translation(-point.x, -point.y, -point.z), this, point.translation() });
+        return new TransformationList(new Translation(-point.x, -point.y, -point.z), this, point.translation());
     }
     
     @Override
     public TransformationList with(final Transformation t) {
-        return new TransformationList(new Transformation[] { this, t });
+        return new TransformationList(this, t);
     }
     
     @SideOnly(Side.CLIENT)

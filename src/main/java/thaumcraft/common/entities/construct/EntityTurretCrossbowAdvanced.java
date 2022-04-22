@@ -60,7 +60,7 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
         this.targetTasks.taskEntries.clear();
         this.tasks.addTask(1, new EntityAIAttackRanged(this, 0.0, 20, 40, 24.0f));
         this.tasks.addTask(2, new EntityAIWatchTarget(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(2, new EntityAINearestValidTarget(this, EntityLivingBase.class, 5, true, false, null));
         this.setTargetMob(true);
     }

@@ -90,7 +90,7 @@ public class GuiImageButton extends GuiButton
                 GL11.glPushMatrix();
                 GL11.glTranslated(this.x, this.y, 0.0);
                 GL11.glScaled(0.5, 0.5, 0.0);
-                this.drawCenteredString(fontrenderer, new TextComponentTranslation(this.displayString, new Object[0]).getFormattedText(), 0, -4, j);
+                this.drawCenteredString(fontrenderer, new TextComponentTranslation(this.displayString).getFormattedText(), 0, -4, j);
                 GL11.glPopMatrix();
             }
             this.mouseDragged(mc, xx, yy);

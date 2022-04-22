@@ -170,7 +170,7 @@ public class TileInfernalFurnace extends TileThaumcraftInventory
         final double var21 = this.pos.getX() + this.world.rand.nextFloat();
         final double var22 = this.pos.getY() + 1;
         final double var23 = this.pos.getZ() + this.world.rand.nextFloat();
-        this.world.spawnParticle(EnumParticleTypes.LAVA, var21, var22, var23, 0.0, 0.0, 0.0, new int[0]);
+        this.world.spawnParticle(EnumParticleTypes.LAVA, var21, var22, var23, 0.0, 0.0, 0.0);
     }
     
     public void ejectItem(final ItemStack items, final ItemStack furnaceItemStack) {

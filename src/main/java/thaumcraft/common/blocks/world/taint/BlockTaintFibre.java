@@ -403,7 +403,7 @@ public class BlockTaintFibre extends Block implements ITaintBlock
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] { BlockTaintFibre.NORTH, BlockTaintFibre.EAST, BlockTaintFibre.SOUTH, BlockTaintFibre.WEST, BlockTaintFibre.UP, BlockTaintFibre.DOWN, BlockTaintFibre.GROWTH1, BlockTaintFibre.GROWTH2, BlockTaintFibre.GROWTH3, BlockTaintFibre.GROWTH4 });
+        return new BlockStateContainer(this, BlockTaintFibre.NORTH, BlockTaintFibre.EAST, BlockTaintFibre.SOUTH, BlockTaintFibre.WEST, BlockTaintFibre.UP, BlockTaintFibre.DOWN, BlockTaintFibre.GROWTH1, BlockTaintFibre.GROWTH2, BlockTaintFibre.GROWTH3, BlockTaintFibre.GROWTH4);
     }
     
     static {

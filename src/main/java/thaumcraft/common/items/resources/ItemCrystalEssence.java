@@ -17,7 +17,7 @@ import thaumcraft.common.items.ItemTCEssentiaContainer;
 public class ItemCrystalEssence extends ItemTCEssentiaContainer
 {
     public ItemCrystalEssence() {
-        super("crystal_essence", 1, new String[0]);
+        super("crystal_essence", 1);
     }
     
     @Override

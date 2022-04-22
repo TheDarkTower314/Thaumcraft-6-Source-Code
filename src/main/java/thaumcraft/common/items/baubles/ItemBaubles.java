@@ -15,7 +15,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemBaubles extends ItemTCBase implements IBauble, IVisDiscountGear
 {
     public ItemBaubles() {
-        super("baubles", new String[] { "amulet_mundane", "ring_mundane", "girdle_mundane", "ring_apprentice", "amulet_fancy", "ring_fancy", "girdle_fancy" });
+        super("baubles", "amulet_mundane", "ring_mundane", "girdle_mundane", "ring_apprentice", "amulet_fancy", "ring_fancy", "girdle_fancy");
         this.maxStackSize = 1;
         this.setMaxDamage(0);
     }

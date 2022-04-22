@@ -187,7 +187,7 @@ public class ResearchManager
                             }
                             for (final ResearchAddendum addendum : ri.getAddenda()) {
                                 if (addendum.getResearch() != null && Arrays.asList(addendum.getResearch()).contains(researchkey)) {
-                                    final ITextComponent text = new TextComponentTranslation("tc.addaddendum", new Object[] { ri.getLocalizedName() });
+                                    final ITextComponent text = new TextComponentTranslation("tc.addaddendum", ri.getLocalizedName());
                                     player.sendMessage(text);
                                     knowledge.setResearchFlag(ri.getKey(), IPlayerKnowledge.EnumResearchFlag.PAGE);
                                     break;

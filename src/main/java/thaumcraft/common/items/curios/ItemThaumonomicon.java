@@ -38,7 +38,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemThaumonomicon extends ItemTCBase
 {
     public ItemThaumonomicon() {
-        super("thaumonomicon", new String[] { "normal", "cheat" });
+        super("thaumonomicon", "normal", "cheat");
         this.setHasSubtypes(true);
         this.setMaxStackSize(1);
     }

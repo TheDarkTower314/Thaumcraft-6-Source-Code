@@ -79,7 +79,7 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     protected void initEntityAI() {
         this.tasks.addTask(1, new EntityAIAttackRanged(this, 0.0, 20, 60, 24.0f));
         this.tasks.addTask(2, new EntityAIWatchTarget(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(2, new EntityAINearestValidTarget(this, EntityLiving.class, 5, true, false, IMob.MOB_SELECTOR));
     }
     

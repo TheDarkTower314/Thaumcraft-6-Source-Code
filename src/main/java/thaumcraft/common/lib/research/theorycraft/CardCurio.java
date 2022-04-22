@@ -46,12 +46,12 @@ public class CardCurio extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.curio.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.curio.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.curio.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.curio.text").getFormattedText();
     }
     
     @Override

@@ -21,7 +21,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemTurretPlacer extends ItemTCBase
 {
     public ItemTurretPlacer() {
-        super("turret", new String[] { "basic", "advanced", "bore" });
+        super("turret", "basic", "advanced", "bore");
     }
     
     public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {

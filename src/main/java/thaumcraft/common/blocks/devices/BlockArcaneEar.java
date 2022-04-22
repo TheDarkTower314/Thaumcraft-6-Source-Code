@@ -153,7 +153,7 @@ public class BlockArcaneEar extends BlockTCDevice implements IBlockFacing, IBloc
         super.eventReceived(state, worldIn, pos, par5, par6);
         final float var7 = (float)Math.pow(2.0, (par6 - 12) / 12.0);
         worldIn.playSound(null, pos, this.getInstrument(par5), SoundCategory.BLOCKS, 3.0f, var7);
-        worldIn.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, par6 / 24.0, 0.0, 0.0, new int[0]);
+        worldIn.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, par6 / 24.0, 0.0, 0.0);
         return true;
     }
     

@@ -172,7 +172,7 @@ public class GuiResearchBrowser extends GuiScreen
             this.mc = Minecraft.getMinecraft();
         }
         this.buttonList.clear();
-        this.buttonList.add(new GuiSearchButton(2, 1, this.height - 17, 16, 16, I18n.translateToLocalFormatted("tc.search", new Object[0])));
+        this.buttonList.add(new GuiSearchButton(2, 1, this.height - 17, 16, 16, I18n.translateToLocalFormatted("tc.search")));
         Keyboard.enableRepeatEvents(true);
         (this.searchField = new GuiTextField(0, this.fontRenderer, 20, 20, 89, this.fontRenderer.FONT_HEIGHT)).setMaxStringLength(15);
         this.searchField.setEnableBackgroundDrawing(true);
@@ -220,7 +220,7 @@ public class GuiResearchBrowser extends GuiScreen
             for (final String tcc : ConfigResearch.TCCategories) {
                 if (tcc.equals(rcl)) {
                     this.categoriesTC.add(rcl);
-                    this.buttonList.add(new GuiCategoryButton(rc, rcl, false, 20 + this.categoriesTC.size(), 1, 10 + this.categoriesTC.size() * 24, 16, 16, I18n.translateToLocalFormatted("tc.research_category." + rcl, new Object[0]), v));
+                    this.buttonList.add(new GuiCategoryButton(rc, rcl, false, 20 + this.categoriesTC.size(), 1, 10 + this.categoriesTC.size() * 24, 16, 16, I18n.translateToLocalFormatted("tc.research_category." + rcl), v));
                     continue Label_0283;
                 }
             }
@@ -231,7 +231,7 @@ public class GuiResearchBrowser extends GuiScreen
                 continue;
             }
             this.categoriesOther.add(rcl);
-            this.buttonList.add(new GuiCategoryButton(rc, rcl, true, 50 + this.categoriesOther.size(), this.width - 17, 10 + this.categoriesOther.size() * 24, 16, 16, I18n.translateToLocalFormatted("tc.research_category." + rcl, new Object[0]), v));
+            this.buttonList.add(new GuiCategoryButton(rc, rcl, true, 50 + this.categoriesOther.size(), this.width - 17, 10 + this.categoriesOther.size() * 24, 16, 16, I18n.translateToLocalFormatted("tc.research_category." + rcl), v));
         }
         if (count > limit || count < GuiResearchBrowser.catScrollPos) {
             this.addonShift = (this.screenY - 28) % 24 / 2;
@@ -334,12 +334,12 @@ public class GuiResearchBrowser extends GuiScreen
         final String s1 = this.searchField.getText().toLowerCase();
         for (final String cat : this.categoriesTC) {
             if (cat.toLowerCase().contains(s1)) {
-                this.searchResults.add(Pair.of(I18n.translateToLocalFormatted("tc.research_category." + cat, new Object[0]), new SearchResult(cat, null, true)));
+                this.searchResults.add(Pair.of(I18n.translateToLocalFormatted("tc.research_category." + cat), new SearchResult(cat, null, true)));
             }
         }
         for (final String cat : this.categoriesOther) {
             if (cat.toLowerCase().contains(s1)) {
-                this.searchResults.add(Pair.of(I18n.translateToLocalFormatted("tc.research_category." + cat, new Object[0]), new SearchResult(cat, null, true)));
+                this.searchResults.add(Pair.of(I18n.translateToLocalFormatted("tc.research_category." + cat), new SearchResult(cat, null, true)));
             }
         }
         final ArrayList<ResourceLocation> dupCheck = new ArrayList<ResourceLocation>();
@@ -481,7 +481,7 @@ public class GuiResearchBrowser extends GuiScreen
                 this.fontRenderer.drawString((String)p.getLeft(), 32, 32 + q * 10, color);
                 ++q;
                 if (32 + (q + 1) * 10 > this.screenY) {
-                    this.fontRenderer.drawString(I18n.translateToLocalFormatted("tc.search.more", new Object[0]), 22, 34 + q * 10, 11184810);
+                    this.fontRenderer.drawString(I18n.translateToLocalFormatted("tc.search.more"), 22, 34 + q * 10, 11184810);
                     break;
                 }
             }
@@ -811,7 +811,7 @@ public class GuiResearchBrowser extends GuiScreen
             PacketHandler.INSTANCE.sendToServer(new PacketSyncProgressToServer(this.currentHighlight.getKey(), true));
             this.mc.displayGuiScreen(new GuiResearchPage(this.currentHighlight, null, this.guiMapX, this.guiMapY));
             this.popuptime = System.currentTimeMillis() + 3000L;
-            this.popupmessage = new TextComponentTranslation(I18n.translateToLocal("tc.research.popup"), new Object[] { "" + this.currentHighlight.getLocalizedName() }).getUnformattedText();
+            this.popupmessage = new TextComponentTranslation(I18n.translateToLocal("tc.research.popup"), "" + this.currentHighlight.getLocalizedName()).getUnformattedText();
         }
         else if (this.currentHighlight != null && ThaumcraftCapabilities.knowsResearch(this.player, this.currentHighlight.getKey())) {
             ThaumcraftCapabilities.getKnowledge(this.player).clearResearchFlag(this.currentHighlight.getKey(), IPlayerKnowledge.EnumResearchFlag.RESEARCH);

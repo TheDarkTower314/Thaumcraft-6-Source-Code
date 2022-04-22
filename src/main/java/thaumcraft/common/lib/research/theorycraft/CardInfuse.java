@@ -70,12 +70,12 @@ public class CardInfuse extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.infuse.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.infuse.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.infuse.text", new Object[] { TextFormatting.BOLD + this.aspect.getName() + TextFormatting.RESET, this.stack.getDisplayName(), this.getVal() }).getFormattedText();
+        return new TextComponentTranslation("card.infuse.text", TextFormatting.BOLD + this.aspect.getName() + TextFormatting.RESET, this.stack.getDisplayName(), this.getVal()).getFormattedText();
     }
     
     private int getVal() {

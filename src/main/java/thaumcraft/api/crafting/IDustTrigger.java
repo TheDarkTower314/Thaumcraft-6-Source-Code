@@ -55,7 +55,7 @@ public interface IDustTrigger {
 	 * @return
 	 */
 	public default List<BlockPos> sparkle(World world, EntityPlayer player, BlockPos pos, Placement placement) {
-		return Arrays.asList(new BlockPos[]{pos});
+		return Arrays.asList(pos);
 	}
 	
 	/* 

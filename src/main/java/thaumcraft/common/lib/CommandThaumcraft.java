@@ -61,8 +61,8 @@ public class CommandThaumcraft extends CommandBase
     
     public void execute(final MinecraftServer server, final ICommandSender sender, final String[] args) throws CommandException {
         if (args.length == 0) {
-            sender.sendMessage(new TextComponentTranslation("§cInvalid arguments", new Object[0]));
-            sender.sendMessage(new TextComponentTranslation("§cUse /thaumcraft help to get help", new Object[0]));
+            sender.sendMessage(new TextComponentTranslation("§cInvalid arguments"));
+            sender.sendMessage(new TextComponentTranslation("§cUse /thaumcraft help to get help"));
             return;
         }
         if (args[0].equalsIgnoreCase("reload")) {
@@ -70,19 +70,19 @@ public class CommandThaumcraft extends CommandBase
                 rc.research.clear();
             }
             ResearchManager.parseAllResearch();
-            sender.sendMessage(new TextComponentTranslation("§5Success!", new Object[0]));
+            sender.sendMessage(new TextComponentTranslation("§5Success!"));
         }
         else if (args[0].equalsIgnoreCase("help")) {
-            sender.sendMessage(new TextComponentTranslation("§3You can also use /thaum or /tc instead of /thaumcraft.", new Object[0]));
-            sender.sendMessage(new TextComponentTranslation("§3Use this to give research to a player.", new Object[0]));
-            sender.sendMessage(new TextComponentTranslation("  /thaumcraft research <list|player> <list|all|reset|<research>>", new Object[0]));
-            sender.sendMessage(new TextComponentTranslation("§3Use this to remove research from a player.", new Object[0]));
-            sender.sendMessage(new TextComponentTranslation("  /thaumcraft research <player> revoke <research>", new Object[0]));
-            sender.sendMessage(new TextComponentTranslation("§3Use this to give set a players warp level.", new Object[0]));
-            sender.sendMessage(new TextComponentTranslation("  /thaumcraft warp <player> <add|set> <amount> <PERM|TEMP>", new Object[0]));
-            sender.sendMessage(new TextComponentTranslation("  not specifying perm or temp will just add normal warp", new Object[0]));
-            sender.sendMessage(new TextComponentTranslation("§3Use this to reload json research data", new Object[0]));
-            sender.sendMessage(new TextComponentTranslation("  /thaumcraft reload", new Object[0]));
+            sender.sendMessage(new TextComponentTranslation("§3You can also use /thaum or /tc instead of /thaumcraft."));
+            sender.sendMessage(new TextComponentTranslation("§3Use this to give research to a player."));
+            sender.sendMessage(new TextComponentTranslation("  /thaumcraft research <list|player> <list|all|reset|<research>>"));
+            sender.sendMessage(new TextComponentTranslation("§3Use this to remove research from a player."));
+            sender.sendMessage(new TextComponentTranslation("  /thaumcraft research <player> revoke <research>"));
+            sender.sendMessage(new TextComponentTranslation("§3Use this to give set a players warp level."));
+            sender.sendMessage(new TextComponentTranslation("  /thaumcraft warp <player> <add|set> <amount> <PERM|TEMP>"));
+            sender.sendMessage(new TextComponentTranslation("  not specifying perm or temp will just add normal warp"));
+            sender.sendMessage(new TextComponentTranslation("§3Use this to reload json research data"));
+            sender.sendMessage(new TextComponentTranslation("  /thaumcraft reload"));
         }
         else if (args.length >= 2) {
             if (args[0].equalsIgnoreCase("research") && args[1].equalsIgnoreCase("list")) {
@@ -111,8 +111,8 @@ public class CommandThaumcraft extends CommandBase
                         }
                     }
                     else {
-                        sender.sendMessage(new TextComponentTranslation("§cInvalid arguments", new Object[0]));
-                        sender.sendMessage(new TextComponentTranslation("§cUse /thaumcraft research <list|player> <list|all|reset|<research>>", new Object[0]));
+                        sender.sendMessage(new TextComponentTranslation("§cInvalid arguments"));
+                        sender.sendMessage(new TextComponentTranslation("§cUse /thaumcraft research <list|player> <list|all|reset|<research>>"));
                     }
                 }
                 else if (args[0].equalsIgnoreCase("warp")) {
@@ -125,19 +125,19 @@ public class CommandThaumcraft extends CommandBase
                         this.addWarp(sender, entityplayermp, i, (args.length == 5) ? args[4] : "");
                     }
                     else {
-                        sender.sendMessage(new TextComponentTranslation("§cInvalid arguments", new Object[0]));
-                        sender.sendMessage(new TextComponentTranslation("§cUse /thaumcraft warp <player> <add|set> <amount> <PERM|TEMP>", new Object[0]));
+                        sender.sendMessage(new TextComponentTranslation("§cInvalid arguments"));
+                        sender.sendMessage(new TextComponentTranslation("§cUse /thaumcraft warp <player> <add|set> <amount> <PERM|TEMP>"));
                     }
                 }
                 else {
-                    sender.sendMessage(new TextComponentTranslation("§cInvalid arguments", new Object[0]));
-                    sender.sendMessage(new TextComponentTranslation("§cUse /thaumcraft help to get help", new Object[0]));
+                    sender.sendMessage(new TextComponentTranslation("§cInvalid arguments"));
+                    sender.sendMessage(new TextComponentTranslation("§cUse /thaumcraft help to get help"));
                 }
             }
         }
         else {
-            sender.sendMessage(new TextComponentTranslation("§cInvalid arguments", new Object[0]));
-            sender.sendMessage(new TextComponentTranslation("§cUse /thaumcraft help to get help", new Object[0]));
+            sender.sendMessage(new TextComponentTranslation("§cInvalid arguments"));
+            sender.sendMessage(new TextComponentTranslation("§cUse /thaumcraft help to get help"));
         }
     }
     
@@ -152,8 +152,8 @@ public class CommandThaumcraft extends CommandBase
             ThaumcraftCapabilities.getWarp(player).set(IPlayerWarp.EnumWarpType.NORMAL, i);
         }
         ThaumcraftCapabilities.getWarp(player).sync(player);
-        player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " set your warp to " + i, new Object[0]));
-        icommandsender.sendMessage(new TextComponentTranslation("§5Success!", new Object[0]));
+        player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " set your warp to " + i));
+        icommandsender.sendMessage(new TextComponentTranslation("§5Success!"));
     }
     
     private void addWarp(final ICommandSender icommandsender, final EntityPlayerMP player, final int i, final String type) {
@@ -168,8 +168,8 @@ public class CommandThaumcraft extends CommandBase
         }
         ThaumcraftCapabilities.getWarp(player).sync(player);
         PacketHandler.INSTANCE.sendTo(new PacketWarpMessage(player, (byte)0, i), player);
-        player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " added " + i + " warp to your total.", new Object[0]));
-        icommandsender.sendMessage(new TextComponentTranslation("§5Success!", new Object[0]));
+        player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " added " + i + " warp to your total."));
+        icommandsender.sendMessage(new TextComponentTranslation("§5Success!"));
     }
     
     private void listResearch(final ICommandSender icommandsender) {
@@ -177,7 +177,7 @@ public class CommandThaumcraft extends CommandBase
         for (final ResearchCategory cat : rc) {
             final Collection<ResearchEntry> rl = cat.research.values();
             for (final ResearchEntry ri : rl) {
-                icommandsender.sendMessage(new TextComponentTranslation("§5" + ri.getKey(), new Object[0]));
+                icommandsender.sendMessage(new TextComponentTranslation("§5" + ri.getKey()));
             }
         }
     }
@@ -186,11 +186,11 @@ public class CommandThaumcraft extends CommandBase
         if (ResearchCategories.getResearch(research) != null) {
             giveRecursiveResearch(player, research);
             ThaumcraftCapabilities.getKnowledge(player).sync(player);
-            player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " gave you " + research + " research and its requisites.", new Object[0]));
-            icommandsender.sendMessage(new TextComponentTranslation("§5Success!", new Object[0]));
+            player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " gave you " + research + " research and its requisites."));
+            icommandsender.sendMessage(new TextComponentTranslation("§5Success!"));
         }
         else {
-            icommandsender.sendMessage(new TextComponentTranslation("§cResearch does not exist.", new Object[0]));
+            icommandsender.sendMessage(new TextComponentTranslation("§cResearch does not exist."));
         }
     }
     
@@ -241,11 +241,11 @@ public class CommandThaumcraft extends CommandBase
         if (ResearchCategories.getResearch(research) != null) {
             revokeRecursiveResearch(player, research);
             ThaumcraftCapabilities.getKnowledge(player).sync(player);
-            player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " removed " + research + " research and its children.", new Object[0]));
-            icommandsender.sendMessage(new TextComponentTranslation("§5Success!", new Object[0]));
+            player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " removed " + research + " research and its children."));
+            icommandsender.sendMessage(new TextComponentTranslation("§5Success!"));
         }
         else {
-            icommandsender.sendMessage(new TextComponentTranslation("§cResearch does not exist.", new Object[0]));
+            icommandsender.sendMessage(new TextComponentTranslation("§cResearch does not exist."));
         }
     }
     
@@ -280,8 +280,8 @@ public class CommandThaumcraft extends CommandBase
             }
             ss += key;
         }
-        icommandsender.sendMessage(new TextComponentTranslation("§5Research for " + player.getName(), new Object[0]));
-        icommandsender.sendMessage(new TextComponentTranslation("§5" + ss, new Object[0]));
+        icommandsender.sendMessage(new TextComponentTranslation("§5Research for " + player.getName()));
+        icommandsender.sendMessage(new TextComponentTranslation("§5" + ss));
     }
     
     void giveAllResearch(final ICommandSender icommandsender, final EntityPlayerMP player) {
@@ -292,8 +292,8 @@ public class CommandThaumcraft extends CommandBase
                 giveRecursiveResearch(player, ri.getKey());
             }
         }
-        player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " has given you all research.", new Object[0]));
-        icommandsender.sendMessage(new TextComponentTranslation("§5Success!", new Object[0]));
+        player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " has given you all research."));
+        icommandsender.sendMessage(new TextComponentTranslation("§5Success!"));
     }
     
     void resetResearch(final ICommandSender icommandsender, final EntityPlayerMP player) {
@@ -307,8 +307,8 @@ public class CommandThaumcraft extends CommandBase
                 }
             }
         }
-        player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " has reset all your research.", new Object[0]));
-        icommandsender.sendMessage(new TextComponentTranslation("§5Success!", new Object[0]));
+        player.sendMessage(new TextComponentTranslation("§5" + icommandsender.getName() + " has reset all your research."));
+        icommandsender.sendMessage(new TextComponentTranslation("§5Success!"));
         ThaumcraftCapabilities.getKnowledge(player).sync(player);
     }
 }

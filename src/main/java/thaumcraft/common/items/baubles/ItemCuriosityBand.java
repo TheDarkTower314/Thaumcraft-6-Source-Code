@@ -24,7 +24,7 @@ public class ItemCuriosityBand extends ItemTCBase implements IBauble, IRenderBau
     ResourceLocation tex;
     
     public ItemCuriosityBand() {
-        super("curiosity_band", new String[0]);
+        super("curiosity_band");
         this.tex = new ResourceLocation("thaumcraft", "textures/items/curiosity_band_worn.png");
         this.maxStackSize = 1;
         this.canRepair = false;

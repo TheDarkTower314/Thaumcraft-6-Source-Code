@@ -30,7 +30,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemGolemBell extends ItemTCBase implements ISealDisplayer
 {
     public ItemGolemBell() {
-        super("golem_bell", new String[0]);
+        super("golem_bell");
         this.setHasSubtypes(false);
         this.setMaxStackSize(1);
     }

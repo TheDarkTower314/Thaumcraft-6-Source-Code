@@ -13,12 +13,12 @@ public abstract class UVTransformation extends ITransformation<UV, UVTransformat
     
     @Override
     public UVTransformation at(final UV point) {
-        return new UVTransformationList(new UVTransformation[] { new UVTranslation(-point.u, -point.v), this, new UVTranslation(point.u, point.v) });
+        return new UVTransformationList(new UVTranslation(-point.u, -point.v), this, new UVTranslation(point.u, point.v));
     }
     
     @Override
     public UVTransformationList with(final UVTransformation t) {
-        return new UVTransformationList(new UVTransformation[] { this, t });
+        return new UVTransformationList(this, t);
     }
     
     @Override

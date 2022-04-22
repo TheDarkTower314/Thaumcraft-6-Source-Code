@@ -64,7 +64,7 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
     
     protected void initEntityAI() {
         this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.0, false));
-        this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
     

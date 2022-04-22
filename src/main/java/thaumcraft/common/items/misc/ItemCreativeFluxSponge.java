@@ -30,7 +30,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemCreativeFluxSponge extends ItemTCBase
 {
     public ItemCreativeFluxSponge() {
-        super("creative_flux_sponge", new String[0]);
+        super("creative_flux_sponge");
         this.setMaxStackSize(1);
         this.setHasSubtypes(false);
         this.setMaxDamage(0);

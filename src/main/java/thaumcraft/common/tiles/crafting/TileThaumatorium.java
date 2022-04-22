@@ -226,7 +226,7 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
             final ItemStack dropped = this.getCurrentOutputRecipe();
             final EntityPlayer p = this.world.getPlayerEntityByName(this.recipePlayer.get(this.currentCraft));
             if (p != null) {
-                FMLCommonHandler.instance().firePlayerCraftingEvent(p, dropped, new InventoryFake(new ItemStack[] { this.getStackInSlot(0) }));
+                FMLCommonHandler.instance().firePlayerCraftingEvent(p, dropped, new InventoryFake(this.getStackInSlot(0)));
             }
             final EnumFacing facing = BlockStateUtils.getFacing(this.getBlockMetadata());
             InventoryUtils.ejectStackAt(this.getWorld(), this.getPos(), facing, dropped);

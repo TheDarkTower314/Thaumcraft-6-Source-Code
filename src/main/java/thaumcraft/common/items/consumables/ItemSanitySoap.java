@@ -28,7 +28,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemSanitySoap extends ItemTCBase
 {
     public ItemSanitySoap() {
-        super("sanity_soap", new String[0]);
+        super("sanity_soap");
         this.setHasSubtypes(false);
     }
     

@@ -151,7 +151,7 @@ public class ModConfig
                     is2.setCount(1);
                 }
                 ModConfig.foundCopperIngot = true;
-                GameRegistry.addShapedRecipe(new ResourceLocation("thaumcraft", "coppertonuggets"), defaultGroup, new ItemStack(ItemsTC.nuggets, 9, 1), new Object[] { "#", '#', is2 });
+                GameRegistry.addShapedRecipe(new ResourceLocation("thaumcraft", "coppertonuggets"), defaultGroup, new ItemStack(ItemsTC.nuggets, 9, 1), "#", '#', is2);
                 if (first) {
                     first = false;
                     FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(ItemsTC.clusters, 1, 2), new ItemStack(is2.getItem(), 2, is2.getItemDamage()), 1.0f);
@@ -172,7 +172,7 @@ public class ModConfig
                     is2.setCount(1);
                 }
                 ModConfig.foundTinIngot = true;
-                GameRegistry.addShapedRecipe(new ResourceLocation("thaumcraft", "tintonuggets"), defaultGroup, new ItemStack(ItemsTC.nuggets, 9, 2), new Object[] { "#", '#', is2 });
+                GameRegistry.addShapedRecipe(new ResourceLocation("thaumcraft", "tintonuggets"), defaultGroup, new ItemStack(ItemsTC.nuggets, 9, 2), "#", '#', is2);
                 if (first) {
                     first = false;
                     FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(ItemsTC.clusters, 1, 3), new ItemStack(is2.getItem(), 2, is2.getItemDamage()), 1.0f);
@@ -193,7 +193,7 @@ public class ModConfig
                     is2.setCount(1);
                 }
                 ModConfig.foundSilverIngot = true;
-                GameRegistry.addShapedRecipe(new ResourceLocation("thaumcraft", "silvertonuggets"), defaultGroup, new ItemStack(ItemsTC.nuggets, 9, 3), new Object[] { "#", '#', is2 });
+                GameRegistry.addShapedRecipe(new ResourceLocation("thaumcraft", "silvertonuggets"), defaultGroup, new ItemStack(ItemsTC.nuggets, 9, 3), "#", '#', is2);
                 if (first) {
                     first = false;
                     FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(ItemsTC.clusters, 1, 4), new ItemStack(is2.getItem(), 2, is2.getItemDamage()), 1.0f);
@@ -214,7 +214,7 @@ public class ModConfig
                     is2.setCount(1);
                 }
                 ModConfig.foundLeadIngot = true;
-                GameRegistry.addShapedRecipe(new ResourceLocation("thaumcraft", "leadtonuggets"), defaultGroup, new ItemStack(ItemsTC.nuggets, 9, 4), new Object[] { "#", '#', is2 });
+                GameRegistry.addShapedRecipe(new ResourceLocation("thaumcraft", "leadtonuggets"), defaultGroup, new ItemStack(ItemsTC.nuggets, 9, 4), "#", '#', is2);
                 if (first) {
                     first = false;
                     FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(ItemsTC.clusters, 1, 5), new ItemStack(is2.getItem(), 2, is2.getItemDamage()), 1.0f);

@@ -61,7 +61,7 @@ public class EntityTaintCrawler extends EntityMob implements ITaintedMob
         this.tasks.addTask(3, new EntityAIWander(this, 1.0));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
         this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
     

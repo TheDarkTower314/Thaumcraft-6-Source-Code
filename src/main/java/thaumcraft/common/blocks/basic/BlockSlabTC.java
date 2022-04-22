@@ -74,7 +74,7 @@ public class BlockSlabTC extends BlockSlab
     }
     
     protected BlockStateContainer createBlockState() {
-        return this.isDouble() ? new BlockStateContainer(this, new IProperty[] {BlockSlabTC.VARIANT}) : new BlockStateContainer(this, new IProperty[] {BlockSlabTC.HALF, BlockSlabTC.VARIANT});
+        return this.isDouble() ? new BlockStateContainer(this, BlockSlabTC.VARIANT) : new BlockStateContainer(this, BlockSlabTC.HALF, BlockSlabTC.VARIANT);
     }
     
     public int damageDropped(final IBlockState state) {

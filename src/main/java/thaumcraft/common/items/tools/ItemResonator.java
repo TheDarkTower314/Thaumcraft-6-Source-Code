@@ -31,7 +31,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemResonator extends ItemTCBase
 {
     public ItemResonator() {
-        super("resonator", new String[0]);
+        super("resonator");
         this.setMaxStackSize(1);
         this.setMaxStackSize(1);
         this.setCreativeTab(ConfigItems.TABTC);
@@ -60,24 +60,24 @@ public class ItemResonator extends ItemTCBase
             side = EnumFacing.VALUES[hit.subHit];
         }
         if (!(tile instanceof TileTubeBuffer) && et.getEssentiaType(side) != null) {
-            player.sendMessage(new TextComponentTranslation("tc.resonator1", new Object[] { "" + et.getEssentiaAmount(side), et.getEssentiaType(side).getName() }));
+            player.sendMessage(new TextComponentTranslation("tc.resonator1", "" + et.getEssentiaAmount(side), et.getEssentiaType(side).getName()));
         }
         else if (tile instanceof TileTubeBuffer && ((IAspectContainer)tile).getAspects().size() > 0) {
             for (final Aspect aspect : ((IAspectContainer)tile).getAspects().getAspectsSortedByName()) {
-                player.sendMessage(new TextComponentTranslation("tc.resonator1", new Object[] { "" + ((IAspectContainer)tile).getAspects().getAmount(aspect), aspect.getName() }));
+                player.sendMessage(new TextComponentTranslation("tc.resonator1", "" + ((IAspectContainer)tile).getAspects().getAmount(aspect), aspect.getName()));
             }
         }
         String s = I18n.translateToLocal("tc.resonator3");
         if (et.getSuctionType(side) != null) {
             s = et.getSuctionType(side).getName();
         }
-        player.sendMessage(new TextComponentTranslation("tc.resonator2", new Object[] { "" + et.getSuctionAmount(side), s }));
+        player.sendMessage(new TextComponentTranslation("tc.resonator2", "" + et.getSuctionAmount(side), s));
         world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.BLOCKS, 0.5f, 1.9f + world.rand.nextFloat() * 0.1f);
         if (tile != null && tile instanceof TileCondenser) {
             final TileCondenser tc = (TileCondenser)tile;
-            player.sendMessage(new TextComponentTranslation("tc.condenser1", new Object[] { "" + tc.cost }));
+            player.sendMessage(new TextComponentTranslation("tc.condenser1", "" + tc.cost));
             final int s2 = tc.interval / 20;
-            player.sendMessage(new TextComponentTranslation("tc.condenser2", new Object[] { "" + tc.interval, "" + s2 }));
+            player.sendMessage(new TextComponentTranslation("tc.condenser2", "" + tc.interval, "" + s2));
         }
         return EnumActionResult.SUCCESS;
     }

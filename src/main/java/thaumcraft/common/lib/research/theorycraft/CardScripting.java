@@ -24,12 +24,12 @@ public class CardScripting extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.scripting.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.scripting.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.scripting.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.scripting.text").getFormattedText();
     }
     
     @Override

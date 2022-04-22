@@ -24,7 +24,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemSealPlacer extends ItemTCBase implements ISealDisplayer
 {
     public ItemSealPlacer() {
-        super("seal", new String[] { "blank" });
+        super("seal", "blank");
         this.setMaxStackSize(64);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);

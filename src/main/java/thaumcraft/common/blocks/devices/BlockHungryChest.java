@@ -173,7 +173,7 @@ public class BlockHungryChest extends BlockContainer
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {BlockHungryChest.FACING});
+        return new BlockStateContainer(this, BlockHungryChest.FACING);
     }
     
     public TileEntity createNewTileEntity(final World par1World, final int m) {

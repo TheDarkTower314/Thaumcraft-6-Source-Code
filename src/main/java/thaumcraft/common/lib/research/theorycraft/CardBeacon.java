@@ -23,12 +23,12 @@ public class CardBeacon extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.beacon.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.beacon.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.beacon.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.beacon.text").getFormattedText();
     }
     
     @Override

@@ -13,7 +13,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemCharmUndying extends ItemTCBase implements IBauble
 {
     public ItemCharmUndying() {
-        super("charm_undying", new String[0]);
+        super("charm_undying");
         this.maxStackSize = 1;
         this.canRepair = false;
         this.setMaxDamage(0);

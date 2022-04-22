@@ -82,12 +82,12 @@ public class CardCelestial extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.celestial.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.celestial.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.celestial.text", new Object[] { TextFormatting.BOLD + new TextComponentTranslation("tc.research_category." + this.cat, new Object[0]).getFormattedText() + TextFormatting.RESET }).getUnformattedText();
+        return new TextComponentTranslation("card.celestial.text", TextFormatting.BOLD + new TextComponentTranslation("tc.research_category." + this.cat).getFormattedText() + TextFormatting.RESET).getUnformattedText();
     }
     
     @Override

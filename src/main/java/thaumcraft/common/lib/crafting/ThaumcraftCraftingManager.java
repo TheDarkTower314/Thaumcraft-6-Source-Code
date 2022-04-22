@@ -375,9 +375,9 @@ public class ThaumcraftCraftingManager
         try {
             final String mixPredicateName = "net.minecraft.potion.PotionHelper$MixPredicate";
             final Class<?> mixPredicateClass = Class.forName(mixPredicateName);
-            final Field output = ReflectionHelper.findField(mixPredicateClass, ObfuscationReflectionHelper.remapFieldNames(mixPredicateName, new String[] { "field_185200_c" }));
-            final Field reagent = ReflectionHelper.findField(mixPredicateClass, ObfuscationReflectionHelper.remapFieldNames(mixPredicateName, new String[] { "field_185199_b" }));
-            final Field input = ReflectionHelper.findField(mixPredicateClass, ObfuscationReflectionHelper.remapFieldNames(mixPredicateName, new String[] { "field_185198_a" }));
+            final Field output = ReflectionHelper.findField(mixPredicateClass, ObfuscationReflectionHelper.remapFieldNames(mixPredicateName, "field_185200_c"));
+            final Field reagent = ReflectionHelper.findField(mixPredicateClass, ObfuscationReflectionHelper.remapFieldNames(mixPredicateName, "field_185199_b"));
+            final Field input = ReflectionHelper.findField(mixPredicateClass, ObfuscationReflectionHelper.remapFieldNames(mixPredicateName, "field_185198_a"));
             output.setAccessible(true);
             reagent.setAccessible(true);
             input.setAccessible(true);

@@ -52,12 +52,12 @@ public class CardChannel extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.channel.name", new Object[] { TextFormatting.DARK_BLUE + this.aspect.getName() + TextFormatting.RESET + "" + TextFormatting.BOLD }).getFormattedText();
+        return new TextComponentTranslation("card.channel.name", TextFormatting.DARK_BLUE + this.aspect.getName() + TextFormatting.RESET + "" + TextFormatting.BOLD).getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.channel.text", new Object[] { TextFormatting.BOLD + this.aspect.getName() + TextFormatting.RESET }).getFormattedText();
+        return new TextComponentTranslation("card.channel.text", TextFormatting.BOLD + this.aspect.getName() + TextFormatting.RESET).getFormattedText();
     }
     
     @Override

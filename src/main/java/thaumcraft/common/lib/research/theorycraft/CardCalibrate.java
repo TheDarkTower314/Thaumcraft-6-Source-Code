@@ -23,12 +23,12 @@ public class CardCalibrate extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.calibrate.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.calibrate.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.calibrate.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.calibrate.text").getFormattedText();
     }
     
     @Override

@@ -25,7 +25,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemLootBag extends ItemTCBase
 {
     public ItemLootBag() {
-        super("loot_bag", new String[] { "common", "uncommon", "rare" });
+        super("loot_bag", "common", "uncommon", "rare");
         this.setMaxStackSize(16);
     }
     

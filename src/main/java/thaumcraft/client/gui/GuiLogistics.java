@@ -160,7 +160,7 @@ public class GuiLogistics extends GuiContainer
         GL11.glDisable(3042);
         this.searchField.drawTextBox();
         if (!this.searchField.isFocused() && this.searchField.getText().isEmpty()) {
-            this.fontRenderer.drawString(new TextComponentTranslation("tc.logistics.search", new Object[0]).getFormattedText(), this.guiLeft + 146, this.guiTop + 197, 2236962);
+            this.fontRenderer.drawString(new TextComponentTranslation("tc.logistics.search").getFormattedText(), this.guiLeft + 146, this.guiTop + 197, 2236962);
         }
     }
     

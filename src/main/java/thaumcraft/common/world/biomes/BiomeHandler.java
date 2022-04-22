@@ -106,9 +106,9 @@ public class BiomeHandler
     }
     
     public static void registerBiomes() {
-        BiomeDictionary.addTypes(BiomeHandler.EERIE, new BiomeDictionary.Type[] { BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.SPOOKY });
-        BiomeDictionary.addTypes(BiomeHandler.ELDRITCH, new BiomeDictionary.Type[] { BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.SPOOKY, BiomeDictionary.Type.END });
-        BiomeDictionary.addTypes(BiomeHandler.MAGICAL_FOREST, new BiomeDictionary.Type[] { BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.FOREST });
+        BiomeDictionary.addTypes(BiomeHandler.EERIE, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.SPOOKY);
+        BiomeDictionary.addTypes(BiomeHandler.ELDRITCH, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.SPOOKY, BiomeDictionary.Type.END);
+        BiomeDictionary.addTypes(BiomeHandler.MAGICAL_FOREST, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.FOREST);
         registerBiomeInfo(BiomeDictionary.Type.WATER, 0.33f, Aspect.WATER, false, 0.0f);
         registerBiomeInfo(BiomeDictionary.Type.OCEAN, 0.33f, Aspect.WATER, false, 0.0f);
         registerBiomeInfo(BiomeDictionary.Type.RIVER, 0.4f, Aspect.WATER, false, 0.0f);

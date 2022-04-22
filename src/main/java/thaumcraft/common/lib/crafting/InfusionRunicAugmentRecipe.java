@@ -27,11 +27,11 @@ import thaumcraft.api.crafting.InfusionRecipe;
 public class InfusionRunicAugmentRecipe extends InfusionRecipe
 {
     public InfusionRunicAugmentRecipe() {
-        super("RUNICSHIELDING", null, 0, null, Ingredient.EMPTY, new Object[] { "gemAmber", ItemsTC.salisMundus });
+        super("RUNICSHIELDING", null, 0, null, Ingredient.EMPTY, "gemAmber", ItemsTC.salisMundus);
     }
     
     public InfusionRunicAugmentRecipe(final ItemStack in) {
-        super("RUNICSHIELDING", null, 0, null, in, new Object[] { new ItemStack(ItemsTC.salisMundus), "gemAmber" });
+        super("RUNICSHIELDING", null, 0, null, in, new ItemStack(ItemsTC.salisMundus), "gemAmber");
         final int fc = PlayerEvents.getRunicCharge(in);
         if (fc > 0) {
             this.components.clear();

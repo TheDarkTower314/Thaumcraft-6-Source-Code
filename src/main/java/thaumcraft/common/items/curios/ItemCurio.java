@@ -34,7 +34,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemCurio extends ItemTCBase
 {
     public ItemCurio() {
-        super("curio", new String[] { "arcane", "preserved", "ancient", "eldritch", "knowledge", "twisted", "rites" });
+        super("curio", "arcane", "preserved", "ancient", "eldritch", "knowledge", "twisted", "rites");
     }
     
     public EnumRarity getRarity(final ItemStack itemstack) {

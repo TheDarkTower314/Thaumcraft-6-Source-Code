@@ -24,12 +24,12 @@ public class CardEnchantment extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.enchantment.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.enchantment.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.enchantment.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.enchantment.text").getFormattedText();
     }
     
     @Override

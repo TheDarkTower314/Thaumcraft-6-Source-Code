@@ -24,7 +24,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemCreativePlacer extends ItemTCBase
 {
     public ItemCreativePlacer() {
-        super("creative_placer", new String[] { "obelisk", "node", "caster" });
+        super("creative_placer", "obelisk", "node", "caster");
     }
     
     @SideOnly(Side.CLIENT)

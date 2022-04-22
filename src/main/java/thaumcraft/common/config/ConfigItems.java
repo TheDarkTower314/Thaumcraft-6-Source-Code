@@ -182,24 +182,24 @@ public class ConfigItems
         iForgeRegistry.register((ItemsTC.primordialPearl = new ItemPrimordialPearl()));
         iForgeRegistry.register((ItemsTC.pechWand = new ItemPechWand()));
         iForgeRegistry.register((ItemsTC.celestialNotes = new ItemCelestialNotes()));
-        iForgeRegistry.register((ItemsTC.amber = new ItemTCBase("amber", new String[0])));
-        iForgeRegistry.register((ItemsTC.quicksilver = new ItemTCBase("quicksilver", new String[0])));
-        iForgeRegistry.register((ItemsTC.ingots = new ItemTCBase("ingot", new String[] { "thaumium", "void", "brass" })));
-        iForgeRegistry.register((ItemsTC.nuggets = new ItemTCBase("nugget", new String[] { "iron", "copper", "tin", "silver", "lead", "quicksilver", "thaumium", "void", "brass", "quartz", "rareearth" })));
-        iForgeRegistry.register((ItemsTC.clusters = new ItemTCBase("cluster", new String[] { "iron", "gold", "copper", "tin", "silver", "lead", "cinnabar", "quartz" })));
-        iForgeRegistry.register((ItemsTC.fabric = new ItemTCBase("fabric", new String[0])));
-        iForgeRegistry.register((ItemsTC.visResonator = new ItemTCBase("vis_resonator", new String[0])));
-        iForgeRegistry.register((ItemsTC.tallow = new ItemTCBase("tallow", new String[0])));
-        iForgeRegistry.register((ItemsTC.mechanismSimple = new ItemTCBase("mechanism_simple", new String[0])));
-        iForgeRegistry.register((ItemsTC.mechanismComplex = new ItemTCBase("mechanism_complex", new String[0])));
-        iForgeRegistry.register((ItemsTC.plate = new ItemTCBase("plate", new String[] { "brass", "iron", "thaumium", "void" })));
-        iForgeRegistry.register((ItemsTC.filter = new ItemTCBase("filter", new String[0])));
-        iForgeRegistry.register((ItemsTC.morphicResonator = new ItemTCBase("morphic_resonator", new String[0])));
+        iForgeRegistry.register((ItemsTC.amber = new ItemTCBase("amber")));
+        iForgeRegistry.register((ItemsTC.quicksilver = new ItemTCBase("quicksilver")));
+        iForgeRegistry.register((ItemsTC.ingots = new ItemTCBase("ingot", "thaumium", "void", "brass")));
+        iForgeRegistry.register((ItemsTC.nuggets = new ItemTCBase("nugget", "iron", "copper", "tin", "silver", "lead", "quicksilver", "thaumium", "void", "brass", "quartz", "rareearth")));
+        iForgeRegistry.register((ItemsTC.clusters = new ItemTCBase("cluster", "iron", "gold", "copper", "tin", "silver", "lead", "cinnabar", "quartz")));
+        iForgeRegistry.register((ItemsTC.fabric = new ItemTCBase("fabric")));
+        iForgeRegistry.register((ItemsTC.visResonator = new ItemTCBase("vis_resonator")));
+        iForgeRegistry.register((ItemsTC.tallow = new ItemTCBase("tallow")));
+        iForgeRegistry.register((ItemsTC.mechanismSimple = new ItemTCBase("mechanism_simple")));
+        iForgeRegistry.register((ItemsTC.mechanismComplex = new ItemTCBase("mechanism_complex")));
+        iForgeRegistry.register((ItemsTC.plate = new ItemTCBase("plate", "brass", "iron", "thaumium", "void")));
+        iForgeRegistry.register((ItemsTC.filter = new ItemTCBase("filter")));
+        iForgeRegistry.register((ItemsTC.morphicResonator = new ItemTCBase("morphic_resonator")));
         iForgeRegistry.register((ItemsTC.salisMundus = new ItemMagicDust()));
-        iForgeRegistry.register((ItemsTC.mirroredGlass = new ItemTCBase("mirrored_glass", new String[0])));
-        iForgeRegistry.register((ItemsTC.voidSeed = new ItemTCBase("void_seed", new String[0])));
-        iForgeRegistry.register((ItemsTC.mind = new ItemTCBase("mind", new String[] { "clockwork", "biothaumic" })));
-        iForgeRegistry.register((ItemsTC.modules = new ItemTCBase("module", new String[] { "vision", "aggression" })));
+        iForgeRegistry.register((ItemsTC.mirroredGlass = new ItemTCBase("mirrored_glass")));
+        iForgeRegistry.register((ItemsTC.voidSeed = new ItemTCBase("void_seed")));
+        iForgeRegistry.register((ItemsTC.mind = new ItemTCBase("mind", "clockwork", "biothaumic")));
+        iForgeRegistry.register((ItemsTC.modules = new ItemTCBase("module", "vision", "aggression")));
         iForgeRegistry.register((ItemsTC.crystalEssence = new ItemCrystalEssence()));
         iForgeRegistry.register((ItemsTC.chunks = new ItemChunksEdible()));
         iForgeRegistry.register((ItemsTC.tripleMeatTreat = new ItemTripleMeatTreat()));
@@ -207,7 +207,7 @@ public class ConfigItems
         iForgeRegistry.register((ItemsTC.label = new ItemLabel()));
         iForgeRegistry.register((ItemsTC.phial = new ItemPhial()));
         iForgeRegistry.register((ItemsTC.alumentum = new ItemAlumentum()));
-        iForgeRegistry.register((ItemsTC.jarBrace = new ItemTCBase("jar_brace", new String[0])));
+        iForgeRegistry.register((ItemsTC.jarBrace = new ItemTCBase("jar_brace")));
         iForgeRegistry.register((ItemsTC.bottleTaint = new ItemBottleTaint()));
         iForgeRegistry.register((ItemsTC.sanitySoap = new ItemSanitySoap()));
         iForgeRegistry.register((ItemsTC.bathSalts = new ItemBathSalts()));
@@ -236,8 +236,8 @@ public class ConfigItems
         iForgeRegistry.register((ItemsTC.primalCrusher = new ItemPrimalCrusher()));
         iForgeRegistry.register((ItemsTC.crimsonBlade = new ItemCrimsonBlade()));
         iForgeRegistry.register((ItemsTC.grappleGun = new ItemGrappleGun()));
-        iForgeRegistry.register((ItemsTC.grappleGunTip = new ItemTCBase("grapple_gun_tip", new String[0])));
-        iForgeRegistry.register((ItemsTC.grappleGunSpool = new ItemTCBase("grapple_gun_spool", new String[0])));
+        iForgeRegistry.register((ItemsTC.grappleGunTip = new ItemTCBase("grapple_gun_tip")));
+        iForgeRegistry.register((ItemsTC.grappleGunSpool = new ItemTCBase("grapple_gun_spool")));
         iForgeRegistry.register((ItemsTC.goggles = new ItemGoggles()));
         iForgeRegistry.register((ItemsTC.thaumiumHelm = new ItemThaumiumArmor("thaumium_helm", ThaumcraftMaterials.ARMORMAT_THAUMIUM, 2, EntityEquipmentSlot.HEAD)));
         iForgeRegistry.register((ItemsTC.thaumiumChest = new ItemThaumiumArmor("thaumium_chest", ThaumcraftMaterials.ARMORMAT_THAUMIUM, 2, EntityEquipmentSlot.CHEST)));
@@ -341,7 +341,7 @@ public class ConfigItems
         if (item.getCustomMesh() != null) {
             ModelLoader.setCustomMeshDefinition(item.getItem(), item.getCustomMesh());
             for (int i = 0; i < item.getVariantNames().length; ++i) {
-                ModelBakery.registerItemVariants(item.getItem(), new ResourceLocation[] {item.getCustomModelResourceLocation(item.getVariantNames()[i])});
+                ModelBakery.registerItemVariants(item.getItem(), item.getCustomModelResourceLocation(item.getVariantNames()[i]));
             }
         }
         else if (item.getItem() == ItemsTC.seals) {

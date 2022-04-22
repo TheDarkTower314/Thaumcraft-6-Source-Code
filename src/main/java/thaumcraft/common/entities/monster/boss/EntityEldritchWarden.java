@@ -108,7 +108,7 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
         this.tasks.addTask(7, new EntityAIWander(this, 1.0));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0f));
         this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCultist.class, true));
     }
@@ -296,7 +296,7 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
             final double d7 = d3 + (this.posX - d3) * d6 + (this.rand.nextDouble() - 0.5) * this.width * 2.0;
             final double d8 = d4 + (this.posY - d4) * d6 + this.rand.nextDouble() * this.height;
             final double d9 = d5 + (this.posZ - d5) * d6 + (this.rand.nextDouble() - 0.5) * this.width * 2.0;
-            this.world.spawnParticle(EnumParticleTypes.PORTAL, d7, d8, d9, f, f2, f3, new int[0]);
+            this.world.spawnParticle(EnumParticleTypes.PORTAL, d7, d8, d9, f, f2, f3);
         }
         this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0f, 1.0f);
     }

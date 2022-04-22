@@ -11,7 +11,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemBathSalts extends ItemTCBase
 {
     public ItemBathSalts() {
-        super("bath_salts", new String[0]);
+        super("bath_salts");
         this.setHasSubtypes(false);
     }
     

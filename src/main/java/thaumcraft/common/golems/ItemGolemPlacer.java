@@ -37,7 +37,7 @@ import thaumcraft.common.items.ItemTCBase;
 public class ItemGolemPlacer extends ItemTCBase implements ISealDisplayer
 {
     public ItemGolemPlacer() {
-        super("golem", new String[0]);
+        super("golem");
     }
     
     @Override

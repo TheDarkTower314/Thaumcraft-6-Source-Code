@@ -95,7 +95,7 @@ public class BlockPedestal extends BlockTCTile implements IInfusionStabiliserExt
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {BlockInlay.CHARGE});
+        return new BlockStateContainer(this, BlockInlay.CHARGE);
     }
     
     @SideOnly(Side.CLIENT)

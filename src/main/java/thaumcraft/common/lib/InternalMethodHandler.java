@@ -65,7 +65,7 @@ public class InternalMethodHandler implements IInternalMethodHandler
         }
         if (type != IPlayerWarp.EnumWarpType.TEMPORARY && ThaumcraftCapabilities.knowsResearchStrict(player, "FIRSTSTEPS") && !ThaumcraftCapabilities.knowsResearchStrict(player, "WARP")) {
             this.completeResearch(player, "WARP");
-            player.sendStatusMessage(new TextComponentTranslation("research.WARP.warn", new Object[0]), true);
+            player.sendStatusMessage(new TextComponentTranslation("research.WARP.warn"), true);
         }
         pw.sync((EntityPlayerMP)player);
     }

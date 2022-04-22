@@ -60,12 +60,12 @@ public class CardMindOverMatter extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.mindmatter.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.mindmatter.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.mindmatter.text", new Object[] { this.getVal() }).getFormattedText();
+        return new TextComponentTranslation("card.mindmatter.text", this.getVal()).getFormattedText();
     }
     
     private int getVal() {

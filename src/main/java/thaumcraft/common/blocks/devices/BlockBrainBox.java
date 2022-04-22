@@ -88,7 +88,7 @@ public class BlockBrainBox extends BlockTC implements IBlockFacingHorizontal, IB
     }
     
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {IBlockFacing.FACING});
+        return new BlockStateContainer(this, IBlockFacing.FACING);
     }
     
     public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {

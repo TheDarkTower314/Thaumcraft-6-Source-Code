@@ -33,7 +33,7 @@ public class ItemFocus extends ItemTCBase
     private int maxComplexity;
     
     public ItemFocus(final String name, final int complexity) {
-        super(name, new String[0]);
+        super(name);
         this.maxStackSize = 1;
         this.setMaxDamage(0);
         this.maxComplexity = complexity;

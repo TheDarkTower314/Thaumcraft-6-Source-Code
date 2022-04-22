@@ -25,12 +25,12 @@ public class CardSculpting extends TheorycraftCard
     
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.sculpting.name", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.sculpting.name").getFormattedText();
     }
     
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.sculpting.text", new Object[0]).getFormattedText();
+        return new TextComponentTranslation("card.sculpting.text").getFormattedText();
     }
     
     @Override
