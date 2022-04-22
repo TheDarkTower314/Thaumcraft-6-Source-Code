@@ -106,7 +106,7 @@ public class BlockSlabTC extends BlockSlab
     }
     
     static {
-        VARIANT = PropertyEnum.create("variant", (Class)Variant.class);
+        VARIANT = PropertyEnum.create("variant", Variant.class);
     }
     
     public static class Double extends BlockSlabTC

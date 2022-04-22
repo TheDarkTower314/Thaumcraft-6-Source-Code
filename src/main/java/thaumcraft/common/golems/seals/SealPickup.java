@@ -58,7 +58,7 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
             return;
         }
         final AxisAlignedBB area = GolemHelper.getBoundsForArea(seal);
-        final List list = world.getEntitiesWithinAABB((Class)EntityItem.class, area);
+        final List list = world.getEntitiesWithinAABB(EntityItem.class, area);
         if (list.size() > 0) {
             for (final Object e : list) {
                 final EntityItem ent = (EntityItem)e;

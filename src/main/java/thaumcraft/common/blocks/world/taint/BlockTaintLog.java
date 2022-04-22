@@ -114,6 +114,6 @@ public class BlockTaintLog extends BlockTC implements ITaintBlock
     }
     
     static {
-        AXIS = PropertyEnum.create("axis", (Class)EnumFacing.Axis.class);
+        AXIS = PropertyEnum.create("axis", EnumFacing.Axis.class);
     }
 }

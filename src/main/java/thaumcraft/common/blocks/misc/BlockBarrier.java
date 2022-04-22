@@ -65,7 +65,7 @@ public class BlockBarrier extends Block
     }
     
     public void addCollisionBoxToList(final IBlockState state, final World world, final BlockPos pos, final AxisAlignedBB mask, final List list, final Entity collidingEntity, final boolean isActualState) {
-        if (collidingEntity != null && collidingEntity instanceof EntityLivingBase && !(collidingEntity instanceof EntityPlayer) && collidingEntity.getRecursivePassengersByType((Class)EntityPlayer.class).isEmpty()) {
+        if (collidingEntity != null && collidingEntity instanceof EntityLivingBase && !(collidingEntity instanceof EntityPlayer) && collidingEntity.getRecursivePassengersByType(EntityPlayer.class).isEmpty()) {
             int a = 1;
             if (world.getBlockState(pos.down(a)).getBlock() != BlocksTC.pavingStoneBarrier) {
                 ++a;

@@ -118,7 +118,7 @@ public class TileJarBrain extends TileJar
             --this.eatDelay;
         }
         else if (this.xp < this.xpMax) {
-            final List ents = this.world.getEntitiesWithinAABB((Class)EntityXPOrb.class, new AxisAlignedBB(this.pos.getX() - 0.1, this.pos.getY() - 0.1, this.pos.getZ() - 0.1, this.pos.getX() + 1.1, this.pos.getY() + 1.1, this.pos.getZ() + 1.1));
+            final List ents = this.world.getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(this.pos.getX() - 0.1, this.pos.getY() - 0.1, this.pos.getZ() - 0.1, this.pos.getX() + 1.1, this.pos.getY() + 1.1, this.pos.getZ() + 1.1));
             if (ents.size() > 0) {
                 for (final Object ent : ents) {
                     final EntityXPOrb eo = (EntityXPOrb)ent;
@@ -135,7 +135,7 @@ public class TileJarBrain extends TileJar
     public Entity getClosestXPOrb() {
         double cdist = Double.MAX_VALUE;
         Entity orb = null;
-        final List ents = this.world.getEntitiesWithinAABB((Class)EntityXPOrb.class, new AxisAlignedBB(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.pos.getX() + 1, this.pos.getY() + 1, this.pos.getZ() + 1).grow(8.0, 8.0, 8.0));
+        final List ents = this.world.getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.pos.getX() + 1, this.pos.getY() + 1, this.pos.getZ() + 1).grow(8.0, 8.0, 8.0));
         if (ents.size() > 0) {
             for (final Object ent : ents) {
                 final EntityXPOrb eo = (EntityXPOrb)ent;

@@ -287,7 +287,7 @@ public class EntityUtils
     
     public static <T extends Entity> List<T> getEntitiesInRange(final World world, final double x, final double y, final double z, final Entity entity, final Class<? extends T> classEntity, final double range) {
         final ArrayList<T> out = new ArrayList<T>();
-        final List list = world.getEntitiesWithinAABB((Class)classEntity, new AxisAlignedBB(x, y, z, x, y, z).grow(range, range, range));
+        final List list = world.getEntitiesWithinAABB(classEntity, new AxisAlignedBB(x, y, z, x, y, z).grow(range, range, range));
         if (list.size() > 0) {
             for (final Object e : list) {
                 final Entity ent = (Entity)e;

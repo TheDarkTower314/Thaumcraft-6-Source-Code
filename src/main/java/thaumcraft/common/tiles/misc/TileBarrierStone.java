@@ -32,7 +32,7 @@ public class TileBarrierStone extends TileEntity implements ITickable
                 this.count = this.world.rand.nextInt(100);
             }
             if (this.count % 5 == 0 && !this.gettingPower()) {
-                final List<EntityLivingBase> targets = this.world.getEntitiesWithinAABB((Class)EntityLivingBase.class, new AxisAlignedBB(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.pos.getX() + 1, this.pos.getY() + 3, this.pos.getZ() + 1).grow(0.1, 0.1, 0.1));
+                final List<EntityLivingBase> targets = this.world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.pos.getX() + 1, this.pos.getY() + 3, this.pos.getZ() + 1).grow(0.1, 0.1, 0.1));
                 if (targets.size() > 0) {
                     for (final EntityLivingBase e : targets) {
                         if (!e.onGround && !(e instanceof EntityPlayer)) {

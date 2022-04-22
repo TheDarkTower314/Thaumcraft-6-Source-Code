@@ -367,10 +367,10 @@ public class BlockInlay extends BlockTC implements IInfusionStabiliserExt
     }
     
     static {
-        NORTH = PropertyEnum.create("north", (Class)EnumAttachPosition.class);
-        EAST = PropertyEnum.create("east", (Class)EnumAttachPosition.class);
-        SOUTH = PropertyEnum.create("south", (Class)EnumAttachPosition.class);
-        WEST = PropertyEnum.create("west", (Class)EnumAttachPosition.class);
+        NORTH = PropertyEnum.create("north", EnumAttachPosition.class);
+        EAST = PropertyEnum.create("east", EnumAttachPosition.class);
+        SOUTH = PropertyEnum.create("south", EnumAttachPosition.class);
+        WEST = PropertyEnum.create("west", EnumAttachPosition.class);
         CHARGE = PropertyInteger.create("charge", 0, 15);
         REDSTONE_WIRE_AABB = new AxisAlignedBB[] { new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.0625, 0.8125), new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 0.0625, 1.0), new AxisAlignedBB(0.0, 0.0, 0.1875, 0.8125, 0.0625, 0.8125), new AxisAlignedBB(0.0, 0.0, 0.1875, 0.8125, 0.0625, 1.0), new AxisAlignedBB(0.1875, 0.0, 0.0, 0.8125, 0.0625, 0.8125), new AxisAlignedBB(0.1875, 0.0, 0.0, 0.8125, 0.0625, 1.0), new AxisAlignedBB(0.0, 0.0, 0.0, 0.8125, 0.0625, 0.8125), new AxisAlignedBB(0.0, 0.0, 0.0, 0.8125, 0.0625, 1.0), new AxisAlignedBB(0.1875, 0.0, 0.1875, 1.0, 0.0625, 0.8125), new AxisAlignedBB(0.1875, 0.0, 0.1875, 1.0, 0.0625, 1.0), new AxisAlignedBB(0.0, 0.0, 0.1875, 1.0, 0.0625, 0.8125), new AxisAlignedBB(0.0, 0.0, 0.1875, 1.0, 0.0625, 1.0), new AxisAlignedBB(0.1875, 0.0, 0.0, 1.0, 0.0625, 0.8125), new AxisAlignedBB(0.1875, 0.0, 0.0, 1.0, 0.0625, 1.0), new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.0625, 0.8125), new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.0625, 1.0) };
     }

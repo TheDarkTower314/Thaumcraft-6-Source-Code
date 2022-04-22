@@ -313,7 +313,7 @@ public class EntityFluxRift extends Entity
             if (size > 5.0 && world.spawnEntity(rift)) {
                 rift.setRiftSize((int)size);
                 AuraHandler.drainFlux(world, p2, (float)size, false);
-                final List<EntityPlayer> targets2 = world.getEntitiesWithinAABB((Class)EntityPlayer.class, new AxisAlignedBB(p2.getX(), p2.getY(), p2.getZ(), p2.getX() + 1, p2.getY() + 1, p2.getZ() + 1).grow(32.0, 32.0, 32.0));
+                final List<EntityPlayer> targets2 = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(p2.getX(), p2.getY(), p2.getZ(), p2.getX() + 1, p2.getY() + 1, p2.getZ() + 1).grow(32.0, 32.0, 32.0));
                 if (targets2 != null && targets2.size() > 0) {
                     for (final EntityPlayer target : targets2) {
                         final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(target);
@@ -363,7 +363,7 @@ public class EntityFluxRift extends Entity
                 break;
             }
             case 2: {
-                final List<EntityLivingBase> targets2 = this.world.getEntitiesWithinAABB((Class)EntityLivingBase.class, this.getEntityBoundingBox().grow(16.0, 16.0, 16.0));
+                final List<EntityLivingBase> targets2 = this.world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(16.0, 16.0, 16.0));
                 if (targets2 != null && targets2.size() > 0) {
                     for (final EntityLivingBase target : targets2) {
                         didit = true;

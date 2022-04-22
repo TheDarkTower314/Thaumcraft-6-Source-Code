@@ -235,7 +235,7 @@ public class EntityWisp extends EntityFlying implements IMob
     public boolean getCanSpawnHere() {
         int count = 0;
         try {
-            final List l = this.world.getEntitiesWithinAABB((Class)EntityWisp.class, this.getEntityBoundingBox().grow(16.0, 16.0, 16.0));
+            final List l = this.world.getEntitiesWithinAABB(EntityWisp.class, this.getEntityBoundingBox().grow(16.0, 16.0, 16.0));
             if (l != null) {
                 count = l.size();
             }

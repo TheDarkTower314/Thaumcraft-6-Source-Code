@@ -60,7 +60,7 @@ public class SealGuard implements ISeal, ISealGui, ISealConfigArea
             return;
         }
         final AxisAlignedBB area = GolemHelper.getBoundsForArea(seal);
-        final List list = world.getEntitiesWithinAABB((Class)EntityLivingBase.class, area);
+        final List list = world.getEntitiesWithinAABB(EntityLivingBase.class, area);
         if (list.size() > 0) {
             for (final Object e : list) {
                 final EntityLivingBase target = (EntityLivingBase)e;

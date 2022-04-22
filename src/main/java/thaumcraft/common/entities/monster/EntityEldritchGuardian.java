@@ -237,7 +237,7 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     }
     
     public boolean getCanSpawnHere() {
-        final List ents = this.world.getEntitiesWithinAABB((Class)EntityEldritchGuardian.class, new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0, this.posY + 1.0, this.posZ + 1.0).grow(32.0, 16.0, 32.0));
+        final List ents = this.world.getEntitiesWithinAABB(EntityEldritchGuardian.class, new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0, this.posY + 1.0, this.posZ + 1.0).grow(32.0, 16.0, 32.0));
         return ents.size() <= 0 && super.getCanSpawnHere();
     }
     

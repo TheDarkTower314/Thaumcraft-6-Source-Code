@@ -284,7 +284,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
                     if (items == null) {
                         items = new ArrayList<ItemStack>();
                     }
-                    final List<EntityItem> targets = this.world.getEntitiesWithinAABB((Class)EntityItem.class, new AxisAlignedBB(this.digTarget.getX(), this.digTarget.getY(), this.digTarget.getZ(), this.digTarget.getX() + 1, this.digTarget.getY() + 1, this.digTarget.getZ() + 1).grow(1.5, 1.5, 1.5));
+                    final List<EntityItem> targets = this.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(this.digTarget.getX(), this.digTarget.getY(), this.digTarget.getZ(), this.digTarget.getX() + 1, this.digTarget.getY() + 1, this.digTarget.getZ() + 1).grow(1.5, 1.5, 1.5));
                     if (targets.size() > 0) {
                         for (final EntityItem e : targets) {
                             items.add(e.getItem().copy());

@@ -308,7 +308,7 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         }
         int count = 0;
         try {
-            final List l = this.world.getEntitiesWithinAABB((Class)EntityPech.class, this.getEntityBoundingBox().grow(16.0, 16.0, 16.0));
+            final List l = this.world.getEntitiesWithinAABB(EntityPech.class, this.getEntityBoundingBox().grow(16.0, 16.0, 16.0));
             if (l != null) {
                 count = l.size();
             }

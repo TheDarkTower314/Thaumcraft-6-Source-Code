@@ -48,7 +48,7 @@ public class EntityBottleTaint extends EntityThrowable
     
     protected void onImpact(final RayTraceResult ray) {
         if (!this.world.isRemote) {
-            final List ents = this.world.getEntitiesWithinAABB((Class)EntityLivingBase.class, new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX, this.posY, this.posZ).grow(5.0, 5.0, 5.0));
+            final List ents = this.world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX, this.posY, this.posZ).grow(5.0, 5.0, 5.0));
             if (ents.size() > 0) {
                 for (final Object ent : ents) {
                     final EntityLivingBase el = (EntityLivingBase)ent;

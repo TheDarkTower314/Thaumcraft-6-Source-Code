@@ -69,7 +69,7 @@ public class TileStabilizer extends TileThaumcraft implements ITickable
     
     private void tryAddStability() {
         final EnumFacing facing = BlockStateUtils.getFacing(this.getBlockMetadata());
-        final List<EntityFluxRift> targets = this.world.getEntitiesWithinAABB((Class)EntityFluxRift.class, new AxisAlignedBB(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.pos.getX() + 1, this.pos.getY() + 1, this.pos.getZ() + 1).grow(8.0));
+        final List<EntityFluxRift> targets = this.world.getEntitiesWithinAABB(EntityFluxRift.class, new AxisAlignedBB(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.pos.getX() + 1, this.pos.getY() + 1, this.pos.getZ() + 1).grow(8.0));
         if (targets.size() > 0) {
             for (final EntityFluxRift e : targets) {
                 if (e.isDead) {

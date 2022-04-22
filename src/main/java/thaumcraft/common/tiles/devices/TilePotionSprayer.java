@@ -92,7 +92,7 @@ public class TilePotionSprayer extends TileThaumcraftInventory implements IAspec
                     if (effects != null && !effects.isEmpty()) {
                         final int area = 1;
                         final BlockPos p = this.pos.offset(facing, 2);
-                        final List<EntityLivingBase> targets = this.world.getEntitiesWithinAABB((Class)EntityLivingBase.class, new AxisAlignedBB(p.getX() - area, p.getY() - area, p.getZ() - area, p.getX() + 1 + area, p.getY() + 1 + area, p.getZ() + 1 + area));
+                        final List<EntityLivingBase> targets = this.world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(p.getX() - area, p.getY() - area, p.getZ() - area, p.getX() + 1 + area, p.getY() + 1 + area, p.getZ() + 1 + area));
                         final boolean lifted = false;
                         if (targets.size() > 0) {
                             for (final EntityLivingBase e : targets) {

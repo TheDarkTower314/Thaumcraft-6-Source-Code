@@ -102,6 +102,6 @@ public class BlockLogsTC extends BlockTC
     }
     
     static {
-        AXIS = PropertyEnum.create("axis", (Class)EnumFacing.Axis.class);
+        AXIS = PropertyEnum.create("axis", EnumFacing.Axis.class);
     }
 }

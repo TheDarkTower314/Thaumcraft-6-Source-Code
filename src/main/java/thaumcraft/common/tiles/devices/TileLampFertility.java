@@ -71,7 +71,7 @@ public class TileLampFertility extends TileThaumcraft implements IEssentiaTransp
     
     private void updateAnimals() {
         final int distance = 7;
-        final List<EntityAnimal> var5 = this.world.getEntitiesWithinAABB((Class)EntityAnimal.class, new AxisAlignedBB(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.pos.getX() + 1, this.pos.getY() + 1, this.pos.getZ() + 1).grow(distance, distance, distance));
+        final List<EntityAnimal> var5 = this.world.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.pos.getX() + 1, this.pos.getY() + 1, this.pos.getZ() + 1).grow(distance, distance, distance));
     Label_0314:
         for (final EntityLivingBase var8 : var5) {
             final EntityAnimal var7 = (EntityAnimal)var8;

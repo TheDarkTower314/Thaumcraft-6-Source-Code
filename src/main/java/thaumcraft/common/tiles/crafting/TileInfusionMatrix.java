@@ -465,7 +465,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
             return;
         }
         if (this.recipeType == 1 && this.recipeXP > 0) {
-            final List<EntityPlayer> targets = this.world.getEntitiesWithinAABB((Class)EntityPlayer.class, new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 1, this.getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
+            final List<EntityPlayer> targets = this.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 1, this.getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
             if (targets != null && targets.size() > 0) {
                 for (final EntityPlayer target : targets) {
                     if (target.capabilities.isCreativeMode || target.experienceLevel > 0) {
@@ -554,7 +554,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     private void inEvZap(final boolean all) {
-        final List<EntityLivingBase> targets = this.world.getEntitiesWithinAABB((Class)EntityLivingBase.class, new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 1, this.getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
+        final List<EntityLivingBase> targets = this.world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 1, this.getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
         if (targets != null && targets.size() > 0) {
             for (final EntityLivingBase target : targets) {
                 PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockArc(this.pos, target, 0.3f - this.world.rand.nextFloat() * 0.1f, 0.0f, 0.3f - this.world.rand.nextFloat() * 0.1f), new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.pos.getX(), this.pos.getY(), this.pos.getZ(), 32.0));
@@ -567,7 +567,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     private void inEvHarm(final boolean all) {
-        final List<EntityLivingBase> targets = this.world.getEntitiesWithinAABB((Class)EntityLivingBase.class, new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 1, this.getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
+        final List<EntityLivingBase> targets = this.world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 1, this.getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
         if (targets != null && targets.size() > 0) {
             for (final EntityLivingBase target : targets) {
                 if (this.world.rand.nextBoolean()) {
@@ -586,7 +586,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     private void inResAdd() {
-        final List<EntityPlayer> targets = this.world.getEntitiesWithinAABB((Class)EntityPlayer.class, new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 1, this.getPos().getZ() + 1).grow(10.0));
+        final List<EntityPlayer> targets = this.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 1, this.getPos().getZ() + 1).grow(10.0));
         if (targets != null && targets.size() > 0) {
             for (final EntityPlayer player : targets) {
                 final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
@@ -600,7 +600,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     private void inEvWarp() {
-        final List<EntityPlayer> targets = this.world.getEntitiesWithinAABB((Class)EntityPlayer.class, new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 1, this.getPos().getZ() + 1).grow(10.0));
+        final List<EntityPlayer> targets = this.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX() + 1, this.getPos().getY() + 1, this.getPos().getZ() + 1).grow(10.0));
         if (targets != null && targets.size() > 0) {
             final EntityPlayer target = targets.get(this.world.rand.nextInt(targets.size()));
             if (this.world.rand.nextFloat() < 0.25f) {

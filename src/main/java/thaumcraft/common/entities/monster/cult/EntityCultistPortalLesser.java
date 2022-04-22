@@ -130,7 +130,7 @@ public class EntityCultistPortalLesser extends EntityMob
                 if (p != null && this.canEntityBeSeen(p)) {
                     int count = (this.world.getDifficulty() == EnumDifficulty.HARD) ? 6 : ((this.world.getDifficulty() == EnumDifficulty.NORMAL) ? 4 : 2);
                     try {
-                        final List l = this.world.getEntitiesWithinAABB((Class)EntityCultist.class, this.getEntityBoundingBox().grow(32.0, 32.0, 32.0));
+                        final List l = this.world.getEntitiesWithinAABB(EntityCultist.class, this.getEntityBoundingBox().grow(32.0, 32.0, 32.0));
                         if (l != null) {
                             count -= l.size();
                         }
