@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.lib.research.theorycraft;
 
 import java.util.Iterator;

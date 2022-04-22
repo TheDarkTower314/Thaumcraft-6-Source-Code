@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.entities.monster.mods;
 
 import org.lwjgl.opengl.GL11;

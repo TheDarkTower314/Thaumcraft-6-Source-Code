@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.codechicken.lib.colour;
 
 import thaumcraft.codechicken.lib.math.MathHelper;

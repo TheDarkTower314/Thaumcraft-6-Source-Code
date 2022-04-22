@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.tiles.crafting;
 
 import thaumcraft.common.world.aura.AuraChunk;

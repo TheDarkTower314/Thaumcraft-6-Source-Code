@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package com.sasmaster.glelwjgl.java;
 
 import org.lwjgl.opengl.GL11;

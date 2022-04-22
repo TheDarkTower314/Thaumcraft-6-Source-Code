@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.items;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

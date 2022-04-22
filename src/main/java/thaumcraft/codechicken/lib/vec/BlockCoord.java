@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.codechicken.lib.vec;
 
 import net.minecraft.tileentity.TileEntity;

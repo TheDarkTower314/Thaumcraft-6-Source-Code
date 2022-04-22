@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.items.armor;
 
 import thaumcraft.client.renderers.models.gear.ModelRobe;

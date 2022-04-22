@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.client.renderers.entity.mob;
 
 import net.minecraft.client.renderer.GlStateManager;

@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.items.tools;
 
 import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;

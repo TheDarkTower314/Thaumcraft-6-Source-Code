@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.entities.ai.pech;
 
 import thaumcraft.common.entities.monster.EntityPech;

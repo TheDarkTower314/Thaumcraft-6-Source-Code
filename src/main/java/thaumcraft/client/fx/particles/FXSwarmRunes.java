@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.client.fx.particles;
 
 import net.minecraft.util.math.Vec3d;

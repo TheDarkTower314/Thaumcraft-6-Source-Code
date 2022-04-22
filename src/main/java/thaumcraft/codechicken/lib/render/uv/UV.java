@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.codechicken.lib.render.uv;
 
 import thaumcraft.codechicken.lib.vec.ITransformation;

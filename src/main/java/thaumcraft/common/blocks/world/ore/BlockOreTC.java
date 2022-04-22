@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.blocks.world.ore;
 
 import net.minecraft.util.math.MathHelper;

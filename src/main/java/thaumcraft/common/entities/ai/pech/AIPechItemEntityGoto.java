@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.entities.ai.pech;
 
 import net.minecraft.item.ItemStack;

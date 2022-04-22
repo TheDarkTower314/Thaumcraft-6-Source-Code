@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.client.gui;
 
 import thaumcraft.api.aspects.Aspect;

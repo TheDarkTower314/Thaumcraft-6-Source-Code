@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.client.fx.beams;
 
 import thaumcraft.client.fx.ParticleEngine;

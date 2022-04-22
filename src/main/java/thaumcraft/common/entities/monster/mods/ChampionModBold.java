@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.entities.monster.mods;
 
 import net.minecraft.client.renderer.entity.RenderLivingBase;

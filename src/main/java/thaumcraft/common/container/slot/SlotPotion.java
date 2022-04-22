@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.container.slot;
 
 import net.minecraft.potion.PotionType;

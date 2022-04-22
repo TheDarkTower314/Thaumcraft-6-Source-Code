@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.lib.utils;
 
 import net.minecraftforge.common.crafting.IngredientNBT;

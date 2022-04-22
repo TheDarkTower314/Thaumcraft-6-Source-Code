@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.client.renderers.models.entity;
 
 import net.minecraft.entity.EntityLivingBase;

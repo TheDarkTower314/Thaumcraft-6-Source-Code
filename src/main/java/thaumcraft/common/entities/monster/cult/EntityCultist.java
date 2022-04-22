@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.entities.monster.cult;
 
 import net.minecraft.world.storage.loot.LootTableList;

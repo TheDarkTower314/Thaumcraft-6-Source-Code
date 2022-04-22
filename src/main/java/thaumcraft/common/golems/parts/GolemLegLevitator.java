@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.common.golems.parts;
 
 import thaumcraft.client.fx.FXDispatcher;

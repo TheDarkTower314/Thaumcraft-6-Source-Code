@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.codechicken.lib.vec;
 
 public abstract class ITransformation<Vector, Transformation extends ITransformation>

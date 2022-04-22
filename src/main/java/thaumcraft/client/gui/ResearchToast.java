@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.6.0
-// 
-
 package thaumcraft.client.gui;
 
 import net.minecraft.util.text.translation.I18n;
