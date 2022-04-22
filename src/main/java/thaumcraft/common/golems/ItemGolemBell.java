@@ -35,12 +35,12 @@ public class ItemGolemBell extends ItemTCBase implements ISealDisplayer
         setMaxStackSize(1);
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World worldIn, final EntityPlayer playerIn, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
         playerIn.swingArm(hand);
         if (!worldIn.isRemote) {
-            final RayTraceResult mop = RayTracer.retrace(playerIn);
+            RayTraceResult mop = RayTracer.retrace(playerIn);
             if (mop != null && (mop.typeOfHit == RayTraceResult.Type.BLOCK || mop.typeOfHit == RayTraceResult.Type.ENTITY)) {
-                final ISealEntity se = getSeal(playerIn);
+                ISealEntity se = getSeal(playerIn);
                 if (se != null) {
                     if (playerIn.isSneaking()) {
                         SealHandler.removeSealEntity(playerIn.world, se.getSealPos(), false);
@@ -63,10 +63,10 @@ public class ItemGolemBell extends ItemTCBase implements ISealDisplayer
         return super.onItemRightClick(worldIn, playerIn, hand);
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         player.swingArm(hand);
         if (!world.isRemote) {
-            final ISealEntity se = SealHandler.getSealEntity(world.provider.getDimension(), new SealPos(pos, side));
+            ISealEntity se = SealHandler.getSealEntity(world.provider.getDimension(), new SealPos(pos, side));
             if (se != null) {
                 if (player.isSneaking()) {
                     SealHandler.removeSealEntity(world, se.getSealPos(), false);
@@ -85,28 +85,28 @@ public class ItemGolemBell extends ItemTCBase implements ISealDisplayer
         return EnumActionResult.PASS;
     }
     
-    public static ISealEntity getSeal(final EntityPlayer playerIn) {
-        final float f = playerIn.rotationPitch;
-        final float f2 = playerIn.rotationYaw;
-        final double d0 = playerIn.posX;
-        final double d2 = playerIn.posY + playerIn.getEyeHeight();
-        final double d3 = playerIn.posZ;
-        final Vec3d vec0 = new Vec3d(d0, d2, d3);
-        final float f3 = MathHelper.cos(-f2 * 0.017453292f - 3.1415927f);
-        final float f4 = MathHelper.sin(-f2 * 0.017453292f - 3.1415927f);
-        final float f5 = -MathHelper.cos(-f * 0.017453292f);
-        final float f6 = MathHelper.sin(-f * 0.017453292f);
-        final float f7 = f4 * f5;
-        final float f8 = f3 * f5;
-        final double d4 = 5.0;
-        final Vec3d vec2 = vec0.addVector(f7 * d4, f6 * d4, f8 * d4);
-        final Vec3d vec3 = new Vec3d(f7 * d4, f6 * d4, f8 * d4);
+    public static ISealEntity getSeal(EntityPlayer playerIn) {
+        float f = playerIn.rotationPitch;
+        float f2 = playerIn.rotationYaw;
+        double d0 = playerIn.posX;
+        double d2 = playerIn.posY + playerIn.getEyeHeight();
+        double d3 = playerIn.posZ;
+        Vec3d vec0 = new Vec3d(d0, d2, d3);
+        float f3 = MathHelper.cos(-f2 * 0.017453292f - 3.1415927f);
+        float f4 = MathHelper.sin(-f2 * 0.017453292f - 3.1415927f);
+        float f5 = -MathHelper.cos(-f * 0.017453292f);
+        float f6 = MathHelper.sin(-f * 0.017453292f);
+        float f7 = f4 * f5;
+        float f8 = f3 * f5;
+        double d4 = 5.0;
+        Vec3d vec2 = vec0.addVector(f7 * d4, f6 * d4, f8 * d4);
+        Vec3d vec3 = new Vec3d(f7 * d4, f6 * d4, f8 * d4);
         Vec3d vec4 = vec0.addVector(vec3.x / 10.0, vec3.y / 10.0, vec3.z / 10.0);
         for (int a = 0; a < vec3.lengthVector() * 10.0; ++a) {
-            final BlockPos pos = new BlockPos(vec4);
-            final RayTraceResult mop = collisionRayTrace(playerIn.world, pos, vec0, vec2);
+            BlockPos pos = new BlockPos(vec4);
+            RayTraceResult mop = collisionRayTrace(playerIn.world, pos, vec0, vec2);
             if (mop != null) {
-                final ISealEntity se = SealHandler.getSealEntity(playerIn.world.provider.getDimension(), new SealPos(pos, mop.sideHit));
+                ISealEntity se = SealHandler.getSealEntity(playerIn.world.provider.getDimension(), new SealPos(pos, mop.sideHit));
                 if (se != null) {
                     return se;
                 }
@@ -116,19 +116,19 @@ public class ItemGolemBell extends ItemTCBase implements ISealDisplayer
         return null;
     }
     
-    private static boolean isVecInsideYZBounds(final Vec3d point, final BlockPos pos) {
+    private static boolean isVecInsideYZBounds(Vec3d point, BlockPos pos) {
         return point != null && (point.y >= pos.getY() && point.y <= pos.getY() + 1 && point.z >= pos.getZ() && point.z <= pos.getZ() + 1);
     }
     
-    private static boolean isVecInsideXZBounds(final Vec3d point, final BlockPos pos) {
+    private static boolean isVecInsideXZBounds(Vec3d point, BlockPos pos) {
         return point != null && (point.x >= pos.getX() && point.x <= pos.getX() + 1 && point.z >= pos.getZ() && point.z <= pos.getZ() + 1);
     }
     
-    private static boolean isVecInsideXYBounds(final Vec3d point, final BlockPos pos) {
+    private static boolean isVecInsideXYBounds(Vec3d point, BlockPos pos) {
         return point != null && (point.x >= pos.getX() && point.x <= pos.getX() + 1 && point.y >= pos.getY() && point.y <= pos.getY() + 1);
     }
     
-    private static RayTraceResult collisionRayTrace(final World worldIn, final BlockPos pos, final Vec3d start, final Vec3d end) {
+    private static RayTraceResult collisionRayTrace(World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
         Vec3d vec3 = start.getIntermediateWithXValue(end, pos.getX());
         Vec3d vec4 = start.getIntermediateWithXValue(end, pos.getX() + 1);
         Vec3d vec5 = start.getIntermediateWithYValue(end, pos.getY());

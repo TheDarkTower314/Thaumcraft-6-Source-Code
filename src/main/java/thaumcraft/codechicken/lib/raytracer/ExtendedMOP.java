@@ -14,26 +14,26 @@ public class ExtendedMOP extends RayTraceResult implements Comparable<ExtendedMO
 {
     public double dist;
     
-    public ExtendedMOP(final Entity entity, final Vector3 hit, final Object data, final double dist) {
+    public ExtendedMOP(Entity entity, Vector3 hit, Object data, double dist) {
         super(entity, hit.vec3());
         setData(data);
         this.dist = dist;
     }
     
-    public ExtendedMOP(final Vector3 hit, final int side, final BlockCoord pos, final Object data, final double dist) {
+    public ExtendedMOP(Vector3 hit, int side, BlockCoord pos, Object data, double dist) {
         super(hit.vec3(), (side >= 0) ? EnumFacing.values()[side] : EnumFacing.UP, pos.pos());
         setData(data);
         this.dist = dist;
     }
     
-    public void setData(final Object data) {
+    public void setData(Object data) {
         if (data instanceof Integer) {
             subHit = (int)data;
         }
         hitInfo = data;
     }
     
-    public int compareTo(final ExtendedMOP o) {
+    public int compareTo(ExtendedMOP o) {
         return (dist == o.dist) ? 0 : ((dist < o.dist) ? -1 : 1);
     }
 }

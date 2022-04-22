@@ -42,11 +42,11 @@ public class CardDarkWhispers extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        final int l = player.experienceLevel;
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
+        int l = player.experienceLevel;
         player.addExperienceLevel(-(10 + l));
         if (l > 0) {
-            for (final String k : ResearchCategories.researchCategories.keySet()) {
+            for (String k : ResearchCategories.researchCategories.keySet()) {
                 if (player.getRNG().nextBoolean()) {
                     continue;
                 }

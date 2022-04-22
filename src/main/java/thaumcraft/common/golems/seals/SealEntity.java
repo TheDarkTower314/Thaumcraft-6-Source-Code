@@ -42,7 +42,7 @@ public class SealEntity implements ISealEntity
         area = new BlockPos(1, 1, 1);
     }
     
-    public SealEntity(final World world, final SealPos sealPos, final ISeal seal) {
+    public SealEntity(World world, SealPos sealPos, ISeal seal) {
         priority = 0;
         color = 0;
         locked = false;
@@ -53,19 +53,19 @@ public class SealEntity implements ISealEntity
         this.sealPos = sealPos;
         this.seal = seal;
         if (seal instanceof ISealConfigArea) {
-            final int x = (sealPos.face.getFrontOffsetX() == 0) ? 3 : 1;
-            final int y = (sealPos.face.getFrontOffsetY() == 0) ? 3 : 1;
-            final int z = (sealPos.face.getFrontOffsetZ() == 0) ? 3 : 1;
+            int x = (sealPos.face.getFrontOffsetX() == 0) ? 3 : 1;
+            int y = (sealPos.face.getFrontOffsetY() == 0) ? 3 : 1;
+            int z = (sealPos.face.getFrontOffsetZ() == 0) ? 3 : 1;
             area = new BlockPos(x, y, z);
         }
     }
     
     @Override
-    public void tickSealEntity(final World world) {
+    public void tickSealEntity(World world) {
         if (seal != null) {
             if (isStoppedByRedstone(world)) {
                 if (!stopped) {
-                    for (final Task t : TaskHandler.getTasks(world.provider.getDimension()).values()) {
+                    for (Task t : TaskHandler.getTasks(world.provider.getDimension()).values()) {
                         if (t.getSealPos() != null && t.getSealPos().equals(sealPos)) {
                             t.setSuspended(true);
                         }
@@ -80,7 +80,7 @@ public class SealEntity implements ISealEntity
     }
     
     @Override
-    public boolean isStoppedByRedstone(final World world) {
+    public boolean isStoppedByRedstone(World world) {
         return isRedstoneSensitive() && (world.isBlockPowered(getSealPos().pos) || world.isBlockPowered(getSealPos().pos.offset(getSealPos().face)));
     }
     
@@ -100,7 +100,7 @@ public class SealEntity implements ISealEntity
     }
     
     @Override
-    public void setPriority(final byte priority) {
+    public void setPriority(byte priority) {
         this.priority = priority;
     }
     
@@ -110,7 +110,7 @@ public class SealEntity implements ISealEntity
     }
     
     @Override
-    public void setColor(final byte color) {
+    public void setColor(byte color) {
         this.color = color;
     }
     
@@ -120,7 +120,7 @@ public class SealEntity implements ISealEntity
     }
     
     @Override
-    public void setOwner(final String owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
     
@@ -130,7 +130,7 @@ public class SealEntity implements ISealEntity
     }
     
     @Override
-    public void setLocked(final boolean locked) {
+    public void setLocked(boolean locked) {
         this.locked = locked;
     }
     
@@ -140,14 +140,14 @@ public class SealEntity implements ISealEntity
     }
     
     @Override
-    public void setRedstoneSensitive(final boolean redstone) {
+    public void setRedstoneSensitive(boolean redstone) {
         this.redstone = redstone;
     }
     
     @Override
-    public void readNBT(final NBTTagCompound nbt) {
-        final BlockPos p = BlockPos.fromLong(nbt.getLong("pos"));
-        final EnumFacing face = EnumFacing.VALUES[nbt.getByte("face")];
+    public void readNBT(NBTTagCompound nbt) {
+        BlockPos p = BlockPos.fromLong(nbt.getLong("pos"));
+        EnumFacing face = EnumFacing.VALUES[nbt.getByte("face")];
         sealPos = new SealPos(p, face);
         setPriority(nbt.getByte("priority"));
         setColor(nbt.getByte("color"));
@@ -157,14 +157,14 @@ public class SealEntity implements ISealEntity
         try {
             seal = SealHandler.getSeal(nbt.getString("type")).getClass().newInstance();
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         if (seal != null) {
             seal.readCustomNBT(nbt);
             if (seal instanceof ISealConfigArea) {
                 area = BlockPos.fromLong(nbt.getLong("area"));
             }
             if (seal instanceof ISealConfigToggles) {
-                for (final ISealConfigToggles.SealToggle prop : ((ISealConfigToggles) seal).getToggles()) {
+                for (ISealConfigToggles.SealToggle prop : ((ISealConfigToggles) seal).getToggles()) {
                     if (nbt.hasKey(prop.getKey())) {
                         prop.setValue(nbt.getBoolean(prop.getKey()));
                     }
@@ -175,7 +175,7 @@ public class SealEntity implements ISealEntity
     
     @Override
     public NBTTagCompound writeNBT() {
-        final NBTTagCompound nbt = new NBTTagCompound();
+        NBTTagCompound nbt = new NBTTagCompound();
         nbt.setLong("pos", sealPos.pos.toLong());
         nbt.setByte("face", (byte) sealPos.face.ordinal());
         nbt.setString("type", seal.getKey());
@@ -190,7 +190,7 @@ public class SealEntity implements ISealEntity
                 nbt.setLong("area", area.toLong());
             }
             if (seal instanceof ISealConfigToggles) {
-                for (final ISealConfigToggles.SealToggle prop : ((ISealConfigToggles) seal).getToggles()) {
+                for (ISealConfigToggles.SealToggle prop : ((ISealConfigToggles) seal).getToggles()) {
                     nbt.setBoolean(prop.getKey(), prop.getValue());
                 }
             }
@@ -199,7 +199,7 @@ public class SealEntity implements ISealEntity
     }
     
     @Override
-    public void syncToClient(final World world) {
+    public void syncToClient(World world) {
         if (!world.isRemote) {
             PacketHandler.INSTANCE.sendToDimension(new PacketSealToClient(this), world.provider.getDimension());
         }
@@ -211,7 +211,7 @@ public class SealEntity implements ISealEntity
     }
     
     @Override
-    public void setArea(final BlockPos v) {
+    public void setArea(BlockPos v) {
         area = v;
     }
 }

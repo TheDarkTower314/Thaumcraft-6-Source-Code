@@ -84,7 +84,7 @@ public class GuiResearchTable extends GuiContainer
     GuiImageButton buttonScrap;
     public ArrayList<ResearchTableData.CardChoice> cardChoices;
     
-    public GuiResearchTable(final EntityPlayer player, final TileResearchTable e) {
+    public GuiResearchTable(EntityPlayer player, TileResearchTable e) {
         super(new ContainerResearchTable(player.inventory, e));
         txBackground = new ResourceLocation("thaumcraft", "textures/gui/gui_research_table.png");
         txBase = new ResourceLocation("thaumcraft", "textures/gui/gui_base.png");
@@ -113,7 +113,7 @@ public class GuiResearchTable extends GuiContainer
         username = player.getName();
         this.player = player;
         if (table.data != null) {
-            for (final String cat : table.data.categoryTotals.keySet()) {
+            for (String cat : table.data.categoryTotals.keySet()) {
                 tempCatTotals.put(cat, table.data.categoryTotals.get(cat));
             }
             syncFromTableChoices();
@@ -123,38 +123,38 @@ public class GuiResearchTable extends GuiContainer
     
     private void syncFromTableChoices() {
         cardChoices.clear();
-        for (final ResearchTableData.CardChoice cc : table.data.cardChoices) {
+        for (ResearchTableData.CardChoice cc : table.data.cardChoices) {
             cardChoices.add(cc);
         }
     }
     
-    protected void drawGuiContainerForegroundLayer(final int mx, final int my) {
+    protected void drawGuiContainerForegroundLayer(int mx, int my) {
     }
     
-    public void drawScreen(final int mx, final int my, final float par3) {
+    public void drawScreen(int mx, int my, float par3) {
         drawDefaultBackground();
         super.drawScreen(mx, my, par3);
         xSize_lo = (float)mx;
         ySize_lo = (float)my;
-        final int xx = guiLeft;
-        final int yy = guiTop;
+        int xx = guiLeft;
+        int yy = guiTop;
         RenderHelper.disableStandardItemLighting();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         if (table.data == null) {
             if (!currentAids.isEmpty()) {
-                final int side = Math.min(currentAids.size(), 6);
+                int side = Math.min(currentAids.size(), 6);
                 int c = 0;
                 int r = 0;
                 GL11.glPushMatrix();
                 GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.2f);
                 mc.renderEngine.bindTexture(txBase);
-                for (final String key : currentAids) {
-                    final ITheorycraftAid mutator = TheorycraftManager.aids.get(key);
+                for (String key : currentAids) {
+                    ITheorycraftAid mutator = TheorycraftManager.aids.get(key);
                     if (mutator == null) {
                         continue;
                     }
-                    final int x = xx + 128 + 20 * c - side * 10;
-                    final int y = yy + 85 + 35 * r;
+                    int x = xx + 128 + 20 * c - side * 10;
+                    int y = yy + 85 + 35 * r;
                     if (isPointInRegion(x - xx, y - yy, 16, 16, mx, my) && !selectedAids.contains(key)) {
                         drawTexturedModalRect(x, y, 0, 96, 16, 16);
                     }
@@ -170,15 +170,15 @@ public class GuiResearchTable extends GuiContainer
         }
         else {
             int sx = 128;
-            final int cw = 110;
-            final int sz = cardChoices.size();
+            int cw = 110;
+            int sz = cardChoices.size();
             int a = 0;
             if (!cardSelected) {
-                for (final ResearchTableData.CardChoice cardChoice : cardChoices) {
+                for (ResearchTableData.CardChoice cardChoice : cardChoices) {
                     if (cardZoomOut[a] >= 1.0f) {
-                        final float dx = (float)(55 + sx - 55 * sz + cw * a - 65);
+                        float dx = (float)(55 + sx - 55 * sz + cw * a - 65);
                         float fx = 65.0f + dx * cardZoomOut[a];
-                        final float qx = 191.0f - fx;
+                        float qx = 191.0f - fx;
                         if (cardActive[a]) {
                             fx += qx * cardZoomIn[a];
                         }
@@ -201,10 +201,10 @@ public class GuiResearchTable extends GuiContainer
         renderHoveredToolTip(mx, my);
     }
     
-    protected void drawGuiContainerBackgroundLayer(final float partialTicks, final int mx, final int my) {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mx, int my) {
         checkButtons();
-        final int xx = guiLeft;
-        final int yy = guiTop;
+        int xx = guiLeft;
+        int yy = guiTop;
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
@@ -227,16 +227,16 @@ public class GuiResearchTable extends GuiContainer
             }
             GL11.glPopMatrix();
             if (!currentAids.isEmpty()) {
-                final int side = Math.min(currentAids.size(), 6);
+                int side = Math.min(currentAids.size(), 6);
                 int c = 0;
                 int r = 0;
-                for (final String key : currentAids) {
-                    final ITheorycraftAid mutator = TheorycraftManager.aids.get(key);
+                for (String key : currentAids) {
+                    ITheorycraftAid mutator = TheorycraftManager.aids.get(key);
                     if (mutator == null) {
                         continue;
                     }
-                    final int x = xx + 128 + 20 * c - side * 10;
-                    final int y = yy + 85 + 35 * r;
+                    int x = xx + 128 + 20 * c - side * 10;
+                    int y = yy + 85 + 35 * r;
                     if (selectedAids.contains(key)) {
                         mc.renderEngine.bindTexture(txBase);
                         drawTexturedModalRect(x, y, 0, 96, 16, 16);
@@ -248,7 +248,7 @@ public class GuiResearchTable extends GuiContainer
                         GlStateManager.enableRescaleNormal();
                         GlStateManager.enableColorMaterial();
                         GlStateManager.enableLighting();
-                        final ItemStack s = (ItemStack)((mutator.getAidObject() instanceof ItemStack) ? mutator.getAidObject() : new ItemStack((Block)mutator.getAidObject()));
+                        ItemStack s = (ItemStack)((mutator.getAidObject() instanceof ItemStack) ? mutator.getAidObject() : new ItemStack((Block)mutator.getAidObject()));
                         itemRender.renderItemAndEffectIntoGUI(s, x, y);
                         GlStateManager.disableLighting();
                         GlStateManager.depthMask(true);
@@ -291,8 +291,8 @@ public class GuiResearchTable extends GuiContainer
                     drawSheet(xx + 65, yy + 100, 6.0, r2, 1.0f, 1.0f, null);
                 }
                 boolean highlight = false;
-                final int var7 = mx - (25 + xx);
-                final int var8 = my - (55 + yy);
+                int var7 = mx - (25 + xx);
+                int var8 = my - (55 + yy);
                 if (cardChoices.isEmpty() && var7 >= 0 && var8 >= 0 && var7 < 75 && var8 < 90) {
                     highlight = true;
                 }
@@ -306,7 +306,7 @@ public class GuiResearchTable extends GuiContainer
                 GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                 GL11.glPopMatrix();
             }
-            for (final Long seed : table.data.savedCards) {
+            for (Long seed : table.data.savedCards) {
                 r2 = new Random(seed);
                 drawSheet(xx + 191, yy + 100, 6.0, r2, 1.0f, 1.0f, null);
             }
@@ -314,9 +314,9 @@ public class GuiResearchTable extends GuiContainer
                 r2 = new Random(lastDraw.card.getSeed());
                 drawSheet(xx + 191, yy + 100, 6.0, r2, 1.0f, 1.0f, lastDraw);
             }
-            final ArrayList<String> sparkle = new ArrayList<String>();
+            ArrayList<String> sparkle = new ArrayList<String>();
             if (nexCatCheck < player.ticksExisted) {
-                for (final String cat : ResearchCategories.researchCategories.keySet()) {
+                for (String cat : ResearchCategories.researchCategories.keySet()) {
                     int t0 = 0;
                     if (table.data.categoryTotals.containsKey(cat)) {
                         t0 = table.data.categoryTotals.get(cat);
@@ -341,11 +341,11 @@ public class GuiResearchTable extends GuiContainer
                 }
                 nexCatCheck = player.ticksExisted + 1;
             }
-            final HashMap<String, Integer> unsortedMap = new HashMap<String, Integer>();
+            HashMap<String, Integer> unsortedMap = new HashMap<String, Integer>();
             String hf = null;
             int lf = 0;
-            for (final String cat2 : tempCatTotals.keySet()) {
-                final int cf = tempCatTotals.get(cat2);
+            for (String cat2 : tempCatTotals.keySet()) {
+                int cf = tempCatTotals.get(cat2);
                 if (cf == 0) {
                     continue;
                 }
@@ -358,12 +358,12 @@ public class GuiResearchTable extends GuiContainer
             if (hf != null) {
                 unsortedMap.put(hf, unsortedMap.get(hf));
             }
-            final Comparator<Map.Entry<String, Integer>> valueComparator = (e1, e2) -> e2.getValue().compareTo(e1.getValue());
-            final Map<String, Integer> sortedMap = unsortedMap.entrySet().stream().sorted(valueComparator).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+            Comparator<Map.Entry<String, Integer>> valueComparator = (e1, e2) -> e2.getValue().compareTo(e1.getValue());
+            Map<String, Integer> sortedMap = unsortedMap.entrySet().stream().sorted(valueComparator).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);
             int i = 0;
-            for (final String field : sortedMap.keySet()) {
+            for (String field : sortedMap.keySet()) {
                 GL11.glPushMatrix();
                 GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                 GL11.glTranslatef((float)(xx + 253), (float)(yy + 16 + i * 18 + ((i > 0) ? 4 : 0)), 0.0f);
@@ -374,20 +374,20 @@ public class GuiResearchTable extends GuiContainer
                 GL11.glTranslatef(0.0f, 0.0f, 5.0f);
                 String s2 = sortedMap.get(field) + "%";
                 if (i > table.data.penaltyStart) {
-                    final int q = sortedMap.get(field) / 3;
+                    int q = sortedMap.get(field) / 3;
                     s2 = s2 + " (-" + q + ")";
                 }
                 mc.fontRenderer.drawStringWithShadow(s2, (float)(xx + 276), (float)(yy + 20 + i * 18 + ((i > table.data.penaltyStart) ? 4 : 0)), table.data.categoriesBlocked.contains(field) ? 6316128 : ((i <= table.data.penaltyStart) ? 57536 : 16777215));
                 if (sparkle.contains(field)) {
                     for (int q = 0; q < 2; ++q) {
-                        final float rr = MathHelper.getInt(player.getRNG(), 255, 255) / 255.0f;
-                        final float gg = MathHelper.getInt(player.getRNG(), 189, 255) / 255.0f;
-                        final float bb = MathHelper.getInt(player.getRNG(), 64, 255) / 255.0f;
+                        float rr = MathHelper.getInt(player.getRNG(), 255, 255) / 255.0f;
+                        float gg = MathHelper.getInt(player.getRNG(), 189, 255) / 255.0f;
+                        float bb = MathHelper.getInt(player.getRNG(), 64, 255) / 255.0f;
                         FXDispatcher.INSTANCE.drawSimpleSparkleGui(player.getRNG(), xx + 276 + player.getRNG().nextFloat() * fontRenderer.getStringWidth(s2), yy + 20 + player.getRNG().nextFloat() * 8.0f + i * 18 + ((i > table.data.penaltyStart) ? 4 : 0), player.world.rand.nextGaussian() * 0.5, player.world.rand.nextGaussian() * 0.5, 24.0f, rr, gg, bb, 0, 0.9f, -1.0f);
                     }
                 }
-                final int var9 = mx - (xx + 256);
-                final int var10 = my - (yy + 16 + i * 18 + ((i > table.data.penaltyStart) ? 4 : 0));
+                int var9 = mx - (xx + 256);
+                int var10 = my - (yy + 16 + i * 18 + ((i > table.data.penaltyStart) ? 4 : 0));
                 if (var9 >= 0 && var10 >= 0 && var9 < 16 && var10 < 16) {
                     GL11.glPushMatrix();
                     UtilsFX.drawCustomTooltip(this, fontRenderer, Arrays.asList(ResearchCategories.getCategoryName(field)), mx + 8, my + 8, 11);
@@ -396,48 +396,48 @@ public class GuiResearchTable extends GuiContainer
                 }
                 ++i;
             }
-            final int sx = 128;
-            final int cw = 110;
-            final int sz = cardChoices.size();
+            int sx = 128;
+            int cw = 110;
+            int sz = cardChoices.size();
             int a3 = 0;
-            for (final ResearchTableData.CardChoice cardChoice : cardChoices) {
+            for (ResearchTableData.CardChoice cardChoice : cardChoices) {
                 r2 = new Random(cardChoice.card.getSeed());
-                final int var11 = mx - (5 + sx - 55 * sz + xx + cw * a3);
-                final int var12 = my - (100 + yy - 60);
+                int var11 = mx - (5 + sx - 55 * sz + xx + cw * a3);
+                int var12 = my - (100 + yy - 60);
                 if (cardZoomOut[a3] >= 0.95 && !cardSelected) {
                     if (var11 >= 0 && var12 >= 0 && var11 < 100 && var12 < 120) {
-                        final float[] cardHover = this.cardHover;
-                        final int n = a3;
+                        float[] cardHover = this.cardHover;
+                        int n = a3;
                         cardHover[n] += Math.max((0.25f - this.cardHover[a3]) / 3.0f * partialTicks, 0.0025f);
                     }
                     else {
-                        final float[] cardHover2 = cardHover;
-                        final int n2 = a3;
+                        float[] cardHover2 = cardHover;
+                        int n2 = a3;
                         cardHover2[n2] -= 0.1f * partialTicks;
                     }
                 }
                 if (a3 == sz - 1 || cardZoomOut[a3 + 1] > 0.6) {
-                    final float f = cardZoomOut[a3];
-                    final float[] cardZoomOut = this.cardZoomOut;
-                    final int n3 = a3;
+                    float f = cardZoomOut[a3];
+                    float[] cardZoomOut = this.cardZoomOut;
+                    int n3 = a3;
                     cardZoomOut[n3] += Math.max((1.0f - this.cardZoomOut[a3]) / 5.0f * partialTicks, 0.0025f);
                     if (this.cardZoomOut[a3] > 0.0f && f == 0.0f) {
                         playButtonPageFlip();
                     }
                 }
-                final float prevZoomIn = cardZoomIn[a3];
+                float prevZoomIn = cardZoomIn[a3];
                 if (cardSelected) {
-                    final float[] cardZoomIn = this.cardZoomIn;
-                    final int n4 = a3;
+                    float[] cardZoomIn = this.cardZoomIn;
+                    int n4 = a3;
                     cardZoomIn[n4] += (float)(cardActive[a3] ? Math.max((1.0f - this.cardZoomIn[a3]) / 3.0f * partialTicks, 0.0025) : (0.3f * partialTicks));
                     cardHover[a3] = 1.0f - this.cardZoomIn[a3];
                 }
                 cardZoomIn[a3] = MathHelper.clamp(cardZoomIn[a3], 0.0f, 1.0f);
                 cardHover[a3] = MathHelper.clamp(cardHover[a3], 0.0f, 0.25f);
                 cardZoomOut[a3] = MathHelper.clamp(cardZoomOut[a3], 0.0f, 1.0f);
-                final float dx = (float)(55 + sx - 55 * sz + xx + cw * a3 - (xx + 65));
+                float dx = (float)(55 + sx - 55 * sz + xx + cw * a3 - (xx + 65));
                 float fx = xx + 65 + dx * cardZoomOut[a3];
-                final float qx = xx + 191 - fx;
+                float qx = xx + 191 - fx;
                 if (cardActive[a3]) {
                     fx += qx * cardZoomIn[a3];
                 }
@@ -456,7 +456,7 @@ public class GuiResearchTable extends GuiContainer
         RenderHelper.disableStandardItemLighting();
     }
     
-    private void drawSheet(final double x, final double y, final double scale, final Random r, final float alpha, final float tilt, final ResearchTableData.CardChoice cardChoice) {
+    private void drawSheet(double x, double y, double scale, Random r, float alpha, float tilt, ResearchTableData.CardChoice cardChoice) {
         GL11.glPushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
@@ -483,7 +483,7 @@ public class GuiResearchTable extends GuiContainer
         GL11.glPopMatrix();
         if (cardChoice != null && alpha == 1.0f) {
             if (cardChoice.card.getResearchCategory() != null) {
-                final ResearchCategory rc = ResearchCategories.getResearchCategory(cardChoice.card.getResearchCategory());
+                ResearchCategory rc = ResearchCategories.getResearchCategory(cardChoice.card.getResearchCategory());
                 if (rc != null) {
                     GL11.glColor4f(1.0f, 1.0f, 1.0f, alpha / 6.0f);
                     GL11.glPushMatrix();
@@ -496,8 +496,8 @@ public class GuiResearchTable extends GuiContainer
             GL11.glPushMatrix();
             GL11.glScaled(0.0625, 0.0625, 0.0);
             GL11.glColor4f(0.0f, 0.0f, 0.0f, alpha);
-            final String name = TextFormatting.BOLD + cardChoice.card.getLocalizedName() + TextFormatting.RESET;
-            final int sz = fontRenderer.getStringWidth(name);
+            String name = TextFormatting.BOLD + cardChoice.card.getLocalizedName() + TextFormatting.RESET;
+            int sz = fontRenderer.getStringWidth(name);
             fontRenderer.drawString(name, -sz / 2, -65, 0);
             fontRenderer.drawSplitString(cardChoice.card.getLocalizedText(), -70, -48, 140, 0);
             GL11.glPopMatrix();
@@ -521,7 +521,7 @@ public class GuiResearchTable extends GuiContainer
             }
             GL11.glPopMatrix();
             if (cardChoice.card.getRequiredItems() != null) {
-                final ItemStack[] items = cardChoice.card.getRequiredItems();
+                ItemStack[] items = cardChoice.card.getRequiredItems();
                 GL11.glPushMatrix();
                 for (int a2 = 0; a2 < items.length; ++a2) {
                     if (items[a2] == null || items[a2].isEmpty()) {
@@ -551,14 +551,14 @@ public class GuiResearchTable extends GuiContainer
                                 GL11.glPushMatrix();
                                 mc.renderEngine.bindTexture(txBase);
                                 GL11.glScaled(0.125, 0.125, 0.0);
-                                final float s = (float)Math.sin((player.ticksExisted + a2 * 2 + mc.getRenderPartialTicks()) / 2.0f) * 0.03f;
+                                float s = (float)Math.sin((player.ticksExisted + a2 * 2 + mc.getRenderPartialTicks()) / 2.0f) * 0.03f;
                                 GL11.glTranslated(-2 - 9 * items.length + 18 * a2, 45.0f + s * 10.0f, 0.0);
                                 GL11.glScaled(0.5, 0.5 + s, 0.0);
                                 drawTexturedModalRect(0, 0, 64, 120, 16, 16);
                                 GL11.glPopMatrix();
                             }
                         }
-                        catch (final Exception ex) {}
+                        catch (Exception ex) {}
                     }
                 }
                 GL11.glPopMatrix();
@@ -568,10 +568,10 @@ public class GuiResearchTable extends GuiContainer
         GL11.glPopMatrix();
     }
     
-    private void drawSheetOverlay(final double x, final double y, final ResearchTableData.CardChoice cardChoice, final int mx, final int my) {
+    private void drawSheetOverlay(double x, double y, ResearchTableData.CardChoice cardChoice, int mx, int my) {
         GL11.glPushMatrix();
         if (cardChoice != null && cardChoice.card.getRequiredItems() != null) {
-            final ItemStack[] items = cardChoice.card.getRequiredItems();
+            ItemStack[] items = cardChoice.card.getRequiredItems();
             for (int a = 0; a < items.length; ++a) {
                 if (isPointInRegion((int)(x - 9 * items.length + 18 * a), (int)(y + 36.0), 15, 15, mx, my)) {
                     if (items[a] == null || items[a].isEmpty()) {
@@ -595,7 +595,7 @@ public class GuiResearchTable extends GuiContainer
         int draw = 2;
         if (table.data.bonusDraws > 0) {
             ++draw;
-            final ResearchTableData data = table.data;
+            ResearchTableData data = table.data;
             --data.bonusDraws;
         }
         mc.playerController.sendEnchantPacket(inventorySlots.windowId, draw);
@@ -615,7 +615,7 @@ public class GuiResearchTable extends GuiContainer
         buttonScrap.y = guiTop + 168;
     }
     
-    protected void actionPerformed(final GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 1) {
             playButtonClick();
             PacketHandler.INSTANCE.sendToServer(new PacketStartTheoryToServer(table.getPos(), selectedAids));
@@ -667,22 +667,22 @@ public class GuiResearchTable extends GuiContainer
         }
     }
     
-    protected void mouseClicked(final int mx, final int my, final int par3) throws IOException {
+    protected void mouseClicked(int mx, int my, int par3) throws IOException {
         super.mouseClicked(mx, my, par3);
-        final int xx = (width - xSize) / 2;
-        final int yy = (height - ySize) / 2;
+        int xx = (width - xSize) / 2;
+        int yy = (height - ySize) / 2;
         if (table.data == null) {
             if (!currentAids.isEmpty()) {
-                final int side = Math.min(currentAids.size(), 6);
+                int side = Math.min(currentAids.size(), 6);
                 int c = 0;
                 int r = 0;
-                for (final String key : currentAids) {
-                    final ITheorycraftAid mutator = TheorycraftManager.aids.get(key);
+                for (String key : currentAids) {
+                    ITheorycraftAid mutator = TheorycraftManager.aids.get(key);
                     if (mutator == null) {
                         continue;
                     }
-                    final int x = 128 + 20 * c - side * 10;
-                    final int y = 85 + 35 * r;
+                    int x = 128 + 20 * c - side * 10;
+                    int y = 85 + 35 * r;
                     if (isPointInRegion(x, y, 16, 16, mx, my)) {
                         if (selectedAids.contains(key)) {
                             selectedAids.remove(key);
@@ -700,13 +700,13 @@ public class GuiResearchTable extends GuiContainer
             }
         }
         else {
-            final int sx = 128;
-            final int cw = 110;
+            int sx = 128;
+            int cw = 110;
             if (cardChoices.size() > 0) {
                 int pressed = -1;
                 for (int a = 0; a < cardChoices.size(); ++a) {
-                    final int var7 = mx - (5 + sx - 55 * cardChoices.size() + xx + cw * a);
-                    final int var8 = my - (100 + yy - 60);
+                    int var7 = mx - (5 + sx - 55 * cardChoices.size() + xx + cw * a);
+                    int var8 = my - (100 + yy - 60);
                     if (cardZoomOut[a] >= 0.95 && !cardSelected && var7 >= 0 && var8 >= 0 && var7 < 100 && var8 < 120) {
                         pressed = a;
                         break;
@@ -717,8 +717,8 @@ public class GuiResearchTable extends GuiContainer
                 }
             }
             else {
-                final int var9 = mx - (25 + xx);
-                final int var10 = my - (55 + yy);
+                int var9 = mx - (25 + xx);
+                int var10 = my - (55 + yy);
                 if (var9 >= 0 && var10 >= 0 && var9 < 75 && var10 < 90 && table.getStackInSlot(1) != null) {
                     drawCards();
                 }
@@ -743,7 +743,7 @@ public class GuiResearchTable extends GuiContainer
                         break;
                     }
                 }
-                catch (final Exception ex) {}
+                catch (Exception ex) {}
             }
         }
     }

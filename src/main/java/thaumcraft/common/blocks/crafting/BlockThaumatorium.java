@@ -33,7 +33,7 @@ public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHori
 {
     boolean top;
     
-    public BlockThaumatorium(final boolean top) {
+    public BlockThaumatorium(boolean top) {
         super(Material.IRON, null, top ? "thaumatorium_top" : "thaumatorium");
         setSoundType(SoundType.METAL);
         setCreativeTab(null);
@@ -41,7 +41,7 @@ public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHori
     }
     
     @Override
-    public TileEntity createNewTileEntity(final World world, final int metadata) {
+    public TileEntity createNewTileEntity(World world, int metadata) {
         if (!top) {
             return new TileThaumatorium();
         }
@@ -52,26 +52,26 @@ public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHori
     }
     
     @Override
-    public void onBlockAdded(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public EnumBlockRenderType getRenderType(final IBlockState state) {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return top ? EnumBlockRenderType.INVISIBLE : EnumBlockRenderType.MODEL;
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote && !player.isSneaking()) {
             if (!top) {
                 player.openGui(Thaumcraft.instance, 3, world, pos.getX(), pos.getY(), pos.getZ());
@@ -83,17 +83,17 @@ public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHori
         return true;
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(BlocksTC.metalAlchemical);
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
     @Override
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (top && worldIn.getBlockState(pos.down()).getBlock() == BlocksTC.thaumatorium) {
             worldIn.setBlockState(pos.down(), BlocksTC.metalAlchemical.getDefaultState());
         }
@@ -104,7 +104,7 @@ public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHori
     }
     
     @Override
-    public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos pos2) {
         if (!top && worldIn.getBlockState(pos.down()).getBlock() != BlocksTC.crucible) {
             worldIn.setBlockState(pos, BlocksTC.metalAlchemical.getDefaultState());
             if (worldIn.getBlockState(pos.up()).getBlock() == BlocksTC.thaumatoriumTop) {
@@ -113,12 +113,12 @@ public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHori
         }
     }
     
-    public boolean hasComparatorInputOverride(final IBlockState state) {
+    public boolean hasComparatorInputOverride(IBlockState state) {
         return !top;
     }
     
-    public int getComparatorInputOverride(final IBlockState state, final World world, final BlockPos pos) {
-        final TileEntity tile = world.getTileEntity(pos);
+    public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof TileThaumatorium) {
             return Container.calcRedstoneFromInventory((IInventory)tile);
         }

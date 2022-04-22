@@ -20,22 +20,22 @@ import net.minecraft.client.renderer.entity.RenderEntityItem;
 
 public class RenderSpecialItem extends RenderEntityItem
 {
-    public RenderSpecialItem(final RenderManager p_i46167_1_, final RenderItem p_i46167_2_) {
+    public RenderSpecialItem(RenderManager p_i46167_1_, RenderItem p_i46167_2_) {
         super(p_i46167_1_, p_i46167_2_);
     }
     
-    public void doRender(final EntityItem e, final double x, final double y, final double z, final float p_177075_8_, final float pt) {
-        final Random random = new Random(187L);
-        final float var11 = MathHelper.sin((e.getAge() + pt) / 10.0f + e.hoverStart) * 0.1f + 0.1f;
+    public void doRender(EntityItem e, double x, double y, double z, float p_177075_8_, float pt) {
+        Random random = new Random(187L);
+        float var11 = MathHelper.sin((e.getAge() + pt) / 10.0f + e.hoverStart) * 0.1f + 0.1f;
         GL11.glPushMatrix();
         GL11.glTranslatef((float)x, (float)y + var11 + 0.25f, (float)z);
-        final int q = FMLClientHandler.instance().getClient().gameSettings.fancyGraphics ? 10 : 5;
-        final Tessellator tessellator = Tessellator.getInstance();
-        final BufferBuilder wr = tessellator.getBuffer();
+        int q = FMLClientHandler.instance().getClient().gameSettings.fancyGraphics ? 10 : 5;
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder wr = tessellator.getBuffer();
         RenderHelper.disableStandardItemLighting();
-        final float f1 = e.getAge() / 500.0f;
-        final float f2 = 0.9f;
-        final float f3 = 0.0f;
+        float f1 = e.getAge() / 500.0f;
+        float f2 = 0.9f;
+        float f3 = 0.0f;
         GL11.glDisable(3553);
         GL11.glShadeModel(7425);
         GL11.glEnable(3042);

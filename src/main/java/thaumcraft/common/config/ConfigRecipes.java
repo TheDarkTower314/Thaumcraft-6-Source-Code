@@ -77,67 +77,67 @@ public class ConfigRecipes
         IDustTrigger.registerDustTrigger(new DustTriggerSimple("FIRSTSTEPS@1", Blocks.CRAFTING_TABLE, new ItemStack(BlocksTC.arcaneWorkbench)));
         IDustTrigger.registerDustTrigger(new DustTriggerOre("FIRSTSTEPS@1", "workbench", new ItemStack(BlocksTC.arcaneWorkbench)));
         IDustTrigger.registerDustTrigger(new DustTriggerSimple("UNLOCKALCHEMY@1", Blocks.CAULDRON, new ItemStack(BlocksTC.crucible)));
-        final Part NB = new Part(Blocks.NETHER_BRICK, new ItemStack(BlocksTC.placeholderNetherbrick));
-        final Part OB = new Part(Blocks.OBSIDIAN, new ItemStack(BlocksTC.placeholderObsidian));
-        final Part IB = new Part(Blocks.IRON_BARS, "AIR");
-        final Part LA = new Part(Material.LAVA, BlocksTC.infernalFurnace, true);
-        final Part[][][] infernalFurnaceBlueprint = { { { NB, OB, NB }, { OB, null, OB }, { NB, OB, NB } }, { { NB, OB, NB }, { OB, LA, OB }, { NB, IB, NB } }, { { NB, OB, NB }, { OB, OB, OB }, { NB, OB, NB } } };
+        Part NB = new Part(Blocks.NETHER_BRICK, new ItemStack(BlocksTC.placeholderNetherbrick));
+        Part OB = new Part(Blocks.OBSIDIAN, new ItemStack(BlocksTC.placeholderObsidian));
+        Part IB = new Part(Blocks.IRON_BARS, "AIR");
+        Part LA = new Part(Material.LAVA, BlocksTC.infernalFurnace, true);
+        Part[][][] infernalFurnaceBlueprint = { { { NB, OB, NB }, { OB, null, OB }, { NB, OB, NB } }, { { NB, OB, NB }, { OB, LA, OB }, { NB, IB, NB } }, { { NB, OB, NB }, { OB, OB, OB }, { NB, OB, NB } } };
         IDustTrigger.registerDustTrigger(new DustTriggerMultiblock("INFERNALFURNACE", infernalFurnaceBlueprint));
         ThaumcraftApi.addMultiblockRecipeToCatalog(new ResourceLocation("thaumcraft:infernalfurnace"), new ThaumcraftApi.BluePrint("INFERNALFURNACE", infernalFurnaceBlueprint, new ItemStack(Blocks.NETHER_BRICK, 12), new ItemStack(Blocks.OBSIDIAN, 12), new ItemStack(Blocks.IRON_BARS), new ItemStack(Items.LAVA_BUCKET)));
-        final Part IM = new Part(BlocksTC.infusionMatrix, null);
-        final Part SNT = new Part(BlocksTC.stoneArcane, "AIR");
-        final Part SNB1 = new Part(BlocksTC.stoneArcane, new ItemStack(BlocksTC.pillarArcane, 1, BlockPillar.calcMeta(EnumFacing.EAST)));
-        final Part SNB2 = new Part(BlocksTC.stoneArcane, new ItemStack(BlocksTC.pillarArcane, 1, BlockPillar.calcMeta(EnumFacing.NORTH)));
-        final Part SNB3 = new Part(BlocksTC.stoneArcane, new ItemStack(BlocksTC.pillarArcane, 1, BlockPillar.calcMeta(EnumFacing.SOUTH)));
-        final Part SNB4 = new Part(BlocksTC.stoneArcane, new ItemStack(BlocksTC.pillarArcane, 1, BlockPillar.calcMeta(EnumFacing.WEST)));
-        final Part PN = new Part(BlocksTC.pedestalArcane.getDefaultState(), null);
-        final Part[][][] infusionAltarNormalBlueprint = { { { null, null, null }, { null, IM, null }, { null, null, null } }, { { SNT, null, SNT }, { null, null, null }, { SNT, null, SNT } }, { { SNB1, null, SNB2 }, { null, PN, null }, { SNB3, null, SNB4 } } };
+        Part IM = new Part(BlocksTC.infusionMatrix, null);
+        Part SNT = new Part(BlocksTC.stoneArcane, "AIR");
+        Part SNB1 = new Part(BlocksTC.stoneArcane, new ItemStack(BlocksTC.pillarArcane, 1, BlockPillar.calcMeta(EnumFacing.EAST)));
+        Part SNB2 = new Part(BlocksTC.stoneArcane, new ItemStack(BlocksTC.pillarArcane, 1, BlockPillar.calcMeta(EnumFacing.NORTH)));
+        Part SNB3 = new Part(BlocksTC.stoneArcane, new ItemStack(BlocksTC.pillarArcane, 1, BlockPillar.calcMeta(EnumFacing.SOUTH)));
+        Part SNB4 = new Part(BlocksTC.stoneArcane, new ItemStack(BlocksTC.pillarArcane, 1, BlockPillar.calcMeta(EnumFacing.WEST)));
+        Part PN = new Part(BlocksTC.pedestalArcane.getDefaultState(), null);
+        Part[][][] infusionAltarNormalBlueprint = { { { null, null, null }, { null, IM, null }, { null, null, null } }, { { SNT, null, SNT }, { null, null, null }, { SNT, null, SNT } }, { { SNB1, null, SNB2 }, { null, PN, null }, { SNB3, null, SNB4 } } };
         IDustTrigger.registerDustTrigger(new DustTriggerMultiblock("INFUSION", infusionAltarNormalBlueprint));
         ThaumcraftApi.addMultiblockRecipeToCatalog(new ResourceLocation("thaumcraft:infusionaltar"), new ThaumcraftApi.BluePrint("INFUSION", infusionAltarNormalBlueprint, new ItemStack(BlocksTC.stoneArcane, 8), new ItemStack(BlocksTC.pedestalArcane), new ItemStack(BlocksTC.infusionMatrix)));
-        final Part SAT = new Part(BlocksTC.stoneAncient, "AIR");
-        final Part SAB1 = new Part(BlocksTC.stoneAncient, new ItemStack(BlocksTC.pillarAncient, 1, BlockPillar.calcMeta(EnumFacing.EAST)));
-        final Part SAB2 = new Part(BlocksTC.stoneAncient, new ItemStack(BlocksTC.pillarAncient, 1, BlockPillar.calcMeta(EnumFacing.NORTH)));
-        final Part SAB3 = new Part(BlocksTC.stoneAncient, new ItemStack(BlocksTC.pillarAncient, 1, BlockPillar.calcMeta(EnumFacing.SOUTH)));
-        final Part SAB4 = new Part(BlocksTC.stoneAncient, new ItemStack(BlocksTC.pillarAncient, 1, BlockPillar.calcMeta(EnumFacing.WEST)));
-        final Part PA = new Part(BlocksTC.pedestalAncient.getStateFromMeta(2), null);
-        final Part[][][] infusionAltarAncientBlueprint = { { { null, null, null }, { null, IM, null }, { null, null, null } }, { { SAT, null, SAT }, { null, null, null }, { SAT, null, SAT } }, { { SAB1, null, SAB2 }, { null, PA, null }, { SAB3, null, SAB4 } } };
+        Part SAT = new Part(BlocksTC.stoneAncient, "AIR");
+        Part SAB1 = new Part(BlocksTC.stoneAncient, new ItemStack(BlocksTC.pillarAncient, 1, BlockPillar.calcMeta(EnumFacing.EAST)));
+        Part SAB2 = new Part(BlocksTC.stoneAncient, new ItemStack(BlocksTC.pillarAncient, 1, BlockPillar.calcMeta(EnumFacing.NORTH)));
+        Part SAB3 = new Part(BlocksTC.stoneAncient, new ItemStack(BlocksTC.pillarAncient, 1, BlockPillar.calcMeta(EnumFacing.SOUTH)));
+        Part SAB4 = new Part(BlocksTC.stoneAncient, new ItemStack(BlocksTC.pillarAncient, 1, BlockPillar.calcMeta(EnumFacing.WEST)));
+        Part PA = new Part(BlocksTC.pedestalAncient.getStateFromMeta(2), null);
+        Part[][][] infusionAltarAncientBlueprint = { { { null, null, null }, { null, IM, null }, { null, null, null } }, { { SAT, null, SAT }, { null, null, null }, { SAT, null, SAT } }, { { SAB1, null, SAB2 }, { null, PA, null }, { SAB3, null, SAB4 } } };
         IDustTrigger.registerDustTrigger(new DustTriggerMultiblock("INFUSIONANCIENT", infusionAltarAncientBlueprint));
         ThaumcraftApi.addMultiblockRecipeToCatalog(new ResourceLocation("thaumcraft:infusionaltarancient"), new ThaumcraftApi.BluePrint("INFUSIONANCIENT", infusionAltarAncientBlueprint, new ItemStack(BlocksTC.stoneAncient, 8), new ItemStack(BlocksTC.pedestalAncient), new ItemStack(BlocksTC.infusionMatrix)));
-        final Part SET = new Part(BlocksTC.stoneEldritchTile, "AIR");
-        final Part SEB1 = new Part(BlocksTC.stoneEldritchTile, new ItemStack(BlocksTC.pillarEldritch, 1, BlockPillar.calcMeta(EnumFacing.EAST)));
-        final Part SEB2 = new Part(BlocksTC.stoneEldritchTile, new ItemStack(BlocksTC.pillarEldritch, 1, BlockPillar.calcMeta(EnumFacing.NORTH)));
-        final Part SEB3 = new Part(BlocksTC.stoneEldritchTile, new ItemStack(BlocksTC.pillarEldritch, 1, BlockPillar.calcMeta(EnumFacing.SOUTH)));
-        final Part SEB4 = new Part(BlocksTC.stoneEldritchTile, new ItemStack(BlocksTC.pillarEldritch, 1, BlockPillar.calcMeta(EnumFacing.WEST)));
-        final Part PE = new Part(BlocksTC.pedestalEldritch.getStateFromMeta(1), null);
-        final Part[][][] infusionAltarEldritchBlueprint = { { { null, null, null }, { null, IM, null }, { null, null, null } }, { { SET, null, SET }, { null, null, null }, { SET, null, SET } }, { { SEB1, null, SEB2 }, { null, PE, null }, { SEB3, null, SEB4 } } };
+        Part SET = new Part(BlocksTC.stoneEldritchTile, "AIR");
+        Part SEB1 = new Part(BlocksTC.stoneEldritchTile, new ItemStack(BlocksTC.pillarEldritch, 1, BlockPillar.calcMeta(EnumFacing.EAST)));
+        Part SEB2 = new Part(BlocksTC.stoneEldritchTile, new ItemStack(BlocksTC.pillarEldritch, 1, BlockPillar.calcMeta(EnumFacing.NORTH)));
+        Part SEB3 = new Part(BlocksTC.stoneEldritchTile, new ItemStack(BlocksTC.pillarEldritch, 1, BlockPillar.calcMeta(EnumFacing.SOUTH)));
+        Part SEB4 = new Part(BlocksTC.stoneEldritchTile, new ItemStack(BlocksTC.pillarEldritch, 1, BlockPillar.calcMeta(EnumFacing.WEST)));
+        Part PE = new Part(BlocksTC.pedestalEldritch.getStateFromMeta(1), null);
+        Part[][][] infusionAltarEldritchBlueprint = { { { null, null, null }, { null, IM, null }, { null, null, null } }, { { SET, null, SET }, { null, null, null }, { SET, null, SET } }, { { SEB1, null, SEB2 }, { null, PE, null }, { SEB3, null, SEB4 } } };
         IDustTrigger.registerDustTrigger(new DustTriggerMultiblock("INFUSIONELDRITCH", infusionAltarEldritchBlueprint));
         ThaumcraftApi.addMultiblockRecipeToCatalog(new ResourceLocation("thaumcraft:infusionaltareldritch"), new ThaumcraftApi.BluePrint("INFUSIONELDRITCH", infusionAltarEldritchBlueprint, new ItemStack(BlocksTC.stoneEldritchTile, 8), new ItemStack(BlocksTC.pedestalEldritch), new ItemStack(BlocksTC.infusionMatrix)));
-        final Part TH1 = new Part(BlocksTC.metalAlchemical.getDefaultState(), BlocksTC.thaumatoriumTop).setApplyPlayerFacing(true);
-        final Part TH2 = new Part(BlocksTC.metalAlchemical.getDefaultState(), BlocksTC.thaumatorium).setApplyPlayerFacing(true);
-        final Part TH3 = new Part(BlocksTC.crucible, null);
-        final Part[][][] thaumotoriumBlueprint = { { { TH1 } }, { { TH2 } }, { { TH3 } } };
+        Part TH1 = new Part(BlocksTC.metalAlchemical.getDefaultState(), BlocksTC.thaumatoriumTop).setApplyPlayerFacing(true);
+        Part TH2 = new Part(BlocksTC.metalAlchemical.getDefaultState(), BlocksTC.thaumatorium).setApplyPlayerFacing(true);
+        Part TH3 = new Part(BlocksTC.crucible, null);
+        Part[][][] thaumotoriumBlueprint = { { { TH1 } }, { { TH2 } }, { { TH3 } } };
         IDustTrigger.registerDustTrigger(new DustTriggerMultiblock("THAUMATORIUM", thaumotoriumBlueprint));
         ThaumcraftApi.addMultiblockRecipeToCatalog(new ResourceLocation("thaumcraft:Thaumatorium"), new ThaumcraftApi.BluePrint("THAUMATORIUM", thaumotoriumBlueprint, new ItemStack(BlocksTC.metalAlchemical, 2), new ItemStack(BlocksTC.crucible)));
-        final Part GP1 = new Part(Blocks.IRON_BARS, new ItemStack(BlocksTC.placeholderBars));
-        final Part GP2 = new Part(Blocks.CAULDRON, new ItemStack(BlocksTC.placeholderCauldron));
-        final Part GP3 = new Part(Blocks.PISTON.getDefaultState().withProperty((IProperty)BlockPistonBase.FACING, (Comparable)EnumFacing.UP), BlocksTC.golemBuilder);
-        final Part GP4 = new Part(Blocks.ANVIL, new ItemStack(BlocksTC.placeholderAnvil));
-        final Part GP5 = new Part(BlocksTC.tableStone, new ItemStack(BlocksTC.placeholderTable));
-        final Part[][][] golempressBlueprint = { { { null, null }, { GP1, null } }, { { GP2, GP4 }, { GP3, GP5 } } };
+        Part GP1 = new Part(Blocks.IRON_BARS, new ItemStack(BlocksTC.placeholderBars));
+        Part GP2 = new Part(Blocks.CAULDRON, new ItemStack(BlocksTC.placeholderCauldron));
+        Part GP3 = new Part(Blocks.PISTON.getDefaultState().withProperty((IProperty)BlockPistonBase.FACING, (Comparable)EnumFacing.UP), BlocksTC.golemBuilder);
+        Part GP4 = new Part(Blocks.ANVIL, new ItemStack(BlocksTC.placeholderAnvil));
+        Part GP5 = new Part(BlocksTC.tableStone, new ItemStack(BlocksTC.placeholderTable));
+        Part[][][] golempressBlueprint = { { { null, null }, { GP1, null } }, { { GP2, GP4 }, { GP3, GP5 } } };
         IDustTrigger.registerDustTrigger(new DustTriggerMultiblock("MINDCLOCKWORK", golempressBlueprint));
         ThaumcraftApi.addMultiblockRecipeToCatalog(new ResourceLocation("thaumcraft:GolemPress"), new ThaumcraftApi.BluePrint("MINDCLOCKWORK", new ItemStack(BlocksTC.golemBuilder), golempressBlueprint, new ItemStack(Blocks.IRON_BARS), new ItemStack(Items.CAULDRON), new ItemStack(Blocks.PISTON), new ItemStack(Blocks.ANVIL), new ItemStack(BlocksTC.tableStone)));
     }
     
     public static void initializeAlchemyRecipes() {
-        final ResourceLocation visCrystalGroup = new ResourceLocation("thaumcraft:viscrystalgroup");
-        final CrucibleRecipe[] cre = new CrucibleRecipe[Aspect.aspects.size()];
-        for (final Aspect aspect : Aspect.aspects.values()) {
+        ResourceLocation visCrystalGroup = new ResourceLocation("thaumcraft:viscrystalgroup");
+        CrucibleRecipe[] cre = new CrucibleRecipe[Aspect.aspects.size()];
+        for (Aspect aspect : Aspect.aspects.values()) {
             ThaumcraftApi.addCrucibleRecipe(new ResourceLocation("thaumcraft:vis_crystal_" + aspect.getTag()), new CrucibleRecipe("BASEALCHEMY", ThaumcraftApiHelper.makeCrystal(aspect), "nuggetQuartz", new AspectList().add(aspect, 2)).setGroup(visCrystalGroup));
         }
-        final ResourceLocation nitorGroup = new ResourceLocation("thaumcraft", "nitorgroup");
+        ResourceLocation nitorGroup = new ResourceLocation("thaumcraft", "nitorgroup");
         ThaumcraftApi.addCrucibleRecipe(new ResourceLocation("thaumcraft:nitor"), new CrucibleRecipe("UNLOCKALCHEMY@3", new ItemStack(BlocksTC.nitor.get(EnumDyeColor.YELLOW)), "dustGlowstone", new AspectList().merge(Aspect.ENERGY, 10).merge(Aspect.FIRE, 10).merge(Aspect.LIGHT, 10)));
         int a = 0;
-        for (final EnumDyeColor d : EnumDyeColor.values()) {
+        for (EnumDyeColor d : EnumDyeColor.values()) {
             shapelessOreDictRecipe("NitorDye" + d.getUnlocalizedName().toLowerCase(), nitorGroup, new ItemStack(BlocksTC.nitor.get(d)), new Object[] { ConfigAspects.dyes[15 - a], "nitor" });
             ++a;
         }
@@ -148,7 +148,7 @@ public class ConfigRecipes
         ThaumcraftApi.addCrucibleRecipe(new ResourceLocation("thaumcraft:hedge_tallow"), new CrucibleRecipe("HEDGEALCHEMY@1", new ItemStack(ItemsTC.tallow), new ItemStack(Items.ROTTEN_FLESH), new AspectList().merge(Aspect.FIRE, 1)));
         ThaumcraftApi.addCrucibleRecipe(new ResourceLocation("thaumcraft:hedge_leather"), new CrucibleRecipe("HEDGEALCHEMY@1", new ItemStack(Items.LEATHER), new ItemStack(Items.ROTTEN_FLESH), new AspectList().merge(Aspect.AIR, 3).merge(Aspect.BEAST, 3)));
         ThaumcraftApi.addCrucibleRecipe(new ResourceLocation("thaumcraft:focus_1"), new CrucibleRecipe("UNLOCKAUROMANCY", new ItemStack(ItemsTC.focus1), ConfigItems.ORDER_CRYSTAL, new AspectList().merge(Aspect.CRYSTAL, 20).merge(Aspect.MAGIC, 10).merge(Aspect.AURA, 5)));
-        final ArrayList<CrucibleRecipe> rl = new ArrayList<CrucibleRecipe>();
+        ArrayList<CrucibleRecipe> rl = new ArrayList<CrucibleRecipe>();
         ThaumcraftApi.addCrucibleRecipe(new ResourceLocation("thaumcraft:metal_purification_iron"), new CrucibleRecipe("METALPURIFICATION", new ItemStack(ItemsTC.clusters, 1, 0), "oreIron", new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
         ThaumcraftApi.addCrucibleRecipe(new ResourceLocation("thaumcraft:metal_purification_gold"), new CrucibleRecipe("METALPURIFICATION", new ItemStack(ItemsTC.clusters, 1, 1), "oreGold", new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
         ThaumcraftApi.addCrucibleRecipe(new ResourceLocation("thaumcraft:metal_purification_cinnabar"), new CrucibleRecipe("METALPURIFICATION", new ItemStack(ItemsTC.clusters, 1, 6), "oreCinnabar", new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
@@ -184,7 +184,7 @@ public class ConfigRecipes
         ThaumcraftApi.addCrucibleRecipe(new ResourceLocation("thaumcraft:EverfullUrn"), new CrucibleRecipe("EVERFULLURN", new ItemStack(BlocksTC.everfullUrn), new ItemStack(Items.FLOWER_POT), new AspectList().add(Aspect.WATER, 30).add(Aspect.CRAFT, 10).add(Aspect.EARTH, 10)));
     }
     
-    public static void initializeArcaneRecipes(final IForgeRegistry<IRecipe> iForgeRegistry) {
+    public static void initializeArcaneRecipes(IForgeRegistry<IRecipe> iForgeRegistry) {
         ThaumcraftApi.addArcaneCraftingRecipe(new ResourceLocation("thaumcraft:mechanism_simple"), new ShapedArcaneRecipe(ConfigRecipes.defaultGroup, "BASEARTIFICE", 10, new AspectList().add(Aspect.FIRE, 1).add(Aspect.WATER, 1), ItemsTC.mechanismSimple, " B ", "ISI", " B ", 'B', "plateBrass", 'I', "plateIron", 'S', "stickWood"));
         ThaumcraftApi.addArcaneCraftingRecipe(new ResourceLocation("thaumcraft:mechanism_complex"), new ShapedArcaneRecipe(ConfigRecipes.defaultGroup, "BASEARTIFICE", 50, new AspectList().add(Aspect.FIRE, 1).add(Aspect.WATER, 1), ItemsTC.mechanismComplex, " M ", "TQT", " M ", 'T', "plateThaumium", 'Q', Blocks.PISTON, 'M', new ItemStack(ItemsTC.mechanismSimple)));
         ThaumcraftApi.addArcaneCraftingRecipe(new ResourceLocation("thaumcraft:vis_resonator"), new ShapelessArcaneRecipe(ConfigRecipes.defaultGroup, "UNLOCKAUROMANCY@2", 50, new AspectList().add(Aspect.AIR, 1).add(Aspect.WATER, 1), ItemsTC.visResonator, "plateIron", "gemQuartz"));
@@ -214,10 +214,10 @@ public class ConfigRecipes
         ThaumcraftApi.addArcaneCraftingRecipe(new ResourceLocation("thaumcraft:TubeBuffer"), new ShapedArcaneRecipe(ConfigRecipes.defaultGroup, "TUBES", 25, null, new ItemStack(BlocksTC.tubeBuffer), "PVP", "TWT", "PRP", 'T', new ItemStack(BlocksTC.tube), 'V', new ItemStack(BlocksTC.tubeValve), 'W', "plateIron", 'R', new ItemStack(BlocksTC.tubeRestrict), 'P', new ItemStack(ItemsTC.phial)));
         ThaumcraftApi.addArcaneCraftingRecipe(new ResourceLocation("thaumcraft:WardedJar"), new ShapedArcaneRecipe(ConfigRecipes.defaultGroup, "WARDEDJARS", 5, null, new ItemStack(BlocksTC.jarNormal), "GWG", "G G", "GGG", 'W', "slabWood", 'G', "paneGlass"));
         ThaumcraftApi.addArcaneCraftingRecipe(new ResourceLocation("thaumcraft:JarVoid"), new ShapedArcaneVoidJar(ConfigRecipes.defaultGroup, "WARDEDJARS", 50, new AspectList().add(Aspect.ENTROPY, 1), new ItemStack(BlocksTC.jarVoid), "J", 'J', new ItemStack(BlocksTC.jarNormal)));
-        final ResourceLocation bannerGroup = new ResourceLocation("thaumcraft", "banners");
+        ResourceLocation bannerGroup = new ResourceLocation("thaumcraft", "banners");
         int a = 0;
-        for (final EnumDyeColor d : EnumDyeColor.values()) {
-            final ItemStack banner = new ItemStack(BlocksTC.banners.get(d));
+        for (EnumDyeColor d : EnumDyeColor.values()) {
+            ItemStack banner = new ItemStack(BlocksTC.banners.get(d));
             ThaumcraftApi.addArcaneCraftingRecipe(new ResourceLocation("thaumcraft:Banner" + d.getUnlocalizedName().toLowerCase()), new ShapedArcaneRecipe(bannerGroup, "BASEINFUSION", 10, null, banner, "WS", "WS", "WB", 'W', new ItemStack(Blocks.WOOL, 1, a), 'S', "stickWood", 'B', "slabWood"));
             ++a;
         }
@@ -283,10 +283,10 @@ public class ConfigRecipes
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:focus_3"), new InfusionRecipe("FOCUSGREATER@1", new ItemStack(ItemsTC.focus3), 5, new AspectList().add(Aspect.MAGIC, 25).add(Aspect.ORDER, 50).add(Aspect.VOID, 100), new ItemStack(ItemsTC.focus2), new ItemStack(ItemsTC.quicksilver), Ingredient.fromItem(ItemsTC.primordialPearl), new ItemStack(ItemsTC.quicksilver), new ItemStack(Items.NETHER_STAR)));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:JarBrain"), new InfusionRecipe("JARBRAIN", new ItemStack(BlocksTC.jarBrain), 4, new AspectList().add(Aspect.MIND, 25).add(Aspect.SENSES, 25).add(Aspect.UNDEAD, 25), new ItemStack(BlocksTC.jarNormal), new ItemStack(ItemsTC.brain), new ItemStack(Items.SPIDER_EYE), new ItemStack(Items.WATER_BUCKET), new ItemStack(Items.SPIDER_EYE)));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:VisAmulet"), new InfusionRecipe("VISAMULET", new ItemStack(ItemsTC.amuletVis, 1, 1), 6, new AspectList().add(Aspect.AURA, 50).add(Aspect.ENERGY, 100).add(Aspect.VOID, 50), new ItemStack(ItemsTC.baubles, 1, 0), new ItemStack(ItemsTC.visResonator), ThaumcraftApiHelper.makeCrystal(Aspect.AIR), ThaumcraftApiHelper.makeCrystal(Aspect.FIRE), ThaumcraftApiHelper.makeCrystal(Aspect.WATER), ThaumcraftApiHelper.makeCrystal(Aspect.EARTH), ThaumcraftApiHelper.makeCrystal(Aspect.ORDER)));
-        final InfusionRunicAugmentRecipe ra = new InfusionRunicAugmentRecipe();
+        InfusionRunicAugmentRecipe ra = new InfusionRunicAugmentRecipe();
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:RunicArmor"), ra);
         for (int a = 0; a < 3; ++a) {
-            final ItemStack in = new ItemStack(ItemsTC.baubles, 1, 1);
+            ItemStack in = new ItemStack(ItemsTC.baubles, 1, 1);
             if (a > 0) {
                 in.setTagInfo("TC.RUNIC", new NBTTagByte((byte)a));
             }
@@ -295,43 +295,43 @@ public class ConfigRecipes
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:Mirror"), new InfusionRecipe("MIRROR", new ItemStack(BlocksTC.mirror), 1, new AspectList().add(Aspect.MOTION, 25).add(Aspect.DARKNESS, 25).add(Aspect.EXCHANGE, 25), new ItemStack(ItemsTC.mirroredGlass), "ingotGold", "ingotGold", "ingotGold", new ItemStack(Items.ENDER_PEARL)));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:MirrorHand"), new InfusionRecipe("MIRRORHAND", new ItemStack(ItemsTC.handMirror), 5, new AspectList().add(Aspect.TOOL, 50).add(Aspect.MOTION, 50), new ItemStack(BlocksTC.mirror), "stickWood", new ItemStack(Items.COMPASS), new ItemStack(Items.MAP)));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:MirrorEssentia"), new InfusionRecipe("MIRRORESSENTIA", new ItemStack(BlocksTC.mirrorEssentia), 2, new AspectList().add(Aspect.MOTION, 25).add(Aspect.WATER, 25).add(Aspect.EXCHANGE, 25), new ItemStack(ItemsTC.mirroredGlass), "ingotIron", "ingotIron", "ingotIron", new ItemStack(Items.ENDER_PEARL)));
-        final ItemStack isEA = new ItemStack(ItemsTC.elementalAxe);
+        ItemStack isEA = new ItemStack(ItemsTC.elementalAxe);
         EnumInfusionEnchantment.addInfusionEnchantment(isEA, EnumInfusionEnchantment.COLLECTOR, 1);
         EnumInfusionEnchantment.addInfusionEnchantment(isEA, EnumInfusionEnchantment.BURROWING, 1);
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:ElementalAxe"), new InfusionRecipe("ELEMENTALTOOLS", isEA, 1, new AspectList().add(Aspect.WATER, 60).add(Aspect.PLANT, 30), new ItemStack(ItemsTC.thaumiumAxe, 1, 32767), ConfigItems.WATER_CRYSTAL, ConfigItems.WATER_CRYSTAL, new ItemStack(ItemsTC.nuggets, 1, 10), new ItemStack(BlocksTC.plankGreatwood)));
-        final ItemStack isEP = new ItemStack(ItemsTC.elementalPick);
+        ItemStack isEP = new ItemStack(ItemsTC.elementalPick);
         EnumInfusionEnchantment.addInfusionEnchantment(isEP, EnumInfusionEnchantment.REFINING, 1);
         EnumInfusionEnchantment.addInfusionEnchantment(isEP, EnumInfusionEnchantment.SOUNDING, 2);
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:ElementalPick"), new InfusionRecipe("ELEMENTALTOOLS", isEP, 1, new AspectList().add(Aspect.FIRE, 30).add(Aspect.METAL, 30).add(Aspect.SENSES, 30), new ItemStack(ItemsTC.thaumiumPick, 1, 32767), ConfigItems.FIRE_CRYSTAL, ConfigItems.FIRE_CRYSTAL, new ItemStack(ItemsTC.nuggets, 1, 10), new ItemStack(BlocksTC.plankGreatwood)));
-        final ItemStack isESW = new ItemStack(ItemsTC.elementalSword);
+        ItemStack isESW = new ItemStack(ItemsTC.elementalSword);
         EnumInfusionEnchantment.addInfusionEnchantment(isESW, EnumInfusionEnchantment.ARCING, 2);
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:ElementalSword"), new InfusionRecipe("ELEMENTALTOOLS", isESW, 1, new AspectList().add(Aspect.AIR, 30).add(Aspect.MOTION, 30).add(Aspect.AVERSION, 30), new ItemStack(ItemsTC.thaumiumSword, 1, 32767), ConfigItems.AIR_CRYSTAL, ConfigItems.AIR_CRYSTAL, new ItemStack(ItemsTC.nuggets, 1, 10), new ItemStack(BlocksTC.plankGreatwood)));
-        final ItemStack isES = new ItemStack(ItemsTC.elementalShovel);
+        ItemStack isES = new ItemStack(ItemsTC.elementalShovel);
         EnumInfusionEnchantment.addInfusionEnchantment(isES, EnumInfusionEnchantment.DESTRUCTIVE, 1);
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:ElementalShovel"), new InfusionRecipe("ELEMENTALTOOLS", isES, 1, new AspectList().add(Aspect.EARTH, 60).add(Aspect.CRAFT, 30), new ItemStack(ItemsTC.thaumiumShovel, 1, 32767), ConfigItems.EARTH_CRYSTAL, ConfigItems.EARTH_CRYSTAL, new ItemStack(ItemsTC.nuggets, 1, 10), new ItemStack(BlocksTC.plankGreatwood)));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:ElementalHoe"), new InfusionRecipe("ELEMENTALTOOLS", new ItemStack(ItemsTC.elementalHoe), 1, new AspectList().add(Aspect.ORDER, 30).add(Aspect.PLANT, 30).add(Aspect.ENTROPY, 30), new ItemStack(ItemsTC.thaumiumHoe, 1, 32767), ConfigItems.ORDER_CRYSTAL, ConfigItems.ENTROPY_CRYSTAL, new ItemStack(ItemsTC.nuggets, 1, 10), new ItemStack(BlocksTC.plankGreatwood)));
-        final InfusionEnchantmentRecipe IEBURROWING = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.BURROWING, new AspectList().add(Aspect.SENSES, 80).add(Aspect.EARTH, 150), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(Items.RABBIT_FOOT));
+        InfusionEnchantmentRecipe IEBURROWING = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.BURROWING, new AspectList().add(Aspect.SENSES, 80).add(Aspect.EARTH, 150), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(Items.RABBIT_FOOT));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:IEBURROWING"), IEBURROWING);
         ThaumcraftApi.addFakeCraftingRecipe(new ResourceLocation("thaumcraft:IEBURROWINGFAKE"), new InfusionEnchantmentRecipe(IEBURROWING, new ItemStack(Items.WOODEN_PICKAXE)));
-        final InfusionEnchantmentRecipe IECOLLECTOR = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.COLLECTOR, new AspectList().add(Aspect.DESIRE, 80).add(Aspect.WATER, 100), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(Items.LEAD));
+        InfusionEnchantmentRecipe IECOLLECTOR = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.COLLECTOR, new AspectList().add(Aspect.DESIRE, 80).add(Aspect.WATER, 100), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(Items.LEAD));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:IECOLLECTOR"), IECOLLECTOR);
         ThaumcraftApi.addFakeCraftingRecipe(new ResourceLocation("thaumcraft:IECOLLECTORFAKE"), new InfusionEnchantmentRecipe(IECOLLECTOR, new ItemStack(Items.STONE_AXE)));
-        final InfusionEnchantmentRecipe IEDESTRUCTIVE = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.DESTRUCTIVE, new AspectList().add(Aspect.AVERSION, 200).add(Aspect.ENTROPY, 250), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(Blocks.TNT));
+        InfusionEnchantmentRecipe IEDESTRUCTIVE = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.DESTRUCTIVE, new AspectList().add(Aspect.AVERSION, 200).add(Aspect.ENTROPY, 250), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(Blocks.TNT));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:IEDESTRUCTIVE"), IEDESTRUCTIVE);
         ThaumcraftApi.addFakeCraftingRecipe(new ResourceLocation("thaumcraft:IEDESTRUCTIVEFAKE"), new InfusionEnchantmentRecipe(IEDESTRUCTIVE, new ItemStack(Items.STONE_PICKAXE)));
-        final InfusionEnchantmentRecipe IEREFINING = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.REFINING, new AspectList().add(Aspect.ORDER, 80).add(Aspect.EXCHANGE, 60), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(ItemsTC.salisMundus));
+        InfusionEnchantmentRecipe IEREFINING = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.REFINING, new AspectList().add(Aspect.ORDER, 80).add(Aspect.EXCHANGE, 60), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(ItemsTC.salisMundus));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:IEREFINING"), IEREFINING);
         ThaumcraftApi.addFakeCraftingRecipe(new ResourceLocation("thaumcraft:IEREFININGFAKE"), new InfusionEnchantmentRecipe(IEREFINING, new ItemStack(Items.IRON_PICKAXE)));
-        final InfusionEnchantmentRecipe IESOUNDING = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.SOUNDING, new AspectList().add(Aspect.SENSES, 40).add(Aspect.FIRE, 60), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(Items.MAP));
+        InfusionEnchantmentRecipe IESOUNDING = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.SOUNDING, new AspectList().add(Aspect.SENSES, 40).add(Aspect.FIRE, 60), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(Items.MAP));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:IESOUNDING"), IESOUNDING);
         ThaumcraftApi.addFakeCraftingRecipe(new ResourceLocation("thaumcraft:IESOUNDINGFAKE"), new InfusionEnchantmentRecipe(IESOUNDING, new ItemStack(Items.GOLDEN_PICKAXE)));
-        final InfusionEnchantmentRecipe IEARCING = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.ARCING, new AspectList().add(Aspect.ENERGY, 40).add(Aspect.AIR, 60), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(Blocks.REDSTONE_BLOCK));
+        InfusionEnchantmentRecipe IEARCING = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.ARCING, new AspectList().add(Aspect.ENERGY, 40).add(Aspect.AIR, 60), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(Blocks.REDSTONE_BLOCK));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:IEARCING"), IEARCING);
         ThaumcraftApi.addFakeCraftingRecipe(new ResourceLocation("thaumcraft:IEARCINGFAKE"), new InfusionEnchantmentRecipe(IEARCING, new ItemStack(Items.WOODEN_SWORD)));
-        final InfusionEnchantmentRecipe IEESSENCE = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.ESSENCE, new AspectList().add(Aspect.BEAST, 40).add(Aspect.FLUX, 60), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(ItemsTC.crystalEssence));
+        InfusionEnchantmentRecipe IEESSENCE = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.ESSENCE, new AspectList().add(Aspect.BEAST, 40).add(Aspect.FLUX, 60), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), new ItemStack(ItemsTC.crystalEssence));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:IEESSENCE"), IEESSENCE);
         ThaumcraftApi.addFakeCraftingRecipe(new ResourceLocation("thaumcraft:IEESSENCEFAKE"), new InfusionEnchantmentRecipe(IEESSENCE, new ItemStack(Items.STONE_SWORD)));
-        final InfusionEnchantmentRecipe IELAMPLIGHT = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.LAMPLIGHT, new AspectList().add(Aspect.LIGHT, 80).add(Aspect.AIR, 20), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), "nitor");
+        InfusionEnchantmentRecipe IELAMPLIGHT = new InfusionEnchantmentRecipe(EnumInfusionEnchantment.LAMPLIGHT, new AspectList().add(Aspect.LIGHT, 80).add(Aspect.AIR, 20), new IngredientNBTTC(new ItemStack(Items.ENCHANTED_BOOK)), "nitor");
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:IELAMPLIGHT"), IELAMPLIGHT);
         ThaumcraftApi.addFakeCraftingRecipe(new ResourceLocation("thaumcraft:IELAMPLIGHTFAKE"), new InfusionEnchantmentRecipe(IELAMPLIGHT, new ItemStack(Items.GOLDEN_PICKAXE)));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:BootsTraveller"), new InfusionRecipe("BOOTSTRAVELLER", new ItemStack(ItemsTC.travellerBoots), 1, new AspectList().add(Aspect.FLIGHT, 100).add(Aspect.MOTION, 100), new ItemStack(Items.LEATHER_BOOTS, 1, 32767), ConfigItems.AIR_CRYSTAL, ConfigItems.AIR_CRYSTAL, new ItemStack(ItemsTC.fabric), new ItemStack(ItemsTC.fabric), new ItemStack(Items.FEATHER), new ItemStack(Items.FISH, 1, 32767)));
@@ -349,23 +349,23 @@ public class ConfigRecipes
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:MaskGrinningDevil"), new InfusionRecipe("FORTRESSMASK", new Object[] { "mask", new NBTTagInt(0) }, 8, new AspectList().add(Aspect.MIND, 80).add(Aspect.LIFE, 80).add(Aspect.PROTECT, 20), new ItemStack(ItemsTC.fortressHelm, 1, 32767), new ItemStack(Items.DYE, 1, 0), "plateIron", "leather", new ItemStack(BlocksTC.shimmerleaf), new ItemStack(ItemsTC.brain), "plateIron"));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:MaskAngryGhost"), new InfusionRecipe("FORTRESSMASK", new Object[] { "mask", new NBTTagInt(1) }, 8, new AspectList().add(Aspect.ENTROPY, 80).add(Aspect.DEATH, 80).add(Aspect.PROTECT, 20), new ItemStack(ItemsTC.fortressHelm, 1, 32767), new ItemStack(Items.DYE, 1, 15), "plateIron", "leather", new ItemStack(Items.POISONOUS_POTATO), new ItemStack(Items.SKULL, 1, 1), "plateIron"));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:MaskSippingFiend"), new InfusionRecipe("FORTRESSMASK", new Object[] { "mask", new NBTTagInt(2) }, 8, new AspectList().add(Aspect.UNDEAD, 80).add(Aspect.LIFE, 80).add(Aspect.PROTECT, 20), new ItemStack(ItemsTC.fortressHelm, 1, 32767), new ItemStack(Items.DYE, 1, 1), "plateIron", "leather", new ItemStack(Items.GHAST_TEAR), new ItemStack(Items.MILK_BUCKET), "plateIron"));
-        final ItemStack isPC = new ItemStack(ItemsTC.primalCrusher);
+        ItemStack isPC = new ItemStack(ItemsTC.primalCrusher);
         EnumInfusionEnchantment.addInfusionEnchantment(isPC, EnumInfusionEnchantment.DESTRUCTIVE, 1);
         EnumInfusionEnchantment.addInfusionEnchantment(isPC, EnumInfusionEnchantment.REFINING, 1);
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:PrimalCrusher"), new InfusionRecipe("PRIMALCRUSHER", isPC, 6, new AspectList().add(Aspect.EARTH, 75).add(Aspect.TOOL, 75).add(Aspect.ENTROPY, 50).add(Aspect.VOID, 50).add(Aspect.AVERSION, 50).add(Aspect.ELDRITCH, 50).add(Aspect.DESIRE, 50), Ingredient.fromItem(ItemsTC.primordialPearl), Ingredient.fromItem(ItemsTC.voidPick), Ingredient.fromItem(ItemsTC.voidShovel), Ingredient.fromItem(ItemsTC.elementalPick), Ingredient.fromItem(ItemsTC.elementalShovel)));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:VerdantHeart"), new InfusionRecipe("VERDANTCHARMS", new ItemStack(ItemsTC.charmVerdant), 5, new AspectList().add(Aspect.LIFE, 60).add(Aspect.ORDER, 30).add(Aspect.PLANT, 60), new ItemStack(ItemsTC.baubles, 1, 4), new ItemStack(ItemsTC.nuggets, 1, 10), ThaumcraftApiHelper.makeCrystal(Aspect.LIFE), new ItemStack(Items.MILK_BUCKET), ThaumcraftApiHelper.makeCrystal(Aspect.PLANT)));
-        final ItemStack pis1 = new ItemStack(Items.POTIONITEM);
+        ItemStack pis1 = new ItemStack(Items.POTIONITEM);
         pis1.setTagInfo("Potion", new NBTTagString("minecraft:strong_healing"));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:VerdantHeartLife"), new InfusionRecipe("VERDANTCHARMS", new Object[] { "type", new NBTTagByte((byte)1) }, 5, new AspectList().add(Aspect.LIFE, 80).add(Aspect.MAN, 80), new ItemStack(ItemsTC.charmVerdant), new ItemStack(Items.GOLDEN_APPLE), ThaumcraftApiHelper.makeCrystal(Aspect.LIFE), pis1, ThaumcraftApiHelper.makeCrystal(Aspect.MAN)));
-        final ItemStack pis2 = new ItemStack(Items.POTIONITEM);
+        ItemStack pis2 = new ItemStack(Items.POTIONITEM);
         pis2.setTagInfo("Potion", new NBTTagString("minecraft:strong_regeneration"));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:VerdantHeartSustain"), new InfusionRecipe("VERDANTCHARMS", new Object[] { "type", new NBTTagByte((byte)2) }, 5, new AspectList().add(Aspect.DESIRE, 80).add(Aspect.AIR, 80), new ItemStack(ItemsTC.charmVerdant), new ItemStack(ItemsTC.tripleMeatTreat), ThaumcraftApiHelper.makeCrystal(Aspect.DESIRE), pis2, ThaumcraftApiHelper.makeCrystal(Aspect.AIR)));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:CLOUDRING"), new InfusionRecipe("CLOUDRING", new ItemStack(ItemsTC.ringCloud), 1, new AspectList().add(Aspect.AIR, 50), new ItemStack(ItemsTC.baubles, 1, 1), ConfigItems.AIR_CRYSTAL, new ItemStack(Items.FEATHER)));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:CuriosityBand"), new InfusionRecipe("CURIOSITYBAND", new ItemStack(ItemsTC.bandCuriosity), 5, new AspectList().add(Aspect.MIND, 150).add(Aspect.VOID, 50).add(Aspect.TRAP, 100), new ItemStack(ItemsTC.baubles, 1, 6), new ItemStack(Items.EMERALD), new ItemStack(Items.WRITABLE_BOOK), new ItemStack(Items.EMERALD), new ItemStack(Items.WRITABLE_BOOK), new ItemStack(Items.EMERALD), new ItemStack(Items.WRITABLE_BOOK), new ItemStack(Items.EMERALD), new ItemStack(Items.WRITABLE_BOOK)));
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:CHARMUNDYING"), new InfusionRecipe("CHARMUNDYING", new ItemStack(ItemsTC.charmUndying), 2, new AspectList().add(Aspect.LIFE, 25), new ItemStack(Items.TOTEM_OF_UNDYING), "plateBrass"));
         int a2 = 0;
-        final ItemStack[] nitorStacks = new ItemStack[16];
-        for (final EnumDyeColor d : EnumDyeColor.values()) {
+        ItemStack[] nitorStacks = new ItemStack[16];
+        for (EnumDyeColor d : EnumDyeColor.values()) {
             nitorStacks[a2] = new ItemStack(BlocksTC.nitor.get(d));
             ++a2;
         }
@@ -374,11 +374,11 @@ public class ConfigRecipes
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation("thaumcraft:VoidseerPearl"), new InfusionRecipe("VOIDSEERPEARL", new ItemStack(ItemsTC.charmVoidseer), 8, new AspectList().add(Aspect.MIND, 150).add(Aspect.VOID, 150).add(Aspect.MAGIC, 100), new ItemStack(ItemsTC.baubles, 1, 4), new ItemStack(ItemsTC.brain), new ItemStack(ItemsTC.voidSeed), new ItemStack(ItemsTC.brain), Ingredient.fromItem(ItemsTC.primordialPearl)));
     }
     
-    public static void initializeNormalRecipes(final IForgeRegistry<IRecipe> iForgeRegistry) {
-        final ResourceLocation brassGroup = new ResourceLocation("thaumcraft", "brass_stuff");
-        final ResourceLocation thaumiumGroup = new ResourceLocation("thaumcraft", "thaumium_stuff");
-        final ResourceLocation voidGroup = new ResourceLocation("thaumcraft", "void_stuff");
-        final ResourceLocation baublesGroup = new ResourceLocation("thaumcraft", "baubles_stuff");
+    public static void initializeNormalRecipes(IForgeRegistry<IRecipe> iForgeRegistry) {
+        ResourceLocation brassGroup = new ResourceLocation("thaumcraft", "brass_stuff");
+        ResourceLocation thaumiumGroup = new ResourceLocation("thaumcraft", "thaumium_stuff");
+        ResourceLocation voidGroup = new ResourceLocation("thaumcraft", "void_stuff");
+        ResourceLocation baublesGroup = new ResourceLocation("thaumcraft", "baubles_stuff");
         iForgeRegistry.register(new RecipesRobeArmorDyes().setRegistryName("robedye"));
         iForgeRegistry.register(new RecipesVoidRobeArmorDyes().setRegistryName("voidarmordye"));
         GameRegistry.addShapedRecipe(new ResourceLocation("thaumcraft", "ironnuggetconvert"), ConfigRecipes.defaultGroup, new ItemStack(Items.IRON_NUGGET), "#", '#', new ItemStack(ItemsTC.nuggets, 1, 0));
@@ -437,11 +437,11 @@ public class ConfigRecipes
         ThaumcraftApi.addFakeCraftingRecipe(new ResourceLocation("thaumcraft:salismundusfake"), new ShapelessOreRecipe(ConfigRecipes.defaultGroup, new ItemStack(ItemsTC.salisMundus), Items.FLINT, Items.BOWL, Items.REDSTONE, new ItemStack(ItemsTC.crystalEssence, 1, 32767), new ItemStack(ItemsTC.crystalEssence, 1, 32767), new ItemStack(ItemsTC.crystalEssence, 1, 32767)));
         GameRegistry.addShapedRecipe(new ResourceLocation("thaumcraft", "shimmerleaftoquicksilver"), ConfigRecipes.defaultGroup, new ItemStack(ItemsTC.quicksilver), "#", '#', BlocksTC.shimmerleaf);
         GameRegistry.addShapedRecipe(new ResourceLocation("thaumcraft", "cinderpearltoblazepowder"), ConfigRecipes.defaultGroup, new ItemStack(Items.BLAZE_POWDER), "#", '#', BlocksTC.cinderpearl);
-        final ResourceLocation labelsGroup = new ResourceLocation("thaumcraft", "jarlabels");
+        ResourceLocation labelsGroup = new ResourceLocation("thaumcraft", "jarlabels");
         shapelessOreDictRecipe("JarLabel", labelsGroup, new ItemStack(ItemsTC.label, 4, 0), new Object[] { "dyeBlack", "slimeball", Items.PAPER, Items.PAPER, Items.PAPER, Items.PAPER });
-        final int count = 0;
-        for (final Aspect aspect : Aspect.aspects.values()) {
-            final ItemStack output = new ItemStack(ItemsTC.label, 1, 1);
+        int count = 0;
+        for (Aspect aspect : Aspect.aspects.values()) {
+            ItemStack output = new ItemStack(ItemsTC.label, 1, 1);
             ((IEssentiaContainerItem)output.getItem()).setAspects(output, new AspectList().add(aspect, 1));
             shapelessOreDictRecipe("label_" + aspect.getTag(), labelsGroup, output, new Object[] { new ItemStack(ItemsTC.label), new IngredientNBTTC(ItemPhial.makeFilledPhial(aspect)) });
         }
@@ -464,24 +464,24 @@ public class ConfigRecipes
         oreDictRecipe("phial", ConfigRecipes.defaultGroup, new ItemStack(ItemsTC.phial, 8, 0), new Object[] { " C ", "G G", " G ", 'G', "blockGlass", 'C', Items.CLAY_BALL });
         oreDictRecipe("tablewood", ConfigRecipes.defaultGroup, new ItemStack(BlocksTC.tableWood), new Object[] { "SSS", "W W", 'S', "slabWood", 'W', "plankWood" });
         oreDictRecipe("tablestone", ConfigRecipes.defaultGroup, new ItemStack(BlocksTC.tableStone), new Object[] { "SSS", "W W", 'S', new ItemStack(Blocks.STONE_SLAB), 'W', "stone" });
-        final ResourceLocation inkwellGroup = new ResourceLocation("thaumcraft", "inkwell");
+        ResourceLocation inkwellGroup = new ResourceLocation("thaumcraft", "inkwell");
         shapelessOreDictRecipe("scribingtoolscraft1", inkwellGroup, new ItemStack(ItemsTC.scribingTools), new Object[] { new ItemStack(ItemsTC.phial, 1, 0), Items.FEATHER, "dyeBlack" });
         shapelessOreDictRecipe("scribingtoolscraft2", inkwellGroup, new ItemStack(ItemsTC.scribingTools), new Object[] { Items.GLASS_BOTTLE, Items.FEATHER, "dyeBlack" });
         shapelessOreDictRecipe("scribingtoolsrefill", inkwellGroup, new ItemStack(ItemsTC.scribingTools), new Object[] { new ItemStack(ItemsTC.scribingTools, 1, 32767), "dyeBlack" });
         oreDictRecipe("GolemBell", ConfigRecipes.defaultGroup, new ItemStack(ItemsTC.golemBell), new Object[] { " QQ", " QQ", "S  ", 'S', "stickWood", 'Q', "gemQuartz" });
-        final ResourceLocation candlesGroup = new ResourceLocation("thaumcraft", "tallowcandles");
+        ResourceLocation candlesGroup = new ResourceLocation("thaumcraft", "tallowcandles");
         oreDictRecipe("TallowCandle", candlesGroup, new ItemStack(BlocksTC.candles.get(EnumDyeColor.WHITE), 3), new Object[] { " S ", " T ", " T ", 'S', "string", 'T', new ItemStack(ItemsTC.tallow) });
-        final IRecipe[] trs = new IRecipe[16];
+        IRecipe[] trs = new IRecipe[16];
         int a = 0;
-        for (final EnumDyeColor d : EnumDyeColor.values()) {
+        for (EnumDyeColor d : EnumDyeColor.values()) {
             trs[a] = shapelessOreDictRecipe("TallowCandle" + d.getUnlocalizedName().toLowerCase(), candlesGroup, new ItemStack(BlocksTC.candles.get(d)), new Object[] { ConfigAspects.dyes[15 - a], ingredientsFromBlocks(BlocksTC.candles.values().toArray(new Block[0])) });
             ++a;
         }
         oreDictRecipe("BrassBrace", ConfigRecipes.defaultGroup, new ItemStack(ItemsTC.jarBrace, 2), new Object[] { "NSN", "S S", "NSN", 'N', "nuggetBrass", 'S', "stickWood" });
     }
     
-    public static Ingredient ingredientsFromBlocks(final Block... blocks) {
-        final ItemStack[] aitemstack = new ItemStack[blocks.length];
+    public static Ingredient ingredientsFromBlocks(Block... blocks) {
+        ItemStack[] aitemstack = new ItemStack[blocks.length];
         for (int i = 0; i < blocks.length; ++i) {
             aitemstack[i] = new ItemStack(blocks[i]);
         }
@@ -535,15 +535,15 @@ public class ConfigRecipes
         ThaumcraftApi.addSmeltingBonus(new ItemStack(ItemsTC.clusters, 1, 32767), new ItemStack(ItemsTC.nuggets, 1, 10), 0.02f);
     }
     
-    static IRecipe oreDictRecipe(final String name, final ResourceLocation optionalGroup, final ItemStack res, final Object[] params) {
-        final IRecipe rec = new ShapedOreRecipe(optionalGroup, res, params);
+    static IRecipe oreDictRecipe(String name, ResourceLocation optionalGroup, ItemStack res, Object[] params) {
+        IRecipe rec = new ShapedOreRecipe(optionalGroup, res, params);
         rec.setRegistryName(new ResourceLocation("thaumcraft", name));
         GameData.register_impl((IForgeRegistryEntry)rec);
         return rec;
     }
     
-    static IRecipe shapelessOreDictRecipe(final String name, final ResourceLocation optionalGroup, final ItemStack res, final Object[] params) {
-        final IRecipe rec = new ShapelessOreRecipe(optionalGroup, res, params);
+    static IRecipe shapelessOreDictRecipe(String name, ResourceLocation optionalGroup, ItemStack res, Object[] params) {
+        IRecipe rec = new ShapelessOreRecipe(optionalGroup, res, params);
         rec.setRegistryName(new ResourceLocation("thaumcraft", name));
         GameData.register_impl((IForgeRegistryEntry)rec);
         return rec;
@@ -561,10 +561,10 @@ public class ConfigRecipes
     }
     
     public static void compileGroups() {
-        for (final ResourceLocation reg : CraftingManager.REGISTRY.getKeys()) {
-            final IRecipe recipe = CraftingManager.getRecipe(reg);
+        for (ResourceLocation reg : CraftingManager.REGISTRY.getKeys()) {
+            IRecipe recipe = CraftingManager.getRecipe(reg);
             if (recipe != null) {
-                final String group = recipe.getGroup();
+                String group = recipe.getGroup();
                 if (group.trim().isEmpty()) {
                     continue;
                 }
@@ -574,14 +574,14 @@ public class ConfigRecipes
                 if (!ConfigRecipes.recipeGroups.containsKey(group)) {
                     ConfigRecipes.recipeGroups.put(group, new ArrayList<ResourceLocation>());
                 }
-                final ArrayList list = ConfigRecipes.recipeGroups.get(group);
+                ArrayList list = ConfigRecipes.recipeGroups.get(group);
                 list.add(reg);
             }
         }
-        for (final ResourceLocation reg : CommonInternals.craftingRecipeCatalog.keySet()) {
-            final IThaumcraftRecipe recipe2 = CommonInternals.craftingRecipeCatalog.get(reg);
+        for (ResourceLocation reg : CommonInternals.craftingRecipeCatalog.keySet()) {
+            IThaumcraftRecipe recipe2 = CommonInternals.craftingRecipeCatalog.get(reg);
             if (recipe2 != null) {
-                final String group = recipe2.getGroup();
+                String group = recipe2.getGroup();
                 if (group == null) {
                     continue;
                 }
@@ -591,14 +591,14 @@ public class ConfigRecipes
                 if (!ConfigRecipes.recipeGroups.containsKey(group)) {
                     ConfigRecipes.recipeGroups.put(group, new ArrayList<ResourceLocation>());
                 }
-                final ArrayList list = ConfigRecipes.recipeGroups.get(group);
+                ArrayList list = ConfigRecipes.recipeGroups.get(group);
                 list.add(reg);
             }
         }
-        for (final ResourceLocation reg : CommonInternals.craftingRecipeCatalogFake.keySet()) {
+        for (ResourceLocation reg : CommonInternals.craftingRecipeCatalogFake.keySet()) {
             Object recipe3 = CommonInternals.craftingRecipeCatalogFake.get(reg);
             if (recipe3 != null) {
-                final String group = "";
+                String group = "";
                 if (recipe3 instanceof IRecipe) {
                     recipe3 = ((IRecipe)recipe3).getGroup();
                 }
@@ -614,7 +614,7 @@ public class ConfigRecipes
                 if (!ConfigRecipes.recipeGroups.containsKey(group)) {
                     ConfigRecipes.recipeGroups.put(group, new ArrayList<ResourceLocation>());
                 }
-                final ArrayList list = ConfigRecipes.recipeGroups.get(group);
+                ArrayList list = ConfigRecipes.recipeGroups.get(group);
                 list.add(reg);
             }
         }

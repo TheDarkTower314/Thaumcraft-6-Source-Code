@@ -13,8 +13,8 @@ import net.minecraft.entity.ai.EntityAIAttackRanged;
 
 public class AIArrowAttack extends EntityAIAttackRanged
 {
-    private final EntityLiving entityHost;
-    private final IRangedAttackMob rangedAttackEntityHost;
+    private EntityLiving entityHost;
+    private IRangedAttackMob rangedAttackEntityHost;
     private int rangedAttackTime;
     private double entityMoveSpeed;
     private int seeTime;
@@ -23,7 +23,7 @@ public class AIArrowAttack extends EntityAIAttackRanged
     private float attackRadius;
     private float maxAttackDistance;
     
-    public AIArrowAttack(final IRangedAttackMob attacker, final double movespeed, final int p_i1650_4_, final int maxAttackTime, final float maxAttackDistanceIn) {
+    public AIArrowAttack(IRangedAttackMob attacker, double movespeed, int p_i1650_4_, int maxAttackTime, float maxAttackDistanceIn) {
         super(attacker, movespeed, p_i1650_4_, maxAttackTime, maxAttackDistanceIn);
         rangedAttackTime = -1;
         if (!(attacker instanceof EntityLivingBase)) {
@@ -56,8 +56,8 @@ public class AIArrowAttack extends EntityAIAttackRanged
         if (entityHost.getAttackTarget() == null) {
             return;
         }
-        final double d0 = entityHost.getDistanceSq(entityHost.getAttackTarget().posX, entityHost.getAttackTarget().getEntityBoundingBox().minY, entityHost.getAttackTarget().posZ);
-        final boolean flag = entityHost.getEntitySenses().canSee(entityHost.getAttackTarget());
+        double d0 = entityHost.getDistanceSq(entityHost.getAttackTarget().posX, entityHost.getAttackTarget().getEntityBoundingBox().minY, entityHost.getAttackTarget().posZ);
+        boolean flag = entityHost.getEntitySenses().canSee(entityHost.getAttackTarget());
         if (flag) {
             ++seeTime;
         }
@@ -71,19 +71,19 @@ public class AIArrowAttack extends EntityAIAttackRanged
             entityHost.getNavigator().tryMoveToEntityLiving(entityHost.getAttackTarget(), entityMoveSpeed);
         }
         entityHost.getLookHelper().setLookPositionWithEntity(entityHost.getAttackTarget(), 10.0f, 30.0f);
-        final int rangedAttackTime = this.rangedAttackTime - 1;
+        int rangedAttackTime = this.rangedAttackTime - 1;
         this.rangedAttackTime = rangedAttackTime;
         if (rangedAttackTime == 0) {
             if (d0 > maxAttackDistance || !flag) {
                 return;
             }
-            final float f = MathHelper.sqrt(d0) / attackRadius;
-            final float lvt_5_1_ = MathHelper.clamp(f, 0.1f, 1.0f);
+            float f = MathHelper.sqrt(d0) / attackRadius;
+            float lvt_5_1_ = MathHelper.clamp(f, 0.1f, 1.0f);
             rangedAttackEntityHost.attackEntityWithRangedAttack(entityHost.getAttackTarget(), lvt_5_1_);
             this.rangedAttackTime = MathHelper.floor(f * (maxRangedAttackTime - attackIntervalMin) + attackIntervalMin);
         }
         else if (this.rangedAttackTime < 0) {
-            final float f2 = MathHelper.sqrt(d0) / attackRadius;
+            float f2 = MathHelper.sqrt(d0) / attackRadius;
             this.rangedAttackTime = MathHelper.floor(f2 * (maxRangedAttackTime - attackIntervalMin) + attackIntervalMin);
         }
     }

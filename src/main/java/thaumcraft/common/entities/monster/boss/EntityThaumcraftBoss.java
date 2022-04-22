@@ -38,12 +38,12 @@ import net.minecraft.entity.monster.EntityMob;
 
 public class EntityThaumcraftBoss extends EntityMob
 {
-    protected final BossInfoServer bossInfo;
-    private static final DataParameter<Integer> AGGRO;
+    protected BossInfoServer bossInfo;
+    private static DataParameter<Integer> AGGRO;
     HashMap<Integer, Integer> aggro;
     int spawnTimer;
     
-    public EntityThaumcraftBoss(final World world) {
+    public EntityThaumcraftBoss(World world) {
         super(world);
         bossInfo = (BossInfoServer)new BossInfoServer(getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS).setDarkenSky(true);
         aggro = new HashMap<Integer, Integer>();
@@ -51,14 +51,14 @@ public class EntityThaumcraftBoss extends EntityMob
         experienceValue = 50;
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         if (nbt.hasKey("HomeD")) {
             setHomePosAndDistance(new BlockPos(nbt.getInteger("HomeX"), nbt.getInteger("HomeY"), nbt.getInteger("HomeZ")), nbt.getInteger("HomeD"));
         }
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         if (getHomePosition() != null && getMaximumHomeDistance() > 0.0f) {
             nbt.setInteger("HomeD", (int) getMaximumHomeDistance());
@@ -89,12 +89,12 @@ public class EntityThaumcraftBoss extends EntityMob
         bossInfo.setPercent(getHealth() / getMaxHealth());
     }
     
-    public void removeTrackingPlayer(final EntityPlayerMP player) {
+    public void removeTrackingPlayer(EntityPlayerMP player) {
         super.removeTrackingPlayer(player);
         bossInfo.removePlayer(player);
     }
     
-    public void addTrackingPlayer(final EntityPlayerMP player) {
+    public void addTrackingPlayer(EntityPlayerMP player) {
         super.addTrackingPlayer(player);
         bossInfo.addPlayer(player);
     }
@@ -103,7 +103,7 @@ public class EntityThaumcraftBoss extends EntityMob
         return false;
     }
     
-    public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
+    public IEntityLivingData onInitialSpawn(DifficultyInstance diff, IEntityLivingData data) {
         setHomePosAndDistance(getPosition(), 24);
         generateName();
         bossInfo.setName(getDisplayName());
@@ -114,7 +114,7 @@ public class EntityThaumcraftBoss extends EntityMob
         return (int) getDataManager().get((DataParameter)EntityThaumcraftBoss.AGGRO);
     }
     
-    public void setAnger(final int par1) {
+    public void setAnger(int par1) {
         getDataManager().set(EntityThaumcraftBoss.AGGRO, par1);
     }
     
@@ -131,9 +131,9 @@ public class EntityThaumcraftBoss extends EntityMob
             setAnger(getAnger() - 1);
         }
         if (world.isRemote && rand.nextInt(15) == 0 && getAnger() > 0) {
-            final double d0 = rand.nextGaussian() * 0.02;
-            final double d2 = rand.nextGaussian() * 0.02;
-            final double d3 = rand.nextGaussian() * 0.02;
+            double d0 = rand.nextGaussian() * 0.02;
+            double d2 = rand.nextGaussian() * 0.02;
+            double d3 = rand.nextGaussian() * 0.02;
             world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, posX + rand.nextFloat() * width - width / 2.0, getEntityBoundingBox().minY + height + rand.nextFloat() * 0.5, posZ + rand.nextFloat() * width - width / 2.0, d0, d2, d3);
         }
         if (!world.isRemote) {
@@ -141,14 +141,14 @@ public class EntityThaumcraftBoss extends EntityMob
                 heal(1.0f);
             }
             if (getAttackTarget() != null && ticksExisted % 20 == 0) {
-                final ArrayList<Integer> dl = new ArrayList<Integer>();
+                ArrayList<Integer> dl = new ArrayList<Integer>();
                 int players = 0;
                 int hei = getAttackTarget().getEntityId();
                 int ld;
-                final int ad = ld = (aggro.containsKey(hei) ? aggro.get(hei) : 0);
+                int ad = ld = (aggro.containsKey(hei) ? aggro.get(hei) : 0);
                 Entity newTarget = null;
-                for (final Integer ei : aggro.keySet()) {
-                    final int ca = aggro.get(ei);
+                for (Integer ei : aggro.keySet()) {
+                    int ca = aggro.get(ei);
                     if (ca > ad + 25 && ca > ad * 1.1 && ca > ld) {
                         newTarget = world.getEntityByID(hei);
                         if (newTarget == null || newTarget.isDead || getDistanceSq(newTarget) > 16384.0) {
@@ -164,15 +164,15 @@ public class EntityThaumcraftBoss extends EntityMob
                         }
                     }
                 }
-                for (final Integer ei : dl) {
+                for (Integer ei : dl) {
                     aggro.remove(ei);
                 }
                 if (newTarget != null && hei != getAttackTarget().getEntityId()) {
                     setAttackTarget((EntityLivingBase)newTarget);
                 }
-                final float om = getMaxHealth();
-                final IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
-                final IAttributeInstance iattributeinstance2 = getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+                float om = getMaxHealth();
+                IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
+                IAttributeInstance iattributeinstance2 = getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
                 for (int a = 0; a < 5; ++a) {
                     iattributeinstance2.removeModifier(EntityUtils.DMGBUFF[a]);
                     iattributeinstance.removeModifier(EntityUtils.HPBUFF[a]);
@@ -181,13 +181,13 @@ public class EntityThaumcraftBoss extends EntityMob
                     iattributeinstance.applyModifier(EntityUtils.HPBUFF[a]);
                     iattributeinstance2.applyModifier(EntityUtils.DMGBUFF[a]);
                 }
-                final double mm = getMaxHealth() / om;
+                double mm = getMaxHealth() / om;
                 setHealth((float)(getHealth() * mm));
             }
         }
     }
     
-    public boolean isEntityInvulnerable(final DamageSource ds) {
+    public boolean isEntityInvulnerable(DamageSource ds) {
         return super.isEntityInvulnerable(ds) || getSpawnTimer() > 0;
     }
     
@@ -199,7 +199,7 @@ public class EntityThaumcraftBoss extends EntityMob
         return super.canBePushed() && !isEntityInvulnerable(DamageSource.STARVE);
     }
     
-    protected int decreaseAirSupply(final int air) {
+    protected int decreaseAirSupply(int air) {
         return air;
     }
     
@@ -210,26 +210,26 @@ public class EntityThaumcraftBoss extends EntityMob
         return false;
     }
     
-    protected void setEnchantmentBasedOnDifficulty(final DifficultyInstance diff) {
+    protected void setEnchantmentBasedOnDifficulty(DifficultyInstance diff) {
     }
     
     protected boolean canDespawn() {
         return false;
     }
     
-    public boolean isOnSameTeam(final Entity el) {
+    public boolean isOnSameTeam(Entity el) {
         return el instanceof IEldritchMob;
     }
     
-    protected void dropFewItems(final boolean flag, final int fortune) {
+    protected void dropFewItems(boolean flag, int fortune) {
         EntityUtils.entityDropSpecialItem(this, new ItemStack(ItemsTC.primordialPearl), height / 2.0f);
         entityDropItem(new ItemStack(ItemsTC.lootBag, 1, 2), 1.5f);
     }
     
-    public boolean attackEntityFrom(final DamageSource source, float damage) {
+    public boolean attackEntityFrom(DamageSource source, float damage) {
         if (!world.isRemote) {
             if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityLivingBase) {
-                final int target = source.getTrueSource().getEntityId();
+                int target = source.getTrueSource().getEntityId();
                 int ad = (int)damage;
                 if (aggro.containsKey(target)) {
                     ad += aggro.get(target);
@@ -244,10 +244,10 @@ public class EntityThaumcraftBoss extends EntityMob
                             addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 200, (int)(damage / 10.0f)));
                             addPotionEffect(new PotionEffect(MobEffects.HASTE, 200, (int)(damage / 40.0f)));
                         }
-                        catch (final Exception ex) {}
+                        catch (Exception ex) {}
                         setAnger(200);
                     }
-                    catch (final Exception ex2) {}
+                    catch (Exception ex2) {}
                     if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityPlayer) {
                         ((EntityPlayer)source.getTrueSource()).sendStatusMessage(new TextComponentTranslation(getName() + " " + I18n.translateToLocal("tc.boss.enrage")), true);
                     }

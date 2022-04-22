@@ -39,7 +39,7 @@ public class EntityTaintacle extends EntityMob implements ITaintedMob
 {
     public float flailIntensity;
     
-    public EntityTaintacle(final World par1World) {
+    public EntityTaintacle(World par1World) {
         super(par1World);
         flailIntensity = 1.0f;
         setSize(0.8f, 3.0f);
@@ -54,16 +54,16 @@ public class EntityTaintacle extends EntityMob implements ITaintedMob
         targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
     
-    public boolean canAttackClass(final Class clazz) {
+    public boolean canAttackClass(Class clazz) {
         return !ITaintedMob.class.isAssignableFrom(clazz);
     }
     
-    public boolean isOnSameTeam(final Entity otherEntity) {
+    public boolean isOnSameTeam(Entity otherEntity) {
         return otherEntity instanceof ITaintedMob || super.isOnSameTeam(otherEntity);
     }
     
     public boolean getCanSpawnHere() {
-        final boolean onTaint = world.getBlockState(getPosition()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT || world.getBlockState(getPosition().down()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT;
+        boolean onTaint = world.getBlockState(getPosition()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT || world.getBlockState(getPosition().down()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT;
         return onTaint && world.getDifficulty() != EnumDifficulty.PEACEFUL;
     }
     
@@ -74,7 +74,7 @@ public class EntityTaintacle extends EntityMob implements ITaintedMob
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.0);
     }
     
-    public void move(final MoverType mt, double par1, double par3, double par5) {
+    public void move(MoverType mt, double par1, double par3, double par5) {
         par1 = 0.0;
         par5 = 0.0;
         if (par3 > 0.0) {
@@ -86,7 +86,7 @@ public class EntityTaintacle extends EntityMob implements ITaintedMob
     public void onUpdate() {
         super.onUpdate();
         if (!world.isRemote && ticksExisted % 20 == 0) {
-            final boolean onTaint = world.getBlockState(getPosition()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT || world.getBlockState(getPosition().down()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT;
+            boolean onTaint = world.getBlockState(getPosition()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT || world.getBlockState(getPosition().down()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT;
             if (!onTaint) {
                 damageEntity(DamageSource.STARVE, 1.0f);
             }
@@ -104,9 +104,9 @@ public class EntityTaintacle extends EntityMob implements ITaintedMob
         }
     }
     
-    protected void spawnTentacles(final Entity entity) {
+    protected void spawnTentacles(Entity entity) {
         if (world.getBiome(entity.getPosition()) == BiomeHandler.ELDRITCH || world.getBlockState(entity.getPosition()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT || world.getBlockState(entity.getPosition().down()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT) {
-            final EntityTaintacleSmall taintlet = new EntityTaintacleSmall(world);
+            EntityTaintacleSmall taintlet = new EntityTaintacleSmall(world);
             taintlet.setLocationAndAngles(entity.posX + world.rand.nextFloat() - world.rand.nextFloat(), entity.posY, entity.posZ + world.rand.nextFloat() - world.rand.nextFloat(), 0.0f, 0.0f);
             world.spawnEntity(taintlet);
             playSound(SoundsTC.tentacle, getSoundVolume(), getSoundPitch());
@@ -116,14 +116,14 @@ public class EntityTaintacle extends EntityMob implements ITaintedMob
         }
     }
     
-    public void faceEntity(final Entity par1Entity, final float par2) {
-        final double d0 = par1Entity.posX - posX;
-        final double d2 = par1Entity.posZ - posZ;
-        final float f2 = (float)(Math.atan2(d2, d0) * 180.0 / 3.141592653589793) - 90.0f;
+    public void faceEntity(Entity par1Entity, float par2) {
+        double d0 = par1Entity.posX - posX;
+        double d2 = par1Entity.posZ - posZ;
+        float f2 = (float)(Math.atan2(d2, d0) * 180.0 / 3.141592653589793) - 90.0f;
         rotationYaw = updateRotation(rotationYaw, f2, par2);
     }
     
-    protected float updateRotation(final float par1, final float par2, final float par3) {
+    protected float updateRotation(float par1, float par2, float par3) {
         float f3 = MathHelper.wrapDegrees(par2 - par1);
         if (f3 > par3) {
             f3 = par3;
@@ -150,7 +150,7 @@ public class EntityTaintacle extends EntityMob implements ITaintedMob
         return height / 8.0f;
     }
     
-    protected SoundEvent getHurtSound(final DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundsTC.tentacle;
     }
     
@@ -162,12 +162,12 @@ public class EntityTaintacle extends EntityMob implements ITaintedMob
         return Item.getItemById(0);
     }
     
-    protected void dropFewItems(final boolean flag, final int i) {
+    protected void dropFewItems(boolean flag, int i) {
         entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), height / 2.0f);
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte par1) {
+    public void handleStatusUpdate(byte par1) {
         if (par1 == 16) {
             flailIntensity = 3.0f;
         }
@@ -176,7 +176,7 @@ public class EntityTaintacle extends EntityMob implements ITaintedMob
         }
     }
     
-    public boolean attackEntityAsMob(final Entity p_70652_1_) {
+    public boolean attackEntityAsMob(Entity p_70652_1_) {
         world.setEntityState(this, (byte)16);
         playSound(SoundsTC.tentacle, getSoundVolume(), getSoundPitch());
         return super.attackEntityAsMob(p_70652_1_);

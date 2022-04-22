@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 public class TileTubeOnewayRenderer extends TileEntitySpecialRenderer
 {
     private ModelTubeValve model;
-    private static final ResourceLocation TEX_VALVE;
+    private static ResourceLocation TEX_VALVE;
     EnumFacing fd;
     
     public TileTubeOnewayRenderer() {
@@ -24,7 +24,7 @@ public class TileTubeOnewayRenderer extends TileEntitySpecialRenderer
         model = new ModelTubeValve();
     }
     
-    public void renderEntityAt(final TileTubeOneway valve, final double x, final double y, final double z, final float fq) {
+    public void renderEntityAt(TileTubeOneway valve, double x, double y, double z, float fq) {
         bindTexture(TileTubeOnewayRenderer.TEX_VALVE);
         if (valve.getWorld() != null && ThaumcraftApiHelper.getConnectableTile(valve.getWorld(), valve.getPos(), valve.facing.getOpposite()) == null) {
             return;
@@ -50,7 +50,7 @@ public class TileTubeOnewayRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderEntityAt((TileTubeOneway)te, x, y, z, partialTicks);
     }

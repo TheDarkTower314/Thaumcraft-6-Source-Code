@@ -26,7 +26,7 @@ public class TileHole extends TileMemory implements ITickable
         direction = null;
     }
     
-    public TileHole(final IBlockState bi, final short max, final byte count, final EnumFacing direction) {
+    public TileHole(IBlockState bi, short max, byte count, EnumFacing direction) {
         super(bi);
         countdown = 0;
         countdownmax = 120;
@@ -37,7 +37,7 @@ public class TileHole extends TileMemory implements ITickable
         this.direction = direction;
     }
     
-    public TileHole(final byte count) {
+    public TileHole(byte count) {
         countdown = 0;
         countdownmax = 120;
         this.count = 0;
@@ -94,10 +94,10 @@ public class TileHole extends TileMemory implements ITickable
     }
     
     private void surroundwithsparkles() {
-        for (final EnumFacing d1 : EnumFacing.values()) {
-            final IBlockState b1 = world.getBlockState(getPos().offset(d1));
+        for (EnumFacing d1 : EnumFacing.values()) {
+            IBlockState b1 = world.getBlockState(getPos().offset(d1));
             if (b1.getBlock() != BlocksTC.hole && !b1.isOpaqueCube()) {
-                for (final EnumFacing d2 : EnumFacing.values()) {
+                for (EnumFacing d2 : EnumFacing.values()) {
                     if (d1.getAxis() != d2.getAxis() && (world.getBlockState(getPos().offset(d2)).isOpaqueCube() || world.getBlockState(getPos().offset(d1).offset(d2)).isOpaqueCube())) {
                         float sx = 0.5f * d1.getFrontOffsetX();
                         float sy = 0.5f * d1.getFrontOffsetY();
@@ -137,17 +137,17 @@ public class TileHole extends TileMemory implements ITickable
     }
     
     @Override
-    public void readFromNBT(final NBTTagCompound nbttagcompound) {
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
         countdown = nbttagcompound.getShort("countdown");
         countdownmax = nbttagcompound.getShort("countdownmax");
         count = nbttagcompound.getByte("count");
-        final byte db = nbttagcompound.getByte("direction");
+        byte db = nbttagcompound.getByte("direction");
         direction = ((db >= 0) ? EnumFacing.values()[db] : null);
     }
     
     @Override
-    public NBTTagCompound writeToNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
         nbttagcompound.setShort("countdown", countdown);
         nbttagcompound.setShort("countdownmax", countdownmax);

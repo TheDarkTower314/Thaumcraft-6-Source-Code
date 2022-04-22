@@ -32,31 +32,31 @@ public class BlockSmelterAux extends BlockTC implements IBlockFacingHorizontal
         setResistance(10.0f);
     }
     
-    public boolean rotateBlock(final World world, final BlockPos pos, final EnumFacing axis) {
+    public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
         return false;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean canHarvestBlock(final IBlockAccess world, final BlockPos pos, final EntityPlayer player) {
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
         return true;
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public void onBlockAdded(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
     }
     
-    public boolean canPlaceBlockOnSide(final World worldIn, final BlockPos pos, final EnumFacing side) {
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
         return super.canPlaceBlockOnSide(worldIn, pos, side) && side.getAxis().isHorizontal() && worldIn.getBlockState(pos.offset(side.getOpposite())).getBlock() instanceof BlockSmelter && BlockStateUtils.getFacing(worldIn.getBlockState(pos.offset(side.getOpposite()))) != side;
     }
     
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState bs = getDefaultState();
         if (!facing.getAxis().isHorizontal()) {
             facing = EnumFacing.NORTH;
@@ -65,27 +65,27 @@ public class BlockSmelterAux extends BlockTC implements IBlockFacingHorizontal
         return bs;
     }
     
-    public IBlockState getStateFromMeta(final int meta) {
+    public IBlockState getStateFromMeta(int meta) {
         IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)EnumFacing.getHorizontal(BlockStateUtils.getFacing(meta).getHorizontalIndex()));
         return bs;
     }
     
-    public int getMetaFromState(final IBlockState state) {
+    public int getMetaFromState(IBlockState state) {
         return 0x0 | ((EnumFacing)state.getValue((IProperty)IBlockFacingHorizontal.FACING)).getIndex();
     }
     
     protected BlockStateContainer createBlockState() {
-        final ArrayList<IProperty> ip = new ArrayList<IProperty>();
+        ArrayList<IProperty> ip = new ArrayList<IProperty>();
         ip.add(IBlockFacingHorizontal.FACING);
         return (ip.size() == 0) ? super.createBlockState() : new BlockStateContainer(this, ip.toArray(new IProperty[ip.size()]));
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
 }

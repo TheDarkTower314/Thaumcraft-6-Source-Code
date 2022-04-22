@@ -18,34 +18,34 @@ public class CuboidCoord implements Iterable<BlockCoord>, Copyable<CuboidCoord>
         max = new BlockCoord();
     }
     
-    public CuboidCoord(final BlockCoord min, final BlockCoord max) {
+    public CuboidCoord(BlockCoord min, BlockCoord max) {
         this.min = min;
         this.max = max;
     }
     
-    public CuboidCoord(final BlockCoord coord) {
+    public CuboidCoord(BlockCoord coord) {
         this(coord, coord.copy());
     }
     
-    public CuboidCoord(final int[] ia) {
+    public CuboidCoord(int[] ia) {
         this(ia[0], ia[1], ia[2], ia[3], ia[4], ia[5]);
     }
     
-    public CuboidCoord(final int x1, final int y1, final int z1, final int x2, final int y2, final int z2) {
+    public CuboidCoord(int x1, int y1, int z1, int x2, int y2, int z2) {
         this(new BlockCoord(x1, y1, z1), new BlockCoord(x2, y2, z2));
     }
     
-    public CuboidCoord expand(final int amount) {
+    public CuboidCoord expand(int amount) {
         return expand(amount, amount, amount);
     }
     
-    public CuboidCoord expand(final int x, final int y, final int z) {
+    public CuboidCoord expand(int x, int y, int z) {
         max.add(x, y, z);
         min.sub(x, y, z);
         return this;
     }
     
-    public CuboidCoord expand(final int side, final int amount) {
+    public CuboidCoord expand(int side, int amount) {
         if (side % 2 == 0) {
             min = min.offset(side, amount);
         }
@@ -55,7 +55,7 @@ public class CuboidCoord implements Iterable<BlockCoord>, Copyable<CuboidCoord>
         return this;
     }
     
-    public int size(final int s) {
+    public int size(int s) {
         switch (s) {
             case 0:
             case 1: {
@@ -75,7 +75,7 @@ public class CuboidCoord implements Iterable<BlockCoord>, Copyable<CuboidCoord>
         }
     }
     
-    public int getSide(final int s) {
+    public int getSide(int s) {
         switch (s) {
             case 0: {
                 return min.y;
@@ -101,7 +101,7 @@ public class CuboidCoord implements Iterable<BlockCoord>, Copyable<CuboidCoord>
         }
     }
     
-    public CuboidCoord setSide(final int s, final int v) {
+    public CuboidCoord setSide(int s, int v) {
         switch (s) {
             case 0: {
                 min.y = v;
@@ -142,16 +142,16 @@ public class CuboidCoord implements Iterable<BlockCoord>, Copyable<CuboidCoord>
         return new Vector3(min.x + (max.x - min.x + 1) / 2.0, min.y + (max.y - min.y + 1) / 2.0, min.z + (max.z - min.z + 1) / 2.0);
     }
     
-    public BlockCoord getCenter(final BlockCoord store) {
+    public BlockCoord getCenter(BlockCoord store) {
         store.set(min.x + (max.x - min.x) / 2, min.y + (max.y - min.y) / 2, min.z + (max.z - min.z) / 2);
         return store;
     }
     
-    public boolean contains(final BlockCoord coord) {
+    public boolean contains(BlockCoord coord) {
         return contains(coord.x, coord.y, coord.z);
     }
     
-    public boolean contains(final int x, final int y, final int z) {
+    public boolean contains(int x, int y, int z) {
         return x >= min.x && x <= max.x && y >= min.y && y <= max.y && z >= min.z && z <= max.z;
     }
     
@@ -172,32 +172,32 @@ public class CuboidCoord implements Iterable<BlockCoord>, Copyable<CuboidCoord>
         return bounds().aabb();
     }
     
-    public void set(final BlockCoord min, final BlockCoord max) {
+    public void set(BlockCoord min, BlockCoord max) {
         this.min.set(min);
         this.max.set(max);
     }
     
-    public CuboidCoord set(final int x1, final int y1, final int z1, final int x2, final int y2, final int z2) {
+    public CuboidCoord set(int x1, int y1, int z1, int x2, int y2, int z2) {
         min.set(x1, y1, z1);
         max.set(x2, y2, z2);
         return this;
     }
     
-    public CuboidCoord set(final BlockCoord coord) {
+    public CuboidCoord set(BlockCoord coord) {
         min.set(coord);
         max.set(coord);
         return this;
     }
     
-    public CuboidCoord set(final int[] ia) {
+    public CuboidCoord set(int[] ia) {
         return set(ia[0], ia[1], ia[2], ia[3], ia[4], ia[5]);
     }
     
-    public CuboidCoord include(final BlockCoord coord) {
+    public CuboidCoord include(BlockCoord coord) {
         return include(coord.x, coord.y, coord.z);
     }
     
-    public CuboidCoord include(final int x, final int y, final int z) {
+    public CuboidCoord include(int x, int y, int z) {
         if (x < min.x) {
             min.x = x;
         }
@@ -235,18 +235,18 @@ public class CuboidCoord implements Iterable<BlockCoord>, Copyable<CuboidCoord>
                     b = min.copy();
                 }
                 else if (b.z != max.z) {
-                    final BlockCoord b = this.b;
+                    BlockCoord b = this.b;
                     ++b.z;
                 }
                 else {
                     b.z = min.z;
                     if (b.y != max.y) {
-                        final BlockCoord b2 = b;
+                        BlockCoord b2 = b;
                         ++b2.y;
                     }
                     else {
                         b.y = min.y;
-                        final BlockCoord b3 = b;
+                        BlockCoord b3 = b;
                         ++b3.x;
                     }
                 }

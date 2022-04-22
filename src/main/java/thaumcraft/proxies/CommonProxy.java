@@ -55,7 +55,7 @@ public class CommonProxy implements IGuiHandler, IProxy
         proxyGUI = new ProxyGUI();
     }
     
-    public void preInit(final FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event) {
         event.getModMetadata().version = "6.1.BETA26";
         Thaumcraft.instance.modDir = event.getModConfigurationDirectory();
         ThaumcraftApi.internalMethods = new InternalMethodHandler();
@@ -68,7 +68,7 @@ public class CommonProxy implements IGuiHandler, IProxy
         MinecraftForge.EVENT_BUS.register(Thaumcraft.instance);
     }
     
-    public void init(final FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
         ConfigItems.init();
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ItemsTC.alumentum, new BehaviorDispenseAlumetum());
         NetworkRegistry.INSTANCE.registerGuiHandler(Thaumcraft.instance, this);
@@ -77,7 +77,7 @@ public class CommonProxy implements IGuiHandler, IProxy
         ConfigRecipes.initializeSmelting();
     }
     
-    public void postInit(final FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
         ConfigEntities.postInitEntitySpawns();
         ConfigAspects.postInit();
         ConfigRecipes.postAspects();
@@ -87,11 +87,11 @@ public class CommonProxy implements IGuiHandler, IProxy
         ConfigResearch.postInit();
     }
     
-    public Object getClientGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         return proxyGUI.getClientGuiElement(ID, player, world, x, y, z);
     }
     
-    public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         return proxyGUI.getServerGuiElement(ID, player, world, x, y, z);
     }
     
@@ -103,76 +103,76 @@ public class CommonProxy implements IGuiHandler, IProxy
         return null;
     }
     
-    public void registerModel(final ItemBlock itemBlock) {
+    public void registerModel(ItemBlock itemBlock) {
     }
     
-    public void checkInterModComs(final FMLInterModComms.IMCEvent event) {
-        for (final FMLInterModComms.IMCMessage message : event.getMessages()) {
+    public void checkInterModComs(FMLInterModComms.IMCEvent event) {
+        for (FMLInterModComms.IMCMessage message : event.getMessages()) {
             if (message.key.equals("portableHoleBlacklist") && message.isStringMessage()) {
                 BlockUtils.portableHoleBlackList.add(message.getStringValue());
             }
             if (message.key.equals("harvestStandardCrop") && message.isItemStackMessage()) {
-                final ItemStack crop = message.getItemStackValue();
+                ItemStack crop = message.getItemStackValue();
                 CropUtils.addStandardCrop(crop, crop.getItemDamage());
             }
             if (message.key.equals("harvestClickableCrop") && message.isItemStackMessage()) {
-                final ItemStack crop = message.getItemStackValue();
+                ItemStack crop = message.getItemStackValue();
                 CropUtils.addClickableCrop(crop, crop.getItemDamage());
             }
             if (message.key.equals("harvestStackedCrop") && message.isItemStackMessage()) {
-                final ItemStack crop = message.getItemStackValue();
+                ItemStack crop = message.getItemStackValue();
                 CropUtils.addStackedCrop(crop, crop.getItemDamage());
             }
             if (message.key.equals("nativeCluster") && message.isStringMessage()) {
-                final String[] t = message.getStringValue().split(",");
+                String[] t = message.getStringValue().split(",");
                 if (t != null && t.length == 5) {
                     try {
-                        final ItemStack ore = new ItemStack(Item.getItemById(Integer.parseInt(t[0])), 1, Integer.parseInt(t[1]));
-                        final ItemStack cluster = new ItemStack(Item.getItemById(Integer.parseInt(t[2])), 1, Integer.parseInt(t[3]));
+                        ItemStack ore = new ItemStack(Item.getItemById(Integer.parseInt(t[0])), 1, Integer.parseInt(t[1]));
+                        ItemStack cluster = new ItemStack(Item.getItemById(Integer.parseInt(t[2])), 1, Integer.parseInt(t[3]));
                         Utils.addSpecialMiningResult(ore, cluster, Float.parseFloat(t[4]));
                     }
-                    catch (final Exception ex) {}
+                    catch (Exception ex) {}
                 }
             }
             if (message.key.equals("lampBlacklist") && message.isItemStackMessage()) {
-                final ItemStack crop = message.getItemStackValue();
+                ItemStack crop = message.getItemStackValue();
                 CropUtils.blacklistLamp(crop, crop.getItemDamage());
             }
             if (message.key.equals("dimensionBlacklist") && message.isStringMessage()) {
-                final String[] t = message.getStringValue().split(":");
+                String[] t = message.getStringValue().split(":");
                 if (t != null && t.length == 2) {
                     try {
                         BiomeHandler.addDimBlacklist(Integer.parseInt(t[0]), Integer.parseInt(t[1]));
                     }
-                    catch (final Exception ex2) {}
+                    catch (Exception ex2) {}
                 }
             }
             if (message.key.equals("biomeBlacklist") && message.isStringMessage()) {
-                final String[] t = message.getStringValue().split(":");
+                String[] t = message.getStringValue().split(":");
                 if (t != null && t.length == 2 && Biome.getBiome(Integer.parseInt(t[0])) != null) {
                     try {
                         BiomeHandler.addBiomeBlacklist(Integer.parseInt(t[0]), Integer.parseInt(t[1]));
                     }
-                    catch (final Exception ex3) {}
+                    catch (Exception ex3) {}
                 }
             }
             if (message.key.equals("championWhiteList") && message.isStringMessage()) {
                 try {
-                    final String[] t = message.getStringValue().split(":");
-                    final Class oclass = EntityList.getClassFromName(t[0]);
+                    String[] t = message.getStringValue().split(":");
+                    Class oclass = EntityList.getClassFromName(t[0]);
                     if (oclass == null) {
                         continue;
                     }
                     ConfigEntities.championModWhitelist.put(oclass, Integer.parseInt(t[1]));
                 }
-                catch (final Exception e) {
+                catch (Exception e) {
                     Thaumcraft.log.error("Failed to Whitelist [" + message.getStringValue() + "] with [ championWhiteList ] message.");
                 }
             }
         }
     }
     
-    public World getWorld(final int dim) {
+    public World getWorld(int dim) {
         return null;
     }
     

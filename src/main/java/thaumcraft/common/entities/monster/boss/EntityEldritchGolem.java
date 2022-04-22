@@ -51,7 +51,7 @@ import thaumcraft.api.entities.IEldritchMob;
 
 public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldritchMob, IRangedAttackMob
 {
-    private static final DataParameter<Boolean> HEADLESS;
+    private static DataParameter<Boolean> HEADLESS;
     int beamCharge;
     boolean chargingBeam;
     int arcing;
@@ -60,7 +60,7 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
     int az;
     private int attackTimer;
     
-    public EntityEldritchGolem(final World p_i1745_1_) {
+    public EntityEldritchGolem(World p_i1745_1_) {
         super(p_i1745_1_);
         beamCharge = 0;
         chargingBeam = false;
@@ -85,7 +85,7 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
     
     @Override
     public void generateName() {
-        final int t = (int) getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
+        int t = (int) getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
         if (t >= 0) {
             setCustomNameTag(String.format(I18n.translateToLocal("entity.Thaumcraft.EldritchGolem.name.custom"), ChampionModifier.mods[t].getModNameLocalized()));
         }
@@ -101,18 +101,18 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
         return (boolean) getDataManager().get((DataParameter)EntityEldritchGolem.HEADLESS);
     }
     
-    public void setHeadless(final boolean par1) {
+    public void setHeadless(boolean par1) {
         getDataManager().set(EntityEldritchGolem.HEADLESS, par1);
     }
     
     @Override
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         nbt.setBoolean("headless", isHeadless());
     }
     
     @Override
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         setHeadless(nbt.getBoolean("headless"));
         if (isHeadless()) {
@@ -136,7 +136,7 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
         getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(400.0);
     }
     
-    protected SoundEvent getHurtSound(final DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundEvents.ENTITY_IRONGOLEM_HURT;
     }
     
@@ -144,12 +144,12 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
         return SoundEvents.ENTITY_IRONGOLEM_DEATH;
     }
     
-    protected void playStepSound(final BlockPos p_180429_1_, final Block p_180429_2_) {
+    protected void playStepSound(BlockPos p_180429_1_, Block p_180429_2_) {
         playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0f, 1.0f);
     }
     
     @Override
-    public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
+    public IEntityLivingData onInitialSpawn(DifficultyInstance diff, IEntityLivingData data) {
         spawnTimer = 100;
         return super.onInitialSpawn(diff, data);
     }
@@ -160,7 +160,7 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
             --attackTimer;
         }
         if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7 && rand.nextInt(5) == 0) {
-            final IBlockState bs = world.getBlockState(getPosition());
+            IBlockState bs = world.getBlockState(getPosition());
             if (bs.getMaterial() != Material.AIR) {
                 world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + (rand.nextFloat() - 0.5) * width, getEntityBoundingBox().minY + 0.1, posZ + (rand.nextFloat() - 0.5) * width, 4.0 * (rand.nextFloat() - 0.5), 0.5, (rand.nextFloat() - 0.5) * 4.0, Block.getStateId(bs));
             }
@@ -169,8 +169,8 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
             }
         }
         if (!world.isRemote) {
-            final IBlockState bs = world.getBlockState(getPosition());
-            final float h = bs.getBlockHardness(world, getPosition());
+            IBlockState bs = world.getBlockState(getPosition());
+            float h = bs.getBlockHardness(world, getPosition());
             if (h >= 0.0f && h <= 0.15f) {
                 world.destroyBlock(getPosition(), true);
             }
@@ -178,12 +178,12 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
     }
     
     @Override
-    public boolean attackEntityFrom(final DamageSource source, final float damage) {
+    public boolean attackEntityFrom(DamageSource source, float damage) {
         if (!world.isRemote && damage > getHealth() && !isHeadless()) {
             setHeadless(true);
             spawnTimer = 100;
-            final double xx = MathHelper.cos(rotationYaw % 360.0f / 180.0f * 3.1415927f) * 0.75f;
-            final double zz = MathHelper.sin(rotationYaw % 360.0f / 180.0f * 3.1415927f) * 0.75f;
+            double xx = MathHelper.cos(rotationYaw % 360.0f / 180.0f * 3.1415927f) * 0.75f;
+            double zz = MathHelper.sin(rotationYaw % 360.0f / 180.0f * 3.1415927f) * 0.75f;
             world.createExplosion(this, posX + xx, posY + getEyeHeight(), posZ + zz, 2.0f, false);
             makeHeadless();
             return false;
@@ -195,13 +195,13 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
         tasks.addTask(2, new AILongRangeAttack(this, 3.0, 1.0, 5, 5, 24.0f));
     }
     
-    public boolean attackEntityAsMob(final Entity target) {
+    public boolean attackEntityAsMob(Entity target) {
         if (attackTimer > 0) {
             return false;
         }
         attackTimer = 10;
         world.setEntityState(this, (byte)4);
-        final boolean flag = target.attackEntityFrom(DamageSource.causeMobDamage(this), (float) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * 0.75f);
+        boolean flag = target.attackEntityFrom(DamageSource.causeMobDamage(this), (float) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * 0.75f);
         if (flag) {
             target.motionY += 0.2000000059604645;
             if (isHeadless()) {
@@ -211,20 +211,20 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
         return flag;
     }
     
-    public void attackEntityWithRangedAttack(final EntityLivingBase entitylivingbase, final float f) {
+    public void attackEntityWithRangedAttack(EntityLivingBase entitylivingbase, float f) {
         if (canEntityBeSeen(entitylivingbase) && !chargingBeam && beamCharge > 0) {
             beamCharge -= 15 + rand.nextInt(5);
             getLookHelper().setLookPosition(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY + entitylivingbase.height / 2.0f, entitylivingbase.posZ, 30.0f, 30.0f);
-            final Vec3d v = getLook(1.0f);
-            final EntityGolemOrb entityGolemOrb;
-            final EntityGolemOrb blast = entityGolemOrb = new EntityGolemOrb(world, this, entitylivingbase, false);
+            Vec3d v = getLook(1.0f);
+            EntityGolemOrb entityGolemOrb;
+            EntityGolemOrb blast = entityGolemOrb = new EntityGolemOrb(world, this, entitylivingbase, false);
             entityGolemOrb.posX += v.x;
-            final EntityGolemOrb entityGolemOrb2 = blast;
+            EntityGolemOrb entityGolemOrb2 = blast;
             entityGolemOrb2.posZ += v.z;
             blast.setPosition(blast.posX, blast.posY, blast.posZ);
-            final double d0 = entitylivingbase.posX + entitylivingbase.motionX - posX;
-            final double d2 = entitylivingbase.posY - posY - entitylivingbase.height / 2.0f;
-            final double d3 = entitylivingbase.posZ + entitylivingbase.motionZ - posZ;
+            double d0 = entitylivingbase.posX + entitylivingbase.motionX - posX;
+            double d2 = entitylivingbase.posY - posY - entitylivingbase.height / 2.0f;
+            double d3 = entitylivingbase.posZ + entitylivingbase.motionZ - posZ;
             blast.shoot(d0, d2, d3, 0.66f, 5.0f);
             playSound(SoundsTC.egattack, 1.0f, 1.0f + rand.nextFloat() * 0.1f);
             world.spawnEntity(blast);
@@ -232,7 +232,7 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte p_70103_1_) {
+    public void handleStatusUpdate(byte p_70103_1_) {
         if (p_70103_1_ == 4) {
             attackTimer = 10;
             playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1.0f, 1.0f);
@@ -242,14 +242,14 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
         }
         else if (p_70103_1_ == 19) {
             if (arcing == 0) {
-                final float radius = 2.0f + rand.nextFloat() * 2.0f;
-                final double radians = Math.toRadians(rand.nextInt(360));
-                final double deltaX = radius * Math.cos(radians);
-                final double deltaZ = radius * Math.sin(radians);
-                final int bx = MathHelper.floor(posX + deltaX);
+                float radius = 2.0f + rand.nextFloat() * 2.0f;
+                double radians = Math.toRadians(rand.nextInt(360));
+                double deltaX = radius * Math.cos(radians);
+                double deltaZ = radius * Math.sin(radians);
+                int bx = MathHelper.floor(posX + deltaX);
                 int by = MathHelper.floor(posY);
-                final int bz = MathHelper.floor(posZ + deltaZ);
-                final BlockPos bp = new BlockPos(bx, by, bz);
+                int bz = MathHelper.floor(posZ + deltaZ);
+                BlockPos bp = new BlockPos(bx, by, bz);
                 for (int c = 0; c < 5 && world.isAirBlock(bp); ++c, --by) {}
                 if (world.isAirBlock(bp.up()) && !world.isAirBlock(bp)) {
                     ax = bx;
@@ -277,14 +277,14 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
         if (world.isRemote) {
             if (isHeadless()) {
                 rotationPitch = 0.0f;
-                final float f1 = MathHelper.cos(-renderYawOffset * 0.017453292f - 3.1415927f);
-                final float f2 = MathHelper.sin(-renderYawOffset * 0.017453292f - 3.1415927f);
-                final float f3 = -MathHelper.cos(-rotationPitch * 0.017453292f);
-                final float f4 = MathHelper.sin(-rotationPitch * 0.017453292f);
-                final Vec3d v = new Vec3d(f2 * f3, f4, f1 * f3);
+                float f1 = MathHelper.cos(-renderYawOffset * 0.017453292f - 3.1415927f);
+                float f2 = MathHelper.sin(-renderYawOffset * 0.017453292f - 3.1415927f);
+                float f3 = -MathHelper.cos(-rotationPitch * 0.017453292f);
+                float f4 = MathHelper.sin(-rotationPitch * 0.017453292f);
+                Vec3d v = new Vec3d(f2 * f3, f4, f1 * f3);
                 if (rand.nextInt(20) == 0) {
-                    final float a = (rand.nextFloat() - rand.nextFloat()) / 3.0f;
-                    final float b = (rand.nextFloat() - rand.nextFloat()) / 3.0f;
+                    float a = (rand.nextFloat() - rand.nextFloat()) / 3.0f;
+                    float b = (rand.nextFloat() - rand.nextFloat()) / 3.0f;
                     FXDispatcher.INSTANCE.spark((float)(posX + v.x + a), (float) posY + getEyeHeight() - 0.75f, (float)(posZ + v.z + b), 3.0f, 0.65f + rand.nextFloat() * 0.1f, 1.0f, 1.0f, 0.8f);
                 }
                 FXDispatcher.INSTANCE.drawVentParticles((float) posX + v.x * 0.4, (float) posY + getEyeHeight() - 1.25f, (float) posZ + v.z * 0.4, 0.0, 0.001, 0.0, 5592405, 4.0f);
@@ -313,7 +313,7 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
         return attackTimer;
     }
     
-    public void setSwingingArms(final boolean swingingArms) {
+    public void setSwingingArms(boolean swingingArms) {
     }
     
     static {

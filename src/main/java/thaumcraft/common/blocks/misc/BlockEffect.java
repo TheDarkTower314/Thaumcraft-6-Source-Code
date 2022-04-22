@@ -35,14 +35,14 @@ import thaumcraft.common.blocks.BlockTC;
 
 public class BlockEffect extends BlockTC
 {
-    public BlockEffect(final String name) {
+    public BlockEffect(String name) {
         super(Material.AIR, name);
         setTickRandomly(true);
         blockResistance = 999.0f;
         setLightLevel(0.5f);
     }
     
-    public int getLightValue(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
+    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
         if (state.getBlock() != this) {
             return super.getLightValue(state, world, pos);
         }
@@ -52,18 +52,18 @@ public class BlockEffect extends BlockTC
         return super.getLightValue(state, world, pos);
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
         if (state.getBlock() == BlocksTC.effectShock) {
             if (entity instanceof EntityLivingBase) {
                 ServerEvents.addRunnableServer(world, new Runnable() {
                     @Override
                     public void run() {
                         entity.attackEntityFrom(DamageSource.MAGIC, 1.0f);
-                        final PotionEffect pe = new PotionEffect(MobEffects.SLOWNESS, 20, 0, true, true);
+                        PotionEffect pe = new PotionEffect(MobEffects.SLOWNESS, 20, 0, true, true);
                         ((EntityLivingBase)entity).addPotionEffect(pe);
                     }
                 }, 0);
@@ -76,18 +76,18 @@ public class BlockEffect extends BlockTC
             ServerEvents.addRunnableServer(world, new Runnable() {
                 @Override
                 public void run() {
-                    final PotionEffect pe0 = new PotionEffect(MobEffects.WITHER, 40, 0, true, true);
+                    PotionEffect pe0 = new PotionEffect(MobEffects.WITHER, 40, 0, true, true);
                     ((EntityLivingBase)entity).addPotionEffect(pe0);
-                    final PotionEffect pe2 = new PotionEffect(MobEffects.SLOWNESS, 40, 1, true, true);
+                    PotionEffect pe2 = new PotionEffect(MobEffects.SLOWNESS, 40, 1, true, true);
                     ((EntityLivingBase)entity).addPotionEffect(pe2);
-                    final PotionEffect pe3 = new PotionEffect(MobEffects.HUNGER, 40, 1, true, true);
+                    PotionEffect pe3 = new PotionEffect(MobEffects.HUNGER, 40, 1, true, true);
                     ((EntityLivingBase)entity).addPotionEffect(pe3);
                 }
             }, 0);
         }
     }
     
-    public void updateTick(final World worldIn, final BlockPos pos, final IBlockState state, final Random rand) {
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         super.updateTick(worldIn, pos, state, rand);
         if (!worldIn.isRemote && state.getBlock() != BlocksTC.effectGlimmer) {
             worldIn.setBlockToAir(pos);
@@ -95,9 +95,9 @@ public class BlockEffect extends BlockTC
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState state, final World w, final BlockPos pos, final Random r) {
+    public void randomDisplayTick(IBlockState state, World w, BlockPos pos, Random r) {
         if (state.getBlock() != BlocksTC.effectGlimmer) {
-            final float h = r.nextFloat() * 0.33f;
+            float h = r.nextFloat() * 0.33f;
             if (state.getBlock() == BlocksTC.effectShock) {
                 FXDispatcher.INSTANCE.spark(pos.getX() + w.rand.nextFloat(), pos.getY() + 0.1515f + h / 2.0f, pos.getZ() + w.rand.nextFloat(), 3.0f + h * 6.0f, 0.65f + w.rand.nextFloat() * 0.1f, 1.0f, 1.0f, 0.8f);
             }
@@ -110,51 +110,51 @@ public class BlockEffect extends BlockTC
         }
     }
     
-    public boolean isAir(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
+    public boolean isAir(IBlockState state, IBlockAccess world, BlockPos pos) {
         return true;
     }
     
-    public EnumBlockRenderType getRenderType(final IBlockState state) {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.INVISIBLE;
     }
     
-    public boolean isReplaceable(final IBlockAccess worldIn, final BlockPos pos) {
+    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
         return true;
     }
     
-    public ItemStack getPickBlock(final IBlockState state, final RayTraceResult target, final World world, final BlockPos pos, final EntityPlayer player) {
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
         return ItemStack.EMPTY;
     }
     
-    public boolean isSideSolid(final IBlockState state, final IBlockAccess world, final BlockPos pos, final EnumFacing o) {
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing o) {
         return false;
     }
     
-    public boolean isPassable(final IBlockAccess worldIn, final BlockPos pos) {
+    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
         return true;
     }
     
-    public AxisAlignedBB getCollisionBoundingBox(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return null;
     }
     
-    public boolean canCollideCheck(final IBlockState state, final boolean hitIfLiquid) {
+    public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
         return false;
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemById(0);
     }
 }

@@ -22,7 +22,7 @@ import thaumcraft.api.research.IScanThing;
 public class ScanGeneric implements IScanThing
 {
     @Override
-    public boolean checkThing(final EntityPlayer player, final Object obj) {
+    public boolean checkThing(EntityPlayer player, Object obj) {
         if (obj == null) {
             return false;
         }
@@ -31,7 +31,7 @@ public class ScanGeneric implements IScanThing
             al = AspectHelper.getEntityAspects((Entity)obj);
         }
         else {
-            final ItemStack is = ScanningManager.getItemFromParms(player, obj);
+            ItemStack is = ScanningManager.getItemFromParms(player, obj);
             if (is != null && !is.isEmpty()) {
                 al = AspectHelper.getObjectAspects(is);
             }
@@ -40,7 +40,7 @@ public class ScanGeneric implements IScanThing
     }
     
     @Override
-    public void onSuccess(final EntityPlayer player, final Object obj) {
+    public void onSuccess(EntityPlayer player, Object obj) {
         if (obj == null) {
             return;
         }
@@ -49,25 +49,25 @@ public class ScanGeneric implements IScanThing
             al = AspectHelper.getEntityAspects((Entity)obj);
         }
         else {
-            final ItemStack is = ScanningManager.getItemFromParms(player, obj);
+            ItemStack is = ScanningManager.getItemFromParms(player, obj);
             if (is != null && !is.isEmpty()) {
                 al = AspectHelper.getObjectAspects(is);
             }
         }
         if (al != null) {
-            for (final ResearchCategory category : ResearchCategories.researchCategories.values()) {
+            for (ResearchCategory category : ResearchCategories.researchCategories.values()) {
                 ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.OBSERVATION, category, category.applyFormula(al));
             }
         }
     }
     
     @Override
-    public String getResearchKey(final EntityPlayer player, final Object obj) {
+    public String getResearchKey(EntityPlayer player, Object obj) {
         if (obj instanceof Entity && !(obj instanceof EntityItem)) {
-            final String s = EntityList.getEntityString((Entity)obj);
+            String s = EntityList.getEntityString((Entity)obj);
             return "!" + s;
         }
-        final ItemStack is = ScanningManager.getItemFromParms(player, obj);
+        ItemStack is = ScanningManager.getItemFromParms(player, obj);
         if (is != null && !is.isEmpty()) {
             String s2 = "!" + is.getItem().getRegistryName();
             if (!is.isItemStackDamageable()) {

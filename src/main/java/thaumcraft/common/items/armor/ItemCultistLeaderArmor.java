@@ -28,7 +28,7 @@ public class ItemCultistLeaderArmor extends ItemArmor implements IThaumcraftItem
     ModelBiped model2;
     ModelBiped model;
     
-    public ItemCultistLeaderArmor(final String name, final int j, final EntityEquipmentSlot k) {
+    public ItemCultistLeaderArmor(String name, int j, EntityEquipmentSlot k) {
         super(ThaumcraftMaterials.ARMORMAT_CULTIST_LEADER, j, k);
         model1 = null;
         model2 = null;
@@ -56,24 +56,24 @@ public class ItemCultistLeaderArmor extends ItemArmor implements IThaumcraftItem
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public String getArmorTexture(final ItemStack stack, final Entity entity, final EntityEquipmentSlot slot, final String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         return "thaumcraft:textures/entity/armor/cultist_leader_armor.png";
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(Items.IRON_INGOT)) || super.getIsRepairable(stack1, stack2);
     }
     
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel(final EntityLivingBase entityLiving, final ItemStack itemStack, final EntityEquipmentSlot armorSlot, final ModelBiped _default) {
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
         if (model1 == null) {
             model1 = new ModelLeaderArmor(1.0f);
         }

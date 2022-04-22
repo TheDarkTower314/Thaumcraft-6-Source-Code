@@ -35,23 +35,23 @@ public class BlockResearchTable extends BlockTCDevice implements IBlockFacingHor
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public boolean isSideSolid(final IBlockState state, final IBlockAccess world, final BlockPos pos, final EnumFacing side) {
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return false;
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         }
@@ -60,21 +60,21 @@ public class BlockResearchTable extends BlockTCDevice implements IBlockFacingHor
     }
     
     @Override
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)placer.getHorizontalFacing());
         return bs;
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random rand) {
-        final TileEntity te = world.getTileEntity(pos);
+    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+        TileEntity te = world.getTileEntity(pos);
         if (rand.nextInt(5) == 0 && te != null && ((TileResearchTable)te).data != null) {
-            final double xx = rand.nextGaussian() / 2.0;
-            final double zz = rand.nextGaussian() / 2.0;
-            final double yy = 1.5 + rand.nextFloat();
-            final int a = 40 + rand.nextInt(20);
-            final FXGeneric fb = new FXGeneric(world, pos.getX() + 0.5 + xx, pos.getY() + yy, pos.getZ() + 0.5 + zz, -xx / a, -(yy - 0.85) / a, -zz / a);
+            double xx = rand.nextGaussian() / 2.0;
+            double zz = rand.nextGaussian() / 2.0;
+            double yy = 1.5 + rand.nextFloat();
+            int a = 40 + rand.nextInt(20);
+            FXGeneric fb = new FXGeneric(world, pos.getX() + 0.5 + xx, pos.getY() + yy, pos.getZ() + 0.5 + zz, -xx / a, -(yy - 0.85) / a, -zz / a);
             fb.setMaxAge(a);
             fb.setRBGColorF(0.5f + rand.nextFloat() * 0.5f, 0.5f + rand.nextFloat() * 0.5f, 0.5f + rand.nextFloat() * 0.5f);
             fb.setAlphaF(0.0f, 0.25f, 0.5f, 0.75f, 0.0f);

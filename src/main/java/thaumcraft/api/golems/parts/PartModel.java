@@ -13,7 +13,7 @@ public class PartModel
     private ResourceLocation texture;
     private EnumAttachPoint attachPoint;
     
-    public PartModel(final ResourceLocation objModel, final ResourceLocation objTexture, final EnumAttachPoint attachPoint) {
+    public PartModel(ResourceLocation objModel, ResourceLocation objTexture, EnumAttachPoint attachPoint) {
         this.objModel = objModel;
         texture = objTexture;
         this.attachPoint = attachPoint;
@@ -31,25 +31,25 @@ public class PartModel
         return attachPoint;
     }
     
-    public boolean useMaterialTextureForObjectPart(final String partName) {
+    public boolean useMaterialTextureForObjectPart(String partName) {
         return partName.startsWith("bm");
     }
     
-    public void preRenderObjectPart(final String partName, final IGolemAPI golem, final float partialTicks, final EnumLimbSide side) {
+    public void preRenderObjectPart(String partName, IGolemAPI golem, float partialTicks, EnumLimbSide side) {
     }
     
-    public void postRenderObjectPart(final String partName, final IGolemAPI golem, final float partialTicks, final EnumLimbSide side) {
+    public void postRenderObjectPart(String partName, IGolemAPI golem, float partialTicks, EnumLimbSide side) {
     }
     
-    public float preRenderArmRotationX(final IGolemAPI golem, final float partialTicks, final EnumLimbSide side, final float inputRot) {
+    public float preRenderArmRotationX(IGolemAPI golem, float partialTicks, EnumLimbSide side, float inputRot) {
         return inputRot;
     }
     
-    public float preRenderArmRotationY(final IGolemAPI golem, final float partialTicks, final EnumLimbSide side, final float inputRot) {
+    public float preRenderArmRotationY(IGolemAPI golem, float partialTicks, EnumLimbSide side, float inputRot) {
         return inputRot;
     }
     
-    public float preRenderArmRotationZ(final IGolemAPI golem, final float partialTicks, final EnumLimbSide side, final float inputRot) {
+    public float preRenderArmRotationZ(IGolemAPI golem, float partialTicks, EnumLimbSide side, float inputRot) {
         return inputRot;
     }
     

@@ -17,7 +17,7 @@ import net.minecraft.item.ItemAxe;
 
 public class ItemThaumiumAxe extends ItemAxe implements IThaumcraftItems
 {
-    public ItemThaumiumAxe(final Item.ToolMaterial enumtoolmaterial) {
+    public ItemThaumiumAxe(Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial, 8.0f, -3.0f);
         setCreativeTab(ConfigItems.TABTC);
         setRegistryName("thaumium_axe");
@@ -41,15 +41,15 @@ public class ItemThaumiumAxe extends ItemAxe implements IThaumcraftItems
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public Set<String> getToolClasses(final ItemStack stack) {
+    public Set<String> getToolClasses(ItemStack stack) {
         return ImmutableSet.of("axe");
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 0)) || super.getIsRepairable(stack1, stack2);
     }
 }

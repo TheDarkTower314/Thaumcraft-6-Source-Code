@@ -26,7 +26,7 @@ public class ContainerHandMirror extends Container implements IInventoryChangedL
     ItemStack mirror;
     EntityPlayer player;
     
-    public ContainerHandMirror(final InventoryPlayer iinventory, final World par2World, final int par3, final int par4, final int par5) {
+    public ContainerHandMirror(InventoryPlayer iinventory, World par2World, int par3, int par4, int par5) {
         input = new InventoryHandMirror(this);
         mirror = null;
         player = null;
@@ -41,7 +41,7 @@ public class ContainerHandMirror extends Container implements IInventoryChangedL
         onCraftMatrixChanged(input);
     }
     
-    protected void bindPlayerInventory(final InventoryPlayer inventoryPlayer) {
+    protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -52,12 +52,12 @@ public class ContainerHandMirror extends Container implements IInventoryChangedL
         }
     }
     
-    public void onCraftMatrixChanged(final IInventory par1IInventory) {
+    public void onCraftMatrixChanged(IInventory par1IInventory) {
         if (!input.getStackInSlot(0).isEmpty() && ItemStack.areItemStacksEqual(input.getStackInSlot(0), mirror)) {
             player.openContainer = player.inventoryContainer;
         }
         else if (!worldObj.isRemote && !input.getStackInSlot(0).isEmpty() && player != null) {
-            final ItemStack is = input.getStackInSlot(0).copy();
+            ItemStack is = input.getStackInSlot(0).copy();
             input.setInventorySlotContents(0, ItemStack.EMPTY);
             input.markDirty();
             if (ItemHandMirror.transport(mirror, is, player, worldObj)) {
@@ -72,22 +72,22 @@ public class ContainerHandMirror extends Container implements IInventoryChangedL
         }
     }
     
-    public ItemStack slotClick(final int slotId, final int dragType, final ClickType clickTypeIn, final EntityPlayer player) {
+    public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
         try {
-            final ItemStack s = getSlot(slotId).getStack();
+            ItemStack s = getSlot(slotId).getStack();
             if (s.getItem() instanceof ItemHandMirror) {
                 return ItemStack.EMPTY;
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         return super.slotClick(slotId, dragType, clickTypeIn, player);
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = inventorySlots.get(slot);
+        Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack() && !(slotObject.getStack().getItem() instanceof ItemHandMirror)) {
-            final ItemStack stackInSlot = slotObject.getStack();
+            ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot == 0) {
                 if (!mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {
@@ -107,19 +107,19 @@ public class ContainerHandMirror extends Container implements IInventoryChangedL
         return stack;
     }
     
-    public boolean canInteractWith(final EntityPlayer var1) {
+    public boolean canInteractWith(EntityPlayer var1) {
         return true;
     }
     
-    public void onContainerClosed(final EntityPlayer par1EntityPlayer) {
+    public void onContainerClosed(EntityPlayer par1EntityPlayer) {
         super.onContainerClosed(par1EntityPlayer);
         if (!worldObj.isRemote) {
-            final ItemStack var3 = input.removeStackFromSlot(0);
+            ItemStack var3 = input.removeStackFromSlot(0);
             par1EntityPlayer.dropItem(var3, false);
         }
     }
     
-    protected boolean mergeItemStack(final ItemStack stackin, final int par2, final int par3, final boolean par4, final int limit) {
+    protected boolean mergeItemStack(ItemStack stackin, int par2, int par3, boolean par4, int limit) {
         boolean var5 = false;
         int var6 = par2;
         if (par4) {
@@ -127,10 +127,10 @@ public class ContainerHandMirror extends Container implements IInventoryChangedL
         }
         if (stackin.isStackable()) {
             while (stackin.getCount() > 0 && ((!par4 && var6 < par3) || (par4 && var6 >= par2))) {
-                final Slot var7 = inventorySlots.get(var6);
-                final ItemStack stack8 = var7.getStack();
+                Slot var7 = inventorySlots.get(var6);
+                ItemStack stack8 = var7.getStack();
                 if (stack8 != null && !stack8.isEmpty() && stack8.getItem() == stackin.getItem() && (!stackin.getHasSubtypes() || stackin.getItemDamage() == stack8.getItemDamage()) && ItemStack.areItemStackTagsEqual(stackin, stack8)) {
-                    final int var8 = stack8.getCount() + stackin.getCount();
+                    int var8 = stack8.getCount() + stackin.getCount();
                     if (var8 <= Math.min(stackin.getMaxStackSize(), limit)) {
                         stackin.setCount(0);
                         stack8.setCount(var8);
@@ -160,10 +160,10 @@ public class ContainerHandMirror extends Container implements IInventoryChangedL
                 var6 = par2;
             }
             while ((!par4 && var6 < par3) || (par4 && var6 >= par2)) {
-                final Slot var7 = inventorySlots.get(var6);
-                final ItemStack stack8 = var7.getStack();
+                Slot var7 = inventorySlots.get(var6);
+                ItemStack stack8 = var7.getStack();
                 if (stack8 == null || stack8.isEmpty()) {
-                    final ItemStack res = stackin.copy();
+                    ItemStack res = stackin.copy();
                     res.setCount(Math.min(res.getCount(), limit));
                     var7.putStack(res);
                     var7.onSlotChanged();
@@ -182,7 +182,7 @@ public class ContainerHandMirror extends Container implements IInventoryChangedL
         return var5;
     }
     
-    public void onInventoryChanged(final IInventory invBasic) {
+    public void onInventoryChanged(IInventory invBasic) {
         detectAndSendChanges();
     }
 }

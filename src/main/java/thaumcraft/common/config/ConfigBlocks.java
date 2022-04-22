@@ -173,7 +173,7 @@ public class ConfigBlocks
         BlockUtils.portableHoleBlackList.add("thaumcraft:infernal_furnace");
     }
     
-    public static void initBlocks(final IForgeRegistry<Block> iForgeRegistry) {
+    public static void initBlocks(IForgeRegistry<Block> iForgeRegistry) {
         BlocksTC.oreAmber = registerBlock(new BlockOreTC("ore_amber").setHardness(1.5f));
         BlocksTC.oreCinnabar = registerBlock(new BlockOreTC("ore_cinnabar").setHardness(2.0f));
         BlocksTC.oreQuartz = registerBlock(new BlockOreTC("ore_quartz").setHardness(3.0f));
@@ -280,11 +280,11 @@ public class ConfigBlocks
         BlocksTC.pillarEldritch = registerBlock(new BlockPillar("pillar_eldritch"));
         BlocksTC.matrixSpeed = registerBlock(new BlockStoneTC("matrix_speed", false));
         BlocksTC.matrixCost = registerBlock(new BlockStoneTC("matrix_cost", false));
-        for (final EnumDyeColor dye : EnumDyeColor.values()) {
+        for (EnumDyeColor dye : EnumDyeColor.values()) {
             BlocksTC.candles.put(dye, registerBlock(new BlockCandle("candle_" + dye.getUnlocalizedName().toLowerCase(), dye)));
         }
-        for (final EnumDyeColor dye : EnumDyeColor.values()) {
-            final BlockBannerTC block = new BlockBannerTC("banner_" + dye.getUnlocalizedName().toLowerCase(), dye);
+        for (EnumDyeColor dye : EnumDyeColor.values()) {
+            BlockBannerTC block = new BlockBannerTC("banner_" + dye.getUnlocalizedName().toLowerCase(), dye);
             ForgeRegistries.BLOCKS.register(block);
             ForgeRegistries.ITEMS.register(new BlockBannerTCItem(block).setRegistryName(block.getRegistryName()));
             BlocksTC.banners.put(dye, block);
@@ -292,7 +292,7 @@ public class ConfigBlocks
         BlocksTC.bannerCrimsonCult = new BlockBannerTC("banner_crimson_cult", null);
         ForgeRegistries.BLOCKS.register(BlocksTC.bannerCrimsonCult);
         ForgeRegistries.ITEMS.register(new BlockBannerTCItem((BlockBannerTC)BlocksTC.bannerCrimsonCult).setRegistryName(BlocksTC.bannerCrimsonCult.getRegistryName()));
-        for (final EnumDyeColor dye : EnumDyeColor.values()) {
+        for (EnumDyeColor dye : EnumDyeColor.values()) {
             BlocksTC.nitor.put(dye, registerBlock(new BlockNitor("nitor_" + dye.getUnlocalizedName().toLowerCase(), dye)));
         }
         BlocksTC.visBattery = registerBlock(new BlockVisBattery());
@@ -423,11 +423,11 @@ public class ConfigBlocks
         GameRegistry.registerTileEntity(TileBarrierStone.class, "thaumcraft:TileBarrierStone");
     }
     
-    private static Block registerBlock(final Block block) {
+    private static Block registerBlock(Block block) {
         return registerBlock(block, new ItemBlock(block));
     }
     
-    private static Block registerBlock(final Block block, final ItemBlock itemBlock) {
+    private static Block registerBlock(Block block, ItemBlock itemBlock) {
         ForgeRegistries.BLOCKS.register(block);
         itemBlock.setRegistryName(block.getRegistryName());
         ForgeRegistries.ITEMS.register(itemBlock);
@@ -435,24 +435,24 @@ public class ConfigBlocks
         return block;
     }
     
-    private static Block registerBlock(final Block block, final Class clazz) {
+    private static Block registerBlock(Block block, Class clazz) {
         ForgeRegistries.BLOCKS.register(block);
         try {
-            final ItemBlock itemBlock = (ItemBlock)clazz.getConstructors()[0].newInstance(block);
+            ItemBlock itemBlock = (ItemBlock)clazz.getConstructors()[0].newInstance(block);
             itemBlock.setRegistryName(block.getRegistryName());
             ForgeRegistries.ITEMS.register(itemBlock);
             Thaumcraft.proxy.registerModel(itemBlock);
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
         return block;
     }
     
-    public static final class FluidPure extends Fluid
+    public static class FluidPure extends Fluid
     {
-        public static final String name = "purifying_fluid";
-        public static final FluidPure instance;
+        public static String name = "purifying_fluid";
+        public static FluidPure instance;
         
         private FluidPure() {
             super("purifying_fluid", new ResourceLocation("blocks/water_still"), new ResourceLocation("blocks/water_flow"));
@@ -469,10 +469,10 @@ public class ConfigBlocks
         }
     }
     
-    public static final class FluidDeath extends Fluid
+    public static class FluidDeath extends Fluid
     {
-        public static final String name = "liquid_death";
-        public static final FluidDeath instance;
+        public static String name = "liquid_death";
+        public static FluidDeath instance;
         
         private FluidDeath() {
             super("liquid_death", new ResourceLocation("thaumcraft:blocks/animatedglow"), new ResourceLocation("thaumcraft:blocks/animatedglow"));
@@ -489,10 +489,10 @@ public class ConfigBlocks
         }
     }
     
-    public static final class FluidFluxGoo extends Fluid
+    public static class FluidFluxGoo extends Fluid
     {
-        public static final String name = "flux_goo";
-        public static final FluidFluxGoo instance;
+        public static String name = "flux_goo";
+        public static FluidFluxGoo instance;
         
         private FluidFluxGoo() {
             super("flux_goo", new ResourceLocation("thaumcraft:blocks/flux_goo"), new ResourceLocation("thaumcraft:blocks/flux_goo"));

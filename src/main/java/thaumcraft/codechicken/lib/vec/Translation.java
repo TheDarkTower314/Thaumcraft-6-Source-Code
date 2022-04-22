@@ -15,30 +15,30 @@ public class Translation extends Transformation
 {
     public Vector3 vec;
     
-    public Translation(final Vector3 vec) {
+    public Translation(Vector3 vec) {
         this.vec = vec;
     }
     
-    public Translation(final double x, final double y, final double z) {
+    public Translation(double x, double y, double z) {
         this(new Vector3(x, y, z));
     }
     
     @Override
-    public void apply(final Vector3 vec) {
+    public void apply(Vector3 vec) {
         vec.add(this.vec);
     }
     
     @Override
-    public void applyN(final Vector3 normal) {
+    public void applyN(Vector3 normal) {
     }
     
     @Override
-    public void apply(final Matrix4 mat) {
+    public void apply(Matrix4 mat) {
         mat.translate(vec);
     }
     
     @Override
-    public Transformation at(final Vector3 point) {
+    public Transformation at(Vector3 point) {
         return this;
     }
     
@@ -54,7 +54,7 @@ public class Translation extends Transformation
     }
     
     @Override
-    public Transformation merge(final Transformation next) {
+    public Transformation merge(Transformation next) {
         if (next instanceof Translation) {
             return new Translation(vec.copy().add(((Translation)next).vec));
         }
@@ -68,7 +68,7 @@ public class Translation extends Transformation
     
     @Override
     public String toString() {
-        final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
+        MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
         return "Translation(" + new BigDecimal(vec.x, cont) + ", " + new BigDecimal(vec.y, cont) + ", " + new BigDecimal(vec.z, cont) + ")";
     }
 }

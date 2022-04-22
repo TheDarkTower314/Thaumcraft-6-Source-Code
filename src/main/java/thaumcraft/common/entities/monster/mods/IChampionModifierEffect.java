@@ -12,10 +12,10 @@ import net.minecraft.entity.EntityLivingBase;
 
 public interface IChampionModifierEffect
 {
-    float performEffect(final EntityLivingBase p0, final EntityLivingBase p1, final DamageSource p2, final float p3);
+    float performEffect(EntityLivingBase p0, EntityLivingBase p1, DamageSource p2, float p3);
     
     @SideOnly(Side.CLIENT)
-    void showFX(final EntityLivingBase p0);
+    void showFX(EntityLivingBase p0);
     
-    void preRender(final EntityLivingBase p0, final RenderLivingBase p1);
+    void preRender(EntityLivingBase p0, RenderLivingBase p1);
 }

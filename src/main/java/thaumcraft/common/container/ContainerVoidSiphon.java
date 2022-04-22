@@ -21,7 +21,7 @@ public class ContainerVoidSiphon extends Container
     private TileVoidSiphon siphon;
     private int lastProgress;
     
-    public ContainerVoidSiphon(final InventoryPlayer par1InventoryPlayer, final TileVoidSiphon tileEntity) {
+    public ContainerVoidSiphon(InventoryPlayer par1InventoryPlayer, TileVoidSiphon tileEntity) {
         siphon = tileEntity;
         addSlotToContainer(new SlotOutput(tileEntity, 0, 80, 32));
         for (int i = 0; i < 3; ++i) {
@@ -34,7 +34,7 @@ public class ContainerVoidSiphon extends Container
         }
     }
     
-    public void addListener(final IContainerListener par1ICrafting) {
+    public void addListener(IContainerListener par1ICrafting) {
         super.addListener(par1ICrafting);
         par1ICrafting.sendWindowProperty(this, 0, siphon.progress);
     }
@@ -42,7 +42,7 @@ public class ContainerVoidSiphon extends Container
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         for (int i = 0; i < listeners.size(); ++i) {
-            final IContainerListener icrafting = listeners.get(i);
+            IContainerListener icrafting = listeners.get(i);
             if (lastProgress != siphon.progress) {
                 icrafting.sendWindowProperty(this, 0, siphon.progress);
             }
@@ -51,21 +51,21 @@ public class ContainerVoidSiphon extends Container
     }
     
     @SideOnly(Side.CLIENT)
-    public void updateProgressBar(final int par1, final int par2) {
+    public void updateProgressBar(int par1, int par2) {
         if (par1 == 0) {
             siphon.progress = par2;
         }
     }
     
-    public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
+    public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
         return siphon.isUsableByPlayer(par1EntityPlayer);
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = inventorySlots.get(slot);
+        Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
-            final ItemStack stackInSlot = slotObject.getStack();
+            ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot == 0) {
                 if (!siphon.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {

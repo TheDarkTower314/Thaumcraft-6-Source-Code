@@ -31,37 +31,37 @@ public class PacketSyncProgressToServer implements IMessage, IMessageHandler<Pac
     public PacketSyncProgressToServer() {
     }
     
-    public PacketSyncProgressToServer(final String key, final boolean first, final boolean checks, final boolean noFlags) {
+    public PacketSyncProgressToServer(String key, boolean first, boolean checks, boolean noFlags) {
         this.key = key;
         this.first = first;
         this.checks = checks;
         this.noFlags = noFlags;
     }
     
-    public PacketSyncProgressToServer(final String key, final boolean first) {
+    public PacketSyncProgressToServer(String key, boolean first) {
         this(key, first, false, true);
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         ByteBufUtils.writeUTF8String(buffer, key);
         buffer.writeBoolean(first);
         buffer.writeBoolean(checks);
         buffer.writeBoolean(noFlags);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         key = ByteBufUtils.readUTF8String(buffer);
         first = buffer.readBoolean();
         checks = buffer.readBoolean();
         noFlags = buffer.readBoolean();
     }
     
-    public IMessage onMessage(final PacketSyncProgressToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketSyncProgressToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final EntityPlayer player = ctx.getServerHandler().player;
+                EntityPlayer player = ctx.getServerHandler().player;
                 if (player != null && message.first != ThaumcraftCapabilities.knowsResearch(player, message.key)) {
                     if (message.checks && !checkRequisites(player, message.key)) {
                         return;
@@ -76,18 +76,18 @@ public class PacketSyncProgressToServer implements IMessage, IMessageHandler<Pac
         return null;
     }
     
-    private boolean checkRequisites(final EntityPlayer player, final String key) {
-        final ResearchEntry research = ResearchCategories.getResearch(key);
+    private boolean checkRequisites(EntityPlayer player, String key) {
+        ResearchEntry research = ResearchCategories.getResearch(key);
         if (research.getStages() != null) {
-            final int currentStage = ThaumcraftCapabilities.getKnowledge(player).getResearchStage(key) - 1;
+            int currentStage = ThaumcraftCapabilities.getKnowledge(player).getResearchStage(key) - 1;
             if (currentStage < 0) {
                 return false;
             }
             if (currentStage >= research.getStages().length) {
                 return true;
             }
-            final ResearchStage stage = research.getStages()[currentStage];
-            final Object[] o = stage.getObtain();
+            ResearchStage stage = research.getStages()[currentStage];
+            Object[] o = stage.getObtain();
             if (o != null) {
                 for (int a = 0; a < o.length; ++a) {
                     ItemStack ts = ItemStack.EMPTY;
@@ -96,7 +96,7 @@ public class PacketSyncProgressToServer implements IMessage, IMessageHandler<Pac
                         ts = (ItemStack)o[a];
                     }
                     else {
-                        final NonNullList<ItemStack> nnl = OreDictionary.getOres((String)o[a]);
+                        NonNullList<ItemStack> nnl = OreDictionary.getOres((String)o[a]);
                         ts = nnl.get(0);
                         ore = true;
                     }
@@ -111,14 +111,14 @@ public class PacketSyncProgressToServer implements IMessage, IMessageHandler<Pac
                         ts2 = (ItemStack)o[a];
                     }
                     else {
-                        final NonNullList<ItemStack> nnl = OreDictionary.getOres((String)o[a]);
+                        NonNullList<ItemStack> nnl = OreDictionary.getOres((String)o[a]);
                         ts2 = nnl.get(0);
                         ore2 = true;
                     }
                     InventoryUtils.consumePlayerItem(player, ts2, true, ore2);
                 }
             }
-            final Object[] c = stage.getCraft();
+            Object[] c = stage.getCraft();
             if (c != null) {
                 for (int a2 = 0; a2 < c.length; ++a2) {
                     if (!ThaumcraftCapabilities.getKnowledge(player).isResearchKnown("[#]" + stage.getCraftReference()[a2])) {
@@ -126,7 +126,7 @@ public class PacketSyncProgressToServer implements IMessage, IMessageHandler<Pac
                     }
                 }
             }
-            final String[] r = stage.getResearch();
+            String[] r = stage.getResearch();
             if (r != null) {
                 for (int a3 = 0; a3 < r.length; ++a3) {
                     if (!ThaumcraftCapabilities.knowsResearchStrict(player, r[a3])) {
@@ -134,10 +134,10 @@ public class PacketSyncProgressToServer implements IMessage, IMessageHandler<Pac
                     }
                 }
             }
-            final ResearchStage.Knowledge[] k = stage.getKnow();
+            ResearchStage.Knowledge[] k = stage.getKnow();
             if (k != null) {
                 for (int a4 = 0; a4 < k.length; ++a4) {
-                    final int pk = ThaumcraftCapabilities.getKnowledge(player).getKnowledge(k[a4].type, k[a4].category);
+                    int pk = ThaumcraftCapabilities.getKnowledge(player).getKnowledge(k[a4].type, k[a4].category);
                     if (pk < k[a4].amount) {
                         return false;
                     }

@@ -34,7 +34,7 @@ public class TaintHelper
 {
     private static ConcurrentHashMap<Integer, ArrayList<BlockPos>> taintSeeds;
     
-    public static void addTaintSeed(final World world, final BlockPos pos) {
+    public static void addTaintSeed(World world, BlockPos pos) {
         ArrayList<BlockPos> locs = TaintHelper.taintSeeds.get(world.provider.getDimension());
         if (locs == null) {
             locs = new ArrayList<BlockPos>();
@@ -43,18 +43,18 @@ public class TaintHelper
         TaintHelper.taintSeeds.put(world.provider.getDimension(), locs);
     }
     
-    public static void removeTaintSeed(final World world, final BlockPos pos) {
-        final ArrayList<BlockPos> locs = TaintHelper.taintSeeds.get(world.provider.getDimension());
+    public static void removeTaintSeed(World world, BlockPos pos) {
+        ArrayList<BlockPos> locs = TaintHelper.taintSeeds.get(world.provider.getDimension());
         if (locs != null && !locs.isEmpty()) {
             locs.remove(pos);
         }
     }
     
-    public static boolean isNearTaintSeed(final World world, final BlockPos pos) {
-        final double area = ModConfig.CONFIG_WORLD.taintSpreadArea * ModConfig.CONFIG_WORLD.taintSpreadArea;
-        final ArrayList<BlockPos> locs = TaintHelper.taintSeeds.get(world.provider.getDimension());
+    public static boolean isNearTaintSeed(World world, BlockPos pos) {
+        double area = ModConfig.CONFIG_WORLD.taintSpreadArea * ModConfig.CONFIG_WORLD.taintSpreadArea;
+        ArrayList<BlockPos> locs = TaintHelper.taintSeeds.get(world.provider.getDimension());
         if (locs != null && !locs.isEmpty()) {
-            for (final BlockPos p : locs) {
+            for (BlockPos p : locs) {
                 if (p.distanceSq(pos) <= area) {
                     if (EntityUtils.getEntitiesInRange(world, p, null, (Class<? extends Entity>)EntityTaintSeed.class, 1.0).size() <= 0) {
                         removeTaintSeed(world, p);
@@ -67,13 +67,13 @@ public class TaintHelper
         return false;
     }
     
-    public static boolean isAtTaintSeedEdge(final World world, final BlockPos pos) {
-        final double area = ModConfig.CONFIG_WORLD.taintSpreadArea * ModConfig.CONFIG_WORLD.taintSpreadArea;
-        final double fringe = ModConfig.CONFIG_WORLD.taintSpreadArea * 0.8 * (ModConfig.CONFIG_WORLD.taintSpreadArea * 0.8);
-        final ArrayList<BlockPos> locs = TaintHelper.taintSeeds.get(world.provider.getDimension());
+    public static boolean isAtTaintSeedEdge(World world, BlockPos pos) {
+        double area = ModConfig.CONFIG_WORLD.taintSpreadArea * ModConfig.CONFIG_WORLD.taintSpreadArea;
+        double fringe = ModConfig.CONFIG_WORLD.taintSpreadArea * 0.8 * (ModConfig.CONFIG_WORLD.taintSpreadArea * 0.8);
+        ArrayList<BlockPos> locs = TaintHelper.taintSeeds.get(world.provider.getDimension());
         if (locs != null && !locs.isEmpty()) {
-            for (final BlockPos p : locs) {
-                final double d = p.distanceSq(pos);
+            for (BlockPos p : locs) {
+                double d = p.distanceSq(pos);
                 if (d < area && d > fringe) {
                     return true;
                 }
@@ -82,29 +82,29 @@ public class TaintHelper
         return false;
     }
     
-    public static void spreadFibres(final World world, final BlockPos pos) {
+    public static void spreadFibres(World world, BlockPos pos) {
         spreadFibres(world, pos, false);
     }
     
-    public static void spreadFibres(final World world, final BlockPos pos, final boolean ignore) {
+    public static void spreadFibres(World world, BlockPos pos, boolean ignore) {
         if (!ignore && ModConfig.CONFIG_MISC.wussMode) {
             return;
         }
-        final float mod = 0.001f + AuraHandler.getFluxSaturation(world, pos) * 2.0f;
+        float mod = 0.001f + AuraHandler.getFluxSaturation(world, pos) * 2.0f;
         if (!ignore && world.rand.nextFloat() > ModConfig.CONFIG_WORLD.taintSpreadRate / 100.0f * mod) {
             return;
         }
         if (isNearTaintSeed(world, pos)) {
-            final int xx = pos.getX() + world.rand.nextInt(3) - 1;
-            final int yy = pos.getY() + world.rand.nextInt(3) - 1;
-            final int zz = pos.getZ() + world.rand.nextInt(3) - 1;
-            final BlockPos t = new BlockPos(xx, yy, zz);
+            int xx = pos.getX() + world.rand.nextInt(3) - 1;
+            int yy = pos.getY() + world.rand.nextInt(3) - 1;
+            int zz = pos.getZ() + world.rand.nextInt(3) - 1;
+            BlockPos t = new BlockPos(xx, yy, zz);
             if (t.equals(pos)) {
                 return;
             }
-            final IBlockState bs = world.getBlockState(t);
-            final Material bm = bs.getBlock().getMaterial(bs);
-            final float bh = bs.getBlock().getBlockHardness(bs, world, t);
+            IBlockState bs = world.getBlockState(t);
+            Material bm = bs.getBlock().getMaterial(bs);
+            float bh = bs.getBlock().getBlockHardness(bs, world, t);
             if (bh < 0.0f || bh > 10.0f) {
                 return;
             }
@@ -151,7 +151,7 @@ public class TaintHelper
                 }
             }
             if ((bs.getBlock() == BlocksTC.taintSoil || bs.getBlock() == BlocksTC.taintRock) && world.isAirBlock(t.up()) && AuraHelper.getFlux(world, t) >= 5.0f && world.rand.nextFloat() < ModConfig.CONFIG_WORLD.taintSpreadRate / 100.0f * 0.33 && isAtTaintSeedEdge(world, t)) {
-                final EntityTaintSeed e = new EntityTaintSeed(world);
+                EntityTaintSeed e = new EntityTaintSeed(world);
                 e.setLocationAndAngles(t.getX() + 0.5f, t.up().getY(), t.getZ() + 0.5f, (float)world.rand.nextInt(360), 0.0f);
                 if (e.getCanSpawnHere()) {
                     AuraHelper.drainFlux(world, t, 5.0f, false);

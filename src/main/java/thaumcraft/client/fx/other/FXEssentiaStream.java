@@ -43,7 +43,7 @@ public class FXEssentiaStream extends Particle
     private BlockPos endPos;
     static HashMap<String, FXEssentiaStream> pt;
     CoreGLE gle;
-    private static final ResourceLocation TEX0;
+    private static ResourceLocation TEX0;
     int layer;
     double[][] points;
     float[][] colours;
@@ -51,7 +51,7 @@ public class FXEssentiaStream extends Particle
     int growing;
     ArrayList<Quat> vecs;
     
-    public FXEssentiaStream(final World w, final double par2, final double par4, final double par6, final double tx, final double ty, final double tz, final int count, final int color, final float scale, final int extend, final double my) {
+    public FXEssentiaStream(World w, double par2, double par4, double par6, double tx, double ty, double tz, int count, int color, float scale, int extend, double my) {
         super(w, par2, par4, par6, 0.0, 0.0, 0.0);
         this.count = 0;
         length = 20;
@@ -68,30 +68,30 @@ public class FXEssentiaStream extends Particle
         targetX = tx;
         targetY = ty;
         targetZ = tz;
-        final BlockPos bp1 = new BlockPos(posX, posY, posZ);
-        final BlockPos bp2 = new BlockPos(targetX, targetY, targetZ);
-        final IBlockState bs = w.getBlockState(bp1);
+        BlockPos bp1 = new BlockPos(posX, posY, posZ);
+        BlockPos bp2 = new BlockPos(targetX, targetY, targetZ);
+        IBlockState bs = w.getBlockState(bp1);
         if (bs.getBlock() instanceof BlockEssentiaTransport) {
-            final EnumFacing f = BlockStateUtils.getFacing(bs);
+            EnumFacing f = BlockStateUtils.getFacing(bs);
             posX += f.getFrontOffsetX() * 0.05f;
             posY += f.getFrontOffsetY() * 0.05f;
             posZ += f.getFrontOffsetZ() * 0.05f;
         }
-        final double dx = tx - posX;
-        final double dy = ty - posY;
-        final double dz = tz - posZ;
+        double dx = tx - posX;
+        double dy = ty - posY;
+        double dz = tz - posZ;
         int base = (int)(MathHelper.sqrt(dx * dx + dy * dy + dz * dz) * 21.0f);
         if (base < 1) {
             base = 1;
         }
         particleMaxAge = base;
-        final String k = bp1.toLong() + "" + bp2.toLong() + "" + color;
+        String k = bp1.toLong() + "" + bp2.toLong() + "" + color;
         if (FXEssentiaStream.pt.containsKey(k)) {
-            final FXEssentiaStream trail2 = FXEssentiaStream.pt.get(k);
+            FXEssentiaStream trail2 = FXEssentiaStream.pt.get(k);
             if (!trail2.isExpired && trail2.vecs.size() < trail2.length) {
-                final FXEssentiaStream fxEssentiaStream = trail2;
+                FXEssentiaStream fxEssentiaStream = trail2;
                 fxEssentiaStream.length += Math.max(extend, 5);
-                final FXEssentiaStream fxEssentiaStream2 = trail2;
+                FXEssentiaStream fxEssentiaStream2 = trail2;
                 fxEssentiaStream2.particleMaxAge += Math.max(extend, 5);
                 particleMaxAge = 0;
             }
@@ -103,7 +103,7 @@ public class FXEssentiaStream extends Particle
         motionX = MathHelper.sin(count / 4.0f) * 0.015f;
         motionY = my + MathHelper.sin(count / 3.0f) * 0.015f;
         motionZ = MathHelper.sin(count / 2.0f) * 0.015f;
-        final Color c = new Color(color);
+        Color c = new Color(color);
         particleRed = c.getRed() / 255.0f;
         particleGreen = c.getGreen() / 255.0f;
         particleBlue = c.getBlue() / 255.0f;
@@ -117,12 +117,12 @@ public class FXEssentiaStream extends Particle
         endPos = bp2;
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void renderParticle(BufferBuilder wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         Tessellator.getInstance().draw();
         GL11.glPushMatrix();
-        final double ePX = startX - FXEssentiaStream.interpPosX;
-        final double ePY = startY - FXEssentiaStream.interpPosY;
-        final double ePZ = startZ - FXEssentiaStream.interpPosZ;
+        double ePX = startX - FXEssentiaStream.interpPosX;
+        double ePY = startY - FXEssentiaStream.interpPosY;
+        double ePZ = startZ - FXEssentiaStream.interpPosZ;
         GL11.glTranslated(ePX, ePY, ePZ);
         if (points != null && points.length > 2) {
             Minecraft.getMinecraft().renderEngine.bindTexture(FXEssentiaStream.TEX0);
@@ -136,7 +136,7 @@ public class FXEssentiaStream extends Particle
         wr.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
     }
     
-    public void setFXLayer(final int l) {
+    public void setFXLayer(int l) {
         layer = l;
     }
     
@@ -166,8 +166,8 @@ public class FXEssentiaStream extends Particle
         double dx = targetX - posX;
         double dy = targetY - posY;
         double dz = targetZ - posZ;
-        final double d13 = 0.01;
-        final double d14 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+        double d13 = 0.01;
+        double d14 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
         dx /= d14;
         dy /= d14;
         dz /= d14;
@@ -176,7 +176,7 @@ public class FXEssentiaStream extends Particle
         motionZ += dz * (d13 / Math.min(1.0, d14));
         float scale = particleScale * (0.75f + MathHelper.sin((count + particleAge) / 2.0f) * 0.25f);
         if (d14 < 1.0) {
-            final float f = MathHelper.sin((float)(d14 * 1.5707963267948966));
+            float f = MathHelper.sin((float)(d14 * 1.5707963267948966));
             scale *= f;
             particleScale *= f;
         }
@@ -197,19 +197,19 @@ public class FXEssentiaStream extends Particle
         colours = new float[vecs.size()][4];
         radii = new double[vecs.size()];
         int c = vecs.size();
-        for (final Quat v : vecs) {
+        for (Quat v : vecs) {
             --c;
-            final float variance = 1.0f + MathHelper.sin((c + particleAge) / 3.0f) * 0.2f;
-            final float xx = MathHelper.sin((c + particleAge) / 6.0f) * 0.03f;
-            final float yy = MathHelper.sin((c + particleAge) / 7.0f) * 0.03f;
-            final float zz = MathHelper.sin((c + particleAge) / 8.0f) * 0.03f;
+            float variance = 1.0f + MathHelper.sin((c + particleAge) / 3.0f) * 0.2f;
+            float xx = MathHelper.sin((c + particleAge) / 6.0f) * 0.03f;
+            float yy = MathHelper.sin((c + particleAge) / 7.0f) * 0.03f;
+            float zz = MathHelper.sin((c + particleAge) / 8.0f) * 0.03f;
             points[c][0] = v.x + xx;
             points[c][1] = v.y + yy;
             points[c][2] = v.z + zz;
             radii[c] = v.s * variance;
             if (c > vecs.size() - 10) {
-                final double[] radii = this.radii;
-                final int n = c;
+                double[] radii = this.radii;
+                int n = c;
                 radii[n] *= MathHelper.cos((float)((c - (vecs.size() - 12)) / 10.0f * 1.5707963267948966));
             }
             if (c == 0) {
@@ -227,7 +227,7 @@ public class FXEssentiaStream extends Particle
             else if (c == 4) {
                 radii[c] = (particleScale + radii[c] * 2.0) / 3.0;
             }
-            final float v2 = 1.0f - MathHelper.sin((c + particleAge) / 2.0f) * 0.1f;
+            float v2 = 1.0f - MathHelper.sin((c + particleAge) / 2.0f) * 0.1f;
             colours[c][0] = particleRed * v2;
             colours[c][1] = particleGreen * v2;
             colours[c][2] = particleBlue * v2;
@@ -242,7 +242,7 @@ public class FXEssentiaStream extends Particle
         }
     }
     
-    public void setGravity(final float value) {
+    public void setGravity(float value) {
         particleGravity = value;
     }
     

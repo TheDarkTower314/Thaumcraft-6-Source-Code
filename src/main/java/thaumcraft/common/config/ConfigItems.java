@@ -146,7 +146,7 @@ public class ConfigItems
 {
     public static ItemStack startBook;
     public static CreativeTabs TABTC;
-    public static final List<IThaumcraftItems> ITEM_VARIANT_HOLDERS;
+    public static List<IThaumcraftItems> ITEM_VARIANT_HOLDERS;
     public static ItemStack AIR_CRYSTAL;
     public static ItemStack FIRE_CRYSTAL;
     public static ItemStack WATER_CRYSTAL;
@@ -164,10 +164,10 @@ public class ConfigItems
         ConfigItems.ORDER_CRYSTAL = ThaumcraftApiHelper.makeCrystal(Aspect.ORDER);
         ConfigItems.ENTROPY_CRYSTAL = ThaumcraftApiHelper.makeCrystal(Aspect.ENTROPY);
         ConfigItems.FLUX_CRYSTAL = ThaumcraftApiHelper.makeCrystal(Aspect.FLUX);
-        final NBTTagCompound contents = new NBTTagCompound();
+        NBTTagCompound contents = new NBTTagCompound();
         contents.setInteger("generation", 3);
         contents.setString("title", I18n.translateToLocal("book.start.title"));
-        final NBTTagList pages = new NBTTagList();
+        NBTTagList pages = new NBTTagList();
         pages.appendTag(new NBTTagString(I18n.translateToLocal("book.start.1")));
         pages.appendTag(new NBTTagString(I18n.translateToLocal("book.start.2")));
         pages.appendTag(new NBTTagString(I18n.translateToLocal("book.start.3")));
@@ -175,7 +175,7 @@ public class ConfigItems
         ConfigItems.startBook.setTagCompound(contents);
     }
     
-    public static void initItems(final IForgeRegistry<Item> iForgeRegistry) {
+    public static void initItems(IForgeRegistry<Item> iForgeRegistry) {
         iForgeRegistry.register((ItemsTC.thaumonomicon = new ItemThaumonomicon()));
         iForgeRegistry.register((ItemsTC.curio = new ItemCurio()));
         iForgeRegistry.register((ItemsTC.lootBag = new ItemLootBag()));
@@ -331,13 +331,13 @@ public class ConfigItems
     
     @SideOnly(Side.CLIENT)
     public static void initModelsAndVariants() {
-        for (final IThaumcraftItems itemVariantHolder : ConfigItems.ITEM_VARIANT_HOLDERS) {
+        for (IThaumcraftItems itemVariantHolder : ConfigItems.ITEM_VARIANT_HOLDERS) {
             initModelAndVariants(itemVariantHolder);
         }
     }
     
     @SideOnly(Side.CLIENT)
-    private static void initModelAndVariants(final IThaumcraftItems item) {
+    private static void initModelAndVariants(IThaumcraftItems item) {
         if (item.getCustomMesh() != null) {
             ModelLoader.setCustomMeshDefinition(item.getItem(), item.getCustomMesh());
             for (int i = 0; i < item.getVariantNames().length; ++i) {

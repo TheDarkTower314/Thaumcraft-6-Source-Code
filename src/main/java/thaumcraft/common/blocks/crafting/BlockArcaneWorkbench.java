@@ -26,15 +26,15 @@ public class BlockArcaneWorkbench extends BlockTCDevice
         setSoundType(SoundType.WOOD);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         }
@@ -43,8 +43,8 @@ public class BlockArcaneWorkbench extends BlockTCDevice
     }
     
     @Override
-    public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {
-        final TileEntity tileEntity = world.getTileEntity(pos);
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        TileEntity tileEntity = world.getTileEntity(pos);
         if (tileEntity != null && tileEntity instanceof TileArcaneWorkbench) {
             InventoryHelper.dropInventoryItems(world, pos, ((TileArcaneWorkbench)tileEntity).inventoryCraft);
         }

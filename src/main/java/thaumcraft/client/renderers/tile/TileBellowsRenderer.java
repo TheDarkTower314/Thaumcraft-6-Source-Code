@@ -23,32 +23,32 @@ public class TileBellowsRenderer extends TileEntitySpecialRenderer<TileBellows>
 {
     private ModelBellows model;
     private ModelBoreBase model2;
-    private static final ResourceLocation TEX;
-    private static final ResourceLocation TEX_BORE;
+    private static ResourceLocation TEX;
+    private static ResourceLocation TEX_BORE;
     
     public TileBellowsRenderer() {
         model = new ModelBellows();
         model2 = new ModelBoreBase();
     }
     
-    public void render(final TileBellows bellows, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileBellows bellows, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(bellows, x, y, z, partialTicks, destroyStage, alpha);
         float scale = 0.0f;
         EnumFacing dir = EnumFacing.WEST;
         boolean extension = false;
         if (bellows == null) {
-            final EntityPlayer p = Minecraft.getMinecraft().player;
+            EntityPlayer p = Minecraft.getMinecraft().player;
             scale = MathHelper.sin(p.ticksExisted / 8.0f) * 0.3f + 0.7f;
         }
         else {
             scale = bellows.inflation;
             dir = BlockStateUtils.getFacing(bellows.getBlockMetadata());
-            final TileEntity te = bellows.getWorld().getTileEntity(bellows.getPos().offset(BlockStateUtils.getFacing(bellows.getBlockMetadata())));
+            TileEntity te = bellows.getWorld().getTileEntity(bellows.getPos().offset(BlockStateUtils.getFacing(bellows.getBlockMetadata())));
             if (te != null && te instanceof TileTubeBuffer) {
                 extension = true;
             }
         }
-        final float tscale = 0.125f + scale * 0.875f;
+        float tscale = 0.125f + scale * 0.875f;
         if (extension) {
             bindTexture(TileBellowsRenderer.TEX_BORE);
             GL11.glPushMatrix();
@@ -127,7 +127,7 @@ public class TileBellowsRenderer extends TileEntitySpecialRenderer<TileBellows>
         }
     }
     
-    private void translateFromOrientation(final double x, final double y, final double z, final int orientation) {
+    private void translateFromOrientation(double x, double y, double z, int orientation) {
         GL11.glTranslatef((float)x + 0.5f, (float)y - 0.5f, (float)z + 0.5f);
         if (orientation == 0) {
             GL11.glTranslatef(0.0f, 1.0f, -1.0f);

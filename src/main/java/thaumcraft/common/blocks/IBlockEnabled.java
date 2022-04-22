@@ -8,5 +8,5 @@ import net.minecraft.block.properties.PropertyBool;
 
 public interface IBlockEnabled
 {
-    public static final PropertyBool ENABLED = PropertyBool.create("enabled");
+    public static PropertyBool ENABLED = PropertyBool.create("enabled");
 }

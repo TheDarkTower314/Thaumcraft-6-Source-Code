@@ -24,7 +24,7 @@ public class ThaumcraftMaterials {
 	public static ArmorMaterial ARMORMAT_CULTIST_LEADER = EnumHelper.addArmorMaterial("CULTIST_LEADER","CULTIST_LEADER", 30, new int[] { 3, 6, 7, 3 }, 20, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1F);
 	
 	
-	public static final Material MATERIAL_TAINT = new MaterialTaint();
+	public static Material MATERIAL_TAINT = new MaterialTaint();
 	
 	public static class MaterialTaint extends Material
 	{

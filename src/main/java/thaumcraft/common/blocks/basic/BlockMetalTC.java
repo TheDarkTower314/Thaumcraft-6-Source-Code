@@ -12,14 +12,14 @@ import thaumcraft.common.blocks.BlockTC;
 
 public class BlockMetalTC extends BlockTC
 {
-    public BlockMetalTC(final String name) {
+    public BlockMetalTC(String name) {
         super(Material.IRON, name);
         setHardness(4.0f);
         setResistance(10.0f);
         setSoundType(SoundType.METAL);
     }
     
-    public boolean isBeaconBase(final IBlockAccess world, final BlockPos pos, final BlockPos beacon) {
+    public boolean isBeaconBase(IBlockAccess world, BlockPos pos, BlockPos beacon) {
         return true;
     }
 }

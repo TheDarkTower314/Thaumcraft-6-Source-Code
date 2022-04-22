@@ -54,7 +54,7 @@ public class FocusEffectRift extends FocusEffect
     }
     
     @Override
-    public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
+    public boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num) {
         if (target.typeOfHit != RayTraceResult.Type.BLOCK) {
             return false;
         }
@@ -62,12 +62,12 @@ public class FocusEffectRift extends FocusEffect
             getPackage().world.playSound(null, target.getBlockPos().getX() + 0.5, target.getBlockPos().getY() + 0.5, target.getBlockPos().getZ() + 0.5, SoundsTC.wandfail, SoundCategory.PLAYERS, 1.0f, 1.0f);
             return false;
         }
-        final float maxdis = getSettingValue("depth") * finalPower;
-        final int dur = 20 * getSettingValue("duration");
+        float maxdis = getSettingValue("depth") * finalPower;
+        int dur = 20 * getSettingValue("duration");
         int distance = 0;
         BlockPos pos = new BlockPos(target.getBlockPos());
         for (distance = 0; distance < maxdis; ++distance) {
-            final IBlockState bi = getPackage().world.getBlockState(pos);
+            IBlockState bi = getPackage().world.getBlockState(pos);
             if (BlockUtils.isPortableHoleBlackListed(bi) || bi.getBlock() == Blocks.BEDROCK || bi.getBlock() == BlocksTC.hole || bi.getBlock().isAir(bi, getPackage().world, pos)) {
                 break;
             }
@@ -80,11 +80,11 @@ public class FocusEffectRift extends FocusEffect
         return true;
     }
     
-    public static boolean createHole(final World world, final BlockPos pos, final EnumFacing side, final byte count, final int max) {
-        final IBlockState bs = world.getBlockState(pos);
+    public static boolean createHole(World world, BlockPos pos, EnumFacing side, byte count, int max) {
+        IBlockState bs = world.getBlockState(pos);
         if (!world.isRemote && world.getTileEntity(pos) == null && !BlockUtils.isPortableHoleBlackListed(bs) && bs.getBlock() != Blocks.BEDROCK && bs.getBlock() != BlocksTC.hole && (bs.getBlock().isAir(bs, world, pos) || !bs.getBlock().canPlaceBlockAt(world, pos)) && bs.getBlockHardness(world, pos) != -1.0f) {
             if (world.setBlockState(pos, BlocksTC.hole.getDefaultState())) {
-                final TileHole ts = (TileHole)world.getTileEntity(pos);
+                TileHole ts = (TileHole)world.getTileEntity(pos);
                 ts.oldblock = bs;
                 ts.countdownmax = (short)max;
                 ts.count = count;
@@ -98,15 +98,15 @@ public class FocusEffectRift extends FocusEffect
     
     @Override
     public NodeSetting[] createSettings() {
-        final int[] depth = { 8, 16, 24, 32 };
-        final String[] depthDesc = { "8", "16", "24", "32" };
+        int[] depth = { 8, 16, 24, 32 };
+        String[] depthDesc = { "8", "16", "24", "32" };
         return new NodeSetting[] { new NodeSetting("depth", "focus.rift.depth", new NodeSetting.NodeSettingIntList(depth, depthDesc)), new NodeSetting("duration", "focus.common.duration", new NodeSetting.NodeSettingIntRange(2, 10)) };
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void renderParticleFX(final World world, final double posX, final double posY, final double posZ, final double motionX, final double motionY, final double motionZ) {
-        final FXGeneric fb = new FXGeneric(world, posX, posY, posZ, motionX, motionY, motionZ);
+    public void renderParticleFX(World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
+        FXGeneric fb = new FXGeneric(world, posX, posY, posZ, motionX, motionY, motionZ);
         fb.setMaxAge(16 + world.rand.nextInt(16));
         fb.setParticles(384 + world.rand.nextInt(16), 1, 1);
         fb.setSlowDown(0.75);
@@ -118,7 +118,7 @@ public class FocusEffectRift extends FocusEffect
     }
     
     @Override
-    public void onCast(final Entity caster) {
+    public void onCast(Entity caster) {
         caster.world.playSound(null, caster.getPosition().up(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, 0.2f, 0.7f);
     }
 }

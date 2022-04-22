@@ -20,13 +20,13 @@ public class TileNitor extends TileEntity implements ITickable
         count = 0;
     }
     
-    public boolean shouldRefresh(final World world, final BlockPos pos, final IBlockState oldState, final IBlockState newState) {
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
         return oldState.getBlock() != newState.getBlock();
     }
     
     public void update() {
         if (world.isRemote) {
-            final IBlockState state = world.getBlockState(getPos());
+            IBlockState state = world.getBlockState(getPos());
             FXDispatcher.INSTANCE.drawNitorFlames(pos.getX() + 0.5f + world.rand.nextGaussian() * 0.025, pos.getY() + 0.45f + world.rand.nextGaussian() * 0.025, pos.getZ() + 0.5f + world.rand.nextGaussian() * 0.025, world.rand.nextGaussian() * 0.0025, world.rand.nextFloat() * 0.06, world.rand.nextGaussian() * 0.0025, state.getBlock().getMapColor(state, world, getPos()).colorValue, 0);
             if (count++ % 10 == 0) {
                 FXDispatcher.INSTANCE.drawNitorCore(pos.getX() + 0.5f, pos.getY() + 0.49f, pos.getZ() + 0.5f, 0.0, 0.0, 0.0);

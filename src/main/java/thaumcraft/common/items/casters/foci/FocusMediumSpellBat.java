@@ -40,8 +40,8 @@ public class FocusMediumSpellBat extends FocusMedium
     }
     
     @Override
-    public boolean execute(final Trajectory trajectory) {
-        final EntitySpellBat bat = new EntitySpellBat(getRemainingPackage(), getSettingValue("target") == 1);
+    public boolean execute(Trajectory trajectory) {
+        EntitySpellBat bat = new EntitySpellBat(getRemainingPackage(), getSettingValue("target") == 1);
         bat.setPosition(trajectory.source.x, trajectory.source.y, trajectory.source.z);
         return getPackage().getCaster().world.spawnEntity(bat);
     }
@@ -58,8 +58,8 @@ public class FocusMediumSpellBat extends FocusMedium
     
     @Override
     public NodeSetting[] createSettings() {
-        final int[] friend = { 0, 1 };
-        final String[] friendDesc = { "focus.common.enemy", "focus.common.friend" };
+        int[] friend = { 0, 1 };
+        String[] friendDesc = { "focus.common.enemy", "focus.common.friend" };
         return new NodeSetting[] { new NodeSetting("target", "focus.common.target", new NodeSetting.NodeSettingIntList(friend, friendDesc)) };
     }
 }

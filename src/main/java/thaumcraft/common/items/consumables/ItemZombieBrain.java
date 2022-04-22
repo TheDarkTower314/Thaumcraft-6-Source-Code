@@ -29,7 +29,7 @@ public class ItemZombieBrain extends ItemFood implements IThaumcraftItems
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     
-    public void onFoodEaten(final ItemStack stack, final World world, final EntityPlayer player) {
+    public void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
         if (!world.isRemote) {
             if (world.rand.nextFloat() < 0.1f) {
                 ThaumcraftApi.internalMethods.addWarpToPlayer(player, 1, IPlayerWarp.EnumWarpType.NORMAL);
@@ -56,7 +56,7 @@ public class ItemZombieBrain extends ItemFood implements IThaumcraftItems
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
 }

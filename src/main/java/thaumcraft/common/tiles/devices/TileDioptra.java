@@ -41,7 +41,7 @@ public class TileDioptra extends TileThaumcraft implements ITickable
                 Arrays.fill(grid_amt, (byte)0);
                 for (int xx = 0; xx < 13; ++xx) {
                     for (int zz = 0; zz < 13; ++zz) {
-                        final AuraChunk ac = AuraHandler.getAuraChunk(world.provider.getDimension(), (pos.getX() >> 4) + xx - 6, (pos.getZ() >> 4) + zz - 6);
+                        AuraChunk ac = AuraHandler.getAuraChunk(world.provider.getDimension(), (pos.getX() >> 4) + xx - 6, (pos.getZ() >> 4) + zz - 6);
                         if (ac != null) {
                             if (BlockStateUtils.isEnabled(getBlockMetadata())) {
                                 grid_amt[xx + zz * 13] = (byte)Math.min(64.0f, ac.getVis() / 500.0f * 64.0f);
@@ -62,14 +62,14 @@ public class TileDioptra extends TileThaumcraft implements ITickable
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbt) {
+    public void readSyncNBT(NBTTagCompound nbt) {
         if (nbt.hasKey("grid_a")) {
             grid_amt = nbt.getByteArray("grid_a");
         }
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbt) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbt) {
         nbt.setByteArray("grid_a", grid_amt);
         return nbt;
     }

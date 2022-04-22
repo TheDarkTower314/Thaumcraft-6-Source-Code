@@ -22,19 +22,19 @@ public class WorldEvents
     public static WorldEvents INSTANCE;
     
     @SubscribeEvent
-    public static void worldLoad(final WorldEvent.Load event) {
+    public static void worldLoad(WorldEvent.Load event) {
         if (!event.getWorld().isRemote) {
             AuraHandler.addAuraWorld(event.getWorld().provider.getDimension());
         }
     }
     
     @SubscribeEvent
-    public static void worldSave(final WorldEvent.Save event) {
+    public static void worldSave(WorldEvent.Save event) {
         if (!event.getWorld().isRemote) {}
     }
     
     @SubscribeEvent
-    public static void worldUnload(final WorldEvent.Unload event) {
+    public static void worldUnload(WorldEvent.Unload event) {
         if (event.getWorld().isRemote) {
             return;
         }
@@ -43,32 +43,32 @@ public class WorldEvents
     }
     
     @SubscribeEvent
-    public static void placeBlockEvent(final BlockEvent.PlaceEvent event) {
+    public static void placeBlockEvent(BlockEvent.PlaceEvent event) {
         if (isNearActiveBoss(event.getWorld(), event.getPlayer(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ())) {
             event.setCanceled(true);
         }
     }
     
     @SubscribeEvent
-    public static void placeBlockEvent(final BlockEvent.MultiPlaceEvent event) {
+    public static void placeBlockEvent(BlockEvent.MultiPlaceEvent event) {
         if (isNearActiveBoss(event.getWorld(), event.getPlayer(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ())) {
             event.setCanceled(true);
         }
     }
     
-    private static boolean isNearActiveBoss(final World world, final EntityPlayer player, final int x, final int y, final int z) {
+    private static boolean isNearActiveBoss(World world, EntityPlayer player, int x, int y, int z) {
         return false;
     }
     
     @SubscribeEvent
-    public static void noteEvent(final NoteBlockEvent.Play event) {
+    public static void noteEvent(NoteBlockEvent.Play event) {
         if (event.getWorld().isRemote) {
             return;
         }
         if (!TileArcaneEar.noteBlockEvents.containsKey(event.getWorld().provider.getDimension())) {
             TileArcaneEar.noteBlockEvents.put(event.getWorld().provider.getDimension(), new ArrayList<Integer[]>());
         }
-        final ArrayList<Integer[]> list = TileArcaneEar.noteBlockEvents.get(event.getWorld().provider.getDimension());
+        ArrayList<Integer[]> list = TileArcaneEar.noteBlockEvents.get(event.getWorld().provider.getDimension());
         list.add(new Integer[] { event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(), event.getInstrument().ordinal(), event.getVanillaNoteId() });
         TileArcaneEar.noteBlockEvents.put(event.getWorld().provider.getDimension(), list);
     }

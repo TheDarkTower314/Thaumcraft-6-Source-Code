@@ -31,20 +31,20 @@ public class BlockPlantCinderpearl extends BlockBush
         setLightLevel(0.5f);
     }
     
-    protected boolean canSustainBush(final IBlockState state) {
+    protected boolean canSustainBush(IBlockState state) {
         return state.getBlock() == Blocks.SAND || state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.STAINED_HARDENED_CLAY || state.getBlock() == Blocks.HARDENED_CLAY;
     }
     
-    public EnumPlantType getPlantType(final IBlockAccess world, final BlockPos pos) {
+    public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
         return EnumPlantType.Desert;
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random rand) {
+    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
         if (rand.nextBoolean()) {
-            final float xr = pos.getX() + 0.5f + (rand.nextFloat() - rand.nextFloat()) * 0.1f;
-            final float yr = pos.getY() + 0.6f + (rand.nextFloat() - rand.nextFloat()) * 0.1f;
-            final float zr = pos.getZ() + 0.5f + (rand.nextFloat() - rand.nextFloat()) * 0.1f;
+            float xr = pos.getX() + 0.5f + (rand.nextFloat() - rand.nextFloat()) * 0.1f;
+            float yr = pos.getY() + 0.6f + (rand.nextFloat() - rand.nextFloat()) * 0.1f;
+            float zr = pos.getZ() + 0.5f + (rand.nextFloat() - rand.nextFloat()) * 0.1f;
             world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, xr, yr, zr, 0.0, 0.0, 0.0);
             world.spawnParticle(EnumParticleTypes.FLAME, xr, yr, zr, 0.0, 0.0, 0.0);
         }

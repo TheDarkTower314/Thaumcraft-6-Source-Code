@@ -41,7 +41,7 @@ public class ItemTripleMeatTreat extends ItemFood implements IThaumcraftItems
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
 }

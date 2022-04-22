@@ -31,27 +31,27 @@ public class BlockRechargePedestal extends BlockTCDevice
         setSoundType(SoundType.STONE);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         }
-        final TileEntity tile = world.getTileEntity(pos);
+        TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof TileRechargePedestal) {
-            final TileRechargePedestal ped = (TileRechargePedestal)tile;
+            TileRechargePedestal ped = (TileRechargePedestal)tile;
             if (ped.getStackInSlot(0).isEmpty() && player.inventory.getCurrentItem().getItem() instanceof IRechargable) {
-                final ItemStack i = player.getHeldItem(hand).copy();
+                ItemStack i = player.getHeldItem(hand).copy();
                 i.setCount(1);
                 ped.setInventorySlotContents(0, i);
                 player.getHeldItem(hand).shrink(1);

@@ -29,7 +29,7 @@ public class RenderCubes
     public double renderMaxZ;
     public boolean lockBlockBounds;
     public boolean partialRenderBounds;
-    public final Minecraft minecraftRB;
+    public Minecraft minecraftRB;
     public int uvRotateEast;
     public int uvRotateWest;
     public int uvRotateSouth;
@@ -92,10 +92,10 @@ public class RenderCubes
     public float colorBlueBottomLeft;
     public float colorBlueBottomRight;
     public float colorBlueTopRight;
-    private static final String __OBFID = "CL_00000940";
+    private static String __OBFID = "CL_00000940";
     private static RenderCubes instance;
     
-    public RenderCubes(final IBlockAccess p_i1251_1_) {
+    public RenderCubes(IBlockAccess p_i1251_1_) {
         useInventoryTint = true;
         renderFromInside = false;
         blockAccess = p_i1251_1_;
@@ -110,7 +110,7 @@ public class RenderCubes
         minecraftRB = Minecraft.getMinecraft();
     }
     
-    public void setRenderBounds(final double p_147782_1_, final double p_147782_3_, final double p_147782_5_, final double p_147782_7_, final double p_147782_9_, final double p_147782_11_) {
+    public void setRenderBounds(double p_147782_1_, double p_147782_3_, double p_147782_5_, double p_147782_7_, double p_147782_9_, double p_147782_11_) {
         if (!lockBlockBounds) {
             renderMinX = p_147782_1_;
             renderMaxX = p_147782_7_;
@@ -122,7 +122,7 @@ public class RenderCubes
         }
     }
     
-    public void overrideBlockBounds(final double p_147770_1_, final double p_147770_3_, final double p_147770_5_, final double p_147770_7_, final double p_147770_9_, final double p_147770_11_) {
+    public void overrideBlockBounds(double p_147770_1_, double p_147770_3_, double p_147770_5_, double p_147770_7_, double p_147770_9_, double p_147770_11_) {
         renderMinX = p_147770_1_;
         renderMaxX = p_147770_7_;
         renderMinY = p_147770_3_;
@@ -133,8 +133,8 @@ public class RenderCubes
         partialRenderBounds = (minecraftRB.gameSettings.ambientOcclusion >= 2 && (renderMinX > 0.0 || renderMaxX < 1.0 || renderMinY > 0.0 || renderMaxY < 1.0 || renderMinZ > 0.0 || renderMaxZ < 1.0));
     }
     
-    public void renderFaceYNeg(final Block p_147768_1_, final double p_147768_2_, final double p_147768_4_, final double p_147768_6_, final TextureAtlasSprite p_147768_8_, final float red, final float green, final float blue, final int bright) {
-        final Tessellator tessellator = Tessellator.getInstance();
+    public void renderFaceYNeg(Block p_147768_1_, double p_147768_2_, double p_147768_4_, double p_147768_6_, TextureAtlasSprite p_147768_8_, float red, float green, float blue, int bright) {
+        Tessellator tessellator = Tessellator.getInstance();
         double d3 = p_147768_8_.getInterpolatedU(renderMinX * 16.0);
         double d4 = p_147768_8_.getInterpolatedU(renderMaxX * 16.0);
         double d5 = p_147768_8_.getInterpolatedV(renderMinZ * 16.0);
@@ -187,24 +187,24 @@ public class RenderCubes
         }
         double d11 = p_147768_2_ + renderMinX;
         double d12 = p_147768_2_ + renderMaxX;
-        final double d13 = p_147768_4_ + renderMinY;
-        final double d14 = p_147768_6_ + renderMinZ;
-        final double d15 = p_147768_6_ + renderMaxZ;
+        double d13 = p_147768_4_ + renderMinY;
+        double d14 = p_147768_6_ + renderMinZ;
+        double d15 = p_147768_6_ + renderMaxZ;
         if (renderFromInside) {
             d11 = p_147768_2_ + renderMaxX;
             d12 = p_147768_2_ + renderMinX;
         }
-        final int i = bright;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        int i = bright;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         tessellator.getBuffer().pos(d11, d13, d15).tex(d8, d10).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d11, d13, d14).tex(d3, d5).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d12, d13, d14).tex(d7, d9).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d12, d13, d15).tex(d4, d6).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
     }
     
-    public void renderFaceYPos(final Block p_147806_1_, final double p_147806_2_, final double p_147806_4_, final double p_147806_6_, final TextureAtlasSprite p_147806_8_, final float red, final float green, final float blue, final int bright) {
-        final Tessellator tessellator = Tessellator.getInstance();
+    public void renderFaceYPos(Block p_147806_1_, double p_147806_2_, double p_147806_4_, double p_147806_6_, TextureAtlasSprite p_147806_8_, float red, float green, float blue, int bright) {
+        Tessellator tessellator = Tessellator.getInstance();
         double d3 = p_147806_8_.getInterpolatedU(renderMinX * 16.0);
         double d4 = p_147806_8_.getInterpolatedU(renderMaxX * 16.0);
         double d5 = p_147806_8_.getInterpolatedV(renderMinZ * 16.0);
@@ -257,24 +257,24 @@ public class RenderCubes
         }
         double d11 = p_147806_2_ + renderMinX;
         double d12 = p_147806_2_ + renderMaxX;
-        final double d13 = p_147806_4_ + renderMaxY;
-        final double d14 = p_147806_6_ + renderMinZ;
-        final double d15 = p_147806_6_ + renderMaxZ;
+        double d13 = p_147806_4_ + renderMaxY;
+        double d14 = p_147806_6_ + renderMinZ;
+        double d15 = p_147806_6_ + renderMaxZ;
         if (renderFromInside) {
             d11 = p_147806_2_ + renderMaxX;
             d12 = p_147806_2_ + renderMinX;
         }
-        final int i = bright;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        int i = bright;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         tessellator.getBuffer().pos(d12, d13, d15).tex(d4, d6).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d12, d13, d14).tex(d7, d9).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d11, d13, d14).tex(d3, d5).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d11, d13, d15).tex(d8, d10).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
     }
     
-    public void renderFaceZNeg(final Block p_147761_1_, final double p_147761_2_, final double p_147761_4_, final double p_147761_6_, final TextureAtlasSprite p_147761_8_, final float red, final float green, final float blue, final int bright) {
-        final Tessellator tessellator = Tessellator.getInstance();
+    public void renderFaceZNeg(Block p_147761_1_, double p_147761_2_, double p_147761_4_, double p_147761_6_, TextureAtlasSprite p_147761_8_, float red, float green, float blue, int bright) {
+        Tessellator tessellator = Tessellator.getInstance();
         double d3 = p_147761_8_.getInterpolatedU(renderMinX * 16.0);
         double d4 = p_147761_8_.getInterpolatedU(renderMaxX * 16.0);
         if (field_152631_f) {
@@ -284,7 +284,7 @@ public class RenderCubes
         double d5 = p_147761_8_.getInterpolatedV(16.0 - renderMaxY * 16.0);
         double d6 = p_147761_8_.getInterpolatedV(16.0 - renderMinY * 16.0);
         if (flipTexture) {
-            final double d7 = d3;
+            double d7 = d3;
             d3 = d4;
             d4 = d7;
         }
@@ -336,30 +336,30 @@ public class RenderCubes
         }
         double d11 = p_147761_2_ + renderMinX;
         double d12 = p_147761_2_ + renderMaxX;
-        final double d13 = p_147761_4_ + renderMinY;
-        final double d14 = p_147761_4_ + renderMaxY;
-        final double d15 = p_147761_6_ + renderMinZ;
+        double d13 = p_147761_4_ + renderMinY;
+        double d14 = p_147761_4_ + renderMaxY;
+        double d15 = p_147761_6_ + renderMinZ;
         if (renderFromInside) {
             d11 = p_147761_2_ + renderMaxX;
             d12 = p_147761_2_ + renderMinX;
         }
-        final int i = bright;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        int i = bright;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         tessellator.getBuffer().pos(d11, d14, d15).tex(d7, d9).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d12, d14, d15).tex(d3, d5).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d12, d13, d15).tex(d8, d10).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d11, d13, d15).tex(d4, d6).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
     }
     
-    public void renderFaceZPos(final Block p_147734_1_, final double p_147734_2_, final double p_147734_4_, final double p_147734_6_, final TextureAtlasSprite p_147734_8_, final float red, final float green, final float blue, final int bright) {
-        final Tessellator tessellator = Tessellator.getInstance();
+    public void renderFaceZPos(Block p_147734_1_, double p_147734_2_, double p_147734_4_, double p_147734_6_, TextureAtlasSprite p_147734_8_, float red, float green, float blue, int bright) {
+        Tessellator tessellator = Tessellator.getInstance();
         double d3 = p_147734_8_.getInterpolatedU(renderMinX * 16.0);
         double d4 = p_147734_8_.getInterpolatedU(renderMaxX * 16.0);
         double d5 = p_147734_8_.getInterpolatedV(16.0 - renderMaxY * 16.0);
         double d6 = p_147734_8_.getInterpolatedV(16.0 - renderMinY * 16.0);
         if (flipTexture) {
-            final double d7 = d3;
+            double d7 = d3;
             d3 = d4;
             d4 = d7;
         }
@@ -410,30 +410,30 @@ public class RenderCubes
         }
         double d11 = p_147734_2_ + renderMinX;
         double d12 = p_147734_2_ + renderMaxX;
-        final double d13 = p_147734_4_ + renderMinY;
-        final double d14 = p_147734_4_ + renderMaxY;
-        final double d15 = p_147734_6_ + renderMaxZ;
+        double d13 = p_147734_4_ + renderMinY;
+        double d14 = p_147734_4_ + renderMaxY;
+        double d15 = p_147734_6_ + renderMaxZ;
         if (renderFromInside) {
             d11 = p_147734_2_ + renderMaxX;
             d12 = p_147734_2_ + renderMinX;
         }
-        final int i = bright;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        int i = bright;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         tessellator.getBuffer().pos(d11, d14, d15).tex(d3, d5).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d11, d13, d15).tex(d8, d10).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d12, d13, d15).tex(d4, d6).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d12, d14, d15).tex(d7, d9).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
     }
     
-    public void renderFaceXNeg(final Block p_147798_1_, final double p_147798_2_, final double p_147798_4_, final double p_147798_6_, final TextureAtlasSprite p_147798_8_, final float red, final float green, final float blue, final int bright) {
-        final Tessellator tessellator = Tessellator.getInstance();
+    public void renderFaceXNeg(Block p_147798_1_, double p_147798_2_, double p_147798_4_, double p_147798_6_, TextureAtlasSprite p_147798_8_, float red, float green, float blue, int bright) {
+        Tessellator tessellator = Tessellator.getInstance();
         double d3 = p_147798_8_.getInterpolatedU(renderMinZ * 16.0);
         double d4 = p_147798_8_.getInterpolatedU(renderMaxZ * 16.0);
         double d5 = p_147798_8_.getInterpolatedV(16.0 - renderMaxY * 16.0);
         double d6 = p_147798_8_.getInterpolatedV(16.0 - renderMinY * 16.0);
         if (flipTexture) {
-            final double d7 = d3;
+            double d7 = d3;
             d3 = d4;
             d4 = d7;
         }
@@ -483,26 +483,26 @@ public class RenderCubes
             d9 = d5;
             d10 = d6;
         }
-        final double d11 = p_147798_2_ + renderMinX;
-        final double d12 = p_147798_4_ + renderMinY;
-        final double d13 = p_147798_4_ + renderMaxY;
+        double d11 = p_147798_2_ + renderMinX;
+        double d12 = p_147798_4_ + renderMinY;
+        double d13 = p_147798_4_ + renderMaxY;
         double d14 = p_147798_6_ + renderMinZ;
         double d15 = p_147798_6_ + renderMaxZ;
         if (renderFromInside) {
             d14 = p_147798_6_ + renderMaxZ;
             d15 = p_147798_6_ + renderMinZ;
         }
-        final int i = bright;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        int i = bright;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         tessellator.getBuffer().pos(d11, d13, d15).tex(d7, d9).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d11, d13, d14).tex(d3, d5).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d11, d12, d14).tex(d8, d10).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d11, d12, d15).tex(d4, d6).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
     }
     
-    public void renderFaceXPos(final Block p_147764_1_, final double p_147764_2_, final double p_147764_4_, final double p_147764_6_, final TextureAtlasSprite p_147764_8_, final float red, final float green, final float blue, final int bright) {
-        final Tessellator tessellator = Tessellator.getInstance();
+    public void renderFaceXPos(Block p_147764_1_, double p_147764_2_, double p_147764_4_, double p_147764_6_, TextureAtlasSprite p_147764_8_, float red, float green, float blue, int bright) {
+        Tessellator tessellator = Tessellator.getInstance();
         double d3 = p_147764_8_.getInterpolatedU(renderMinZ * 16.0);
         double d4 = p_147764_8_.getInterpolatedU(renderMaxZ * 16.0);
         if (field_152631_f) {
@@ -512,7 +512,7 @@ public class RenderCubes
         double d5 = p_147764_8_.getInterpolatedV(16.0 - renderMaxY * 16.0);
         double d6 = p_147764_8_.getInterpolatedV(16.0 - renderMinY * 16.0);
         if (flipTexture) {
-            final double d7 = d3;
+            double d7 = d3;
             d3 = d4;
             d4 = d7;
         }
@@ -562,18 +562,18 @@ public class RenderCubes
             d9 = d5;
             d10 = d6;
         }
-        final double d11 = p_147764_2_ + renderMaxX;
-        final double d12 = p_147764_4_ + renderMinY;
-        final double d13 = p_147764_4_ + renderMaxY;
+        double d11 = p_147764_2_ + renderMaxX;
+        double d12 = p_147764_4_ + renderMinY;
+        double d13 = p_147764_4_ + renderMaxY;
         double d14 = p_147764_6_ + renderMinZ;
         double d15 = p_147764_6_ + renderMaxZ;
         if (renderFromInside) {
             d14 = p_147764_6_ + renderMaxZ;
             d15 = p_147764_6_ + renderMinZ;
         }
-        final int i = bright;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        int i = bright;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         tessellator.getBuffer().pos(d11, d12, d15).tex(d8, d10).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d11, d12, d14).tex(d4, d6).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();
         tessellator.getBuffer().pos(d11, d13, d14).tex(d7, d9).lightmap(j, k).color(red, green, blue, 1.0f).endVertex();

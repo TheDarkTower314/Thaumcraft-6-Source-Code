@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class EntityTaintSeedPrime extends EntityTaintSeed
 {
-    public EntityTaintSeedPrime(final World par1World) {
+    public EntityTaintSeedPrime(World par1World) {
         super(par1World);
         setSize(2.0f, 2.0f);
         experienceValue = 12;
@@ -30,7 +30,7 @@ public class EntityTaintSeedPrime extends EntityTaintSeed
     }
     
     @Override
-    protected void dropFewItems(final boolean flag, final int i) {
+    protected void dropFewItems(boolean flag, int i) {
         entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), height / 2.0f);
         if (rand.nextBoolean()) {
             entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), height / 2.0f);

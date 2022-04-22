@@ -33,7 +33,7 @@ public class EntityRiftBlast extends EntityThrowable implements IEntityAdditiona
     int growing;
     ArrayList<Quat> vecs;
     
-    public EntityRiftBlast(final World par1World) {
+    public EntityRiftBlast(World par1World) {
         super(par1World);
         targetID = 0;
         red = false;
@@ -41,7 +41,7 @@ public class EntityRiftBlast extends EntityThrowable implements IEntityAdditiona
         vecs = new ArrayList<Quat>();
     }
     
-    public EntityRiftBlast(final World par1World, final EntityLivingBase par2EntityLiving, final EntityLivingBase t, final boolean r) {
+    public EntityRiftBlast(World par1World, EntityLivingBase par2EntityLiving, EntityLivingBase t, boolean r) {
         super(par1World, par2EntityLiving);
         targetID = 0;
         red = false;
@@ -55,7 +55,7 @@ public class EntityRiftBlast extends EntityThrowable implements IEntityAdditiona
         return 0.0f;
     }
     
-    public void writeSpawnData(final ByteBuf data) {
+    public void writeSpawnData(ByteBuf data) {
         int id = -1;
         if (target != null) {
             id = target.getEntityId();
@@ -64,18 +64,18 @@ public class EntityRiftBlast extends EntityThrowable implements IEntityAdditiona
         data.writeBoolean(red);
     }
     
-    public void readSpawnData(final ByteBuf data) {
-        final int id = data.readInt();
+    public void readSpawnData(ByteBuf data) {
+        int id = data.readInt();
         try {
             if (id >= 0) {
                 target = (EntityLivingBase) world.getEntityByID(id);
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         red = data.readBoolean();
     }
     
-    protected void onImpact(final RayTraceResult mop) {
+    protected void onImpact(RayTraceResult mop) {
         if (!world.isRemote && getThrower() != null && mop.typeOfHit == RayTraceResult.Type.ENTITY) {
             mop.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, getThrower()), (float) getThrower().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * (red ? 1.0f : 0.6f));
         }
@@ -95,11 +95,11 @@ public class EntityRiftBlast extends EntityThrowable implements IEntityAdditiona
             if (target == null || target.isDead) {
                 setDead();
             }
-            final double d = getDistanceSq(target);
+            double d = getDistanceSq(target);
             double dx = target.posX - posX;
             double dy = target.getEntityBoundingBox().minY + target.height * 0.6 - posY;
             double dz = target.posZ - posZ;
-            final double d2 = 1.0;
+            double d2 = 1.0;
             dx /= d;
             dy /= d;
             dz /= d;
@@ -110,7 +110,7 @@ public class EntityRiftBlast extends EntityThrowable implements IEntityAdditiona
             motionY = MathHelper.clamp((float) motionY, -0.33f, 0.33f);
             motionZ = MathHelper.clamp((float) motionZ, -0.33f, 0.33f);
             if (world.isRemote) {
-                final Quat q = new Quat(0.1, posX + rand.nextGaussian() * 0.05, posY + rand.nextGaussian() * 0.05, posZ + rand.nextGaussian() * 0.05);
+                Quat q = new Quat(0.1, posX + rand.nextGaussian() * 0.05, posY + rand.nextGaussian() * 0.05, posZ + rand.nextGaussian() * 0.05);
                 vecs.add(q);
                 FXDispatcher.INSTANCE.drawCurlyWisp(q.x, q.y, q.z, 0.0, 0.0, 0.0, 0.3f + rand.nextFloat() * 0.2f, rand.nextFloat(), rand.nextFloat() * 0.2f, rand.nextFloat() * 0.2f, 0.5f, null, 1, rand.nextInt(2), 0);
                 if (vecs.size() > 9) {
@@ -121,18 +121,18 @@ public class EntityRiftBlast extends EntityThrowable implements IEntityAdditiona
                 radii = new double[vecs.size()];
                 int c = 0;
                 if (vecs.size() > 1) {
-                    final float vv = (float)(3.141592653589793 / (float)(vecs.size() - 1));
-                    for (final Quat v : vecs) {
-                        final float variance = 1.0f + MathHelper.sin((c + ticksExisted) / 3.0f) * 0.2f;
-                        final float xx = MathHelper.sin((c + ticksExisted) / 6.0f) * 0.01f;
-                        final float yy = MathHelper.sin((c + ticksExisted) / 7.0f) * 0.01f;
-                        final float zz = MathHelper.sin((c + ticksExisted) / 8.0f) * 0.01f;
+                    float vv = (float)(3.141592653589793 / (float)(vecs.size() - 1));
+                    for (Quat v : vecs) {
+                        float variance = 1.0f + MathHelper.sin((c + ticksExisted) / 3.0f) * 0.2f;
+                        float xx = MathHelper.sin((c + ticksExisted) / 6.0f) * 0.01f;
+                        float yy = MathHelper.sin((c + ticksExisted) / 7.0f) * 0.01f;
+                        float zz = MathHelper.sin((c + ticksExisted) / 8.0f) * 0.01f;
                         points[c][0] = v.x + xx;
                         points[c][1] = v.y + yy;
                         points[c][2] = v.z + zz;
                         radii[c] = v.s * variance;
-                        final double[] radii = this.radii;
-                        final int n = c;
+                        double[] radii = this.radii;
+                        int n = c;
                         radii[n] *= MathHelper.sin(c * vv);
                         colours[c][0] = 1.0f;
                         colours[c][1] = 0.0f;
@@ -145,12 +145,12 @@ public class EntityRiftBlast extends EntityThrowable implements IEntityAdditiona
         }
     }
     
-    public boolean attackEntityFrom(final DamageSource source, final float damage) {
+    public boolean attackEntityFrom(DamageSource source, float damage) {
         if (isEntityInvulnerable(source)) {
             return false;
         }
         if (source.getTrueSource() != null) {
-            final Vec3d vec3 = source.getTrueSource().getLookVec();
+            Vec3d vec3 = source.getTrueSource().getLookVec();
             if (vec3 != null) {
                 motionX = vec3.x;
                 motionY = vec3.y;

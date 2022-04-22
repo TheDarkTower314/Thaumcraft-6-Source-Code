@@ -217,12 +217,12 @@ public class ModelEldritchGolem extends ModelBase
         ArmR.addChild(ShoulderR2);
     }
     
-    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-        final float a = MathHelper.cos(f * 0.44f) * 1.4f * f1;
-        final float b = MathHelper.cos(f * 0.44f + 3.1415927f) * 1.4f * f1;
-        final float c = Math.min(a, b);
+        float a = MathHelper.cos(f * 0.44f) * 1.4f * f1;
+        float b = MathHelper.cos(f * 0.44f + 3.1415927f) * 1.4f * f1;
+        float c = Math.min(a, b);
         Frontcloth1.rotateAngleX = c - 0.1047198f;
         Frontcloth2.rotateAngleX = c - 0.3316126f;
         Cloak1.rotateAngleX = -c / 3.0f + 0.1396263f;
@@ -263,7 +263,7 @@ public class ModelEldritchGolem extends ModelBase
         LegL.render(f5);
     }
     
-    public void setRotationAngles(final float par1, final float par2, final float par3, final float par4, final float par5, final float par6, final Entity entity) {
+    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
         super.setRotationAngles(par1, par2, par3, par4, par5, par6, entity);
         if (entity instanceof EntityEldritchGolem && ((EntityEldritchGolem)entity).getSpawnTimer() > 0) {
             Head.rotateAngleY = 0.0f;
@@ -279,9 +279,9 @@ public class ModelEldritchGolem extends ModelBase
         LegL.rotateAngleX = MathHelper.cos(par1 * 0.4662f + 3.1415927f) * 1.4f * par2;
     }
     
-    public void setLivingAnimations(final EntityLivingBase p_78086_1_, final float par1, final float par2, final float par3) {
-        final EntityEldritchGolem golem = (EntityEldritchGolem)p_78086_1_;
-        final int i = golem.getAttackTimer();
+    public void setLivingAnimations(EntityLivingBase p_78086_1_, float par1, float par2, float par3) {
+        EntityEldritchGolem golem = (EntityEldritchGolem)p_78086_1_;
+        int i = golem.getAttackTimer();
         if (i > 0) {
             ArmR.rotateAngleX = -2.0f + 1.5f * doAbs(i - par3, 10.0f);
             ArmL.rotateAngleX = -2.0f + 1.5f * doAbs(i - par3, 10.0f);
@@ -292,11 +292,11 @@ public class ModelEldritchGolem extends ModelBase
         }
     }
     
-    private float doAbs(final float p_78172_1_, final float p_78172_2_) {
+    private float doAbs(float p_78172_1_, float p_78172_2_) {
         return (Math.abs(p_78172_1_ % p_78172_2_ - p_78172_2_ * 0.5f) - p_78172_2_ * 0.25f) / (p_78172_2_ * 0.25f);
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;

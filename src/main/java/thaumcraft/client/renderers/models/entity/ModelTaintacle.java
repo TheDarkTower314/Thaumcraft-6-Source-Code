@@ -20,13 +20,13 @@ public class ModelTaintacle extends ModelBase
     private int length;
     private boolean seed;
     
-    public ModelTaintacle(final int length, final boolean seed) {
+    public ModelTaintacle(int length, boolean seed) {
         tentacle = new ModelRendererTaintacle(this);
         orb = new ModelRendererTaintacle(this);
         this.length = 10;
         this.seed = false;
         this.seed = seed;
-        final int var3 = 0;
+        int var3 = 0;
         this.length = length;
         textureHeight = 64;
         textureWidth = 64;
@@ -55,17 +55,17 @@ public class ModelTaintacle extends ModelBase
         }
     }
     
-    public void setRotationAngles(final float par1, final float par2, final float par3, final float par4, final float par5, final float par6, final Entity entity) {
+    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
         float flail = 0.0f;
         float ht = 0.0f;
-        final int at = 0;
+        int at = 0;
         if (entity instanceof EntityTaintacle) {
-            final EntityTaintacle tentacle = (EntityTaintacle)entity;
+            EntityTaintacle tentacle = (EntityTaintacle)entity;
             flail = tentacle.flailIntensity;
             ht = (float)tentacle.hurtTime;
-            final float mod = par6 * 0.2f;
-            final float fs = (flail > 1.0f) ? 3.0f : (1.0f + ((flail > 1.0f) ? mod : (-mod)));
-            final float fi = flail + ((ht > 0.0f || at > 0) ? mod : (-mod));
+            float mod = par6 * 0.2f;
+            float fs = (flail > 1.0f) ? 3.0f : (1.0f + ((flail > 1.0f) ? mod : (-mod)));
+            float fi = flail + ((ht > 0.0f || at > 0) ? mod : (-mod));
             this.tentacle.rotateAngleX = 0.0f;
             for (int k = 0; k < length - 1; ++k) {
                 tents[k].rotateAngleX = 0.15f * fi * MathHelper.sin(par3 * 0.1f * fs - k / 2.0f);
@@ -73,11 +73,11 @@ public class ModelTaintacle extends ModelBase
             }
         }
         if (entity instanceof EntityTaintSeed) {
-            final EntityTaintSeed seed = (EntityTaintSeed)entity;
+            EntityTaintSeed seed = (EntityTaintSeed)entity;
             ht = seed.hurtTime / 200.0f;
             flail = 0.1f;
-            final float mod = par6 * 0.2f;
-            final float fs = (flail > 1.0f) ? 3.0f : (1.0f + ((flail > 1.0f) ? mod : (-mod)));
+            float mod = par6 * 0.2f;
+            float fs = (flail > 1.0f) ? 3.0f : (1.0f + ((flail > 1.0f) ? mod : (-mod)));
             float fi = flail + ((ht > 0.0f || at > 0) ? mod : (-mod));
             fi *= 3.0f;
             tentacle.rotateAngleX = 0.0f;
@@ -88,7 +88,7 @@ public class ModelTaintacle extends ModelBase
         }
     }
     
-    public void render(final Entity par1Entity, final float par2, final float par3, final float par4, final float par5, final float par6, final float par7) {
+    public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7) {
         setRotationAngles(par2, par3, par4, par5, par6, par7, par1Entity);
         GL11.glPushMatrix();
         GL11.glEnable(3042);
@@ -100,7 +100,7 @@ public class ModelTaintacle extends ModelBase
         }
         else {
             float height = 0.0f;
-            final float hc = par1Entity.height * 10.0f;
+            float hc = par1Entity.height * 10.0f;
             if (par1Entity.ticksExisted < hc) {
                 height = (hc - par1Entity.ticksExisted) / hc * par1Entity.height;
             }

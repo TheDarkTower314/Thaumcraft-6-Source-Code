@@ -33,7 +33,7 @@ public class GuiArcaneWorkbench extends GuiContainer
     private int[][] aspectLocs;
     ResourceLocation tex;
     
-    public GuiArcaneWorkbench(final InventoryPlayer par1InventoryPlayer, final TileArcaneWorkbench e) {
+    public GuiArcaneWorkbench(InventoryPlayer par1InventoryPlayer, TileArcaneWorkbench e) {
         super(new ContainerArcaneWorkbench(par1InventoryPlayer, e));
         aspectLocs = new int[][] { { 72, 21 }, { 24, 43 }, { 24, 102 }, { 72, 124 }, { 120, 102 }, { 120, 43 } };
         tex = new ResourceLocation("thaumcraft", "textures/gui/arcaneworkbench.png");
@@ -43,24 +43,24 @@ public class GuiArcaneWorkbench extends GuiContainer
         xSize = 190;
     }
     
-    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         renderHoveredToolTip(mouseX, mouseY);
     }
     
-    protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         mc.renderEngine.bindTexture(tex);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(3042);
-        final int var5 = (width - xSize) / 2;
-        final int var6 = (height - ySize) / 2;
+        int var5 = (width - xSize) / 2;
+        int var6 = (height - ySize) / 2;
         drawTexturedModalRect(var5, var6, 0, 0, xSize, ySize);
         int cost = 0;
         int discount = 0;
-        final IArcaneRecipe result = ThaumcraftCraftingManager.findMatchingArcaneRecipe(tileEntity.inventoryCraft, ip.player);
+        IArcaneRecipe result = ThaumcraftCraftingManager.findMatchingArcaneRecipe(tileEntity.inventoryCraft, ip.player);
         AspectList crystals = null;
-        final float df = CasterManager.getTotalVisDiscount(ip.player);
+        float df = CasterManager.getTotalVisDiscount(ip.player);
         if (result != null) {
             cost = result.getVis();
             cost *= (int)(1.0f - df);
@@ -69,9 +69,9 @@ public class GuiArcaneWorkbench extends GuiContainer
         }
         if (crystals != null) {
             GlStateManager.blendFunc(770, 1);
-            for (final Aspect a : crystals.getAspects()) {
-                final int id = ShardType.getMetaByAspect(a);
-                final Color col = new Color(a.getColor());
+            for (Aspect a : crystals.getAspects()) {
+                int id = ShardType.getMetaByAspect(a);
+                Color col = new Color(a.getColor());
                 GL11.glColor4f(col.getRed() / 255.0f, col.getGreen() / 255.0f, col.getBlue() / 255.0f, 0.33f);
                 GL11.glPushMatrix();
                 GL11.glTranslatef(var5 + ContainerArcaneWorkbench.xx[id] + 7.5f, var6 + ContainerArcaneWorkbench.yy[id] + 8.0f, 0.0f);
@@ -96,7 +96,7 @@ public class GuiArcaneWorkbench extends GuiContainer
         if (cost > 0) {
             if (tileEntity.auraVisClient < cost) {
                 GL11.glPushMatrix();
-                final float var7 = 0.33f;
+                float var7 = 0.33f;
                 GL11.glColor4f(var7, var7, var7, 0.66f);
                 GL11.glEnable(2896);
                 GL11.glEnable(2884);

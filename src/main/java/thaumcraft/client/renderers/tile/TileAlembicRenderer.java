@@ -21,14 +21,14 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 public class TileAlembicRenderer extends TileEntitySpecialRenderer
 {
     private ModelBoreBase modelBore;
-    private static final ResourceLocation TEX_LABEL;
-    private static final ResourceLocation TEX_BORE;
+    private static ResourceLocation TEX_LABEL;
+    private static ResourceLocation TEX_BORE;
     
     public TileAlembicRenderer() {
         modelBore = new ModelBoreBase();
     }
     
-    public void renderTileEntityAt(final TileAlembic tile, final double x, final double y, final double z, final float f) {
+    public void renderTileEntityAt(TileAlembic tile, double x, double y, double z, float f) {
         if (tile.aspectFilter != null) {
             GL11.glPushMatrix();
             GL11.glBlendFunc(770, 771);
@@ -64,9 +64,9 @@ public class TileAlembicRenderer extends TileEntitySpecialRenderer
         if (tile.getWorld() != null) {
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
             bindTexture(TileAlembicRenderer.TEX_BORE);
-            for (final EnumFacing dir : EnumFacing.HORIZONTALS) {
+            for (EnumFacing dir : EnumFacing.HORIZONTALS) {
                 if (tile.canOutputTo(dir)) {
-                    final TileEntity te = ThaumcraftApiHelper.getConnectableTile(tile.getWorld(), tile.getPos(), dir);
+                    TileEntity te = ThaumcraftApiHelper.getConnectableTile(tile.getWorld(), tile.getPos(), dir);
                     if (te != null && ((IEssentiaTransport)te).canInputFrom(dir.getOpposite())) {
                         GL11.glPushMatrix();
                         GL11.glTranslatef((float)x + 0.5f, (float)y, (float)z + 0.5f);
@@ -106,7 +106,7 @@ public class TileAlembicRenderer extends TileEntitySpecialRenderer
         }
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderTileEntityAt((TileAlembic)te, x, y, z, partialTicks);
     }

@@ -88,11 +88,11 @@ public class EntityArcaneBore extends EntityOwnedConstruct
     public int spiral;
     public float currentRadius;
     private float charge;
-    private static final DataParameter<EnumFacing> FACING;
-    private static final DataParameter<Boolean> ACTIVE;
+    private static DataParameter<EnumFacing> FACING;
+    private static DataParameter<Boolean> ACTIVE;
     public boolean clientDigging;
     
-    public EntityArcaneBore(final World worldIn) {
+    public EntityArcaneBore(World worldIn) {
         super(worldIn);
         digTarget = null;
         digTargetPrev = null;
@@ -113,7 +113,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
         setSize(0.9f, 0.9f);
     }
     
-    public EntityArcaneBore(final World worldIn, final BlockPos pos, final EnumFacing facing) {
+    public EntityArcaneBore(World worldIn, BlockPos pos, EnumFacing facing) {
         this(worldIn);
         setFacing(facing);
         setPositionAndRotation(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0f, 0.0f);
@@ -136,17 +136,17 @@ public class EntityArcaneBore extends EntityOwnedConstruct
             if (ticksExisted % 10 == 0 && getCharge() < 10.0f) {
                 rechargeVis();
             }
-            final int k = MathHelper.floor(posX);
+            int k = MathHelper.floor(posX);
             int l = MathHelper.floor(posY);
-            final int i1 = MathHelper.floor(posZ);
+            int i1 = MathHelper.floor(posZ);
             if (BlockRailBase.isRailBlock(world, new BlockPos(k, l - 1, i1))) {
                 --l;
             }
-            final BlockPos blockpos = new BlockPos(k, l, i1);
-            final IBlockState iblockstate = world.getBlockState(blockpos);
+            BlockPos blockpos = new BlockPos(k, l, i1);
+            IBlockState iblockstate = world.getBlockState(blockpos);
             if (BlockRailBase.isRailBlock(iblockstate)) {
                 if (iblockstate.getBlock() == BlocksTC.activatorRail) {
-                    final boolean ac = (boolean)iblockstate.getValue((IProperty)BlockRailPowered.POWERED);
+                    boolean ac = (boolean)iblockstate.getValue((IProperty)BlockRailPowered.POWERED);
                     setActive(!ac);
                 }
             }
@@ -157,7 +157,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
                 try {
                     getHeldItemMainhand().updateAnimation(world, this, 0, true);
                 }
-                catch (final Exception ex) {}
+                catch (Exception ex) {}
             }
         }
         if (!isActive()) {
@@ -214,13 +214,13 @@ public class EntityArcaneBore extends EntityOwnedConstruct
         int r = 0;
         if (validInventory()) {
             r = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, getHeldItemMainhand());
-            final int r2 = EnumInfusionEnchantment.getInfusionEnchantmentLevel(getHeldItemMainhand(), EnumInfusionEnchantment.SOUNDING);
+            int r2 = EnumInfusionEnchantment.getInfusionEnchantmentLevel(getHeldItemMainhand(), EnumInfusionEnchantment.SOUNDING);
             r = Math.max(r, r2);
         }
         return r;
     }
     
-    public int getDigSpeed(final IBlockState blockState) {
+    public int getDigSpeed(IBlockState blockState) {
         int speed = 0;
         if (validInventory()) {
             speed += (int)(getHeldItemMainhand().getItem().getDestroySpeed(getHeldItemMainhand(), blockState) / 2.0f);
@@ -241,18 +241,18 @@ public class EntityArcaneBore extends EntityOwnedConstruct
         return getHeldItemMainhand() != null && !getHeldItemMainhand().isEmpty() && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, getHeldItemMainhand()) > 0;
     }
     
-    private boolean canSilkTouch(final BlockPos pos, final IBlockState state) {
+    private boolean canSilkTouch(BlockPos pos, IBlockState state) {
         return hasSilkTouch() && state.getBlock().canSilkHarvest(world, pos, state, null);
     }
     
     @SubscribeEvent
-    public static void harvestBlockEvent(final BlockEvent.HarvestDropsEvent event) {
+    public static void harvestBlockEvent(BlockEvent.HarvestDropsEvent event) {
         if (event.getHarvester() != null && event.getHarvester().getName().equals("FakeThaumcraftBore")) {
             ArrayList<ItemStack> droplist = new ArrayList<ItemStack>();
             if (EntityArcaneBore.drops.containsKey(event.getHarvester().arrowHitTimer) && EntityArcaneBore.drops.get(event.getHarvester().arrowHitTimer) != null) {
                 droplist = EntityArcaneBore.drops.get(event.getHarvester().arrowHitTimer);
             }
-            for (final ItemStack s : event.getDrops()) {
+            for (ItemStack s : event.getDrops()) {
                 if (event.getHarvester().world.rand.nextFloat() <= event.getDropChance()) {
                     droplist.add(s);
                 }
@@ -265,7 +265,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
     private boolean dig() {
         boolean b = false;
         if (digTarget != null && !world.isAirBlock(digTarget)) {
-            final IBlockState digBs = world.getBlockState(digTarget);
+            IBlockState digBs = world.getBlockState(digTarget);
             if (!digBs.getBlock().isAir(digBs, world, digTarget)) {
                 boolean silktouch = false;
                 int fortune = getFortune();
@@ -273,7 +273,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
                     silktouch = true;
                     fortune = 0;
                 }
-                final FakePlayer fp = FakePlayerFactory.get((WorldServer) world, new GameProfile(null, "FakeThaumcraftBore"));
+                FakePlayer fp = FakePlayerFactory.get((WorldServer) world, new GameProfile(null, "FakeThaumcraftBore"));
                 fp.connection = new FakeNetHandlerPlayServer(fp.mcServer, new NetworkManager(EnumPacketDirection.CLIENTBOUND), fp);
                 fp.arrowHitTimer = getEntityId();
                 fp.xpCooldown = 1;
@@ -284,25 +284,25 @@ public class EntityArcaneBore extends EntityOwnedConstruct
                     if (items == null) {
                         items = new ArrayList<ItemStack>();
                     }
-                    final List<EntityItem> targets = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(digTarget.getX(), digTarget.getY(), digTarget.getZ(), digTarget.getX() + 1, digTarget.getY() + 1, digTarget.getZ() + 1).grow(1.5, 1.5, 1.5));
+                    List<EntityItem> targets = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(digTarget.getX(), digTarget.getY(), digTarget.getZ(), digTarget.getX() + 1, digTarget.getY() + 1, digTarget.getZ() + 1).grow(1.5, 1.5, 1.5));
                     if (targets.size() > 0) {
-                        for (final EntityItem e : targets) {
+                        for (EntityItem e : targets) {
                             items.add(e.getItem().copy());
                             e.setDead();
                         }
                     }
-                    final int refining = getRefining();
+                    int refining = getRefining();
                     if (items.size() > 0) {
-                        for (final ItemStack is : items) {
+                        for (ItemStack is : items) {
                             ItemStack dropped = is.copy();
                             if (!silktouch && refining > 0) {
                                 dropped = Utils.findSpecialMiningResult(is, (refining + 1) * 0.125f, world.rand);
                             }
                             if (dropped != null && !dropped.isEmpty()) {
                                 boolean e2 = false;
-                                for (final EnumFacing f : EnumFacing.VALUES) {
-                                    final BlockPos p = getPosition().offset(f);
-                                    final IItemHandler inventory = ThaumcraftInvHelper.getItemHandlerAt(getEntityWorld(), p, f);
+                                for (EnumFacing f : EnumFacing.VALUES) {
+                                    BlockPos p = getPosition().offset(f);
+                                    IItemHandler inventory = ThaumcraftInvHelper.getItemHandlerAt(getEntityWorld(), p, f);
                                     if (inventory != null) {
                                         InventoryUtils.ejectStackAt(getEntityWorld(), getPosition(), f, dropped);
                                         e2 = true;
@@ -345,21 +345,21 @@ public class EntityArcaneBore extends EntityOwnedConstruct
         if (radInc == 0.0f) {
             radInc = 1.0f;
         }
-        final int digRadius = getDigRadius();
-        final int digDepth = getDigDepth();
+        int digRadius = getDigRadius();
+        int digDepth = getDigDepth();
         int x = digTargetPrev.getX();
         int z = digTargetPrev.getZ();
         int y = digTargetPrev.getY();
-        final int x2 = x + getFacing().getFrontOffsetX() * digDepth;
-        final int y2 = y + getFacing().getFrontOffsetY() * digDepth;
-        final int z2 = z + getFacing().getFrontOffsetZ() * digDepth;
-        final BlockPos end = new BlockPos(x2, y2, z2);
+        int x2 = x + getFacing().getFrontOffsetX() * digDepth;
+        int y2 = y + getFacing().getFrontOffsetY() * digDepth;
+        int z2 = z + getFacing().getFrontOffsetZ() * digDepth;
+        BlockPos end = new BlockPos(x2, y2, z2);
         RayTraceResult mop = world.rayTraceBlocks(new Vec3d(digTargetPrev).addVector(0.5, 0.5, 0.5), new Vec3d(end).addVector(0.5, 0.5, 0.5), false, true, false);
         if (mop != null) {
-            final Vec3d digger = new Vec3d(posX + getFacing().getFrontOffsetX(), posY + getEyeHeight() + getFacing().getFrontOffsetY(), posZ + getFacing().getFrontOffsetZ());
+            Vec3d digger = new Vec3d(posX + getFacing().getFrontOffsetX(), posY + getEyeHeight() + getFacing().getFrontOffsetY(), posZ + getFacing().getFrontOffsetZ());
             mop = world.rayTraceBlocks(digger, new Vec3d(mop.getBlockPos()).addVector(0.5, 0.5, 0.5), false, true, false);
             if (mop != null) {
-                final IBlockState blockState = world.getBlockState(mop.getBlockPos());
+                IBlockState blockState = world.getBlockState(mop.getBlockPos());
                 if (blockState.getBlockHardness(world, mop.getBlockPos()) > -1.0f && blockState.getCollisionBoundingBox(world, mop.getBlockPos()) != null) {
                     digDelay = Math.max(10 - getDigSpeed(blockState), (int)(blockState.getBlockHardness(world, mop.getBlockPos()) * 2.0f) - getDigSpeed(blockState) * 2);
                     if (digDelay < 1) {
@@ -385,12 +385,12 @@ public class EntityArcaneBore extends EntityOwnedConstruct
                     currentRadius = 0.0f;
                 }
             }
-            final Vec3d vsource = new Vec3d((int) posX + 0.5 + getFacing().getFrontOffsetX(), posY + getFacing().getFrontOffsetY() + getEyeHeight(), (int) posZ + 0.5 + getFacing().getFrontOffsetZ());
+            Vec3d vsource = new Vec3d((int) posX + 0.5 + getFacing().getFrontOffsetX(), posY + getFacing().getFrontOffsetY() + getEyeHeight(), (int) posZ + 0.5 + getFacing().getFrontOffsetZ());
             Vec3d vtar = new Vec3d(0.0, currentRadius, 0.0);
             vtar = Utils.rotateAroundZ(vtar, spiral / 180.0f * 3.1415927f);
             vtar = Utils.rotateAroundY(vtar, 1.5707964f * getFacing().getFrontOffsetX());
             vtar = Utils.rotateAroundX(vtar, 1.5707964f * getFacing().getFrontOffsetY());
-            final Vec3d vres = vsource.addVector(vtar.x, vtar.y, vtar.z);
+            Vec3d vres = vsource.addVector(vtar.x, vtar.y, vtar.z);
             x = MathHelper.floor(vres.x);
             y = MathHelper.floor(vres.y);
             z = MathHelper.floor(vres.z);
@@ -398,17 +398,17 @@ public class EntityArcaneBore extends EntityOwnedConstruct
         digTargetPrev = new BlockPos(x, y, z);
     }
     
-    public boolean attackEntityFrom(final DamageSource source, final float amount) {
+    public boolean attackEntityFrom(DamageSource source, float amount) {
         try {
             if (source.getTrueSource() != null && isOwner((EntityLivingBase)source.getTrueSource())) {
-                final EnumFacing f = EnumFacing.getDirectionFromEntityLiving(getPosition(), (EntityLivingBase)source.getTrueSource());
+                EnumFacing f = EnumFacing.getDirectionFromEntityLiving(getPosition(), (EntityLivingBase)source.getTrueSource());
                 if (f != EnumFacing.DOWN) {
                     setFacing(f);
                 }
                 return false;
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         rotationYaw += (float)(getRNG().nextGaussian() * 45.0);
         rotationPitch += (float)(getRNG().nextGaussian() * 20.0);
         return super.attackEntityFrom(source, amount);
@@ -427,7 +427,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
     }
     
     @Override
-    public void onDeath(final DamageSource cause) {
+    public void onDeath(DamageSource cause) {
         super.onDeath(cause);
         if (!world.isRemote) {
             dropStuff();
@@ -441,7 +441,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
     }
     
     @Override
-    protected boolean processInteract(final EntityPlayer player, final EnumHand hand) {
+    protected boolean processInteract(EntityPlayer player, EnumHand hand) {
         if (player.getHeldItem(hand).getItem() instanceof ItemNameTag) {
             return false;
         }
@@ -461,7 +461,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
         return super.processInteract(player, hand);
     }
     
-    public void knockBack(final Entity p_70653_1_, final float p_70653_2_, final double p_70653_3_, final double p_70653_5_) {
+    public void knockBack(Entity p_70653_1_, float p_70653_2_, double p_70653_3_, double p_70653_5_) {
         super.knockBack(p_70653_1_, p_70653_2_, p_70653_3_ / 10.0, p_70653_5_ / 10.0);
         if (motionY > 0.1) {
             motionY = 0.1;
@@ -479,12 +479,12 @@ public class EntityArcaneBore extends EntityOwnedConstruct
         return (boolean) dataManager.get((DataParameter)EntityArcaneBore.ACTIVE);
     }
     
-    public void setActive(final boolean attacking) {
+    public void setActive(boolean attacking) {
         dataManager.set(EntityArcaneBore.ACTIVE, attacking);
     }
     
     @Override
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         setCharge(nbt.getFloat("charge"));
         setFacing(EnumFacing.VALUES[nbt.getByte("faceing")]);
@@ -492,7 +492,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
     }
     
     @Override
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         nbt.setFloat("charge", getCharge());
         nbt.setByte("faceing", (byte) getFacing().getIndex());
@@ -503,7 +503,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
         return (EnumFacing) getDataManager().get((DataParameter)EntityArcaneBore.FACING);
     }
     
-    public void setFacing(final EnumFacing face) {
+    public void setFacing(EnumFacing face) {
         getDataManager().set(EntityArcaneBore.FACING, face);
     }
     
@@ -511,11 +511,11 @@ public class EntityArcaneBore extends EntityOwnedConstruct
         return charge;
     }
     
-    public void setCharge(final float c) {
+    public void setCharge(float c) {
         charge = c;
     }
     
-    public void move(final MoverType mt, final double x, final double y, final double z) {
+    public void move(MoverType mt, double x, double y, double z) {
         super.move(mt, x / 5.0, y, z / 5.0);
     }
     
@@ -523,8 +523,8 @@ public class EntityArcaneBore extends EntityOwnedConstruct
         attackEntityFrom(DamageSource.OUT_OF_WORLD, 400.0f);
     }
     
-    protected void dropFewItems(final boolean p_70628_1_, final int treasure) {
-        final float b = treasure * 0.15f;
+    protected void dropFewItems(boolean p_70628_1_, int treasure) {
+        float b = treasure * 0.15f;
         if (rand.nextFloat() < 0.2f + b) {
             entityDropItem(new ItemStack(ItemsTC.mind), 0.5f);
         }
@@ -555,7 +555,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
     @Override
     public Team getTeam() {
         if (isOwned()) {
-            final EntityLivingBase entitylivingbase = getOwnerEntity();
+            EntityLivingBase entitylivingbase = getOwnerEntity();
             if (entitylivingbase != null) {
                 return entitylivingbase.getTeam();
             }
@@ -568,7 +568,7 @@ public class EntityArcaneBore extends EntityOwnedConstruct
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte par1) {
+    public void handleStatusUpdate(byte par1) {
         if (par1 == 16) {
             clientDigging = true;
         }

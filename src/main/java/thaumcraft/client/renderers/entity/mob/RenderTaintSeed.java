@@ -25,38 +25,38 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 @SideOnly(Side.CLIENT)
 public class RenderTaintSeed extends RenderLiving<EntityTaintSeed>
 {
-    private static final ResourceLocation rl;
+    private static ResourceLocation rl;
     
-    public RenderTaintSeed(final RenderManager rm) {
+    public RenderTaintSeed(RenderManager rm) {
         super(rm, new ModelTaintSeed(), 0.4f);
     }
     
-    public RenderTaintSeed(final RenderManager rm, final ModelBase modelbase, final float sz) {
+    public RenderTaintSeed(RenderManager rm, ModelBase modelbase, float sz) {
         super(rm, modelbase, sz);
     }
     
-    protected ResourceLocation getEntityTexture(final EntityTaintSeed entity) {
+    protected ResourceLocation getEntityTexture(EntityTaintSeed entity) {
         return RenderTaintSeed.rl;
     }
     
-    public void doRender(final EntityTaintSeed entity, final double x, final double y, final double z, final float entityYaw, final float partialTicks) {
+    public void doRender(EntityTaintSeed entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if (MinecraftForge.EVENT_BUS.post(new RenderLivingEvent.Pre(entity, this, x, y, z))) {
             return;
         }
         GlStateManager.pushMatrix();
         GlStateManager.disableCull();
         mainModel.swingProgress = getSwingProgress(entity, partialTicks);
-        final boolean shouldSit = entity.isRiding() && entity.getRidingEntity() != null && entity.getRidingEntity().shouldRiderSit();
+        boolean shouldSit = entity.isRiding() && entity.getRidingEntity() != null && entity.getRidingEntity().shouldRiderSit();
         mainModel.isRiding = shouldSit;
         mainModel.isChild = entity.isChild();
         try {
             GlStateManager.pushMatrix();
-            final float f = 0.0f;
-            final float f2 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
+            float f = 0.0f;
+            float f2 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
             renderLivingAt(entity, x, y, z);
-            final float f3 = handleRotationFloat(entity, partialTicks);
+            float f3 = handleRotationFloat(entity, partialTicks);
             applyRotations(entity, f3, f, partialTicks);
-            final float f4 = prepareScale(entity, partialTicks);
+            float f4 = prepareScale(entity, partialTicks);
             float f5 = 0.0f;
             float f6 = 0.0f;
             f5 = entity.prevLimbSwingAmount + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * partialTicks;
@@ -68,7 +68,7 @@ public class RenderTaintSeed extends RenderLiving<EntityTaintSeed>
             mainModel.setLivingAnimations(entity, f6, f5, partialTicks);
             mainModel.setRotationAngles(f6, f5, f3, f, f2, f4, entity);
             if (renderOutlines) {
-                final boolean flag1 = setScoreTeamColor(entity);
+                boolean flag1 = setScoreTeamColor(entity);
                 GlStateManager.enableColorMaterial();
                 GlStateManager.enableOutlineMode(getTeamColor(entity));
                 if (!renderMarker) {
@@ -82,7 +82,7 @@ public class RenderTaintSeed extends RenderLiving<EntityTaintSeed>
                 }
             }
             else {
-                final boolean flag2 = setDoRenderBrightness(entity, partialTicks);
+                boolean flag2 = setDoRenderBrightness(entity, partialTicks);
                 renderModel(entity, f6, f5, f3, f, f2, f4);
                 if (flag2) {
                     unsetBrightness();
@@ -93,7 +93,7 @@ public class RenderTaintSeed extends RenderLiving<EntityTaintSeed>
             GlStateManager.popMatrix();
             GlStateManager.disableRescaleNormal();
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
         GlStateManager.enableTexture2D();
         GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);

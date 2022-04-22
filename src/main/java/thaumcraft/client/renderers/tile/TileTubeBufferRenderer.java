@@ -16,16 +16,16 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 public class TileTubeBufferRenderer extends TileEntitySpecialRenderer
 {
     private ModelTubeValve model;
-    private static final ResourceLocation TEX_VALVE;
+    private static ResourceLocation TEX_VALVE;
     
     public TileTubeBufferRenderer() {
         model = new ModelTubeValve();
     }
     
-    public void renderEntityAt(final TileTubeBuffer buffer, final double x, final double y, final double z, final float fq) {
+    public void renderEntityAt(TileTubeBuffer buffer, double x, double y, double z, float fq) {
         bindTexture(TileTubeBufferRenderer.TEX_VALVE);
         if (buffer.getWorld() != null) {
-            for (final EnumFacing dir : EnumFacing.VALUES) {
+            for (EnumFacing dir : EnumFacing.VALUES) {
                 if (buffer.chokedSides[dir.ordinal()] != 0 && buffer.openSides[dir.ordinal()]) {
                     if (ThaumcraftApiHelper.getConnectableTile(buffer.getWorld(), buffer.getPos(), dir) != null) {
                         GL11.glPushMatrix();
@@ -57,7 +57,7 @@ public class TileTubeBufferRenderer extends TileEntitySpecialRenderer
         }
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderEntityAt((TileTubeBuffer)te, x, y, z, partialTicks);
     }

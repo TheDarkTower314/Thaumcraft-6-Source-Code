@@ -34,15 +34,15 @@ import thaumcraft.common.blocks.BlockTC;
 
 public class BlockCondenserLattice extends BlockTC
 {
-    public static final PropertyBool NORTH;
-    public static final PropertyBool EAST;
-    public static final PropertyBool SOUTH;
-    public static final PropertyBool WEST;
-    public static final PropertyBool UP;
-    public static final PropertyBool DOWN;
+    public static PropertyBool NORTH;
+    public static PropertyBool EAST;
+    public static PropertyBool SOUTH;
+    public static PropertyBool WEST;
+    public static PropertyBool UP;
+    public static PropertyBool DOWN;
     private ArrayList<Long> history;
     
-    public BlockCondenserLattice(final boolean dirty) {
+    public BlockCondenserLattice(boolean dirty) {
         super(Material.IRON, dirty ? "condenser_lattice_dirty" : "condenser_lattice");
         history = new ArrayList<Long>();
         setHardness(0.5f);
@@ -52,7 +52,7 @@ public class BlockCondenserLattice extends BlockTC
         setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockCondenserLattice.NORTH, (Comparable)false).withProperty((IProperty)BlockCondenserLattice.EAST, (Comparable)false).withProperty((IProperty)BlockCondenserLattice.SOUTH, (Comparable)false).withProperty((IProperty)BlockCondenserLattice.WEST, (Comparable)false).withProperty((IProperty)BlockCondenserLattice.UP, (Comparable)false).withProperty((IProperty)BlockCondenserLattice.DOWN, (Comparable)false));
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
@@ -60,28 +60,28 @@ public class BlockCondenserLattice extends BlockTC
         return new BlockStateContainer(this, BlockCondenserLattice.NORTH, BlockCondenserLattice.EAST, BlockCondenserLattice.SOUTH, BlockCondenserLattice.WEST, BlockCondenserLattice.UP, BlockCondenserLattice.DOWN);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public int getMetaFromState(final IBlockState state) {
+    public int getMetaFromState(IBlockState state) {
         return 0;
     }
     
-    public IBlockState getActualState(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
-        final Boolean[] cons = makeConnections(state, worldIn, pos);
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        Boolean[] cons = makeConnections(state, worldIn, pos);
         return state.withProperty((IProperty)BlockCondenserLattice.DOWN, (Comparable)cons[0]).withProperty((IProperty)BlockCondenserLattice.UP, (Comparable)cons[1]).withProperty((IProperty)BlockCondenserLattice.NORTH, (Comparable)cons[2]).withProperty((IProperty)BlockCondenserLattice.SOUTH, (Comparable)cons[3]).withProperty((IProperty)BlockCondenserLattice.WEST, (Comparable)cons[4]).withProperty((IProperty)BlockCondenserLattice.EAST, (Comparable)cons[5]);
     }
     
-    private Boolean[] makeConnections(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
-        final Boolean[] cons = { false, false, false, false, false, false };
+    private Boolean[] makeConnections(IBlockState state, IBlockAccess world, BlockPos pos) {
+        Boolean[] cons = { false, false, false, false, false, false };
         int a = 0;
-        for (final EnumFacing face : EnumFacing.VALUES) {
-            final Block b = world.getBlockState(pos.offset(face)).getBlock();
+        for (EnumFacing face : EnumFacing.VALUES) {
+            Block b = world.getBlockState(pos.offset(face)).getBlock();
             if (b instanceof BlockCondenserLattice || (face == EnumFacing.DOWN && b == BlocksTC.condenser)) {
                 cons[a] = true;
             }
@@ -90,19 +90,19 @@ public class BlockCondenserLattice extends BlockTC
         return cons;
     }
     
-    public void onBlockAdded(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
         triggerUpdate(worldIn, pos);
     }
     
-    public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos fromPos) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
         if (blockIn == BlocksTC.condenserlattice || blockIn == BlocksTC.condenserlatticeDirty || blockIn == BlocksTC.condenser) {
             triggerUpdate(worldIn, pos);
         }
     }
     
-    public boolean onBlockActivated(final World worldIn, final BlockPos pos, final IBlockState state, final EntityPlayer playerIn, final EnumHand hand, final EnumFacing facing, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;
         }
@@ -113,7 +113,7 @@ public class BlockCondenserLattice extends BlockTC
             }
             worldIn.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 0.2f, ((worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.7f + 1.0f) * 1.6f);
             worldIn.setBlockState(pos, BlocksTC.condenserlattice.getDefaultState(), 3);
-            final IBlockState state2 = worldIn.getBlockState(pos);
+            IBlockState state2 = worldIn.getBlockState(pos);
             if (state2.getBlock() instanceof BlockCondenserLattice) {
                 ((BlockCondenserLattice)state2.getBlock()).triggerUpdate(worldIn, pos);
             }
@@ -121,14 +121,14 @@ public class BlockCondenserLattice extends BlockTC
         return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
     }
     
-    public void onBlockHarvested(final World worldIn, final BlockPos pos, final IBlockState state, final EntityPlayer player) {
+    public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
         super.onBlockHarvested(worldIn, pos, state, player);
         triggerUpdate(worldIn, pos);
     }
     
-    public void triggerUpdate(final World world, final BlockPos pos) {
+    public void triggerUpdate(World world, BlockPos pos) {
         history.clear();
-        final BlockPos p = processUpdate(world, pos);
+        BlockPos p = processUpdate(world, pos);
         if (p == null || p.distanceSq(pos) > 74.0) {
             dropBlockAsItem(world, pos, getDefaultState(), 0);
             world.setBlockToAir(pos);
@@ -136,20 +136,20 @@ public class BlockCondenserLattice extends BlockTC
         history.clear();
     }
     
-    private BlockPos processUpdate(final World world, final BlockPos pos) {
+    private BlockPos processUpdate(World world, BlockPos pos) {
         history.add(pos.toLong());
-        for (final EnumFacing face : EnumFacing.VALUES) {
-            final BlockPos p2 = pos.offset(face);
+        for (EnumFacing face : EnumFacing.VALUES) {
+            BlockPos p2 = pos.offset(face);
             if (!history.contains(p2.toLong())) {
-                final Block b = world.getBlockState(p2).getBlock();
+                Block b = world.getBlockState(p2).getBlock();
                 if (b instanceof BlockCondenserLattice) {
-                    final BlockPos pp = processUpdate(world, p2);
+                    BlockPos pp = processUpdate(world, p2);
                     if (pp != null) {
                         return pp;
                     }
                 }
                 if (face == EnumFacing.DOWN && b == BlocksTC.condenser) {
-                    final TileEntity te = world.getTileEntity(p2);
+                    TileEntity te = world.getTileEntity(p2);
                     if (te != null && te instanceof TileCondenser) {
                         ((TileCondenser)te).latticeCount = -1.0f;
                     }
@@ -160,7 +160,7 @@ public class BlockCondenserLattice extends BlockTC
         return null;
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         float minx = 0.3125f;
         float maxx = 0.6875f;
         float miny = 0.3125f;
@@ -170,7 +170,7 @@ public class BlockCondenserLattice extends BlockTC
         EnumFacing fd = null;
         for (int side = 0; side < 6; ++side) {
             fd = EnumFacing.VALUES[side];
-            final Block b = source.getBlockState(pos.offset(fd)).getBlock();
+            Block b = source.getBlockState(pos.offset(fd)).getBlock();
             if (b instanceof BlockCondenserLattice || (fd == EnumFacing.DOWN && b == BlocksTC.condenser)) {
                 switch (side) {
                     case 0: {

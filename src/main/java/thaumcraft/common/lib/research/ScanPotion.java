@@ -18,31 +18,31 @@ public class ScanPotion implements IScanThing
 {
     Potion potion;
     
-    public ScanPotion(final Potion potion) {
+    public ScanPotion(Potion potion) {
         this.potion = potion;
     }
     
     @Override
-    public boolean checkThing(final EntityPlayer player, final Object obj) {
+    public boolean checkThing(EntityPlayer player, Object obj) {
         return getPotionEffect(player, obj) != null;
     }
     
-    private PotionEffect getPotionEffect(final EntityPlayer player, final Object obj) {
+    private PotionEffect getPotionEffect(EntityPlayer player, Object obj) {
         if (obj == null) {
             return null;
         }
         if (obj instanceof EntityLivingBase) {
-            final EntityLivingBase e = (EntityLivingBase)obj;
-            for (final PotionEffect potioneffect : e.getActivePotionEffects()) {
+            EntityLivingBase e = (EntityLivingBase)obj;
+            for (PotionEffect potioneffect : e.getActivePotionEffects()) {
                 if (potioneffect.getPotion() == potion) {
                     return potioneffect;
                 }
             }
         }
         else {
-            final ItemStack is = ScanningManager.getItemFromParms(player, obj);
+            ItemStack is = ScanningManager.getItemFromParms(player, obj);
             if (is != null && !is.isEmpty()) {
-                for (final PotionEffect potioneffect : PotionUtils.getEffectsFromStack(is)) {
+                for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(is)) {
                     if (potioneffect.getPotion() == potion) {
                         return potioneffect;
                     }
@@ -53,7 +53,7 @@ public class ScanPotion implements IScanThing
     }
     
     @Override
-    public String getResearchKey(final EntityPlayer player, final Object obj) {
+    public String getResearchKey(EntityPlayer player, Object obj) {
         return "!" + potion.getName();
     }
 }

@@ -15,20 +15,20 @@ public class RenderFocusCloud extends Render
 {
     private Random random;
     
-    public RenderFocusCloud(final RenderManager rm) {
+    public RenderFocusCloud(RenderManager rm) {
         super(rm);
         random = new Random();
         shadowSize = 0.0f;
     }
     
-    public void renderEntityAt(final Entity entity, final double x, final double y, final double z, final float fq, final float pticks) {
+    public void renderEntityAt(Entity entity, double x, double y, double z, float fq, float pticks) {
     }
     
-    public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
+    public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
         renderEntityAt(entity, d, d1, d2, f, f1);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 }

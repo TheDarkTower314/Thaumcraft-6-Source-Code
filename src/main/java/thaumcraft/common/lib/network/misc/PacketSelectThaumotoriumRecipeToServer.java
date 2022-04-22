@@ -26,36 +26,36 @@ public class PacketSelectThaumotoriumRecipeToServer implements IMessage, IMessag
     public PacketSelectThaumotoriumRecipeToServer() {
     }
     
-    public PacketSelectThaumotoriumRecipeToServer(final EntityPlayer player, final BlockPos pos, final int recipeHash) {
+    public PacketSelectThaumotoriumRecipeToServer(EntityPlayer player, BlockPos pos, int recipeHash) {
         this.pos = pos.toLong();
         hash = recipeHash;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeLong(pos);
         buffer.writeInt(hash);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         pos = buffer.readLong();
         hash = buffer.readInt();
     }
     
-    public IMessage onMessage(final PacketSelectThaumotoriumRecipeToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketSelectThaumotoriumRecipeToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final World world = ctx.getServerHandler().player.getServerWorld();
-                final Entity player = ctx.getServerHandler().player;
-                final BlockPos bp = BlockPos.fromLong(message.pos);
+                World world = ctx.getServerHandler().player.getServerWorld();
+                Entity player = ctx.getServerHandler().player;
+                BlockPos bp = BlockPos.fromLong(message.pos);
                 if (world != null && player != null && player instanceof EntityPlayer && bp != null) {
-                    final TileEntity te = world.getTileEntity(bp);
+                    TileEntity te = world.getTileEntity(bp);
                     if (te != null && te instanceof TileThaumatorium) {
-                        final TileThaumatorium thaumatorium = (TileThaumatorium)te;
+                        TileThaumatorium thaumatorium = (TileThaumatorium)te;
                         int i = 0;
                         boolean flag = false;
-                        for (final int hash : thaumatorium.recipeHash) {
+                        for (int hash : thaumatorium.recipeHash) {
                             if (message.hash == hash) {
                                 thaumatorium.recipeEssentia.remove(i);
                                 thaumatorium.recipePlayer.remove(i);
@@ -67,7 +67,7 @@ public class PacketSelectThaumotoriumRecipeToServer implements IMessage, IMessag
                             ++i;
                         }
                         if (!flag && thaumatorium.recipeHash.size() < thaumatorium.maxRecipes) {
-                            for (final CrucibleRecipe cr : thaumatorium.recipes) {
+                            for (CrucibleRecipe cr : thaumatorium.recipes) {
                                 if (cr.hash == message.hash) {
                                     thaumatorium.recipeEssentia.add(cr.getAspects().copy());
                                     thaumatorium.recipePlayer.add(player.getName());

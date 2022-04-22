@@ -63,10 +63,10 @@ public class TileBellows extends TileThaumcraft implements ITickable
             ++delay;
             if (delay >= 2) {
                 delay = 0;
-                final TileEntity tile = world.getTileEntity(pos.offset(BlockStateUtils.getFacing(getBlockMetadata())));
+                TileEntity tile = world.getTileEntity(pos.offset(BlockStateUtils.getFacing(getBlockMetadata())));
                 if (tile != null && tile instanceof TileEntityFurnace) {
-                    final TileEntityFurnace tf = (TileEntityFurnace)tile;
-                    final int ct = getCooktime(tf);
+                    TileEntityFurnace tf = (TileEntityFurnace)tile;
+                    int ct = getCooktime(tf);
                     if (ct > 0 && ct < 199) {
                         setCooktime(tf, ct + 1);
                     }
@@ -75,24 +75,24 @@ public class TileBellows extends TileThaumcraft implements ITickable
         }
     }
     
-    public void setCooktime(final TileEntityFurnace ent, final int hit) {
+    public void setCooktime(TileEntityFurnace ent, int hit) {
         ent.cookTime = hit;
     }
     
-    public int getCooktime(final TileEntityFurnace ent) {
+    public int getCooktime(TileEntityFurnace ent) {
         return ent.cookTime;
     }
     
-    public static int getBellows(final World world, final BlockPos pos, final EnumFacing[] directions) {
+    public static int getBellows(World world, BlockPos pos, EnumFacing[] directions) {
         int bellows = 0;
-        for (final EnumFacing dir : directions) {
-            final TileEntity tile = world.getTileEntity(pos.offset(dir));
+        for (EnumFacing dir : directions) {
+            TileEntity tile = world.getTileEntity(pos.offset(dir));
             try {
                 if (tile != null && tile instanceof TileBellows && BlockStateUtils.getFacing(tile.getBlockMetadata()) == dir.getOpposite() && BlockStateUtils.isEnabled(tile.getBlockMetadata())) {
                     ++bellows;
                 }
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
         }
         return bellows;
     }

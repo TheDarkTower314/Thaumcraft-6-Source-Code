@@ -19,7 +19,7 @@ public class ThaumcraftCapabilities {
 	 * The capability object for IPlayerKnowledge
 	 */
 	@CapabilityInject(IPlayerKnowledge.class)
-	public static final Capability<IPlayerKnowledge> KNOWLEDGE = null;
+	public static Capability<IPlayerKnowledge> KNOWLEDGE = null;
 
 	/**
 	 * Retrieves the knowledge capability handler for the supplied player
@@ -94,7 +94,7 @@ public class ThaumcraftCapabilities {
 	 * The capability object for IPlayerWarp
 	 */
 	@CapabilityInject(IPlayerWarp.class)
-	public static final Capability<IPlayerWarp> WARP = null;
+	public static Capability<IPlayerWarp> WARP = null;
 
 	/**
 	 * Retrieves the warp capability handler for the supplied player

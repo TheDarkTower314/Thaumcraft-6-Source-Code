@@ -33,18 +33,18 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe
 {
     EnumInfusionEnchantment enchantment;
     
-    public InfusionEnchantmentRecipe(final EnumInfusionEnchantment ench, final AspectList as, final Object... components) {
+    public InfusionEnchantmentRecipe(EnumInfusionEnchantment ench, AspectList as, Object... components) {
         super(ench.research, null, 4, as, Ingredient.EMPTY, components);
         enchantment = ench;
     }
     
-    public InfusionEnchantmentRecipe(final InfusionEnchantmentRecipe recipe, final ItemStack in) {
+    public InfusionEnchantmentRecipe(InfusionEnchantmentRecipe recipe, ItemStack in) {
         super(recipe.enchantment.research, null, recipe.instability, recipe.aspects, in, recipe.components.toArray());
         enchantment = recipe.enchantment;
     }
     
     @Override
-    public boolean matches(final List<ItemStack> input, final ItemStack central, final World world, final EntityPlayer player) {
+    public boolean matches(List<ItemStack> input, ItemStack central, World world, EntityPlayer player) {
         if (central == null || central.isEmpty() || !ThaumcraftCapabilities.knowsResearch(player, research)) {
             return false;
         }
@@ -52,14 +52,14 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe
             return false;
         }
         if (!enchantment.toolClasses.contains("all")) {
-            final Multimap<String, AttributeModifier> itemMods = central.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
+            Multimap<String, AttributeModifier> itemMods = central.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
             boolean cool = false;
             if (itemMods != null && itemMods.containsKey(SharedMonsterAttributes.ATTACK_DAMAGE.getName()) && enchantment.toolClasses.contains("weapon")) {
                 cool = true;
             }
             if (!cool && central.getItem() instanceof ItemTool) {
-                final Set<String> tcs = central.getItem().getToolClasses(central);
-                for (final String tc : tcs) {
+                Set<String> tcs = central.getItem().getToolClasses(central);
+                for (String tc : tcs) {
                     if (enchantment.toolClasses.contains(tc)) {
                         cool = true;
                         break;
@@ -121,17 +121,17 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe
     }
     
     @Override
-    public Object getRecipeOutput(final EntityPlayer player, final ItemStack input, final List<ItemStack> comps) {
+    public Object getRecipeOutput(EntityPlayer player, ItemStack input, List<ItemStack> comps) {
         if (input == null) {
             return null;
         }
-        final ItemStack out = input.copy();
-        final int cl = EnumInfusionEnchantment.getInfusionEnchantmentLevel(out, enchantment);
+        ItemStack out = input.copy();
+        int cl = EnumInfusionEnchantment.getInfusionEnchantmentLevel(out, enchantment);
         if (cl >= enchantment.maxLevel) {
             return null;
         }
-        final List<EnumInfusionEnchantment> el = EnumInfusionEnchantment.getInfusionEnchantments(input);
-        final Random rand = new Random(System.nanoTime());
+        List<EnumInfusionEnchantment> el = EnumInfusionEnchantment.getInfusionEnchantments(input);
+        Random rand = new Random(System.nanoTime());
         if (rand.nextInt(10) < el.size()) {
             int base = 1;
             if (input.hasTagCompound()) {
@@ -144,22 +144,22 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe
     }
     
     @Override
-    public AspectList getAspects(final EntityPlayer player, final ItemStack input, final List<ItemStack> comps) {
-        final AspectList out = new AspectList();
+    public AspectList getAspects(EntityPlayer player, ItemStack input, List<ItemStack> comps) {
+        AspectList out = new AspectList();
         if (input == null || input.isEmpty()) {
             return out;
         }
-        final int cl = EnumInfusionEnchantment.getInfusionEnchantmentLevel(input, enchantment) + 1;
+        int cl = EnumInfusionEnchantment.getInfusionEnchantmentLevel(input, enchantment) + 1;
         if (cl > enchantment.maxLevel) {
             return out;
         }
-        final List<EnumInfusionEnchantment> el = EnumInfusionEnchantment.getInfusionEnchantments(input);
+        List<EnumInfusionEnchantment> el = EnumInfusionEnchantment.getInfusionEnchantments(input);
         int otherEnchantments = el.size();
         if (el.contains(enchantment)) {
             --otherEnchantments;
         }
-        final float modifier = cl + otherEnchantments * 0.33f;
-        for (final Aspect a : getAspects().getAspects()) {
+        float modifier = cl + otherEnchantments * 0.33f;
+        for (Aspect a : getAspects().getAspects()) {
             out.add(a, (int)(getAspects().getAmount(a) * modifier));
         }
         return out;

@@ -43,7 +43,7 @@ public class ContainerLogistics extends Container implements IInventoryChangedLi
     int lastEnd;
     public boolean updated;
     
-    public ContainerLogistics(final InventoryPlayer iinventory, final World par2World) {
+    public ContainerLogistics(InventoryPlayer iinventory, World par2World) {
         player = null;
         input = new InventoryLogistics(this);
         items = new TreeMap<String, ItemStack>();
@@ -62,20 +62,20 @@ public class ContainerLogistics extends Container implements IInventoryChangedLi
         refreshItemList(true);
     }
     
-    public void refreshItemList(final boolean full) {
+    public void refreshItemList(boolean full) {
         int newTotal = lastTotal;
-        final TreeMap<String, ItemStack> ti = new TreeMap<String, ItemStack>();
+        TreeMap<String, ItemStack> ti = new TreeMap<String, ItemStack>();
         if (full) {
             newTotal = 0;
-            final CopyOnWriteArrayList<SealEntity> seals = SealHandler.getSealsInRange(worldObj, player.getPosition(), 32);
-            for (final SealEntity seal : seals) {
+            CopyOnWriteArrayList<SealEntity> seals = SealHandler.getSealsInRange(worldObj, player.getPosition(), 32);
+            for (SealEntity seal : seals) {
                 if (seal.getSeal() instanceof SealProvide && seal.getOwner().equals(player.getUniqueID().toString())) {
-                    final IItemHandler handler = ThaumcraftInvHelper.getItemHandlerAt(worldObj, seal.getSealPos().pos, seal.getSealPos().face);
+                    IItemHandler handler = ThaumcraftInvHelper.getItemHandlerAt(worldObj, seal.getSealPos().pos, seal.getSealPos().face);
                     for (int slot = 0; slot < handler.getSlots(); ++slot) {
-                        final ItemStack stack = handler.getStackInSlot(slot).copy();
+                        ItemStack stack = handler.getStackInSlot(slot).copy();
                         if (((SealProvide)seal.getSeal()).matchesFilters(stack)) {
                             if (searchText.isEmpty() || stack.getDisplayName().toLowerCase().contains(searchText.toLowerCase())) {
-                                final String key = stack.getDisplayName() + stack.getItemDamage() + stack.getTagCompound();
+                                String key = stack.getDisplayName() + stack.getItemDamage() + stack.getTagCompound();
                                 if (ti.containsKey(key)) {
                                     stack.grow(ti.get(key).getCount());
                                 }
@@ -95,7 +95,7 @@ public class ContainerLogistics extends Container implements IInventoryChangedLi
             input.clear();
             int j = 0;
             int q = 0;
-            for (final String key2 : items.keySet()) {
+            for (String key2 : items.keySet()) {
                 if (++j <= start * 9) {
                     continue;
                 }
@@ -108,7 +108,7 @@ public class ContainerLogistics extends Container implements IInventoryChangedLi
         }
     }
     
-    public void addListener(final IContainerListener listener) {
+    public void addListener(IContainerListener listener) {
         super.addListener(listener);
         listener.sendAllWindowProperties(this, input);
         listener.sendWindowProperty(this, 0, start);
@@ -118,7 +118,7 @@ public class ContainerLogistics extends Container implements IInventoryChangedLi
         sendLargeSlotsToClient();
         super.detectAndSendChanges();
         for (int i = 0; i < listeners.size(); ++i) {
-            final IContainerListener icrafting = listeners.get(i);
+            IContainerListener icrafting = listeners.get(i);
             if (lastStart != start) {
                 icrafting.sendWindowProperty(this, 0, start);
             }
@@ -133,12 +133,12 @@ public class ContainerLogistics extends Container implements IInventoryChangedLi
     private void sendLargeSlotsToClient() {
         for (int i = 0; i < inventorySlots.size(); ++i) {
             if (getSlot(i) instanceof SlotGhostFull) {
-                final ItemStack itemstack = inventorySlots.get(i).getStack();
-                final ItemStack itemstack2 = inventoryItemStacks.get(i);
+                ItemStack itemstack = inventorySlots.get(i).getStack();
+                ItemStack itemstack2 = inventoryItemStacks.get(i);
                 if (itemstack.getCount() > itemstack.getMaxStackSize()) {
                     for (int j = 0; j < listeners.size(); ++j) {
                         if (listeners.get(j) instanceof EntityPlayerMP) {
-                            final EntityPlayerMP p = (EntityPlayerMP) listeners.get(j);
+                            EntityPlayerMP p = (EntityPlayerMP) listeners.get(j);
                             PacketHandler.INSTANCE.sendTo(new PacketItemToClientContainer(windowId, i, itemstack), p);
                         }
                     }
@@ -148,7 +148,7 @@ public class ContainerLogistics extends Container implements IInventoryChangedLi
     }
     
     @SideOnly(Side.CLIENT)
-    public void updateProgressBar(final int par1, final int par2) {
+    public void updateProgressBar(int par1, int par2) {
         if (par1 == 0) {
             start = par2;
             updated = true;
@@ -159,7 +159,7 @@ public class ContainerLogistics extends Container implements IInventoryChangedLi
         }
     }
     
-    public boolean enchantItem(final EntityPlayer par1EntityPlayer, final int par2) {
+    public boolean enchantItem(EntityPlayer par1EntityPlayer, int par2) {
         if (par2 == 22) {
             refreshItemList(true);
             return true;
@@ -179,7 +179,7 @@ public class ContainerLogistics extends Container implements IInventoryChangedLi
             return true;
         }
         if (par2 >= 100) {
-            final int s = par2 - 100;
+            int s = par2 - 100;
             if (s >= 0 && s <= items.size() / 9 - 8) {
                 start = s;
                 refreshItemList(false);
@@ -189,11 +189,11 @@ public class ContainerLogistics extends Container implements IInventoryChangedLi
         return super.enchantItem(par1EntityPlayer, par2);
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = inventorySlots.get(slot);
+        Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
-            final ItemStack stackInSlot = slotObject.getStack();
+            ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot < input.getSizeInventory()) {
                 if (!input.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, input.getSizeInventory(), inventorySlots.size(), true)) {
@@ -213,11 +213,11 @@ public class ContainerLogistics extends Container implements IInventoryChangedLi
         return stack;
     }
     
-    public boolean canInteractWith(final EntityPlayer var1) {
+    public boolean canInteractWith(EntityPlayer var1) {
         return true;
     }
     
-    public void onInventoryChanged(final IInventory invBasic) {
+    public void onInventoryChanged(IInventory invBasic) {
         detectAndSendChanges();
     }
 }

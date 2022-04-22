@@ -19,7 +19,7 @@ public class MeshPart
         indices = new ArrayList<int[]>();
     }
     
-    public MeshPart(final MeshPart p, final int ti) {
+    public MeshPart(MeshPart p, int ti) {
         tintIndex = -1;
         indices = new ArrayList<int[]>();
         name = p.name;
@@ -28,14 +28,14 @@ public class MeshPart
         tintIndex = ti;
     }
     
-    public void addTriangleFace(final int[] a, final int[] b, final int[] c) {
+    public void addTriangleFace(int[] a, int[] b, int[] c) {
         indices.add(a);
         indices.add(b);
         indices.add(c);
         indices.add(c);
     }
     
-    public void addQuadFace(final int[] a, final int[] b, final int[] c, final int[] d) {
+    public void addQuadFace(int[] a, int[] b, int[] c, int[] d) {
         indices.add(a);
         indices.add(b);
         indices.add(c);

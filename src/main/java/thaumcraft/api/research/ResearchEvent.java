@@ -10,7 +10,7 @@ import thaumcraft.api.capabilities.IPlayerKnowledge.EnumKnowledgeType;
  */
 public class ResearchEvent extends Event {
 
-	private final EntityPlayer player;
+	private EntityPlayer player;
 	
 	public ResearchEvent(EntityPlayer player)
     {
@@ -25,9 +25,9 @@ public class ResearchEvent extends Event {
 	
 	public static class Knowledge extends ResearchEvent
     {
-		private final EnumKnowledgeType type;
-		private final ResearchCategory category;
-		private final int amount;
+		private EnumKnowledgeType type;
+		private ResearchCategory category;
+		private int amount;
 		
 		public Knowledge(EntityPlayer player, EnumKnowledgeType type, ResearchCategory category, int amount)
         {
@@ -53,7 +53,7 @@ public class ResearchEvent extends Event {
 	
 	public static class Research extends ResearchEvent
     {
-		private final String researchKey;
+		private String researchKey;
 		
 		public Research(EntityPlayer player, String researchKey)
         {

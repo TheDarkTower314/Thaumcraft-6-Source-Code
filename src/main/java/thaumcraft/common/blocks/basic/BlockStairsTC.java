@@ -14,7 +14,7 @@ import net.minecraft.block.BlockStairs;
 
 public class BlockStairsTC extends BlockStairs
 {
-    public BlockStairsTC(final String name, final IBlockState modelState) {
+    public BlockStairsTC(String name, IBlockState modelState) {
         super(modelState);
         setUnlocalizedName(name);
         setRegistryName("thaumcraft", name);
@@ -22,14 +22,14 @@ public class BlockStairsTC extends BlockStairs
         setLightOpacity(0);
     }
     
-    public int getFlammability(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
         if (getMaterial(getDefaultState()) == Material.WOOD) {
             return 20;
         }
         return super.getFlammability(world, pos, face);
     }
     
-    public int getFireSpreadSpeed(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
+    public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
         if (getMaterial(getDefaultState()) == Material.WOOD) {
             return 5;
         }

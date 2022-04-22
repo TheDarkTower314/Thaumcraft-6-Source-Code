@@ -50,33 +50,33 @@ public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHan
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         tank.readFromNBT(nbttagcompound);
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         tank.writeToNBT(nbttagcompound);
         return nbttagcompound;
     }
     
     @Override
-    public void readFromNBT(final NBTTagCompound nbt) {
+    public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        final NBTTagList nbttaglist = nbt.getTagList("handlers", 3);
+        NBTTagList nbttaglist = nbt.getTagList("handlers", 3);
         handlers = new ArrayList<Integer>();
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-            final NBTTagInt tag = (NBTTagInt)nbttaglist.get(i);
+            NBTTagInt tag = (NBTTagInt)nbttaglist.get(i);
             handlers.add(tag.getInt());
         }
     }
     
     @Override
-    public NBTTagCompound writeToNBT(final NBTTagCompound nbt) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
-        final NBTTagList nbttaglist = new NBTTagList();
+        NBTTagList nbttaglist = new NBTTagList();
         for (int i = 0; i < handlers.size(); ++i) {
-            final NBTTagInt nbtTagInt = new NBTTagInt(handlers.get(i));
+            NBTTagInt nbtTagInt = new NBTTagInt(handlers.get(i));
         }
         nbt.setTag("handlers", nbttaglist);
         return nbt;
@@ -87,9 +87,9 @@ public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHan
         if (world.isRemote) {
             if (tcount > 0) {
                 if (tcount % 5 == 0) {
-                    final int x = zc / 5 % 5;
-                    final int y = zc / 5 / 5 % 3;
-                    final int z = zc % 5;
+                    int x = zc / 5 % 5;
+                    int y = zc / 5 / 5 % 3;
+                    int z = zc % 5;
                     FXDispatcher.INSTANCE.waterTrailFx(getPos(), getPos().add(x - 2, y - 1, z - 2), counter, 2650102, 0.1f);
                 }
                 --tcount;
@@ -100,20 +100,20 @@ public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHan
             int x = zone / 5 % 5;
             int y = zone / 5 / 5 % 3;
             int z = zone % 5;
-            final IBlockState bs = world.getBlockState(getPos().add(x - 2, y - 1, z - 2));
-            final TileEntity te = world.getTileEntity(getPos().add(x - 2, y - 1, z - 2));
+            IBlockState bs = world.getBlockState(getPos().add(x - 2, y - 1, z - 2));
+            TileEntity te = world.getTileEntity(getPos().add(x - 2, y - 1, z - 2));
             if (((te != null && (te instanceof IFluidHandler || te instanceof IPetalApothecary || te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.UP))) || bs.getBlock() == Blocks.CAULDRON) && !handlers.contains(zone)) {
                 handlers.add(zone);
                 markDirty();
             }
             int i = 0;
             while (i < handlers.size() && tank.getFluidAmount() >= 25) {
-                final int zz = handlers.get(i);
+                int zz = handlers.get(i);
                 x = zz / 5 % 5;
                 y = zz / 5 / 5 % 3;
                 z = zz % 5;
-                final IBlockState bs2 = world.getBlockState(getPos().add(x - 2, y - 1, z - 2));
-                final TileEntity tile = world.getTileEntity(getPos().add(x - 2, y - 1, z - 2));
+                IBlockState bs2 = world.getBlockState(getPos().add(x - 2, y - 1, z - 2));
+                TileEntity tile = world.getTileEntity(getPos().add(x - 2, y - 1, z - 2));
                 if (tile != null && (tile instanceof IFluidHandler || tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.UP))) {
                     IFluidHandler fh = null;
                     if (tile instanceof IFluidHandler) {
@@ -123,7 +123,7 @@ public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHan
                         fh = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.UP);
                     }
                     if (fh != null) {
-                        final int q = fh.fill(new FluidStack(FluidRegistry.WATER, 25), true);
+                        int q = fh.fill(new FluidStack(FluidRegistry.WATER, 25), true);
                         if (q > 0) {
                             drain(new FluidStack(FluidRegistry.WATER, q), true);
                             markDirty();
@@ -133,7 +133,7 @@ public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHan
                     }
                 }
                 else if (tile != null && tile instanceof IPetalApothecary && tank.getFluidAmount() >= 1000) {
-                    final IPetalApothecary pa = (IPetalApothecary)tile;
+                    IPetalApothecary pa = (IPetalApothecary)tile;
                     if (!pa.hasWater()) {
                         pa.setWater(true);
                         world.addBlockEvent(getPos(), getBlockType(), 1, zz);
@@ -147,7 +147,7 @@ public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHan
                         continue;
                     }
                     if ((int)bs2.getValue((IProperty)BlockCauldron.LEVEL) < 3) {
-                        final BlockPos pp = getPos().add(x - 2, y - 1, z - 2);
+                        BlockPos pp = getPos().add(x - 2, y - 1, z - 2);
                         world.setBlockState(pp, bs2.cycleProperty((IProperty)BlockCauldron.LEVEL), 2);
                         world.updateComparatorOutputLevel(pp, bs2.getBlock());
                         world.addBlockEvent(getPos(), getBlockType(), 1, zz);
@@ -161,8 +161,8 @@ public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHan
                 if (da > 0.1f) {
                     da = 0.1f;
                 }
-                final float dv = AuraHelper.drainVis(getWorld(), getPos(), da, false);
-                final int wa = (int)(1000.0f * dv);
+                float dv = AuraHelper.drainVis(getWorld(), getPos(), da, false);
+                int wa = (int)(1000.0f * dv);
                 if (wa > 0) {
                     tank.fill(new FluidStack(FluidRegistry.WATER, wa), true);
                     markDirty();
@@ -174,7 +174,7 @@ public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHan
         }
     }
     
-    public boolean receiveClientEvent(final int i, final int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i == 1) {
             if (world.isRemote) {
                 zc = j;
@@ -185,12 +185,12 @@ public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHan
         return super.receiveClientEvent(i, j);
     }
     
-    public boolean hasCapability(@Nonnull final Capability<?> capability, @Nullable final EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
         return (facing == EnumFacing.UP && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) || super.hasCapability(capability, facing);
     }
     
     @Nullable
-    public <T> T getCapability(@Nonnull final Capability<T> capability, @Nullable final EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
         if (facing == EnumFacing.UP && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return (T) tank;
         }
@@ -201,13 +201,13 @@ public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHan
         return tank.getTankProperties();
     }
     
-    public int fill(final FluidStack resource, final boolean doFill) {
+    public int fill(FluidStack resource, boolean doFill) {
         return 0;
     }
     
-    public FluidStack drain(final FluidStack resource, final boolean doDrain) {
-        final boolean f = tank.getFluidAmount() >= tank.getCapacity();
-        final FluidStack fs = tank.drain(resource, doDrain);
+    public FluidStack drain(FluidStack resource, boolean doDrain) {
+        boolean f = tank.getFluidAmount() >= tank.getCapacity();
+        FluidStack fs = tank.drain(resource, doDrain);
         markDirty();
         if (f && tank.getFluidAmount() < tank.getCapacity()) {
             syncTile(false);
@@ -215,9 +215,9 @@ public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHan
         return fs;
     }
     
-    public FluidStack drain(final int maxDrain, final boolean doDrain) {
-        final boolean f = tank.getFluidAmount() >= tank.getCapacity();
-        final FluidStack fs = tank.drain(maxDrain, doDrain);
+    public FluidStack drain(int maxDrain, boolean doDrain) {
+        boolean f = tank.getFluidAmount() >= tank.getCapacity();
+        FluidStack fs = tank.drain(maxDrain, doDrain);
         markDirty();
         if (f && tank.getFluidAmount() < tank.getCapacity()) {
             syncTile(false);

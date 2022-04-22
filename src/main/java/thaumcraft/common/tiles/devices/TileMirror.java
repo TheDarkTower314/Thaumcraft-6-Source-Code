@@ -49,13 +49,13 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
     
     public void restoreLink() {
         if (isDestinationValid()) {
-            final World targetWorld = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(linkDim);
+            World targetWorld = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(linkDim);
             if (targetWorld == null) {
                 return;
             }
-            final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+            TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
             if (te != null && te instanceof TileMirror) {
-                final TileMirror tm = (TileMirror)te;
+                TileMirror tm = (TileMirror)te;
                 tm.linked = true;
                 tm.linkX = getPos().getX();
                 tm.linkY = getPos().getY();
@@ -71,16 +71,16 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
     }
     
     public void invalidateLink() {
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (targetWorld == null) {
             return;
         }
         if (!Utils.isChunkLoaded(targetWorld, linkX, linkZ)) {
             return;
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (te != null && te instanceof TileMirror) {
-            final TileMirror tm = (TileMirror)te;
+            TileMirror tm = (TileMirror)te;
             tm.linked = false;
             markDirty();
             tm.markDirty();
@@ -92,18 +92,18 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
         if (!linked) {
             return false;
         }
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (targetWorld == null) {
             return false;
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (te == null || !(te instanceof TileMirror)) {
             linked = false;
             markDirty();
             syncTile(false);
             return false;
         }
-        final TileMirror tm = (TileMirror)te;
+        TileMirror tm = (TileMirror)te;
         if (!tm.linked) {
             linked = false;
             markDirty();
@@ -123,41 +123,41 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
         if (!linked) {
             return false;
         }
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (targetWorld == null) {
             return false;
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (te == null || !(te instanceof TileMirror)) {
             return false;
         }
-        final TileMirror tm = (TileMirror)te;
+        TileMirror tm = (TileMirror)te;
         return tm.linked && tm.linkX == getPos().getX() && tm.linkY == getPos().getY() && tm.linkZ == getPos().getZ() && tm.linkDim == world.provider.getDimension();
     }
     
     public boolean isDestinationValid() {
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (targetWorld == null) {
             return false;
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (te == null || !(te instanceof TileMirror)) {
             linked = false;
             markDirty();
             syncTile(false);
             return false;
         }
-        final TileMirror tm = (TileMirror)te;
+        TileMirror tm = (TileMirror)te;
         return !tm.isLinkValid();
     }
     
-    public boolean transport(final EntityItem ie) {
-        final ItemStack items = ie.getItem();
+    public boolean transport(EntityItem ie) {
+        ItemStack items = ie.getItem();
         if (!linked || !isLinkValid()) {
             return false;
         }
-        final World world = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(linkDim);
-        final TileEntity target = world.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        World world = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(linkDim);
+        TileEntity target = world.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (target != null && target instanceof TileMirror) {
             ((TileMirror)target).addStack(items);
             addInstability(null, items.getCount());
@@ -170,7 +170,7 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
         return false;
     }
     
-    public boolean transportDirect(final ItemStack items) {
+    public boolean transportDirect(ItemStack items) {
         if (items == null || items.isEmpty() || items.getCount() <= 0) {
             return false;
         }
@@ -181,9 +181,9 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
     
     public void eject() {
         if (outputStacks.size() > 0 && count > 20) {
-            final int i = world.rand.nextInt(outputStacks.size());
+            int i = world.rand.nextInt(outputStacks.size());
             if (outputStacks.get(i) != null && !outputStacks.get(i).isEmpty()) {
-                final ItemStack outItem = outputStacks.get(i).copy();
+                ItemStack outItem = outputStacks.get(i).copy();
                 outItem.setCount(1);
                 if (spawnItem(outItem)) {
                     outputStacks.get(i).shrink(1);
@@ -201,10 +201,10 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
         }
     }
     
-    public boolean spawnItem(final ItemStack stack) {
+    public boolean spawnItem(ItemStack stack) {
         try {
-            final EnumFacing face = BlockStateUtils.getFacing(getBlockMetadata());
-            final EntityItem ie2 = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 0.25, getPos().getZ() + 0.5, stack);
+            EnumFacing face = BlockStateUtils.getFacing(getBlockMetadata());
+            EntityItem ie2 = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 0.25, getPos().getZ() + 0.5, stack);
             ie2.motionX = face.getFrontOffsetX() * 0.15f;
             ie2.motionY = face.getFrontOffsetY() * 0.15f;
             ie2.motionZ = face.getFrontOffsetZ() * 0.15f;
@@ -212,18 +212,18 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
             world.spawnEntity(ie2);
             return true;
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             return false;
         }
     }
     
-    protected void addInstability(final World targetWorld, final int amt) {
+    protected void addInstability(World targetWorld, int amt) {
         instability += amt;
         markDirty();
         if (targetWorld != null) {
-            final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+            TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
             if (te != null && te instanceof TileMirror) {
-                final TileMirror tileMirror = (TileMirror)te;
+                TileMirror tileMirror = (TileMirror)te;
                 tileMirror.instability += amt;
                 if (((TileMirror)te).instability < 0) {
                     ((TileMirror)te).instability = 0;
@@ -234,7 +234,7 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         super.readSyncNBT(nbttagcompound);
         linked = nbttagcompound.getBoolean("linked");
         linkX = nbttagcompound.getInteger("linkX");
@@ -245,7 +245,7 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         super.writeSyncNBT(nbttagcompound);
         nbttagcompound.setBoolean("linked", linked);
         nbttagcompound.setInteger("linkX", linkX);
@@ -256,13 +256,13 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
         return nbttagcompound;
     }
     
-    public boolean receiveClientEvent(final int i, final int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i == 1) {
             if (world.isRemote) {
-                final EnumFacing face = BlockStateUtils.getFacing(getBlockMetadata());
-                final double xx = getPos().getX() + 0.33 + world.rand.nextFloat() * 0.33f - face.getFrontOffsetX() / 2.0;
-                final double yy = getPos().getY() + 0.33 + world.rand.nextFloat() * 0.33f - face.getFrontOffsetY() / 2.0;
-                final double zz = getPos().getZ() + 0.33 + world.rand.nextFloat() * 0.33f - face.getFrontOffsetZ() / 2.0;
+                EnumFacing face = BlockStateUtils.getFacing(getBlockMetadata());
+                double xx = getPos().getX() + 0.33 + world.rand.nextFloat() * 0.33f - face.getFrontOffsetX() / 2.0;
+                double yy = getPos().getY() + 0.33 + world.rand.nextFloat() * 0.33f - face.getFrontOffsetY() / 2.0;
+                double zz = getPos().getZ() + 0.33 + world.rand.nextFloat() * 0.33f - face.getFrontOffsetZ() / 2.0;
                 FXDispatcher.INSTANCE.drawWispyMotes(xx, yy, zz, face.getFrontOffsetX() / 50.0 + world.rand.nextGaussian() * 0.01, face.getFrontOffsetY() / 50.0 + world.rand.nextGaussian() * 0.01, face.getFrontOffsetZ() / 50.0 + world.rand.nextGaussian() * 0.01, MathHelper.getInt(world.rand, 10, 30), world.rand.nextFloat() / 3.0f, 0.0f, world.rand.nextFloat() / 2.0f, (float)(world.rand.nextGaussian() * 0.01));
             }
             return true;
@@ -300,24 +300,24 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
     }
     
     @Override
-    public void readFromNBT(final NBTTagCompound nbtCompound) {
+    public void readFromNBT(NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
-        final NBTTagList nbttaglist = nbtCompound.getTagList("Items", 10);
+        NBTTagList nbttaglist = nbtCompound.getTagList("Items", 10);
         outputStacks = new ArrayList<ItemStack>();
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-            final NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-            final byte b0 = nbttagcompound1.getByte("Slot");
+            NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
+            byte b0 = nbttagcompound1.getByte("Slot");
             outputStacks.add(new ItemStack(nbttagcompound1));
         }
     }
     
     @Override
-    public NBTTagCompound writeToNBT(final NBTTagCompound nbtCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbtCompound) {
         super.writeToNBT(nbtCompound);
-        final NBTTagList nbttaglist = new NBTTagList();
+        NBTTagList nbttaglist = new NBTTagList();
         for (int i = 0; i < outputStacks.size(); ++i) {
             if (outputStacks.get(i) != null && outputStacks.get(i).getCount() > 0) {
-                final NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+                NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                 nbttagcompound1.setByte("Slot", (byte)i);
                 outputStacks.get(i).writeToNBT(nbttagcompound1);
                 nbttaglist.appendTag(nbttagcompound1);
@@ -331,26 +331,26 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
         return 1;
     }
     
-    public ItemStack getStackInSlot(final int par1) {
+    public ItemStack getStackInSlot(int par1) {
         return ItemStack.EMPTY;
     }
     
-    public ItemStack decrStackSize(final int par1, final int par2) {
+    public ItemStack decrStackSize(int par1, int par2) {
         return ItemStack.EMPTY;
     }
     
-    public ItemStack removeStackFromSlot(final int par1) {
+    public ItemStack removeStackFromSlot(int par1) {
         return ItemStack.EMPTY;
     }
     
-    public void addStack(final ItemStack stack) {
+    public void addStack(ItemStack stack) {
         outputStacks.add(stack);
         markDirty();
     }
     
-    public void setInventorySlotContents(final int par1, final ItemStack stack2) {
-        final World world = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(linkDim);
-        final TileEntity target = world.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+    public void setInventorySlotContents(int par1, ItemStack stack2) {
+        World world = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(linkDim);
+        TileEntity target = world.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (target != null && target instanceof TileMirror) {
             ((TileMirror)target).addStack(stack2.copy());
             addInstability(null, stack2.getCount());
@@ -365,13 +365,13 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
         return 64;
     }
     
-    public boolean isUsableByPlayer(final EntityPlayer var1) {
+    public boolean isUsableByPlayer(EntityPlayer var1) {
         return false;
     }
     
-    public boolean isItemValidForSlot(final int var1, final ItemStack var2) {
-        final World world = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(linkDim);
-        final TileEntity target = world.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+    public boolean isItemValidForSlot(int var1, ItemStack var2) {
+        World world = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(linkDim);
+        TileEntity target = world.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         return target != null && target instanceof TileMirror;
     }
     
@@ -387,17 +387,17 @@ public class TileMirror extends TileThaumcraft implements IInventory, ITickable
         return null;
     }
     
-    public void openInventory(final EntityPlayer player) {
+    public void openInventory(EntityPlayer player) {
     }
     
-    public void closeInventory(final EntityPlayer player) {
+    public void closeInventory(EntityPlayer player) {
     }
     
-    public int getField(final int id) {
+    public int getField(int id) {
         return 0;
     }
     
-    public void setField(final int id, final int value) {
+    public void setField(int id, int value) {
     }
     
     public int getFieldCount() {

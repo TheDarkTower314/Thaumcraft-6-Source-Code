@@ -26,31 +26,31 @@ public class AIPechItemEntityGoto extends EntityAIBase
     private int count;
     private int failedPathFindingPenalty;
     
-    public AIPechItemEntityGoto(final EntityPech par1EntityCreature) {
+    public AIPechItemEntityGoto(EntityPech par1EntityCreature) {
         maxTargetDistance = 16.0f;
         pech = par1EntityCreature;
         setMutexBits(3);
     }
     
     public boolean shouldExecute() {
-        final int count = this.count - 1;
+        int count = this.count - 1;
         this.count = count;
         if (count > 0) {
             return false;
         }
         double range = Double.MAX_VALUE;
-        final List<Entity> targets = pech.world.getEntitiesWithinAABBExcludingEntity(pech, pech.getEntityBoundingBox().grow(maxTargetDistance, maxTargetDistance, maxTargetDistance));
+        List<Entity> targets = pech.world.getEntitiesWithinAABBExcludingEntity(pech, pech.getEntityBoundingBox().grow(maxTargetDistance, maxTargetDistance, maxTargetDistance));
         if (targets.size() == 0) {
             return false;
         }
-        for (final Entity e : targets) {
+        for (Entity e : targets) {
             if (e instanceof EntityItem && pech.canPickup(((EntityItem)e).getItem())) {
-                final NBTTagCompound itemData = e.getEntityData();
-                final String username = ((EntityItem)e).getThrower();
+                NBTTagCompound itemData = e.getEntityData();
+                String username = ((EntityItem)e).getThrower();
                 if (username != null && username.equals("PechDrop")) {
                     continue;
                 }
-                final double distance = e.getDistanceSq(pech.posX, pech.posY, pech.posZ);
+                double distance = e.getDistanceSq(pech.posX, pech.posY, pech.posZ);
                 if (distance >= range || distance > maxTargetDistance * maxTargetDistance) {
                     continue;
                 }
@@ -80,7 +80,7 @@ public class AIPechItemEntityGoto extends EntityAIBase
             count = failedPathFindingPenalty + 4 + pech.getRNG().nextInt(4);
             pech.getNavigator().tryMoveToEntityLiving(targetEntity, pech.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 1.5);
             if (pech.getNavigator().getPath() != null) {
-                final PathPoint finalPathPoint = pech.getNavigator().getPath().getFinalPathPoint();
+                PathPoint finalPathPoint = pech.getNavigator().getPath().getFinalPathPoint();
                 if (finalPathPoint != null && targetEntity.getDistanceSq(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1.0) {
                     failedPathFindingPenalty = 0;
                 }
@@ -92,11 +92,11 @@ public class AIPechItemEntityGoto extends EntityAIBase
                 failedPathFindingPenalty += 10;
             }
         }
-        final double distance = pech.getDistanceSq(targetEntity.posX, targetEntity.getEntityBoundingBox().minY, targetEntity.posZ);
+        double distance = pech.getDistanceSq(targetEntity.posX, targetEntity.getEntityBoundingBox().minY, targetEntity.posZ);
         if (distance <= 1.5) {
             count = 0;
-            final int am = ((EntityItem) targetEntity).getItem().getCount();
-            final ItemStack is = pech.pickupItem(((EntityItem) targetEntity).getItem());
+            int am = ((EntityItem) targetEntity).getItem().getCount();
+            ItemStack is = pech.pickupItem(((EntityItem) targetEntity).getItem());
             if (is != null && !is.isEmpty() && is.getCount() > 0) {
                 ((EntityItem) targetEntity).setItem(is);
             }

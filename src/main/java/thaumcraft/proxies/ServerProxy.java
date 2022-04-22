@@ -11,12 +11,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ServerProxy extends CommonProxy
 {
     @Override
-    public void preInit(final FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
     }
     
     @Override
-    public World getWorld(final int dim) {
+    public World getWorld(int dim) {
         return DimensionManager.getWorld(dim);
     }
 }

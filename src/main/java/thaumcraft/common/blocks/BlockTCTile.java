@@ -20,46 +20,46 @@ import net.minecraft.block.ITileEntityProvider;
 
 public class BlockTCTile extends BlockTC implements ITileEntityProvider
 {
-    protected final Class<? extends TileEntity> tileClass;
+    protected Class<? extends TileEntity> tileClass;
     protected static boolean keepInventory;
     protected static boolean spillEssentia;
     
-    public BlockTCTile(final Material mat, final Class<? extends TileEntity> tc, final String name) {
+    public BlockTCTile(Material mat, Class<? extends TileEntity> tc, String name) {
         super(mat, name);
         setHardness(2.0f);
         setResistance(20.0f);
         tileClass = tc;
     }
     
-    public boolean canHarvestBlock(final IBlockAccess world, final BlockPos pos, final EntityPlayer player) {
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
         return true;
     }
     
-    public TileEntity createNewTileEntity(final World worldIn, final int meta) {
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
         if (tileClass == null) {
             return null;
         }
         try {
             return tileClass.newInstance();
         }
-        catch (final InstantiationException e) {
+        catch (InstantiationException e) {
             Thaumcraft.log.catching(e);
         }
-        catch (final IllegalAccessException e2) {
+        catch (IllegalAccessException e2) {
             Thaumcraft.log.catching(e2);
         }
         return null;
     }
     
-    public boolean hasTileEntity(final IBlockState state) {
+    public boolean hasTileEntity(IBlockState state) {
         return true;
     }
     
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         InventoryUtils.dropItems(worldIn, pos);
-        final TileEntity tileentity = worldIn.getTileEntity(pos);
+        TileEntity tileentity = worldIn.getTileEntity(pos);
         if (tileentity != null && tileentity instanceof IEssentiaTransport && BlockTCTile.spillEssentia && !worldIn.isRemote) {
-            final int ess = ((IEssentiaTransport)tileentity).getEssentiaAmount(EnumFacing.UP);
+            int ess = ((IEssentiaTransport)tileentity).getEssentiaAmount(EnumFacing.UP);
             if (ess > 0) {
                 AuraHelper.polluteAura(worldIn, pos, (float)ess, true);
             }
@@ -68,9 +68,9 @@ public class BlockTCTile extends BlockTC implements ITileEntityProvider
         worldIn.removeTileEntity(pos);
     }
     
-    public boolean eventReceived(final IBlockState state, final World worldIn, final BlockPos pos, final int id, final int param) {
+    public boolean eventReceived(IBlockState state, World worldIn, BlockPos pos, int id, int param) {
         super.eventReceived(state, worldIn, pos, id, param);
-        final TileEntity tileentity = worldIn.getTileEntity(pos);
+        TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity != null && tileentity.receiveClientEvent(id, param);
     }
     

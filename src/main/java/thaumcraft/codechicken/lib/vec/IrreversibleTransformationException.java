@@ -8,7 +8,7 @@ public class IrreversibleTransformationException extends RuntimeException
 {
     public ITransformation t;
     
-    public IrreversibleTransformationException(final ITransformation t) {
+    public IrreversibleTransformationException(ITransformation t) {
         this.t = t;
     }
     

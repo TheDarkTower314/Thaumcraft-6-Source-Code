@@ -21,29 +21,29 @@ public class PacketMiscStringToServer implements IMessage, IMessageHandler<Packe
     public PacketMiscStringToServer() {
     }
     
-    public PacketMiscStringToServer(final int id, final String text) {
+    public PacketMiscStringToServer(int id, String text) {
         this.id = id;
         this.text = text;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(id);
         ByteBufUtils.writeUTF8String(buffer, text);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         id = buffer.readInt();
         text = ByteBufUtils.readUTF8String(buffer);
     }
     
-    public IMessage onMessage(final PacketMiscStringToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketMiscStringToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final EntityPlayerMP player = ctx.getServerHandler().player;
+                EntityPlayerMP player = ctx.getServerHandler().player;
                 if (id == 0 && player.openContainer instanceof ContainerLogistics) {
-                    final ContainerLogistics container = (ContainerLogistics)player.openContainer;
+                    ContainerLogistics container = (ContainerLogistics)player.openContainer;
                     container.searchText = message.text;
                     container.refreshItemList(true);
                 }

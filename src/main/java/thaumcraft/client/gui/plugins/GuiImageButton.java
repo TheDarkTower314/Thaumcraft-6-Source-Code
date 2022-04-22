@@ -30,7 +30,7 @@ public class GuiImageButton extends GuiButton
     public int color;
     public boolean active;
     
-    public GuiImageButton(final GuiScreen screen, final int buttonId, final int x, final int y, final int width, final int height, final String buttonText, final String description, final ResourceLocation loc, final int lx, final int ly, final int ww, final int hh) {
+    public GuiImageButton(GuiScreen screen, int buttonId, int x, int y, int width, int height, String buttonText, String description, ResourceLocation loc, int lx, int ly, int ww, int hh) {
         super(buttonId, x, y, width, height, buttonText);
         active = true;
         this.description = description;
@@ -43,7 +43,7 @@ public class GuiImageButton extends GuiButton
         this.hh = hh;
     }
     
-    public GuiImageButton(final GuiScreen screen, final int buttonId, final int x, final int y, final int width, final int height, final String buttonText, final String description, final ResourceLocation loc, final int lx, final int ly, final int ww, final int hh, final int color) {
+    public GuiImageButton(GuiScreen screen, int buttonId, int x, int y, int width, int height, String buttonText, String description, ResourceLocation loc, int lx, int ly, int ww, int hh, int color) {
         super(buttonId, x, y, width, height, buttonText);
         active = true;
         this.description = description;
@@ -56,15 +56,15 @@ public class GuiImageButton extends GuiButton
         this.hh = hh;
     }
     
-    public void drawButton(final Minecraft mc, final int xx, final int yy, final float pt) {
+    public void drawButton(Minecraft mc, int xx, int yy, float pt) {
         if (visible) {
-            final FontRenderer fontrenderer = mc.fontRenderer;
+            FontRenderer fontrenderer = mc.fontRenderer;
             hovered = (xx >= x - width / 2 && yy >= y - height / 2 && xx < x - width / 2 + width && yy < y - height / 2 + height);
-            final int k = getHoverState(hovered);
+            int k = getHoverState(hovered);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.blendFunc(770, 771);
-            final Color c = new Color(color);
+            Color c = new Color(color);
             float cc = 0.9f;
             float ac = 1.0f;
             if (k == 2) {
@@ -97,10 +97,10 @@ public class GuiImageButton extends GuiButton
         }
     }
     
-    public void drawButtonForegroundLayer(final int xx, final int yy) {
-        final FontRenderer fontrenderer = Minecraft.getMinecraft().fontRenderer;
+    public void drawButtonForegroundLayer(int xx, int yy) {
+        FontRenderer fontrenderer = Minecraft.getMinecraft().fontRenderer;
         zLevel += 90.0f;
-        final ArrayList<String> text = new ArrayList<String>();
+        ArrayList<String> text = new ArrayList<String>();
         if (displayString != null) {
             text.add(displayString);
         }
@@ -116,7 +116,7 @@ public class GuiImageButton extends GuiButton
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
     }
     
-    public boolean mousePressed(final Minecraft mc, final int mouseX, final int mouseY) {
+    public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         return active && enabled && visible && mouseX >= x - width / 2 && mouseY >= y - height / 2 && mouseX < x - width / 2 + width && mouseY < y - height / 2 + height;
     }
 }

@@ -35,16 +35,16 @@ public class TileJarRenderer extends TileEntitySpecialRenderer
 {
     private ModelJar model;
     private ModelBrain brain;
-    private static final ResourceLocation TEX_LABEL;
-    private static final ResourceLocation TEX_BRAIN;
-    private static final ResourceLocation TEX_BRINE;
+    private static ResourceLocation TEX_LABEL;
+    private static ResourceLocation TEX_BRAIN;
+    private static ResourceLocation TEX_BRINE;
     
     public TileJarRenderer() {
         model = new ModelJar();
         brain = new ModelBrain();
     }
     
-    public void renderTileEntityAt(final TileJar tile, final double x, final double y, final double z, final float f) {
+    public void renderTileEntityAt(TileJar tile, double x, double y, double z, float f) {
         GL11.glPushMatrix();
         GL11.glDisable(2884);
         GL11.glTranslatef((float)x + 0.5f, (float)y + 0.01f, (float)z + 0.5f);
@@ -86,7 +86,7 @@ public class TileJarRenderer extends TileEntitySpecialRenderer
                         break;
                     }
                 }
-                final float rot = (float)((((TileJarFillable)tile).aspectFilter.getTag().hashCode() + tile.getPos().getX() + ((TileJarFillable)tile).facing) % 4 - 2);
+                float rot = (float)((((TileJarFillable)tile).aspectFilter.getTag().hashCode() + tile.getPos().getX() + ((TileJarFillable)tile).facing) % 4 - 2);
                 GL11.glPushMatrix();
                 GL11.glTranslatef(0.0f, -0.4f, 0.315f);
                 if (ModConfig.CONFIG_GRAPHICS.crooked) {
@@ -114,21 +114,21 @@ public class TileJarRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
     
-    public void renderLiquid(final TileJarFillable te, final double x, final double y, final double z, final float f) {
+    public void renderLiquid(TileJarFillable te, double x, double y, double z, float f) {
         GL11.glPushMatrix();
         GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
-        final World world = te.getWorld();
-        final RenderCubes renderBlocks = new RenderCubes();
+        World world = te.getWorld();
+        RenderCubes renderBlocks = new RenderCubes();
         GL11.glDisable(2896);
-        final float level = te.amount / 250.0f * 0.625f;
-        final Tessellator t = Tessellator.getInstance();
+        float level = te.amount / 250.0f * 0.625f;
+        Tessellator t = Tessellator.getInstance();
         renderBlocks.setRenderBounds(0.25, 0.0625, 0.25, 0.75, 0.0625 + level, 0.75);
         t.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
         Color co = new Color(0);
         if (te.aspect != null) {
             co = new Color(te.aspect.getColor());
         }
-        final TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("thaumcraft:blocks/animatedglow");
+        TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("thaumcraft:blocks/animatedglow");
         bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         renderBlocks.renderFaceYNeg(BlocksTC.jarNormal, -0.5, 0.0, -0.5, icon, co.getRed() / 255.0f, co.getGreen() / 255.0f, co.getBlue() / 255.0f, 200);
         renderBlocks.renderFaceYPos(BlocksTC.jarNormal, -0.5, 0.0, -0.5, icon, co.getRed() / 255.0f, co.getGreen() / 255.0f, co.getBlue() / 255.0f, 200);
@@ -142,8 +142,8 @@ public class TileJarRenderer extends TileEntitySpecialRenderer
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
     
-    public void renderBrain(final TileJarBrain te, final double x, final double y, final double z, final float f) {
-        final float bob = MathHelper.sin(Minecraft.getMinecraft().player.ticksExisted / 14.0f) * 0.03f + 0.03f;
+    public void renderBrain(TileJarBrain te, double x, double y, double z, float f) {
+        float bob = MathHelper.sin(Minecraft.getMinecraft().player.ticksExisted / 14.0f) * 0.03f + 0.03f;
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0f, -0.8f + bob, 0.0f);
         float f2;
@@ -151,7 +151,7 @@ public class TileJarRenderer extends TileEntitySpecialRenderer
         while (f2 < -3.141593f) {
             f2 += 6.283185f;
         }
-        final float f3 = te.rotb + f2 * f;
+        float f3 = te.rotb + f2 * f;
         GL11.glRotatef(f3 * 180.0f / 3.141593f, 0.0f, 1.0f, 0.0f);
         GL11.glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
         bindTexture(TileJarRenderer.TEX_BRAIN);
@@ -165,7 +165,7 @@ public class TileJarRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderTileEntityAt((TileJar)te, x, y, z, partialTicks);
     }

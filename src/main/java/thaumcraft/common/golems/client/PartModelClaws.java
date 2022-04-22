@@ -13,13 +13,13 @@ public class PartModelClaws extends PartModel
 {
     float f;
     
-    public PartModelClaws(final ResourceLocation objModel, final ResourceLocation objTexture, final EnumAttachPoint attachPoint) {
+    public PartModelClaws(ResourceLocation objModel, ResourceLocation objTexture, EnumAttachPoint attachPoint) {
         super(objModel, objTexture, attachPoint);
         f = 0.0f;
     }
     
     @Override
-    public void preRenderObjectPart(final String partName, final IGolemAPI golem, final float partialTicks, final EnumLimbSide side) {
+    public void preRenderObjectPart(String partName, IGolemAPI golem, float partialTicks, EnumLimbSide side) {
         if (partName.startsWith("claw")) {
             f = 0.0f;
             f = golem.getGolemEntity().getSwingProgress(partialTicks) * 4.1f;

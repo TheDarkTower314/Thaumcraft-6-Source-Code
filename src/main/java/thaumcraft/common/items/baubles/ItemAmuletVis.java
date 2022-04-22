@@ -33,23 +33,23 @@ public class ItemAmuletVis extends ItemTCBase implements IBauble
         setHasSubtypes(true);
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return (itemstack.getItemDamage() == 0) ? EnumRarity.UNCOMMON : EnumRarity.RARE;
     }
     
-    public BaubleType getBaubleType(final ItemStack itemstack) {
+    public BaubleType getBaubleType(ItemStack itemstack) {
         return BaubleType.AMULET;
     }
     
-    public void onWornTick(final ItemStack itemstack, final EntityLivingBase player) {
+    public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
         if (player instanceof EntityPlayer && !player.world.isRemote && player.ticksExisted % ((itemstack.getItemDamage() == 0) ? 40 : 5) == 0) {
             NonNullList<ItemStack> inv = ((EntityPlayer)player).inventory.mainInventory;
             int a = 0;
             while (true) {
-                final int n = a;
-                final InventoryPlayer inventory = ((EntityPlayer)player).inventory;
+                int n = a;
+                InventoryPlayer inventory = ((EntityPlayer)player).inventory;
                 if (n >= InventoryPlayer.getHotbarSize()) {
-                    final IBaublesItemHandler baubles = BaublesApi.getBaublesHandler((EntityPlayer)player);
+                    IBaublesItemHandler baubles = BaublesApi.getBaublesHandler((EntityPlayer)player);
                     for (int a2 = 0; a2 < baubles.getSlots(); ++a2) {
                         if (RechargeHelper.rechargeItem(player.world, baubles.getStackInSlot(a2), player.getPosition(), (EntityPlayer)player, 1) > 0.0f) {
                             return;
@@ -72,7 +72,7 @@ public class ItemAmuletVis extends ItemTCBase implements IBauble
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(TextFormatting.AQUA + I18n.translateToLocal("item.amulet_vis.text"));
     }
 }

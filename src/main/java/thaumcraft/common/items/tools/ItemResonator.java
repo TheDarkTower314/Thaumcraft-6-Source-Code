@@ -37,16 +37,16 @@ public class ItemResonator extends ItemTCBase
         setCreativeTab(ConfigItems.TABTC);
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.UNCOMMON;
     }
     
-    public boolean hasEffect(final ItemStack stack1) {
+    public boolean hasEffect(ItemStack stack1) {
         return stack1.hasTagCompound();
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
-        final TileEntity tile = world.getTileEntity(pos);
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile == null || !(tile instanceof IEssentiaTransport)) {
             return EnumActionResult.FAIL;
         }
@@ -54,8 +54,8 @@ public class ItemResonator extends ItemTCBase
             player.swingArm(hand);
             return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
         }
-        final IEssentiaTransport et = (IEssentiaTransport)tile;
-        final RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
+        IEssentiaTransport et = (IEssentiaTransport)tile;
+        RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
         if (hit != null && hit.subHit >= 0 && hit.subHit < 6) {
             side = EnumFacing.VALUES[hit.subHit];
         }
@@ -63,7 +63,7 @@ public class ItemResonator extends ItemTCBase
             player.sendMessage(new TextComponentTranslation("tc.resonator1", "" + et.getEssentiaAmount(side), et.getEssentiaType(side).getName()));
         }
         else if (tile instanceof TileTubeBuffer && ((IAspectContainer)tile).getAspects().size() > 0) {
-            for (final Aspect aspect : ((IAspectContainer)tile).getAspects().getAspectsSortedByName()) {
+            for (Aspect aspect : ((IAspectContainer)tile).getAspects().getAspectsSortedByName()) {
                 player.sendMessage(new TextComponentTranslation("tc.resonator1", "" + ((IAspectContainer)tile).getAspects().getAmount(aspect), aspect.getName()));
             }
         }
@@ -74,9 +74,9 @@ public class ItemResonator extends ItemTCBase
         player.sendMessage(new TextComponentTranslation("tc.resonator2", "" + et.getSuctionAmount(side), s));
         world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.BLOCKS, 0.5f, 1.9f + world.rand.nextFloat() * 0.1f);
         if (tile != null && tile instanceof TileCondenser) {
-            final TileCondenser tc = (TileCondenser)tile;
+            TileCondenser tc = (TileCondenser)tile;
             player.sendMessage(new TextComponentTranslation("tc.condenser1", "" + tc.cost));
-            final int s2 = tc.interval / 20;
+            int s2 = tc.interval / 20;
             player.sendMessage(new TextComponentTranslation("tc.condenser2", "" + tc.interval, "" + s2));
         }
         return EnumActionResult.SUCCESS;

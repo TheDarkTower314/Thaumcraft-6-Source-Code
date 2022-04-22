@@ -63,23 +63,23 @@ public class Utils
 {
     public static HashMap<List<Object>, ItemStack> specialMiningResult;
     public static HashMap<List<Object>, Float> specialMiningChance;
-    public static final String[] colorNames;
-    public static final int[] colors;
+    public static String[] colorNames;
+    public static int[] colors;
     public static ArrayList<List> oreDictLogs;
     
-    public static boolean isChunkLoaded(final World world, final int x, final int z) {
-        final Chunk chunk = world.getChunkProvider().getLoadedChunk(x >> 4, z >> 4);
+    public static boolean isChunkLoaded(World world, int x, int z) {
+        Chunk chunk = world.getChunkProvider().getLoadedChunk(x >> 4, z >> 4);
         return chunk != null && !chunk.isEmpty();
     }
     
-    public static boolean useBonemealAtLoc(final World world, final EntityPlayer player, final BlockPos pos) {
-        final ItemStack is = new ItemStack(Items.DYE, 1, 15);
-        final ItemDye itemDye = (ItemDye)Items.DYE;
+    public static boolean useBonemealAtLoc(World world, EntityPlayer player, BlockPos pos) {
+        ItemStack is = new ItemStack(Items.DYE, 1, 15);
+        ItemDye itemDye = (ItemDye)Items.DYE;
         return ItemDye.applyBonemeal(is, world, pos, player, EnumHand.MAIN_HAND);
     }
     
-    public static boolean hasColor(final byte[] colors) {
-        for (final byte col : colors) {
+    public static boolean hasColor(byte[] colors) {
+        for (byte col : colors) {
             if (col >= 0) {
                 return true;
             }
@@ -87,7 +87,7 @@ public class Utils
         return false;
     }
     
-    public static void copyFile(final File sourceFile, final File destFile) throws IOException {
+    public static void copyFile(File sourceFile, File destFile) throws IOException {
         if (!destFile.exists()) {
             destFile.createNewFile();
         }
@@ -108,15 +108,15 @@ public class Utils
         }
     }
     
-    public static void addSpecialMiningResult(final ItemStack in, final ItemStack out, final float chance) {
+    public static void addSpecialMiningResult(ItemStack in, ItemStack out, float chance) {
         Utils.specialMiningResult.put(Arrays.asList(in.getItem(), in.getItemDamage()), out);
         Utils.specialMiningChance.put(Arrays.asList(in.getItem(), in.getItemDamage()), chance);
     }
     
-    public static ItemStack findSpecialMiningResult(final ItemStack is, final float chance, final Random rand) {
+    public static ItemStack findSpecialMiningResult(ItemStack is, float chance, Random rand) {
         ItemStack dropped = is.copy();
-        final float r = rand.nextFloat();
-        final List ik = Arrays.asList(is.getItem(), is.getItemDamage());
+        float r = rand.nextFloat();
+        List ik = Arrays.asList(is.getItem(), is.getItemDamage());
         if (Utils.specialMiningResult.containsKey(ik) && r <= chance * Utils.specialMiningChance.get(ik)) {
             dropped = Utils.specialMiningResult.get(ik).copy();
             dropped.setCount(dropped.getCount() * is.getCount());
@@ -124,20 +124,20 @@ public class Utils
         return dropped;
     }
     
-    public static float clamp_float(final float par0, final float par1, final float par2) {
+    public static float clamp_float(float par0, float par1, float par2) {
         return (par0 < par1) ? par1 : ((par0 > par2) ? par2 : par0);
     }
     
-    public static void setBiomeAt(final World world, final BlockPos pos, final Biome biome) {
+    public static void setBiomeAt(World world, BlockPos pos, Biome biome) {
         setBiomeAt(world, pos, biome, true);
     }
     
-    public static void setBiomeAt(final World world, final BlockPos pos, final Biome biome, final boolean sync) {
+    public static void setBiomeAt(World world, BlockPos pos, Biome biome, boolean sync) {
         if (biome == null) {
             return;
         }
-        final Chunk chunk = world.getChunkFromBlockCoords(pos);
-        final byte[] array = chunk.getBiomeArray();
+        Chunk chunk = world.getChunkFromBlockCoords(pos);
+        byte[] array = chunk.getBiomeArray();
         array[(pos.getZ() & 0xF) << 4 | (pos.getX() & 0xF)] = (byte)(Biome.getIdForBiome(biome) & 0xFF);
         chunk.setBiomeArray(array);
         if (sync && !world.isRemote) {
@@ -145,15 +145,15 @@ public class Utils
         }
     }
     
-    public static boolean resetBiomeAt(final World world, final BlockPos pos) {
+    public static boolean resetBiomeAt(World world, BlockPos pos) {
         return resetBiomeAt(world, pos, true);
     }
     
-    public static boolean resetBiomeAt(final World world, final BlockPos pos, final boolean sync) {
+    public static boolean resetBiomeAt(World world, BlockPos pos, boolean sync) {
         Biome[] biomesForGeneration = null;
         biomesForGeneration = world.getBiomeProvider().getBiomesForGeneration(biomesForGeneration, pos.getX(), pos.getZ(), 1, 1);
         if (biomesForGeneration != null && biomesForGeneration[0] != null) {
-            final Biome biome = biomesForGeneration[0];
+            Biome biome = biomesForGeneration[0];
             if (biome != world.getBiome(pos)) {
                 setBiomeAt(world, pos, biome, sync);
                 return true;
@@ -162,26 +162,26 @@ public class Utils
         return false;
     }
     
-    public static boolean isWoodLog(final IBlockAccess world, final BlockPos pos) {
-        final IBlockState bs = world.getBlockState(pos);
-        final Block bi = bs.getBlock();
+    public static boolean isWoodLog(IBlockAccess world, BlockPos pos) {
+        IBlockState bs = world.getBlockState(pos);
+        Block bi = bs.getBlock();
         return bi.isWood(world, pos) || bi.canSustainLeaves(bs, world, pos) || Utils.oreDictLogs.contains(Arrays.asList(bi, bi.getMetaFromState(bs)));
     }
     
-    public static boolean isOreBlock(final World world, final BlockPos pos) {
-        final IBlockState bi = world.getBlockState(pos);
+    public static boolean isOreBlock(World world, BlockPos pos) {
+        IBlockState bi = world.getBlockState(pos);
         if (bi.getBlock() != Blocks.AIR && bi.getBlock() != Blocks.BEDROCK) {
             ItemStack is = BlockUtils.getSilkTouchDrop(bi);
             if (is == null || is.isEmpty()) {
-                final int md = bi.getBlock().getMetaFromState(bi);
+                int md = bi.getBlock().getMetaFromState(bi);
                 is = new ItemStack(bi.getBlock(), 1, md);
             }
             if (is == null || is.isEmpty() || is.getItem() == null) {
                 return false;
             }
-            final int[] od = OreDictionary.getOreIDs(is);
+            int[] od = OreDictionary.getOreIDs(is);
             if (od != null && od.length > 0) {
-                for (final int id : od) {
+                for (int id : od) {
                     if (OreDictionary.getOreName(id) != null && OreDictionary.getOreName(id).toUpperCase().contains("ORE")) {
                         return true;
                     }
@@ -191,122 +191,122 @@ public class Utils
         return false;
     }
     
-    public static int setNibble(final int data, final int nibble, final int nibbleIndex) {
-        final int shift = nibbleIndex * 4;
+    public static int setNibble(int data, int nibble, int nibbleIndex) {
+        int shift = nibbleIndex * 4;
         return (data & ~(15 << shift)) | nibble << shift;
     }
     
-    public static int getNibble(final int data, final int nibbleIndex) {
+    public static int getNibble(int data, int nibbleIndex) {
         return data >> (nibbleIndex << 2) & 0xF;
     }
     
-    public static boolean getBit(final int value, final int bit) {
+    public static boolean getBit(int value, int bit) {
         return (value & 1 << bit) != 0x0;
     }
     
-    public static int setBit(final int value, final int bit) {
+    public static int setBit(int value, int bit) {
         return value | 1 << bit;
     }
     
-    public static int clearBit(final int value, final int bit) {
+    public static int clearBit(int value, int bit) {
         return value & ~(1 << bit);
     }
     
-    public static int toggleBit(final int value, final int bit) {
+    public static int toggleBit(int value, int bit) {
         return value ^ 1 << bit;
     }
     
-    public static byte pack(final boolean... vals) {
+    public static byte pack(boolean... vals) {
         byte result = 0;
-        for (final boolean bit : vals) {
+        for (boolean bit : vals) {
             result = (byte)(result << 1 | ((bit & true) ? 1 : 0));
         }
         return result;
     }
     
-    public static boolean[] unpack(final byte val) {
-        final boolean[] result = new boolean[8];
+    public static boolean[] unpack(byte val) {
+        boolean[] result = new boolean[8];
         for (int i = 0; i < 8; ++i) {
             result[i] = ((byte)(val >> 7 - i & 0x1) == 1);
         }
         return result;
     }
     
-    public static final byte[] intToByteArray(final int value) {
+    public static byte[] intToByteArray(int value) {
         return new byte[] { (byte)(value >>> 24), (byte)(value >>> 16), (byte)(value >>> 8), (byte)value };
     }
     
-    public static int byteArraytoInt(final byte[] bytes) {
+    public static int byteArraytoInt(byte[] bytes) {
         return bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | bytes[3];
     }
     
-    public static final byte[] shortToByteArray(final short value) {
+    public static byte[] shortToByteArray(short value) {
         return new byte[] { (byte)(value >>> 8), (byte)value };
     }
     
-    public static short byteArraytoShort(final byte[] bytes) {
+    public static short byteArraytoShort(byte[] bytes) {
         return (short)(bytes[0] << 8 | bytes[1]);
     }
     
-    public static boolean isLyingInCone(final double[] x, final double[] t, final double[] b, final float aperture) {
-        final double halfAperture = aperture / 2.0f;
-        final double[] apexToXVect = dif(t, x);
-        final double[] axisVect = dif(t, b);
-        final boolean isInInfiniteCone = dotProd(apexToXVect, axisVect) / magn(apexToXVect) / magn(axisVect) > Math.cos(halfAperture);
+    public static boolean isLyingInCone(double[] x, double[] t, double[] b, float aperture) {
+        double halfAperture = aperture / 2.0f;
+        double[] apexToXVect = dif(t, x);
+        double[] axisVect = dif(t, b);
+        boolean isInInfiniteCone = dotProd(apexToXVect, axisVect) / magn(apexToXVect) / magn(axisVect) > Math.cos(halfAperture);
         if (!isInInfiniteCone) {
             return false;
         }
-        final boolean isUnderRoundCap = dotProd(apexToXVect, axisVect) / magn(axisVect) < magn(axisVect);
+        boolean isUnderRoundCap = dotProd(apexToXVect, axisVect) / magn(axisVect) < magn(axisVect);
         return isUnderRoundCap;
     }
     
-    public static double dotProd(final double[] a, final double[] b) {
+    public static double dotProd(double[] a, double[] b) {
         return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
     }
     
-    public static double[] dif(final double[] a, final double[] b) {
+    public static double[] dif(double[] a, double[] b) {
         return new double[] { a[0] - b[0], a[1] - b[1], a[2] - b[2] };
     }
     
-    public static double magn(final double[] a) {
+    public static double magn(double[] a) {
         return Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
     }
     
-    public static Vec3d calculateVelocity(final Vec3d from, final Vec3d to, final double heightGain, final double gravity) {
-        final double endGain = to.y - from.y;
-        final double horizDist = Math.sqrt(distanceSquared2d(from, to));
-        final double gain = heightGain;
-        final double maxGain = (gain > endGain + gain) ? gain : (endGain + gain);
-        final double a = -horizDist * horizDist / (4.0 * maxGain);
-        final double b = horizDist;
-        final double c = -endGain;
-        final double slope = -b / (2.0 * a) - Math.sqrt(b * b - 4.0 * a * c) / (2.0 * a);
-        final double vy = Math.sqrt(maxGain * gravity);
-        final double vh = vy / slope;
-        final double dx = to.x - from.x;
-        final double dz = to.z - from.z;
-        final double mag = Math.sqrt(dx * dx + dz * dz);
-        final double dirx = dx / mag;
-        final double dirz = dz / mag;
-        final double vx = vh * dirx;
-        final double vz = vh * dirz;
+    public static Vec3d calculateVelocity(Vec3d from, Vec3d to, double heightGain, double gravity) {
+        double endGain = to.y - from.y;
+        double horizDist = Math.sqrt(distanceSquared2d(from, to));
+        double gain = heightGain;
+        double maxGain = (gain > endGain + gain) ? gain : (endGain + gain);
+        double a = -horizDist * horizDist / (4.0 * maxGain);
+        double b = horizDist;
+        double c = -endGain;
+        double slope = -b / (2.0 * a) - Math.sqrt(b * b - 4.0 * a * c) / (2.0 * a);
+        double vy = Math.sqrt(maxGain * gravity);
+        double vh = vy / slope;
+        double dx = to.x - from.x;
+        double dz = to.z - from.z;
+        double mag = Math.sqrt(dx * dx + dz * dz);
+        double dirx = dx / mag;
+        double dirz = dz / mag;
+        double vx = vh * dirx;
+        double vz = vh * dirz;
         return new Vec3d(vx, vy, vz);
     }
     
-    public static double distanceSquared2d(final Vec3d from, final Vec3d to) {
-        final double dx = to.x - from.x;
-        final double dz = to.z - from.z;
+    public static double distanceSquared2d(Vec3d from, Vec3d to) {
+        double dx = to.x - from.x;
+        double dz = to.z - from.z;
         return dx * dx + dz * dz;
     }
     
-    public static double distanceSquared3d(final Vec3d from, final Vec3d to) {
-        final double dx = to.x - from.x;
-        final double dy = to.y - from.y;
-        final double dz = to.z - from.z;
+    public static double distanceSquared3d(Vec3d from, Vec3d to) {
+        double dx = to.x - from.x;
+        double dy = to.y - from.y;
+        double dz = to.z - from.z;
         return dx * dx + dy * dy + dz * dz;
     }
     
-    public static ItemStack generateLoot(final int rarity, final Random rand) {
+    public static ItemStack generateLoot(int rarity, Random rand) {
         ItemStack is = ItemStack.EMPTY;
         if (rarity > 0 && rand.nextFloat() < 0.025f * rarity) {
             is = genGear(rarity, rand);
@@ -336,7 +336,7 @@ public class Utils
         return is.copy();
     }
     
-    private static ItemStack genGear(final int rarity, final Random rand) {
+    private static ItemStack genGear(int rarity, Random rand) {
         ItemStack is = ItemStack.EMPTY;
         int quality = rand.nextInt(2);
         if (rand.nextFloat() < 0.2f) {
@@ -354,7 +354,7 @@ public class Utils
         if (rand.nextFloat() < 0.095f) {
             ++quality;
         }
-        final Item item = getGearItemForSlot(rand.nextInt(5), quality);
+        Item item = getGearItemForSlot(rand.nextInt(5), quality);
         if (item != null) {
             is = new ItemStack(item, 1, rand.nextInt(1 + item.getMaxDamage() / 6));
             if (rand.nextInt(4) < rarity) {
@@ -365,7 +365,7 @@ public class Utils
         return ItemStack.EMPTY;
     }
     
-    private static Item getGearItemForSlot(final int slot, final int quality) {
+    private static Item getGearItemForSlot(int slot, int quality) {
         switch (slot) {
             case 4: {
                 if (quality == 0) {
@@ -487,7 +487,7 @@ public class Utils
         return null;
     }
     
-    public static void writeItemStackToBuffer(final ByteBuf bb, final ItemStack stack) {
+    public static void writeItemStackToBuffer(ByteBuf bb, ItemStack stack) {
         if (stack == null || stack.isEmpty()) {
             bb.writeShort(-1);
         }
@@ -503,19 +503,19 @@ public class Utils
         }
     }
     
-    public static ItemStack readItemStackFromBuffer(final ByteBuf bb) {
+    public static ItemStack readItemStackFromBuffer(ByteBuf bb) {
         ItemStack itemstack = ItemStack.EMPTY;
-        final short short1 = bb.readShort();
+        short short1 = bb.readShort();
         if (short1 >= 0) {
-            final short b0 = bb.readShort();
-            final short short2 = bb.readShort();
+            short b0 = bb.readShort();
+            short short2 = bb.readShort();
             itemstack = new ItemStack(Item.getItemById(short1), b0, short2);
             itemstack.setTagCompound(readNBTTagCompoundFromBuffer(bb));
         }
         return itemstack;
     }
     
-    public static void writeNBTTagCompoundToBuffer(final ByteBuf bb, final NBTTagCompound nbt) {
+    public static void writeNBTTagCompoundToBuffer(ByteBuf bb, NBTTagCompound nbt) {
         if (nbt == null) {
             bb.writeByte(0);
         }
@@ -523,15 +523,15 @@ public class Utils
             try {
                 CompressedStreamTools.write(nbt, new ByteBufOutputStream(bb));
             }
-            catch (final IOException ioexception) {
+            catch (IOException ioexception) {
                 throw new EncoderException(ioexception);
             }
         }
     }
     
-    public static NBTTagCompound readNBTTagCompoundFromBuffer(final ByteBuf bb) {
-        final int i = bb.readerIndex();
-        final byte b0 = bb.readByte();
+    public static NBTTagCompound readNBTTagCompoundFromBuffer(ByteBuf bb) {
+        int i = bb.readerIndex();
+        byte b0 = bb.readByte();
         if (b0 == 0) {
             return null;
         }
@@ -539,20 +539,20 @@ public class Utils
         try {
             return CompressedStreamTools.read(new ByteBufInputStream(bb), new NBTSizeTracker(2097152L));
         }
-        catch (final IOException ex) {
+        catch (IOException ex) {
             return null;
         }
     }
     
-    public static Vec3d rotateAsBlock(final Vec3d vec, final EnumFacing side) {
+    public static Vec3d rotateAsBlock(Vec3d vec, EnumFacing side) {
         return rotate(vec.subtract(0.5, 0.5, 0.5), side).addVector(0.5, 0.5, 0.5);
     }
     
-    public static Vec3d rotateAsBlockRev(final Vec3d vec, final EnumFacing side) {
+    public static Vec3d rotateAsBlockRev(Vec3d vec, EnumFacing side) {
         return revRotate(vec.subtract(0.5, 0.5, 0.5), side).addVector(0.5, 0.5, 0.5);
     }
     
-    public static Vec3d rotate(final Vec3d vec, final EnumFacing side) {
+    public static Vec3d rotate(Vec3d vec, EnumFacing side) {
         switch (side) {
             case DOWN: {
                 return new Vec3d(vec.x, -vec.y, -vec.z);
@@ -578,7 +578,7 @@ public class Utils
         }
     }
     
-    public static Vec3d revRotate(final Vec3d vec, final EnumFacing side) {
+    public static Vec3d revRotate(Vec3d vec, EnumFacing side) {
         switch (side) {
             case DOWN: {
                 return new Vec3d(vec.x, -vec.y, -vec.z);
@@ -604,34 +604,34 @@ public class Utils
         }
     }
     
-    public static Vec3d rotateAroundX(final Vec3d vec, final float angle) {
-        final float var2 = MathHelper.cos(angle);
-        final float var3 = MathHelper.sin(angle);
-        final double var4 = vec.x;
-        final double var5 = vec.y * var2 + vec.z * var3;
-        final double var6 = vec.z * var2 - vec.y * var3;
+    public static Vec3d rotateAroundX(Vec3d vec, float angle) {
+        float var2 = MathHelper.cos(angle);
+        float var3 = MathHelper.sin(angle);
+        double var4 = vec.x;
+        double var5 = vec.y * var2 + vec.z * var3;
+        double var6 = vec.z * var2 - vec.y * var3;
         return new Vec3d(var4, var5, var6);
     }
     
-    public static Vec3d rotateAroundY(final Vec3d vec, final float angle) {
-        final float var2 = MathHelper.cos(angle);
-        final float var3 = MathHelper.sin(angle);
-        final double var4 = vec.x * var2 + vec.z * var3;
-        final double var5 = vec.y;
-        final double var6 = vec.z * var2 - vec.x * var3;
+    public static Vec3d rotateAroundY(Vec3d vec, float angle) {
+        float var2 = MathHelper.cos(angle);
+        float var3 = MathHelper.sin(angle);
+        double var4 = vec.x * var2 + vec.z * var3;
+        double var5 = vec.y;
+        double var6 = vec.z * var2 - vec.x * var3;
         return new Vec3d(var4, var5, var6);
     }
     
-    public static Vec3d rotateAroundZ(final Vec3d vec, final float angle) {
-        final float var2 = MathHelper.cos(angle);
-        final float var3 = MathHelper.sin(angle);
-        final double var4 = vec.x * var2 + vec.y * var3;
-        final double var5 = vec.y * var2 - vec.x * var3;
-        final double var6 = vec.z;
+    public static Vec3d rotateAroundZ(Vec3d vec, float angle) {
+        float var2 = MathHelper.cos(angle);
+        float var3 = MathHelper.sin(angle);
+        double var4 = vec.x * var2 + vec.y * var3;
+        double var5 = vec.y * var2 - vec.x * var3;
+        double var6 = vec.z;
         return new Vec3d(var4, var5, var6);
     }
     
-    public static RayTraceResult rayTrace(final World worldIn, final Entity entityIn, final boolean useLiquids) {
+    public static RayTraceResult rayTrace(World worldIn, Entity entityIn, boolean useLiquids) {
         double d3 = 5.0;
         if (entityIn instanceof EntityPlayerMP) {
             d3 = ((EntityPlayerMP)entityIn).interactionManager.getBlockReachDistance();
@@ -639,38 +639,38 @@ public class Utils
         return rayTrace(worldIn, entityIn, useLiquids, d3);
     }
     
-    public static RayTraceResult rayTrace(final World worldIn, final Entity entityIn, final boolean useLiquids, final double range) {
-        final float f = entityIn.rotationPitch;
-        final float f2 = entityIn.rotationYaw;
-        final double d0 = entityIn.posX;
-        final double d2 = entityIn.posY + entityIn.getEyeHeight();
-        final double d3 = entityIn.posZ;
-        final Vec3d vec3d = new Vec3d(d0, d2, d3);
-        final float f3 = MathHelper.cos(-f2 * 0.017453292f - 3.1415927f);
-        final float f4 = MathHelper.sin(-f2 * 0.017453292f - 3.1415927f);
-        final float f5 = -MathHelper.cos(-f * 0.017453292f);
-        final float f6 = MathHelper.sin(-f * 0.017453292f);
-        final float f7 = f4 * f5;
-        final float f8 = f3 * f5;
-        final Vec3d vec3d2 = vec3d.addVector(f7 * range, f6 * range, f8 * range);
+    public static RayTraceResult rayTrace(World worldIn, Entity entityIn, boolean useLiquids, double range) {
+        float f = entityIn.rotationPitch;
+        float f2 = entityIn.rotationYaw;
+        double d0 = entityIn.posX;
+        double d2 = entityIn.posY + entityIn.getEyeHeight();
+        double d3 = entityIn.posZ;
+        Vec3d vec3d = new Vec3d(d0, d2, d3);
+        float f3 = MathHelper.cos(-f2 * 0.017453292f - 3.1415927f);
+        float f4 = MathHelper.sin(-f2 * 0.017453292f - 3.1415927f);
+        float f5 = -MathHelper.cos(-f * 0.017453292f);
+        float f6 = MathHelper.sin(-f * 0.017453292f);
+        float f7 = f4 * f5;
+        float f8 = f3 * f5;
+        Vec3d vec3d2 = vec3d.addVector(f7 * range, f6 * range, f8 * range);
         return worldIn.rayTraceBlocks(vec3d, vec3d2, useLiquids, !useLiquids, false);
     }
     
-    public static RayTraceResult rayTrace(final World worldIn, final Entity entityIn, final Vec3d lookvec, final boolean useLiquids, final double range) {
-        final double d0 = entityIn.posX;
-        final double d2 = entityIn.posY + entityIn.getEyeHeight();
-        final double d3 = entityIn.posZ;
-        final Vec3d vec3d = new Vec3d(d0, d2, d3);
-        final Vec3d vec3d2 = vec3d.addVector(lookvec.x * range, lookvec.y * range, lookvec.z * range);
+    public static RayTraceResult rayTrace(World worldIn, Entity entityIn, Vec3d lookvec, boolean useLiquids, double range) {
+        double d0 = entityIn.posX;
+        double d2 = entityIn.posY + entityIn.getEyeHeight();
+        double d3 = entityIn.posZ;
+        Vec3d vec3d = new Vec3d(d0, d2, d3);
+        Vec3d vec3d2 = vec3d.addVector(lookvec.x * range, lookvec.y * range, lookvec.z * range);
         return worldIn.rayTraceBlocks(vec3d, vec3d2, useLiquids, !useLiquids, false);
     }
     
-    public static Field getField(final Class clazz, final String fieldName) throws NoSuchFieldException {
+    public static Field getField(Class clazz, String fieldName) throws NoSuchFieldException {
         try {
             return clazz.getDeclaredField(fieldName);
         }
-        catch (final NoSuchFieldException e) {
-            final Class superClass = clazz.getSuperclass();
+        catch (NoSuchFieldException e) {
+            Class superClass = clazz.getSuperclass();
             if (superClass == null) {
                 throw e;
             }
@@ -678,8 +678,8 @@ public class Utils
         }
     }
     
-    public static AxisAlignedBB rotateBlockAABB(final AxisAlignedBB aabb, final EnumFacing facing) {
-        final Cuboid6 c = new Cuboid6(aabb).add(new Vector3(-0.5, -0.5, -0.5)).apply(Rotation.sideRotations[facing.getIndex()]).add(new Vector3(0.5, 0.5, 0.5));
+    public static AxisAlignedBB rotateBlockAABB(AxisAlignedBB aabb, EnumFacing facing) {
+        Cuboid6 c = new Cuboid6(aabb).add(new Vector3(-0.5, -0.5, -0.5)).apply(Rotation.sideRotations[facing.getIndex()]).add(new Vector3(0.5, 0.5, 0.5));
         return c.aabb();
     }
     

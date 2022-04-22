@@ -35,7 +35,7 @@ import net.minecraft.item.ItemSword;
 
 public class ItemElementalSword extends ItemSword implements IThaumcraftItems
 {
-    public ItemElementalSword(final Item.ToolMaterial enumtoolmaterial) {
+    public ItemElementalSword(Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
         setCreativeTab(ConfigItems.TABTC);
         setRegistryName("elemental_sword");
@@ -59,13 +59,13 @@ public class ItemElementalSword extends ItemSword implements IThaumcraftItems
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
-            final ItemStack w1 = new ItemStack(this);
+            ItemStack w1 = new ItemStack(this);
             EnumInfusionEnchantment.addInfusionEnchantment(w1, EnumInfusionEnchantment.ARCING, 2);
             items.add(w1);
         }
@@ -74,30 +74,30 @@ public class ItemElementalSword extends ItemSword implements IThaumcraftItems
         }
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 0)) || super.getIsRepairable(stack1, stack2);
     }
     
-    public EnumAction getItemUseAction(final ItemStack stack) {
+    public EnumAction getItemUseAction(ItemStack stack) {
         return EnumAction.NONE;
     }
     
-    public int getMaxItemUseDuration(final ItemStack stack) {
+    public int getMaxItemUseDuration(ItemStack stack) {
         return 72000;
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World worldIn, final EntityPlayer playerIn, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
         playerIn.setActiveHand(hand);
         return (ActionResult<ItemStack>)new ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand));
     }
     
-    public void onUsingTick(final ItemStack stack, final EntityLivingBase player, final int count) {
+    public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
         super.onUsingTick(stack, player, count);
-        final int ticks = getMaxItemUseDuration(stack) - count;
+        int ticks = getMaxItemUseDuration(stack) - count;
         if (player.motionY < 0.0) {
             player.motionY /= 1.2000000476837158;
             player.fallDistance /= 1.2f;
@@ -109,23 +109,23 @@ public class ItemElementalSword extends ItemSword implements IThaumcraftItems
         if (player instanceof EntityPlayerMP) {
             EntityUtils.resetFloatCounter((EntityPlayerMP)player);
         }
-        final List<Entity> targets = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().grow(2.5, 2.5, 2.5));
+        List<Entity> targets = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().grow(2.5, 2.5, 2.5));
         if (targets.size() > 0) {
             for (int var9 = 0; var9 < targets.size(); ++var9) {
-                final Entity entity = targets.get(var9);
+                Entity entity = targets.get(var9);
                 if (!(entity instanceof EntityPlayer)) {
                     if (entity instanceof EntityLivingBase) {
                         if (!entity.isDead) {
                             if (player.getRidingEntity() == null || player.getRidingEntity() != entity) {
-                                final Vec3d p = new Vec3d(player.posX, player.posY, player.posZ);
-                                final Vec3d t = new Vec3d(entity.posX, entity.posY, entity.posZ);
-                                final double distance = p.distanceTo(t) + 0.1;
-                                final Vec3d r = new Vec3d(t.x - p.x, t.y - p.y, t.z - p.z);
-                                final Entity entity2 = entity;
+                                Vec3d p = new Vec3d(player.posX, player.posY, player.posZ);
+                                Vec3d t = new Vec3d(entity.posX, entity.posY, entity.posZ);
+                                double distance = p.distanceTo(t) + 0.1;
+                                Vec3d r = new Vec3d(t.x - p.x, t.y - p.y, t.z - p.z);
+                                Entity entity2 = entity;
                                 entity2.motionX += r.x / 2.5 / distance;
-                                final Entity entity3 = entity;
+                                Entity entity3 = entity;
                                 entity3.motionY += r.y / 2.5 / distance;
-                                final Entity entity4 = entity;
+                                Entity entity4 = entity;
                                 entity4.motionZ += r.z / 2.5 / distance;
                             }
                         }
@@ -142,9 +142,9 @@ public class ItemElementalSword extends ItemSword implements IThaumcraftItems
                 FXDispatcher.INSTANCE.smokeSpiral(player.posX, player.getEntityBoundingBox().minY + player.height / 2.0f, player.posZ, 1.5f, player.world.rand.nextInt(360), miny, 14540253);
             }
             if (player.onGround) {
-                final float r2 = player.world.rand.nextFloat() * 360.0f;
-                final float mx = -MathHelper.sin(r2 / 180.0f * 3.1415927f) / 5.0f;
-                final float mz = MathHelper.cos(r2 / 180.0f * 3.1415927f) / 5.0f;
+                float r2 = player.world.rand.nextFloat() * 360.0f;
+                float mx = -MathHelper.sin(r2 / 180.0f * 3.1415927f) / 5.0f;
+                float mz = MathHelper.cos(r2 / 180.0f * 3.1415927f) / 5.0f;
                 player.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX, player.getEntityBoundingBox().minY + 0.10000000149011612, player.posZ, mx, 0.0, mz);
             }
         }

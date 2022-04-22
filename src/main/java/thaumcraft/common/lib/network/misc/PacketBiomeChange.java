@@ -25,26 +25,26 @@ public class PacketBiomeChange implements IMessage, IMessageHandler<PacketBiomeC
     public PacketBiomeChange() {
     }
     
-    public PacketBiomeChange(final int x, final int z, final short biome) {
+    public PacketBiomeChange(int x, int z, short biome) {
         this.x = x;
         this.z = z;
         this.biome = biome;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(x);
         buffer.writeInt(z);
         buffer.writeShort(biome);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         x = buffer.readInt();
         z = buffer.readInt();
         biome = buffer.readShort();
     }
     
     @SideOnly(Side.CLIENT)
-    public IMessage onMessage(final PacketBiomeChange message, final MessageContext ctx) {
+    public IMessage onMessage(PacketBiomeChange message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {

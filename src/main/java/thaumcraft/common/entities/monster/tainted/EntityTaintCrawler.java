@@ -48,7 +48,7 @@ public class EntityTaintCrawler extends EntityMob implements ITaintedMob
 {
     BlockPos lastPos;
     
-    public EntityTaintCrawler(final World par1World) {
+    public EntityTaintCrawler(World par1World) {
         super(par1World);
         lastPos = new BlockPos(0, 0, 0);
         setSize(0.5f, 0.4f);
@@ -65,11 +65,11 @@ public class EntityTaintCrawler extends EntityMob implements ITaintedMob
         targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
     
-    public boolean canAttackClass(final Class clazz) {
+    public boolean canAttackClass(Class clazz) {
         return !ITaintedMob.class.isAssignableFrom(clazz);
     }
     
-    public boolean isOnSameTeam(final Entity otherEntity) {
+    public boolean isOnSameTeam(Entity otherEntity) {
         return otherEntity instanceof ITaintedMob || super.isOnSameTeam(otherEntity);
     }
     
@@ -92,7 +92,7 @@ public class EntityTaintCrawler extends EntityMob implements ITaintedMob
         return SoundEvents.ENTITY_SILVERFISH_AMBIENT;
     }
     
-    protected SoundEvent getHurtSound(final DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundEvents.ENTITY_SILVERFISH_HURT;
     }
     
@@ -100,7 +100,7 @@ public class EntityTaintCrawler extends EntityMob implements ITaintedMob
         return SoundEvents.ENTITY_SILVERFISH_DEATH;
     }
     
-    protected void playStepSound(final BlockPos p_180429_1_, final Block p_180429_2_) {
+    protected void playStepSound(BlockPos p_180429_1_, Block p_180429_2_) {
         playSound(SoundEvents.ENTITY_SILVERFISH_STEP, 0.15f, 1.0f);
     }
     
@@ -111,8 +111,8 @@ public class EntityTaintCrawler extends EntityMob implements ITaintedMob
     public void onUpdate() {
         if (!world.isRemote && isEntityAlive() && ticksExisted % 40 == 0 && lastPos != getPosition()) {
             lastPos = getPosition();
-            final IBlockState bs = world.getBlockState(getPosition());
-            final Material bm = bs.getMaterial();
+            IBlockState bs = world.getBlockState(getPosition());
+            Material bm = bs.getMaterial();
             if (!bs.getBlock().isLeaves(bs, world, getPosition()) && !bm.isLiquid() && bm != ThaumcraftMaterials.MATERIAL_TAINT && (world.isAirBlock(getPosition()) || bs.getBlock().isReplaceable(world, getPosition()) || bs.getBlock() instanceof BlockFlower || bs.getBlock() instanceof IPlantable) && BlockUtils.isAdjacentToSolidBlock(world, getPosition()) && !BlockTaintFibre.isOnlyAdjacentToTaint(world, getPosition())) {
                 world.setBlockState(getPosition(), BlocksTC.taintFibre.getDefaultState());
             }
@@ -132,17 +132,17 @@ public class EntityTaintCrawler extends EntityMob implements ITaintedMob
         return Item.getItemById(0);
     }
     
-    protected void dropFewItems(final boolean flag, final int i) {
+    protected void dropFewItems(boolean flag, int i) {
         if (world.rand.nextInt(8) == 0) {
             entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), height / 2.0f);
         }
     }
     
-    public IEntityLivingData onInitialSpawn(final DifficultyInstance p_180482_1_, final IEntityLivingData p_180482_2_) {
+    public IEntityLivingData onInitialSpawn(DifficultyInstance p_180482_1_, IEntityLivingData p_180482_2_) {
         return p_180482_2_;
     }
     
-    public boolean attackEntityAsMob(final Entity victim) {
+    public boolean attackEntityAsMob(Entity victim) {
         if (super.attackEntityAsMob(victim)) {
             if (victim instanceof EntityLivingBase) {
                 byte b0 = 0;

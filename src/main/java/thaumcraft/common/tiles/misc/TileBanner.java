@@ -33,7 +33,7 @@ public class TileBanner extends TileThaumcraft
         return facing;
     }
     
-    public void setBannerFacing(final byte face) {
+    public void setBannerFacing(byte face) {
         facing = face;
         markDirty();
     }
@@ -42,15 +42,15 @@ public class TileBanner extends TileThaumcraft
         return onWall;
     }
     
-    public void setWall(final boolean b) {
+    public void setWall(boolean b) {
         onWall = b;
         markDirty();
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         facing = nbttagcompound.getByte("facing");
-        final String as = nbttagcompound.getString("aspect");
+        String as = nbttagcompound.getString("aspect");
         if (as != null && as.length() > 0) {
             setAspect(Aspect.getAspect(as));
         }
@@ -61,7 +61,7 @@ public class TileBanner extends TileThaumcraft
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound.setByte("facing", facing);
         nbttagcompound.setString("aspect", (getAspect() == null) ? "" : getAspect().getTag());
         nbttagcompound.setBoolean("wall", onWall);
@@ -72,7 +72,7 @@ public class TileBanner extends TileThaumcraft
         return aspect;
     }
     
-    public void setAspect(final Aspect aspect) {
+    public void setAspect(Aspect aspect) {
         this.aspect = aspect;
     }
     

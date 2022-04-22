@@ -15,7 +15,7 @@ public class ItemSanityChecker extends ItemTCBase
         setMaxStackSize(1);
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.UNCOMMON;
     }
 }

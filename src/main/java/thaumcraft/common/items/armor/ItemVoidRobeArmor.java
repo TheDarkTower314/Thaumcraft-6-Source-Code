@@ -45,7 +45,7 @@ public class ItemVoidRobeArmor extends ItemArmor implements IVisDiscountGear, IG
     ModelBiped model2;
     ModelBiped model;
     
-    public ItemVoidRobeArmor(final String name, final ItemArmor.ArmorMaterial enumarmormaterial, final int j, final EntityEquipmentSlot k) {
+    public ItemVoidRobeArmor(String name, ItemArmor.ArmorMaterial enumarmormaterial, int j, EntityEquipmentSlot k) {
         super(enumarmormaterial, j, k);
         model1 = null;
         model2 = null;
@@ -73,52 +73,52 @@ public class ItemVoidRobeArmor extends ItemArmor implements IVisDiscountGear, IG
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public String getArmorTexture(final ItemStack stack, final Entity entity, final EntityEquipmentSlot slot, final String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         return (type == null) ? "thaumcraft:textures/entity/armor/void_robe_armor_overlay.png" : "thaumcraft:textures/entity/armor/void_robe_armor.png";
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.EPIC;
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 1)) || super.getIsRepairable(stack1, stack2);
     }
     
-    public void onUpdate(final ItemStack stack, final World world, final Entity entity, final int p_77663_4_, final boolean p_77663_5_) {
+    public void onUpdate(ItemStack stack, World world, Entity entity, int p_77663_4_, boolean p_77663_5_) {
         super.onUpdate(stack, world, entity, p_77663_4_, p_77663_5_);
         if (!world.isRemote && stack.isItemDamaged() && entity.ticksExisted % 20 == 0 && entity instanceof EntityLivingBase) {
             stack.damageItem(-1, (EntityLivingBase)entity);
         }
     }
     
-    public void onArmorTick(final World world, final EntityPlayer player, final ItemStack armor) {
+    public void onArmorTick(World world, EntityPlayer player, ItemStack armor) {
         super.onArmorTick(world, player, armor);
         if (!world.isRemote && armor.getItemDamage() > 0 && player.ticksExisted % 20 == 0) {
             armor.damageItem(-1, player);
         }
     }
     
-    public boolean showNodes(final ItemStack itemstack, final EntityLivingBase player) {
-        final EntityEquipmentSlot type = ((ItemArmor)itemstack.getItem()).armorType;
+    public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
+        EntityEquipmentSlot type = ((ItemArmor)itemstack.getItem()).armorType;
         return type == EntityEquipmentSlot.HEAD;
     }
     
-    public boolean showIngamePopups(final ItemStack itemstack, final EntityLivingBase player) {
-        final EntityEquipmentSlot type = ((ItemArmor)itemstack.getItem()).armorType;
+    public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player) {
+        EntityEquipmentSlot type = ((ItemArmor)itemstack.getItem()).armorType;
         return type == EntityEquipmentSlot.HEAD;
     }
     
-    public int getVisDiscount(final ItemStack stack, final EntityPlayer player) {
+    public int getVisDiscount(ItemStack stack, EntityPlayer player) {
         return 5;
     }
     
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel(final EntityLivingBase entityLiving, final ItemStack itemStack, final EntityEquipmentSlot armorSlot, final ModelBiped _default) {
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
         if (model1 == null) {
             model1 = new ModelRobe(1.0f);
         }
@@ -128,43 +128,43 @@ public class ItemVoidRobeArmor extends ItemArmor implements IVisDiscountGear, IG
         return model = CustomArmorHelper.getCustomArmorModel(entityLiving, itemStack, armorSlot, model, model1, model2);
     }
     
-    public boolean hasColor(final ItemStack stack1) {
+    public boolean hasColor(ItemStack stack1) {
         return true;
     }
     
-    public int getColor(final ItemStack stack1) {
-        final NBTTagCompound nbttagcompound = stack1.getTagCompound();
+    public int getColor(ItemStack stack1) {
+        NBTTagCompound nbttagcompound = stack1.getTagCompound();
         if (nbttagcompound == null) {
             return 6961280;
         }
-        final NBTTagCompound nbttagcompound2 = nbttagcompound.getCompoundTag("display");
+        NBTTagCompound nbttagcompound2 = nbttagcompound.getCompoundTag("display");
         return (nbttagcompound2 == null) ? 6961280 : (nbttagcompound2.hasKey("color") ? nbttagcompound2.getInteger("color") : 6961280);
     }
     
-    public void removeColor(final ItemStack stack1) {
-        final NBTTagCompound nbttagcompound = stack1.getTagCompound();
+    public void removeColor(ItemStack stack1) {
+        NBTTagCompound nbttagcompound = stack1.getTagCompound();
         if (nbttagcompound != null) {
-            final NBTTagCompound nbttagcompound2 = nbttagcompound.getCompoundTag("display");
+            NBTTagCompound nbttagcompound2 = nbttagcompound.getCompoundTag("display");
             if (nbttagcompound2.hasKey("color")) {
                 nbttagcompound2.removeTag("color");
             }
         }
     }
     
-    public void setColor(final ItemStack stack1, final int par2) {
+    public void setColor(ItemStack stack1, int par2) {
         NBTTagCompound nbttagcompound = stack1.getTagCompound();
         if (nbttagcompound == null) {
             nbttagcompound = new NBTTagCompound();
             stack1.setTagCompound(nbttagcompound);
         }
-        final NBTTagCompound nbttagcompound2 = nbttagcompound.getCompoundTag("display");
+        NBTTagCompound nbttagcompound2 = nbttagcompound.getCompoundTag("display");
         if (!nbttagcompound.hasKey("display")) {
             nbttagcompound.setTag("display", nbttagcompound2);
         }
         nbttagcompound2.setInteger("color", par2);
     }
     
-    public ISpecialArmor.ArmorProperties getProperties(final EntityLivingBase player, final ItemStack armor, final DamageSource source, final double damage, final int slot) {
+    public ISpecialArmor.ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
         int priority = 0;
         double ratio = damageReduceAmount / 25.0;
         if (source.isMagicDamage()) {
@@ -178,22 +178,22 @@ public class ItemVoidRobeArmor extends ItemArmor implements IVisDiscountGear, IG
         return new ISpecialArmor.ArmorProperties(priority, ratio, armor.getMaxDamage() + 1 - armor.getItemDamage());
     }
     
-    public int getArmorDisplay(final EntityPlayer player, final ItemStack armor, final int slot) {
+    public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
         return damageReduceAmount;
     }
     
-    public void damageArmor(final EntityLivingBase entity, final ItemStack stack, final DamageSource source, final int damage, final int slot) {
+    public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
         if (source != DamageSource.FALL) {
             stack.damageItem(damage, entity);
         }
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
-        final IBlockState bs = world.getBlockState(pos);
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        IBlockState bs = world.getBlockState(pos);
         if (bs.getBlock() == Blocks.CAULDRON) {
-            final IBlockState blockState = bs;
-            final BlockCauldron cauldron = Blocks.CAULDRON;
-            final int i = (int)blockState.getValue((IProperty)BlockCauldron.LEVEL);
+            IBlockState blockState = bs;
+            BlockCauldron cauldron = Blocks.CAULDRON;
+            int i = (int)blockState.getValue((IProperty)BlockCauldron.LEVEL);
             if (!world.isRemote && i > 0) {
                 removeColor(player.getHeldItem(hand));
                 Blocks.CAULDRON.setWaterLevel(world, pos, bs, i - 1);
@@ -203,7 +203,7 @@ public class ItemVoidRobeArmor extends ItemArmor implements IVisDiscountGear, IG
         return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
     }
     
-    public int getWarp(final ItemStack itemstack, final EntityPlayer player) {
+    public int getWarp(ItemStack itemstack, EntityPlayer player) {
         return 3;
     }
 }

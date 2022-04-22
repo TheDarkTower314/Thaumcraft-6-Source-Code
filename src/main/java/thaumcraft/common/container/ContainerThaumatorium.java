@@ -17,7 +17,7 @@ public class ContainerThaumatorium extends Container
     private TileThaumatorium thaumatorium;
     private EntityPlayer player;
     
-    public ContainerThaumatorium(final InventoryPlayer par1InventoryPlayer, final TileThaumatorium tileEntity) {
+    public ContainerThaumatorium(InventoryPlayer par1InventoryPlayer, TileThaumatorium tileEntity) {
         player = null;
         player = par1InventoryPlayer.player;
         thaumatorium = tileEntity;
@@ -38,22 +38,22 @@ public class ContainerThaumatorium extends Container
         thaumatorium.updateRecipes(player);
     }
     
-    public void onContainerClosed(final EntityPlayer par1EntityPlayer) {
+    public void onContainerClosed(EntityPlayer par1EntityPlayer) {
         super.onContainerClosed(par1EntityPlayer);
         if (!thaumatorium.getWorld().isRemote) {
             thaumatorium.eventHandler = null;
         }
     }
     
-    public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
+    public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
         return thaumatorium.isUsableByPlayer(par1EntityPlayer);
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int par2) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
         ItemStack itemstack = ItemStack.EMPTY;
-        final Slot slot = inventorySlots.get(par2);
+        Slot slot = inventorySlots.get(par2);
         if (slot != null && slot.getHasStack()) {
-            final ItemStack itemstack2 = slot.getStack();
+            ItemStack itemstack2 = slot.getStack();
             itemstack = itemstack2.copy();
             if (par2 != 0) {
                 if (!mergeItemStack(itemstack2, 0, 1, false)) {

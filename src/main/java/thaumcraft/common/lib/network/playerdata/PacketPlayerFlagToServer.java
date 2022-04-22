@@ -19,25 +19,25 @@ public class PacketPlayerFlagToServer implements IMessage, IMessageHandler<Packe
     public PacketPlayerFlagToServer() {
     }
     
-    public PacketPlayerFlagToServer(final EntityLivingBase player, final int i) {
+    public PacketPlayerFlagToServer(EntityLivingBase player, int i) {
         flag = (byte)i;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeByte(flag);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         flag = buffer.readByte();
     }
     
-    public IMessage onMessage(final PacketPlayerFlagToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketPlayerFlagToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
                 if (ctx.getServerHandler().player != null) {
-                    final EntityPlayer player = ctx.getServerHandler().player;
+                    EntityPlayer player = ctx.getServerHandler().player;
                     switch (message.flag) {
                         case 1: {
                             player.fallDistance = 0.0f;

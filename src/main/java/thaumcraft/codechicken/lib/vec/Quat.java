@@ -24,21 +24,21 @@ public class Quat implements Copyable<Quat>
         z = 0.0;
     }
     
-    public Quat(final Quat quat) {
+    public Quat(Quat quat) {
         x = quat.x;
         y = quat.y;
         z = quat.z;
         s = quat.s;
     }
     
-    public Quat(final double d, final double d1, final double d2, final double d3) {
+    public Quat(double d, double d1, double d2, double d3) {
         x = d1;
         y = d2;
         z = d3;
         s = d;
     }
     
-    public Quat set(final Quat quat) {
+    public Quat set(Quat quat) {
         x = quat.x;
         y = quat.y;
         z = quat.z;
@@ -46,7 +46,7 @@ public class Quat implements Copyable<Quat>
         return this;
     }
     
-    public Quat set(final double d, final double d1, final double d2, final double d3) {
+    public Quat set(double d, double d1, double d2, double d3) {
         x = d1;
         y = d2;
         z = d3;
@@ -54,29 +54,29 @@ public class Quat implements Copyable<Quat>
         return this;
     }
     
-    public static Quat aroundAxis(final double ax, final double ay, final double az, final double angle) {
+    public static Quat aroundAxis(double ax, double ay, double az, double angle) {
         return new Quat().setAroundAxis(ax, ay, az, angle);
     }
     
-    public static Quat aroundAxis(final Vector3 axis, final double angle) {
+    public static Quat aroundAxis(Vector3 axis, double angle) {
         return aroundAxis(axis.x, axis.y, axis.z, angle);
     }
     
-    public Quat setAroundAxis(final double ax, final double ay, final double az, double angle) {
+    public Quat setAroundAxis(double ax, double ay, double az, double angle) {
         angle *= 0.5;
-        final double d4 = MathHelper.sin(angle);
+        double d4 = MathHelper.sin(angle);
         return set(MathHelper.cos(angle), ax * d4, ay * d4, az * d4);
     }
     
-    public Quat setAroundAxis(final Vector3 axis, final double angle) {
+    public Quat setAroundAxis(Vector3 axis, double angle) {
         return setAroundAxis(axis.x, axis.y, axis.z, angle);
     }
     
-    public Quat multiply(final Quat quat) {
-        final double d = s * quat.s - x * quat.x - y * quat.y - z * quat.z;
-        final double d2 = s * quat.x + x * quat.s - y * quat.z + z * quat.y;
-        final double d3 = s * quat.y + x * quat.z + y * quat.s - z * quat.x;
-        final double d4 = s * quat.z - x * quat.y + y * quat.x + z * quat.s;
+    public Quat multiply(Quat quat) {
+        double d = s * quat.s - x * quat.x - y * quat.y - z * quat.z;
+        double d2 = s * quat.x + x * quat.s - y * quat.z + z * quat.y;
+        double d3 = s * quat.y + x * quat.z + y * quat.s - z * quat.x;
+        double d4 = s * quat.z - x * quat.y + y * quat.x + z * quat.s;
         s = d;
         x = d2;
         y = d3;
@@ -84,11 +84,11 @@ public class Quat implements Copyable<Quat>
         return this;
     }
     
-    public Quat rightMultiply(final Quat quat) {
-        final double d = s * quat.s - x * quat.x - y * quat.y - z * quat.z;
-        final double d2 = s * quat.x + x * quat.s + y * quat.z - z * quat.y;
-        final double d3 = s * quat.y - x * quat.z + y * quat.s + z * quat.x;
-        final double d4 = s * quat.z + x * quat.y - y * quat.x + z * quat.s;
+    public Quat rightMultiply(Quat quat) {
+        double d = s * quat.s - x * quat.x - y * quat.y - z * quat.z;
+        double d2 = s * quat.x + x * quat.s + y * quat.z - z * quat.y;
+        double d3 = s * quat.y - x * quat.z + y * quat.s + z * quat.x;
+        double d4 = s * quat.z + x * quat.y - y * quat.x + z * quat.s;
         s = d;
         x = d2;
         y = d3;
@@ -117,11 +117,11 @@ public class Quat implements Copyable<Quat>
         return new Quat(this);
     }
     
-    public void rotate(final Vector3 vec) {
-        final double d = -x * vec.x - y * vec.y - z * vec.z;
-        final double d2 = s * vec.x + y * vec.z - z * vec.y;
-        final double d3 = s * vec.y - x * vec.z + z * vec.x;
-        final double d4 = s * vec.z + x * vec.y - y * vec.x;
+    public void rotate(Vector3 vec) {
+        double d = -x * vec.x - y * vec.y - z * vec.z;
+        double d2 = s * vec.x + y * vec.z - z * vec.y;
+        double d3 = s * vec.y - x * vec.z + z * vec.x;
+        double d4 = s * vec.z + x * vec.y - y * vec.x;
         vec.x = d2 * s - d * x - d3 * z + d4 * y;
         vec.y = d3 * s - d * y + d2 * z - d4 * x;
         vec.z = d4 * s - d * z - d2 * y + d3 * x;
@@ -129,7 +129,7 @@ public class Quat implements Copyable<Quat>
     
     @Override
     public String toString() {
-        final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
+        MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
         return "Quat(" + new BigDecimal(s, cont) + ", " + new BigDecimal(x, cont) + ", " + new BigDecimal(y, cont) + ", " + new BigDecimal(z, cont) + ")";
     }
     

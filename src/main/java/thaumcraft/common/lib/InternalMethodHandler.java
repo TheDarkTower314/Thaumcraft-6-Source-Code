@@ -36,17 +36,17 @@ import thaumcraft.api.internal.IInternalMethodHandler;
 public class InternalMethodHandler implements IInternalMethodHandler
 {
     @Override
-    public boolean addKnowledge(final EntityPlayer player, final IPlayerKnowledge.EnumKnowledgeType type, final ResearchCategory field, final int amount) {
+    public boolean addKnowledge(EntityPlayer player, IPlayerKnowledge.EnumKnowledgeType type, ResearchCategory field, int amount) {
         return amount != 0 && !player.world.isRemote && ResearchManager.addKnowledge(player, type, field, amount);
     }
     
     @Override
-    public void addWarpToPlayer(final EntityPlayer player, int amount, final IPlayerWarp.EnumWarpType type) {
+    public void addWarpToPlayer(EntityPlayer player, int amount, IPlayerWarp.EnumWarpType type) {
         if (amount == 0 || player.world.isRemote) {
             return;
         }
-        final IPlayerWarp pw = ThaumcraftCapabilities.getWarp(player);
-        final int cur = pw.get(type);
+        IPlayerWarp pw = ThaumcraftCapabilities.getWarp(player);
+        int cur = pw.get(type);
         if (amount < 0 && cur + amount < 0) {
             amount = cur;
         }
@@ -71,67 +71,67 @@ public class InternalMethodHandler implements IInternalMethodHandler
     }
     
     @Override
-    public boolean progressResearch(final EntityPlayer player, final String researchkey) {
+    public boolean progressResearch(EntityPlayer player, String researchkey) {
         return researchkey != null && !player.world.isRemote && ResearchManager.progressResearch(player, researchkey);
     }
     
     @Override
-    public boolean completeResearch(final EntityPlayer player, final String researchkey) {
+    public boolean completeResearch(EntityPlayer player, String researchkey) {
         return researchkey != null && !player.world.isRemote && ResearchManager.completeResearch(player, researchkey);
     }
     
     @Override
-    public boolean doesPlayerHaveRequisites(final EntityPlayer player, final String researchkey) {
+    public boolean doesPlayerHaveRequisites(EntityPlayer player, String researchkey) {
         return ResearchManager.doesPlayerHaveRequisites(player, researchkey);
     }
     
     @Override
-    public AspectList getObjectAspects(final ItemStack is) {
+    public AspectList getObjectAspects(ItemStack is) {
         return ThaumcraftCraftingManager.getObjectTags(is);
     }
     
     @Override
-    public AspectList generateTags(final ItemStack is) {
+    public AspectList generateTags(ItemStack is) {
         return ThaumcraftCraftingManager.generateTags(is);
     }
     
     @Override
-    public float drainFlux(final World world, final BlockPos pos, final float amount, final boolean simulate) {
+    public float drainFlux(World world, BlockPos pos, float amount, boolean simulate) {
         return AuraHandler.drainFlux(world, pos, amount, simulate);
     }
     
     @Override
-    public float getFlux(final World world, final BlockPos pos) {
+    public float getFlux(World world, BlockPos pos) {
         return AuraHandler.getFlux(world, pos);
     }
     
     @Override
-    public float drainVis(final World world, final BlockPos pos, final float amount, final boolean simulate) {
+    public float drainVis(World world, BlockPos pos, float amount, boolean simulate) {
         return AuraHandler.drainVis(world, pos, amount, simulate);
     }
     
     @Override
-    public void addVis(final World world, final BlockPos pos, final float amount) {
+    public void addVis(World world, BlockPos pos, float amount) {
         AuraHandler.addVis(world, pos, amount);
     }
     
     @Override
-    public float getTotalAura(final World world, final BlockPos pos) {
+    public float getTotalAura(World world, BlockPos pos) {
         return AuraHandler.getTotalAura(world, pos);
     }
     
     @Override
-    public float getVis(final World world, final BlockPos pos) {
+    public float getVis(World world, BlockPos pos) {
         return AuraHandler.getVis(world, pos);
     }
     
     @Override
-    public int getAuraBase(final World world, final BlockPos pos) {
+    public int getAuraBase(World world, BlockPos pos) {
         return AuraHandler.getAuraBase(world, pos);
     }
     
     @Override
-    public void addFlux(final World world, final BlockPos pos, final float amount, final boolean showEffect) {
+    public void addFlux(World world, BlockPos pos, float amount, boolean showEffect) {
         if (world.isRemote) {
             return;
         }
@@ -142,38 +142,38 @@ public class InternalMethodHandler implements IInternalMethodHandler
     }
     
     @Override
-    public void registerSeal(final ISeal seal) {
+    public void registerSeal(ISeal seal) {
         SealHandler.registerSeal(seal);
     }
     
     @Override
-    public ISeal getSeal(final String key) {
+    public ISeal getSeal(String key) {
         return SealHandler.getSeal(key);
     }
     
     @Override
-    public ISealEntity getSealEntity(final int dim, final SealPos pos) {
+    public ISealEntity getSealEntity(int dim, SealPos pos) {
         return SealHandler.getSealEntity(dim, pos);
     }
     
     @Override
-    public void addGolemTask(final int dim, final Task task) {
+    public void addGolemTask(int dim, Task task) {
         TaskHandler.addTask(dim, task);
     }
     
     @Override
-    public boolean shouldPreserveAura(final World world, final EntityPlayer player, final BlockPos pos) {
+    public boolean shouldPreserveAura(World world, EntityPlayer player, BlockPos pos) {
         return AuraHandler.shouldPreserveAura(world, player, pos);
     }
     
     @Override
-    public ItemStack getSealStack(final String key) {
+    public ItemStack getSealStack(String key) {
         return ItemSealPlacer.getSealStack(key);
     }
     
     @Override
-    public int getActualWarp(final EntityPlayer player) {
-        final IPlayerWarp wc = ThaumcraftCapabilities.getWarp(player);
+    public int getActualWarp(EntityPlayer player) {
+        IPlayerWarp wc = ThaumcraftCapabilities.getWarp(player);
         return wc.get(IPlayerWarp.EnumWarpType.NORMAL) + wc.get(IPlayerWarp.EnumWarpType.PERMANENT);
     }
 }

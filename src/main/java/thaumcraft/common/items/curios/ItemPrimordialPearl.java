@@ -24,7 +24,7 @@ public class ItemPrimordialPearl extends ItemTCBase
         setMaxDamage(8);
         addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
-            public float apply(final ItemStack stack, @Nullable final World worldIn, @Nullable final EntityLivingBase entityIn) {
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
                 if (stack.getItemDamage() < 3) {
                     return 0.0f;
                 }
@@ -37,7 +37,7 @@ public class ItemPrimordialPearl extends ItemTCBase
         setNoRepair();
     }
     
-    public boolean getIsRepairable(final ItemStack toRepair, final ItemStack repair) {
+    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
         return false;
     }
     
@@ -46,7 +46,7 @@ public class ItemPrimordialPearl extends ItemTCBase
     }
     
     @Override
-    public String getUnlocalizedName(final ItemStack stack) {
+    public String getUnlocalizedName(ItemStack stack) {
         if (stack.getItemDamage() < 3) {
             return super.getUnlocalizedName() + ".pearl";
         }
@@ -56,26 +56,26 @@ public class ItemPrimordialPearl extends ItemTCBase
         return super.getUnlocalizedName() + ".mote";
     }
     
-    public ItemStack getContainerItem(final ItemStack itemStack) {
+    public ItemStack getContainerItem(ItemStack itemStack) {
         if (!hasContainerItem(itemStack)) {
             return ItemStack.EMPTY;
         }
         return new ItemStack(itemStack.getItem(), itemStack.getCount(), itemStack.getItemDamage() + 1);
     }
     
-    public boolean hasContainerItem(final ItemStack stack) {
+    public boolean hasContainerItem(ItemStack stack) {
         return stack.getItemDamage() < 7;
     }
     
-    public EnumRarity getRarity(final ItemStack stack) {
+    public EnumRarity getRarity(ItemStack stack) {
         return EnumRarity.UNCOMMON;
     }
     
-    public boolean isEnchantable(final ItemStack stack) {
+    public boolean isEnchantable(ItemStack stack) {
         return false;
     }
     
-    public boolean canApplyAtEnchantingTable(final ItemStack stack, final Enchantment enchantment) {
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return false;
     }
 }

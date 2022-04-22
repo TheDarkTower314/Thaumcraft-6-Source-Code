@@ -30,31 +30,31 @@ import net.minecraft.client.renderer.entity.Render;
 @SideOnly(Side.CLIENT)
 public class RenderFallingTaint extends Render
 {
-    public RenderFallingTaint(final RenderManager p_i46177_1_) {
+    public RenderFallingTaint(RenderManager p_i46177_1_) {
         super(p_i46177_1_);
         shadowSize = 0.5f;
     }
     
-    public void doRender(final EntityFallingTaint p_180557_1_, final double p_180557_2_, final double p_180557_4_, final double p_180557_6_, final float p_180557_8_, final float p_180557_9_) {
+    public void doRender(EntityFallingTaint p_180557_1_, double p_180557_2_, double p_180557_4_, double p_180557_6_, float p_180557_8_, float p_180557_9_) {
         if (p_180557_1_.getBlock() != null) {
             bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-            final IBlockState iblockstate = p_180557_1_.getBlock();
-            final Block block = iblockstate.getBlock();
-            final BlockPos blockpos = new BlockPos(p_180557_1_);
-            final World world = p_180557_1_.getWorld();
+            IBlockState iblockstate = p_180557_1_.getBlock();
+            Block block = iblockstate.getBlock();
+            BlockPos blockpos = new BlockPos(p_180557_1_);
+            World world = p_180557_1_.getWorld();
             if (iblockstate != world.getBlockState(blockpos) && block.getRenderType(iblockstate) != EnumBlockRenderType.INVISIBLE && block.getRenderType(iblockstate) == EnumBlockRenderType.MODEL) {
                 GlStateManager.pushMatrix();
                 GlStateManager.translate((float)p_180557_2_, (float)p_180557_4_, (float)p_180557_6_);
                 GlStateManager.disableLighting();
-                final Tessellator tessellator = Tessellator.getInstance();
-                final BufferBuilder BufferBuilder = tessellator.getBuffer();
+                Tessellator tessellator = Tessellator.getInstance();
+                BufferBuilder BufferBuilder = tessellator.getBuffer();
                 BufferBuilder.begin(7, DefaultVertexFormats.BLOCK);
-                final int i = blockpos.getX();
-                final int j = blockpos.getY();
-                final int k = blockpos.getZ();
+                int i = blockpos.getX();
+                int j = blockpos.getY();
+                int k = blockpos.getZ();
                 BufferBuilder.setTranslation(-i - 0.5f, -j, -k - 0.5f);
-                final BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-                final IBakedModel ibakedmodel = blockrendererdispatcher.getModelForState(iblockstate);
+                BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
+                IBakedModel ibakedmodel = blockrendererdispatcher.getModelForState(iblockstate);
                 blockrendererdispatcher.getBlockModelRenderer().renderModel(world, ibakedmodel, iblockstate, blockpos, BufferBuilder, false);
                 BufferBuilder.setTranslation(0.0, 0.0, 0.0);
                 tessellator.draw();
@@ -65,15 +65,15 @@ public class RenderFallingTaint extends Render
         }
     }
     
-    protected ResourceLocation getEntityTexture(final EntityFallingBlock entity) {
+    protected ResourceLocation getEntityTexture(EntityFallingBlock entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return getEntityTexture((EntityFallingBlock)entity);
     }
     
-    public void doRender(final Entity entity, final double x, final double y, final double z, final float p_76986_8_, final float partialTicks) {
+    public void doRender(Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks) {
         doRender((EntityFallingTaint)entity, x, y, z, p_76986_8_, partialTicks);
     }
 }

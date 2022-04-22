@@ -26,10 +26,10 @@ public class ModelFireBat extends ModelBase
         textureWidth = 64;
         textureHeight = 64;
         (batHead = new ModelRenderer(this, 0, 0)).addBox(-3.0f, -3.0f, -3.0f, 6, 6, 6);
-        final ModelRenderer var1 = new ModelRenderer(this, 24, 0);
+        ModelRenderer var1 = new ModelRenderer(this, 24, 0);
         var1.addBox(-4.0f, -6.0f, -2.0f, 3, 4, 1);
         batHead.addChild(var1);
-        final ModelRenderer var2 = new ModelRenderer(this, 24, 0);
+        ModelRenderer var2 = new ModelRenderer(this, 24, 0);
         var2.mirror = true;
         var2.addBox(1.0f, -6.0f, -2.0f, 3, 4, 1);
         batHead.addChild(var2);
@@ -55,7 +55,7 @@ public class ModelFireBat extends ModelBase
         return 36;
     }
     
-    public void render(final Entity par1Entity, final float par2, final float par3, final float par4, final float par5, final float par6, final float par7) {
+    public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7) {
         if (par1Entity instanceof EntityFireBat && ((EntityFireBat)par1Entity).getIsBatHanging()) {
             batHead.rotateAngleX = par6 / 57.295776f;
             batHead.rotateAngleY = 3.1415927f - par5 / 57.295776f;

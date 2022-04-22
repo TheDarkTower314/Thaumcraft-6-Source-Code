@@ -21,7 +21,7 @@ public class GolemHead
     public PartModel model;
     private static byte lastID;
     
-    public GolemHead(final String key, final String[] research, final ResourceLocation icon, final PartModel model, final Object[] comp, final EnumGolemTrait[] tags) {
+    public GolemHead(String key, String[] research, ResourceLocation icon, PartModel model, Object[] comp, EnumGolemTrait[] tags) {
         this.key = key;
         this.research = research;
         this.icon = icon;
@@ -31,16 +31,16 @@ public class GolemHead
         function = null;
     }
     
-    public GolemHead(final String key, final String[] research, final ResourceLocation icon, final PartModel model, final Object[] comp, final IHeadFunction function, final EnumGolemTrait[] tags) {
+    public GolemHead(String key, String[] research, ResourceLocation icon, PartModel model, Object[] comp, IHeadFunction function, EnumGolemTrait[] tags) {
         this(key, research, icon, model, comp, tags);
         this.function = function;
     }
     
-    public static void register(final GolemHead thing) {
+    public static void register(GolemHead thing) {
         thing.id = GolemHead.lastID;
         ++GolemHead.lastID;
         if (thing.id >= GolemHead.heads.length) {
-            final GolemHead[] temp = new GolemHead[thing.id + 1];
+            GolemHead[] temp = new GolemHead[thing.id + 1];
             System.arraycopy(GolemHead.heads, 0, temp, 0, GolemHead.heads.length);
             GolemHead.heads = temp;
         }

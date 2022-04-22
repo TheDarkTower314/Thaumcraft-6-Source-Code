@@ -24,21 +24,21 @@ public class DustTriggerSimple implements IDustTrigger
     ItemStack result;
     String research;
     
-    public DustTriggerSimple(final String research, final Block target, final ItemStack result) {
+    public DustTriggerSimple(String research, Block target, ItemStack result) {
         this.target = target;
         this.result = result;
         this.research = research;
     }
     
     @Override
-    public Placement getValidFace(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing face) {
+    public Placement getValidFace(World world, EntityPlayer player, BlockPos pos, EnumFacing face) {
         return (world.getBlockState(pos).getBlock() == target && (research == null || ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(research))) ? new Placement(0, 0, 0, null) : null;
     }
     
     @Override
-    public void execute(final World world, final EntityPlayer player, final BlockPos pos, final Placement placement, final EnumFacing side) {
+    public void execute(World world, EntityPlayer player, BlockPos pos, Placement placement, EnumFacing side) {
         FMLCommonHandler.instance().firePlayerCraftingEvent(player, result, new InventoryFake(1));
-        final IBlockState state = world.getBlockState(pos);
+        IBlockState state = world.getBlockState(pos);
         ServerEvents.addRunnableServer(world, new Runnable() {
             @Override
             public void run() {

@@ -19,32 +19,32 @@ public class UV implements Copyable<UV>
     public UV() {
     }
     
-    public UV(final double u, final double v) {
+    public UV(double u, double v) {
         this(u, v, 0);
     }
     
-    public UV(final double u, final double v, final int tex) {
+    public UV(double u, double v, int tex) {
         this.u = u;
         this.v = v;
         this.tex = tex;
     }
     
-    public UV(final UV uv) {
+    public UV(UV uv) {
         this(uv.u, uv.v, uv.tex);
     }
     
-    public UV set(final double u, final double v, final int tex) {
+    public UV set(double u, double v, int tex) {
         this.u = u;
         this.v = v;
         this.tex = tex;
         return this;
     }
     
-    public UV set(final double u, final double v) {
+    public UV set(double u, double v) {
         return set(u, v, tex);
     }
     
-    public UV set(final UV uv) {
+    public UV set(UV uv) {
         return set(uv.u, uv.v, uv.tex);
     }
     
@@ -53,13 +53,13 @@ public class UV implements Copyable<UV>
         return new UV(this);
     }
     
-    public UV add(final UV uv) {
+    public UV add(UV uv) {
         u += uv.u;
         v += uv.v;
         return this;
     }
     
-    public UV multiply(final double d) {
+    public UV multiply(double d) {
         u *= d;
         v *= d;
         return this;
@@ -67,21 +67,21 @@ public class UV implements Copyable<UV>
     
     @Override
     public String toString() {
-        final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
+        MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
         return "UV(" + new BigDecimal(u, cont) + ", " + new BigDecimal(v, cont) + ")";
     }
     
-    public UV apply(final UVTransformation t) {
+    public UV apply(UVTransformation t) {
         t.apply(this);
         return this;
     }
     
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (!(o instanceof UV)) {
             return false;
         }
-        final UV uv = (UV)o;
+        UV uv = (UV)o;
         return u == uv.u && v == uv.v;
     }
 }

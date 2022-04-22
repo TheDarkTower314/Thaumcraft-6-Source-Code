@@ -45,13 +45,13 @@ public class SealFill extends SealFiltered
     }
     
     @Override
-    public void tickSeal(final World world, final ISealEntity seal) {
+    public void tickSeal(World world, ISealEntity seal) {
         if (delay++ % 20 != 0) {
             return;
         }
-        final Task oldTask = TaskHandler.getTask(world.provider.getDimension(), watchedTask);
+        Task oldTask = TaskHandler.getTask(world.provider.getDimension(), watchedTask);
         if (oldTask == null || oldTask.isReserved() || oldTask.isSuspended() || oldTask.isCompleted()) {
-            final Task task = new Task(seal.getSealPos(), seal.getSealPos().pos);
+            Task task = new Task(seal.getSealPos(), seal.getSealPos().pos);
             task.setPriority(seal.getPriority());
             TaskHandler.addTask(world.provider.getDimension(), task);
             watchedTask = task.getId();
@@ -59,10 +59,10 @@ public class SealFill extends SealFiltered
     }
     
     @Override
-    public void onTaskStarted(final World world, final IGolemAPI golem, final Task task) {
-        final ISealEntity se = SealHandler.getSealEntity(world.provider.getDimension(), task.getSealPos());
+    public void onTaskStarted(World world, IGolemAPI golem, Task task) {
+        ISealEntity se = SealHandler.getSealEntity(world.provider.getDimension(), task.getSealPos());
         if (se != null && !se.isStoppedByRedstone(world)) {
-            final Task newTask = new Task(task.getSealPos(), task.getSealPos().pos);
+            Task newTask = new Task(task.getSealPos(), task.getSealPos().pos);
             newTask.setPriority(se.getPriority());
             TaskHandler.addTask(world.provider.getDimension(), newTask);
             watchedTask = newTask.getId();
@@ -70,14 +70,14 @@ public class SealFill extends SealFiltered
     }
     
     @Override
-    public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
-        final ThaumcraftInvHelper.InvFilter filter = new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value);
-        final Tuple<ItemStack, Integer> tuple = InventoryUtils.findFirstMatchFromFilterTuple(getInv(), getSizes(), isBlacklist(), golem.getCarrying(), filter);
+    public boolean onTaskCompletion(World world, IGolemAPI golem, Task task) {
+        ThaumcraftInvHelper.InvFilter filter = new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value);
+        Tuple<ItemStack, Integer> tuple = InventoryUtils.findFirstMatchFromFilterTuple(getInv(), getSizes(), isBlacklist(), golem.getCarrying(), filter);
         if (tuple.getFirst() != null && !tuple.getFirst().isEmpty()) {
-            final IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, task.getSealPos().pos, task.getSealPos().face);
+            IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, task.getSealPos().pos, task.getSealPos().face);
             int limit = tuple.getFirst().getCount();
             if (hasStacksizeLimiters() && tuple.getSecond() != null && tuple.getSecond() > 0) {
-                final int c = (inv == null) ? InventoryUtils.countStackInWorld(golem.getGolemWorld(), task.getSealPos().pos, tuple.getFirst(), 1.5, filter) : ThaumcraftInvHelper.countTotalItemsIn(inv, tuple.getFirst(), filter);
+                int c = (inv == null) ? InventoryUtils.countStackInWorld(golem.getGolemWorld(), task.getSealPos().pos, tuple.getFirst(), 1.5, filter) : ThaumcraftInvHelper.countTotalItemsIn(inv, tuple.getFirst(), filter);
                 if (c < tuple.getSecond()) {
                     limit = tuple.getSecond() - c;
                 }
@@ -86,16 +86,16 @@ public class SealFill extends SealFiltered
                 }
             }
             if (limit > 0) {
-                final ItemStack t = tuple.getFirst().copy();
+                ItemStack t = tuple.getFirst().copy();
                 t.setCount(limit);
-                final ItemStack s = golem.dropItem(t);
+                ItemStack s = golem.dropItem(t);
                 if (inv == null) {
-                    final EntityItem entityItem;
-                    final EntityItem ie = entityItem = new EntityItem(world, task.getSealPos().pos.getX() + 0.5 + task.getSealPos().face.getFrontOffsetX(), task.getSealPos().pos.getY() + 0.5 + task.getSealPos().face.getFrontOffsetY(), task.getSealPos().pos.getZ() + 0.5 + task.getSealPos().face.getFrontOffsetZ(), s);
+                    EntityItem entityItem;
+                    EntityItem ie = entityItem = new EntityItem(world, task.getSealPos().pos.getX() + 0.5 + task.getSealPos().face.getFrontOffsetX(), task.getSealPos().pos.getY() + 0.5 + task.getSealPos().face.getFrontOffsetY(), task.getSealPos().pos.getZ() + 0.5 + task.getSealPos().face.getFrontOffsetZ(), s);
                     entityItem.motionX /= 5.0;
-                    final EntityItem entityItem2 = ie;
+                    EntityItem entityItem2 = ie;
                     entityItem2.motionY /= 2.0;
-                    final EntityItem entityItem3 = ie;
+                    EntityItem entityItem3 = ie;
                     entityItem3.motionZ /= 5.0;
                     world.spawnEntity(ie);
                 }
@@ -112,11 +112,11 @@ public class SealFill extends SealFiltered
     }
     
     @Override
-    public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
-        final ThaumcraftInvHelper.InvFilter filter = new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value);
-        final Tuple<ItemStack, Integer> tuple = InventoryUtils.findFirstMatchFromFilterTuple(getInv(), getSizes(), isBlacklist(), golem.getCarrying(), filter);
+    public boolean canGolemPerformTask(IGolemAPI golem, Task task) {
+        ThaumcraftInvHelper.InvFilter filter = new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value);
+        Tuple<ItemStack, Integer> tuple = InventoryUtils.findFirstMatchFromFilterTuple(getInv(), getSizes(), isBlacklist(), golem.getCarrying(), filter);
         if (tuple.getFirst() != null && !tuple.getFirst().isEmpty()) {
-            final IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(golem.getGolemWorld(), task.getSealPos().pos, task.getSealPos().face);
+            IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(golem.getGolemWorld(), task.getSealPos().pos, task.getSealPos().face);
             if (inv != null) {
                 if (tuple.getFirst() != null && !tuple.getFirst().isEmpty() && props[4].value && ThaumcraftInvHelper.countTotalItemsIn(inv, tuple.getFirst(), filter) <= 0) {
                     return false;
@@ -138,7 +138,7 @@ public class SealFill extends SealFiltered
     }
     
     @Override
-    public boolean canPlaceAt(final World world, final BlockPos pos, final EnumFacing side) {
+    public boolean canPlaceAt(World world, BlockPos pos, EnumFacing side) {
         return !world.isAirBlock(pos);
     }
     
@@ -163,11 +163,11 @@ public class SealFill extends SealFiltered
     }
     
     @Override
-    public void onTaskSuspension(final World world, final Task task) {
+    public void onTaskSuspension(World world, Task task) {
     }
     
     @Override
-    public void onRemoval(final World world, final BlockPos pos, final EnumFacing side) {
+    public void onRemoval(World world, BlockPos pos, EnumFacing side) {
     }
     
     @Override

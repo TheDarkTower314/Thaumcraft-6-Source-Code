@@ -31,31 +31,31 @@ public class ItemVoidseerCharm extends ItemTCBase implements IBauble, IVisDiscou
         setMaxDamage(0);
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public BaubleType getBaubleType(final ItemStack itemstack) {
+    public BaubleType getBaubleType(ItemStack itemstack) {
         return BaubleType.CHARM;
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(TextFormatting.DARK_BLUE + "" + TextFormatting.ITALIC + I18n.translateToLocal("item.voidseer_charm.text"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
     
-    public int getVisDiscount(final ItemStack stack, final EntityPlayer player) {
+    public int getVisDiscount(ItemStack stack, EntityPlayer player) {
         int q = 0;
-        final IPlayerWarp warp = ThaumcraftCapabilities.getWarp(player);
+        IPlayerWarp warp = ThaumcraftCapabilities.getWarp(player);
         if (warp != null) {
-            final int pw = Math.min(100, warp.get(IPlayerWarp.EnumWarpType.PERMANENT));
+            int pw = Math.min(100, warp.get(IPlayerWarp.EnumWarpType.PERMANENT));
             q = (int)(pw / 100.0f * 25.0f);
         }
         return q;
     }
     
-    public int getWarp(final ItemStack itemstack, final EntityPlayer player) {
+    public int getWarp(ItemStack itemstack, EntityPlayer player) {
         return getVisDiscount(itemstack, player) / 5;
     }
 }

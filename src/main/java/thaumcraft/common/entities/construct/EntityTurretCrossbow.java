@@ -63,7 +63,7 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     boolean attackedLastTick;
     int attackCount;
     
-    public EntityTurretCrossbow(final World worldIn) {
+    public EntityTurretCrossbow(World worldIn) {
         super(worldIn);
         loadProgressInt = 0;
         isLoadInProgress = false;
@@ -83,37 +83,37 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
         targetTasks.addTask(2, new EntityAINearestValidTarget(this, EntityLiving.class, 5, true, false, IMob.MOB_SELECTOR));
     }
     
-    public EntityTurretCrossbow(final World worldIn, final BlockPos pos) {
+    public EntityTurretCrossbow(World worldIn, BlockPos pos) {
         this(worldIn);
         setPositionAndRotation(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0f, 0.0f);
     }
     
-    public void attackEntityWithRangedAttack(final EntityLivingBase target, final float range) {
+    public void attackEntityWithRangedAttack(EntityLivingBase target, float range) {
         if (getHeldItemMainhand() != null && !getHeldItemMainhand().isEmpty() && getHeldItemMainhand().getCount() > 0) {
-            final EntityTippedArrow entityarrow = new EntityTippedArrow(world, this);
+            EntityTippedArrow entityarrow = new EntityTippedArrow(world, this);
             entityarrow.setDamage(2.25 + range * 2.0f + rand.nextGaussian() * 0.25);
             entityarrow.setPotionEffect(getHeldItemMainhand());
-            final Vec3d vec3d = getLook(1.0f);
+            Vec3d vec3d = getLook(1.0f);
             if (!isRiding()) {
-                final EntityTippedArrow entityTippedArrow = entityarrow;
+                EntityTippedArrow entityTippedArrow = entityarrow;
                 entityTippedArrow.posX -= vec3d.x * 0.8999999761581421;
-                final EntityTippedArrow entityTippedArrow2 = entityarrow;
+                EntityTippedArrow entityTippedArrow2 = entityarrow;
                 entityTippedArrow2.posY -= vec3d.y * 0.8999999761581421;
-                final EntityTippedArrow entityTippedArrow3 = entityarrow;
+                EntityTippedArrow entityTippedArrow3 = entityarrow;
                 entityTippedArrow3.posZ -= vec3d.z * 0.8999999761581421;
             }
             else {
-                final EntityTippedArrow entityTippedArrow4 = entityarrow;
+                EntityTippedArrow entityTippedArrow4 = entityarrow;
                 entityTippedArrow4.posX += vec3d.x * 1.75;
-                final EntityTippedArrow entityTippedArrow5 = entityarrow;
+                EntityTippedArrow entityTippedArrow5 = entityarrow;
                 entityTippedArrow5.posY += vec3d.y * 1.75;
-                final EntityTippedArrow entityTippedArrow6 = entityarrow;
+                EntityTippedArrow entityTippedArrow6 = entityarrow;
                 entityTippedArrow6.posZ += vec3d.z * 1.75;
             }
             entityarrow.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
-            final double d0 = target.posX - posX;
-            final double d2 = target.getEntityBoundingBox().minY + target.getEyeHeight() + range * range * 3.0f - entityarrow.posY;
-            final double d3 = target.posZ - posZ;
+            double d0 = target.posX - posX;
+            double d2 = target.getEntityBoundingBox().minY + target.getEyeHeight() + range * range * 3.0f - entityarrow.posY;
+            double d3 = target.posZ - posZ;
             entityarrow.shoot(d0, d2, d3, 2.0f, 2.0f);
             world.spawnEntity(entityarrow);
             world.setEntityState(this, (byte)16);
@@ -126,7 +126,7 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte par1) {
+    public void handleStatusUpdate(byte par1) {
         if (par1 == 16) {
             if (!isSwingInProgress) {
                 swingProgressInt = -1;
@@ -145,7 +145,7 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     }
     
     @SideOnly(Side.CLIENT)
-    public float getLoadProgress(final float pt) {
+    public float getLoadProgress(float pt) {
         float f1 = loadProgress - prevLoadProgress;
         if (f1 < 0.0f) {
             ++f1;
@@ -181,10 +181,10 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     public void onEntityUpdate() {
         prevLoadProgress = loadProgress;
         if (!world.isRemote && (getHeldItemMainhand() == null || getHeldItemMainhand().isEmpty() || getHeldItemMainhand().getCount() <= 0)) {
-            final BlockPos p = getPosition().down();
-            final TileEntity t = world.getTileEntity(p);
+            BlockPos p = getPosition().down();
+            TileEntity t = world.getTileEntity(p);
             if (t != null && t instanceof TileEntityDispenser && EnumFacing.getFront(t.getBlockMetadata() & 0x7) == EnumFacing.UP) {
-                final TileEntityDispenser d = (TileEntityDispenser)t;
+                TileEntityDispenser d = (TileEntityDispenser)t;
                 for (int a = 0; a < d.getSizeInventory(); ++a) {
                     if (d.getStackInSlot(a) != null && !d.getStackInSlot(a).isEmpty() && d.getStackInSlot(a).getItem() instanceof ItemArrow) {
                         setHeldItem(EnumHand.MAIN_HAND, d.decrStackSize(a, d.getStackInSlot(a).getCount()));
@@ -201,7 +201,7 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     @Override
     public Team getTeam() {
         if (isOwned()) {
-            final EntityLivingBase entitylivingbase = getOwnerEntity();
+            EntityLivingBase entitylivingbase = getOwnerEntity();
             if (entitylivingbase != null) {
                 return entitylivingbase.getTeam();
             }
@@ -234,16 +234,16 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
             if (ticksExisted % 80 == 0) {
                 heal(1.0f);
             }
-            final int k = MathHelper.floor(posX);
+            int k = MathHelper.floor(posX);
             int l = MathHelper.floor(posY);
-            final int i1 = MathHelper.floor(posZ);
+            int i1 = MathHelper.floor(posZ);
             if (BlockRailBase.isRailBlock(world, new BlockPos(k, l - 1, i1))) {
                 --l;
             }
-            final BlockPos blockpos = new BlockPos(k, l, i1);
-            final IBlockState iblockstate = world.getBlockState(blockpos);
+            BlockPos blockpos = new BlockPos(k, l, i1);
+            IBlockState iblockstate = world.getBlockState(blockpos);
             if (BlockRailBase.isRailBlock(iblockstate) && iblockstate.getBlock() == BlocksTC.activatorRail) {
-                final boolean ac = (boolean)iblockstate.getValue((IProperty)BlockRailPowered.POWERED);
+                boolean ac = (boolean)iblockstate.getValue((IProperty)BlockRailPowered.POWERED);
                 setNoAI(ac);
             }
         }
@@ -261,22 +261,22 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     }
     
     @Override
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
     }
     
     @Override
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
     }
     
-    public boolean attackEntityFrom(final DamageSource source, final float amount) {
+    public boolean attackEntityFrom(DamageSource source, float amount) {
         rotationYaw += (float)(getRNG().nextGaussian() * 45.0);
         rotationPitch += (float)(getRNG().nextGaussian() * 20.0);
         return super.attackEntityFrom(source, amount);
     }
     
-    public void knockBack(final Entity p_70653_1_, final float p_70653_2_, final double p_70653_3_, final double p_70653_5_) {
+    public void knockBack(Entity p_70653_1_, float p_70653_2_, double p_70653_3_, double p_70653_5_) {
         super.knockBack(p_70653_1_, p_70653_2_, p_70653_3_ / 10.0, p_70653_5_ / 10.0);
         if (motionY > 0.1) {
             motionY = 0.1;
@@ -284,7 +284,7 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     }
     
     @Override
-    protected boolean processInteract(final EntityPlayer player, final EnumHand hand) {
+    protected boolean processInteract(EntityPlayer player, EnumHand hand) {
         if (!world.isRemote && isOwner(player) && !isDead) {
             if (player.isSneaking()) {
                 playSound(SoundsTC.zap, 1.0f, 1.0f);
@@ -301,12 +301,12 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
         return super.processInteract(player, hand);
     }
     
-    public void move(final MoverType mt, final double x, final double y, final double z) {
+    public void move(MoverType mt, double x, double y, double z) {
         super.move(mt, x / 20.0, y, z / 20.0);
     }
     
     @Override
-    public void onDeath(final DamageSource cause) {
+    public void onDeath(DamageSource cause) {
         super.onDeath(cause);
         if (!world.isRemote) {
             dropAmmo();
@@ -319,8 +319,8 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
         }
     }
     
-    protected void dropFewItems(final boolean p_70628_1_, final int p_70628_2_) {
-        final float b = p_70628_2_ * 0.15f;
+    protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
+        float b = p_70628_2_ * 0.15f;
         if (rand.nextFloat() < 0.2f + b) {
             entityDropItem(new ItemStack(ItemsTC.mind), 0.5f);
         }
@@ -336,20 +336,20 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
     }
     
     protected RayTraceResult getRayTraceResult() {
-        final float f = prevRotationPitch + (rotationPitch - prevRotationPitch);
-        final float f2 = prevRotationYaw + (rotationYaw - prevRotationYaw);
-        final double d0 = prevPosX + (posX - prevPosX);
-        final double d2 = prevPosY + (posY - prevPosY) + getEyeHeight();
-        final double d3 = prevPosZ + (posZ - prevPosZ);
-        final Vec3d vec3 = new Vec3d(d0, d2, d3);
-        final float f3 = MathHelper.cos(-f2 * 0.017453292f - 3.1415927f);
-        final float f4 = MathHelper.sin(-f2 * 0.017453292f - 3.1415927f);
-        final float f5 = -MathHelper.cos(-f * 0.017453292f);
-        final float f6 = MathHelper.sin(-f * 0.017453292f);
-        final float f7 = f4 * f5;
-        final float f8 = f3 * f5;
-        final double d4 = 5.0;
-        final Vec3d vec4 = vec3.addVector(f7 * d4, f6 * d4, f8 * d4);
+        float f = prevRotationPitch + (rotationPitch - prevRotationPitch);
+        float f2 = prevRotationYaw + (rotationYaw - prevRotationYaw);
+        double d0 = prevPosX + (posX - prevPosX);
+        double d2 = prevPosY + (posY - prevPosY) + getEyeHeight();
+        double d3 = prevPosZ + (posZ - prevPosZ);
+        Vec3d vec3 = new Vec3d(d0, d2, d3);
+        float f3 = MathHelper.cos(-f2 * 0.017453292f - 3.1415927f);
+        float f4 = MathHelper.sin(-f2 * 0.017453292f - 3.1415927f);
+        float f5 = -MathHelper.cos(-f * 0.017453292f);
+        float f6 = MathHelper.sin(-f * 0.017453292f);
+        float f7 = f4 * f5;
+        float f8 = f3 * f5;
+        double d4 = 5.0;
+        Vec3d vec4 = vec3.addVector(f7 * d4, f6 * d4, f8 * d4);
         return world.rayTraceBlocks(vec3, vec4, true, false, false);
     }
     
@@ -357,7 +357,7 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
         return 20;
     }
     
-    public void setSwingingArms(final boolean swingingArms) {
+    public void setSwingingArms(boolean swingingArms) {
     }
     
     protected class EntityAIWatchTarget extends EntityAIBase
@@ -366,7 +366,7 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
         protected Entity closestEntity;
         private int lookTime;
         
-        public EntityAIWatchTarget(final EntityLiving p_i1631_1_) {
+        public EntityAIWatchTarget(EntityLiving p_i1631_1_) {
             theWatcher = p_i1631_1_;
             setMutexBits(2);
         }
@@ -379,7 +379,7 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
         }
         
         public boolean shouldContinueExecuting() {
-            final float d = (float) getTargetDistance();
+            float d = (float) getTargetDistance();
             return closestEntity.isEntityAlive() && theWatcher.getDistanceSq(closestEntity) <= d * d && lookTime > 0;
         }
         
@@ -397,37 +397,35 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
         }
         
         protected double getTargetDistance() {
-            final IAttributeInstance iattributeinstance = theWatcher.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
+            IAttributeInstance iattributeinstance = theWatcher.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
             return (iattributeinstance == null) ? 16.0 : iattributeinstance.getAttributeValue();
         }
     }
     
     protected class EntityAINearestValidTarget extends EntityAITarget
     {
-        protected final Class<? extends EntityLivingBase> targetClass;
-        private final int targetChance;
-        protected final EntityAINearestAttackableTarget.Sorter theNearestAttackableTargetSorter;
+        protected Class<? extends EntityLivingBase> targetClass;
+        private int targetChance;
+        protected EntityAINearestAttackableTarget.Sorter theNearestAttackableTargetSorter;
         protected Predicate<EntityLivingBase> targetEntitySelector;
         protected EntityLivingBase targetEntity;
         
-        //public EntityAINearestValidTarget(final EntityTurretCrossbow turret, final EntityCreature creature, final Class cls, final boolean checkSight) {
+        //public EntityAINearestValidTarget(EntityTurretCrossbow turret, EntityCreature creature, Class cls, boolean checkSight) {
         //    this(turret, creature, cls, checkSight, false);
         //}
         
-        //public EntityAINearestValidTarget(final EntityTurretCrossbow turret, final EntityCreature creature, final Class cls, final boolean checkSight, final boolean onlyNearby) {
+        //public EntityAINearestValidTarget(EntityTurretCrossbow turret, EntityCreature creature, Class cls, boolean checkSight, boolean onlyNearby) {
         //    this(turret, creature, cls, 10, checkSight, onlyNearby, null);
         //}
         
-        public EntityAINearestValidTarget(final EntityCreature owner, final Class<? extends EntityLivingBase> cls, final int targetChance, final boolean checkSight, final boolean onlyNearby, final Predicate<Entity> tselector) {
+        public EntityAINearestValidTarget(EntityCreature owner, Class<? extends EntityLivingBase> cls, int targetChance, boolean checkSight, boolean onlyNearby, Predicate<Entity> tselector) {
             super(owner, checkSight, onlyNearby);
             targetClass = cls;
             this.targetChance = targetChance;
             theNearestAttackableTargetSorter = new EntityAINearestAttackableTarget.Sorter(owner);
             setMutexBits(1);
             targetEntitySelector = new Predicate<EntityLivingBase>() {
-                private static final String __OBFID = "CL_00001621";
-                
-                public boolean applySelection(final EntityLivingBase entity) {
+                public boolean applySelection(EntityLivingBase entity) {
                     if (tselector != null && !tselector.apply(entity)) {
                         return false;
                     }
@@ -450,13 +448,13 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
                     return isSuitableTarget(entity, false);
                 }
                 
-                public boolean apply(final EntityLivingBase p_apply_1_) {
+                public boolean apply(EntityLivingBase p_apply_1_) {
                     return applySelection(p_apply_1_);
                 }
             };
         }
         
-        protected boolean isSuitableTarget(final EntityLivingBase p_75296_1_, final boolean p_75296_2_) {
+        protected boolean isSuitableTarget(EntityLivingBase p_75296_1_, boolean p_75296_2_) {
             return isSuitableTarget(taskOwner, p_75296_1_, p_75296_2_, shouldCheckSight) && taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(p_75296_1_));
         }
         
@@ -464,8 +462,8 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
             if (targetChance > 0 && taskOwner.getRNG().nextInt(targetChance) != 0) {
                 return false;
             }
-            final double d0 = getTargetDistance();
-            final List<EntityLivingBase> list = taskOwner.world.getEntitiesWithinAABB(targetClass, taskOwner.getEntityBoundingBox().grow(d0, 4.0, d0), Predicates.and(targetEntitySelector, EntitySelectors.NOT_SPECTATING));
+            double d0 = getTargetDistance();
+            List<EntityLivingBase> list = taskOwner.world.getEntitiesWithinAABB(targetClass, taskOwner.getEntityBoundingBox().grow(d0, 4.0, d0), Predicates.and(targetEntitySelector, EntitySelectors.NOT_SPECTATING));
             Collections.sort(list, theNearestAttackableTargetSorter);
             if (list.isEmpty()) {
                 return false;
@@ -483,21 +481,20 @@ public class EntityTurretCrossbow extends EntityOwnedConstruct implements IRange
         
         public class Sorter implements Comparator
         {
-            private final Entity theEntity;
-            private static final String __OBFID = "CL_00001622";
+            private Entity theEntity;
             
-            public Sorter(final Entity p_i1662_1_) {
+            public Sorter(Entity p_i1662_1_) {
                 theEntity = p_i1662_1_;
             }
             
-            public int compare(final Entity p_compare_1_, final Entity p_compare_2_) {
-                final double d0 = theEntity.getDistanceSq(p_compare_1_);
-                final double d2 = theEntity.getDistanceSq(p_compare_2_);
+            public int compare(Entity p_compare_1_, Entity p_compare_2_) {
+                double d0 = theEntity.getDistanceSq(p_compare_1_);
+                double d2 = theEntity.getDistanceSq(p_compare_2_);
                 return (d0 < d2) ? -1 : ((d0 > d2) ? 1 : 0);
             }
             
             @Override
-            public int compare(final Object p_compare_1_, final Object p_compare_2_) {
+            public int compare(Object p_compare_1_, Object p_compare_2_) {
                 return compare((Entity)p_compare_1_, (Entity)p_compare_2_);
             }
         }

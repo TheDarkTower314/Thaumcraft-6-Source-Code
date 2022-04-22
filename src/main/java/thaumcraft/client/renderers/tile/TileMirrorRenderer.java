@@ -30,8 +30,8 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 public class TileMirrorRenderer extends TileEntitySpecialRenderer
 {
     FloatBuffer fBuffer;
-    private static final ResourceLocation t1;
-    private static final ResourceLocation t2;
+    private static ResourceLocation t1;
+    private static ResourceLocation t2;
     private static ResourceLocation mp;
     private static ResourceLocation mpt;
     
@@ -39,14 +39,14 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
         fBuffer = GLAllocation.createDirectFloatBuffer(16);
     }
     
-    public void drawPlaneYPos(final TileEntity tileentityendportal, final double x, final double y, final double z, final float f) {
-        final float px = (float)TileEntityRendererDispatcher.staticPlayerX;
-        final float py = (float)TileEntityRendererDispatcher.staticPlayerY;
-        final float pz = (float)TileEntityRendererDispatcher.staticPlayerZ;
+    public void drawPlaneYPos(TileEntity tileentityendportal, double x, double y, double z, float f) {
+        float px = (float)TileEntityRendererDispatcher.staticPlayerX;
+        float py = (float)TileEntityRendererDispatcher.staticPlayerY;
+        float pz = (float)TileEntityRendererDispatcher.staticPlayerZ;
         GL11.glDisable(2896);
-        final Random random = new Random(31100L);
-        final float offset = 0.99f;
-        final float p = 0.1875f;
+        Random random = new Random(31100L);
+        float offset = 0.99f;
+        float p = 0.1875f;
         for (int i = 0; i < 16; ++i) {
             GL11.glPushMatrix();
             float f2 = (float)(16 - i);
@@ -66,9 +66,9 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(1, 1);
                 f3 = 0.5f;
             }
-            final float f5 = (float)(y + offset);
-            final float f6 = (float)(f5 - ActiveRenderInfo.getCameraPosition().y);
-            final float f7 = (float)(f5 + f2 - ActiveRenderInfo.getCameraPosition().y);
+            float f5 = (float)(y + offset);
+            float f6 = (float)(f5 - ActiveRenderInfo.getCameraPosition().y);
+            float f7 = (float)(f5 + f2 - ActiveRenderInfo.getCameraPosition().y);
             float f8 = f6 / f7;
             f8 += (float)(y + offset);
             GL11.glTranslatef(px, f8, pz);
@@ -95,7 +95,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTranslatef(-0.5f, -0.5f, 0.0f);
             GL11.glTranslatef(-px, -pz, -py);
             GL11.glTranslated(ActiveRenderInfo.getCameraPosition().x * f2 / f6, ActiveRenderInfo.getCameraPosition().z * f2 / f6, -py);
-            final Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.getInstance();
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
             f8 = random.nextFloat() * 0.5f + 0.1f;
             float f9 = random.nextFloat() * 0.5f + 0.4f;
@@ -119,14 +119,14 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
         GL11.glEnable(2896);
     }
     
-    public void drawPlaneYNeg(final TileEntity tileentityendportal, final double x, final double y, final double z, final float f) {
-        final float f2 = (float)TileEntityRendererDispatcher.staticPlayerX;
-        final float f3 = (float)TileEntityRendererDispatcher.staticPlayerY;
-        final float f4 = (float)TileEntityRendererDispatcher.staticPlayerZ;
+    public void drawPlaneYNeg(TileEntity tileentityendportal, double x, double y, double z, float f) {
+        float f2 = (float)TileEntityRendererDispatcher.staticPlayerX;
+        float f3 = (float)TileEntityRendererDispatcher.staticPlayerY;
+        float f4 = (float)TileEntityRendererDispatcher.staticPlayerZ;
         GL11.glDisable(2896);
-        final Random random = new Random(31100L);
-        final float offset = 0.01f;
-        final float p = 0.1875f;
+        Random random = new Random(31100L);
+        float offset = 0.01f;
+        float p = 0.1875f;
         for (int i = 0; i < 16; ++i) {
             GL11.glPushMatrix();
             float f5 = (float)(16 - i);
@@ -146,9 +146,9 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(1, 1);
                 f6 = 0.5f;
             }
-            final float f8 = (float)(-(y + offset));
-            final float f9 = (float)(f8 + ActiveRenderInfo.getCameraPosition().y);
-            final float f10 = (float)(f8 + f5 + ActiveRenderInfo.getCameraPosition().y);
+            float f8 = (float)(-(y + offset));
+            float f9 = (float)(f8 + ActiveRenderInfo.getCameraPosition().y);
+            float f10 = (float)(f8 + f5 + ActiveRenderInfo.getCameraPosition().y);
             float f11 = f9 / f10;
             f11 += (float)(y + offset);
             GL11.glTranslatef(f2, f11, f4);
@@ -175,7 +175,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTranslatef(-0.5f, -0.5f, 0.0f);
             GL11.glTranslatef(-f2, -f4, -f3);
             GL11.glTranslated(ActiveRenderInfo.getCameraPosition().x * f5 / f9, ActiveRenderInfo.getCameraPosition().z * f5 / f9, -f3);
-            final Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.getInstance();
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
             f11 = random.nextFloat() * 0.5f + 0.1f;
             float f12 = random.nextFloat() * 0.5f + 0.4f;
@@ -199,14 +199,14 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
         GL11.glEnable(2896);
     }
     
-    public void drawPlaneZNeg(final TileEntity tileentityendportal, final double x, final double y, final double z, final float f) {
-        final float px = (float)TileEntityRendererDispatcher.staticPlayerX;
-        final float py = (float)TileEntityRendererDispatcher.staticPlayerY;
-        final float pz = (float)TileEntityRendererDispatcher.staticPlayerZ;
+    public void drawPlaneZNeg(TileEntity tileentityendportal, double x, double y, double z, float f) {
+        float px = (float)TileEntityRendererDispatcher.staticPlayerX;
+        float py = (float)TileEntityRendererDispatcher.staticPlayerY;
+        float pz = (float)TileEntityRendererDispatcher.staticPlayerZ;
         GL11.glDisable(2896);
-        final Random random = new Random(31100L);
-        final float offset = 0.01f;
-        final float p = 0.1875f;
+        Random random = new Random(31100L);
+        float offset = 0.01f;
+        float p = 0.1875f;
         for (int i = 0; i < 16; ++i) {
             GL11.glPushMatrix();
             float f2 = (float)(16 - i);
@@ -226,9 +226,9 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(1, 1);
                 f3 = 0.5f;
             }
-            final float f5 = (float)(-(z + offset));
-            final float f6 = (float)(f5 + ActiveRenderInfo.getCameraPosition().z);
-            final float f7 = (float)(f5 + f2 + ActiveRenderInfo.getCameraPosition().z);
+            float f5 = (float)(-(z + offset));
+            float f6 = (float)(f5 + ActiveRenderInfo.getCameraPosition().z);
+            float f7 = (float)(f5 + f2 + ActiveRenderInfo.getCameraPosition().z);
             float f8 = f6 / f7;
             f8 += (float)(z + offset);
             GL11.glTranslatef(px, py, f8);
@@ -255,7 +255,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTranslatef(-0.5f, -0.5f, 0.0f);
             GL11.glTranslatef(-px, -py, -pz);
             GL11.glTranslated(ActiveRenderInfo.getCameraPosition().x * f2 / f6, ActiveRenderInfo.getCameraPosition().y * f2 / f6, -pz);
-            final Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.getInstance();
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
             f8 = random.nextFloat() * 0.5f + 0.1f;
             float f9 = random.nextFloat() * 0.5f + 0.4f;
@@ -279,14 +279,14 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
         GL11.glEnable(2896);
     }
     
-    public void drawPlaneZPos(final TileEntity tileentityendportal, final double x, final double y, final double z, final float f) {
-        final float px = (float)TileEntityRendererDispatcher.staticPlayerX;
-        final float py = (float)TileEntityRendererDispatcher.staticPlayerY;
-        final float pz = (float)TileEntityRendererDispatcher.staticPlayerZ;
+    public void drawPlaneZPos(TileEntity tileentityendportal, double x, double y, double z, float f) {
+        float px = (float)TileEntityRendererDispatcher.staticPlayerX;
+        float py = (float)TileEntityRendererDispatcher.staticPlayerY;
+        float pz = (float)TileEntityRendererDispatcher.staticPlayerZ;
         GL11.glDisable(2896);
-        final Random random = new Random(31100L);
-        final float offset = 0.99f;
-        final float p = 0.1875f;
+        Random random = new Random(31100L);
+        float offset = 0.99f;
+        float p = 0.1875f;
         for (int i = 0; i < 16; ++i) {
             GL11.glPushMatrix();
             float f2 = (float)(16 - i);
@@ -306,9 +306,9 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(1, 1);
                 f3 = 0.5f;
             }
-            final float f5 = (float)(z + offset);
-            final float f6 = (float)(f5 - ActiveRenderInfo.getCameraPosition().z);
-            final float f7 = (float)(f5 + f2 - ActiveRenderInfo.getCameraPosition().z);
+            float f5 = (float)(z + offset);
+            float f6 = (float)(f5 - ActiveRenderInfo.getCameraPosition().z);
+            float f7 = (float)(f5 + f2 - ActiveRenderInfo.getCameraPosition().z);
             float f8 = f6 / f7;
             f8 += (float)(z + offset);
             GL11.glTranslatef(px, py, f8);
@@ -335,7 +335,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTranslatef(-0.5f, -0.5f, 0.0f);
             GL11.glTranslatef(-px, -py, -pz);
             GL11.glTranslated(ActiveRenderInfo.getCameraPosition().x * f2 / f6, ActiveRenderInfo.getCameraPosition().y * f2 / f6, -pz);
-            final Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.getInstance();
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
             f8 = random.nextFloat() * 0.5f + 0.1f;
             float f9 = random.nextFloat() * 0.5f + 0.4f;
@@ -359,14 +359,14 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
         GL11.glEnable(2896);
     }
     
-    public void drawPlaneXNeg(final TileEntity tileentityendportal, final double x, final double y, final double z, final float f) {
-        final float px = (float)TileEntityRendererDispatcher.staticPlayerX;
-        final float py = (float)TileEntityRendererDispatcher.staticPlayerY;
-        final float pz = (float)TileEntityRendererDispatcher.staticPlayerZ;
+    public void drawPlaneXNeg(TileEntity tileentityendportal, double x, double y, double z, float f) {
+        float px = (float)TileEntityRendererDispatcher.staticPlayerX;
+        float py = (float)TileEntityRendererDispatcher.staticPlayerY;
+        float pz = (float)TileEntityRendererDispatcher.staticPlayerZ;
         GL11.glDisable(2896);
-        final Random random = new Random(31100L);
-        final float offset = 0.01f;
-        final float p = 0.1875f;
+        Random random = new Random(31100L);
+        float offset = 0.01f;
+        float p = 0.1875f;
         for (int i = 0; i < 16; ++i) {
             GL11.glPushMatrix();
             float f2 = (float)(16 - i);
@@ -386,9 +386,9 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(1, 1);
                 f3 = 0.5f;
             }
-            final float f5 = (float)(-(x + offset));
-            final float f6 = (float)(f5 + ActiveRenderInfo.getCameraPosition().x);
-            final float f7 = (float)(f5 + f2 + ActiveRenderInfo.getCameraPosition().x);
+            float f5 = (float)(-(x + offset));
+            float f6 = (float)(f5 + ActiveRenderInfo.getCameraPosition().x);
+            float f7 = (float)(f5 + f2 + ActiveRenderInfo.getCameraPosition().x);
             float f8 = f6 / f7;
             f8 += (float)(x + offset);
             GL11.glTranslatef(f8, py, pz);
@@ -415,7 +415,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTranslatef(-0.5f, -0.5f, 0.0f);
             GL11.glTranslatef(-pz, -py, -px);
             GL11.glTranslated(ActiveRenderInfo.getCameraPosition().z * f2 / f6, ActiveRenderInfo.getCameraPosition().y * f2 / f6, -px);
-            final Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.getInstance();
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
             f8 = random.nextFloat() * 0.5f + 0.1f;
             float f9 = random.nextFloat() * 0.5f + 0.4f;
@@ -439,14 +439,14 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
         GL11.glEnable(2896);
     }
     
-    public void drawPlaneXPos(final TileEntity tileentityendportal, final double x, final double y, final double z, final float f) {
-        final float px = (float)TileEntityRendererDispatcher.staticPlayerX;
-        final float py = (float)TileEntityRendererDispatcher.staticPlayerY;
-        final float pz = (float)TileEntityRendererDispatcher.staticPlayerZ;
+    public void drawPlaneXPos(TileEntity tileentityendportal, double x, double y, double z, float f) {
+        float px = (float)TileEntityRendererDispatcher.staticPlayerX;
+        float py = (float)TileEntityRendererDispatcher.staticPlayerY;
+        float pz = (float)TileEntityRendererDispatcher.staticPlayerZ;
         GL11.glDisable(2896);
-        final Random random = new Random(31100L);
-        final float offset = 0.99f;
-        final float p = 0.1875f;
+        Random random = new Random(31100L);
+        float offset = 0.99f;
+        float p = 0.1875f;
         for (int i = 0; i < 16; ++i) {
             GL11.glPushMatrix();
             float f2 = (float)(16 - i);
@@ -466,9 +466,9 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
                 GL11.glBlendFunc(1, 1);
                 f3 = 0.5f;
             }
-            final float f5 = (float)(x + offset);
-            final float f6 = (float)(f5 - ActiveRenderInfo.getCameraPosition().x);
-            final float f7 = (float)(f5 + f2 - ActiveRenderInfo.getCameraPosition().x);
+            float f5 = (float)(x + offset);
+            float f6 = (float)(f5 - ActiveRenderInfo.getCameraPosition().x);
+            float f7 = (float)(f5 + f2 - ActiveRenderInfo.getCameraPosition().x);
             float f8 = f6 / f7;
             f8 += (float)(x + offset);
             GL11.glTranslatef(f8, py, pz);
@@ -495,7 +495,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
             GL11.glTranslatef(-0.5f, -0.5f, 0.0f);
             GL11.glTranslatef(-pz, -py, -px);
             GL11.glTranslated(ActiveRenderInfo.getCameraPosition().z * f2 / f6, ActiveRenderInfo.getCameraPosition().y * f2 / f6, -px);
-            final Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.getInstance();
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
             f8 = random.nextFloat() * 0.5f + 0.1f;
             float f9 = random.nextFloat() * 0.5f + 0.4f;
@@ -519,16 +519,16 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
         GL11.glEnable(2896);
     }
     
-    private FloatBuffer calcFloatBuffer(final float f, final float f1, final float f2, final float f3) {
+    private FloatBuffer calcFloatBuffer(float f, float f1, float f2, float f3) {
         fBuffer.clear();
         fBuffer.put(f).put(f1).put(f2).put(f3);
         fBuffer.flip();
         return fBuffer;
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        final EnumFacing dir = BlockStateUtils.getFacing(te.getBlockMetadata());
+        EnumFacing dir = BlockStateUtils.getFacing(te.getBlockMetadata());
         boolean linked = false;
         if (te instanceof TileMirror) {
             linked = ((TileMirror)te).linked;
@@ -536,7 +536,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
         if (te instanceof TileMirrorEssentia) {
             linked = ((TileMirrorEssentia)te).linked;
         }
-        final int b = te.getBlockType().getPackedLightmapCoords(te.getWorld().getBlockState(te.getPos()), te.getWorld(), te.getPos());
+        int b = te.getBlockType().getPackedLightmapCoords(te.getWorld().getBlockState(te.getPos()), te.getWorld(), te.getPos());
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
@@ -596,7 +596,7 @@ public class TileMirrorRenderer extends TileEntitySpecialRenderer
         }
     }
     
-    private void translateFromOrientation(final float x, final float y, final float z, final int orientation, final float off) {
+    private void translateFromOrientation(float x, float y, float z, int orientation, float off) {
         if (orientation == 0) {
             GL11.glTranslatef(x, y + 1.0f, z + 1.0f);
             GL11.glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);

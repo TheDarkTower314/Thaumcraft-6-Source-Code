@@ -64,7 +64,7 @@ public class GuiGolemBuilder extends GuiContainer
     boolean[] owns;
     boolean disableAll;
     
-    public GuiGolemBuilder(final InventoryPlayer par1InventoryPlayer, final TileGolemBuilder table) {
+    public GuiGolemBuilder(InventoryPlayer par1InventoryPlayer, TileGolemBuilder table) {
         super(new ContainerGolemBuilder(par1InventoryPlayer, table));
         tex = new ResourceLocation("thaumcraft", "textures/gui/gui_golembuilder.png");
         valHeads = new ArrayList<GolemHead>();
@@ -89,7 +89,7 @@ public class GuiGolemBuilder extends GuiContainer
         ySize = 224;
     }
     
-    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         renderHoveredToolTip(mouseX, mouseY);
@@ -98,31 +98,31 @@ public class GuiGolemBuilder extends GuiContainer
     public void initGui() {
         super.initGui();
         valHeads.clear();
-        for (final GolemHead head : GolemHead.getHeads()) {
+        for (GolemHead head : GolemHead.getHeads()) {
             if (ThaumcraftCapabilities.knowsResearchStrict(player, head.research)) {
                 valHeads.add(head);
             }
         }
         valMats.clear();
-        for (final GolemMaterial mat : GolemMaterial.getMaterials()) {
+        for (GolemMaterial mat : GolemMaterial.getMaterials()) {
             if (ThaumcraftCapabilities.knowsResearchStrict(player, mat.research)) {
                 valMats.add(mat);
             }
         }
         valArms.clear();
-        for (final GolemArm arm : GolemArm.getArms()) {
+        for (GolemArm arm : GolemArm.getArms()) {
             if (ThaumcraftCapabilities.knowsResearchStrict(player, arm.research)) {
                 valArms.add(arm);
             }
         }
         valLegs.clear();
-        for (final GolemLeg leg : GolemLeg.getLegs()) {
+        for (GolemLeg leg : GolemLeg.getLegs()) {
             if (ThaumcraftCapabilities.knowsResearchStrict(player, leg.research)) {
                 valLegs.add(leg);
             }
         }
         valAddons.clear();
-        for (final GolemAddon addon : GolemAddon.getAddons()) {
+        for (GolemAddon addon : GolemAddon.getAddons()) {
             if (ThaumcraftCapabilities.knowsResearchStrict(player, addon.research)) {
                 valAddons.add(addon);
             }
@@ -145,7 +145,7 @@ public class GuiGolemBuilder extends GuiContainer
         gatherInfo();
     }
     
-    protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         mc.renderEngine.bindTexture(tex);
         GL11.glEnable(3042);
@@ -226,19 +226,19 @@ public class GuiGolemBuilder extends GuiContainer
         props.setArms(valArms.get(GuiGolemBuilder.armIndex));
         props.setLegs(valLegs.get(GuiGolemBuilder.legIndex));
         props.setAddon(valAddons.get(GuiGolemBuilder.addonIndex));
-        final NBTTagCompound nbt = new NBTTagCompound();
+        NBTTagCompound nbt = new NBTTagCompound();
         nbt.setBoolean("check", true);
         nbt.setLong("golem", props.toLong());
         builder.sendMessageToServer(nbt);
         redoComps();
-        final EnumGolemTrait[] tags = props.getTraits().toArray(new EnumGolemTrait[0]);
+        EnumGolemTrait[] tags = props.getTraits().toArray(new EnumGolemTrait[0]);
         if (tags != null && tags.length > 0) {
-            final int yy = (tags.length <= 4) ? ((tags.length - 1) % 4 * 8) : 24;
-            final int xx = (tags.length - 1) / 4 % 4 * 8;
+            int yy = (tags.length <= 4) ? ((tags.length - 1) % 4 * 8) : 24;
+            int xx = (tags.length - 1) / 4 % 4 * 8;
             int i = 0;
             int q = 0;
             int z = 0;
-            for (final EnumGolemTrait tag : tags) {
+            for (EnumGolemTrait tag : tags) {
                 buttonList.add(new GuiHoverButton(this, 30 + z, guiLeft + 72 + q * 16 - xx, guiTop + 48 + 16 * i - yy, 16, 16, tag.getLocalizedName(), tag.getLocalizedDescription(), tag.icon));
                 if (++i > 3) {
                     i = 0;
@@ -292,7 +292,7 @@ public class GuiGolemBuilder extends GuiContainer
             int i = 1;
             int q = 0;
             int z = 0;
-            for (final ItemStack stack : components) {
+            for (ItemStack stack : components) {
                 buttonList.add(new GuiHoverButton(this, 11 + z, guiLeft + 152 + q * 16, guiTop + 24 + 16 * i, 16, 16, stack.getDisplayName(), null, stack));
                 if (++i > 3) {
                     i = 0;
@@ -302,7 +302,7 @@ public class GuiGolemBuilder extends GuiContainer
             }
         }
         if (buttonList != null && buttonList.size() > 0) {
-            for (final Object b : buttonList) {
+            for (Object b : buttonList) {
                 if (b instanceof GuiButton) {
                     ((GuiButton)b).enabled = !disableAll;
                     if (disableAll || b != craftButton) {
@@ -314,7 +314,7 @@ public class GuiGolemBuilder extends GuiContainer
         }
     }
     
-    protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         if (components != null && components.length > 0) {
             drawString(fontRenderer, "" + cost, 162 - fontRenderer.getStringWidth("" + cost), 24, 16777215);
         }
@@ -327,7 +327,7 @@ public class GuiGolemBuilder extends GuiContainer
         drawTexturedModalRect(108, 12, 228, 124, 24, 24);
         drawTexturedModalRect(108, 36, 228, 124, 24, 24);
         drawTexturedModalRect(108, 60, 228, 124, 24, 24);
-        for (final GuiButton guibutton : buttonList) {
+        for (GuiButton guibutton : buttonList) {
             if (guibutton.isMouseOver()) {
                 guibutton.drawButtonForegroundLayer(mouseX - guiLeft, mouseY - guiTop);
                 break;
@@ -340,7 +340,7 @@ public class GuiGolemBuilder extends GuiContainer
         GL11.glDisable(3042);
     }
     
-    protected void actionPerformed(final GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
             --GuiGolemBuilder.headIndex;
             if (GuiGolemBuilder.headIndex < 0) {
@@ -412,7 +412,7 @@ public class GuiGolemBuilder extends GuiContainer
             gatherInfo();
         }
         else if (button.id == 99 && allfound) {
-            final NBTTagCompound nbt = new NBTTagCompound();
+            NBTTagCompound nbt = new NBTTagCompound();
             nbt.setLong("golem", props.toLong());
             builder.sendMessageToServer(nbt);
             mc.playerController.sendEnchantPacket(inventorySlots.windowId, 99);

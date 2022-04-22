@@ -11,7 +11,7 @@ import net.minecraft.inventory.IInventory;
 
 public class SlotGhostFluid extends SlotGhost
 {
-    public SlotGhostFluid(final IInventory par1iInventory, final int par2, final int par3, final int par4) {
+    public SlotGhostFluid(IInventory par1iInventory, int par2, int par3, int par4) {
         super(par1iInventory, par2, par3, par4);
     }
     
@@ -20,12 +20,12 @@ public class SlotGhostFluid extends SlotGhost
         return 1;
     }
     
-    public boolean isItemValid(final ItemStack stack1) {
+    public boolean isItemValid(ItemStack stack1) {
         return FluidUtil.getFluidHandler(stack1) != null;
     }
     
     @Override
-    public boolean canTakeStack(final EntityPlayer par1EntityPlayer) {
+    public boolean canTakeStack(EntityPlayer par1EntityPlayer) {
         return false;
     }
 }

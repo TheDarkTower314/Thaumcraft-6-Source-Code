@@ -31,13 +31,13 @@ import net.minecraft.client.renderer.entity.RenderBiped;
 @SideOnly(Side.CLIENT)
 public class RenderCultist extends RenderBiped<EntityCultist>
 {
-    private static final ResourceLocation skin;
-    private static final ResourceLocation fl;
+    private static ResourceLocation skin;
+    private static ResourceLocation fl;
     
-    public RenderCultist(final RenderManager p_i46127_1_) {
+    public RenderCultist(RenderManager p_i46127_1_) {
         super(p_i46127_1_, new ModelBiped(), 0.5f);
         addLayer((LayerRenderer)new LayerHeldItem(this));
-        final LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this) {
+        LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this) {
             protected void initArmor() {
                 modelLeggings = new ModelBiped();
                 modelArmor = new ModelBiped();
@@ -46,17 +46,17 @@ public class RenderCultist extends RenderBiped<EntityCultist>
         addLayer((LayerRenderer)layerbipedarmor);
     }
     
-    protected ResourceLocation getEntityTexture(final EntityCultist p_110775_1_) {
+    protected ResourceLocation getEntityTexture(EntityCultist p_110775_1_) {
         return RenderCultist.skin;
     }
     
-    public void doRender(final EntityCultist entity, final double p_76986_2_, final double p_76986_4_, final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
+    public void doRender(EntityCultist entity, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
         GL11.glPushMatrix();
         float bob = 0.0f;
-        final boolean rit = entity instanceof EntityCultistCleric && ((EntityCultistCleric)entity).getIsRitualist();
+        boolean rit = entity instanceof EntityCultistCleric && ((EntityCultistCleric)entity).getIsRitualist();
         if (rit) {
-            final int val = new Random(entity.getEntityId()).nextInt(1000);
-            final float c = entity.ticksExisted + p_76986_9_ + val;
+            int val = new Random(entity.getEntityId()).nextInt(1000);
+            float c = entity.ticksExisted + p_76986_9_ + val;
             bob = MathHelper.sin(c / 9.0f) * 0.1f + 0.21f;
             GL11.glTranslated(0.0, bob, 0.0);
         }
@@ -71,68 +71,68 @@ public class RenderCultist extends RenderBiped<EntityCultist>
         GL11.glPopMatrix();
     }
     
-    private void drawFloatyLine(final double x, final double y, final double z, final double x2, final double y2, final double z2, final float partialTicks, final int color, final float speed, final float distance, final float width) {
-        final Entity player = Minecraft.getMinecraft().getRenderViewEntity();
-        final double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
-        final double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
-        final double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
-        final double ePX = x2;
-        final double ePY = y2;
-        final double ePZ = z2;
+    private void drawFloatyLine(double x, double y, double z, double x2, double y2, double z2, float partialTicks, int color, float speed, float distance, float width) {
+        Entity player = Minecraft.getMinecraft().getRenderViewEntity();
+        double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
+        double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
+        double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
+        double ePX = x2;
+        double ePY = y2;
+        double ePZ = z2;
         GL11.glTranslated(-iPX + ePX, -iPY + ePY, -iPZ + ePZ);
-        final float time = (float)(System.nanoTime() / 30000000L);
-        final Color co = new Color(color);
-        final float r = co.getRed() / 255.0f;
-        final float g = co.getGreen() / 255.0f;
-        final float b = co.getBlue() / 255.0f;
+        float time = (float)(System.nanoTime() / 30000000L);
+        Color co = new Color(color);
+        float r = co.getRed() / 255.0f;
+        float g = co.getGreen() / 255.0f;
+        float b = co.getBlue() / 255.0f;
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
-        final Tessellator tessellator = Tessellator.getInstance();
-        final double ds1x = ePX;
-        final double ds1y = ePY;
-        final double ds1z = ePZ;
-        final double dd1x = x;
-        final double dd1y = y;
-        final double dd1z = z;
-        final double dc1x = (float)(dd1x - ds1x);
-        final double dc1y = (float)(dd1y - ds1y);
-        final double dc1z = (float)(dd1z - ds1z);
+        Tessellator tessellator = Tessellator.getInstance();
+        double ds1x = ePX;
+        double ds1y = ePY;
+        double ds1z = ePZ;
+        double dd1x = x;
+        double dd1y = y;
+        double dd1z = z;
+        double dc1x = (float)(dd1x - ds1x);
+        double dc1y = (float)(dd1y - ds1y);
+        double dc1z = (float)(dd1z - ds1z);
         bindTexture(RenderCultist.fl);
         tessellator.getBuffer().begin(5, DefaultVertexFormats.POSITION_TEX_COLOR);
-        final double dx2 = 0.0;
-        final double dy2 = 0.0;
-        final double dz2 = 0.0;
-        final double d3 = x - ePX;
-        final double d4 = y - ePY;
-        final double d5 = z - ePZ;
-        final float dist = MathHelper.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
-        final float blocks = (float)Math.round(dist);
-        final float length = blocks * 6.0f;
-        final float f9 = 0.0f;
-        final float f10 = 1.0f;
+        double dx2 = 0.0;
+        double dy2 = 0.0;
+        double dz2 = 0.0;
+        double d3 = x - ePX;
+        double d4 = y - ePY;
+        double d5 = z - ePZ;
+        float dist = MathHelper.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
+        float blocks = (float)Math.round(dist);
+        float length = blocks * 6.0f;
+        float f9 = 0.0f;
+        float f10 = 1.0f;
         for (int i = 0; i <= length * distance; ++i) {
-            final float f11 = i / length;
+            float f11 = i / length;
             float f2a = i * 1.5f / length;
             f2a = Math.min(0.75f, f2a);
-            final float f12 = 1.0f - Math.abs(i - length / 2.0f) / (length / 2.0f);
-            final double dx3 = dc1x + MathHelper.sin((float)((z % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 4.0)) * 0.5f * f12;
-            final double dy3 = dc1y + MathHelper.sin((float)((x % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 3.0)) * 0.5f * f12;
-            final double dz3 = dc1z + MathHelper.sin((float)((y % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 2.0)) * 0.5f * f12;
-            final float f13 = (1.0f - f11) * dist - time * speed;
+            float f12 = 1.0f - Math.abs(i - length / 2.0f) / (length / 2.0f);
+            double dx3 = dc1x + MathHelper.sin((float)((z % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 4.0)) * 0.5f * f12;
+            double dy3 = dc1y + MathHelper.sin((float)((x % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 3.0)) * 0.5f * f12;
+            double dz3 = dc1z + MathHelper.sin((float)((y % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 2.0)) * 0.5f * f12;
+            float f13 = (1.0f - f11) * dist - time * speed;
             tessellator.getBuffer().pos(dx3 * f11, dy3 * f11 - width, dz3 * f11).tex(f13, f10).color(r, g, b, 0.8f).endVertex();
             tessellator.getBuffer().pos(dx3 * f11, dy3 * f11 + width, dz3 * f11).tex(f13, f9).color(r, g, b, 0.8f).endVertex();
         }
         tessellator.draw();
         tessellator.getBuffer().begin(5, DefaultVertexFormats.POSITION_TEX_COLOR);
         for (int i = 0; i <= length * distance; ++i) {
-            final float f11 = i / length;
+            float f11 = i / length;
             float f2a = i * 1.5f / length;
             f2a = Math.min(0.75f, f2a);
-            final float f12 = 1.0f - Math.abs(i - length / 2.0f) / (length / 2.0f);
-            final double dx3 = dc1x + MathHelper.sin((float)((z % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 4.0)) * 0.5f * f12;
-            final double dy3 = dc1y + MathHelper.sin((float)((x % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 3.0)) * 0.5f * f12;
-            final double dz3 = dc1z + MathHelper.sin((float)((y % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 2.0)) * 0.5f * f12;
-            final float f13 = (1.0f - f11) * dist - time * speed;
+            float f12 = 1.0f - Math.abs(i - length / 2.0f) / (length / 2.0f);
+            double dx3 = dc1x + MathHelper.sin((float)((z % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 4.0)) * 0.5f * f12;
+            double dy3 = dc1y + MathHelper.sin((float)((x % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 3.0)) * 0.5f * f12;
+            double dz3 = dc1z + MathHelper.sin((float)((y % 16.0 + dist * (1.0f - f11) * 6.0f - time % 32767.0f / 5.0f) / 2.0)) * 0.5f * f12;
+            float f13 = (1.0f - f11) * dist - time * speed;
             tessellator.getBuffer().pos(dx3 * f11 - width, dy3 * f11, dz3 * f11).tex(f13, f10).color(r, g, b, 0.8f).endVertex();
             tessellator.getBuffer().pos(dx3 * f11 + width, dy3 * f11, dz3 * f11).tex(f13, f9).color(r, g, b, 0.8f).endVertex();
         }

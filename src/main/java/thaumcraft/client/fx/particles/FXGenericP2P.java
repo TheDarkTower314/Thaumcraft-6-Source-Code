@@ -13,7 +13,7 @@ public class FXGenericP2P extends FXGeneric
     private double targetY;
     private double targetZ;
     
-    public FXGenericP2P(final World world, final double x, final double y, final double z, final double xx, final double yy, final double zz) {
+    public FXGenericP2P(World world, double x, double y, double z, double xx, double yy, double zz) {
         super(world, x, y, z, 0.0, 0.0, 0.0);
         setSize(0.1f, 0.1f);
         prevPosX = posX;
@@ -22,9 +22,9 @@ public class FXGenericP2P extends FXGeneric
         targetX = xx;
         targetY = yy;
         targetZ = zz;
-        final double dx = xx - posX;
-        final double dy = yy - posY;
-        final double dz = zz - posZ;
+        double dx = xx - posX;
+        double dy = yy - posY;
+        double dz = zz - posZ;
         int base = (int)(MathHelper.sqrt(dx * dx + dy * dy + dz * dz) * 3.0f);
         if (base < 1) {
             base = 1;
@@ -35,7 +35,7 @@ public class FXGenericP2P extends FXGeneric
         prevPosZ = z;
         particleTextureJitterX = 0.0f;
         particleTextureJitterY = 0.0f;
-        final float f3 = 0.01f;
+        float f3 = 0.01f;
         motionX = (float)world.rand.nextGaussian() * f3;
         motionY = (float)world.rand.nextGaussian() * f3;
         motionZ = (float)world.rand.nextGaussian() * f3;
@@ -49,7 +49,7 @@ public class FXGenericP2P extends FXGeneric
         double dy = targetY - posY;
         double dz = targetZ - posZ;
         double d13 = 0.3;
-        final double d14 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+        double d14 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
         if (d14 < 4.0) {
             particleScale *= 0.9f;
             d13 = 0.6;

@@ -16,7 +16,7 @@ import net.minecraft.item.ItemFood;
 
 public class ItemChunksEdible extends ItemFood implements IThaumcraftItems
 {
-    public final int itemUseDuration;
+    public int itemUseDuration;
     private String[] variants;
     
     public ItemChunksEdible() {
@@ -32,11 +32,11 @@ public class ItemChunksEdible extends ItemFood implements IThaumcraftItems
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     
-    public int getMaxItemUseDuration(final ItemStack stack1) {
+    public int getMaxItemUseDuration(ItemStack stack1) {
         return itemUseDuration;
     }
     
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
             for (int a = 0; a < variants.length; ++a) {
                 items.add(new ItemStack(this, 1, a));
@@ -44,7 +44,7 @@ public class ItemChunksEdible extends ItemFood implements IThaumcraftItems
         }
     }
     
-    public String getUnlocalizedName(final ItemStack itemStack) {
+    public String getUnlocalizedName(ItemStack itemStack) {
         if (hasSubtypes && itemStack.getMetadata() < variants.length && variants[itemStack.getMetadata()] != "chunk") {
             return String.format(super.getUnlocalizedName() + ".%s", variants[itemStack.getMetadata()]);
         }
@@ -67,7 +67,7 @@ public class ItemChunksEdible extends ItemFood implements IThaumcraftItems
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         if (variant.equals("chunk")) {
             return new ModelResourceLocation("thaumcraft:chunk");
         }

@@ -48,13 +48,13 @@ public class WandRenderingHandler
     HashMap<String, Float> fociScale;
     long lastTime;
     boolean lastState;
-    final ResourceLocation R1;
-    final ResourceLocation R2;
+    ResourceLocation R1;
+    ResourceLocation R2;
     int lastArcHash;
     ArrayList<BlockPos> architectBlocks;
     HashMap<BlockPos, boolean[]> bmCache;
-    final ResourceLocation CFRAME;
-    final ResourceLocation SFRAME;
+    ResourceLocation CFRAME;
+    ResourceLocation SFRAME;
     int[][] mos;
     int[][] rotmat;
     ResourceLocation tex;
@@ -79,7 +79,7 @@ public class WandRenderingHandler
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleFociRadial(final Minecraft mc, final long time, final RenderGameOverlayEvent event) {
+    public void handleFociRadial(Minecraft mc, long time, RenderGameOverlayEvent event) {
         if (KeyHandler.radialActive || WandRenderingHandler.radialHudScale > 0.0f) {
             if (KeyHandler.radialActive) {
                 if (mc.currentScreen != null) {
@@ -106,7 +106,7 @@ public class WandRenderingHandler
             }
             renderFocusRadialHUD(event.getResolution().getScaledWidth_double(), event.getResolution().getScaledHeight_double(), time, event.getPartialTicks());
             if (time > lastTime) {
-                for (final String key : fociHover.keySet()) {
+                for (String key : fociHover.keySet()) {
                     if (fociHover.get(key)) {
                         if (!KeyHandler.radialActive && !KeyHandler.radialLock) {
                             PacketHandler.INSTANCE.sendToServer(new PacketFocusChangeToServer(key));
@@ -144,28 +144,28 @@ public class WandRenderingHandler
     }
     
     @SideOnly(Side.CLIENT)
-    private float getRadialChange(final long time, final long lasttime, final long total) {
+    private float getRadialChange(long time, long lasttime, long total) {
         return (time - lasttime) / (float)total;
     }
     
     @SideOnly(Side.CLIENT)
-    private void getFociInfo(final Minecraft mc) {
+    private void getFociInfo(Minecraft mc) {
         foci.clear();
         fociItem.clear();
         fociHover.clear();
         fociScale.clear();
         int pouchcount = 0;
         ItemStack item = null;
-        final IInventory baubles = BaublesApi.getBaubles(mc.player);
+        IInventory baubles = BaublesApi.getBaubles(mc.player);
         for (int a = 0; a < baubles.getSizeInventory(); ++a) {
             if (baubles.getStackInSlot(a) != null && !baubles.getStackInSlot(a).isEmpty() && baubles.getStackInSlot(a).getItem() instanceof ItemFocusPouch) {
                 ++pouchcount;
                 item = baubles.getStackInSlot(a);
-                final NonNullList<ItemStack> inv = ((ItemFocusPouch)item.getItem()).getInventory(item);
+                NonNullList<ItemStack> inv = ((ItemFocusPouch)item.getItem()).getInventory(item);
                 for (int q = 0; q < inv.size(); ++q) {
                     item = inv.get(q);
                     if (item.getItem() instanceof ItemFocus) {
-                        final String sh = ((ItemFocus)item.getItem()).getSortingHelper(item);
+                        String sh = ((ItemFocus)item.getItem()).getSortingHelper(item);
                         if (sh != null) {
                             foci.put(sh, q + pouchcount * 1000);
                             fociItem.put(sh, item.copy());
@@ -179,7 +179,7 @@ public class WandRenderingHandler
         for (int a = 0; a < 36; ++a) {
             item = mc.player.inventory.mainInventory.get(a);
             if (item.getItem() instanceof ItemFocus) {
-                final String sh2 = ((ItemFocus)item.getItem()).getSortingHelper(item);
+                String sh2 = ((ItemFocus)item.getItem()).getSortingHelper(item);
                 if (sh2 == null) {
                     continue;
                 }
@@ -190,11 +190,11 @@ public class WandRenderingHandler
             }
             if (item.getItem() instanceof ItemFocusPouch) {
                 ++pouchcount;
-                final NonNullList<ItemStack> inv = ((ItemFocusPouch)item.getItem()).getInventory(item);
+                NonNullList<ItemStack> inv = ((ItemFocusPouch)item.getItem()).getInventory(item);
                 for (int q = 0; q < inv.size(); ++q) {
                     item = inv.get(q);
                     if (item.getItem() instanceof ItemFocus) {
-                        final String sh = ((ItemFocus)item.getItem()).getSortingHelper(item);
+                        String sh = ((ItemFocus)item.getItem()).getSortingHelper(item);
                         if (sh != null) {
                             foci.put(sh, q + pouchcount * 1000);
                             fociItem.put(sh, item.copy());
@@ -208,8 +208,8 @@ public class WandRenderingHandler
     }
     
     @SideOnly(Side.CLIENT)
-    private void renderFocusRadialHUD(final double sw, final double sh, final long time, final float partialTicks) {
-        final Minecraft mc = Minecraft.getMinecraft();
+    private void renderFocusRadialHUD(double sw, double sh, long time, float partialTicks) {
+        Minecraft mc = Minecraft.getMinecraft();
         ItemStack s = mc.player.getHeldItemMainhand();
         if (!(s.getItem() instanceof ICaster)) {
             s = mc.player.getHeldItemOffhand();
@@ -217,11 +217,11 @@ public class WandRenderingHandler
         if (!(s.getItem() instanceof ICaster)) {
             return;
         }
-        final ICaster wand = (ICaster)s.getItem();
-        final ItemFocus focus = (ItemFocus)wand.getFocus(s);
-        final int i = (int)(Mouse.getEventX() * sw / mc.displayWidth);
-        final int j = (int)(sh - Mouse.getEventY() * sh / mc.displayHeight - 1.0);
-        final int k = Mouse.getEventButton();
+        ICaster wand = (ICaster)s.getItem();
+        ItemFocus focus = (ItemFocus)wand.getFocus(s);
+        int i = (int)(Mouse.getEventX() * sw / mc.displayWidth);
+        int j = (int)(sh - Mouse.getEventY() * sh / mc.displayHeight - 1.0);
+        int k = Mouse.getEventButton();
         if (fociItem.size() == 0) {
             return;
         }
@@ -238,7 +238,7 @@ public class WandRenderingHandler
         GL11.glPushMatrix();
         GL11.glTranslated((int)(sw / 2.0), (int)(sh / 2.0), 0.0);
         ItemStack tt = null;
-        final float width = 16.0f + fociItem.size() * 2.5f;
+        float width = 16.0f + fociItem.size() * 2.5f;
         mc.renderEngine.bindTexture(R1);
         GL11.glPushMatrix();
         GL11.glRotatef(partialTicks + mc.player.ticksExisted % 720 / 2.0f, 0.0f, 0.0f, 1.0f);
@@ -260,33 +260,33 @@ public class WandRenderingHandler
         GL11.glAlphaFunc(516, 0.1f);
         GL11.glPopMatrix();
         if (focus != null) {
-            final ItemStack item = wand.getFocusStack(s).copy();
+            ItemStack item = wand.getFocusStack(s).copy();
             UtilsFX.renderItemInGUI(-8, -8, 100, item);
-            final int mx = (int)(i - sw / 2.0);
-            final int my = (int)(j - sh / 2.0);
+            int mx = (int)(i - sw / 2.0);
+            int my = (int)(j - sh / 2.0);
             if (mx >= -10 && mx <= 10 && my >= -10 && my <= 10) {
                 tt = item;
             }
         }
         GL11.glScaled(WandRenderingHandler.radialHudScale, WandRenderingHandler.radialHudScale, WandRenderingHandler.radialHudScale);
         float currentRot = -90.0f * WandRenderingHandler.radialHudScale;
-        final float pieSlice = 360.0f / fociItem.size();
+        float pieSlice = 360.0f / fociItem.size();
         String key = foci.firstKey();
         for (int a = 0; a < fociItem.size(); ++a) {
-            final double xx = MathHelper.cos(currentRot / 180.0f * 3.1415927f) * width;
-            final double yy = MathHelper.sin(currentRot / 180.0f * 3.1415927f) * width;
+            double xx = MathHelper.cos(currentRot / 180.0f * 3.1415927f) * width;
+            double yy = MathHelper.sin(currentRot / 180.0f * 3.1415927f) * width;
             currentRot += pieSlice;
             GL11.glPushMatrix();
             GL11.glTranslated((int)xx, (int)yy, 100.0);
             GL11.glScalef(fociScale.get(key), fociScale.get(key), fociScale.get(key));
             GL11.glEnable(32826);
-            final ItemStack item2 = fociItem.get(key).copy();
+            ItemStack item2 = fociItem.get(key).copy();
             UtilsFX.renderItemInGUI(-8, -8, 100, item2);
             GL11.glDisable(32826);
             GL11.glPopMatrix();
             if (!KeyHandler.radialLock && KeyHandler.radialActive) {
-                final int mx2 = (int)(i - sw / 2.0 - xx);
-                final int my2 = (int)(j - sh / 2.0 - yy);
+                int mx2 = (int)(i - sw / 2.0 - xx);
+                int my2 = (int)(j - sh / 2.0 - yy);
                 if (mx2 >= -10 && mx2 <= 10 && my2 >= -10 && my2 <= 10) {
                     fociHover.put(key, true);
                     tt = fociItem.get(key);
@@ -315,14 +315,14 @@ public class WandRenderingHandler
     }
     
     @SideOnly(Side.CLIENT)
-    public boolean handleArchitectOverlay(final ItemStack stack, final EntityPlayer player, final float partialTicks, final int playerticks, final RayTraceResult target) {
+    public boolean handleArchitectOverlay(ItemStack stack, EntityPlayer player, float partialTicks, int playerticks, RayTraceResult target) {
         if (target == null) {
             return false;
         }
-        final Minecraft mc = Minecraft.getMinecraft();
-        final IArchitect af = (IArchitect)stack.getItem();
-        final String h = target.getBlockPos().getX() + "" + target.getBlockPos().getY() + "" + target.getBlockPos().getZ() + "" + target.sideHit + "" + playerticks / 5;
-        final int hc = h.hashCode();
+        Minecraft mc = Minecraft.getMinecraft();
+        IArchitect af = (IArchitect)stack.getItem();
+        String h = target.getBlockPos().getX() + "" + target.getBlockPos().getY() + "" + target.getBlockPos().getZ() + "" + target.sideHit + "" + playerticks / 5;
+        int hc = h.hashCode();
         if (hc != lastArcHash) {
             lastArcHash = hc;
             bmCache.clear();
@@ -332,42 +332,42 @@ public class WandRenderingHandler
             return false;
         }
         drawArchitectAxis(target.getBlockPos(), partialTicks, af.showAxis(stack, mc.world, player, target.sideHit, IArchitect.EnumAxis.X), af.showAxis(stack, mc.world, player, target.sideHit, IArchitect.EnumAxis.Y), af.showAxis(stack, mc.world, player, target.sideHit, IArchitect.EnumAxis.Z));
-        for (final BlockPos cc : architectBlocks) {
+        for (BlockPos cc : architectBlocks) {
             drawOverlayBlock(cc, playerticks, mc, partialTicks);
         }
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         return true;
     }
     
-    private boolean isConnectedBlock(final World world, final BlockPos pos) {
+    private boolean isConnectedBlock(World world, BlockPos pos) {
         return architectBlocks.contains(pos);
     }
     
     @SideOnly(Side.CLIENT)
-    private boolean[] getConnectedSides(final World world, final BlockPos pos) {
+    private boolean[] getConnectedSides(World world, BlockPos pos) {
         if (bmCache.containsKey(pos)) {
             return bmCache.get(pos);
         }
-        final boolean[] bitMatrix = { !isConnectedBlock(world, pos.add(-1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, -1)) && !isConnectedBlock(world, pos.add(0, 1, 0)), !isConnectedBlock(world, pos.add(1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, -1)) && !isConnectedBlock(world, pos.add(0, 1, 0)), !isConnectedBlock(world, pos.add(-1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, 1)) && !isConnectedBlock(world, pos.add(0, 1, 0)), !isConnectedBlock(world, pos.add(1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, 1)) && !isConnectedBlock(world, pos.add(0, 1, 0)), !isConnectedBlock(world, pos.add(-1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, -1)) && !isConnectedBlock(world, pos.add(0, -1, 0)), !isConnectedBlock(world, pos.add(1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, -1)) && !isConnectedBlock(world, pos.add(0, -1, 0)), !isConnectedBlock(world, pos.add(-1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, 1)) && !isConnectedBlock(world, pos.add(0, -1, 0)), !isConnectedBlock(world, pos.add(1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, 1)) && !isConnectedBlock(world, pos.add(0, -1, 0)) };
+        boolean[] bitMatrix = { !isConnectedBlock(world, pos.add(-1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, -1)) && !isConnectedBlock(world, pos.add(0, 1, 0)), !isConnectedBlock(world, pos.add(1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, -1)) && !isConnectedBlock(world, pos.add(0, 1, 0)), !isConnectedBlock(world, pos.add(-1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, 1)) && !isConnectedBlock(world, pos.add(0, 1, 0)), !isConnectedBlock(world, pos.add(1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, 1)) && !isConnectedBlock(world, pos.add(0, 1, 0)), !isConnectedBlock(world, pos.add(-1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, -1)) && !isConnectedBlock(world, pos.add(0, -1, 0)), !isConnectedBlock(world, pos.add(1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, -1)) && !isConnectedBlock(world, pos.add(0, -1, 0)), !isConnectedBlock(world, pos.add(-1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, 1)) && !isConnectedBlock(world, pos.add(0, -1, 0)), !isConnectedBlock(world, pos.add(1, 0, 0)) && !isConnectedBlock(world, pos.add(0, 0, 1)) && !isConnectedBlock(world, pos.add(0, -1, 0)) };
         bmCache.put(pos, bitMatrix);
         return bitMatrix;
     }
     
     @SideOnly(Side.CLIENT)
-    public void drawOverlayBlock(final BlockPos pos, final int ticks, final Minecraft mc, final float partialTicks) {
-        final boolean[] bitMatrix = getConnectedSides(mc.world, pos);
+    public void drawOverlayBlock(BlockPos pos, int ticks, Minecraft mc, float partialTicks) {
+        boolean[] bitMatrix = getConnectedSides(mc.world, pos);
         GL11.glPushMatrix();
         GlStateManager.blendFunc(770, 771);
         GL11.glAlphaFunc(516, 0.003921569f);
         GL11.glDepthMask(false);
         GL11.glDisable(2929);
         GL11.glDisable(2884);
-        final EntityPlayer player = (EntityPlayer)mc.getRenderViewEntity();
-        final double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
-        final double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
-        final double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
+        EntityPlayer player = (EntityPlayer)mc.getRenderViewEntity();
+        double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
+        double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
+        double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
         GL11.glTranslated(-iPX + pos.getX() + 0.5, -iPY + pos.getY() + 0.5, -iPZ + pos.getZ() + 0.5);
-        for (final EnumFacing face : EnumFacing.values()) {
+        for (EnumFacing face : EnumFacing.values()) {
             if (!isConnectedBlock(mc.world, pos.offset(face))) {
                 GL11.glPushMatrix();
                 GL11.glRotatef(90.0f, (float)(-face.getFrontOffsetY()), (float)face.getFrontOffsetX(), (float)(-face.getFrontOffsetZ()));
@@ -402,17 +402,17 @@ public class WandRenderingHandler
     }
     
     @SideOnly(Side.CLIENT)
-    public void drawArchitectAxis(final BlockPos pos, final float partialTicks, final boolean dx, final boolean dy, final boolean dz) {
+    public void drawArchitectAxis(BlockPos pos, float partialTicks, boolean dx, boolean dy, boolean dz) {
         if (!dx && !dy && !dz) {
             return;
         }
-        final EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().getRenderViewEntity();
-        final double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
-        final double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
-        final double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
-        final float r = MathHelper.sin(player.ticksExisted / 4.0f + pos.getX()) * 0.2f + 0.3f;
-        final float g = MathHelper.sin(player.ticksExisted / 3.0f + pos.getY()) * 0.2f + 0.3f;
-        final float b = MathHelper.sin(player.ticksExisted / 2.0f + pos.getZ()) * 0.2f + 0.8f;
+        EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().getRenderViewEntity();
+        double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
+        double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
+        double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
+        float r = MathHelper.sin(player.ticksExisted / 4.0f + pos.getX()) * 0.2f + 0.3f;
+        float g = MathHelper.sin(player.ticksExisted / 3.0f + pos.getY()) * 0.2f + 0.3f;
+        float b = MathHelper.sin(player.ticksExisted / 2.0f + pos.getZ()) * 0.2f + 0.8f;
         GL11.glPushMatrix();
         GL11.glDepthMask(false);
         GL11.glDisable(2929);

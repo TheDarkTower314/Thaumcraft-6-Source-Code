@@ -40,31 +40,31 @@ public class BlockAlembic extends BlockTCTile implements ILabelable
     }
     
     @Override
-    public TileEntity createNewTileEntity(final World world, final int metadata) {
+    public TileEntity createNewTileEntity(World world, int metadata) {
         if (metadata == 0) {
             return new TileAlembic();
         }
         return null;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return getStateFromMeta(meta);
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-        final TileEntity te = world.getTileEntity(pos);
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        TileEntity te = world.getTileEntity(pos);
         if (te != null && te instanceof TileAlembic && player.isSneaking() && ((TileAlembic)te).aspectFilter != null && side.ordinal() == ((TileAlembic)te).facing) {
             ((TileAlembic)te).aspectFilter = null;
             ((TileAlembic)te).facing = EnumFacing.DOWN.ordinal();
@@ -94,26 +94,26 @@ public class BlockAlembic extends BlockTCTile implements ILabelable
         return true;
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.125, 0.0, 0.125, 0.875, 1.0, 0.875);
     }
     
-    public boolean hasComparatorInputOverride(final IBlockState state) {
+    public boolean hasComparatorInputOverride(IBlockState state) {
         return true;
     }
     
-    public int getComparatorInputOverride(final IBlockState state, final World world, final BlockPos pos) {
-        final TileEntity tile = world.getTileEntity(pos);
+    public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof TileAlembic) {
-            final float r = ((TileAlembic)tile).amount / (float)((TileAlembic)tile).maxAmount;
+            float r = ((TileAlembic)tile).amount / (float)((TileAlembic)tile).maxAmount;
             return MathHelper.floor(r * 14.0f) + ((((TileAlembic)tile).amount > 0) ? 1 : 0);
         }
         return super.getComparatorInputOverride(state, world, pos);
     }
     
     @Override
-    public boolean applyLabel(final EntityPlayer player, final BlockPos pos, final EnumFacing side, final ItemStack labelstack) {
-        final TileEntity te = player.world.getTileEntity(pos);
+    public boolean applyLabel(EntityPlayer player, BlockPos pos, EnumFacing side, ItemStack labelstack) {
+        TileEntity te = player.world.getTileEntity(pos);
         if (te == null || !(te instanceof TileAlembic) || side.ordinal() <= 1 || ((TileAlembic)te).aspectFilter != null) {
             return false;
         }
@@ -134,7 +134,7 @@ public class BlockAlembic extends BlockTCTile implements ILabelable
         if (aspect == null) {
             return false;
         }
-        final IBlockState state = player.world.getBlockState(pos);
+        IBlockState state = player.world.getBlockState(pos);
         onBlockPlacedBy(player.world, pos, state, player, null);
         ((TileAlembic)te).aspectFilter = aspect;
         ((TileAlembic)te).facing = side.ordinal();

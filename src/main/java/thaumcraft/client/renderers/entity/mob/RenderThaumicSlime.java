@@ -16,13 +16,13 @@ import net.minecraft.client.renderer.entity.RenderSlime;
 @SideOnly(Side.CLIENT)
 public class RenderThaumicSlime extends RenderSlime
 {
-    private static final ResourceLocation slimeTexture;
+    private static ResourceLocation slimeTexture;
     
-    public RenderThaumicSlime(final RenderManager p_i46141_1_, final ModelBase p_i46141_2_, final float p_i46141_3_) {
+    public RenderThaumicSlime(RenderManager p_i46141_1_, ModelBase p_i46141_2_, float p_i46141_3_) {
         super(p_i46141_1_);
     }
     
-    protected ResourceLocation getEntityTexture(final EntitySlime entity) {
+    protected ResourceLocation getEntityTexture(EntitySlime entity) {
         return RenderThaumicSlime.slimeTexture;
     }
     

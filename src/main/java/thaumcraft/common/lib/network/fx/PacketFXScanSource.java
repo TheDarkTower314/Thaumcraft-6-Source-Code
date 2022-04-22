@@ -31,40 +31,40 @@ public class PacketFXScanSource implements IMessage, IMessageHandler<PacketFXSca
 {
     private long loc;
     private int size;
-    final int C_QUARTZ = 15064789;
-    final int C_IRON = 14200723;
-    final int C_LAPIS = 1328572;
-    final int C_GOLD = 16576075;
-    final int C_DIAMOND = 6155509;
-    final int C_EMERALD = 1564002;
-    final int C_REDSTONE = 16711680;
-    final int C_COAL = 1052688;
-    final int C_SILVER = 14342653;
-    final int C_TIN = 15724539;
-    final int C_COPPER = 16620629;
-    final int C_AMBER = 16626469;
-    final int C_CINNABAR = 10159368;
+    int C_QUARTZ = 15064789;
+    int C_IRON = 14200723;
+    int C_LAPIS = 1328572;
+    int C_GOLD = 16576075;
+    int C_DIAMOND = 6155509;
+    int C_EMERALD = 1564002;
+    int C_REDSTONE = 16711680;
+    int C_COAL = 1052688;
+    int C_SILVER = 14342653;
+    int C_TIN = 15724539;
+    int C_COPPER = 16620629;
+    int C_AMBER = 16626469;
+    int C_CINNABAR = 10159368;
     
     public PacketFXScanSource() {
     }
     
-    public PacketFXScanSource(final BlockPos pos, final int size) {
+    public PacketFXScanSource(BlockPos pos, int size) {
         loc = pos.toLong();
         this.size = size;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeLong(loc);
         buffer.writeByte(size);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         loc = buffer.readLong();
         size = buffer.readByte();
     }
     
     @SideOnly(Side.CLIENT)
-    public IMessage onMessage(final PacketFXScanSource message, final MessageContext ctx) {
+    public IMessage onMessage(PacketFXScanSource message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
@@ -75,13 +75,13 @@ public class PacketFXScanSource implements IMessage, IMessageHandler<PacketFXSca
     }
     
     @SideOnly(Side.CLIENT)
-    public void startScan(final World world, final BlockPos pos, final int r) {
-        final int range = 4 + r * 4;
-        final ArrayList<BlockPos> positions = new ArrayList<BlockPos>();
+    public void startScan(World world, BlockPos pos, int r) {
+        int range = 4 + r * 4;
+        ArrayList<BlockPos> positions = new ArrayList<BlockPos>();
         for (int xx = -range; xx <= range; ++xx) {
             for (int yy = -range; yy <= range; ++yy) {
                 for (int zz = -range; zz <= range; ++zz) {
-                    final BlockPos p = pos.add(xx, yy, zz);
+                    BlockPos p = pos.add(xx, yy, zz);
                     if (Utils.isOreBlock(world, p)) {
                         positions.add(p);
                     }
@@ -89,17 +89,17 @@ public class PacketFXScanSource implements IMessage, IMessageHandler<PacketFXSca
             }
         }
         while (!positions.isEmpty()) {
-            final BlockPos start = positions.get(0);
-            final ArrayList<BlockPos> coll = new ArrayList<BlockPos>();
+            BlockPos start = positions.get(0);
+            ArrayList<BlockPos> coll = new ArrayList<BlockPos>();
             coll.add(start);
             positions.remove(0);
             calcGroup(world, start, coll, positions);
             if (!coll.isEmpty()) {
-                final int c = getOreColor(world, start);
+                int c = getOreColor(world, start);
                 double x = 0.0;
                 double y = 0.0;
                 double z = 0.0;
-                for (final BlockPos p2 : coll) {
+                for (BlockPos p2 : coll) {
                     x += p2.getX() + 0.5;
                     y += p2.getY() + 0.5;
                     z += p2.getZ() + 0.5;
@@ -107,12 +107,12 @@ public class PacketFXScanSource implements IMessage, IMessageHandler<PacketFXSca
                 x /= coll.size();
                 y /= coll.size();
                 z /= coll.size();
-                final double dis = Math.sqrt(pos.distanceSqToCenter(x, y, z));
-                final FXGeneric fb = new FXGeneric(world, x, y, z, 0.0, 0.0, 0.0);
+                double dis = Math.sqrt(pos.distanceSqToCenter(x, y, z));
+                FXGeneric fb = new FXGeneric(world, x, y, z, 0.0, 0.0, 0.0);
                 fb.setMaxAge(44);
-                final Color cc = new Color(c);
+                Color cc = new Color(c);
                 fb.setRBGColorF(cc.getRed() / 255.0f, cc.getGreen() / 255.0f, cc.getBlue() / 255.0f);
-                final float q = (cc.getRed() / 255.0f + cc.getGreen() / 255.0f + cc.getBlue() / 255.0f) / 3.0f;
+                float q = (cc.getRed() / 255.0f + cc.getGreen() / 255.0f + cc.getBlue() / 255.0f) / 3.0f;
                 fb.setAlphaF(0.0f, 1.0f, 0.8f, 0.0f);
                 fb.setParticles(240, 15, 1);
                 fb.setGridSize(16);
@@ -125,14 +125,14 @@ public class PacketFXScanSource implements IMessage, IMessageHandler<PacketFXSca
         }
     }
     
-    private void calcGroup(final World world, final BlockPos start, final ArrayList<BlockPos> coll, final ArrayList<BlockPos> positions) {
-        final IBlockState bs = world.getBlockState(start);
+    private void calcGroup(World world, BlockPos start, ArrayList<BlockPos> coll, ArrayList<BlockPos> positions) {
+        IBlockState bs = world.getBlockState(start);
     Label_0132:
         for (int x = -1; x <= 1; ++x) {
             for (int y = -1; y <= 1; ++y) {
                 for (int z = -1; z <= 1; ++z) {
-                    final BlockPos t = new BlockPos(start).add(x, y, z);
-                    final IBlockState ts = world.getBlockState(t);
+                    BlockPos t = new BlockPos(start).add(x, y, z);
+                    IBlockState ts = world.getBlockState(t);
                     if (ts.equals(bs) && positions.contains(t)) {
                         positions.remove(t);
                         coll.add(t);
@@ -146,20 +146,20 @@ public class PacketFXScanSource implements IMessage, IMessageHandler<PacketFXSca
         }
     }
     
-    private int getOreColor(final World world, final BlockPos pos) {
-        final IBlockState bi = world.getBlockState(pos);
+    private int getOreColor(World world, BlockPos pos) {
+        IBlockState bi = world.getBlockState(pos);
         if (bi.getBlock() != Blocks.AIR && bi.getBlock() != Blocks.BEDROCK) {
             ItemStack is = BlockUtils.getSilkTouchDrop(bi);
             if (is == null || is.isEmpty()) {
-                final int md = bi.getBlock().getMetaFromState(bi);
+                int md = bi.getBlock().getMetaFromState(bi);
                 is = new ItemStack(bi.getBlock(), 1, md);
             }
             if (is == null || is.isEmpty() || is.getItem() == null) {
                 return 12632256;
             }
-            final int[] od = OreDictionary.getOreIDs(is);
+            int[] od = OreDictionary.getOreIDs(is);
             if (od != null && od.length > 0) {
-                for (final int id : od) {
+                for (int id : od) {
                     if (OreDictionary.getOreName(id) != null) {
                         if (OreDictionary.getOreName(id).toUpperCase().contains("IRON")) {
                             return 14200723;

@@ -86,10 +86,10 @@ public class PlayerEvents
     public static HashMap<Integer, Float> prevStep;
     
     @SubscribeEvent
-    public static void onFallDamage(final LivingHurtEvent event) {
+    public static void onFallDamage(LivingHurtEvent event) {
         if (event.getSource() == DamageSource.FALL && event.getEntityLiving() instanceof EntityPlayer) {
             if (((EntityPlayer)event.getEntityLiving()).inventory.armorInventory.get(0).getItem() == ItemsTC.travellerBoots) {
-                final float f = Math.max(0.0f, event.getAmount() / 2.0f - 1.0f);
+                float f = Math.max(0.0f, event.getAmount() / 2.0f - 1.0f);
                 if (f < 1.0f) {
                     event.setCanceled(true);
                     event.setAmount(0.0f);
@@ -99,7 +99,7 @@ public class PlayerEvents
                 }
             }
             if (BaublesApi.isBaubleEquipped((EntityPlayer)event.getEntityLiving(), ItemsTC.ringCloud) >= 0) {
-                final float f = Math.max(0.0f, event.getAmount() / 3.0f - 2.0f);
+                float f = Math.max(0.0f, event.getAmount() / 3.0f - 2.0f);
                 if (f < 1.0f) {
                     event.setCanceled(true);
                     event.setAmount(0.0f);
@@ -116,16 +116,16 @@ public class PlayerEvents
     }
     
     @SubscribeEvent
-    public static void livingTick(final LivingEvent.LivingUpdateEvent event) {
+    public static void livingTick(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntity() instanceof EntityPlayer) {
-            final EntityPlayer player = (EntityPlayer)event.getEntity();
+            EntityPlayer player = (EntityPlayer)event.getEntity();
             handleMisc(player);
             handleSpeedMods(player);
             if (!player.world.isRemote) {
                 handleRunicArmor(player);
                 handleWarp(player);
                 if (player.ticksExisted % 20 == 0 && ResearchManager.syncList.remove(player.getName()) != null) {
-                    final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+                    IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
                     knowledge.sync((EntityPlayerMP)player);
                 }
                 if (player.ticksExisted % 200 == 0) {
@@ -136,9 +136,9 @@ public class PlayerEvents
     }
     
     @SubscribeEvent
-    public static void pickupItem(final EntityItemPickupEvent event) {
+    public static void pickupItem(EntityItemPickupEvent event) {
         if (event.getEntityPlayer() != null && !event.getEntityPlayer().world.isRemote && event.getItem() != null && event.getItem().getItem() != null) {
-            final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(event.getEntityPlayer());
+            IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(event.getEntityPlayer());
             if (event.getItem().getItem().getItem() instanceof ItemCrystalEssence && !knowledge.isResearchKnown("!gotcrystals")) {
                 knowledge.addResearch("!gotcrystals");
                 knowledge.sync((EntityPlayerMP)event.getEntityPlayer());
@@ -155,18 +155,18 @@ public class PlayerEvents
     }
     
     @SubscribeEvent
-    public static void wakeUp(final PlayerWakeUpEvent event) {
-        final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(event.getEntityPlayer());
+    public static void wakeUp(PlayerWakeUpEvent event) {
+        IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(event.getEntityPlayer());
         if (event.getEntityPlayer() != null && !event.getEntityPlayer().world.isRemote && knowledge.isResearchKnown("!gotcrystals") && !knowledge.isResearchKnown("!gotdream")) {
             giveDreamJournal(event.getEntityPlayer());
         }
     }
     
-    private static void giveDreamJournal(final EntityPlayer player) {
-        final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+    private static void giveDreamJournal(EntityPlayer player) {
+        IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
         knowledge.addResearch("!gotdream");
         knowledge.sync((EntityPlayerMP)player);
-        final ItemStack book = ConfigItems.startBook.copy();
+        ItemStack book = ConfigItems.startBook.copy();
         book.getTagCompound().setString("author", player.getName());
         if (!player.inventory.addItemStackToInventory(book)) {
             InventoryUtils.dropItemAtEntity(player.world, book, player);
@@ -174,10 +174,10 @@ public class PlayerEvents
         try {
             player.sendMessage(new TextComponentString(TextFormatting.DARK_PURPLE + I18n.translateToLocal("got.dream")));
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
     }
     
-    private static void handleMisc(final EntityPlayer player) {
+    private static void handleMisc(EntityPlayer player) {
         if (player.world.provider.getDimension() == ModConfig.CONFIG_WORLD.dimensionOuterId && player.ticksExisted % 20 == 0 && !player.isSpectator() && !player.capabilities.isCreativeMode && player.capabilities.isFlying) {
             player.capabilities.isFlying = false;
             player.sendStatusMessage(new TextComponentString(TextFormatting.ITALIC + "" + TextFormatting.GRAY + I18n.translateToLocal("tc.break.fly")), true);
@@ -186,40 +186,40 @@ public class PlayerEvents
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void tooltipEvent(final ItemTooltipEvent event) {
+    public static void tooltipEvent(ItemTooltipEvent event) {
         try {
-            final int charge = getRunicCharge(event.getItemStack());
+            int charge = getRunicCharge(event.getItemStack());
             if (charge > 0) {
                 event.getToolTip().add(TextFormatting.GOLD + I18n.translateToLocal("item.runic.charge") + " +" + charge);
             }
-            final int warp = getFinalWarp(event.getItemStack(), event.getEntityPlayer());
+            int warp = getFinalWarp(event.getItemStack(), event.getEntityPlayer());
             if (warp > 0) {
                 event.getToolTip().add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("item.warping") + " " + warp);
             }
-            final int al = getFinalDiscount(event.getItemStack(), event.getEntityPlayer());
+            int al = getFinalDiscount(event.getItemStack(), event.getEntityPlayer());
             if (al > 0) {
                 event.getToolTip().add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("tc.visdiscount") + ": " + al + "%");
             }
             if (event.getItemStack() != null) {
                 if (event.getItemStack().getItem() instanceof IRechargable) {
-                    final int c = Math.round((float)RechargeHelper.getCharge(event.getItemStack()));
+                    int c = Math.round((float)RechargeHelper.getCharge(event.getItemStack()));
                     if (c >= 0) {
                         event.getToolTip().add(TextFormatting.YELLOW + I18n.translateToLocal("tc.charge") + " " + c);
                     }
                 }
                 if (event.getItemStack().getItem() instanceof IEssentiaContainerItem) {
-                    final AspectList aspects = ((IEssentiaContainerItem)event.getItemStack().getItem()).getAspects(event.getItemStack());
+                    AspectList aspects = ((IEssentiaContainerItem)event.getItemStack().getItem()).getAspects(event.getItemStack());
                     if (aspects != null && aspects.size() > 0) {
-                        for (final Aspect tag : aspects.getAspectsSortedByName()) {
+                        for (Aspect tag : aspects.getAspectsSortedByName()) {
                             event.getToolTip().add(tag.getName() + " x" + aspects.getAmount(tag));
                         }
                     }
                 }
-                final NBTTagList nbttaglist = EnumInfusionEnchantment.getInfusionEnchantmentTagList(event.getItemStack());
+                NBTTagList nbttaglist = EnumInfusionEnchantment.getInfusionEnchantmentTagList(event.getItemStack());
                 if (nbttaglist != null) {
                     for (int j = 0; j < nbttaglist.tagCount(); ++j) {
-                        final int k = nbttaglist.getCompoundTagAt(j).getShort("id");
-                        final int l = nbttaglist.getCompoundTagAt(j).getShort("lvl");
+                        int k = nbttaglist.getCompoundTagAt(j).getShort("id");
+                        int l = nbttaglist.getCompoundTagAt(j).getShort("lvl");
                         if (k >= 0 && k < EnumInfusionEnchantment.values().length) {
                             String s = TextFormatting.GOLD + I18n.translateToLocal("enchantment.infusion." + EnumInfusionEnchantment.values()[k].toString());
                             if (EnumInfusionEnchantment.values()[k].maxLevel > 1) {
@@ -231,21 +231,21 @@ public class PlayerEvents
                 }
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
     }
     
-    private static void handleRunicArmor(final EntityPlayer player) {
+    private static void handleRunicArmor(EntityPlayer player) {
         if (player.ticksExisted % 20 == 0) {
             int max = 0;
             for (int a = 0; a < 4; ++a) {
                 max += getRunicCharge(player.inventory.armorInventory.get(a));
             }
-            final IInventory baubles = BaublesApi.getBaubles(player);
+            IInventory baubles = BaublesApi.getBaubles(player);
             for (int a2 = 0; a2 < baubles.getSizeInventory(); ++a2) {
                 max += getRunicCharge(baubles.getStackInSlot(a2));
             }
             if (PlayerEvents.lastMaxCharge.containsKey(player.getEntityId())) {
-                final int charge = PlayerEvents.lastMaxCharge.get(player.getEntityId());
+                int charge = PlayerEvents.lastMaxCharge.get(player.getEntityId());
                 if (charge > max) {
                     player.setAbsorptionAmount(player.getAbsorptionAmount() - (charge - max));
                 }
@@ -265,8 +265,8 @@ public class PlayerEvents
             if (!PlayerEvents.nextCycle.containsKey(player.getEntityId())) {
                 PlayerEvents.nextCycle.put(player.getEntityId(), 0L);
             }
-            final long time = System.currentTimeMillis();
-            final int charge = (int)player.getAbsorptionAmount();
+            long time = System.currentTimeMillis();
+            int charge = (int)player.getAbsorptionAmount();
             if (charge == 0 && PlayerEvents.lastCharge.containsKey(player.getEntityId()) && PlayerEvents.lastCharge.get(player.getEntityId()) > 0) {
                 PlayerEvents.nextCycle.put(player.getEntityId(), time + ModConfig.CONFIG_MISC.shieldWait);
                 PlayerEvents.lastCharge.put(player.getEntityId(), 0);
@@ -280,7 +280,7 @@ public class PlayerEvents
         }
     }
     
-    public static int getRunicCharge(final ItemStack stack) {
+    public static int getRunicCharge(ItemStack stack) {
         int base = 0;
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("TC.RUNIC")) {
             base += stack.getTagCompound().getByte("TC.RUNIC");
@@ -288,13 +288,13 @@ public class PlayerEvents
         return base;
     }
     
-    public static int getFinalWarp(final ItemStack stack, final EntityPlayer player) {
+    public static int getFinalWarp(ItemStack stack, EntityPlayer player) {
         if (stack == null || stack.isEmpty()) {
             return 0;
         }
         int warp = 0;
         if (stack.getItem() instanceof IWarpingGear) {
-            final IWarpingGear armor = (IWarpingGear)stack.getItem();
+            IWarpingGear armor = (IWarpingGear)stack.getItem();
             warp += armor.getWarp(stack, player);
         }
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("TC.WARP")) {
@@ -303,15 +303,15 @@ public class PlayerEvents
         return warp;
     }
     
-    public static int getFinalDiscount(final ItemStack stack, final EntityPlayer player) {
+    public static int getFinalDiscount(ItemStack stack, EntityPlayer player) {
         if (stack == null || stack.isEmpty() || !(stack.getItem() instanceof IVisDiscountGear)) {
             return 0;
         }
-        final IVisDiscountGear gear = (IVisDiscountGear)stack.getItem();
+        IVisDiscountGear gear = (IVisDiscountGear)stack.getItem();
         return gear.getVisDiscount(stack, player);
     }
     
-    private static void handleSpeedMods(final EntityPlayer player) {
+    private static void handleSpeedMods(EntityPlayer player) {
         if (player.world.isRemote && (player.isSneaking() || player.inventory.armorInventory.get(0).getItem() != ItemsTC.travellerBoots) && PlayerEvents.prevStep.containsKey(player.getEntityId())) {
             player.stepHeight = PlayerEvents.prevStep.get(player.getEntityId());
             PlayerEvents.prevStep.remove(player.getEntityId());
@@ -319,17 +319,17 @@ public class PlayerEvents
     }
     
     @SubscribeEvent
-    public static void playerJumps(final LivingEvent.LivingJumpEvent event) {
+    public static void playerJumps(LivingEvent.LivingJumpEvent event) {
         if (event.getEntity() instanceof EntityPlayer && ((EntityPlayer)event.getEntity()).inventory.armorInventory.get(0).getItem() == ItemsTC.travellerBoots) {
-            final ItemStack is = ((EntityPlayer)event.getEntity()).inventory.armorInventory.get(0);
+            ItemStack is = ((EntityPlayer)event.getEntity()).inventory.armorInventory.get(0);
             if (RechargeHelper.getCharge(is) > 0) {
-                final EntityLivingBase entityLiving = event.getEntityLiving();
+                EntityLivingBase entityLiving = event.getEntityLiving();
                 entityLiving.motionY += 0.2750000059604645;
             }
         }
     }
     
-    private static void handleWarp(final EntityPlayer player) {
+    private static void handleWarp(EntityPlayer player) {
         if (!ModConfig.CONFIG_MISC.wussMode && player.ticksExisted > 0 && player.ticksExisted % 2000 == 0 && !player.isPotionActive(PotionWarpWard.instance)) {
             WarpEvents.checkWarpEvent(player);
         }
@@ -339,18 +339,18 @@ public class PlayerEvents
     }
     
     @SubscribeEvent
-    public static void droppedItem(final ItemTossEvent event) {
-        final NBTTagCompound itemData = event.getEntityItem().getEntityData();
+    public static void droppedItem(ItemTossEvent event) {
+        NBTTagCompound itemData = event.getEntityItem().getEntityData();
         itemData.setString("thrower", event.getPlayer().getName());
     }
     
     @SubscribeEvent
-    public static void finishedUsingItem(final LivingEntityUseItemEvent.Finish event) {
+    public static void finishedUsingItem(LivingEntityUseItemEvent.Finish event) {
         if (!event.getEntity().world.isRemote && event.getEntityLiving().isPotionActive(PotionUnnaturalHunger.instance)) {
             if (event.getItem().isItemEqual(new ItemStack(Items.ROTTEN_FLESH)) || event.getItem().isItemEqual(new ItemStack(ItemsTC.brain))) {
                 PotionEffect pe = event.getEntityLiving().getActivePotionEffect(PotionUnnaturalHunger.instance);
-                final int amp = pe.getAmplifier() - 1;
-                final int duration = pe.getDuration() - 600;
+                int amp = pe.getAmplifier() - 1;
+                int duration = pe.getDuration() - 600;
                 event.getEntityLiving().removePotionEffect(PotionUnnaturalHunger.instance);
                 if (duration > 0 && amp >= 0) {
                     pe = new PotionEffect(PotionUnnaturalHunger.instance, duration, amp, true, false);
@@ -367,7 +367,7 @@ public class PlayerEvents
     }
     
     @SubscribeEvent
-    public static void attachCapabilitiesPlayer(final AttachCapabilitiesEvent<Entity> event) {
+    public static void attachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityPlayer) {
             event.addCapability(PlayerKnowledge.Provider.NAME, new PlayerKnowledge.Provider());
             event.addCapability(PlayerWarp.Provider.NAME, new PlayerWarp.Provider());
@@ -375,11 +375,11 @@ public class PlayerEvents
     }
     
     @SubscribeEvent
-    public static void playerJoin(final EntityJoinWorldEvent event) {
+    public static void playerJoin(EntityJoinWorldEvent event) {
         if (!event.getWorld().isRemote && event.getEntity() instanceof EntityPlayerMP) {
-            final EntityPlayerMP player = (EntityPlayerMP)event.getEntity();
-            final IPlayerKnowledge pk = ThaumcraftCapabilities.getKnowledge(player);
-            final IPlayerWarp pw = ThaumcraftCapabilities.getWarp(player);
+            EntityPlayerMP player = (EntityPlayerMP)event.getEntity();
+            IPlayerKnowledge pk = ThaumcraftCapabilities.getKnowledge(player);
+            IPlayerWarp pw = ThaumcraftCapabilities.getWarp(player);
             if (pk != null) {
                 pk.sync(player);
             }
@@ -390,46 +390,46 @@ public class PlayerEvents
     }
     
     @SubscribeEvent
-    public static void cloneCapabilitiesEvent(final PlayerEvent.Clone event) {
+    public static void cloneCapabilitiesEvent(PlayerEvent.Clone event) {
         try {
-            final NBTTagCompound nbtKnowledge = ThaumcraftCapabilities.getKnowledge(event.getOriginal()).serializeNBT();
+            NBTTagCompound nbtKnowledge = ThaumcraftCapabilities.getKnowledge(event.getOriginal()).serializeNBT();
             ThaumcraftCapabilities.getKnowledge(event.getEntityPlayer()).deserializeNBT(nbtKnowledge);
-            final NBTTagCompound nbtWarp = ThaumcraftCapabilities.getWarp(event.getOriginal()).serializeNBT();
+            NBTTagCompound nbtWarp = ThaumcraftCapabilities.getWarp(event.getOriginal()).serializeNBT();
             ThaumcraftCapabilities.getWarp(event.getEntityPlayer()).deserializeNBT(nbtWarp);
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             Thaumcraft.log.error("Could not clone player [" + event.getOriginal().getName() + "] knowledge when changing dimensions");
         }
     }
     
     @SubscribeEvent
-    public static void pickupXP(final PlayerPickupXpEvent event) {
+    public static void pickupXP(PlayerPickupXpEvent event) {
         if (event.getEntityPlayer() != null && !event.getEntityPlayer().world.isRemote && BaublesApi.isBaubleEquipped(event.getEntityPlayer(), ItemsTC.bandCuriosity) >= 0 && event.getOrb().getXpValue() > 1) {
-            final int d = event.getOrb().xpValue / 2;
-            final EntityXPOrb orb = event.getOrb();
+            int d = event.getOrb().xpValue / 2;
+            EntityXPOrb orb = event.getOrb();
             orb.xpValue -= d;
-            final float r = event.getEntityPlayer().getRNG().nextFloat();
+            float r = event.getEntityPlayer().getRNG().nextFloat();
             if (r < 0.05 * d) {
-                final String[] s = ResearchCategories.researchCategories.keySet().toArray(new String[0]);
-                final String cat = s[event.getEntityPlayer().getRNG().nextInt(s.length)];
+                String[] s = ResearchCategories.researchCategories.keySet().toArray(new String[0]);
+                String cat = s[event.getEntityPlayer().getRNG().nextInt(s.length)];
                 ThaumcraftApi.internalMethods.addKnowledge(event.getEntityPlayer(), IPlayerKnowledge.EnumKnowledgeType.THEORY, ResearchCategories.getResearchCategory(cat), 1);
             }
             else if (r < 0.2 * d) {
-                final String[] s = ResearchCategories.researchCategories.keySet().toArray(new String[0]);
-                final String cat = s[event.getEntityPlayer().getRNG().nextInt(s.length)];
+                String[] s = ResearchCategories.researchCategories.keySet().toArray(new String[0]);
+                String cat = s[event.getEntityPlayer().getRNG().nextInt(s.length)];
                 ThaumcraftApi.internalMethods.addKnowledge(event.getEntityPlayer(), IPlayerKnowledge.EnumKnowledgeType.OBSERVATION, ResearchCategories.getResearchCategory(cat), 1);
             }
         }
     }
     
     @SubscribeEvent
-    public static void onDeath(final LivingDeathEvent event) {
+    public static void onDeath(LivingDeathEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
-            final EntityPlayer player = (EntityPlayer)event.getEntityLiving();
-            final int slot = BaublesApi.isBaubleEquipped(player, ItemsTC.charmUndying);
+            EntityPlayer player = (EntityPlayer)event.getEntityLiving();
+            int slot = BaublesApi.isBaubleEquipped(player, ItemsTC.charmUndying);
             if (slot >= 0) {
                 if (player instanceof EntityPlayerMP) {
-                    final EntityPlayerMP entityplayermp = (EntityPlayerMP)player;
+                    EntityPlayerMP entityplayermp = (EntityPlayerMP)player;
                     entityplayermp.addStat(StatList.getObjectUseStats(Items.TOTEM_OF_UNDYING));
                     CriteriaTriggers.USED_TOTEM.trigger(entityplayermp, BaublesApi.getBaubles(player).getStackInSlot(slot));
                 }

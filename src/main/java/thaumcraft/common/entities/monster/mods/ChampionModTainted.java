@@ -36,16 +36,16 @@ import net.minecraft.entity.ai.attributes.IAttribute;
 
 public class ChampionModTainted implements IChampionModifierEffect
 {
-    public static final IAttribute TAINTED_MOD;
+    public static IAttribute TAINTED_MOD;
     
     @Override
-    public float performEffect(final EntityLivingBase boss, final EntityLivingBase target, final DamageSource source, final float amount) {
+    public float performEffect(EntityLivingBase boss, EntityLivingBase target, DamageSource source, float amount) {
         resetAI((EntityCreature)boss);
         return amount;
     }
     
-    public static void resetAI(final EntityCreature critter) {
-        final IAttributeInstance modai = critter.getEntityAttribute(ChampionModTainted.TAINTED_MOD);
+    public static void resetAI(EntityCreature critter) {
+        IAttributeInstance modai = critter.getEntityAttribute(ChampionModTainted.TAINTED_MOD);
         if (!(critter instanceof EntityMob) && modai.getAttributeValue() == 0.0) {
             try {
                 critter.tasks.taskEntries.clear();
@@ -62,9 +62,9 @@ public class ChampionModTainted implements IChampionModifierEffect
                 modai.removeModifier(new AttributeModifier(UUID.fromString("2cb22137-a9d8-4417-ae06-de0e70f11b4c"), "istainted", 0.0, 0));
                 modai.applyModifier(new AttributeModifier(UUID.fromString("2cb22137-a9d8-4417-ae06-de0e70f11b4c"), "istainted", 1.0, 0));
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
         }
-        final IAttributeInstance iattributeinstance2 = critter.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+        IAttributeInstance iattributeinstance2 = critter.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
         if (iattributeinstance2 == null) {
             critter.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
             critter.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(Math.max(2.0f, (critter.height + critter.width) * 2.0f));
@@ -73,7 +73,7 @@ public class ChampionModTainted implements IChampionModifierEffect
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void preRender(final EntityLivingBase boss, final RenderLivingBase renderLivingBase) {
+    public void preRender(EntityLivingBase boss, RenderLivingBase renderLivingBase) {
         if (!LayerTainted.taintLayers.contains(boss.getEntityId())) {
             renderLivingBase.addLayer(new LayerTainted(boss.getEntityId(), renderLivingBase, renderLivingBase.getMainModel()));
         }
@@ -81,10 +81,10 @@ public class ChampionModTainted implements IChampionModifierEffect
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void showFX(final EntityLivingBase boss) {
-        final float w = boss.world.rand.nextFloat() * boss.width;
-        final float d = boss.world.rand.nextFloat() * boss.width;
-        final float h = boss.world.rand.nextFloat() * boss.height;
+    public void showFX(EntityLivingBase boss) {
+        float w = boss.world.rand.nextFloat() * boss.width;
+        float d = boss.world.rand.nextFloat() * boss.width;
+        float h = boss.world.rand.nextFloat() * boss.height;
         FXDispatcher.INSTANCE.drawGenericParticles(boss.getEntityBoundingBox().minX + w, boss.getEntityBoundingBox().minY + h, boss.getEntityBoundingBox().minZ + d, 0.0, -0.01, 0.0, 0.1f + boss.world.rand.nextFloat() * 0.2f, 0.0f, 0.1f + boss.world.rand.nextFloat() * 0.1f, 0.25f, false, 1, 5, 1, 6 + boss.world.rand.nextInt(6), 0, 2.0f + boss.world.rand.nextFloat(), 0.5f, 1);
     }
     

@@ -9,7 +9,7 @@ import net.minecraft.inventory.InventoryBasic;
 
 public class InventoryLogistics extends InventoryBasic
 {
-    public InventoryLogistics(final IInventoryChangedListener listener) {
+    public InventoryLogistics(IInventoryChangedListener listener) {
         super("container.logistics", false, 81);
         addInventoryChangeListener(listener);
     }

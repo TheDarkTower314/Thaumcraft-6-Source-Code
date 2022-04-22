@@ -27,22 +27,22 @@ public class ItemLabel extends ItemTCEssentiaContainer
         super("label", 1, "blank", "filled");
     }
     
-    public String getUnlocalizedName(final ItemStack stack) {
+    public String getUnlocalizedName(ItemStack stack) {
         return super.getUnlocalizedName() + "." + getVariantNames()[stack.getItemDamage()];
     }
     
     @Override
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
             items.add(new ItemStack(this, 1, 0));
         }
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         if (world.isRemote) {
             return EnumActionResult.PASS;
         }
-        final IBlockState bs = world.getBlockState(pos);
+        IBlockState bs = world.getBlockState(pos);
         if (bs.getBlock() instanceof ILabelable) {
             if (((ILabelable)bs.getBlock()).applyLabel(player, pos, side, player.getHeldItem(hand))) {
                 player.getHeldItem(hand).shrink(1);
@@ -50,7 +50,7 @@ public class ItemLabel extends ItemTCEssentiaContainer
             }
             return EnumActionResult.SUCCESS;
         }
-        final TileEntity te = world.getTileEntity(pos);
+        TileEntity te = world.getTileEntity(pos);
         if (te instanceof ILabelable) {
             if (((ILabelable)te).applyLabel(player, pos, side, player.getHeldItem(hand))) {
                 player.getHeldItem(hand).shrink(1);
@@ -62,11 +62,11 @@ public class ItemLabel extends ItemTCEssentiaContainer
     }
     
     @Override
-    public void onUpdate(final ItemStack stack, final World world, final Entity entity, final int par4, final boolean par5) {
+    public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
     }
     
     @Override
-    public void onCreated(final ItemStack stack, final World world, final EntityPlayer player) {
+    public void onCreated(ItemStack stack, World world, EntityPlayer player) {
     }
     
     @Override

@@ -14,13 +14,13 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 public class TileTubeValveRenderer extends TileEntitySpecialRenderer
 {
     private ModelTubeValve model;
-    private static final ResourceLocation TEX_VALVE;
+    private static ResourceLocation TEX_VALVE;
     
     public TileTubeValveRenderer() {
         model = new ModelTubeValve();
     }
     
-    public void renderEntityAt(final TileTubeValve valve, final double x, final double y, final double z, final float fq) {
+    public void renderEntityAt(TileTubeValve valve, double x, double y, double z, float fq) {
         bindTexture(TileTubeValveRenderer.TEX_VALVE);
         GL11.glPushMatrix();
         GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
@@ -42,7 +42,7 @@ public class TileTubeValveRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderEntityAt((TileTubeValve)te, x, y, z, partialTicks);
     }

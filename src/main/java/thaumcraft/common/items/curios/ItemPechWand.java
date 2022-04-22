@@ -36,17 +36,17 @@ public class ItemPechWand extends ItemTCBase
         super("pech_wand");
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(I18n.translateToLocal("item.curio.text"));
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World worldIn, final EntityPlayer player, final EnumHand hand) {
-        final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
+        IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
         if (!knowledge.isResearchKnown("BASEAUROMANCY")) {
             if (!worldIn.isRemote) {
                 player.sendMessage(new TextComponentString(TextFormatting.RED + I18n.translateToLocal("not.pechwand")));
@@ -62,10 +62,10 @@ public class ItemPechWand extends ItemTCBase
                 ThaumcraftApi.internalMethods.progressResearch(player, "FOCUSPECH");
                 player.sendMessage(new TextComponentString(TextFormatting.DARK_PURPLE + I18n.translateToLocal("got.pechwand")));
             }
-            final int oProg = IPlayerKnowledge.EnumKnowledgeType.OBSERVATION.getProgression();
-            final ResearchCategory[] rc = ResearchCategories.researchCategories.values().toArray(new ResearchCategory[0]);
+            int oProg = IPlayerKnowledge.EnumKnowledgeType.OBSERVATION.getProgression();
+            ResearchCategory[] rc = ResearchCategories.researchCategories.values().toArray(new ResearchCategory[0]);
             ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.OBSERVATION, rc[player.getRNG().nextInt(rc.length)], MathHelper.getInt(player.getRNG(), oProg / 3, oProg / 2));
-            final int tProg = IPlayerKnowledge.EnumKnowledgeType.THEORY.getProgression();
+            int tProg = IPlayerKnowledge.EnumKnowledgeType.THEORY.getProgression();
             ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.THEORY, rc[player.getRNG().nextInt(rc.length)], MathHelper.getInt(player.getRNG(), tProg / 5, tProg / 4));
         }
         player.addStat(StatList.getObjectUseStats(this));

@@ -37,20 +37,20 @@ public class ItemCurio extends ItemTCBase
         super("curio", "arcane", "preserved", "ancient", "eldritch", "knowledge", "twisted", "rites");
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.UNCOMMON;
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(I18n.translateToLocal("item.curio.text"));
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World worldIn, final EntityPlayer player, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
         worldIn.playSound(null, player.posX, player.posY, player.posZ, SoundsTC.learn, SoundCategory.NEUTRAL, 0.5f, 0.4f / (ItemCurio.itemRand.nextFloat() * 0.4f + 0.8f));
         if (!worldIn.isRemote) {
-            final int oProg = IPlayerKnowledge.EnumKnowledgeType.OBSERVATION.getProgression();
-            final int tProg = IPlayerKnowledge.EnumKnowledgeType.THEORY.getProgression();
+            int oProg = IPlayerKnowledge.EnumKnowledgeType.OBSERVATION.getProgression();
+            int tProg = IPlayerKnowledge.EnumKnowledgeType.THEORY.getProgression();
             switch (player.getHeldItem(hand).getItemDamage()) {
                 default: {
                     ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.OBSERVATION, ResearchCategories.getResearchCategory("AUROMANCY"), MathHelper.getInt(player.getRNG(), oProg / 2, oProg));
@@ -85,9 +85,9 @@ public class ItemCurio extends ItemTCBase
                     break;
                 }
                 case 6: {
-                    final int aw = ThaumcraftApi.internalMethods.getActualWarp(player);
+                    int aw = ThaumcraftApi.internalMethods.getActualWarp(player);
                     if (aw > 20) {
-                        final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+                        IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
                         if (!knowledge.isResearchKnown("CrimsonRites")) {
                             ThaumcraftApi.internalMethods.completeResearch(player, "CrimsonRites");
                         }
@@ -104,7 +104,7 @@ public class ItemCurio extends ItemTCBase
                     return super.onItemRightClick(worldIn, player, hand);
                 }
             }
-            final ResearchCategory[] rc = ResearchCategories.researchCategories.values().toArray(new ResearchCategory[0]);
+            ResearchCategory[] rc = ResearchCategories.researchCategories.values().toArray(new ResearchCategory[0]);
             ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.OBSERVATION, rc[player.getRNG().nextInt(rc.length)], MathHelper.getInt(player.getRNG(), oProg / 2, oProg));
             ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.THEORY, rc[player.getRNG().nextInt(rc.length)], MathHelper.getInt(player.getRNG(), tProg / 3, tProg / 2));
             if (!player.capabilities.isCreativeMode) {

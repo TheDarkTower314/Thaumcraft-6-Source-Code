@@ -10,9 +10,9 @@ import thaumcraft.api.items.ItemsTC;
 import net.minecraft.item.ItemStack;
 import net.minecraft.creativetab.CreativeTabs;
 
-public final class CreativeTabThaumcraft extends CreativeTabs
+public class CreativeTabThaumcraft extends CreativeTabs
 {
-    public CreativeTabThaumcraft(final int par1, final String par2Str) {
+    public CreativeTabThaumcraft(int par1, String par2Str) {
         super(par1, par2Str);
     }
     

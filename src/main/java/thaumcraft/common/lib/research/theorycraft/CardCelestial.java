@@ -31,7 +31,7 @@ public class CardCelestial extends TheorycraftCard
     
     @Override
     public NBTTagCompound serialize() {
-        final NBTTagCompound nbt = super.serialize();
+        NBTTagCompound nbt = super.serialize();
         nbt.setInteger("md1", md1);
         nbt.setInteger("md2", md2);
         nbt.setString("cat", cat);
@@ -39,7 +39,7 @@ public class CardCelestial extends TheorycraftCard
     }
     
     @Override
-    public void deserialize(final NBTTagCompound nbt) {
+    public void deserialize(NBTTagCompound nbt) {
         super.deserialize(nbt);
         md1 = nbt.getInteger("md1");
         md2 = nbt.getInteger("md2");
@@ -52,11 +52,11 @@ public class CardCelestial extends TheorycraftCard
     }
     
     @Override
-    public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
+    public boolean initialize(EntityPlayer player, ResearchTableData data) {
         if (data.categoryTotals.isEmpty() || !ThaumcraftCapabilities.knowsResearch(player, "CELESTIALSCANNING")) {
             return false;
         }
-        final Random r = new Random(getSeed());
+        Random r = new Random(getSeed());
         md1 = MathHelper.getInt(r, 0, 12);
         md2 = md1;
         while (md1 == md2) {
@@ -64,8 +64,8 @@ public class CardCelestial extends TheorycraftCard
         }
         int hVal = 0;
         String hKey = "";
-        for (final String category : data.categoryTotals.keySet()) {
-            final int q = data.getTotal(category);
+        for (String category : data.categoryTotals.keySet()) {
+            int q = data.getTotal(category);
             if (q > hVal) {
                 hVal = q;
                 hKey = category;
@@ -101,13 +101,13 @@ public class CardCelestial extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
         data.addTotal(getResearchCategory(), MathHelper.getInt(player.getRNG(), 25, 50));
-        final boolean sun = md1 == 0 || md2 == 0;
-        final boolean moon = md1 > 4 || md2 > 4;
-        final boolean stars = (md1 > 0 && md1 < 5) || (md2 > 0 && md2 < 5);
+        boolean sun = md1 == 0 || md2 == 0;
+        boolean moon = md1 > 4 || md2 > 4;
+        boolean stars = (md1 > 0 && md1 < 5) || (md2 > 0 && md2 < 5);
         if (stars) {
-            final int amt = MathHelper.getInt(player.getRNG(), 0, 5);
+            int amt = MathHelper.getInt(player.getRNG(), 0, 5);
             data.addTotal("ELDRITCH", amt * 2);
             ThaumcraftApi.internalMethods.addWarpToPlayer(player, amt, IPlayerWarp.EnumWarpType.TEMPORARY);
         }

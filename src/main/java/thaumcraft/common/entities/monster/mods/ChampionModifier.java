@@ -19,7 +19,7 @@ public class ChampionModifier
     public static AttributeModifier ATTRIBUTE_MOD_NONE;
     public static AttributeModifier ATTRIBUTE_MINUS_ONE;
     
-    public ChampionModifier(final int id, final String name, final int type, final IChampionModifierEffect effect, final UUID iud) {
+    public ChampionModifier(int id, String name, int type, IChampionModifierEffect effect, UUID iud) {
         this.name = "";
         this.id = 0;
         this.type = 0;

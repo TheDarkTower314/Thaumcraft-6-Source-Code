@@ -32,7 +32,7 @@ public class CardSynergy extends TheorycraftCard
     }
     
     @Override
-    public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
+    public boolean initialize(EntityPlayer player, ResearchTableData data) {
         int tot = 0;
         tot += data.getTotal("ARTIFICE");
         tot += data.getTotal("ALCHEMY");
@@ -41,18 +41,18 @@ public class CardSynergy extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
         int tot = 0;
         tot += data.getTotal("ARTIFICE");
         tot += data.getTotal("ALCHEMY");
         tot += data.getTotal("INFUSION");
         if (tot >= 15) {
             tot = 15;
-            final String[] cats = { "ARTIFICE", "ALCHEMY", "INFUSION" };
+            String[] cats = { "ARTIFICE", "ALCHEMY", "INFUSION" };
             int tries = 0;
             while (tot > 0 && tries < 1000) {
                 ++tries;
-                for (final String category : cats) {
+                for (String category : cats) {
                     if (data.getTotal(category) > 0) {
                         data.addTotal(category, -1);
                         if (--tot <= 0) {

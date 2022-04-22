@@ -27,31 +27,31 @@ import thaumcraft.common.blocks.BlockTC;
 
 public class BlockPavingStone extends BlockTC
 {
-    public BlockPavingStone(final String name) {
+    public BlockPavingStone(String name) {
         super(Material.ROCK, name);
         setHardness(2.5f);
         setSoundType(SoundType.STONE);
         setTickRandomly(true);
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.9375, 1.0);
     }
     
-    public boolean canHarvestBlock(final IBlockAccess world, final BlockPos pos, final EntityPlayer player) {
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
         return true;
     }
     
-    public boolean hasTileEntity(final IBlockState state) {
+    public boolean hasTileEntity(IBlockState state) {
         return state.getBlock() == BlocksTC.pavingStoneBarrier;
     }
     
-    public TileEntity createTileEntity(final World world, final IBlockState state) {
+    public TileEntity createTileEntity(World world, IBlockState state) {
         return (state.getBlock() == BlocksTC.pavingStoneBarrier) ? new TileBarrierStone() : null;
     }
     
-    public void onEntityWalk(final World worldIn, final BlockPos pos, final Entity e) {
-        final IBlockState state = worldIn.getBlockState(pos);
+    public void onEntityWalk(World worldIn, BlockPos pos, Entity e) {
+        IBlockState state = worldIn.getBlockState(pos);
         if (!worldIn.isRemote && state.getBlock() == BlocksTC.pavingStoneTravel && e instanceof EntityLivingBase) {
             ((EntityLivingBase)e).addPotionEffect(new PotionEffect(MobEffects.SPEED, 40, 1, false, false));
             ((EntityLivingBase)e).addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 40, 0, false, false));
@@ -59,15 +59,15 @@ public class BlockPavingStone extends BlockTC
         super.onEntityWalk(worldIn, pos, e);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random random) {
+    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random random) {
         if (state.getBlock() == BlocksTC.pavingStoneBarrier) {
             if (world.isBlockIndirectlyGettingPowered(pos) > 0) {
                 for (int a = 0; a < 4; ++a) {
@@ -80,9 +80,9 @@ public class BlockPavingStone extends BlockTC
                 }
             }
             else {
-                final List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1).grow(1.0, 1.0, 1.0));
+                List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1).grow(1.0, 1.0, 1.0));
                 if (!list.isEmpty()) {
-                    for (final Entity entity : list) {
+                    for (Entity entity : list) {
                         if (entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer)) {
                             FXDispatcher.INSTANCE.blockRunes(pos.getX(), pos.getY() + 0.6f + random.nextFloat() * Math.max(0.8f, entity.getEyeHeight()), pos.getZ(), 0.6f + random.nextFloat() * 0.4f, 0.0f, 0.3f + random.nextFloat() * 0.7f, 20, 0.0f);
                             break;

@@ -16,18 +16,18 @@ import thaumcraft.api.golems.parts.PartModel;
 
 public class PartModelHauler extends PartModel
 {
-    public PartModelHauler(final ResourceLocation objModel, final ResourceLocation objTexture, final EnumAttachPoint attachPoint) {
+    public PartModelHauler(ResourceLocation objModel, ResourceLocation objTexture, EnumAttachPoint attachPoint) {
         super(objModel, objTexture, attachPoint);
     }
     
     @Override
-    public void postRenderObjectPart(final String partName, final IGolemAPI golem, final float partialTicks, final EnumLimbSide side) {
+    public void postRenderObjectPart(String partName, IGolemAPI golem, float partialTicks, EnumLimbSide side) {
         if (golem.getCarrying().size() > 1 && golem.getCarrying().get(1) != null) {
-            final ItemStack itemstack = golem.getCarrying().get(1);
+            ItemStack itemstack = golem.getCarrying().get(1);
             if (itemstack != null && !itemstack.isEmpty()) {
                 GlStateManager.pushMatrix();
-                final Item item = itemstack.getItem();
-                final Minecraft minecraft = Minecraft.getMinecraft();
+                Item item = itemstack.getItem();
+                Minecraft minecraft = Minecraft.getMinecraft();
                 GlStateManager.scale(0.375, 0.375, 0.375);
                 GlStateManager.translate(0.0f, 0.33f, 0.825f);
                 if (!(item instanceof ItemBlock)) {

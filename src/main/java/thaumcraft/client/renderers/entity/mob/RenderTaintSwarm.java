@@ -17,14 +17,14 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 @SideOnly(Side.CLIENT)
 public class RenderTaintSwarm extends RenderLiving
 {
-    public RenderTaintSwarm(final RenderManager rm) {
+    public RenderTaintSwarm(RenderManager rm) {
         super(rm, null, 0.0f);
     }
     
-    public void doRender(final EntityLiving par1EntityLiving, final double par2, final double par4, final double par6, final float par8, final float par9) {
+    public void doRender(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9) {
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 }

@@ -15,9 +15,9 @@ public class TransformationList extends Transformation
     private ArrayList<Transformation> transformations;
     private Matrix4 mat;
     
-    public TransformationList(final Transformation... transforms) {
+    public TransformationList(Transformation... transforms) {
         transformations = new ArrayList<Transformation>();
-        for (final Transformation t : transforms) {
+        for (Transformation t : transforms) {
             if (t instanceof TransformationList) {
                 transformations.addAll(((TransformationList)t).transformations);
             }
@@ -39,15 +39,15 @@ public class TransformationList extends Transformation
     }
     
     public Matrix4 reverseCompile() {
-        final Matrix4 mat = new Matrix4();
-        for (final Transformation t : transformations) {
+        Matrix4 mat = new Matrix4();
+        for (Transformation t : transformations) {
             t.apply(mat);
         }
         return mat;
     }
     
     @Override
-    public void apply(final Vector3 vec) {
+    public void apply(Vector3 vec) {
         if (mat != null) {
             mat.apply(vec);
         }
@@ -59,7 +59,7 @@ public class TransformationList extends Transformation
     }
     
     @Override
-    public void applyN(final Vector3 normal) {
+    public void applyN(Vector3 normal) {
         if (mat != null) {
             mat.applyN(normal);
         }
@@ -71,12 +71,12 @@ public class TransformationList extends Transformation
     }
     
     @Override
-    public void apply(final Matrix4 mat) {
+    public void apply(Matrix4 mat) {
         mat.multiply(compile());
     }
     
     @Override
-    public TransformationList with(final Transformation t) {
+    public TransformationList with(Transformation t) {
         if (t.isRedundant()) {
             return this;
         }
@@ -91,7 +91,7 @@ public class TransformationList extends Transformation
         return this;
     }
     
-    public TransformationList prepend(final Transformation t) {
+    public TransformationList prepend(Transformation t) {
         if (t.isRedundant()) {
             return this;
         }
@@ -107,8 +107,8 @@ public class TransformationList extends Transformation
     }
     
     private void compact() {
-        final ArrayList<Transformation> newList = new ArrayList<Transformation>(transformations.size());
-        final Iterator<Transformation> iterator = transformations.iterator();
+        ArrayList<Transformation> newList = new ArrayList<Transformation>(transformations.size());
+        Iterator<Transformation> iterator = transformations.iterator();
         Transformation prev = null;
         while (iterator.hasNext()) {
             Transformation t = iterator.next();
@@ -116,7 +116,7 @@ public class TransformationList extends Transformation
                 continue;
             }
             if (prev != null) {
-                final Transformation m = prev.merge(t);
+                Transformation m = prev.merge(t);
                 if (m == null) {
                     newList.add(prev);
                 }
@@ -156,7 +156,7 @@ public class TransformationList extends Transformation
     
     @Override
     public Transformation inverse() {
-        final TransformationList rev = new TransformationList();
+        TransformationList rev = new TransformationList();
         for (int i = transformations.size() - 1; i >= 0; --i) {
             rev.with(transformations.get(i).inverse());
         }
@@ -166,7 +166,7 @@ public class TransformationList extends Transformation
     @Override
     public String toString() {
         String s = "";
-        for (final Transformation t : transformations) {
+        for (Transformation t : transformations) {
             s = s + "\n" + t.toString();
         }
         return s.trim();

@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ObjModelLoader implements IModelCustomLoader
 {
-    private static final String[] types;
+    private static String[] types;
     
     @Override
     public String getType() {
@@ -21,7 +21,7 @@ public class ObjModelLoader implements IModelCustomLoader
     }
     
     @Override
-    public IModelCustom loadInstance(final ResourceLocation resource) throws WavefrontObject.ModelFormatException {
+    public IModelCustom loadInstance(ResourceLocation resource) throws WavefrontObject.ModelFormatException {
         return new WavefrontObject(resource);
     }
     

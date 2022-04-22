@@ -25,7 +25,7 @@ import net.minecraft.item.ItemHoe;
 
 public class ItemElementalHoe extends ItemHoe implements IThaumcraftItems
 {
-    public ItemElementalHoe(final Item.ToolMaterial enumtoolmaterial) {
+    public ItemElementalHoe(Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
         setCreativeTab(ConfigItems.TABTC);
         setRegistryName("elemental_hoe");
@@ -49,7 +49,7 @@ public class ItemElementalHoe extends ItemHoe implements IThaumcraftItems
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
@@ -57,15 +57,15 @@ public class ItemElementalHoe extends ItemHoe implements IThaumcraftItems
         return 5;
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 0)) || super.getIsRepairable(stack1, stack2);
     }
     
-    public EnumActionResult onItemUse(final EntityPlayer player, final World world, final BlockPos pos, final EnumHand hand, final EnumFacing facing, final float hitX, final float hitY, final float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (player.isSneaking()) {
             return super.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
         }
@@ -74,7 +74,7 @@ public class ItemElementalHoe extends ItemHoe implements IThaumcraftItems
             for (int zz = -1; zz <= 1; ++zz) {
                 if (super.onItemUse(player, world, pos.add(xx, 0, zz), hand, facing, hitX, hitY, hitZ) == EnumActionResult.SUCCESS) {
                     if (world.isRemote) {
-                        final BlockPos pp = pos.add(xx, 0, zz);
+                        BlockPos pp = pos.add(xx, 0, zz);
                         FXDispatcher.INSTANCE.drawBamf(pp.getX() + 0.5, pp.getY() + 1.01, pp.getZ() + 0.5, 0.3f, 0.12f, 0.1f, xx == 0 && zz == 0, false, EnumFacing.UP);
                     }
                     if (!did) {

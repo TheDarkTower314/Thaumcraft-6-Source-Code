@@ -37,7 +37,7 @@ public class ItemCreativeFluxSponge extends ItemTCBase
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(TextFormatting.GREEN + "Right-click to drain all");
         tooltip.add(TextFormatting.GREEN + "flux from 9x9 chunk area");
@@ -46,18 +46,18 @@ public class ItemCreativeFluxSponge extends ItemTCBase
         tooltip.add(TextFormatting.DARK_PURPLE + "Creative only");
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.EPIC;
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World worldIn, final EntityPlayer playerIn, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (worldIn.isRemote) {
             playerIn.swingArm(hand);
             playerIn.world.playSound(playerIn.posX, playerIn.posY, playerIn.posZ, SoundsTC.craftstart, SoundCategory.PLAYERS, 0.15f, 1.0f, false);
         }
         else {
             int q = 0;
-            final BlockPos p = playerIn.getPosition();
+            BlockPos p = playerIn.getPosition();
             for (int x = -4; x <= 4; ++x) {
                 for (int z = -4; z <= 4; ++z) {
                     q += (int)AuraHelper.drainFlux(worldIn, p.add(16 * x, 0, 16 * z), 500.0f, false);
@@ -65,8 +65,8 @@ public class ItemCreativeFluxSponge extends ItemTCBase
             }
             playerIn.sendMessage(new TextComponentString(TextFormatting.GREEN + "" + q + " flux drained from 81 chunks."));
             if (playerIn.isSneaking()) {
-                final List<EntityFluxRift> list = EntityUtils.getEntitiesInRange(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, null, EntityFluxRift.class, 32.0);
-                for (final EntityFluxRift fr : list) {
+                List<EntityFluxRift> list = EntityUtils.getEntitiesInRange(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, null, EntityFluxRift.class, 32.0);
+                for (EntityFluxRift fr : list) {
                     fr.setDead();
                 }
                 playerIn.sendMessage(new TextComponentString(TextFormatting.DARK_AQUA + "" + list.size() + " flux rifts removed."));

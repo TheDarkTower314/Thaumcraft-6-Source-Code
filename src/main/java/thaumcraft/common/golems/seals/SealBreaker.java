@@ -59,20 +59,20 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     }
     
     @Override
-    public void tickSeal(final World world, final ISealEntity seal) {
+    public void tickSeal(World world, ISealEntity seal) {
         if (delay % 100 == 0) {
-            final Iterator<Integer> it = cache.keySet().iterator();
+            Iterator<Integer> it = cache.keySet().iterator();
             while (it.hasNext()) {
-                final Task t = TaskHandler.getTask(world.provider.getDimension(), it.next());
+                Task t = TaskHandler.getTask(world.provider.getDimension(), it.next());
                 if (t == null) {
                     it.remove();
                 }
             }
         }
         ++delay;
-        final BlockPos p = GolemHelper.getPosInArea(seal, delay);
+        BlockPos p = GolemHelper.getPosInArea(seal, delay);
         if (!cache.containsValue(p.toLong()) && isValidBlock(world, p)) {
-            final Task task = new Task(seal.getSealPos(), p);
+            Task task = new Task(seal.getSealPos(), p);
             task.setPriority(seal.getPriority());
             task.setData((int)(world.getBlockState(p).getBlockHardness(world, p) * 10.0f));
             TaskHandler.addTask(world.provider.getDimension(), task);
@@ -80,10 +80,10 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
         }
     }
     
-    private boolean isValidBlock(final World world, final BlockPos p) {
-        final IBlockState bs = world.getBlockState(p);
+    private boolean isValidBlock(World world, BlockPos p) {
+        IBlockState bs = world.getBlockState(p);
         if (!world.isAirBlock(p) && bs.getBlockHardness(world, p) >= 0.0f) {
-            for (final ItemStack ts : getInv()) {
+            for (ItemStack ts : getInv()) {
                 if (ts != null && !ts.isEmpty()) {
                     ItemStack fs = BlockUtils.getSilkTouchDrop(bs);
                     if (fs == null || !fs.isEmpty()) {
@@ -112,20 +112,20 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     }
     
     @Override
-    public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
-        final IBlockState bs = world.getBlockState(task.getPos());
+    public boolean onTaskCompletion(World world, IGolemAPI golem, Task task) {
+        IBlockState bs = world.getBlockState(task.getPos());
         if (cache.containsKey(task.getId()) && isValidBlock(world, task.getPos())) {
-            final FakePlayer fp = FakePlayerFactory.get((WorldServer)world, new GameProfile(null, "FakeThaumcraftGolem"));
+            FakePlayer fp = FakePlayerFactory.get((WorldServer)world, new GameProfile(null, "FakeThaumcraftGolem"));
             fp.connection = new FakeNetHandlerPlayServer(fp.mcServer, new NetworkManager(EnumPacketDirection.CLIENTBOUND), fp);
             fp.setPosition(golem.getGolemEntity().posX, golem.getGolemEntity().posY, golem.getGolemEntity().posZ);
             golem.swingArm();
-            final boolean silky = getToggles().length > 1 && getToggles()[1].value;
-            final int bspd = silky ? 7 : 21;
+            boolean silky = getToggles().length > 1 && getToggles()[1].value;
+            int bspd = silky ? 7 : 21;
             if (task.getData() > bspd) {
-                final float bh = bs.getBlockHardness(world, task.getPos()) * 10.0f;
+                float bh = bs.getBlockHardness(world, task.getPos()) * 10.0f;
                 task.setLifespan((short)Math.max(task.getLifespan(), 10L));
                 task.setData(task.getData() - bspd);
-                final int progress = (int)(9.0f * (1.0f - task.getData() / bh));
+                int progress = (int)(9.0f * (1.0f - task.getData() / bh));
                 world.playSound(null, task.getPos(), bs.getBlock().getSoundType().getBreakSound(), SoundCategory.BLOCKS, (bs.getBlock().getSoundType().getVolume() + 0.7f) / 8.0f, bs.getBlock().getSoundType().getPitch() * 0.5f);
                 BlockUtils.destroyBlockPartially(world, golem.getGolemEntity().getEntityId(), task.getPos(), progress);
                 return false;
@@ -140,7 +140,7 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     }
     
     @Override
-    public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
+    public boolean canGolemPerformTask(IGolemAPI golem, Task task) {
         if (cache.containsKey(task.getId()) && isValidBlock(golem.getGolemWorld(), task.getPos())) {
             return true;
         }
@@ -149,12 +149,12 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     }
     
     @Override
-    public void onTaskSuspension(final World world, final Task task) {
+    public void onTaskSuspension(World world, Task task) {
         cache.remove(task.getId());
     }
     
     @Override
-    public boolean canPlaceAt(final World world, final BlockPos pos, final EnumFacing side) {
+    public boolean canPlaceAt(World world, BlockPos pos, EnumFacing side) {
         return !world.isAirBlock(pos);
     }
     
@@ -164,17 +164,17 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     }
     
     @Override
-    public void onRemoval(final World world, final BlockPos pos, final EnumFacing side) {
+    public void onRemoval(World world, BlockPos pos, EnumFacing side) {
     }
     
     @Override
-    public Object returnContainer(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing side, final ISealEntity seal) {
+    public Object returnContainer(World world, EntityPlayer player, BlockPos pos, EnumFacing side, ISealEntity seal) {
         return new SealBaseContainer(player.inventory, world, seal);
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public Object returnGui(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing side, final ISealEntity seal) {
+    public Object returnGui(World world, EntityPlayer player, BlockPos pos, EnumFacing side, ISealEntity seal) {
         return new SealBaseGUI(player.inventory, world, seal);
     }
     
@@ -194,7 +194,7 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     }
     
     @Override
-    public void onTaskStarted(final World world, final IGolemAPI golem, final Task task) {
+    public void onTaskStarted(World world, IGolemAPI golem, Task task) {
     }
     
     @Override
@@ -203,7 +203,7 @@ public class SealBreaker extends SealFiltered implements ISealConfigArea, ISealC
     }
     
     @Override
-    public void setToggle(final int indx, final boolean value) {
+    public void setToggle(int indx, boolean value) {
         props[indx].setValue(value);
     }
 }

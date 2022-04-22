@@ -37,7 +37,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber({ Side.CLIENT })
 public class ParticleEngine
 {
-    public static final ResourceLocation particleTexture;
+    public static ResourceLocation particleTexture;
     protected World world;
     private static HashMap<Integer, ArrayList<Particle>>[] particles;
     private static ArrayList<ParticleDelay> particlesDelayed;
@@ -49,17 +49,17 @@ public class ParticleEngine
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void renderTick(final TickEvent.RenderTickEvent event) {
+    public static void renderTick(TickEvent.RenderTickEvent event) {
         if (Minecraft.getMinecraft().world == null) {
             return;
         }
         if (event.phase == TickEvent.Phase.END) {
-            final float frame = event.renderTickTime;
-            final Entity entity = Minecraft.getMinecraft().player;
-            final TextureManager renderer = Minecraft.getMinecraft().renderEngine;
-            final int dim = Minecraft.getMinecraft().world.provider.getDimension();
+            float frame = event.renderTickTime;
+            Entity entity = Minecraft.getMinecraft().player;
+            TextureManager renderer = Minecraft.getMinecraft().renderEngine;
+            int dim = Minecraft.getMinecraft().world.provider.getDimension();
             GL11.glPushMatrix();
-            final ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+            ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
             GL11.glClear(256);
             GL11.glMatrixMode(5889);
             GL11.glLoadIdentity();
@@ -75,7 +75,7 @@ public class ParticleEngine
             GlStateManager.depthMask(false);
             for (int layer = 5; layer >= 4; --layer) {
                 if (ParticleEngine.particles[layer].containsKey(dim)) {
-                    final ArrayList<Particle> parts = ParticleEngine.particles[layer].get(dim);
+                    ArrayList<Particle> parts = ParticleEngine.particles[layer].get(dim);
                     if (parts.size() != 0) {
                         switch (layer) {
                             case 4: {
@@ -87,17 +87,17 @@ public class ParticleEngine
                                 break;
                             }
                         }
-                        final Tessellator tessellator = Tessellator.getInstance();
-                        final BufferBuilder buffer = tessellator.getBuffer();
+                        Tessellator tessellator = Tessellator.getInstance();
+                        BufferBuilder buffer = tessellator.getBuffer();
                         for (int j = 0; j < parts.size(); ++j) {
-                            final Particle Particle = parts.get(j);
+                            Particle Particle = parts.get(j);
                             if (Particle != null) {
                                 try {
                                     Particle.renderParticle(buffer, entity, frame, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
                                 }
-                                catch (final Throwable throwable) {
-                                    final CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering Particle");
-                                    final CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being rendered");
+                                catch (Throwable throwable) {
+                                    CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering Particle");
+                                    CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being rendered");
                                     crashreportcategory.addDetail("Particle", new ICrashReportDetail<String>() {
                                         public String call() {
                                             return Particle.toString();
@@ -125,11 +125,11 @@ public class ParticleEngine
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void onRenderWorldLast(final RenderWorldLastEvent event) {
-        final float frame = event.getPartialTicks();
-        final Entity entity = Minecraft.getMinecraft().player;
-        final TextureManager renderer = Minecraft.getMinecraft().renderEngine;
-        final int dim = Minecraft.getMinecraft().world.provider.getDimension();
+    public static void onRenderWorldLast(RenderWorldLastEvent event) {
+        float frame = event.getPartialTicks();
+        Entity entity = Minecraft.getMinecraft().player;
+        TextureManager renderer = Minecraft.getMinecraft().renderEngine;
+        int dim = Minecraft.getMinecraft().world.provider.getDimension();
         GL11.glPushMatrix();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GlStateManager.enableBlend();
@@ -139,7 +139,7 @@ public class ParticleEngine
         GlStateManager.depthMask(false);
         for (int layer = 3; layer >= 0; --layer) {
             if (ParticleEngine.particles[layer].containsKey(dim)) {
-                final ArrayList<Particle> parts = ParticleEngine.particles[layer].get(dim);
+                ArrayList<Particle> parts = ParticleEngine.particles[layer].get(dim);
                 if (parts.size() != 0) {
                     switch (layer) {
                         case 0: {
@@ -161,26 +161,26 @@ public class ParticleEngine
                             break;
                         }
                     }
-                    final float f1 = ActiveRenderInfo.getRotationX();
-                    final float f2 = ActiveRenderInfo.getRotationZ();
-                    final float f3 = ActiveRenderInfo.getRotationYZ();
-                    final float f4 = ActiveRenderInfo.getRotationXY();
-                    final float f5 = ActiveRenderInfo.getRotationXZ();
+                    float f1 = ActiveRenderInfo.getRotationX();
+                    float f2 = ActiveRenderInfo.getRotationZ();
+                    float f3 = ActiveRenderInfo.getRotationYZ();
+                    float f4 = ActiveRenderInfo.getRotationXY();
+                    float f5 = ActiveRenderInfo.getRotationXZ();
                     Particle.interpPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * frame;
                     Particle.interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
                     Particle.interpPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * frame;
-                    final Tessellator tessellator = Tessellator.getInstance();
-                    final BufferBuilder buffer = tessellator.getBuffer();
+                    Tessellator tessellator = Tessellator.getInstance();
+                    BufferBuilder buffer = tessellator.getBuffer();
                     buffer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
                     for (int j = 0; j < parts.size(); ++j) {
-                        final Particle Particle = parts.get(j);
+                        Particle Particle = parts.get(j);
                         if (Particle != null) {
                             try {
                                 Particle.renderParticle(buffer, entity, frame, f1, f5, f2, f3, f4);
                             }
-                            catch (final Throwable throwable) {
-                                final CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering Particle");
-                                final CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being rendered");
+                            catch (Throwable throwable) {
+                                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering Particle");
+                                CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being rendered");
                                 crashreportcategory.addDetail("Particle", new ICrashReportDetail<String>() {
                                     public String call() {
                                         return Particle.toString();
@@ -213,7 +213,7 @@ public class ParticleEngine
         GL11.glPopMatrix();
     }
     
-    public static void addEffect(final World world, final Particle fx) {
+    public static void addEffect(World world, Particle fx) {
         addEffect(world.provider.getDimension(), fx);
     }
     
@@ -221,7 +221,7 @@ public class ParticleEngine
         return (FMLClientHandler.instance().getClient().gameSettings.particleSetting == 2) ? 500 : ((FMLClientHandler.instance().getClient().gameSettings.particleSetting == 1) ? 1000 : 2000);
     }
     
-    public static void addEffect(final int dim, final Particle fx) {
+    public static void addEffect(int dim, Particle fx) {
         if (Minecraft.getMinecraft().world == null) {
             return;
         }
@@ -236,7 +236,7 @@ public class ParticleEngine
         if (!ParticleEngine.particles[fx.getFXLayer()].containsKey(dim)) {
             ParticleEngine.particles[fx.getFXLayer()].put(dim, new ArrayList<Particle>());
         }
-        final ArrayList<Particle> parts = ParticleEngine.particles[fx.getFXLayer()].get(dim);
+        ArrayList<Particle> parts = ParticleEngine.particles[fx.getFXLayer()].get(dim);
         if (parts.size() >= getParticleLimit()) {
             parts.remove(0);
         }
@@ -244,27 +244,27 @@ public class ParticleEngine
         ParticleEngine.particles[fx.getFXLayer()].put(dim, parts);
     }
     
-    public static void addEffectWithDelay(final World world, final Particle fx, final int delay) {
+    public static void addEffectWithDelay(World world, Particle fx, int delay) {
         ParticleEngine.particlesDelayed.add(new ParticleDelay(fx, world.provider.getDimension(), delay));
     }
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void updateParticles(final TickEvent.ClientTickEvent event) {
+    public static void updateParticles(TickEvent.ClientTickEvent event) {
         if (event.side == Side.SERVER) {
             return;
         }
-        final Minecraft mc = FMLClientHandler.instance().getClient();
-        final World world = mc.world;
+        Minecraft mc = FMLClientHandler.instance().getClient();
+        World world = mc.world;
         if (mc.world == null) {
             return;
         }
-        final int dim = world.provider.getDimension();
+        int dim = world.provider.getDimension();
         if (event.phase == TickEvent.Phase.START) {
             try {
-                final Iterator<ParticleDelay> i = ParticleEngine.particlesDelayed.iterator();
+                Iterator<ParticleDelay> i = ParticleEngine.particlesDelayed.iterator();
                 while (i.hasNext()) {
-                    final ParticleDelay pd = i.next();
+                    ParticleDelay pd = i.next();
                     --pd.delay;
                     if (pd.delay <= 0) {
                         if (pd.dim == dim) {
@@ -274,21 +274,21 @@ public class ParticleEngine
                     }
                 }
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
             for (int layer = 0; layer < 6; ++layer) {
                 if (ParticleEngine.particles[layer].containsKey(dim)) {
-                    final ArrayList<Particle> parts = ParticleEngine.particles[layer].get(dim);
+                    ArrayList<Particle> parts = ParticleEngine.particles[layer].get(dim);
                     for (int j = 0; j < parts.size(); ++j) {
-                        final Particle Particle = parts.get(j);
+                        Particle Particle = parts.get(j);
                         try {
                             if (Particle != null) {
                                 Particle.onUpdate();
                             }
                         }
-                        catch (final Exception e) {
+                        catch (Exception e) {
                             try {
-                                final CrashReport crashreport = CrashReport.makeCrashReport(e, "Ticking Particle");
-                                final CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being ticked");
+                                CrashReport crashreport = CrashReport.makeCrashReport(e, "Ticking Particle");
+                                CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being ticked");
                                 crashreportcategory.addCrashSection("Particle", new Callable() {
                                     @Override
                                     public String call() {
@@ -303,7 +303,7 @@ public class ParticleEngine
                                 });
                                 Particle.setExpired();
                             }
-                            catch (final Exception ex2) {}
+                            catch (Exception ex2) {}
                         }
                         if (Particle == null || !Particle.isAlive()) {
                             parts.remove(j--);
@@ -328,7 +328,7 @@ public class ParticleEngine
         int level;
         int delay;
         
-        public ParticleDelay(final Particle particle, final int dim, final int delay) {
+        public ParticleDelay(Particle particle, int dim, int delay) {
             this.dim = dim;
             this.particle = particle;
             this.delay = delay;

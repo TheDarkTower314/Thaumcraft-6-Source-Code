@@ -29,23 +29,23 @@ public class PacketKnowledgeGain implements IMessage, IMessageHandler<PacketKnow
     public PacketKnowledgeGain() {
     }
     
-    public PacketKnowledgeGain(final byte type, final String value) {
+    public PacketKnowledgeGain(byte type, String value) {
         this.type = type;
         cat = ((value == null) ? "" : value);
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeByte(type);
         ByteBufUtils.writeUTF8String(buffer, cat);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         type = buffer.readByte();
         cat = ByteBufUtils.readUTF8String(buffer);
     }
     
     @SideOnly(Side.CLIENT)
-    public IMessage onMessage(final PacketKnowledgeGain message, final MessageContext ctx) {
+    public IMessage onMessage(PacketKnowledgeGain message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
@@ -56,11 +56,11 @@ public class PacketKnowledgeGain implements IMessage, IMessageHandler<PacketKnow
     }
     
     @SideOnly(Side.CLIENT)
-    void processMessage(final PacketKnowledgeGain message) {
-        final EntityPlayer p = Minecraft.getMinecraft().player;
-        final IPlayerKnowledge.EnumKnowledgeType type = IPlayerKnowledge.EnumKnowledgeType.values()[message.type];
-        final ResearchCategory cat = (message.cat.length() > 0) ? ResearchCategories.getResearchCategory(message.cat) : null;
-        final RenderEventHandler instance = RenderEventHandler.INSTANCE;
+    void processMessage(PacketKnowledgeGain message) {
+        EntityPlayer p = Minecraft.getMinecraft().player;
+        IPlayerKnowledge.EnumKnowledgeType type = IPlayerKnowledge.EnumKnowledgeType.values()[message.type];
+        ResearchCategory cat = (message.cat.length() > 0) ? ResearchCategories.getResearchCategory(message.cat) : null;
+        RenderEventHandler instance = RenderEventHandler.INSTANCE;
         RenderEventHandler.hudHandler.knowledgeGainTrackers.add(new HudHandler.KnowledgeGainTracker(type, cat, 40 + p.world.rand.nextInt(20), p.world.rand.nextLong()));
         p.world.playSound(p.posX, p.posY, p.posZ, SoundsTC.learn, SoundCategory.AMBIENT, 1.0f, 1.0f, false);
     }

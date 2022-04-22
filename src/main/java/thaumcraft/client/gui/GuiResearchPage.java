@@ -142,10 +142,10 @@ public class GuiResearchPage extends GuiScreen
     private int cycle;
     boolean allowWithPagePopup;
     List tipText;
-    private static final int PAGEWIDTH = 140;
-    private static final int PAGEHEIGHT = 210;
-    private static final PageImage PILINE;
-    private static final PageImage PIDIV;
+    private static int PAGEWIDTH = 140;
+    private static int PAGEHEIGHT = 210;
+    private static PageImage PILINE;
+    private static PageImage PIDIV;
     private ArrayList<Page> pages;
     boolean isComplete;
     boolean hasAllRequisites;
@@ -156,7 +156,7 @@ public class GuiResearchPage extends GuiScreen
     boolean[] hasStats;
     public HashMap<Integer, String> keyCache;
     
-    public GuiResearchPage(final ResearchEntry research, final ResourceLocation recipe, final double x, final double y) {
+    public GuiResearchPage(ResearchEntry research, ResourceLocation recipe, double x, double y) {
         paneWidth = 256;
         paneHeight = 181;
         mouseX = 0;
@@ -215,7 +215,7 @@ public class GuiResearchPage extends GuiScreen
         playerKnowledge = ThaumcraftCapabilities.getKnowledge(mc.player);
         parsePages();
         knownPlayerAspects = new AspectList();
-        for (final Aspect a : Aspect.aspects.values()) {
+        for (Aspect a : Aspect.aspects.values()) {
             if (ThaumcraftCapabilities.knowsResearch(mc.player, "!" + a.getTag().toLowerCase())) {
                 knownPlayerAspects.add(a, 1);
             }
@@ -232,9 +232,9 @@ public class GuiResearchPage extends GuiScreen
         rotY = -45.0f;
     }
     
-    public void drawScreen(final int par1, final int par2, final float par3) {
+    public void drawScreen(int par1, int par2, float par3) {
         hasRecipePages = false;
-        final long nano = System.nanoTime();
+        long nano = System.nanoTime();
         if (nano > lastCheck) {
             parsePages();
             if (hold) {
@@ -250,22 +250,22 @@ public class GuiResearchPage extends GuiScreen
         pt = par3;
         drawDefaultBackground();
         genResearchBackground(par1, par2, par3);
-        final int sw = (width - paneWidth) / 2;
-        final int sh = (height - paneHeight) / 2;
+        int sw = (width - paneWidth) / 2;
+        int sh = (height - paneHeight) / 2;
         if (!GuiResearchPage.history.isEmpty()) {
-            final int mx = par1 - (sw + 118);
-            final int my = par2 - (sh + 190);
+            int mx = par1 - (sw + 118);
+            int my = par2 - (sh + 190);
             if (mx >= 0 && my >= 0 && mx < 20 && my < 12) {
                 mc.fontRenderer.drawStringWithShadow(I18n.translateToLocal("recipe.return"), (float)par1, (float)par2, 16777215);
             }
         }
     }
     
-    protected void genResearchBackground(final int par1, final int par2, final float par3) {
-        final int sw = (width - paneWidth) / 2;
-        final int sh = (height - paneHeight) / 2;
-        final float var10 = (width - paneWidth * 1.3f) / 2.0f;
-        final float var11 = (height - paneHeight * 1.3f) / 2.0f;
+    protected void genResearchBackground(int par1, int par2, float par3) {
+        int sw = (width - paneWidth) / 2;
+        int sh = (height - paneHeight) / 2;
+        float var10 = (width - paneWidth * 1.3f) / 2.0f;
+        float var11 = (height - paneHeight * 1.3f) / 2.0f;
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         mc.renderEngine.bindTexture(tex1);
         GlStateManager.enableBlend();
@@ -291,7 +291,7 @@ public class GuiResearchPage extends GuiScreen
         GlStateManager.blendFunc(770, 771);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         mc.renderEngine.bindTexture(tex1);
-        final float bob = MathHelper.sin(mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
+        float bob = MathHelper.sin(mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
         if (!GuiResearchPage.history.isEmpty()) {
             drawTexturedModalRectScaled(sw + 118, sh + 190, 38, 202, 20, 12, bob);
         }
@@ -307,12 +307,12 @@ public class GuiResearchPage extends GuiScreen
         }
     }
     
-    private void drawPage(final Page pageParm, final int side, final int x, int y, final int mx, final int my) {
+    private void drawPage(Page pageParm, int side, int x, int y, int mx, int my) {
         if (lastCycle < System.currentTimeMillis()) {
             ++cycle;
             lastCycle = System.currentTimeMillis() + 1000L;
             if (GuiResearchPage.cycleMultiblockLines && blockAccess != null) {
-                final BlueprintBlockAccess blockAccess = this.blockAccess;
+                BlueprintBlockAccess blockAccess = this.blockAccess;
                 ++blockAccess.sliceLine;
             }
         }
@@ -321,12 +321,12 @@ public class GuiResearchPage extends GuiScreen
         if (page == 0 && side == 0) {
             drawTexturedModalRect(x + 4, y - 7, 24, 184, 96, 4);
             drawTexturedModalRect(x + 4, y + 10, 24, 184, 96, 4);
-            final int offset = mc.fontRenderer.getStringWidth(research.getLocalizedName());
+            int offset = mc.fontRenderer.getStringWidth(research.getLocalizedName());
             if (offset <= 140) {
                 mc.fontRenderer.drawString(research.getLocalizedName(), x - 15 + 140 / 2 - offset / 2, y, 2105376);
             }
             else {
-                final float vv = 140.0f / offset;
+                float vv = 140.0f / offset;
                 GL11.glPushMatrix();
                 GL11.glTranslatef(x - 15 + 140 / 2 - offset / 2 * vv, y + 1.0f * vv, 0.0f);
                 GL11.glScalef(vv, vv, vv);
@@ -337,10 +337,10 @@ public class GuiResearchPage extends GuiScreen
         }
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
-        for (final Object content : pageParm.contents) {
+        for (Object content : pageParm.contents) {
             if (content instanceof String) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                final String ss = ((String)content).replace("~B", "");
+                String ss = ((String)content).replace("~B", "");
                 mc.fontRenderer.drawString(ss, x - 15 + side * 152, y - 6, 0);
                 y += mc.fontRenderer.FONT_HEIGHT;
                 if (!((String)content).endsWith("~B")) {
@@ -352,11 +352,11 @@ public class GuiResearchPage extends GuiScreen
                 if (!(content instanceof PageImage)) {
                     continue;
                 }
-                final PageImage pi = (PageImage)content;
+                PageImage pi = (PageImage)content;
                 GL11.glPushMatrix();
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                 mc.renderEngine.bindTexture(pi.loc);
-                final int pad = (140 - pi.aw) / 2;
+                int pad = (140 - pi.aw) / 2;
                 GL11.glTranslatef((float)(x - 15 + side * 152 + pad), (float)(y - 5), 0.0f);
                 GL11.glScalef(pi.scale, pi.scale, pi.scale);
                 drawTexturedModalRect(0, 0, pi.x, pi.y, pi.w, pi.h);
@@ -369,7 +369,7 @@ public class GuiResearchPage extends GuiScreen
         if (playerKnowledge.isResearchComplete("FIRSTSTEPS")) {
             y = (height - paneHeight) / 2 + 9;
             mc.renderEngine.bindTexture(tex1);
-            final int le = mouseInside(x - 48, y, 25, 16, mx, my) ? 0 : 3;
+            int le = mouseInside(x - 48, y, 25, 16, mx, my) ? 0 : 3;
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             drawPopupAt(x - 48, y, 25, 16, mx, my, "tc.aspect.name");
             drawTexturedModalRect(x - 48 + le, y, 76, 232, 24 - le, 16);
@@ -378,13 +378,13 @@ public class GuiResearchPage extends GuiScreen
         if (playerKnowledge.isResearchComplete("KNOWLEDGETYPES") && !research.getKey().equals("KNOWLEDGETYPES")) {
             y = (height - paneHeight) / 2 + 32;
             mc.renderEngine.bindTexture(tex1);
-            final int le = mouseInside(x - 48, y, 25, 16, mx, my) ? 0 : 3;
+            int le = mouseInside(x - 48, y, 25, 16, mx, my) ? 0 : 3;
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             drawPopupAt(x - 48, y, 25, 16, mx, my, "tc.knowledge.name");
             drawTexturedModalRect(x - 49 + le, y, 44, 232, 24 - le, 16);
             drawTexturedModalRect(x - 29, y, 100, 232, 4, 16);
         }
-        final ResearchStage stage = research.getStages()[currentStage];
+        ResearchStage stage = research.getStages()[currentStage];
         if (stage.getRecipes() != null) {
             drawRecipeBookmarks(x, mx, my, stage);
         }
@@ -410,19 +410,19 @@ public class GuiResearchPage extends GuiScreen
                 warp = 5;
             }
             GuiResearchBrowser.drawForbidden(x - 57, y - 40);
-            final String s = I18n.translateToLocal("tc.forbidden.level." + warp);
+            String s = I18n.translateToLocal("tc.forbidden.level." + warp);
             mc.fontRenderer.drawString(s, x - 56 - mc.fontRenderer.getStringWidth(s) / 2, y - 43, 11180543);
-            final String text = I18n.translateToLocal("tc.warp.warn");
+            String text = I18n.translateToLocal("tc.warp.warn");
             drawPopupAt(x - 67, y - 50, 20, 20, mx, my, text.replaceAll("%n", s));
         }
     }
     
-    private void drawKnowledgesInsert(final int mx, final int my) {
+    private void drawKnowledgesInsert(int mx, int my) {
         allowWithPagePopup = true;
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         mc.renderEngine.bindTexture(tex4);
-        final int x = (width - 256) / 2;
-        final int y = (height - 256) / 2;
+        int x = (width - 256) / 2;
+        int y = (height - 256) / 2;
         GlStateManager.disableDepth();
         drawTexturedModalRect(x, y, 0, 0, 255, 255);
         GlStateManager.enableDepth();
@@ -433,18 +433,18 @@ public class GuiResearchPage extends GuiScreen
         allowWithPagePopup = false;
     }
     
-    private void drawKnowledges(final int x, int y, final int mx, final int my, final boolean inpage) {
+    private void drawKnowledges(int x, int y, int mx, int my, boolean inpage) {
         y -= 18;
         boolean drewSomething = false;
         int amt = 0;
         int par = 0;
         int tc = 0;
-        final int ka = ResearchCategories.researchCategories.values().size();
-        for (final IPlayerKnowledge.EnumKnowledgeType type : IPlayerKnowledge.EnumKnowledgeType.values()) {
+        int ka = ResearchCategories.researchCategories.values().size();
+        for (IPlayerKnowledge.EnumKnowledgeType type : IPlayerKnowledge.EnumKnowledgeType.values()) {
             int fc = 0;
-            final int hs = (int)(164.0f / ka);
+            int hs = (int)(164.0f / ka);
             boolean b = false;
-            for (final ResearchCategory category : ResearchCategories.researchCategories.values()) {
+            for (ResearchCategory category : ResearchCategories.researchCategories.values()) {
                 if (!type.hasFields() && category != null) {
                     continue;
                 }
@@ -471,7 +471,7 @@ public class GuiResearchPage extends GuiScreen
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                 GL11.glTranslatef(0.0f, 0.0f, 5.0f);
                 String s = "" + amt;
-                final int m = mc.fontRenderer.getStringWidth(s);
+                int m = mc.fontRenderer.getStringWidth(s);
                 mc.fontRenderer.drawStringWithShadow(s, (float)(x - 10 + 16 - m + (inpage ? 18 : hs) * fc), (float)(y - tc * (inpage ? 20 : 28) + 8), 16777215);
                 s = I18n.translateToLocal("tc.type." + type.toString().toLowerCase());
                 if (type.hasFields() && category != null) {
@@ -481,7 +481,7 @@ public class GuiResearchPage extends GuiScreen
                 if (par > 0) {
                     GlStateManager.color(1.0f, 1.0f, 1.0f, 0.75f);
                     mc.renderEngine.bindTexture(tex1);
-                    final int l = (int)(par / (float)type.getProgression() * 16.0f);
+                    int l = (int)(par / (float)type.getProgression() * 16.0f);
                     drawTexturedModalRect(x - 10 + (inpage ? 18 : hs) * fc, y + 17 - tc * (inpage ? 20 : 28), 0, 232, l, 2);
                     drawTexturedModalRect(x - 10 + (inpage ? 18 : hs) * fc + l, y + 17 - tc * (inpage ? 20 : 28), l, 234, 16 - l, 2);
                 }
@@ -500,7 +500,7 @@ public class GuiResearchPage extends GuiScreen
         }
     }
     
-    private void drawRequirements(final int x, final int mx, final int my, final ResearchStage stage) {
+    private void drawRequirements(int x, int mx, int my, ResearchStage stage) {
         int y = (height - paneHeight) / 2 - 16 + 210;
         GL11.glPushMatrix();
         boolean b = false;
@@ -522,21 +522,21 @@ public class GuiResearchPage extends GuiScreen
                     ss = 110 / stage.getResearch().length;
                 }
                 for (int a = 0; a < stage.getResearch().length; ++a) {
-                    final String key = stage.getResearch()[a];
+                    String key = stage.getResearch()[a];
                     loc = ((stage.getResearchIcon()[a] != null) ? new ResourceLocation(stage.getResearchIcon()[a]) : dummyResearch);
                     String text = I18n.translateToLocal("research." + key + ".text");
                     if (key.startsWith("!")) {
-                        final String k = key.replaceAll("!", "");
-                        final Aspect as = Aspect.aspects.get(k);
+                        String k = key.replaceAll("!", "");
+                        Aspect as = Aspect.aspects.get(k);
                         if (as != null) {
                             loc = as;
                             text = as.getName();
                         }
                     }
-                    final ResearchEntry re = ResearchCategories.getResearch(key);
+                    ResearchEntry re = ResearchCategories.getResearch(key);
                     GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                     if (re != null && re.getIcons() != null) {
-                        final int idx = (int)(System.currentTimeMillis() / 1000L % re.getIcons().length);
+                        int idx = (int)(System.currentTimeMillis() / 1000L % re.getIcons().length);
                         loc = re.getIcons()[idx];
                         text = re.getLocalizedName();
                     }
@@ -557,7 +557,7 @@ public class GuiResearchPage extends GuiScreen
                     GL11.glBlendFunc(770, 771);
                     if (loc instanceof Aspect) {
                         mc.renderEngine.bindTexture(((Aspect)loc).getImage());
-                        final Color cc = new Color(((Aspect)loc).getColor());
+                        Color cc = new Color(((Aspect)loc).getColor());
                         GlStateManager.color(cc.getRed() / 255.0f, cc.getGreen() / 255.0f, cc.getBlue() / 255.0f, 1.0f);
                         UtilsFX.drawTexturedQuadFull((float)(x - 15 + shift), (float)y, zLevel);
                     }
@@ -607,7 +607,7 @@ public class GuiResearchPage extends GuiScreen
                     ss2 = 110 / stage.getObtain().length;
                 }
                 for (int idx2 = 0; idx2 < stage.getObtain().length; ++idx2) {
-                    final ItemStack stack = InventoryUtils.cycleItemStack(stage.getObtain()[idx2], idx2);
+                    ItemStack stack = InventoryUtils.cycleItemStack(stage.getObtain()[idx2], idx2);
                     drawStackAt(stack, x - 15 + shift, y, mx, my, true);
                     if (hasItem[idx2]) {
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -638,7 +638,7 @@ public class GuiResearchPage extends GuiScreen
                     ss2 = 110 / stage.getCraft().length;
                 }
                 for (int idx2 = 0; idx2 < stage.getCraft().length; ++idx2) {
-                    final ItemStack stack = InventoryUtils.cycleItemStack(stage.getCraft()[idx2], idx2);
+                    ItemStack stack = InventoryUtils.cycleItemStack(stage.getCraft()[idx2], idx2);
                     drawStackAt(stack, x - 15 + shift, y, mx, my, true);
                     if (hasCraft[idx2]) {
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -669,7 +669,7 @@ public class GuiResearchPage extends GuiScreen
                     ss2 = 110 / stage.getKnow().length;
                 }
                 for (int idx2 = 0; idx2 < stage.getKnow().length; ++idx2) {
-                    final ResearchStage.Knowledge kn = stage.getKnow()[idx2];
+                    ResearchStage.Knowledge kn = stage.getKnow()[idx2];
                     GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                     GL11.glPushMatrix();
                     mc.renderEngine.bindTexture(HudHandler.KNOW_TYPE[kn.type.ordinal()]);
@@ -685,7 +685,7 @@ public class GuiResearchPage extends GuiScreen
                         GL11.glPopMatrix();
                     }
                     GL11.glPopMatrix();
-                    final String am = "" + (hasKnow[idx2] ? "" : TextFormatting.RED) + kn.amount;
+                    String am = "" + (hasKnow[idx2] ? "" : TextFormatting.RED) + kn.amount;
                     GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                     GL11.glPushMatrix();
                     GL11.glTranslatef((float)(x - 15 + shift + 16 - mc.fontRenderer.getStringWidth(am) / 2), (float)(y + 12), 5.0f);
@@ -718,8 +718,8 @@ public class GuiResearchPage extends GuiScreen
                 hrx = x + 20;
                 hry = y - 6;
                 if (hold) {
-                    final String s2 = I18n.translateToLocal("tc.stage.hold");
-                    final int m = mc.fontRenderer.getStringWidth(s2);
+                    String s2 = I18n.translateToLocal("tc.stage.hold");
+                    int m = mc.fontRenderer.getStringWidth(s2);
                     mc.fontRenderer.drawStringWithShadow(s2, x + 52 - m / 2.0f, (float)(y - 4), 16777215);
                 }
                 else {
@@ -731,8 +731,8 @@ public class GuiResearchPage extends GuiScreen
                     }
                     mc.renderEngine.bindTexture(tex1);
                     drawTexturedModalRect(hrx, hry, 84, 216, 64, 12);
-                    final String s2 = I18n.translateToLocal("tc.stage.complete");
-                    final int m = mc.fontRenderer.getStringWidth(s2);
+                    String s2 = I18n.translateToLocal("tc.stage.complete");
+                    int m = mc.fontRenderer.getStringWidth(s2);
                     mc.fontRenderer.drawStringWithShadow(s2, x + 52 - m / 2.0f, (float)(y - 4), 16777215);
                 }
             }
@@ -740,22 +740,22 @@ public class GuiResearchPage extends GuiScreen
         GL11.glPopMatrix();
     }
     
-    private void drawRecipeBookmarks(final int x, final int mx, final int my, final ResearchStage stage) {
-        final Random rng = new Random(rhash);
+    private void drawRecipeBookmarks(int x, int mx, int my, ResearchStage stage) {
+        Random rng = new Random(rhash);
         GL11.glPushMatrix();
         int y = (height - paneHeight) / 2 - 8;
         allowWithPagePopup = true;
         if (recipeOutputs.size() > 0) {
-            final int space = Math.min(25, 200 / recipeOutputs.size());
-            for (final ResourceLocation rk : recipeOutputs.keySet()) {
-                final List list = recipeOutputs.get(rk);
+            int space = Math.min(25, 200 / recipeOutputs.size());
+            for (ResourceLocation rk : recipeOutputs.keySet()) {
+                List list = recipeOutputs.get(rk);
                 if (list != null && list.size() > 0) {
-                    final int i = cycle % list.size();
+                    int i = cycle % list.size();
                     if (list.get(i) == null) {
                         continue;
                     }
-                    final int sh = rng.nextInt(3);
-                    final int le = rng.nextInt(3) + (mouseInside(x + 280, y - 1, 30, 16, mx, my) ? 0 : 3);
+                    int sh = rng.nextInt(3);
+                    int le = rng.nextInt(3) + (mouseInside(x + 280, y - 1, 30, 16, mx, my) ? 0 : 3);
                     mc.renderEngine.bindTexture(tex1);
                     if (rk.equals(GuiResearchPage.shownRecipe)) {
                         GlStateManager.color(1.0f, 0.5f, 0.5f, 1.0f);
@@ -775,7 +775,7 @@ public class GuiResearchPage extends GuiScreen
                         if (ba == null) {
                             blockAccessIcons.put(rk, ba = new BlueprintBlockAccess((Part[][][]) list.get(i), true));
                         }
-                        final int h = ((Part[][][])list.get(i)).length;
+                        int h = ((Part[][][])list.get(i)).length;
                         renderBluePrint(ba, x + 295 + sh - le, y + 6 + h, 4.0f, (Part[][][]) list.get(i), -5000, -5000, null);
                     }
                     UtilsFX.hideStackOverlay = false;
@@ -787,28 +787,28 @@ public class GuiResearchPage extends GuiScreen
         GL11.glPopMatrix();
     }
     
-    private void generateRecipesLists(final ResearchStage stage, final ResearchAddendum[] addenda) {
+    private void generateRecipesLists(ResearchStage stage, ResearchAddendum[] addenda) {
         recipeLists.clear();
         recipeOutputs.clear();
         if (stage == null || stage.getRecipes() == null) {
             return;
         }
-        for (final ResourceLocation rk : stage.getRecipes()) {
+        for (ResourceLocation rk : stage.getRecipes()) {
             addRecipesToList(rk, recipeLists, recipeOutputs, rk);
         }
         if (addenda == null) {
             return;
         }
-        for (final ResearchAddendum addendum : addenda) {
+        for (ResearchAddendum addendum : addenda) {
             if (addendum.getRecipes() != null && ThaumcraftCapabilities.knowsResearchStrict(mc.player, addendum.getResearch())) {
-                for (final ResourceLocation rk2 : addendum.getRecipes()) {
+                for (ResourceLocation rk2 : addendum.getRecipes()) {
                     addRecipesToList(rk2, recipeLists, recipeOutputs, rk2);
                 }
             }
         }
     }
     
-    private void addRecipesToList(final ResourceLocation rk, final LinkedHashMap<ResourceLocation, ArrayList> recipeLists2, final LinkedHashMap<ResourceLocation, ArrayList> recipeOutputs2, final ResourceLocation rkey) {
+    private void addRecipesToList(ResourceLocation rk, LinkedHashMap<ResourceLocation, ArrayList> recipeLists2, LinkedHashMap<ResourceLocation, ArrayList> recipeOutputs2, ResourceLocation rkey) {
         Object recipe = CommonInternals.getCatalogRecipe(rk);
         if (recipe == null) {
             recipe = CommonInternals.getCatalogRecipeFake(rk);
@@ -823,7 +823,7 @@ public class GuiResearchPage extends GuiScreen
             return;
         }
         if (recipe instanceof ArrayList) {
-            for (final ResourceLocation rl : (ArrayList<ResourceLocation>)recipe) {
+            for (ResourceLocation rl : (ArrayList<ResourceLocation>)recipe) {
                 addRecipesToList(rl, recipeLists2, recipeOutputs2, rk);
             }
         }
@@ -832,10 +832,10 @@ public class GuiResearchPage extends GuiScreen
                 recipeLists2.put(rkey, new ArrayList());
                 recipeOutputs2.put(rkey, new ArrayList());
             }
-            final ArrayList list = recipeLists2.get(rkey);
-            final ArrayList outputs = recipeOutputs2.get(rkey);
+            ArrayList list = recipeLists2.get(rkey);
+            ArrayList outputs = recipeOutputs2.get(rkey);
             if (recipe instanceof ThaumcraftApi.BluePrint) {
-                final ThaumcraftApi.BluePrint r = (ThaumcraftApi.BluePrint)recipe;
+                ThaumcraftApi.BluePrint r = (ThaumcraftApi.BluePrint)recipe;
                 if (ThaumcraftCapabilities.knowsResearchStrict(mc.player, r.getResearch())) {
                     list.add(r);
                     if (r.getDisplayStack() != null) {
@@ -847,23 +847,23 @@ public class GuiResearchPage extends GuiScreen
                 }
             }
             else if (recipe instanceof CrucibleRecipe) {
-                final CrucibleRecipe re = (CrucibleRecipe)recipe;
-                final ItemStack is = InventoryUtils.cycleItemStack(re.getCatalyst(), 0);
+                CrucibleRecipe re = (CrucibleRecipe)recipe;
+                ItemStack is = InventoryUtils.cycleItemStack(re.getCatalyst(), 0);
                 if (is != null && !is.isEmpty() && ThaumcraftCapabilities.knowsResearchStrict(mc.player, re.getResearch())) {
                     list.add(re);
                     outputs.add(re.getRecipeOutput());
                 }
             }
             else if (recipe instanceof InfusionRecipe) {
-                final InfusionRecipe re2 = (InfusionRecipe)recipe;
+                InfusionRecipe re2 = (InfusionRecipe)recipe;
                 ItemStack is = null;
                 if (re2 instanceof InfusionEnchantmentRecipe) {
                     is = InventoryUtils.cycleItemStack(re2.getRecipeOutput(mc.player, re2.getRecipeInput().getMatchingStacks()[0].copy(), null), 0);
                 }
                 else if (re2 instanceof InfusionRunicAugmentRecipe) {
-                    final NonNullList<Ingredient> il = ((InfusionRunicAugmentRecipe)re2).getComponents(re2.getRecipeInput().getMatchingStacks()[0]);
-                    final List<ItemStack> cl = new ArrayList<ItemStack>();
-                    for (final Ingredient i : il) {
+                    NonNullList<Ingredient> il = ((InfusionRunicAugmentRecipe)re2).getComponents(re2.getRecipeInput().getMatchingStacks()[0]);
+                    List<ItemStack> cl = new ArrayList<ItemStack>();
+                    for (Ingredient i : il) {
                         cl.add(i.getMatchingStacks()[0]);
                     }
                     is = InventoryUtils.cycleItemStack(re2.getRecipeOutput(mc.player, re2.getRecipeInput().getMatchingStacks()[0].copy(), cl), 0);
@@ -877,11 +877,11 @@ public class GuiResearchPage extends GuiScreen
                         is = is.copy();
                     }
                     try {
-                        final Object[] obj = (Object[])re2.getRecipeOutput();
-                        final NBTBase tag = (NBTBase)obj[1];
+                        Object[] obj = (Object[])re2.getRecipeOutput();
+                        NBTBase tag = (NBTBase)obj[1];
                         is.setTagInfo((String)obj[0], tag);
                     }
-                    catch (final Exception ex) {}
+                    catch (Exception ex) {}
                 }
                 if (is != null && ThaumcraftCapabilities.knowsResearchStrict(mc.player, re2.research)) {
                     list.add(re2);
@@ -889,32 +889,32 @@ public class GuiResearchPage extends GuiScreen
                 }
             }
             else if (recipe instanceof IArcaneRecipe) {
-                final IArcaneRecipe re3 = (IArcaneRecipe)recipe;
-                final ItemStack is = InventoryUtils.cycleItemStack(re3.getRecipeOutput(), 0);
+                IArcaneRecipe re3 = (IArcaneRecipe)recipe;
+                ItemStack is = InventoryUtils.cycleItemStack(re3.getRecipeOutput(), 0);
                 if (is != null && !is.isEmpty() && ThaumcraftCapabilities.knowsResearchStrict(mc.player, re3.getResearch())) {
                     list.add(re3);
                     outputs.add(re3.getRecipeOutput());
                 }
             }
             else if (recipe instanceof IRecipe) {
-                final IRecipe re4 = (IRecipe)recipe;
+                IRecipe re4 = (IRecipe)recipe;
                 list.add(re4);
                 outputs.add(re4.getRecipeOutput());
             }
             else if (recipe instanceof RecipeMisc) {
-                final RecipeMisc re5 = (RecipeMisc)recipe;
+                RecipeMisc re5 = (RecipeMisc)recipe;
                 list.add(re5);
                 outputs.add(re5.getOutput());
             }
         }
     }
     
-    private void drawRecipe(final int mx, final int my) {
+    private void drawRecipe(int mx, int my) {
         allowWithPagePopup = true;
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         mc.renderEngine.bindTexture(tex4);
-        final int x = (width - 256) / 2;
-        final int y = (height - 256) / 2;
+        int x = (width - 256) / 2;
+        int y = (height - 256) / 2;
         GlStateManager.disableDepth();
         drawTexturedModalRect(x, y, 0, 0, 255, 255);
         GlStateManager.enableDepth();
@@ -928,7 +928,7 @@ public class GuiResearchPage extends GuiScreen
             if (recipePage > recipePageMax) {
                 recipePage = recipePageMax;
             }
-            final Object recipe = list.get(recipePage % list.size());
+            Object recipe = list.get(recipePage % list.size());
             if (recipe != null) {
                 if (recipe instanceof IArcaneRecipe) {
                     drawArcaneCraftingPage(x + 128, y + 128, mx, my, (IArcaneRecipe)recipe);
@@ -949,7 +949,7 @@ public class GuiResearchPage extends GuiScreen
             }
             if (hasRecipePages) {
                 mc.renderEngine.bindTexture(tex1);
-                final float bob = MathHelper.sin(mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
+                float bob = MathHelper.sin(mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
                 if (recipePage > 0) {
                     drawTexturedModalRectScaled(x + 40, y + 232, 0, 184, 12, 8, bob);
                 }
@@ -961,32 +961,32 @@ public class GuiResearchPage extends GuiScreen
         allowWithPagePopup = false;
     }
     
-    private void drawCompoundCraftingPage(final int x, final int y, final int mx, final int my, final ThaumcraftApi.BluePrint recipe) {
+    private void drawCompoundCraftingPage(int x, int y, int mx, int my, ThaumcraftApi.BluePrint recipe) {
         if (recipe.getParts() == null) {
             return;
         }
         if (blockAccess == null) {
             blockAccess = new BlueprintBlockAccess(recipe.getParts(), false);
         }
-        final int ySize = recipe.getParts().length;
-        final int xSize = recipe.getParts()[0].length;
-        final int zSize = recipe.getParts()[0][0].length;
-        final String text = I18n.translateToLocal("recipe.type.construct");
-        final int offset = mc.fontRenderer.getStringWidth(text);
+        int ySize = recipe.getParts().length;
+        int xSize = recipe.getParts()[0].length;
+        int zSize = recipe.getParts()[0][0].length;
+        String text = I18n.translateToLocal("recipe.type.construct");
+        int offset = mc.fontRenderer.getStringWidth(text);
         mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
-        final int s = Math.max(Math.max(xSize, zSize), ySize) * 2;
-        final float scale = (float)(38 - s);
+        int s = Math.max(Math.max(xSize, zSize), ySize) * 2;
+        float scale = (float)(38 - s);
         renderBluePrint(blockAccess, x, y, scale, recipe.getParts(), mx, my, recipe.getIngredientList());
         mc.renderEngine.bindTexture(tex1);
         GlStateManager.color(1.0f, 1.0f, 1.0f, mouseInside(x + 80, y + 100, 8, 8, mx, my) ? 1.0f : 0.75f);
         drawTexturedModalRect(x + 80, y + 100, GuiResearchPage.cycleMultiblockLines ? 168 : 160, 224, 8, 8);
     }
     
-    private void renderBluePrint(final BlueprintBlockAccess ba, final int x, final int y, final float scale, final Part[][][] blueprint, final int mx, final int my, final ItemStack[] ingredients) {
-        final BlockRendererDispatcher blockRender = Minecraft.getMinecraft().getBlockRendererDispatcher();
-        final int ySize = blueprint.length;
-        final int xSize = blueprint[0].length;
-        final int zSize = blueprint[0][0].length;
+    private void renderBluePrint(BlueprintBlockAccess ba, int x, int y, float scale, Part[][][] blueprint, int mx, int my, ItemStack[] ingredients) {
+        BlockRendererDispatcher blockRender = Minecraft.getMinecraft().getBlockRendererDispatcher();
+        int ySize = blueprint.length;
+        int xSize = blueprint[0].length;
+        int zSize = blueprint[0][0].length;
         transX = (float)(x - xSize / 2);
         transY = y - (float)Math.sqrt(ySize * ySize + xSize * xSize + zSize * zSize) / 2.0f;
         GlStateManager.enableRescaleNormal();
@@ -1005,33 +1005,33 @@ public class GuiResearchPage extends GuiScreen
             GlStateManager.shadeModel(7424);
         }
         mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        final ArrayList<ItemStack> blocks = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> blocks = new ArrayList<ItemStack>();
         for (int h = 0; h < ySize; ++h) {
             for (int l = 0; l < xSize; ++l) {
                 for (int w = 0; w < zSize; ++w) {
-                    final BlockPos pos = new BlockPos(l, h, w);
+                    BlockPos pos = new BlockPos(l, h, w);
                     if (!ba.isAirBlock(pos)) {
                         GlStateManager.translate((float)l, (float)h, (float)w);
                         GlStateManager.translate((float)(-l), (float)(-h), (float)(-w));
-                        final IBlockState state = ba.getBlockState(pos);
-                        final Tessellator tessellator = Tessellator.getInstance();
-                        final BufferBuilder buffer = tessellator.getBuffer();
+                        IBlockState state = ba.getBlockState(pos);
+                        Tessellator tessellator = Tessellator.getInstance();
+                        BufferBuilder buffer = tessellator.getBuffer();
                         buffer.begin(7, DefaultVertexFormats.BLOCK);
-                        final boolean b = blockRender.renderBlock(state, pos, ba, buffer);
+                        boolean b = blockRender.renderBlock(state, pos, ba, buffer);
                         tessellator.draw();
                         try {
                             if (!b && state.getBlock().hasTileEntity(state)) {
-                                final TileEntity te = state.getBlock().createTileEntity(mc.world, state);
+                                TileEntity te = state.getBlock().createTileEntity(mc.world, state);
                                 RenderHelper.enableStandardItemLighting();
-                                final int i = 250;
-                                final int j = i % 65536;
-                                final int k = i / 65536;
+                                int i = 250;
+                                int j = i % 65536;
+                                int k = i / 65536;
                                 OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
                                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                                 TileEntityRendererDispatcher.instance.render(te, pos.getX(), pos.getY(), pos.getZ(), mc.getRenderPartialTicks());
                             }
                         }
-                        catch (final Exception ex) {}
+                        catch (Exception ex) {}
                     }
                 }
             }
@@ -1060,12 +1060,12 @@ public class GuiResearchPage extends GuiScreen
         RenderHelper.disableStandardItemLighting();
     }
     
-    private void drawAspectsInsert(final int mx, final int my) {
+    private void drawAspectsInsert(int mx, int my) {
         allowWithPagePopup = true;
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         mc.renderEngine.bindTexture(tex4);
-        final int x = (width - 256) / 2;
-        final int y = (height - 256) / 2;
+        int x = (width - 256) / 2;
+        int y = (height - 256) / 2;
         GlStateManager.disableDepth();
         drawTexturedModalRect(x, y, 0, 0, 255, 255);
         GlStateManager.enableDepth();
@@ -1073,21 +1073,21 @@ public class GuiResearchPage extends GuiScreen
         allowWithPagePopup = false;
     }
     
-    private void drawAspectPage(final int x, final int y, final int mx, final int my) {
+    private void drawAspectPage(int x, int y, int mx, int my) {
         if (knownPlayerAspects != null && knownPlayerAspects.size() > 0) {
             GL11.glPushMatrix();
-            final int mposx = mx;
-            final int mposy = my;
+            int mposx = mx;
+            int mposy = my;
             int count = -1;
-            final int start = GuiResearchPage.aspectsPage * 5;
-            for (final Aspect aspect : knownPlayerAspects.getAspectsSortedByName()) {
+            int start = GuiResearchPage.aspectsPage * 5;
+            for (Aspect aspect : knownPlayerAspects.getAspectsSortedByName()) {
                 if (++count >= start) {
                     if (count > start + 4) {
                         break;
                     }
                     if (aspect.getImage() != null) {
-                        final int tx = x;
-                        final int ty = y + count % 5 * 40;
+                        int tx = x;
+                        int ty = y + count % 5 * 40;
                         if (mposx >= tx && mposy >= ty && mposx < tx + 40 && mposy < ty + 40) {
                             mc.renderEngine.bindTexture(tex3);
                             GL11.glPushMatrix();
@@ -1164,7 +1164,7 @@ public class GuiResearchPage extends GuiScreen
                 }
             }
             mc.renderEngine.bindTexture(tex1);
-            final float bob = MathHelper.sin(mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
+            float bob = MathHelper.sin(mc.player.ticksExisted / 3.0f) * 0.2f + 0.1f;
             if (GuiResearchPage.aspectsPage > 0) {
                 drawTexturedModalRectScaled(x - 20, y + 208, 0, 184, 12, 8, bob);
             }
@@ -1175,7 +1175,7 @@ public class GuiResearchPage extends GuiScreen
         }
     }
     
-    private void drawArcaneCraftingPage(final int x, final int y, final int mx, final int my, final IArcaneRecipe recipe) {
+    private void drawArcaneCraftingPage(int x, int y, int mx, int my, IArcaneRecipe recipe) {
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
         GL11.glPushMatrix();
@@ -1204,11 +1204,11 @@ public class GuiResearchPage extends GuiScreen
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glTranslated(0.0, 0.0, 100.0);
         drawStackAt(InventoryUtils.cycleItemStack(recipe.getRecipeOutput(), 0), x - 8, y - 84, mx, my, false);
-        final AspectList crystals = recipe.getCrystals();
+        AspectList crystals = recipe.getCrystals();
         if (crystals != null) {
             int a = 0;
-            final int sz = crystals.size();
-            for (final Aspect aspect : crystals.getAspects()) {
+            int sz = crystals.size();
+            for (Aspect aspect : crystals.getAspects()) {
                 drawStackAt(InventoryUtils.cycleItemStack(ThaumcraftApiHelper.makeCrystal(aspect, crystals.getAmount(aspect)), a), x + 4 - sz * 10 + a * 20, y + 59, mx, my, true);
                 ++a;
             }
@@ -1217,9 +1217,9 @@ public class GuiResearchPage extends GuiScreen
             text = I18n.translateToLocal("recipe.type.arcane");
             offset = mc.fontRenderer.getStringWidth(text);
             mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
-            final int rw = ((ShapedArcaneRecipe)recipe).getRecipeWidth();
-            final int rh = ((ShapedArcaneRecipe)recipe).getRecipeHeight();
-            final NonNullList<Ingredient> items = recipe.getIngredients();
+            int rw = ((ShapedArcaneRecipe)recipe).getRecipeWidth();
+            int rh = ((ShapedArcaneRecipe)recipe).getRecipeHeight();
+            NonNullList<Ingredient> items = recipe.getIngredients();
             for (int i = 0; i < rw && i < 3; ++i) {
                 for (int j = 0; j < rh && j < 3; ++j) {
                     if (items.get(i + j * rw) != null) {
@@ -1232,7 +1232,7 @@ public class GuiResearchPage extends GuiScreen
             text = I18n.translateToLocal("recipe.type.arcane.shapeless");
             offset = mc.fontRenderer.getStringWidth(text);
             mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
-            final NonNullList<Ingredient> items2 = recipe.getIngredients();
+            NonNullList<Ingredient> items2 = recipe.getIngredients();
             for (int k = 0; k < items2.size() && k < 9; ++k) {
                 if (items2.get(k) != null) {
                     drawStackAt(InventoryUtils.cycleItemStack(items2.get(k), k), x - 40 + k % 3 * 32, y - 40 + k / 3 * 32, mx, my, true);
@@ -1242,7 +1242,7 @@ public class GuiResearchPage extends GuiScreen
         GL11.glPopMatrix();
     }
     
-    private void drawCraftingPage(final int x, final int y, final int mx, final int my, final IRecipe recipe) {
+    private void drawCraftingPage(int x, int y, int mx, int my, IRecipe recipe) {
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
         if (recipe == null) {
@@ -1261,12 +1261,12 @@ public class GuiResearchPage extends GuiScreen
         GL11.glPopMatrix();
         drawStackAt(InventoryUtils.cycleItemStack(recipe.getRecipeOutput(), 0), x - 8, y - 84, mx, my, false);
         if (recipe != null && recipe instanceof IShapedRecipe) {
-            final String text = I18n.translateToLocal("recipe.type.workbench");
-            final int offset = mc.fontRenderer.getStringWidth(text);
+            String text = I18n.translateToLocal("recipe.type.workbench");
+            int offset = mc.fontRenderer.getStringWidth(text);
             mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
-            final int rw = ((IShapedRecipe)recipe).getRecipeWidth();
-            final int rh = ((IShapedRecipe)recipe).getRecipeHeight();
-            final NonNullList<Ingredient> items = recipe.getIngredients();
+            int rw = ((IShapedRecipe)recipe).getRecipeWidth();
+            int rh = ((IShapedRecipe)recipe).getRecipeHeight();
+            NonNullList<Ingredient> items = recipe.getIngredients();
             for (int i = 0; i < rw && i < 3; ++i) {
                 for (int j = 0; j < rh && j < 3; ++j) {
                     if (items.get(i + j * rw) != null) {
@@ -1276,10 +1276,10 @@ public class GuiResearchPage extends GuiScreen
             }
         }
         if (recipe != null && (recipe instanceof ShapelessRecipes || recipe instanceof ShapelessOreRecipe)) {
-            final String text = I18n.translateToLocal("recipe.type.workbenchshapeless");
-            final int offset = mc.fontRenderer.getStringWidth(text);
+            String text = I18n.translateToLocal("recipe.type.workbenchshapeless");
+            int offset = mc.fontRenderer.getStringWidth(text);
             mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
-            final NonNullList<Ingredient> items2 = recipe.getIngredients();
+            NonNullList<Ingredient> items2 = recipe.getIngredients();
             for (int k = 0; k < items2.size() && k < 9; ++k) {
                 if (items2.get(k) != null) {
                     drawStackAt(InventoryUtils.cycleItemStack(items2.get(k), k), x - 40 + k % 3 * 32, y - 40 + k / 3 * 32, mx, my, true);
@@ -1289,13 +1289,13 @@ public class GuiResearchPage extends GuiScreen
         GL11.glPopMatrix();
     }
     
-    private void drawCruciblePage(final int x, final int y, final int mx, final int my, final CrucibleRecipe rc) {
+    private void drawCruciblePage(int x, int y, int mx, int my, CrucibleRecipe rc) {
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
         if (rc != null) {
             GL11.glPushMatrix();
-            final String text = I18n.translateToLocal("recipe.type.crucible");
-            final int offset = mc.fontRenderer.getStringWidth(text);
+            String text = I18n.translateToLocal("recipe.type.crucible");
+            int offset = mc.fontRenderer.getStringWidth(text);
             mc.fontRenderer.drawString(text, x - offset / 2, y - 104, 5263440);
             mc.renderEngine.bindTexture(tex2);
             GL11.glPushMatrix();
@@ -1310,33 +1310,33 @@ public class GuiResearchPage extends GuiScreen
             GL11.glTranslatef(0.0f, -8.0f, 0.0f);
             drawTexturedModalRect(-25, -50, 100, 84, 11, 13);
             GL11.glPopMatrix();
-            final int mposx = mx;
-            final int mposy = my;
+            int mposx = mx;
+            int mposy = my;
             int total = 0;
-            final int rows = (rc.getAspects().size() - 1) / 3;
-            final int shift = (3 - rc.getAspects().size() % 3) * 10;
-            final int sx = x - 28;
-            final int sy = y + 8 - 10 * rows;
-            for (final Aspect tag : rc.getAspects().getAspectsSortedByName()) {
+            int rows = (rc.getAspects().size() - 1) / 3;
+            int shift = (3 - rc.getAspects().size() % 3) * 10;
+            int sx = x - 28;
+            int sy = y + 8 - 10 * rows;
+            for (Aspect tag : rc.getAspects().getAspectsSortedByName()) {
                 int m = 0;
                 if (total / 3 >= rows && (rows > 1 || rc.getAspects().size() < 3)) {
                     m = 1;
                 }
-                final int vx = sx + total % 3 * 20 + shift * m;
-                final int vy = sy + total / 3 * 20;
+                int vx = sx + total % 3 * 20 + shift * m;
+                int vy = sy + total / 3 * 20;
                 UtilsFX.drawTag(vx, vy, tag, (float)rc.getAspects().getAmount(tag), 0, zLevel);
                 ++total;
             }
             drawStackAt(rc.getRecipeOutput(), x - 8, y - 50, mx, my, false);
             drawStackAt(InventoryUtils.cycleItemStack(rc.getCatalyst(), 0), x - 64, y - 56, mx, my, true);
             total = 0;
-            for (final Aspect tag : rc.getAspects().getAspectsSortedByName()) {
+            for (Aspect tag : rc.getAspects().getAspectsSortedByName()) {
                 int m = 0;
                 if (total / 3 >= rows && (rows > 1 || rc.getAspects().size() < 3)) {
                     m = 1;
                 }
-                final int vx = sx + total % 3 * 20 + shift * m;
-                final int vy = sy + total / 3 * 20;
+                int vx = sx + total % 3 * 20 + shift * m;
+                int vy = sy + total / 3 * 20;
                 if (mposx >= vx && mposy >= vy && mposx < vx + 16 && mposy < vy + 16) {
                     tipText = Arrays.asList(tag.getName(), tag.getLocalizedDescription());
                 }
@@ -1346,7 +1346,7 @@ public class GuiResearchPage extends GuiScreen
         }
     }
     
-    private void drawInfusionPage(final int x, final int y, final int mx, final int my, final InfusionRecipe ri) {
+    private void drawInfusionPage(int x, int y, int mx, int my, InfusionRecipe ri) {
         if (ri != null) {
             NonNullList<Ingredient> components = ri.getComponents();
             GlStateManager.enableBlend();
@@ -1355,17 +1355,17 @@ public class GuiResearchPage extends GuiScreen
             AspectList aspects = ri.getAspects();
             Object output = ri.getRecipeOutput();
             if (ri instanceof InfusionRunicAugmentRecipe) {
-                final NonNullList<Ingredient> c = components = ((InfusionRunicAugmentRecipe)ri).getComponents(ri.getRecipeInput().getMatchingStacks()[0]);
-                final ArrayList<ItemStack> com = new ArrayList<ItemStack>();
-                for (final Ingredient s : c) {
+                NonNullList<Ingredient> c = components = ((InfusionRunicAugmentRecipe)ri).getComponents(ri.getRecipeInput().getMatchingStacks()[0]);
+                ArrayList<ItemStack> com = new ArrayList<ItemStack>();
+                for (Ingredient s : c) {
                     com.add(s.getMatchingStacks()[0]);
                 }
                 aspects = ri.getAspects(mc.player, ri.getRecipeInput().getMatchingStacks()[0], com);
                 output = ri.getRecipeOutput(mc.player, ri.getRecipeInput().getMatchingStacks()[0], com);
             }
             if (ri instanceof InfusionEnchantmentRecipe) {
-                final ArrayList<ItemStack> com2 = new ArrayList<ItemStack>();
-                for (final Object s2 : components) {
+                ArrayList<ItemStack> com2 = new ArrayList<ItemStack>();
+                for (Object s2 : components) {
                     if (s2 instanceof ItemStack) {
                         com2.add((ItemStack)s2);
                     }
@@ -1387,20 +1387,20 @@ public class GuiResearchPage extends GuiScreen
             GL11.glTranslatef(0.0f, 19.0f, 0.0f);
             drawTexturedModalRect(-28, -55, 200, 77, 60, 44);
             GL11.glPopMatrix();
-            final int mposx = mx;
-            final int mposy = my;
+            int mposx = mx;
+            int mposy = my;
             int total = 0;
             int rows = (aspects.size() - 1) / 5;
             int shift = (5 - aspects.size() % 5) * 10;
             int sx = x - 48;
             int sy = y + 50 - 10 * rows;
-            for (final Aspect tag : aspects.getAspectsSortedByName()) {
+            for (Aspect tag : aspects.getAspectsSortedByName()) {
                 int m = 0;
                 if (total / 5 >= rows && (rows > 1 || aspects.size() < 5)) {
                     m = 1;
                 }
-                final int vx = sx + total % 5 * 20 + shift * m;
-                final int vy = sy + total / 5 * 20;
+                int vx = sx + total % 5 * 20 + shift * m;
+                int vy = sy + total / 5 * 20;
                 UtilsFX.drawTag(vx, vy, tag, (float)aspects.getAmount(tag), 0, zLevel);
                 ++total;
             }
@@ -1411,42 +1411,42 @@ public class GuiResearchPage extends GuiScreen
             else {
                 idisp = InventoryUtils.cycleItemStack(ri.getRecipeInput()).copy();
                 try {
-                    final Object[] obj = (Object[])output;
-                    final NBTBase tag2 = (NBTBase)obj[1];
+                    Object[] obj = (Object[])output;
+                    NBTBase tag2 = (NBTBase)obj[1];
                     idisp.setTagInfo((String)obj[0], tag2);
                 }
-                catch (final Exception ex) {}
+                catch (Exception ex) {}
             }
             drawStackAt(idisp, x - 8, y - 85, mx, my, false);
-            final ItemStack rinp = InventoryUtils.cycleItemStack(ri.getRecipeInput()).copy();
+            ItemStack rinp = InventoryUtils.cycleItemStack(ri.getRecipeInput()).copy();
             drawStackAt(rinp, x - 8, y - 16, mx, my, true);
             GL11.glPushMatrix();
             GL11.glTranslated(0.0, 0.0, 100.0);
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-            final int le = components.size();
-            final ArrayList<PosXY> coords = new ArrayList<PosXY>();
-            final float pieSlice = (float)(360 / le);
+            int le = components.size();
+            ArrayList<PosXY> coords = new ArrayList<PosXY>();
+            float pieSlice = (float)(360 / le);
             float currentRot = -90.0f;
             for (int a = 0; a < le; ++a) {
-                final int xx = (int)(MathHelper.cos(currentRot / 180.0f * 3.1415927f) * 40.0f) - 8;
-                final int yy = (int)(MathHelper.sin(currentRot / 180.0f * 3.1415927f) * 40.0f) - 8;
+                int xx = (int)(MathHelper.cos(currentRot / 180.0f * 3.1415927f) * 40.0f) - 8;
+                int yy = (int)(MathHelper.sin(currentRot / 180.0f * 3.1415927f) * 40.0f) - 8;
                 currentRot += pieSlice;
                 coords.add(new PosXY(xx, yy));
             }
-            final ArrayList<ItemStack> cmps = new ArrayList<ItemStack>();
+            ArrayList<ItemStack> cmps = new ArrayList<ItemStack>();
             total = 0;
             sx = x;
             sy = y - 8;
-            for (final Ingredient ingredient : components) {
-                final int vx2 = sx + coords.get(total).x;
-                final int vy2 = sy + coords.get(total).y;
-                final ItemStack is = InventoryUtils.cycleItemStack(ingredient);
+            for (Ingredient ingredient : components) {
+                int vx2 = sx + coords.get(total).x;
+                int vy2 = sy + coords.get(total).y;
+                ItemStack is = InventoryUtils.cycleItemStack(ingredient);
                 drawStackAt(is.copy().splitStack(1), vx2, vy2, mx, my, true);
                 ++total;
                 cmps.add(is.copy());
             }
             GL11.glPopMatrix();
-            final int inst = Math.min(5, ri.getInstability(mc.player, rinp, cmps) / 2);
+            int inst = Math.min(5, ri.getInstability(mc.player, rinp, cmps) / 2);
             text = I18n.translateToLocal("tc.inst") + " " + I18n.translateToLocal("tc.inst." + inst);
             offset = mc.fontRenderer.getStringWidth(text);
             mc.fontRenderer.drawString(text, x - offset / 2, y + 94, 5263440);
@@ -1455,13 +1455,13 @@ public class GuiResearchPage extends GuiScreen
             shift = (5 - aspects.size() % 5) * 10;
             sx = x - 48;
             sy = y + 50 - 10 * rows;
-            for (final Aspect tag3 : aspects.getAspectsSortedByName()) {
+            for (Aspect tag3 : aspects.getAspectsSortedByName()) {
                 int i = 0;
                 if (total / 5 >= rows && (rows > 1 || aspects.size() < 5)) {
                     i = 1;
                 }
-                final int vx3 = sx + total % 5 * 20 + shift * i;
-                final int vy3 = sy + total / 5 * 20;
+                int vx3 = sx + total % 5 * 20 + shift * i;
+                int vy3 = sy + total / 5 * 20;
                 if (mposx >= vx3 && mposy >= vy3 && mposx < vx3 + 16 && mposy < vy3 + 16) {
                     tipText = Arrays.asList(tag3.getName(), tag3.getLocalizedDescription());
                 }
@@ -1471,7 +1471,7 @@ public class GuiResearchPage extends GuiScreen
         }
     }
     
-    protected void keyTyped(final char par1, final int par2) throws IOException {
+    protected void keyTyped(char par1, int par2) throws IOException {
         if (par2 == mc.gameSettings.keyBindInventory.getKeyCode() || par2 == 1) {
             GuiResearchPage.history.clear();
             if (GuiResearchPage.shownRecipe != null || showingAspects || showingKnowledge) {
@@ -1528,10 +1528,10 @@ public class GuiResearchPage extends GuiScreen
         }
     }
     
-    protected void mouseClicked(final int par1, final int par2, final int par3) {
+    protected void mouseClicked(int par1, int par2, int par3) {
         checkRequisites();
-        final int var4 = (width - paneWidth) / 2;
-        final int var5 = (height - paneHeight) / 2;
+        int var4 = (width - paneWidth) / 2;
+        int var5 = (height - paneHeight) / 2;
         int mx = par1 - hrx;
         int my = par2 - hry;
         if (GuiResearchPage.shownRecipe == null && !hold && hasAllRequisites && mx >= 0 && my >= 0 && mx < 64 && my < 12) {
@@ -1584,8 +1584,8 @@ public class GuiResearchPage extends GuiScreen
         }
         if (recipeLists.size() > 0) {
             int aa = 0;
-            final int space = Math.min(25, 200 / recipeLists.size());
-            for (final ResourceLocation rk : recipeLists.keySet()) {
+            int space = Math.min(25, 200 / recipeLists.size());
+            for (ResourceLocation rk : recipeLists.keySet()) {
                 mx = par1 - (var4 + 280);
                 my = par2 - (var5 - 8 + aa * space);
                 if (mx >= 0 && my >= 0 && mx < 30 && my < 16) {
@@ -1639,12 +1639,12 @@ public class GuiResearchPage extends GuiScreen
             GuiResearchPage.cycleMultiblockLines = !GuiResearchPage.cycleMultiblockLines;
         }
         if (reference.size() > 0) {
-            for (final List coords : reference) { //(int, int, RL, String)
+            for (List coords : reference) { //(int, int, RL, String)
                 if (par1 >= (int)coords.get(0) && par2 >= (int)coords.get(1) && par1 < (int)coords.get(0) + 16 && par2 < (int)coords.get(1) + 16) {
                     try {
                         Minecraft.getMinecraft().player.playSound(SoundsTC.page, 0.66f, 1.0f);
                     }
-                    catch (final Exception ex) {}
+                    catch (Exception ex) {}
                     if (GuiResearchPage.shownRecipe != null) {
                         GuiResearchPage.history.push(new ResourceLocation(GuiResearchPage.shownRecipe.getResourceDomain(), GuiResearchPage.shownRecipe.getResourcePath()));
                     }
@@ -1661,43 +1661,43 @@ public class GuiResearchPage extends GuiScreen
         try {
             super.mouseClicked(par1, par2, par3);
         }
-        catch (final IOException ex2) {}
+        catch (IOException ex2) {}
     }
     
     public boolean doesGuiPauseGame() {
         return false;
     }
     
-    void drawPopupAt(final int x, final int y, final int mx, final int my, final String text) {
+    void drawPopupAt(int x, int y, int mx, int my, String text) {
         if ((GuiResearchPage.shownRecipe == null || allowWithPagePopup) && mx >= x && my >= y && mx < x + 16 && my < y + 16) {
-            final ArrayList<String> s = new ArrayList<String>();
+            ArrayList<String> s = new ArrayList<String>();
             s.add(I18n.translateToLocal(text));
             tipText = s;
         }
     }
     
-    void drawPopupAt(final int x, final int y, final int w, final int h, final int mx, final int my, final String text) {
+    void drawPopupAt(int x, int y, int w, int h, int mx, int my, String text) {
         if ((GuiResearchPage.shownRecipe == null || allowWithPagePopup) && mx >= x && my >= y && mx < x + w && my < y + h) {
-            final ArrayList<String> s = new ArrayList<String>();
+            ArrayList<String> s = new ArrayList<String>();
             s.add(I18n.translateToLocal(text));
             tipText = s;
         }
     }
     
-    boolean mouseInside(final int x, final int y, final int w, final int h, final int mx, final int my) {
+    boolean mouseInside(int x, int y, int w, int h, int mx, int my) {
         return mx >= x && my >= y && mx < x + w && my < y + h;
     }
     
-    void drawStackAt(final ItemStack itemstack, final int x, final int y, final int mx, final int my, final boolean clickthrough) {
+    void drawStackAt(ItemStack itemstack, int x, int y, int mx, int my, boolean clickthrough) {
         UtilsFX.renderItemStack(mc, itemstack, x, y, null);
         if ((GuiResearchPage.shownRecipe == null || allowWithPagePopup) && mx >= x && my >= y && mx < x + 16 && my < y + 16 && itemstack != null && !itemstack.isEmpty() && itemstack.getItem() != null) {
             if (clickthrough) {
-                final List addtext = itemstack.getTooltip(mc.player, Minecraft.getMinecraft().gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
-                final String ref = getCraftingRecipeKey(mc.player, itemstack);
+                List addtext = itemstack.getTooltip(mc.player, Minecraft.getMinecraft().gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
+                String ref = getCraftingRecipeKey(mc.player, itemstack);
                 if (ref != null) {
-                    final String[] sr = ref.split(";", 2);
+                    String[] sr = ref.split(";", 2);
                     if (sr != null && sr.length > 1) {
-                        final ResourceLocation res = new ResourceLocation(sr[0]);
+                        ResourceLocation res = new ResourceLocation(sr[0]);
                         if (res.getResourcePath().equals("UNKNOWN")) {
                             addtext.add(TextFormatting.DARK_RED + "" + TextFormatting.ITALIC + I18n.translateToLocal("recipe.unknown"));
                         }
@@ -1715,11 +1715,11 @@ public class GuiResearchPage extends GuiScreen
         }
     }
     
-    public void drawTexturedModalRectScaled(final int par1, final int par2, final int par3, final int par4, final int par5, final int par6, final float scale) {
+    public void drawTexturedModalRectScaled(int par1, int par2, int par3, int par4, int par5, int par6, float scale) {
         GL11.glPushMatrix();
-        final float var7 = 0.00390625f;
-        final float var8 = 0.00390625f;
-        final Tessellator var9 = Tessellator.getInstance();
+        float var7 = 0.00390625f;
+        float var8 = 0.00390625f;
+        Tessellator var9 = Tessellator.getInstance();
         GL11.glTranslatef(par1 + par5 / 2.0f, par2 + par6 / 2.0f, 0.0f);
         GL11.glScalef(1.0f + scale, 1.0f + scale, 1.0f);
         var9.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -1746,7 +1746,7 @@ public class GuiResearchPage extends GuiScreen
         if (currentStage < 0) {
             currentStage = 0;
         }
-        final ResearchStage stage = research.getStages()[currentStage];
+        ResearchStage stage = research.getStages()[currentStage];
         ResearchAddendum[] addenda = null;
         if (research.getAddenda() != null && complete) {
             addenda = research.getAddenda();
@@ -1755,10 +1755,10 @@ public class GuiResearchPage extends GuiScreen
         String rawText = stage.getTextLocalized();
         if (addenda != null) {
             int ac = 0;
-            for (final ResearchAddendum addendum : addenda) {
+            for (ResearchAddendum addendum : addenda) {
                 if (ThaumcraftCapabilities.knowsResearchStrict(mc.player, addendum.getResearch())) {
                     ++ac;
-                    final ITextComponent text = new TextComponentTranslation("tc.addendumtext", ac);
+                    ITextComponent text = new TextComponentTranslation("tc.addendumtext", ac);
                     rawText = rawText + "<PAGE>" + text.getFormattedText() + "<BR>" + addendum.getTextLocalized();
                 }
             }
@@ -1771,14 +1771,14 @@ public class GuiResearchPage extends GuiScreen
         rawText = rawText.replaceAll("<DIV/>", "~D");
         rawText = rawText.replaceAll("<PAGE>", "~P");
         rawText = rawText.replaceAll("<PAGE/>", "~P");
-        final ArrayList<PageImage> images = new ArrayList<PageImage>();
-        final String[] split;
-        final String[] imgSplit = split = rawText.split("<IMG>");
-        for (final String s : split) {
-            final int i = s.indexOf("</IMG>");
+        ArrayList<PageImage> images = new ArrayList<PageImage>();
+        String[] split;
+        String[] imgSplit = split = rawText.split("<IMG>");
+        for (String s : split) {
+            int i = s.indexOf("</IMG>");
             if (i >= 0) {
-                final String clean = s.substring(0, i);
-                final PageImage pi = PageImage.parse(clean);
+                String clean = s.substring(0, i);
+                PageImage pi = PageImage.parse(clean);
                 if (pi == null) {
                     rawText = rawText.replaceFirst(clean, "\n");
                 }
@@ -1790,19 +1790,19 @@ public class GuiResearchPage extends GuiScreen
         }
         rawText = rawText.replaceAll("<IMG>", "");
         rawText = rawText.replaceAll("</IMG>", "");
-        final List<String> firstPassText = new ArrayList<String>();
-        final String[] temp = rawText.split("~P");
+        List<String> firstPassText = new ArrayList<String>();
+        String[] temp = rawText.split("~P");
         for (int a = 0; a < temp.length; ++a) {
-            final String t = temp[a];
-            final String[] temp2 = t.split("~D");
+            String t = temp[a];
+            String[] temp2 = t.split("~D");
             for (int x = 0; x < temp2.length; ++x) {
-                final String t2 = temp2[x];
-                final String[] temp3 = t2.split("~L");
+                String t2 = temp2[x];
+                String[] temp3 = t2.split("~L");
                 for (int b = 0; b < temp3.length; ++b) {
-                    final String t3 = temp3[b];
-                    final String[] temp4 = t3.split("~I");
+                    String t3 = temp3[b];
+                    String[] temp4 = t3.split("~I");
                     for (int c = 0; c < temp4.length; ++c) {
-                        final String t4 = temp4[c];
+                        String t4 = temp4[c];
                         firstPassText.add(t4);
                         if (c != temp4.length - 1) {
                             firstPassText.add("~I");
@@ -1820,22 +1820,22 @@ public class GuiResearchPage extends GuiScreen
                 firstPassText.add("~P");
             }
         }
-        final List<String> parsedText = new ArrayList<String>();
-        for (final String s2 : firstPassText) {
-            final List<String> pt1 = mc.fontRenderer.listFormattedStringToWidth(s2, 140);
-            for (final String ln : pt1) {
+        List<String> parsedText = new ArrayList<String>();
+        for (String s2 : firstPassText) {
+            List<String> pt1 = mc.fontRenderer.listFormattedStringToWidth(s2, 140);
+            for (String ln : pt1) {
                 parsedText.add(ln);
             }
         }
-        final int lineHeight = mc.fontRenderer.FONT_HEIGHT;
+        int lineHeight = mc.fontRenderer.FONT_HEIGHT;
         int heightRemaining = 182;
         int dividerSpace = 0;
         if (research.getKey().equals("KNOWLEDGETYPES")) {
             heightRemaining -= 2;
             int tc = 0;
             int amt = 0;
-            for (final IPlayerKnowledge.EnumKnowledgeType type : IPlayerKnowledge.EnumKnowledgeType.values()) {
-                for (final ResearchCategory category : ResearchCategories.researchCategories.values()) {
+            for (IPlayerKnowledge.EnumKnowledgeType type : IPlayerKnowledge.EnumKnowledgeType.values()) {
+                for (ResearchCategory category : ResearchCategories.researchCategories.values()) {
                     if (!type.hasFields() && category != null) {
                         continue;
                     }
@@ -1869,7 +1869,7 @@ public class GuiResearchPage extends GuiScreen
         }
         heightRemaining -= dividerSpace;
         Page page1 = new Page();
-        final ArrayList<PageImage> tempImages = new ArrayList<PageImage>();
+        ArrayList<PageImage> tempImages = new ArrayList<PageImage>();
         for (String line : parsedText) {
             if (line.contains("~I")) {
                 if (!images.isEmpty()) {
@@ -1946,8 +1946,8 @@ public class GuiResearchPage extends GuiScreen
             hasCraft = null;
             hasResearch = null;
             hasKnow = null;
-            final ResearchStage stage = research.getStages()[currentStage];
-            final Object[] o = stage.getObtain();
+            ResearchStage stage = research.getStages()[currentStage];
+            Object[] o = stage.getObtain();
             if (o != null) {
                 hasItem = new boolean[o.length];
                 for (int a = 0; a < o.length; ++a) {
@@ -1957,7 +1957,7 @@ public class GuiResearchPage extends GuiScreen
                         ts = (ItemStack)o[a];
                     }
                     else {
-                        final NonNullList<ItemStack> nnl = OreDictionary.getOres((String)o[a]);
+                        NonNullList<ItemStack> nnl = OreDictionary.getOres((String)o[a]);
                         ts = nnl.get(0);
                         ore = true;
                     }
@@ -1966,7 +1966,7 @@ public class GuiResearchPage extends GuiScreen
                     }
                 }
             }
-            final Object[] c = stage.getCraft();
+            Object[] c = stage.getCraft();
             if (c != null) {
                 hasCraft = new boolean[c.length];
                 for (int a2 = 0; a2 < c.length; ++a2) {
@@ -1979,7 +1979,7 @@ public class GuiResearchPage extends GuiScreen
                     }
                 }
             }
-            final String[] r = stage.getResearch();
+            String[] r = stage.getResearch();
             if (r != null) {
                 hasResearch = new boolean[r.length];
                 for (int a3 = 0; a3 < r.length; ++a3) {
@@ -1992,11 +1992,11 @@ public class GuiResearchPage extends GuiScreen
                     }
                 }
             }
-            final ResearchStage.Knowledge[] k = stage.getKnow();
+            ResearchStage.Knowledge[] k = stage.getKnow();
             if (k != null) {
                 hasKnow = new boolean[k.length];
                 for (int a4 = 0; a4 < k.length; ++a4) {
-                    final int pk = playerKnowledge.getKnowledge(k[a4].type, k[a4].category);
+                    int pk = playerKnowledge.getKnowledge(k[a4].type, k[a4].category);
                     if (pk < k[a4].amount) {
                         hasAllRequisites = false;
                         hasKnow[a4] = false;
@@ -2009,7 +2009,7 @@ public class GuiResearchPage extends GuiScreen
         }
     }
     
-    private int findRecipePage(final ResourceLocation rk, final ItemStack stack, final int start) {
+    private int findRecipePage(ResourceLocation rk, ItemStack stack, int start) {
         Object recipe = CommonInternals.getCatalogRecipe(rk);
         if (recipe == null) {
             recipe = CommonInternals.getCatalogRecipeFake(rk);
@@ -2025,8 +2025,8 @@ public class GuiResearchPage extends GuiScreen
         }
         if (recipe instanceof ArrayList) {
             int g = 0;
-            for (final ResourceLocation rl : (ArrayList<ResourceLocation>)recipe) {
-                final int q = findRecipePage(rl, stack, g);
+            for (ResourceLocation rl : (ArrayList<ResourceLocation>)recipe) {
+                int q = findRecipePage(rl, stack, g);
                 if (q >= 0) {
                     return q;
                 }
@@ -2059,21 +2059,21 @@ public class GuiResearchPage extends GuiScreen
         }
     }
     
-    private String getCraftingRecipeKey(final EntityPlayer player, final ItemStack stack) {
-        final int key = stack.serializeNBT().toString().hashCode();
+    private String getCraftingRecipeKey(EntityPlayer player, ItemStack stack) {
+        int key = stack.serializeNBT().toString().hashCode();
         if (keyCache.containsKey(key)) {
             return keyCache.get(key);
         }
-        for (final ResearchCategory rcl : ResearchCategories.researchCategories.values()) {
-            for (final ResearchEntry ri : rcl.research.values()) {
+        for (ResearchCategory rcl : ResearchCategories.researchCategories.values()) {
+            for (ResearchEntry ri : rcl.research.values()) {
                 if (ri.getStages() == null) {
                     continue;
                 }
                 for (int a = 0; a < ri.getStages().length; ++a) {
-                    final ResearchStage stage = ri.getStages()[a];
+                    ResearchStage stage = ri.getStages()[a];
                     if (stage.getRecipes() != null) {
-                        for (final ResourceLocation rec : stage.getRecipes()) {
-                            final int result = findRecipePage(rec, stack, 0);
+                        for (ResourceLocation rec : stage.getRecipes()) {
+                            int result = findRecipePage(rec, stack, 0);
                             if (result != -1) {
                                 String s = rec.toString();
                                 if (result == -99) {
@@ -2111,7 +2111,7 @@ public class GuiResearchPage extends GuiScreen
         }
         
         public Page copy() {
-            final Page p = new Page();
+            Page p = new Page();
             p.contents.addAll(contents);
             return p;
         }
@@ -2128,13 +2128,13 @@ public class GuiResearchPage extends GuiScreen
         float scale;
         ResourceLocation loc;
         
-        public static PageImage parse(final String text) {
-            final String[] s = text.split(":");
+        public static PageImage parse(String text) {
+            String[] s = text.split(":");
             if (s.length != 7) {
                 return null;
             }
             try {
-                final PageImage pi = new PageImage();
+                PageImage pi = new PageImage();
                 pi.loc = new ResourceLocation(s[0], s[1]);
                 pi.x = Integer.parseInt(s[2]);
                 pi.y = Integer.parseInt(s[3]);
@@ -2148,7 +2148,7 @@ public class GuiResearchPage extends GuiScreen
                 }
                 return pi;
             }
-            catch (final Exception ex) {
+            catch (Exception ex) {
                 return null;
             }
         }
@@ -2156,11 +2156,11 @@ public class GuiResearchPage extends GuiScreen
     
     public static class BlueprintBlockAccess implements IBlockAccess
     {
-        private final Part[][][] data;
+        private Part[][][] data;
         private IBlockState[][][] structure;
         public int sliceLine;
         
-        public BlueprintBlockAccess(final Part[][][] data, final boolean target) {
+        public BlueprintBlockAccess(Part[][][] data, boolean target) {
             sliceLine = 0;
             this.data = new Part[data.length][data[0].length][data[0][0].length];
             for (int y = 0; y < data.length; ++y) {
@@ -2173,7 +2173,7 @@ public class GuiResearchPage extends GuiScreen
             structure = new IBlockState[data.length][data[0].length][data[0][0].length];
             if (target) {
                 for (int y = 0; y < this.data.length; ++y) {
-                    final Matrix matrix = new Matrix(this.data[y]);
+                    Matrix matrix = new Matrix(this.data[y]);
                     matrix.Rotate90DegRight(3);
                     this.data[y] = matrix.getMatrix();
                 }
@@ -2187,7 +2187,7 @@ public class GuiResearchPage extends GuiScreen
             }
         }
         
-        private IBlockState convert(final int x, final int y, final int z) {
+        private IBlockState convert(int x, int y, int z) {
             if (data[y][x][z] == null || data[y][x][z].getSource() == null) {
                 return Blocks.AIR.getDefaultState();
             }
@@ -2211,7 +2211,7 @@ public class GuiResearchPage extends GuiScreen
             return Blocks.AIR.getDefaultState();
         }
         
-        private IBlockState convertTarget(final int x, final int y, final int z) {
+        private IBlockState convertTarget(int x, int y, int z) {
             if (data[y][x][z] == null) {
                 return Blocks.AIR.getDefaultState();
             }
@@ -2239,18 +2239,18 @@ public class GuiResearchPage extends GuiScreen
         }
         
         @Nullable
-        public TileEntity getTileEntity(final BlockPos pos) {
+        public TileEntity getTileEntity(BlockPos pos) {
             return null;
         }
         
-        public int getCombinedLight(final BlockPos pos, final int lightValue) {
+        public int getCombinedLight(BlockPos pos, int lightValue) {
             return 15728880;
         }
         
-        public IBlockState getBlockState(final BlockPos pos) {
-            final int x = pos.getX();
-            final int y = pos.getY();
-            final int z = pos.getZ();
+        public IBlockState getBlockState(BlockPos pos) {
+            int x = pos.getX();
+            int y = pos.getY();
+            int z = pos.getZ();
             if (sliceLine > structure.length) {
                 sliceLine = 0;
             }
@@ -2260,11 +2260,11 @@ public class GuiResearchPage extends GuiScreen
             return Blocks.AIR.getDefaultState();
         }
         
-        public boolean isAirBlock(final BlockPos pos) {
+        public boolean isAirBlock(BlockPos pos) {
             return getBlockState(pos).getBlock() == Blocks.AIR;
         }
         
-        public int getStrongPower(final BlockPos pos, final EnumFacing direction) {
+        public int getStrongPower(BlockPos pos, EnumFacing direction) {
             return 0;
         }
         
@@ -2272,11 +2272,11 @@ public class GuiResearchPage extends GuiScreen
             return null;
         }
         
-        public boolean isSideSolid(final BlockPos pos, final EnumFacing side, final boolean _default) {
+        public boolean isSideSolid(BlockPos pos, EnumFacing side, boolean _default) {
             return false;
         }
         
-        public Biome getBiome(final BlockPos pos) {
+        public Biome getBiome(BlockPos pos) {
             return null;
         }
     }

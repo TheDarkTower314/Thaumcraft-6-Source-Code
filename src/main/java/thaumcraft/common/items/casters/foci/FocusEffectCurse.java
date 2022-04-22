@@ -55,16 +55,16 @@ public class FocusEffectCurse extends FocusEffect
     }
     
     @Override
-    public float getDamageForDisplay(final float finalPower) {
+    public float getDamageForDisplay(float finalPower) {
         return (1.0f + getSettingValue("power")) * finalPower;
     }
     
     @Override
-    public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
+    public boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num) {
         PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockBamf(target.hitVec.x, target.hitVec.y, target.hitVec.z, 6946821, true, true, null), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
         if (target.typeOfHit == RayTraceResult.Type.ENTITY && target.entityHit != null) {
-            final float damage = getDamageForDisplay(finalPower);
-            final int duration = 20 * getSettingValue("duration");
+            float damage = getDamageForDisplay(finalPower);
+            int duration = 20 * getSettingValue("duration");
             int eff = (int)(getSettingValue("power") * finalPower / 2.0f);
             if (eff < 0) {
                 eff = 0;
@@ -95,8 +95,8 @@ public class FocusEffectCurse extends FocusEffect
             }
         }
         else if (target.typeOfHit == RayTraceResult.Type.BLOCK) {
-            final float f = (float)Math.min(8.0, 1.5 * getSettingValue("power") * finalPower);
-            for (final BlockPos.MutableBlockPos blockpos$mutableblockpos1 : BlockPos.getAllInBoxMutable(target.getBlockPos().add(-f, -f, -f), target.getBlockPos().add(f, f, f))) {
+            float f = (float)Math.min(8.0, 1.5 * getSettingValue("power") * finalPower);
+            for (BlockPos.MutableBlockPos blockpos$mutableblockpos1 : BlockPos.getAllInBoxMutable(target.getBlockPos().add(-f, -f, -f), target.getBlockPos().add(f, f, f))) {
                 if (blockpos$mutableblockpos1.distanceSqToCenter(target.hitVec.x, target.hitVec.y, target.hitVec.z) <= f * f && getPackage().world.isAirBlock(blockpos$mutableblockpos1.up()) && getPackage().world.isBlockFullCube(blockpos$mutableblockpos1)) {
                     getPackage().world.setBlockState(blockpos$mutableblockpos1.up(), BlocksTC.effectSap.getDefaultState());
                 }
@@ -112,8 +112,8 @@ public class FocusEffectCurse extends FocusEffect
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void renderParticleFX(final World world, final double posX, final double posY, final double posZ, final double motionX, final double motionY, final double motionZ) {
-        final FXGeneric fb = new FXGeneric(world, posX, posY, posZ, motionX, motionY, motionZ);
+    public void renderParticleFX(World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
+        FXGeneric fb = new FXGeneric(world, posX, posY, posZ, motionX, motionY, motionZ);
         fb.setMaxAge(8);
         fb.setRBGColorF(0.41f + world.rand.nextFloat() * 0.2f, 0.0f, 0.019f + world.rand.nextFloat() * 0.2f);
         fb.setAlphaF(0.0f, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0.0f);
@@ -128,7 +128,7 @@ public class FocusEffectCurse extends FocusEffect
     }
     
     @Override
-    public void onCast(final Entity caster) {
+    public void onCast(Entity caster) {
         caster.world.playSound(null, caster.getPosition().up(), SoundEvents.ENTITY_ELDER_GUARDIAN_CURSE, SoundCategory.PLAYERS, 0.15f, 1.0f + caster.getEntityWorld().rand.nextFloat() / 2.0f);
     }
 }

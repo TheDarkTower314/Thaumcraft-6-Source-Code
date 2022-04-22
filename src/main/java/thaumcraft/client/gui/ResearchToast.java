@@ -18,12 +18,12 @@ public class ResearchToast implements IToast
     private boolean newDisplay;
     ResourceLocation tex;
     
-    public ResearchToast(final ResearchEntry entry) {
+    public ResearchToast(ResearchEntry entry) {
         tex = new ResourceLocation("thaumcraft", "textures/gui/hud.png");
         this.entry = entry;
     }
     
-    public IToast.Visibility draw(final GuiToast toastGui, final long delta) {
+    public IToast.Visibility draw(GuiToast toastGui, long delta) {
         if (newDisplay) {
             firstDrawTime = delta;
             newDisplay = false;
@@ -33,7 +33,7 @@ public class ResearchToast implements IToast
         toastGui.drawTexturedModalRect(0, 0, 0, 224, 160, 32);
         GuiResearchBrowser.drawResearchIcon(entry, 6, 8, 0.0f, false);
         toastGui.getMinecraft().fontRenderer.drawString(I18n.translateToLocal("research.complete"), 30, 7, 10631665);
-        final String s = entry.getLocalizedName();
+        String s = entry.getLocalizedName();
         float w = (float)toastGui.getMinecraft().fontRenderer.getStringWidth(s);
         if (w > 124.0f) {
             w = 124.0f / w;

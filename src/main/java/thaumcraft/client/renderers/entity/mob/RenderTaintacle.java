@@ -16,13 +16,13 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 @SideOnly(Side.CLIENT)
 public class RenderTaintacle extends RenderLiving
 {
-    private static final ResourceLocation rl;
+    private static ResourceLocation rl;
     
-    public RenderTaintacle(final RenderManager rm, final float shadow, final int length) {
+    public RenderTaintacle(RenderManager rm, float shadow, int length) {
         super(rm, new ModelTaintacle(length, false), shadow);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return RenderTaintacle.rl;
     }
     

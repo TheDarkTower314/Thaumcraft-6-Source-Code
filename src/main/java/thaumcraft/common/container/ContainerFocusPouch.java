@@ -29,7 +29,7 @@ public class ContainerFocusPouch extends Container implements IInventoryChangedL
     ItemStack pouch;
     EntityPlayer player;
     
-    public ContainerFocusPouch(final InventoryPlayer iinventory, final World par2World, final int par3, final int par4, final int par5) {
+    public ContainerFocusPouch(InventoryPlayer iinventory, World par2World, int par3, int par4, int par5) {
         input = new InventoryFocusPouch(this);
         pouch = null;
         player = null;
@@ -46,21 +46,21 @@ public class ContainerFocusPouch extends Container implements IInventoryChangedL
         bindPlayerInventory(iinventory);
         if (!par2World.isRemote) {
             try {
-                final NonNullList<ItemStack> list = ((ItemFocusPouch) pouch.getItem()).getInventory(pouch);
+                NonNullList<ItemStack> list = ((ItemFocusPouch) pouch.getItem()).getInventory(pouch);
                 for (int a2 = 0; a2 < list.size(); ++a2) {
                     input.setInventorySlotContents(a2, list.get(a2));
                 }
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
         }
         onCraftMatrixChanged(input);
     }
     
-    public void onInventoryChanged(final IInventory invBasic) {
+    public void onInventoryChanged(IInventory invBasic) {
         detectAndSendChanges();
     }
     
-    protected void bindPlayerInventory(final InventoryPlayer inventoryPlayer) {
+    protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 151 + i * 18));
@@ -71,14 +71,14 @@ public class ContainerFocusPouch extends Container implements IInventoryChangedL
         }
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int slot) {
         if (slot == blockSlot) {
             return ItemStack.EMPTY;
         }
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = inventorySlots.get(slot);
+        Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
-            final ItemStack stackInSlot = slotObject.getStack();
+            ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot < 18) {
                 if (!input.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 18, inventorySlots.size(), true)) {
@@ -98,21 +98,21 @@ public class ContainerFocusPouch extends Container implements IInventoryChangedL
         return stack;
     }
     
-    public boolean canInteractWith(final EntityPlayer var1) {
+    public boolean canInteractWith(EntityPlayer var1) {
         return true;
     }
     
-    public ItemStack slotClick(final int slotId, final int dragType, final ClickType clickTypeIn, final EntityPlayer player) {
+    public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
         if (slotId == blockSlot) {
             return ItemStack.EMPTY;
         }
         return super.slotClick(slotId, dragType, clickTypeIn, player);
     }
     
-    public void onContainerClosed(final EntityPlayer par1EntityPlayer) {
+    public void onContainerClosed(EntityPlayer par1EntityPlayer) {
         super.onContainerClosed(par1EntityPlayer);
         if (!worldObj.isRemote) {
-            final NonNullList<ItemStack> list = NonNullList.withSize(18, ItemStack.EMPTY);
+            NonNullList<ItemStack> list = NonNullList.withSize(18, ItemStack.EMPTY);
             for (int a = 0; a < list.size(); ++a) {
                 list.set(a, input.getStackInSlot(a));
             }

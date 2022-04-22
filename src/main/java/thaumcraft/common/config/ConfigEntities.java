@@ -81,7 +81,7 @@ public class ConfigEntities
 {
     public static HashMap<Class, Integer> championModWhitelist;
     
-    public static void initEntities(final IForgeRegistry<EntityEntry> iForgeRegistry) {
+    public static void initEntities(IForgeRegistry<EntityEntry> iForgeRegistry) {
         int id = 0;
         EntityRegistry.registerModEntity(new ResourceLocation("thaumcraft", "CultistPortalGreater"), EntityCultistPortalGreater.class, "CultistPortalGreater", id++, Thaumcraft.instance, 64, 20, false, 6842578, 32896);
         EntityRegistry.registerModEntity(new ResourceLocation("thaumcraft", "CultistPortalLesser"), EntityCultistPortalLesser.class, "CultistPortalLesser", id++, Thaumcraft.instance, 64, 20, false, 9438728, 6316242);
@@ -127,7 +127,7 @@ public class ConfigEntities
         EntityRegistry.registerModEntity(new ResourceLocation("thaumcraft", "TaintSeed"), EntityTaintSeed.class, "TaintSeed", id++, Thaumcraft.instance, 64, 20, false, 10618530, 4465237);
         EntityRegistry.registerModEntity(new ResourceLocation("thaumcraft", "TaintSeedPrime"), EntityTaintSeedPrime.class, "TaintSeedPrime", id++, Thaumcraft.instance, 64, 20, false, 10618530, 5583718);
         EntityPech.valuedItems.put(Item.getIdFromItem(Items.ENDER_PEARL), 15);
-        final ArrayList<List> forInv = new ArrayList<List>();
+        ArrayList<List> forInv = new ArrayList<List>();
         forInv.add(Arrays.asList(1, new ItemStack(ItemsTC.clusters, 1, 0)));
         forInv.add(Arrays.asList(1, new ItemStack(ItemsTC.clusters, 1, 1)));
         forInv.add(Arrays.asList(1, new ItemStack(ItemsTC.clusters, 1, 6)));
@@ -157,7 +157,7 @@ public class ConfigEntities
         forInv.add(Arrays.asList(5, new ItemStack(BlocksTC.saplingSilverwood)));
         forInv.add(Arrays.asList(5, new ItemStack(ItemsTC.curio, 1, 4)));
         EntityPech.tradeInventory.put(0, forInv);
-        final ArrayList<List> forMag = new ArrayList<List>();
+        ArrayList<List> forMag = new ArrayList<List>();
         forMag.add(Arrays.asList(1, ThaumcraftApiHelper.makeCrystal(Aspect.AIR)));
         forMag.add(Arrays.asList(1, ThaumcraftApiHelper.makeCrystal(Aspect.EARTH)));
         forMag.add(Arrays.asList(1, ThaumcraftApiHelper.makeCrystal(Aspect.FIRE)));
@@ -180,7 +180,7 @@ public class ConfigEntities
         forMag.add(Arrays.asList(5, new ItemStack(ItemsTC.amuletVis, 1, 0)));
         forInv.add(Arrays.asList(5, new ItemStack(Items.TOTEM_OF_UNDYING)));
         EntityPech.tradeInventory.put(1, forMag);
-        final ArrayList<List> forArc = new ArrayList<List>();
+        ArrayList<List> forArc = new ArrayList<List>();
         for (int a = 0; a < 15; ++a) {
             forArc.add(Arrays.asList(1, new ItemStack(BlocksTC.candles.get(EnumDyeColor.byDyeDamage(a)))));
         }
@@ -201,29 +201,29 @@ public class ConfigEntities
     }
     
     public static void postInitEntitySpawns() {
-        final ArrayList<Biome> biomes = new ArrayList<Biome>();
-        for (final BiomeManager.BiomeEntry be : BiomeManager.getBiomes(BiomeManager.BiomeType.WARM)) {
+        ArrayList<Biome> biomes = new ArrayList<Biome>();
+        for (BiomeManager.BiomeEntry be : BiomeManager.getBiomes(BiomeManager.BiomeType.WARM)) {
             biomes.add(be.biome);
         }
-        for (final BiomeManager.BiomeEntry be : BiomeManager.getBiomes(BiomeManager.BiomeType.COOL)) {
+        for (BiomeManager.BiomeEntry be : BiomeManager.getBiomes(BiomeManager.BiomeType.COOL)) {
             biomes.add(be.biome);
         }
-        for (final BiomeManager.BiomeEntry be : BiomeManager.getBiomes(BiomeManager.BiomeType.ICY)) {
+        for (BiomeManager.BiomeEntry be : BiomeManager.getBiomes(BiomeManager.BiomeType.ICY)) {
             biomes.add(be.biome);
         }
-        for (final BiomeManager.BiomeEntry be : BiomeManager.getBiomes(BiomeManager.BiomeType.DESERT)) {
+        for (BiomeManager.BiomeEntry be : BiomeManager.getBiomes(BiomeManager.BiomeType.DESERT)) {
             biomes.add(be.biome);
         }
-        final Biome[] allBiomes = biomes.toArray(new Biome[] { null });
+        Biome[] allBiomes = biomes.toArray(new Biome[] { null });
         if (ModConfig.CONFIG_WORLD.allowSpawnAngryZombie) {
-            for (final Biome bgb : biomes) {
+            for (Biome bgb : biomes) {
                 if (bgb != null && (bgb.getSpawnableList(EnumCreatureType.MONSTER) != null & bgb.getSpawnableList(EnumCreatureType.MONSTER).size() > 0)) {
                     EntityRegistry.addSpawn(EntityBrainyZombie.class, 10, 1, 1, EnumCreatureType.MONSTER, bgb);
                 }
             }
         }
         if (ModConfig.CONFIG_WORLD.allowSpawnPech) {
-            for (final Biome bgb : BiomeDictionary.getBiomes(BiomeDictionary.Type.MAGICAL)) {
+            for (Biome bgb : BiomeDictionary.getBiomes(BiomeDictionary.Type.MAGICAL)) {
                 if (bgb != null && (bgb.getSpawnableList(EnumCreatureType.MONSTER) != null & bgb.getSpawnableList(EnumCreatureType.MONSTER).size() > 0)) {
                     EntityRegistry.addSpawn(EntityPech.class, 10, 1, 1, EnumCreatureType.MONSTER, bgb);
                 }
@@ -231,7 +231,7 @@ public class ConfigEntities
         }
         if (ModConfig.CONFIG_WORLD.allowSpawnFireBat) {
             EntityRegistry.addSpawn(EntityFireBat.class, 10, 1, 2, EnumCreatureType.MONSTER, BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER).toArray(new Biome[0]));
-            final Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
             if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31) {
                 EntityRegistry.addSpawn(EntityFireBat.class, 5, 1, 2, EnumCreatureType.MONSTER, biomes.toArray(allBiomes));

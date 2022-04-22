@@ -37,7 +37,7 @@ public class ItemFortressArmor extends ItemArmor implements ISpecialArmor, IGogg
     ModelBiped model2;
     ModelBiped model;
     
-    public ItemFortressArmor(final String name, final ItemArmor.ArmorMaterial material, final int renderIndex, final EntityEquipmentSlot armorType) {
+    public ItemFortressArmor(String name, ItemArmor.ArmorMaterial material, int renderIndex, EntityEquipmentSlot armorType) {
         super(material, renderIndex, armorType);
         model1 = null;
         model2 = null;
@@ -65,12 +65,12 @@ public class ItemFortressArmor extends ItemArmor implements ISpecialArmor, IGogg
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel(final EntityLivingBase entityLiving, final ItemStack itemStack, final EntityEquipmentSlot armorSlot, final ModelBiped _default) {
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
         if (model1 == null) {
             model1 = new ModelFortressArmor(1.0f);
         }
@@ -80,16 +80,16 @@ public class ItemFortressArmor extends ItemArmor implements ISpecialArmor, IGogg
         return model = CustomArmorHelper.getCustomArmorModel(entityLiving, itemStack, armorSlot, model, model1, model2);
     }
     
-    public String getArmorTexture(final ItemStack stack, final Entity entity, final EntityEquipmentSlot slot, final String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         return "thaumcraft:textures/entity/armor/fortress_armor.png";
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("goggles")) {
             tooltip.add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("item.goggles.name"));
         }
@@ -99,11 +99,11 @@ public class ItemFortressArmor extends ItemArmor implements ISpecialArmor, IGogg
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 0)) || super.getIsRepairable(stack1, stack2);
     }
     
-    public ISpecialArmor.ArmorProperties getProperties(final EntityLivingBase player, final ItemStack armor, final DamageSource source, final double damage, final int slot) {
+    public ISpecialArmor.ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
         int priority = 0;
         double ratio = damageReduceAmount / 25.0;
         if (source.isMagicDamage()) {
@@ -118,20 +118,20 @@ public class ItemFortressArmor extends ItemArmor implements ISpecialArmor, IGogg
             priority = 0;
             ratio = 0.0;
         }
-        final ISpecialArmor.ArmorProperties ap = new ISpecialArmor.ArmorProperties(priority, ratio, armor.getMaxDamage() + 1 - armor.getItemDamage());
+        ISpecialArmor.ArmorProperties ap = new ISpecialArmor.ArmorProperties(priority, ratio, armor.getMaxDamage() + 1 - armor.getItemDamage());
         if (player instanceof EntityPlayer) {
             int q = 0;
             for (int a = 1; a < 4; ++a) {
-                final ItemStack piece = ((EntityPlayer)player).inventory.armorInventory.get(a);
+                ItemStack piece = ((EntityPlayer)player).inventory.armorInventory.get(a);
                 if (piece != null && !piece.isEmpty() && piece.getItem() instanceof ItemFortressArmor) {
                     if (piece.hasTagCompound() && piece.getTagCompound().hasKey("mask")) {
-                        final ISpecialArmor.ArmorProperties armorProperties = ap;
+                        ISpecialArmor.ArmorProperties armorProperties = ap;
                         ++armorProperties.Armor;
                     }
                     if (++q <= 1) {
-                        final ISpecialArmor.ArmorProperties armorProperties2 = ap;
+                        ISpecialArmor.ArmorProperties armorProperties2 = ap;
                         ++armorProperties2.Armor;
-                        final ISpecialArmor.ArmorProperties armorProperties3 = ap;
+                        ISpecialArmor.ArmorProperties armorProperties3 = ap;
                         ++armorProperties3.Toughness;
                     }
                 }
@@ -140,11 +140,11 @@ public class ItemFortressArmor extends ItemArmor implements ISpecialArmor, IGogg
         return ap;
     }
     
-    public int getArmorDisplay(final EntityPlayer player, final ItemStack armor, final int slot) {
+    public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
         int q = 0;
         int ar = 0;
         for (int a = 1; a < 4; ++a) {
-            final ItemStack piece = player.inventory.armorInventory.get(a);
+            ItemStack piece = player.inventory.armorInventory.get(a);
             if (piece != null && !piece.isEmpty() && piece.getItem() instanceof ItemFortressArmor) {
                 if (piece.hasTagCompound() && piece.getTagCompound().hasKey("mask")) {
                     ++ar;
@@ -157,17 +157,17 @@ public class ItemFortressArmor extends ItemArmor implements ISpecialArmor, IGogg
         return ar;
     }
     
-    public void damageArmor(final EntityLivingBase entity, final ItemStack stack, final DamageSource source, final int damage, final int slot) {
+    public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
         if (source != DamageSource.FALL) {
             stack.damageItem(damage, entity);
         }
     }
     
-    public boolean showNodes(final ItemStack itemstack, final EntityLivingBase player) {
+    public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
         return itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("goggles");
     }
     
-    public boolean showIngamePopups(final ItemStack itemstack, final EntityLivingBase player) {
+    public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player) {
         return itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("goggles");
     }
 }

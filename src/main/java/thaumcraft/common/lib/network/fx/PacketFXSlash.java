@@ -24,27 +24,27 @@ public class PacketFXSlash implements IMessage, IMessageHandler<PacketFXSlash, I
     public PacketFXSlash() {
     }
     
-    public PacketFXSlash(final int source, final int target) {
+    public PacketFXSlash(int source, int target) {
         this.source = source;
         this.target = target;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(source);
         buffer.writeInt(target);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         source = buffer.readInt();
         target = buffer.readInt();
     }
     
     @SideOnly(Side.CLIENT)
-    public IMessage onMessage(final PacketFXSlash message, final MessageContext ctx) {
-        final Minecraft mc = FMLClientHandler.instance().getClient();
-        final WorldClient world = mc.world;
-        final Entity var2 = getEntityByID(message.source, mc, world);
-        final Entity var3 = getEntityByID(message.target, mc, world);
+    public IMessage onMessage(PacketFXSlash message, MessageContext ctx) {
+        Minecraft mc = FMLClientHandler.instance().getClient();
+        WorldClient world = mc.world;
+        Entity var2 = getEntityByID(message.source, mc, world);
+        Entity var3 = getEntityByID(message.target, mc, world);
         if (var2 != null && var3 != null) {
             FXDispatcher.INSTANCE.drawSlash(var2.posX, var2.getEntityBoundingBox().minY + var2.height / 2.0f, var2.posZ, var3.posX, var3.getEntityBoundingBox().minY + var3.height / 2.0f, var3.posZ, 8);
         }
@@ -52,7 +52,7 @@ public class PacketFXSlash implements IMessage, IMessageHandler<PacketFXSlash, I
     }
     
     @SideOnly(Side.CLIENT)
-    private Entity getEntityByID(final int par1, final Minecraft mc, final WorldClient world) {
+    private Entity getEntityByID(int par1, Minecraft mc, WorldClient world) {
         return (par1 == mc.player.getEntityId()) ? mc.player : world.getEntityByID(par1);
     }
 }

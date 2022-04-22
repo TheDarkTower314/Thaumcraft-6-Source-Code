@@ -45,7 +45,7 @@ public class PacketSealToClient implements IMessage, IMessageHandler<PacketSealT
         props = null;
     }
     
-    public PacketSealToClient(final ISealEntity se) {
+    public PacketSealToClient(ISealEntity se) {
         props = null;
         pos = se.getSealPos().pos;
         face = se.getSealPos().face;
@@ -54,14 +54,14 @@ public class PacketSealToClient implements IMessage, IMessageHandler<PacketSealT
             area = se.getArea().toLong();
         }
         if (se.getSeal() != null && se.getSeal() instanceof ISealConfigToggles) {
-            final ISealConfigToggles cp = (ISealConfigToggles)se.getSeal();
+            ISealConfigToggles cp = (ISealConfigToggles)se.getSeal();
             props = new boolean[cp.getToggles().length];
             for (int a = 0; a < cp.getToggles().length; ++a) {
                 props[a] = cp.getToggles()[a].getValue();
             }
         }
         if (se.getSeal() != null && se.getSeal() instanceof ISealConfigFilter) {
-            final ISealConfigFilter cp2 = (ISealConfigFilter)se.getSeal();
+            ISealConfigFilter cp2 = (ISealConfigFilter)se.getSeal();
             blacklist = cp2.isBlacklist();
             filtersize = (byte)cp2.getFilterSize();
             filter = cp2.getInv();
@@ -74,7 +74,7 @@ public class PacketSealToClient implements IMessage, IMessageHandler<PacketSealT
         owner = se.getOwner();
     }
     
-    public void toBytes(final ByteBuf dos) {
+    public void toBytes(ByteBuf dos) {
         dos.writeLong(pos.toLong());
         dos.writeByte(face.ordinal());
         dos.writeByte(priority);
@@ -93,13 +93,13 @@ public class PacketSealToClient implements IMessage, IMessageHandler<PacketSealT
             dos.writeLong(area);
         }
         if (props != null) {
-            for (final boolean b : props) {
+            for (boolean b : props) {
                 dos.writeBoolean(b);
             }
         }
     }
     
-    public void fromBytes(final ByteBuf dat) {
+    public void fromBytes(ByteBuf dat) {
         pos = BlockPos.fromLong(dat.readLong());
         face = EnumFacing.VALUES[dat.readByte()];
         priority = dat.readByte();
@@ -121,39 +121,39 @@ public class PacketSealToClient implements IMessage, IMessageHandler<PacketSealT
                 try {
                     area = dat.readLong();
                 }
-                catch (final Exception ex) {}
+                catch (Exception ex) {}
             }
             if (SealHandler.getSeal(type) instanceof ISealConfigToggles) {
                 try {
-                    final ISealConfigToggles cp = (ISealConfigToggles)SealHandler.getSeal(type);
+                    ISealConfigToggles cp = (ISealConfigToggles)SealHandler.getSeal(type);
                     props = new boolean[cp.getToggles().length];
                     for (int a2 = 0; a2 < cp.getToggles().length; ++a2) {
                         props[a2] = dat.readBoolean();
                     }
                 }
-                catch (final Exception ex2) {}
+                catch (Exception ex2) {}
             }
         }
     }
     
-    public IMessage onMessage(final PacketSealToClient message, final MessageContext ctx) {
+    public IMessage onMessage(PacketSealToClient message, MessageContext ctx) {
         if (message.type.equals("REMOVE")) {
             SealHandler.removeSealEntity(Thaumcraft.proxy.getClientWorld(), new SealPos(message.pos, message.face), true);
         }
         else {
             try {
-                final SealEntity seal = new SealEntity(Thaumcraft.proxy.getClientWorld(), new SealPos(message.pos, message.face), SealHandler.getSeal(message.type).getClass().newInstance());
+                SealEntity seal = new SealEntity(Thaumcraft.proxy.getClientWorld(), new SealPos(message.pos, message.face), SealHandler.getSeal(message.type).getClass().newInstance());
                 if (message.area != 0L) {
                     seal.setArea(BlockPos.fromLong(message.area));
                 }
                 if (message.props != null && seal.getSeal() instanceof ISealConfigToggles) {
-                    final ISealConfigToggles cp = (ISealConfigToggles)seal.getSeal();
+                    ISealConfigToggles cp = (ISealConfigToggles)seal.getSeal();
                     for (int a = 0; a < message.props.length; ++a) {
                         cp.setToggle(a, message.props[a]);
                     }
                 }
                 if (seal.getSeal() instanceof ISealConfigFilter) {
-                    final ISealConfigFilter cp2 = (ISealConfigFilter)seal.getSeal();
+                    ISealConfigFilter cp2 = (ISealConfigFilter)seal.getSeal();
                     cp2.setBlacklist(message.blacklist);
                     for (int a = 0; a < message.filtersize; ++a) {
                         cp2.setFilterSlot(a, message.filter.get(a));
@@ -167,7 +167,7 @@ public class PacketSealToClient implements IMessage, IMessageHandler<PacketSealT
                 seal.setOwner(message.owner);
                 SealHandler.addSealEntity(Thaumcraft.proxy.getClientWorld(), seal);
             }
-            catch (final Exception e) {
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }

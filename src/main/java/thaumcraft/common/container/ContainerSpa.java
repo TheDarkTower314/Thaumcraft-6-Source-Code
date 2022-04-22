@@ -19,7 +19,7 @@ public class ContainerSpa extends Container
     private TileSpa spa;
     private int lastBreakTime;
     
-    public ContainerSpa(final InventoryPlayer par1InventoryPlayer, final TileSpa tileEntity) {
+    public ContainerSpa(InventoryPlayer par1InventoryPlayer, TileSpa tileEntity) {
         spa = tileEntity;
         addSlotToContainer(new SlotLimitedByClass(ItemBathSalts.class, tileEntity, 0, 65, 31));
         for (int i = 0; i < 3; ++i) {
@@ -32,22 +32,22 @@ public class ContainerSpa extends Container
         }
     }
     
-    public boolean enchantItem(final EntityPlayer p, final int button) {
+    public boolean enchantItem(EntityPlayer p, int button) {
         if (button == 1) {
             spa.toggleMix();
         }
         return false;
     }
     
-    public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
+    public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
         return spa.isUsableByPlayer(par1EntityPlayer);
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = inventorySlots.get(slot);
+        Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
-            final ItemStack stackInSlot = slotObject.getStack();
+            ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot == 0) {
                 if (!spa.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {

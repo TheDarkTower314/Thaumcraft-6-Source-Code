@@ -17,11 +17,11 @@ import net.minecraft.client.model.ModelBiped;
 
 public class ModelCustomArmor extends ModelBiped
 {
-    public ModelCustomArmor(final float f, final int i, final int j, final int k) {
+    public ModelCustomArmor(float f, int i, int j, int k) {
         super(f, (float)i, j, k);
     }
     
-    public void setRotationAngles(final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scaleFactor, final Entity entityIn) {
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         if (entityIn instanceof EntityLivingBase) {
             swingProgress = ((EntityLivingBase)entityIn).getSwingProgress(UtilsFX.sysPartialTicks);
         }
@@ -32,7 +32,7 @@ public class ModelCustomArmor extends ModelBiped
             setRotationAnglesZombie(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
         }
         else {
-            final boolean flag = entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).getTicksElytraFlying() > 4;
+            boolean flag = entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).getTicksElytraFlying() > 4;
             bipedHead.rotateAngleY = netHeadYaw * 0.017453292f;
             if (flag) {
                 bipedHead.rotateAngleX = -0.7853982f;
@@ -65,9 +65,9 @@ public class ModelCustomArmor extends ModelBiped
             bipedRightLeg.rotateAngleZ = 0.0f;
             bipedLeftLeg.rotateAngleZ = 0.0f;
             if (isRiding) {
-                final ModelRenderer bipedRightArm = this.bipedRightArm;
+                ModelRenderer bipedRightArm = this.bipedRightArm;
                 bipedRightArm.rotateAngleX -= 0.62831855f;
-                final ModelRenderer bipedLeftArm = this.bipedLeftArm;
+                ModelRenderer bipedLeftArm = this.bipedLeftArm;
                 bipedLeftArm.rotateAngleX -= 0.62831855f;
                 bipedRightLeg.rotateAngleX = -1.4137167f;
                 bipedRightLeg.rotateAngleY = 0.31415927f;
@@ -111,41 +111,41 @@ public class ModelCustomArmor extends ModelBiped
                 }
             }
             if (swingProgress > 0.0f) {
-                final EnumHandSide enumhandside = getMainHand(entityIn);
-                final ModelRenderer modelrenderer = getArmForSide(enumhandside);
+                EnumHandSide enumhandside = getMainHand(entityIn);
+                ModelRenderer modelrenderer = getArmForSide(enumhandside);
                 float f2 = swingProgress;
                 bipedBody.rotateAngleY = MathHelper.sin(MathHelper.sqrt(f2) * 6.2831855f) * 0.2f;
                 if (enumhandside == EnumHandSide.LEFT) {
-                    final ModelRenderer bipedBody = this.bipedBody;
+                    ModelRenderer bipedBody = this.bipedBody;
                     bipedBody.rotateAngleY *= -1.0f;
                 }
                 bipedRightArm.rotationPointZ = MathHelper.sin(bipedBody.rotateAngleY) * 5.0f;
                 bipedRightArm.rotationPointX = -MathHelper.cos(bipedBody.rotateAngleY) * 5.0f;
                 bipedLeftArm.rotationPointZ = -MathHelper.sin(bipedBody.rotateAngleY) * 5.0f;
                 bipedLeftArm.rotationPointX = MathHelper.cos(bipedBody.rotateAngleY) * 5.0f;
-                final ModelRenderer bipedRightArm2 = bipedRightArm;
+                ModelRenderer bipedRightArm2 = bipedRightArm;
                 bipedRightArm2.rotateAngleY += bipedBody.rotateAngleY;
-                final ModelRenderer bipedLeftArm2 = bipedLeftArm;
+                ModelRenderer bipedLeftArm2 = bipedLeftArm;
                 bipedLeftArm2.rotateAngleY += bipedBody.rotateAngleY;
-                final ModelRenderer bipedLeftArm3 = bipedLeftArm;
+                ModelRenderer bipedLeftArm3 = bipedLeftArm;
                 bipedLeftArm3.rotateAngleX += bipedBody.rotateAngleY;
                 f2 = 1.0f - swingProgress;
                 f2 *= f2;
                 f2 *= f2;
                 f2 = 1.0f - f2;
-                final float f3 = MathHelper.sin(f2 * 3.1415927f);
-                final float f4 = MathHelper.sin(swingProgress * 3.1415927f) * -(bipedHead.rotateAngleX - 0.7f) * 0.75f;
+                float f3 = MathHelper.sin(f2 * 3.1415927f);
+                float f4 = MathHelper.sin(swingProgress * 3.1415927f) * -(bipedHead.rotateAngleX - 0.7f) * 0.75f;
                 modelrenderer.rotateAngleX -= (float)(f3 * 1.2 + f4);
-                final ModelRenderer modelRenderer = modelrenderer;
+                ModelRenderer modelRenderer = modelrenderer;
                 modelRenderer.rotateAngleY += bipedBody.rotateAngleY * 2.0f;
-                final ModelRenderer modelRenderer2 = modelrenderer;
+                ModelRenderer modelRenderer2 = modelrenderer;
                 modelRenderer2.rotateAngleZ += MathHelper.sin(swingProgress * 3.1415927f) * -0.4f;
             }
             if (isSneak) {
                 bipedBody.rotateAngleX = 0.5f;
-                final ModelRenderer bipedRightArm3 = bipedRightArm;
+                ModelRenderer bipedRightArm3 = bipedRightArm;
                 bipedRightArm3.rotateAngleX += 0.4f;
-                final ModelRenderer bipedLeftArm4 = bipedLeftArm;
+                ModelRenderer bipedLeftArm4 = bipedLeftArm;
                 bipedLeftArm4.rotateAngleX += 0.4f;
                 bipedRightLeg.rotationPointZ = 4.0f;
                 bipedLeftLeg.rotationPointZ = 4.0f;
@@ -167,13 +167,13 @@ public class ModelCustomArmor extends ModelBiped
                 bipedRightArm.rotationPointY = 2.0f;
                 bipedLeftArm.rotationPointY = 2.0f;
             }
-            final ModelRenderer bipedRightArm4 = bipedRightArm;
+            ModelRenderer bipedRightArm4 = bipedRightArm;
             bipedRightArm4.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09f) * 0.05f + 0.05f;
-            final ModelRenderer bipedLeftArm5 = bipedLeftArm;
+            ModelRenderer bipedLeftArm5 = bipedLeftArm;
             bipedLeftArm5.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09f) * 0.05f + 0.05f;
-            final ModelRenderer bipedRightArm5 = bipedRightArm;
+            ModelRenderer bipedRightArm5 = bipedRightArm;
             bipedRightArm5.rotateAngleX += MathHelper.sin(ageInTicks * 0.067f) * 0.05f;
-            final ModelRenderer bipedLeftArm6 = bipedLeftArm;
+            ModelRenderer bipedLeftArm6 = bipedLeftArm;
             bipedLeftArm6.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067f) * 0.05f;
             if (rightArmPose == ModelBiped.ArmPose.BOW_AND_ARROW) {
                 bipedRightArm.rotateAngleY = -0.1f + bipedHead.rotateAngleY;
@@ -191,35 +191,35 @@ public class ModelCustomArmor extends ModelBiped
         }
     }
     
-    public void setRotationAnglesZombie(final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scaleFactor, final Entity entityIn) {
+    public void setRotationAnglesZombie(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-        final boolean flag = entityIn instanceof EntityZombie && ((EntityZombie)entityIn).isArmsRaised();
-        final float f = MathHelper.sin(swingProgress * 3.1415927f);
-        final float f2 = MathHelper.sin((1.0f - (1.0f - swingProgress) * (1.0f - swingProgress)) * 3.1415927f);
+        boolean flag = entityIn instanceof EntityZombie && ((EntityZombie)entityIn).isArmsRaised();
+        float f = MathHelper.sin(swingProgress * 3.1415927f);
+        float f2 = MathHelper.sin((1.0f - (1.0f - swingProgress) * (1.0f - swingProgress)) * 3.1415927f);
         bipedRightArm.rotateAngleZ = 0.0f;
         bipedLeftArm.rotateAngleZ = 0.0f;
         bipedRightArm.rotateAngleY = -(0.1f - f * 0.6f);
         bipedLeftArm.rotateAngleY = 0.1f - f * 0.6f;
-        final float f3 = -3.1415927f / (flag ? 1.5f : 2.25f);
+        float f3 = -3.1415927f / (flag ? 1.5f : 2.25f);
         bipedRightArm.rotateAngleX = f3;
         bipedLeftArm.rotateAngleX = f3;
-        final ModelRenderer bipedRightArm = this.bipedRightArm;
+        ModelRenderer bipedRightArm = this.bipedRightArm;
         bipedRightArm.rotateAngleX += f * 1.2f - f2 * 0.4f;
-        final ModelRenderer bipedLeftArm = this.bipedLeftArm;
+        ModelRenderer bipedLeftArm = this.bipedLeftArm;
         bipedLeftArm.rotateAngleX += f * 1.2f - f2 * 0.4f;
-        final ModelRenderer bipedRightArm2 = this.bipedRightArm;
+        ModelRenderer bipedRightArm2 = this.bipedRightArm;
         bipedRightArm2.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09f) * 0.05f + 0.05f;
-        final ModelRenderer bipedLeftArm2 = this.bipedLeftArm;
+        ModelRenderer bipedLeftArm2 = this.bipedLeftArm;
         bipedLeftArm2.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09f) * 0.05f + 0.05f;
-        final ModelRenderer bipedRightArm3 = this.bipedRightArm;
+        ModelRenderer bipedRightArm3 = this.bipedRightArm;
         bipedRightArm3.rotateAngleX += MathHelper.sin(ageInTicks * 0.067f) * 0.05f;
-        final ModelRenderer bipedLeftArm3 = this.bipedLeftArm;
+        ModelRenderer bipedLeftArm3 = this.bipedLeftArm;
         bipedLeftArm3.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067f) * 0.05f;
     }
     
-    public void setRotationAnglesStand(final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scaleFactor, final Entity entityIn) {
+    public void setRotationAnglesStand(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         if (entityIn instanceof EntityArmorStand) {
-            final EntityArmorStand entityarmorstand = (EntityArmorStand)entityIn;
+            EntityArmorStand entityarmorstand = (EntityArmorStand)entityIn;
             bipedHead.rotateAngleX = 0.017453292f * entityarmorstand.getHeadRotation().getX();
             bipedHead.rotateAngleY = 0.017453292f * entityarmorstand.getHeadRotation().getY();
             bipedHead.rotateAngleZ = 0.017453292f * entityarmorstand.getHeadRotation().getZ();

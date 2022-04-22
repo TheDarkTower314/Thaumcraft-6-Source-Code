@@ -47,7 +47,7 @@ public class FocusEffectExchange extends FocusEffect implements IFocusBlockPicke
     }
     
     @Override
-    public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
+    public boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num) {
         if (target.typeOfHit != RayTraceResult.Type.BLOCK) {
             return false;
         }
@@ -61,8 +61,8 @@ public class FocusEffectExchange extends FocusEffect implements IFocusBlockPicke
         if (casterStack.isEmpty()) {
             return false;
         }
-        final boolean silk = getSettingValue("silk") > 0;
-        final int fortune = getSettingValue("fortune");
+        boolean silk = getSettingValue("silk") > 0;
+        int fortune = getSettingValue("fortune");
         if (getPackage().getCaster() instanceof EntityPlayer && ((ItemCaster)casterStack.getItem()).getPickedBlock(casterStack) != null && !((ItemCaster)casterStack.getItem()).getPickedBlock(casterStack).isEmpty()) {
             ServerEvents.addSwapper(getPackage().world, target.getBlockPos(), getPackage().world.getBlockState(target.getBlockPos()), ((ItemCaster)casterStack.getItem()).getPickedBlock(casterStack), true, 0, (EntityPlayer) getPackage().getCaster(), true, false, 8038177, true, silk, fortune, ServerEvents.DEFAULT_PREDICATE, 0.25f + (silk ? 0.25f : 0.0f) + fortune * 0.1f);
         }
@@ -71,17 +71,17 @@ public class FocusEffectExchange extends FocusEffect implements IFocusBlockPicke
     
     @Override
     public NodeSetting[] createSettings() {
-        final int[] silk = { 0, 1 };
-        final String[] silkDesc = { "focus.common.no", "focus.common.yes" };
-        final int[] fortune = { 0, 1, 2, 3, 4 };
-        final String[] fortuneDesc = { "focus.common.no", "I", "II", "III", "IV" };
+        int[] silk = { 0, 1 };
+        String[] silkDesc = { "focus.common.no", "focus.common.yes" };
+        int[] fortune = { 0, 1, 2, 3, 4 };
+        String[] fortuneDesc = { "focus.common.no", "I", "II", "III", "IV" };
         return new NodeSetting[] { new NodeSetting("fortune", "focus.common.fortune", new NodeSetting.NodeSettingIntList(fortune, fortuneDesc)), new NodeSetting("silk", "focus.common.silk", new NodeSetting.NodeSettingIntList(silk, silkDesc)) };
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void renderParticleFX(final World world, final double x, final double y, final double z, final double vx, final double vy, final double vz) {
-        final FXGeneric fb = new FXGeneric(world, x, y, z, vx + world.rand.nextGaussian() * 0.01, vy + world.rand.nextGaussian() * 0.01, vz + world.rand.nextGaussian() * 0.01);
+    public void renderParticleFX(World world, double x, double y, double z, double vx, double vy, double vz) {
+        FXGeneric fb = new FXGeneric(world, x, y, z, vx + world.rand.nextGaussian() * 0.01, vy + world.rand.nextGaussian() * 0.01, vz + world.rand.nextGaussian() * 0.01);
         fb.setMaxAge(9);
         fb.setRBGColorF(0.25f + world.rand.nextFloat() * 0.25f, 0.25f + world.rand.nextFloat() * 0.25f, 0.25f + world.rand.nextFloat() * 0.25f);
         fb.setAlphaF(0.0f, 0.6f, 0.6f, 0.0f);
@@ -94,7 +94,7 @@ public class FocusEffectExchange extends FocusEffect implements IFocusBlockPicke
     }
     
     @Override
-    public void onCast(final Entity caster) {
+    public void onCast(Entity caster) {
         caster.world.playSound(null, caster.getPosition().up(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, 0.2f, 2.0f + (float)(caster.world.rand.nextGaussian() * 0.05000000074505806));
     }
 }

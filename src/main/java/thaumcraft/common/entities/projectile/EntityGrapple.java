@@ -30,7 +30,7 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
     public float ampl;
     public static HashMap<Integer, Integer> grapples;
     
-    public EntityGrapple(final World par1World) {
+    public EntityGrapple(World par1World) {
         super(par1World);
         hand = EnumHand.MAIN_HAND;
         p = false;
@@ -41,15 +41,15 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
         setSize(0.1f, 0.1f);
     }
     
-    public boolean isInRangeToRenderDist(final double distance) {
+    public boolean isInRangeToRenderDist(double distance) {
         return distance < 4096.0;
     }
     
-    public void shoot(final double x, final double y, final double z, final float velocity, final float inaccuracy) {
+    public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
         super.shoot(x, y, z, velocity, 0.0f);
     }
     
-    public EntityGrapple(final World par1World, final EntityLivingBase par2EntityLiving, final EnumHand hand) {
+    public EntityGrapple(World par1World, EntityLivingBase par2EntityLiving, EnumHand hand) {
         super(par1World, par2EntityLiving);
         this.hand = EnumHand.MAIN_HAND;
         p = false;
@@ -61,7 +61,7 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
         this.hand = hand;
     }
     
-    public EntityGrapple(final World par1World, final double par2, final double par4, final double par6) {
+    public EntityGrapple(World par1World, double par2, double par4, double par6) {
         super(par1World, par2, par4, par6);
         hand = EnumHand.MAIN_HAND;
         p = false;
@@ -72,7 +72,7 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
         setSize(0.1f, 0.1f);
     }
     
-    public void writeSpawnData(final ByteBuf data) {
+    public void writeSpawnData(ByteBuf data) {
         int id = -1;
         if (getThrower() != null) {
             id = getThrower().getEntityId();
@@ -81,15 +81,15 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
         data.writeBoolean(hand == EnumHand.MAIN_HAND);
     }
     
-    public void readSpawnData(final ByteBuf data) {
-        final int id = data.readInt();
+    public void readSpawnData(ByteBuf data) {
+        int id = data.readInt();
         hand = (data.readBoolean() ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
         try {
             if (id >= 0) {
                 cthrower = (EntityLivingBase) world.getEntityByID(id);
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
     }
     
     public EntityLivingBase getThrower() {
@@ -126,9 +126,9 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
         if (getThrower() != null) {
             if (!world.isRemote && !isDead && !added) {
                 if (EntityGrapple.grapples.containsKey(getThrower().getEntityId())) {
-                    final int ii = EntityGrapple.grapples.get(getThrower().getEntityId());
+                    int ii = EntityGrapple.grapples.get(getThrower().getEntityId());
                     if (ii != getEntityId()) {
-                        final Entity e = world.getEntityByID(ii);
+                        Entity e = world.getEntityByID(ii);
                         if (e != null) {
                             e.setDead();
                         }
@@ -142,8 +142,8 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
                     setDead();
                 }
             }
-            catch (final Exception ex) {}
-            final double dis = getThrower().getDistance(this);
+            catch (Exception ex) {}
+            double dis = getThrower().getDistance(this);
             if (getThrower() != null && getPulling() && !isDead) {
                 if (getThrower().isSneaking()) {
                     EntityGrapple.grapples.remove(getThrower().getEntityId());
@@ -172,18 +172,18 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
                         my = v2.y / 4.0;
                         mz = v2.z / 4.0;
                     }
-                    final EntityLivingBase thrower = getThrower();
+                    EntityLivingBase thrower = getThrower();
                     thrower.motionX += mx;
-                    final EntityLivingBase thrower2 = getThrower();
+                    EntityLivingBase thrower2 = getThrower();
                     thrower2.motionY += my + 0.033;
-                    final EntityLivingBase thrower3 = getThrower();
+                    EntityLivingBase thrower3 = getThrower();
                     thrower3.motionZ += mz;
                     if (!boost) {
-                        final EntityLivingBase thrower4 = getThrower();
+                        EntityLivingBase thrower4 = getThrower();
                         thrower4.motionY += 0.4000000059604645;
                         boost = true;
                     }
-                    final int d = (int)(dis / 2.0);
+                    int d = (int)(dis / 2.0);
                     if (d == prevDist) {
                         ++count;
                     }
@@ -205,7 +205,7 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte id) {
+    public void handleStatusUpdate(byte id) {
         if (id == 6) {
             setPulling();
             motionX = 0.0;
@@ -214,7 +214,7 @@ public class EntityGrapple extends EntityThrowable implements IEntityAdditionalS
         }
     }
     
-    protected void onImpact(final RayTraceResult mop) {
+    protected void onImpact(RayTraceResult mop) {
         if (!world.isRemote) {
             setPulling();
             motionX = 0.0;

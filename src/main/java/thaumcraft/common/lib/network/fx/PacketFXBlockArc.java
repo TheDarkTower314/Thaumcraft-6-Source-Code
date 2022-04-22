@@ -27,7 +27,7 @@ public class PacketFXBlockArc implements IMessage, IMessageHandler<PacketFXBlock
     public PacketFXBlockArc() {
     }
     
-    public PacketFXBlockArc(final BlockPos pos, final Entity source, final float r, final float g, final float b) {
+    public PacketFXBlockArc(BlockPos pos, Entity source, float r, float g, float b) {
         x = pos.getX();
         y = pos.getY();
         z = pos.getZ();
@@ -39,7 +39,7 @@ public class PacketFXBlockArc implements IMessage, IMessageHandler<PacketFXBlock
         this.b = b;
     }
     
-    public PacketFXBlockArc(final BlockPos pos, final BlockPos pos2, final float r, final float g, final float b) {
+    public PacketFXBlockArc(BlockPos pos, BlockPos pos2, float r, float g, float b) {
         x = pos.getX();
         y = pos.getY();
         z = pos.getZ();
@@ -51,7 +51,7 @@ public class PacketFXBlockArc implements IMessage, IMessageHandler<PacketFXBlock
         this.b = b;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(x);
         buffer.writeInt(y);
         buffer.writeInt(z);
@@ -63,7 +63,7 @@ public class PacketFXBlockArc implements IMessage, IMessageHandler<PacketFXBlock
         buffer.writeFloat(b);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         x = buffer.readInt();
         y = buffer.readInt();
         z = buffer.readInt();
@@ -75,7 +75,7 @@ public class PacketFXBlockArc implements IMessage, IMessageHandler<PacketFXBlock
         b = buffer.readFloat();
     }
     
-    public IMessage onMessage(final PacketFXBlockArc message, final MessageContext ctx) {
+    public IMessage onMessage(PacketFXBlockArc message, MessageContext ctx) {
         FXDispatcher.INSTANCE.arcLightning(message.tx, message.ty, message.tz, message.x + 0.5, message.y + 0.5, message.z + 0.5, message.r, message.g, message.b, 0.5f);
         return null;
     }

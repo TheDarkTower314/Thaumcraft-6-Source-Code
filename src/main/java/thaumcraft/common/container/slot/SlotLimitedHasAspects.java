@@ -12,12 +12,12 @@ import net.minecraft.inventory.Slot;
 
 public class SlotLimitedHasAspects extends Slot
 {
-    public SlotLimitedHasAspects(final IInventory par2IInventory, final int par3, final int par4, final int par5) {
+    public SlotLimitedHasAspects(IInventory par2IInventory, int par3, int par4, int par5) {
         super(par2IInventory, par3, par4, par5);
     }
     
-    public boolean isItemValid(final ItemStack stack1) {
-        final AspectList al = ThaumcraftCraftingManager.getObjectTags(stack1);
+    public boolean isItemValid(ItemStack stack1) {
+        AspectList al = ThaumcraftCraftingManager.getObjectTags(stack1);
         return al != null && al.size() > 0;
     }
 }

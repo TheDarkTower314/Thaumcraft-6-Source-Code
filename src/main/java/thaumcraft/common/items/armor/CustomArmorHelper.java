@@ -17,9 +17,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class CustomArmorHelper
 {
-    protected static ModelBiped getCustomArmorModel(final EntityLivingBase entityLiving, final ItemStack itemStack, final EntityEquipmentSlot armorSlot, ModelBiped model, final ModelBiped model1, final ModelBiped model2) {
+    protected static ModelBiped getCustomArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped model, ModelBiped model1, ModelBiped model2) {
         if (model == null) {
-            final EntityEquipmentSlot type = ((ItemArmor)itemStack.getItem()).armorType;
+            EntityEquipmentSlot type = ((ItemArmor)itemStack.getItem()).armorType;
             if (type == EntityEquipmentSlot.CHEST || type == EntityEquipmentSlot.FEET) {
                 model = model1;
             }
@@ -38,14 +38,14 @@ public class CustomArmorHelper
             model.isSneak = entityLiving.isSneaking();
             model.isRiding = entityLiving.isRiding();
             model.isChild = entityLiving.isChild();
-            final ItemStack itemstack = entityLiving.getHeldItemMainhand();
-            final ItemStack itemstack2 = entityLiving.getHeldItemOffhand();
+            ItemStack itemstack = entityLiving.getHeldItemMainhand();
+            ItemStack itemstack2 = entityLiving.getHeldItemOffhand();
             ModelBiped.ArmPose modelbiped$armpose = ModelBiped.ArmPose.EMPTY;
             ModelBiped.ArmPose modelbiped$armpose2 = ModelBiped.ArmPose.EMPTY;
             if (itemstack != null && !itemstack.isEmpty()) {
                 modelbiped$armpose = ModelBiped.ArmPose.ITEM;
                 if (entityLiving.getItemInUseCount() > 0) {
-                    final EnumAction enumaction = itemstack.getItemUseAction();
+                    EnumAction enumaction = itemstack.getItemUseAction();
                     if (enumaction == EnumAction.BLOCK) {
                         modelbiped$armpose = ModelBiped.ArmPose.BLOCK;
                     }
@@ -57,7 +57,7 @@ public class CustomArmorHelper
             if (itemstack2 != null && !itemstack2.isEmpty()) {
                 modelbiped$armpose2 = ModelBiped.ArmPose.ITEM;
                 if (entityLiving.getItemInUseCount() > 0) {
-                    final EnumAction enumaction2 = itemstack2.getItemUseAction();
+                    EnumAction enumaction2 = itemstack2.getItemUseAction();
                     if (enumaction2 == EnumAction.BLOCK) {
                         modelbiped$armpose2 = ModelBiped.ArmPose.BLOCK;
                     }

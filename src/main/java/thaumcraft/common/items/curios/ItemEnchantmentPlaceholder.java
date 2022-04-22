@@ -25,33 +25,33 @@ public class ItemEnchantmentPlaceholder extends ItemTCBase
     }
     
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(final ItemStack stack) {
+    public boolean hasEffect(ItemStack stack) {
         return true;
     }
     
-    public boolean isEnchantable(final ItemStack stack) {
+    public boolean isEnchantable(ItemStack stack) {
         return false;
     }
     
-    public EnumRarity getRarity(final ItemStack stack) {
+    public EnumRarity getRarity(ItemStack stack) {
         return EnumRarity.RARE;
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(TextFormatting.ITALIC + "" + TextFormatting.DARK_AQUA + I18n.translateToLocal("item.enchanted_placeholder.text"));
     }
     
-    public boolean canHarvestBlock(final IBlockState blockIn) {
+    public boolean canHarvestBlock(IBlockState blockIn) {
         return true;
     }
     
-    public boolean canHarvestBlock(final IBlockState state, final ItemStack stack) {
+    public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
         return true;
     }
     
-    public int getHarvestLevel(final ItemStack stack, final String toolClass, final EntityPlayer player, final IBlockState blockState) {
+    public int getHarvestLevel(ItemStack stack, String toolClass, EntityPlayer player, IBlockState blockState) {
         return 99;
     }
 }

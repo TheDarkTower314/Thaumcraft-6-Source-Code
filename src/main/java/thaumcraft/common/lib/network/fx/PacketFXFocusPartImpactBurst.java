@@ -28,7 +28,7 @@ public class PacketFXFocusPartImpactBurst implements IMessage, IMessageHandler<P
     public PacketFXFocusPartImpactBurst() {
     }
     
-    public PacketFXFocusPartImpactBurst(final double x, final double y, final double z, final String[] parts) {
+    public PacketFXFocusPartImpactBurst(double x, double y, double z, String[] parts) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -41,21 +41,21 @@ public class PacketFXFocusPartImpactBurst implements IMessage, IMessageHandler<P
         }
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeFloat((float) x);
         buffer.writeFloat((float) y);
         buffer.writeFloat((float) z);
         ByteBufUtils.writeUTF8String(buffer, parts);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         x = buffer.readFloat();
         y = buffer.readFloat();
         z = buffer.readFloat();
         parts = ByteBufUtils.readUTF8String(buffer);
     }
     
-    public IMessage onMessage(final PacketFXFocusPartImpactBurst message, final MessageContext ctx) {
+    public IMessage onMessage(PacketFXFocusPartImpactBurst message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
@@ -66,12 +66,12 @@ public class PacketFXFocusPartImpactBurst implements IMessage, IMessageHandler<P
     }
     
     @SideOnly(Side.CLIENT)
-    void processMessage(final PacketFXFocusPartImpactBurst message) {
-        final String[] partKeys = message.parts.split("%");
-        final int amt = Math.max(1, 20 / partKeys.length);
-        final Random r = Minecraft.getMinecraft().world.rand;
-        for (final String k : partKeys) {
-            final IFocusElement part = FocusEngine.getElement(k);
+    void processMessage(PacketFXFocusPartImpactBurst message) {
+        String[] partKeys = message.parts.split("%");
+        int amt = Math.max(1, 20 / partKeys.length);
+        Random r = Minecraft.getMinecraft().world.rand;
+        for (String k : partKeys) {
+            IFocusElement part = FocusEngine.getElement(k);
             if (part != null && part instanceof FocusEffect) {
                 for (int a = 0; a < amt; ++a) {
                     ((FocusEffect)part).renderParticleFX(Minecraft.getMinecraft().world, message.x, message.y, message.z, r.nextGaussian() * 0.4, r.nextGaussian() * 0.4, r.nextGaussian() * 0.4);

@@ -58,8 +58,8 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
     
     @Override
     public NodeSetting[] createSettings() {
-        final int[] method = { 0, 1 };
-        final String[] methodDesc = { "focus.plan.full", "focus.plan.surface" };
+        int[] method = { 0, 1 };
+        String[] methodDesc = { "focus.plan.full", "focus.plan.surface" };
         return new NodeSetting[] { new NodeSetting("method", "focus.plan.method", new NodeSetting.NodeSettingIntList(method, methodDesc)) };
     }
     
@@ -68,7 +68,7 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
         if (getParent() == null || !(getPackage().getCaster() instanceof EntityPlayer)) {
             return new RayTraceResult[0];
         }
-        final ArrayList<RayTraceResult> targets = new ArrayList<RayTraceResult>();
+        ArrayList<RayTraceResult> targets = new ArrayList<RayTraceResult>();
         ItemStack casterStack = ItemStack.EMPTY;
         if (getPackage().getCaster().getHeldItemMainhand() != null && getPackage().getCaster().getHeldItemMainhand().getItem() instanceof ICaster) {
             casterStack = getPackage().getCaster().getHeldItemMainhand();
@@ -76,15 +76,15 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
         else if (getPackage().getCaster().getHeldItemOffhand() != null && getPackage().getCaster().getHeldItemOffhand().getItem() instanceof ICaster) {
             casterStack = getPackage().getCaster().getHeldItemOffhand();
         }
-        for (final Trajectory sT : getParent().supplyTrajectories()) {
+        for (Trajectory sT : getParent().supplyTrajectories()) {
             Vec3d end = sT.direction.normalize();
             end = end.scale(16.0);
             end = end.add(sT.source);
-            final RayTraceResult target = getPackage().world.rayTraceBlocks(sT.source, end);
+            RayTraceResult target = getPackage().world.rayTraceBlocks(sT.source, end);
             if (target != null && target.typeOfHit == RayTraceResult.Type.BLOCK) {
-                final ArrayList<BlockPos> usl = getArchitectBlocks(casterStack, getPackage().world, target.getBlockPos(), target.sideHit, (EntityPlayer) getPackage().getCaster());
-                final ArrayList<BlockPos> sl = usl.stream().sorted(new BlockUtils.BlockPosComparator(target.getBlockPos())).collect(Collectors.toCollection(ArrayList::new));
-                for (final BlockPos p : sl) {
+                ArrayList<BlockPos> usl = getArchitectBlocks(casterStack, getPackage().world, target.getBlockPos(), target.sideHit, (EntityPlayer) getPackage().getCaster());
+                ArrayList<BlockPos> sl = usl.stream().sorted(new BlockUtils.BlockPosComparator(target.getBlockPos())).collect(Collectors.toCollection(ArrayList::new));
+                for (BlockPos p : sl) {
                     targets.add(new RayTraceResult(new Vec3d(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5), target.sideHit, p));
                 }
             }
@@ -93,7 +93,7 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
     }
     
     @Override
-    public RayTraceResult getArchitectMOP(final ItemStack stack, final World world, final EntityLivingBase player) {
+    public RayTraceResult getArchitectMOP(ItemStack stack, World world, EntityLivingBase player) {
         Vec3d start = player.getPositionVector();
         start = start.addVector(0.0, player.getEyeHeight(), 0.0);
         Vec3d end = player.getLookVec();
@@ -103,7 +103,7 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
     }
     
     @Override
-    public boolean useBlockHighlight(final ItemStack stack) {
+    public boolean useBlockHighlight(ItemStack stack) {
         return false;
     }
     
@@ -113,11 +113,11 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
     }
     
     @Override
-    public boolean showAxis(final ItemStack stack, final World world, final EntityPlayer player, final EnumFacing side, final EnumAxis axis) {
+    public boolean showAxis(ItemStack stack, World world, EntityPlayer player, EnumFacing side, EnumAxis axis) {
         if (stack == null || stack.isEmpty()) {
             return false;
         }
-        final int dim = CasterManager.getAreaDim(stack);
+        int dim = CasterManager.getAreaDim(stack);
         if (getSettingValue("method") == 0) {
             switch (axis) {
                 case Y: {
@@ -166,8 +166,8 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
     }
     
     @Override
-    public ArrayList<BlockPos> getArchitectBlocks(final ItemStack stack, final World world, final BlockPos pos, final EnumFacing side, final EntityPlayer player) {
-        final ArrayList<BlockPos> out = new ArrayList<BlockPos>();
+    public ArrayList<BlockPos> getArchitectBlocks(ItemStack stack, World world, BlockPos pos, EnumFacing side, EntityPlayer player) {
+        ArrayList<BlockPos> out = new ArrayList<BlockPos>();
         if (stack == null || stack.isEmpty()) {
             return out;
         }
@@ -176,7 +176,7 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
             checkNeighboursFull(world, pos, new BlockPos(pos), side, CasterManager.getAreaX(stack), CasterManager.getAreaY(stack), CasterManager.getAreaZ(stack), out, player);
         }
         else {
-            final IBlockState bi = world.getBlockState(pos);
+            IBlockState bi = world.getBlockState(pos);
             checked.clear();
             if (side.getAxis() == EnumFacing.Axis.Z) {
                 checkNeighboursSurface(world, pos, bi, new BlockPos(pos), side, CasterManager.getAreaZ(stack), CasterManager.getAreaY(stack), CasterManager.getAreaX(stack), out, player);
@@ -188,7 +188,7 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
         return out;
     }
     
-    public void checkNeighboursFull(final World world, final BlockPos pos1, final BlockPos pos2, final EnumFacing side, final int sizeX, final int sizeY, final int sizeZ, final ArrayList<BlockPos> list, final EntityPlayer player) {
+    public void checkNeighboursFull(World world, BlockPos pos1, BlockPos pos2, EnumFacing side, int sizeX, int sizeY, int sizeZ, ArrayList<BlockPos> list, EntityPlayer player) {
         if (checked.contains(pos2)) {
             return;
         }
@@ -208,8 +208,8 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
         ye -= sizeY * side.getFrontOffsetY();
         zs -= sizeZ * side.getFrontOffsetZ();
         ze -= sizeZ * side.getFrontOffsetZ();
-        for (final EnumFacing dir : EnumFacing.values()) {
-            final BlockPos q = pos2.offset(dir);
+        for (EnumFacing dir : EnumFacing.values()) {
+            BlockPos q = pos2.offset(dir);
             if (q.getX() >= xs && q.getX() <= xe && q.getY() >= ys && q.getY() <= ye && q.getZ() >= zs) {
                 if (q.getZ() <= ze) {
                     checkNeighboursFull(world, pos1, q, side, sizeX, sizeY, sizeZ, list, player);
@@ -218,7 +218,7 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
         }
     }
     
-    public void checkNeighboursSurface(final World world, final BlockPos pos1, final IBlockState bi, final BlockPos pos2, final EnumFacing side, final int sizeX, final int sizeY, final int sizeZ, final ArrayList<BlockPos> list, final EntityPlayer player) {
+    public void checkNeighboursSurface(World world, BlockPos pos1, IBlockState bi, BlockPos pos2, EnumFacing side, int sizeX, int sizeY, int sizeZ, ArrayList<BlockPos> list, EntityPlayer player) {
         if (checked.contains(pos2)) {
             return;
         }
@@ -254,7 +254,7 @@ public class FocusMediumPlan extends FocusMedium implements IArchitect
         }
         if (world.getBlockState(pos2) == bi && BlockUtils.isBlockExposed(world, pos2) && !world.isAirBlock(pos2)) {
             list.add(pos2);
-            for (final EnumFacing dir : EnumFacing.values()) {
+            for (EnumFacing dir : EnumFacing.values()) {
                 if (dir != side) {
                     if (dir.getOpposite() != side) {
                         checkNeighboursSurface(world, pos1, bi, pos2.offset(dir), side, sizeX, sizeY, sizeZ, list, player);

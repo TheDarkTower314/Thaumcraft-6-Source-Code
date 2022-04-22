@@ -17,19 +17,19 @@ class GuiGolemCategoryButton extends GuiButton
     boolean active;
     static ResourceLocation tex;
     
-    public GuiGolemCategoryButton(final int buttonId, final int x, final int y, final int width, final int height, final String buttonText, final int i, final boolean act) {
+    public GuiGolemCategoryButton(int buttonId, int x, int y, int width, int height, String buttonText, int i, boolean act) {
         super(buttonId, x, y, width, height, buttonText);
         icon = i;
         active = act;
     }
     
-    public void drawButton(final Minecraft mc, final int xx, final int yy, final float partialTicks) {
+    public void drawButton(Minecraft mc, int xx, int yy, float partialTicks) {
         if (visible) {
-            final FontRenderer fontrenderer = mc.fontRenderer;
+            FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiGolemCategoryButton.tex);
             GlStateManager.color(0.9f, 0.9f, 0.9f, 0.9f);
             hovered = (xx >= x - 8 && yy >= y - 8 && xx < x - 8 + width && yy < y - 8 + height);
-            final int k = getHoverState(hovered);
+            int k = getHoverState(hovered);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.blendFunc(770, 771);
@@ -43,7 +43,7 @@ class GuiGolemCategoryButton extends GuiButton
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             if (k == 2) {
                 zLevel += 90.0f;
-                final String s = I18n.translateToLocal(displayString);
+                String s = I18n.translateToLocal(displayString);
                 drawString(fontrenderer, s, x - 10 - fontrenderer.getStringWidth(s), y - 4, 16777215);
                 zLevel -= 90.0f;
             }
@@ -51,7 +51,7 @@ class GuiGolemCategoryButton extends GuiButton
         }
     }
     
-    public boolean mousePressed(final Minecraft mc, final int mouseX, final int mouseY) {
+    public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         return enabled && visible && mouseX >= x - 8 && mouseY >= y - 8 && mouseX < x - 8 + width && mouseY < y - 8 + height;
     }
     

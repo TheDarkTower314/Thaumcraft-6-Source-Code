@@ -23,7 +23,7 @@ public class EntityBrainyZombie extends EntityZombie
         getEntityAttribute(EntityBrainyZombie.SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(0.0);
     }
     
-    public EntityBrainyZombie(final World world) {
+    public EntityBrainyZombie(World world) {
         super(world);
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
     }
@@ -32,7 +32,7 @@ public class EntityBrainyZombie extends EntityZombie
         return super.getTotalArmorValue() + 1;
     }
     
-    protected void dropLoot(final boolean wasRecentlyHit, final int lootingModifier, final DamageSource source) {
+    protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
         if (world.rand.nextInt(10) - lootingModifier <= 4) {
             entityDropItem(new ItemStack(ItemsTC.brain), 1.5f);
         }

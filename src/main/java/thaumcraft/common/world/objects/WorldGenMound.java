@@ -22,16 +22,16 @@ public class WorldGenMound extends WorldGenerator
         return new Block[] { Blocks.STONE, Blocks.GRASS, Blocks.DIRT };
     }
     
-    public boolean LocationIsValidSpawn(final World world, final BlockPos pos) {
+    public boolean LocationIsValidSpawn(World world, BlockPos pos) {
         int distanceToAir;
         for (distanceToAir = 0; !world.isAirBlock(pos.up(distanceToAir)) && distanceToAir < 3; ++distanceToAir) {}
         if (distanceToAir > 2) {
             return false;
         }
-        final BlockPos pos2 = pos.up(distanceToAir - 1);
-        final Block blockID = world.getBlockState(pos2).getBlock();
-        final Block blockIDBelow = world.getBlockState(pos2.down()).getBlock();
-        for (final Block x : GetValidSpawnBlocks()) {
+        BlockPos pos2 = pos.up(distanceToAir - 1);
+        Block blockID = world.getBlockState(pos2).getBlock();
+        Block blockIDBelow = world.getBlockState(pos2.down()).getBlock();
+        for (Block x : GetValidSpawnBlocks()) {
             if (!world.isAirBlock(pos2.up())) {
                 return false;
             }
@@ -45,10 +45,10 @@ public class WorldGenMound extends WorldGenerator
         return false;
     }
     
-    public boolean generate(final World world, final Random rand, final BlockPos pos) {
-        final int i = pos.getX();
-        final int j = pos.getY();
-        final int k = pos.getZ();
+    public boolean generate(World world, Random rand, BlockPos pos) {
+        int i = pos.getX();
+        int j = pos.getY();
+        int k = pos.getZ();
         if (!LocationIsValidSpawn(world, new BlockPos(i + 9, j + 9, k + 9)) || !LocationIsValidSpawn(world, new BlockPos(i, j + 9, k)) || !LocationIsValidSpawn(world, new BlockPos(i + 18, j + 9, k)) || !LocationIsValidSpawn(world, new BlockPos(i + 18, j + 9, k + 18)) || !LocationIsValidSpawn(world, new BlockPos(i, j + 9, k + 18))) {
             return false;
         }
@@ -1551,7 +1551,7 @@ public class WorldGenMound extends WorldGenerator
         return true;
     }
     
-    public boolean generate2(final World world, final Random rand, final int i, final int j, final int k) {
+    public boolean generate2(World world, Random rand, int i, int j, int k) {
         world.setBlockState(new BlockPos(i + 16, j + 10, k + 15), Blocks.GRASS.getDefaultState());
         world.setBlockState(new BlockPos(i + 16, j + 11, k + 3), Blocks.GRASS.getDefaultState());
         world.setBlockState(new BlockPos(i + 16, j + 11, k + 4), Blocks.DIRT.getDefaultState());
@@ -2541,7 +2541,7 @@ public class WorldGenMound extends WorldGenerator
         else {
             world.setBlockState(new BlockPos(i + 10, j + 1, k + 9), Blocks.CHEST.getStateFromMeta(4));
         }
-        final TileEntityChest chest = (TileEntityChest)world.getTileEntity(new BlockPos(i + 10, j + 1, k + 9));
+        TileEntityChest chest = (TileEntityChest)world.getTileEntity(new BlockPos(i + 10, j + 1, k + 9));
         if (chest != null) {
             chest.setLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, rand.nextLong());
         }

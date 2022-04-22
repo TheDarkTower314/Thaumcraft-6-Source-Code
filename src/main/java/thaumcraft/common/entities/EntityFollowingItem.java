@@ -23,7 +23,7 @@ public class EntityFollowingItem extends EntitySpecialItem implements IEntityAdd
     int age;
     public double gravity;
     
-    public EntityFollowingItem(final World par1World, final double par2, final double par4, final double par6, final ItemStack par8ItemStack) {
+    public EntityFollowingItem(World par1World, double par2, double par4, double par6, ItemStack par8ItemStack) {
         super(par1World);
         targetX = 0.0;
         targetY = 0.0;
@@ -38,7 +38,7 @@ public class EntityFollowingItem extends EntitySpecialItem implements IEntityAdd
         rotationYaw = (float)(Math.random() * 360.0);
     }
     
-    public EntityFollowingItem(final World par1World, final double par2, final double par4, final double par6, final ItemStack par8ItemStack, final Entity target, final int t) {
+    public EntityFollowingItem(World par1World, double par2, double par4, double par6, ItemStack par8ItemStack, Entity target, int t) {
         this(par1World, par2, par4, par6, par8ItemStack);
         this.target = target;
         targetX = target.posX;
@@ -48,14 +48,14 @@ public class EntityFollowingItem extends EntitySpecialItem implements IEntityAdd
         noClip = true;
     }
     
-    public EntityFollowingItem(final World par1World, final double par2, final double par4, final double par6, final ItemStack par8ItemStack, final double tx, final double ty, final double tz) {
+    public EntityFollowingItem(World par1World, double par2, double par4, double par6, ItemStack par8ItemStack, double tx, double ty, double tz) {
         this(par1World, par2, par4, par6, par8ItemStack);
         targetX = tx;
         targetY = ty;
         targetZ = tz;
     }
     
-    public EntityFollowingItem(final World par1World) {
+    public EntityFollowingItem(World par1World) {
         super(par1World);
         targetX = 0.0;
         targetY = 0.0;
@@ -75,9 +75,9 @@ public class EntityFollowingItem extends EntitySpecialItem implements IEntityAdd
             targetZ = target.posZ;
         }
         if (targetX != 0.0 || targetY != 0.0 || targetZ != 0.0) {
-            final float xd = (float)(targetX - posX);
-            final float yd = (float)(targetY - posY);
-            final float zd = (float)(targetZ - posZ);
+            float xd = (float)(targetX - posX);
+            float yd = (float)(targetY - posY);
+            float zd = (float)(targetZ - posZ);
             if (age > 1) {
                 --age;
             }
@@ -99,7 +99,7 @@ public class EntityFollowingItem extends EntitySpecialItem implements IEntityAdd
                 noClip = false;
             }
             if (world.isRemote) {
-                final float h = (float)((getEntityBoundingBox().maxY - getEntityBoundingBox().minY) / 2.0) + MathHelper.sin(getAge() / 10.0f + hoverStart) * 0.1f + 0.1f;
+                float h = (float)((getEntityBoundingBox().maxY - getEntityBoundingBox().minY) / 2.0) + MathHelper.sin(getAge() / 10.0f + hoverStart) * 0.1f + 0.1f;
                 if (type != 10) {
                     FXDispatcher.INSTANCE.drawNitorCore((float) prevPosX + (rand.nextFloat() - rand.nextFloat()) * 0.125f, (float) prevPosY + h + (rand.nextFloat() - rand.nextFloat()) * 0.125f, (float) prevPosZ + (rand.nextFloat() - rand.nextFloat()) * 0.125f, rand.nextGaussian() * 0.009999999776482582, rand.nextGaussian() * 0.009999999776482582, rand.nextGaussian() * 0.009999999776482582);
                 }
@@ -114,17 +114,17 @@ public class EntityFollowingItem extends EntitySpecialItem implements IEntityAdd
         super.onUpdate();
     }
     
-    public void writeEntityToNBT(final NBTTagCompound par1NBTTagCompound) {
+    public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
         super.writeEntityToNBT(par1NBTTagCompound);
         par1NBTTagCompound.setShort("type", (short) type);
     }
     
-    public void readEntityFromNBT(final NBTTagCompound par1NBTTagCompound) {
+    public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
         super.readEntityFromNBT(par1NBTTagCompound);
         type = par1NBTTagCompound.getShort("type");
     }
     
-    public void writeSpawnData(final ByteBuf data) {
+    public void writeSpawnData(ByteBuf data) {
         if (target != null) {
             data.writeInt((target == null) ? -1 : target.getEntityId());
             data.writeDouble(targetX);
@@ -134,9 +134,9 @@ public class EntityFollowingItem extends EntitySpecialItem implements IEntityAdd
         }
     }
     
-    public void readSpawnData(final ByteBuf data) {
+    public void readSpawnData(ByteBuf data) {
         try {
-            final int ent = data.readInt();
+            int ent = data.readInt();
             if (ent > -1) {
                 target = world.getEntityByID(ent);
             }
@@ -145,6 +145,6 @@ public class EntityFollowingItem extends EntitySpecialItem implements IEntityAdd
             targetZ = data.readDouble();
             type = data.readByte();
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
     }
 }

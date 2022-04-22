@@ -20,7 +20,7 @@ import net.minecraft.item.ItemArmor;
 
 public class ItemThaumiumArmor extends ItemArmor implements IThaumcraftItems
 {
-    public ItemThaumiumArmor(final String name, final ItemArmor.ArmorMaterial enumarmormaterial, final int j, final EntityEquipmentSlot k) {
+    public ItemThaumiumArmor(String name, ItemArmor.ArmorMaterial enumarmormaterial, int j, EntityEquipmentSlot k) {
         super(enumarmormaterial, j, k);
         setRegistryName(name);
         setUnlocalizedName(name);
@@ -45,11 +45,11 @@ public class ItemThaumiumArmor extends ItemArmor implements IThaumcraftItems
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public String getArmorTexture(final ItemStack stack, final Entity entity, final EntityEquipmentSlot slot, final String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         if (stack.getItem() == ItemsTC.thaumiumHelm || stack.getItem() == ItemsTC.thaumiumChest || stack.getItem() == ItemsTC.thaumiumBoots) {
             return "thaumcraft:textures/entity/armor/thaumium_1.png";
         }
@@ -59,11 +59,11 @@ public class ItemThaumiumArmor extends ItemArmor implements IThaumcraftItems
         return "thaumcraft:textures/entity/armor/thaumium_1.png";
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.UNCOMMON;
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 0)) || super.getIsRepairable(stack1, stack2);
     }
 }

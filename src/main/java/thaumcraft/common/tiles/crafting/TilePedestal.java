@@ -35,11 +35,11 @@ public class TilePedestal extends TileThaumcraftInventory
     }
     
     @Override
-    public boolean isItemValidForSlot(final int par1, final ItemStack stack2) {
+    public boolean isItemValidForSlot(int par1, ItemStack stack2) {
         return stack2.isEmpty() || getStackInSlot(par1).isEmpty();
     }
     
-    public void setInventorySlotContentsFromInfusion(final int par1, final ItemStack stack2) {
+    public void setInventorySlotContentsFromInfusion(int par1, ItemStack stack2) {
         setInventorySlotContents(par1, stack2);
         markDirty();
         if (!world.isRemote) {
@@ -49,7 +49,7 @@ public class TilePedestal extends TileThaumcraftInventory
     
     public BlockPos findInstabilityMitigator() {
         if (getBlockMetadata() > 0) {
-            final BlockPos pp = seekSourceRecursive(pos, getBlockMetadata());
+            BlockPos pp = seekSourceRecursive(pos, getBlockMetadata());
             if (pp != null) {
                 return pp;
             }
@@ -57,18 +57,18 @@ public class TilePedestal extends TileThaumcraftInventory
         return null;
     }
     
-    private BlockPos seekSourceRecursive(final BlockPos pos, final int lastCharge) {
-        for (final EnumFacing face : EnumFacing.HORIZONTALS) {
-            final BlockPos pp = pos.offset(face);
-            final int ss = BlockInlay.getSourceStrengthAt(world, pp);
+    private BlockPos seekSourceRecursive(BlockPos pos, int lastCharge) {
+        for (EnumFacing face : EnumFacing.HORIZONTALS) {
+            BlockPos pp = pos.offset(face);
+            int ss = BlockInlay.getSourceStrengthAt(world, pp);
             if (ss >= 5) {
                 return pp;
             }
-            final IBlockState bs = world.getBlockState(pp);
+            IBlockState bs = world.getBlockState(pp);
             if (bs.getProperties().containsKey(BlockInlay.CHARGE)) {
-                final int charge = (int)bs.getValue((IProperty)BlockInlay.CHARGE);
+                int charge = (int)bs.getValue((IProperty)BlockInlay.CHARGE);
                 if (charge > lastCharge) {
-                    final BlockPos ob = seekSourceRecursive(pp, charge);
+                    BlockPos ob = seekSourceRecursive(pp, charge);
                     if (ob != null) {
                         return ob;
                     }
@@ -78,7 +78,7 @@ public class TilePedestal extends TileThaumcraftInventory
         return null;
     }
     
-    public boolean receiveClientEvent(final int i, final int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i == 11) {
             if (world.isRemote) {
                 FXDispatcher.INSTANCE.drawBamf(pos.up(), 0.75f, 0.0f, 0.5f, true, true, null);

@@ -21,17 +21,17 @@ public class ModelRendererTaintacle extends ModelRenderer
     private int displayList;
     private ModelBase baseModel;
     
-    public ModelRendererTaintacle(final ModelBase par1ModelBase) {
+    public ModelRendererTaintacle(ModelBase par1ModelBase) {
         super(par1ModelBase);
     }
     
-    public ModelRendererTaintacle(final ModelBase par1ModelBase, final int par2, final int par3) {
+    public ModelRendererTaintacle(ModelBase par1ModelBase, int par2, int par3) {
         this(par1ModelBase);
         setTextureOffset(par2, par3);
     }
     
     @SideOnly(Side.CLIENT)
-    public void render(final float par1, final float scale) {
+    public void render(float par1, float scale) {
         if (!isHidden && showModel) {
             if (!compiled) {
                 compileDisplayList(par1);
@@ -91,9 +91,9 @@ public class ModelRendererTaintacle extends ModelRenderer
     }
     
     @SideOnly(Side.CLIENT)
-    private void compileDisplayList(final float par1) {
+    private void compileDisplayList(float par1) {
         GL11.glNewList(displayList = GLAllocation.generateDisplayLists(1), 4864);
-        final Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.getInstance();
         for (int i = 0; i < cubeList.size(); ++i) {
             cubeList.get(i).render(tessellator.getBuffer(), par1);
         }

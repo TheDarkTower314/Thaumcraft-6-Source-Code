@@ -21,25 +21,25 @@ public class PacketItemToClientContainer implements IMessage, IMessageHandler<Pa
     public PacketItemToClientContainer() {
     }
     
-    public PacketItemToClientContainer(final int windowIdIn, final int slotIn, final ItemStack itemIn) {
+    public PacketItemToClientContainer(int windowIdIn, int slotIn, ItemStack itemIn) {
         windowId = windowIdIn;
         slot = slotIn;
         item = itemIn;
     }
     
-    public void toBytes(final ByteBuf dos) {
+    public void toBytes(ByteBuf dos) {
         dos.writeInt(windowId);
         dos.writeInt(slot);
         Utils.writeItemStackToBuffer(dos, item);
     }
     
-    public void fromBytes(final ByteBuf dat) {
+    public void fromBytes(ByteBuf dat) {
         windowId = dat.readInt();
         slot = dat.readInt();
         item = Utils.readItemStackFromBuffer(dat);
     }
     
-    public IMessage onMessage(final PacketItemToClientContainer message, final MessageContext ctx) {
+    public IMessage onMessage(PacketItemToClientContainer message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
@@ -48,7 +48,7 @@ public class PacketItemToClientContainer implements IMessage, IMessageHandler<Pa
                         Minecraft.getMinecraft().player.openContainer.putStackInSlot(message.slot, message.item);
                     }
                 }
-                catch (final Exception e) {
+                catch (Exception e) {
                     e.printStackTrace();
                 }
             }

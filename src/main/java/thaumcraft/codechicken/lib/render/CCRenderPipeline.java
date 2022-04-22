@@ -21,7 +21,7 @@ public class CCRenderPipeline
         sorted = new ArrayList<CCRenderState.IVertexOperation>();
     }
     
-    public void setPipeline(final CCRenderState.IVertexOperation... ops) {
+    public void setPipeline(CCRenderState.IVertexOperation... ops) {
         this.ops.clear();
         for (int i = 0; i < ops.length; ++i) {
             this.ops.add(ops[i]);
@@ -60,9 +60,9 @@ public class CCRenderPipeline
             CCRenderState.setColour(-1);
         }
         for (int i = 0; i < ops.size(); ++i) {
-            final CCRenderState.IVertexOperation op = ops.get(i);
+            CCRenderState.IVertexOperation op = ops.get(i);
             loading = nodes.get(op.operationID());
-            final boolean loaded = op.load();
+            boolean loaded = op.load();
             if (loaded) {
                 loading.op = op;
             }
@@ -80,16 +80,16 @@ public class CCRenderPipeline
         }
     }
     
-    public void addRequirement(final int opRef) {
+    public void addRequirement(int opRef) {
         loading.deps.add(nodes.get(opRef));
     }
     
-    public void addDependency(final CCRenderState.VertexAttribute attrib) {
+    public void addDependency(CCRenderState.VertexAttribute attrib) {
         loading.deps.add(nodes.get(attrib.operationID()));
         addAttribute(attrib);
     }
     
-    public void addAttribute(final CCRenderState.VertexAttribute attrib) {
+    public void addAttribute(CCRenderState.VertexAttribute attrib) {
         if (!attrib.active) {
             ops.add(attrib);
             attrib.active = true;

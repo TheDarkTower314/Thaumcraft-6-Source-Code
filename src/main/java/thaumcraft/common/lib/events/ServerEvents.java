@@ -67,7 +67,7 @@ public class ServerEvents
     public static HashMap<Integer, LinkedBlockingQueue<BreakData>> breakList;
     public static HashMap<Integer, LinkedBlockingQueue<VirtualSwapper>> swapList;
     public static HashMap<Integer, ArrayList<ChunkPos>> chunksToGenerate;
-    public static final Predicate<SwapperPredicate> DEFAULT_PREDICATE;
+    public static Predicate<SwapperPredicate> DEFAULT_PREDICATE;
     private static HashMap<Integer, LinkedBlockingQueue<RunnableEntry>> serverRunList;
     private static LinkedBlockingQueue<RunnableEntry> clientRunList;
     
@@ -78,17 +78,17 @@ public class ServerEvents
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void clientWorldTick(final TickEvent.ClientTickEvent event) {
+    public static void clientWorldTick(TickEvent.ClientTickEvent event) {
         if (event.side == Side.SERVER) {
             return;
         }
         if (event.phase == TickEvent.Phase.END && !ServerEvents.clientRunList.isEmpty()) {
-            final LinkedBlockingQueue<RunnableEntry> temp = new LinkedBlockingQueue<RunnableEntry>();
+            LinkedBlockingQueue<RunnableEntry> temp = new LinkedBlockingQueue<RunnableEntry>();
             while (!ServerEvents.clientRunList.isEmpty()) {
-                final RunnableEntry current = ServerEvents.clientRunList.poll();
+                RunnableEntry current = ServerEvents.clientRunList.poll();
                 if (current != null) {
                     if (current.delay > 0) {
-                        final RunnableEntry runnableEntry = current;
+                        RunnableEntry runnableEntry = current;
                         --runnableEntry.delay;
                         temp.offer(current);
                     }
@@ -96,7 +96,7 @@ public class ServerEvents
                         try {
                             current.runnable.run();
                         }
-                        catch (final Exception ex) {}
+                        catch (Exception ex) {}
                     }
                 }
             }
@@ -107,15 +107,15 @@ public class ServerEvents
     }
     
     @SubscribeEvent
-    public static void worldTick(final TickEvent.WorldTickEvent event) {
+    public static void worldTick(TickEvent.WorldTickEvent event) {
         if (event.side == Side.CLIENT) {
             return;
         }
-        final int dim = event.world.provider.getDimension();
+        int dim = event.world.provider.getDimension();
         if (event.phase == TickEvent.Phase.START) {
             if (!ServerEvents.auraThreads.containsKey(dim) && AuraHandler.getAuraWorld(dim) != null) {
-                final AuraThread at = new AuraThread(dim);
-                final Thread thread = new Thread(at);
+                AuraThread at = new AuraThread(dim);
+                Thread thread = new Thread(at);
                 thread.start();
                 ServerEvents.auraThreads.put(dim, at);
             }
@@ -129,12 +129,12 @@ public class ServerEvents
                 ServerEvents.serverRunList.put(dim, rlist = new LinkedBlockingQueue<RunnableEntry>());
             }
             else if (!rlist.isEmpty()) {
-                final LinkedBlockingQueue<RunnableEntry> temp = new LinkedBlockingQueue<RunnableEntry>();
+                LinkedBlockingQueue<RunnableEntry> temp = new LinkedBlockingQueue<RunnableEntry>();
                 while (!rlist.isEmpty()) {
-                    final RunnableEntry current = rlist.poll();
+                    RunnableEntry current = rlist.poll();
                     if (current != null) {
                         if (current.delay > 0) {
-                            final RunnableEntry runnableEntry = current;
+                            RunnableEntry runnableEntry = current;
                             --runnableEntry.delay;
                             temp.offer(current);
                         }
@@ -142,7 +142,7 @@ public class ServerEvents
                             try {
                                 current.runnable.run();
                             }
-                            catch (final Exception ex) {}
+                            catch (Exception ex) {}
                         }
                     }
                 }
@@ -150,18 +150,18 @@ public class ServerEvents
                     rlist.offer(temp.poll());
                 }
             }
-            final int ticks = ServerEvents.serverTicks.get(dim);
+            int ticks = ServerEvents.serverTicks.get(dim);
             tickChunkRegeneration(event);
             tickBlockSwap(event.world);
             tickBlockBreak(event.world);
-            final ArrayList<Integer[]> nbe = TileArcaneEar.noteBlockEvents.get(dim);
+            ArrayList<Integer[]> nbe = TileArcaneEar.noteBlockEvents.get(dim);
             if (nbe != null) {
                 nbe.clear();
             }
             if (ticks % 20 == 0) {
-                final CopyOnWriteArrayList<ChunkPos> dc = AuraHandler.dirtyChunks.get(dim);
+                CopyOnWriteArrayList<ChunkPos> dc = AuraHandler.dirtyChunks.get(dim);
                 if (dc != null && dc.size() > 0) {
-                    for (final ChunkPos pos : dc) {
+                    for (ChunkPos pos : dc) {
                         event.world.markChunkDirty(pos.getBlock(5, 5, 5), null);
                     }
                     dc.clear();
@@ -179,8 +179,8 @@ public class ServerEvents
         }
     }
     
-    public static void tickChunkRegeneration(final TickEvent.WorldTickEvent event) {
-        final int dim = event.world.provider.getDimension();
+    public static void tickChunkRegeneration(TickEvent.WorldTickEvent event) {
+        int dim = event.world.provider.getDimension();
         int count = 0;
         ArrayList<ChunkPos> chunks = ServerEvents.chunksToGenerate.get(dim);
         if (chunks != null && chunks.size() > 0) {
@@ -190,11 +190,11 @@ public class ServerEvents
                     break;
                 }
                 ++count;
-                final ChunkPos loc = chunks.get(0);
-                final long worldSeed = event.world.getSeed();
-                final Random fmlRandom = new Random(worldSeed);
-                final long xSeed = fmlRandom.nextLong() >> 3;
-                final long zSeed = fmlRandom.nextLong() >> 3;
+                ChunkPos loc = chunks.get(0);
+                long worldSeed = event.world.getSeed();
+                Random fmlRandom = new Random(worldSeed);
+                long xSeed = fmlRandom.nextLong() >> 3;
+                long zSeed = fmlRandom.nextLong() >> 3;
                 fmlRandom.setSeed(xSeed * loc.x + zSeed * loc.z ^ worldSeed);
                 ThaumcraftWorldGenerator.INSTANCE.worldGeneration(fmlRandom, loc.x, loc.z, event.world, false);
                 chunks.remove(0);
@@ -206,15 +206,15 @@ public class ServerEvents
         }
     }
     
-    private static void tickBlockSwap(final World world) {
-        final int dim = world.provider.getDimension();
-        final LinkedBlockingQueue<VirtualSwapper> queue = ServerEvents.swapList.get(dim);
-        final LinkedBlockingQueue<VirtualSwapper> queue2 = new LinkedBlockingQueue<VirtualSwapper>();
+    private static void tickBlockSwap(World world) {
+        int dim = world.provider.getDimension();
+        LinkedBlockingQueue<VirtualSwapper> queue = ServerEvents.swapList.get(dim);
+        LinkedBlockingQueue<VirtualSwapper> queue2 = new LinkedBlockingQueue<VirtualSwapper>();
         if (queue != null) {
             while (!queue.isEmpty()) {
-                final VirtualSwapper vs = queue.poll();
+                VirtualSwapper vs = queue.poll();
                 if (vs != null) {
-                    final IBlockState bs = world.getBlockState(vs.pos);
+                    IBlockState bs = world.getBlockState(vs.pos);
                     boolean allow = bs.getBlockHardness(world, vs.pos) >= 0.0f;
                     if ((vs.source != null && vs.source instanceof IBlockState && vs.source != bs) || (vs.source != null && vs.source instanceof Material && vs.source != bs.getMaterial())) {
                         allow = false;
@@ -252,7 +252,7 @@ public class ServerEvents
                         if (vs.pickup) {
                             List<ItemStack> ret = new ArrayList<ItemStack>();
                             if (vs.silk && bs.getBlock().canSilkHarvest(world, vs.pos, bs, vs.player)) {
-                                final ItemStack itemstack = BlockUtils.getSilkTouchDrop(bs);
+                                ItemStack itemstack = BlockUtils.getSilkTouchDrop(bs);
                                 if (itemstack != null && !itemstack.isEmpty()) {
                                     ret.add(itemstack);
                                 }
@@ -261,7 +261,7 @@ public class ServerEvents
                                 ret = bs.getBlock().getDrops(world, vs.pos, bs, vs.fortune);
                             }
                             if (ret.size() > 0) {
-                                for (final ItemStack is : ret) {
+                                for (ItemStack is : ret) {
                                     if (!vs.player.inventory.addItemStackToInventory(is)) {
                                         world.spawnEntity(new EntityItem(world, vs.pos.getX() + 0.5, vs.pos.getY() + 0.5, vs.pos.getZ() + 0.5, is));
                                     }
@@ -276,13 +276,13 @@ public class ServerEvents
                         world.setBlockToAir(vs.pos);
                     }
                     else {
-                        final Block tb = Block.getBlockFromItem(vs.target.getItem());
+                        Block tb = Block.getBlockFromItem(vs.target.getItem());
                         if (tb != null && tb != Blocks.AIR) {
                             world.setBlockState(vs.pos, tb.getStateFromMeta(vs.target.getItemDamage()), 3);
                         }
                         else {
                             world.setBlockToAir(vs.pos);
-                            final EntitySpecialItem entityItem = new EntitySpecialItem(world, vs.pos.getX() + 0.5, vs.pos.getY() + 0.1, vs.pos.getZ() + 0.5, vs.target.copy());
+                            EntitySpecialItem entityItem = new EntitySpecialItem(world, vs.pos.getX() + 0.5, vs.pos.getY() + 0.1, vs.pos.getZ() + 0.5, vs.target.copy());
                             entityItem.motionY = 0.0;
                             entityItem.motionX = 0.0;
                             entityItem.motionZ = 0.0;
@@ -300,7 +300,7 @@ public class ServerEvents
                             for (int zz = -1; zz <= 1; ++zz) {
                                 matches = false;
                                 if (vs.source instanceof Material) {
-                                    final IBlockState bb = world.getBlockState(vs.pos.add(xx, yy, zz));
+                                    IBlockState bb = world.getBlockState(vs.pos.add(xx, yy, zz));
                                     matches = (bb.getBlock().getMaterial(bb) == vs.source);
                                 }
                                 if (vs.source instanceof IBlockState) {
@@ -318,15 +318,15 @@ public class ServerEvents
         }
     }
     
-    private static void tickBlockBreak(final World world) {
-        final int dim = world.provider.getDimension();
-        final LinkedBlockingQueue<BreakData> queue = ServerEvents.breakList.get(dim);
-        final LinkedBlockingQueue<BreakData> queue2 = new LinkedBlockingQueue<BreakData>();
+    private static void tickBlockBreak(World world) {
+        int dim = world.provider.getDimension();
+        LinkedBlockingQueue<BreakData> queue = ServerEvents.breakList.get(dim);
+        LinkedBlockingQueue<BreakData> queue2 = new LinkedBlockingQueue<BreakData>();
         if (queue != null) {
             while (!queue.isEmpty()) {
-                final BreakData vs = queue.poll();
+                BreakData vs = queue.poll();
                 if (vs != null) {
-                    final IBlockState bs = world.getBlockState(vs.pos);
+                    IBlockState bs = world.getBlockState(vs.pos);
                     if (bs == vs.source) {
                         if (vs.visCost > 0.0f && AuraHelper.getVis(world, vs.pos) < vs.visCost) {
                             continue;
@@ -337,7 +337,7 @@ public class ServerEvents
                         if (vs.fx) {
                             world.sendBlockBreakProgress(vs.pos.hashCode(), vs.pos, (int)((1.0f - vs.durabilityCurrent / vs.durabilityMax) * 10.0f));
                         }
-                        final BreakData breakData = vs;
+                        BreakData breakData = vs;
                         breakData.durabilityCurrent -= vs.strength;
                         if (vs.durabilityCurrent <= 0.0f) {
                             BlockUtils.harvestBlock(world, vs.player, vs.pos, true, vs.silk, vs.fortune, false);
@@ -365,8 +365,8 @@ public class ServerEvents
         }
     }
     
-    public static void addSwapper(final World world, final BlockPos pos, final Object source, final ItemStack target, final boolean consumeTarget, final int life, final EntityPlayer player, final boolean fx, final boolean fancy, final int color, final boolean pickup, final boolean silk, final int fortune, final Predicate<SwapperPredicate> allowSwap, final float visCost) {
-        final int dim = world.provider.getDimension();
+    public static void addSwapper(World world, BlockPos pos, Object source, ItemStack target, boolean consumeTarget, int life, EntityPlayer player, boolean fx, boolean fancy, int color, boolean pickup, boolean silk, int fortune, Predicate<SwapperPredicate> allowSwap, float visCost) {
+        int dim = world.provider.getDimension();
         LinkedBlockingQueue<VirtualSwapper> queue = ServerEvents.swapList.get(dim);
         if (queue == null) {
             ServerEvents.swapList.put(dim, new LinkedBlockingQueue<VirtualSwapper>());
@@ -376,8 +376,8 @@ public class ServerEvents
         ServerEvents.swapList.put(dim, queue);
     }
     
-    public static void addBreaker(final World world, final BlockPos pos, final IBlockState source, final EntityPlayer player, final boolean fx, final boolean silk, final int fortune, final float str, final float durabilityCurrent, final float durabilityMax, final int delay, final float vis, final Runnable run) {
-        final int dim = world.provider.getDimension();
+    public static void addBreaker(World world, BlockPos pos, IBlockState source, EntityPlayer player, boolean fx, boolean silk, int fortune, float str, float durabilityCurrent, float durabilityMax, int delay, float vis, Runnable run) {
+        int dim = world.provider.getDimension();
         if (delay > 0) {
             addRunnableServer(world, new Runnable() {
                 @Override
@@ -400,7 +400,7 @@ public class ServerEvents
         }
     }
     
-    public static void addRunnableServer(final World world, final Runnable runnable, final int delay) {
+    public static void addRunnableServer(World world, Runnable runnable, int delay) {
         if (world.isRemote) {
             return;
         }
@@ -411,7 +411,7 @@ public class ServerEvents
         rlist.add(new RunnableEntry(runnable, delay));
     }
     
-    public static void addRunnableClient(final World world, final Runnable runnable, final int delay) {
+    public static void addRunnableClient(World world, Runnable runnable, int delay) {
         if (!world.isRemote) {
             return;
         }
@@ -425,7 +425,7 @@ public class ServerEvents
         ServerEvents.swapList = new HashMap<Integer, LinkedBlockingQueue<VirtualSwapper>>();
         ServerEvents.chunksToGenerate = new HashMap<Integer, ArrayList<ChunkPos>>();
         DEFAULT_PREDICATE = new Predicate<SwapperPredicate>() {
-            public boolean apply(@Nullable final SwapperPredicate pred) {
+            public boolean apply(@Nullable SwapperPredicate pred) {
                 return true;
             }
         };
@@ -446,7 +446,7 @@ public class ServerEvents
         int fortune;
         float visCost;
         
-        public BreakData(final float strength, final float durabilityCurrent, final float durabilityMax, final BlockPos pos, final IBlockState source, final EntityPlayer player, final boolean fx, final boolean silk, final int fortune, final float vis) {
+        public BreakData(float strength, float durabilityCurrent, float durabilityMax, BlockPos pos, IBlockState source, EntityPlayer player, boolean fx, boolean silk, int fortune, float vis) {
             this.strength = 0.0f;
             this.durabilityCurrent = 1.0f;
             this.durabilityMax = 1.0f;
@@ -470,7 +470,7 @@ public class ServerEvents
         public EntityPlayer player;
         public BlockPos pos;
         
-        public SwapperPredicate(final World world, final EntityPlayer player, final BlockPos pos) {
+        public SwapperPredicate(World world, EntityPlayer player, BlockPos pos) {
             this.world = world;
             this.player = player;
             this.pos = pos;
@@ -494,7 +494,7 @@ public class ServerEvents
         int fortune;
         float visCost;
         
-        VirtualSwapper(final BlockPos pos, final Object source, final ItemStack t, final boolean consumeTarget, final int life, final EntityPlayer p, final boolean fx, final boolean fancy, final int color, final boolean pickup, final boolean silk, final int fortune, final Predicate<SwapperPredicate> allowSwap, final float cost) {
+        VirtualSwapper(BlockPos pos, Object source, ItemStack t, boolean consumeTarget, int life, EntityPlayer p, boolean fx, boolean fancy, int color, boolean pickup, boolean silk, int fortune, Predicate<SwapperPredicate> allowSwap, float cost) {
             lifespan = 0;
             player = null;
             this.pos = pos;
@@ -519,7 +519,7 @@ public class ServerEvents
         Runnable runnable;
         int delay;
         
-        public RunnableEntry(final Runnable runnable, final int delay) {
+        public RunnableEntry(Runnable runnable, int delay) {
             this.runnable = runnable;
             this.delay = delay;
         }

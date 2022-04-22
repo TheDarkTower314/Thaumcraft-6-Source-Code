@@ -47,7 +47,7 @@ public class CommandThaumcraft extends CommandBase
         return aliases;
     }
     
-    public String getUsage(final ICommandSender icommandsender) {
+    public String getUsage(ICommandSender icommandsender) {
         return "/thaumcraft <action> [<player> [<params>]]";
     }
     
@@ -55,18 +55,18 @@ public class CommandThaumcraft extends CommandBase
         return 2;
     }
     
-    public boolean isUsernameIndex(final String[] astring, final int i) {
+    public boolean isUsernameIndex(String[] astring, int i) {
         return i == 1;
     }
     
-    public void execute(final MinecraftServer server, final ICommandSender sender, final String[] args) throws CommandException {
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 0) {
             sender.sendMessage(new TextComponentTranslation("§cInvalid arguments"));
             sender.sendMessage(new TextComponentTranslation("§cUse /thaumcraft help to get help"));
             return;
         }
         if (args[0].equalsIgnoreCase("reload")) {
-            for (final ResearchCategory rc : ResearchCategories.researchCategories.values()) {
+            for (ResearchCategory rc : ResearchCategories.researchCategories.values()) {
                 rc.research.clear();
             }
             ResearchManager.parseAllResearch();
@@ -89,7 +89,7 @@ public class CommandThaumcraft extends CommandBase
                 listResearch(sender);
             }
             else {
-                final EntityPlayerMP entityplayermp = getPlayer(server, sender, args[1]);
+                EntityPlayerMP entityplayermp = getPlayer(server, sender, args[1]);
                 if (args[0].equalsIgnoreCase("research")) {
                     if (args.length == 3) {
                         if (args[2].equalsIgnoreCase("list")) {
@@ -117,11 +117,11 @@ public class CommandThaumcraft extends CommandBase
                 }
                 else if (args[0].equalsIgnoreCase("warp")) {
                     if (args.length >= 4 && args[2].equalsIgnoreCase("set")) {
-                        final int i = parseInt(args[3], 0);
+                        int i = parseInt(args[3], 0);
                         setWarp(sender, entityplayermp, i, (args.length == 5) ? args[4] : "");
                     }
                     else if (args.length >= 4 && args[2].equalsIgnoreCase("add")) {
-                        final int i = parseInt(args[3], -100, 100);
+                        int i = parseInt(args[3], -100, 100);
                         addWarp(sender, entityplayermp, i, (args.length == 5) ? args[4] : "");
                     }
                     else {
@@ -141,7 +141,7 @@ public class CommandThaumcraft extends CommandBase
         }
     }
     
-    private void setWarp(final ICommandSender icommandsender, final EntityPlayerMP player, final int i, final String type) {
+    private void setWarp(ICommandSender icommandsender, EntityPlayerMP player, int i, String type) {
         if (type.equalsIgnoreCase("PERM")) {
             ThaumcraftCapabilities.getWarp(player).set(IPlayerWarp.EnumWarpType.PERMANENT, i);
         }
@@ -156,7 +156,7 @@ public class CommandThaumcraft extends CommandBase
         icommandsender.sendMessage(new TextComponentTranslation("§5Success!"));
     }
     
-    private void addWarp(final ICommandSender icommandsender, final EntityPlayerMP player, final int i, final String type) {
+    private void addWarp(ICommandSender icommandsender, EntityPlayerMP player, int i, String type) {
         if (type.equalsIgnoreCase("PERM")) {
             ThaumcraftCapabilities.getWarp(player).add(IPlayerWarp.EnumWarpType.PERMANENT, i);
         }
@@ -172,17 +172,17 @@ public class CommandThaumcraft extends CommandBase
         icommandsender.sendMessage(new TextComponentTranslation("§5Success!"));
     }
     
-    private void listResearch(final ICommandSender icommandsender) {
-        final Collection<ResearchCategory> rc = ResearchCategories.researchCategories.values();
-        for (final ResearchCategory cat : rc) {
-            final Collection<ResearchEntry> rl = cat.research.values();
-            for (final ResearchEntry ri : rl) {
+    private void listResearch(ICommandSender icommandsender) {
+        Collection<ResearchCategory> rc = ResearchCategories.researchCategories.values();
+        for (ResearchCategory cat : rc) {
+            Collection<ResearchEntry> rl = cat.research.values();
+            for (ResearchEntry ri : rl) {
                 icommandsender.sendMessage(new TextComponentTranslation("§5" + ri.getKey()));
             }
         }
     }
     
-    void giveResearch(final ICommandSender icommandsender, final EntityPlayerMP player, final String research) {
+    void giveResearch(ICommandSender icommandsender, EntityPlayerMP player, String research) {
         if (ResearchCategories.getResearch(research) != null) {
             giveRecursiveResearch(player, research);
             ThaumcraftCapabilities.getKnowledge(player).sync(player);
@@ -194,33 +194,33 @@ public class CommandThaumcraft extends CommandBase
         }
     }
     
-    public static void giveRecursiveResearch(final EntityPlayer player, String research) {
+    public static void giveRecursiveResearch(EntityPlayer player, String research) {
         if (research.contains("@")) {
-            final int i = research.indexOf("@");
+            int i = research.indexOf("@");
             research = research.substring(0, i);
         }
-        final ResearchEntry res = ResearchCategories.getResearch(research);
-        final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+        ResearchEntry res = ResearchCategories.getResearch(research);
+        IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
         if (!knowledge.isResearchComplete(research)) {
             if (res != null && res.getParents() != null) {
-                for (final String rsi : res.getParentsStripped()) {
+                for (String rsi : res.getParentsStripped()) {
                     giveRecursiveResearch(player, rsi);
                 }
             }
             if (res != null && res.getStages() != null) {
-                for (final ResearchStage page : res.getStages()) {
+                for (ResearchStage page : res.getStages()) {
                     if (page.getResearch() != null) {
-                        for (final String gr : page.getResearch()) {
+                        for (String gr : page.getResearch()) {
                             ResearchManager.completeResearch(player, gr);
                         }
                     }
                 }
             }
             ResearchManager.completeResearch(player, research);
-            for (final String rc : ResearchCategories.researchCategories.keySet()) {
-                for (final ResearchEntry ri : ResearchCategories.getResearchCategory(rc).research.values()) {
+            for (String rc : ResearchCategories.researchCategories.keySet()) {
+                for (ResearchEntry ri : ResearchCategories.getResearchCategory(rc).research.values()) {
                     if (ri.getStages() != null) {
-                        for (final ResearchStage stage : ri.getStages()) {
+                        for (ResearchStage stage : ri.getStages()) {
                             if (stage.getResearch() != null && Arrays.asList(stage.getResearch()).contains(research)) {
                                 ThaumcraftCapabilities.getKnowledge(player).setResearchFlag(ri.getKey(), IPlayerKnowledge.EnumResearchFlag.PAGE);
                                 break;
@@ -230,14 +230,14 @@ public class CommandThaumcraft extends CommandBase
                 }
             }
             if (res != null && res.getSiblings() != null) {
-                for (final String rsi : res.getSiblings()) {
+                for (String rsi : res.getSiblings()) {
                     giveRecursiveResearch(player, rsi);
                 }
             }
         }
     }
     
-    private void revokeResearch(final ICommandSender icommandsender, final EntityPlayerMP player, final String research) {
+    private void revokeResearch(ICommandSender icommandsender, EntityPlayerMP player, String research) {
         if (ResearchCategories.getResearch(research) != null) {
             revokeRecursiveResearch(player, research);
             ThaumcraftCapabilities.getKnowledge(player).sync(player);
@@ -249,18 +249,18 @@ public class CommandThaumcraft extends CommandBase
         }
     }
     
-    public static void revokeRecursiveResearch(final EntityPlayer player, String research) {
+    public static void revokeRecursiveResearch(EntityPlayer player, String research) {
         if (research.contains("@")) {
-            final int i = research.indexOf("@");
+            int i = research.indexOf("@");
             research = research.substring(0, i);
         }
-        final ResearchEntry res = ResearchCategories.getResearch(research);
-        final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+        ResearchEntry res = ResearchCategories.getResearch(research);
+        IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
         if (knowledge.isResearchComplete(research)) {
-            for (final String rc : ResearchCategories.researchCategories.keySet()) {
-                for (final ResearchEntry ri : ResearchCategories.getResearchCategory(rc).research.values()) {
+            for (String rc : ResearchCategories.researchCategories.keySet()) {
+                for (ResearchEntry ri : ResearchCategories.getResearchCategory(rc).research.values()) {
                     if (ri != null && ri.getParents() != null && knowledge.isResearchComplete(ri.getKey())) {
-                        for (final String rsi : ri.getParentsStripped()) {
+                        for (String rsi : ri.getParentsStripped()) {
                             if (rsi.equals(research)) {
                                 revokeRecursiveResearch(player, ri.getKey());
                             }
@@ -272,9 +272,9 @@ public class CommandThaumcraft extends CommandBase
         }
     }
     
-    void listAllResearch(final ICommandSender icommandsender, final EntityPlayerMP player) {
+    void listAllResearch(ICommandSender icommandsender, EntityPlayerMP player) {
         String ss = "";
-        for (final String key : ThaumcraftCapabilities.getKnowledge(player).getResearchList()) {
+        for (String key : ThaumcraftCapabilities.getKnowledge(player).getResearchList()) {
             if (ss.length() != 0) {
                 ss += ", ";
             }
@@ -284,11 +284,11 @@ public class CommandThaumcraft extends CommandBase
         icommandsender.sendMessage(new TextComponentTranslation("§5" + ss));
     }
     
-    void giveAllResearch(final ICommandSender icommandsender, final EntityPlayerMP player) {
-        final Collection<ResearchCategory> rc = ResearchCategories.researchCategories.values();
-        for (final ResearchCategory cat : rc) {
-            final Collection<ResearchEntry> rl = cat.research.values();
-            for (final ResearchEntry ri : rl) {
+    void giveAllResearch(ICommandSender icommandsender, EntityPlayerMP player) {
+        Collection<ResearchCategory> rc = ResearchCategories.researchCategories.values();
+        for (ResearchCategory cat : rc) {
+            Collection<ResearchEntry> rl = cat.research.values();
+            for (ResearchEntry ri : rl) {
                 giveRecursiveResearch(player, ri.getKey());
             }
         }
@@ -296,12 +296,12 @@ public class CommandThaumcraft extends CommandBase
         icommandsender.sendMessage(new TextComponentTranslation("§5Success!"));
     }
     
-    void resetResearch(final ICommandSender icommandsender, final EntityPlayerMP player) {
+    void resetResearch(ICommandSender icommandsender, EntityPlayerMP player) {
         ThaumcraftCapabilities.getKnowledge(player).clear();
-        final Collection<ResearchCategory> rc = ResearchCategories.researchCategories.values();
-        for (final ResearchCategory cat : rc) {
-            final Collection<ResearchEntry> res = cat.research.values();
-            for (final ResearchEntry ri : res) {
+        Collection<ResearchCategory> rc = ResearchCategories.researchCategories.values();
+        for (ResearchCategory cat : rc) {
+            Collection<ResearchEntry> res = cat.research.values();
+            for (ResearchEntry ri : res) {
                 if (ri.hasMeta(ResearchEntry.EnumResearchMeta.AUTOUNLOCK)) {
                     ResearchManager.completeResearch(player, ri.getKey(), false);
                 }

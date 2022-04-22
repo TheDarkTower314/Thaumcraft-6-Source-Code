@@ -12,7 +12,7 @@ public class PlanarLightModel implements CCRenderState.IVertexOperation
     public static PlanarLightModel standardLightModel;
     public int[] colours;
     
-    public PlanarLightModel(final int[] colours) {
+    public PlanarLightModel(int[] colours) {
         this.colours = colours;
     }
     

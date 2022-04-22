@@ -12,7 +12,7 @@ public class AuraWorld
     int dim;
     ConcurrentHashMap<PosXY, AuraChunk> auraChunks;
     
-    public AuraWorld(final int dim) {
+    public AuraWorld(int dim) {
         auraChunks = new ConcurrentHashMap<PosXY, AuraChunk>();
         this.dim = dim;
     }
@@ -21,16 +21,16 @@ public class AuraWorld
         return auraChunks;
     }
     
-    public void setAuraChunks(final ConcurrentHashMap<PosXY, AuraChunk> auraChunks) {
+    public void setAuraChunks(ConcurrentHashMap<PosXY, AuraChunk> auraChunks) {
         this.auraChunks = auraChunks;
     }
     
-    public AuraChunk getAuraChunkAt(final int x, final int y) {
+    public AuraChunk getAuraChunkAt(int x, int y) {
         return getAuraChunkAt(new PosXY(x, y));
     }
     
-    public AuraChunk getAuraChunkAt(final PosXY loc) {
-        final AuraChunk ac = auraChunks.get(loc);
+    public AuraChunk getAuraChunkAt(PosXY loc) {
+        AuraChunk ac = auraChunks.get(loc);
         return ac;
     }
 }

@@ -30,12 +30,12 @@ public class InfusionRunicAugmentRecipe extends InfusionRecipe
         super("RUNICSHIELDING", null, 0, null, Ingredient.EMPTY, "gemAmber", ItemsTC.salisMundus);
     }
     
-    public InfusionRunicAugmentRecipe(final ItemStack in) {
+    public InfusionRunicAugmentRecipe(ItemStack in) {
         super("RUNICSHIELDING", null, 0, null, in, new ItemStack(ItemsTC.salisMundus), "gemAmber");
-        final int fc = PlayerEvents.getRunicCharge(in);
+        int fc = PlayerEvents.getRunicCharge(in);
         if (fc > 0) {
             components.clear();
-            final ArrayList<ItemStack> com = new ArrayList<ItemStack>();
+            ArrayList<ItemStack> com = new ArrayList<ItemStack>();
             components.add(Ingredient.fromItem(ItemsTC.salisMundus));
             components.add(ThaumcraftApiHelper.getIngredient("gemAmber"));
             int c = 0;
@@ -47,25 +47,25 @@ public class InfusionRunicAugmentRecipe extends InfusionRecipe
     }
     
     @Override
-    public boolean matches(final List<ItemStack> input, final ItemStack central, final World world, final EntityPlayer player) {
+    public boolean matches(List<ItemStack> input, ItemStack central, World world, EntityPlayer player) {
         return getRecipeInput() != null && ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(research) && (central.getItem() instanceof ItemArmor || central.getItem() instanceof IBauble) && (getRecipeInput() == Ingredient.EMPTY || getRecipeInput().apply(central)) && RecipeMatcher.findMatches((List)input, (List) getComponents(central)) != null;
     }
     
     @Override
-    public Object getRecipeOutput(final EntityPlayer player, final ItemStack input, final List<ItemStack> comps) {
+    public Object getRecipeOutput(EntityPlayer player, ItemStack input, List<ItemStack> comps) {
         if (input == null) {
             return null;
         }
-        final ItemStack out = input.copy();
-        final int base = PlayerEvents.getRunicCharge(input) + 1;
+        ItemStack out = input.copy();
+        int base = PlayerEvents.getRunicCharge(input) + 1;
         out.setTagInfo("TC.RUNIC", new NBTTagByte((byte)base));
         return out;
     }
     
     @Override
-    public AspectList getAspects(final EntityPlayer player, final ItemStack input, final List<ItemStack> comps) {
-        final AspectList out = new AspectList();
-        final int vis = 20 + (int)(20.0 * Math.pow(2.0, PlayerEvents.getRunicCharge(input)));
+    public AspectList getAspects(EntityPlayer player, ItemStack input, List<ItemStack> comps) {
+        AspectList out = new AspectList();
+        int vis = 20 + (int)(20.0 * Math.pow(2.0, PlayerEvents.getRunicCharge(input)));
         if (vis > 0) {
             out.add(Aspect.PROTECT, vis);
             out.add(Aspect.CRYSTAL, vis / 2);
@@ -75,16 +75,16 @@ public class InfusionRunicAugmentRecipe extends InfusionRecipe
     }
     
     @Override
-    public int getInstability(final EntityPlayer player, final ItemStack input, final List<ItemStack> comps) {
-        final int i = 5 + PlayerEvents.getRunicCharge(input) / 2;
+    public int getInstability(EntityPlayer player, ItemStack input, List<ItemStack> comps) {
+        int i = 5 + PlayerEvents.getRunicCharge(input) / 2;
         return i;
     }
     
-    public NonNullList<Ingredient> getComponents(final ItemStack input) {
-        final NonNullList<Ingredient> com = NonNullList.create();
+    public NonNullList<Ingredient> getComponents(ItemStack input) {
+        NonNullList<Ingredient> com = NonNullList.create();
         com.add(Ingredient.fromItem(ItemsTC.salisMundus));
         com.add(ThaumcraftApiHelper.getIngredient("gemAmber"));
-        final int fc = PlayerEvents.getRunicCharge(input);
+        int fc = PlayerEvents.getRunicCharge(input);
         if (fc > 0) {
             for (int c = 0; c < fc; ++c) {
                 com.add(ThaumcraftApiHelper.getIngredient("gemAmber"));

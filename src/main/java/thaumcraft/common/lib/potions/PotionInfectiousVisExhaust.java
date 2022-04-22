@@ -19,9 +19,9 @@ public class PotionInfectiousVisExhaust extends Potion
 {
     public static Potion instance;
     private int statusIconIndex;
-    static final ResourceLocation rl;
+    static ResourceLocation rl;
     
-    public PotionInfectiousVisExhaust(final boolean par2, final int par3) {
+    public PotionInfectiousVisExhaust(boolean par2, int par3) {
         super(par2, par3);
         statusIconIndex = -1;
         setIconIndex(0, 0);
@@ -40,10 +40,10 @@ public class PotionInfectiousVisExhaust extends Potion
         return super.getStatusIconIndex();
     }
     
-    public void performEffect(final EntityLivingBase target, final int par2) {
-        final List<EntityLivingBase> targets = target.world.getEntitiesWithinAABB(EntityLivingBase.class, target.getEntityBoundingBox().grow(4.0, 4.0, 4.0));
+    public void performEffect(EntityLivingBase target, int par2) {
+        List<EntityLivingBase> targets = target.world.getEntitiesWithinAABB(EntityLivingBase.class, target.getEntityBoundingBox().grow(4.0, 4.0, 4.0));
         if (targets.size() > 0) {
-            for (final EntityLivingBase e : targets) {
+            for (EntityLivingBase e : targets) {
                 if (!e.isPotionActive(PotionInfectiousVisExhaust.instance)) {
                     if (par2 > 0) {
                         e.addPotionEffect(new PotionEffect(PotionInfectiousVisExhaust.instance, 6000, par2 - 1, false, true));
@@ -56,7 +56,7 @@ public class PotionInfectiousVisExhaust extends Potion
         }
     }
     
-    public boolean isReady(final int par1, final int par2) {
+    public boolean isReady(int par1, int par2) {
         return par1 % 40 == 0;
     }
     

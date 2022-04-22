@@ -30,7 +30,7 @@ public class PacketFXFocusEffect implements IMessage, IMessageHandler<PacketFXFo
     public PacketFXFocusEffect() {
     }
     
-    public PacketFXFocusEffect(final float x, final float y, final float z, final float mx, final float my, final float mz, final String[] parts) {
+    public PacketFXFocusEffect(float x, float y, float z, float mx, float my, float mz, String[] parts) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -46,7 +46,7 @@ public class PacketFXFocusEffect implements IMessage, IMessageHandler<PacketFXFo
         }
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeFloat(x);
         buffer.writeFloat(y);
         buffer.writeFloat(z);
@@ -56,7 +56,7 @@ public class PacketFXFocusEffect implements IMessage, IMessageHandler<PacketFXFo
         ByteBufUtils.writeUTF8String(buffer, parts);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         x = buffer.readFloat();
         y = buffer.readFloat();
         z = buffer.readFloat();
@@ -66,7 +66,7 @@ public class PacketFXFocusEffect implements IMessage, IMessageHandler<PacketFXFo
         parts = ByteBufUtils.readUTF8String(buffer);
     }
     
-    public IMessage onMessage(final PacketFXFocusEffect message, final MessageContext ctx) {
+    public IMessage onMessage(PacketFXFocusEffect message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
@@ -77,11 +77,11 @@ public class PacketFXFocusEffect implements IMessage, IMessageHandler<PacketFXFo
     }
     
     @SideOnly(Side.CLIENT)
-    void processMessage(final PacketFXFocusEffect message) {
-        final String[] partKeys = message.parts.split("%");
-        final int amt = Math.max(1, 10 / partKeys.length);
-        for (final String k : partKeys) {
-            final IFocusElement part = FocusEngine.getElement(k);
+    void processMessage(PacketFXFocusEffect message) {
+        String[] partKeys = message.parts.split("%");
+        int amt = Math.max(1, 10 / partKeys.length);
+        for (String k : partKeys) {
+            IFocusElement part = FocusEngine.getElement(k);
             if (part != null && part instanceof FocusEffect) {
                 for (int a = 0; a < amt; ++a) {
                     ((FocusEffect)part).renderParticleFX(Minecraft.getMinecraft().world, message.x, message.y, message.z, message.mx + Minecraft.getMinecraft().world.rand.nextGaussian() / 20.0, message.my + Minecraft.getMinecraft().world.rand.nextGaussian() / 20.0, message.mz + Minecraft.getMinecraft().world.rand.nextGaussian() / 20.0);

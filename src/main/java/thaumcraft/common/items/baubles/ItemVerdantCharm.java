@@ -41,7 +41,7 @@ public class ItemVerdantCharm extends ItemTCBase implements IBauble, IRechargabl
         setMaxDamage(0);
         addPropertyOverride(new ResourceLocation("type"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
-            public float apply(final ItemStack stack, @Nullable final World worldIn, @Nullable final EntityLivingBase entityIn) {
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
                 if (stack.getItem() instanceof ItemVerdantCharm && stack.hasTagCompound()) {
                     return stack.getTagCompound().getByte("type");
                 }
@@ -50,29 +50,29 @@ public class ItemVerdantCharm extends ItemTCBase implements IBauble, IRechargabl
         });
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public BaubleType getBaubleType(final ItemStack itemstack) {
+    public BaubleType getBaubleType(ItemStack itemstack) {
         return BaubleType.CHARM;
     }
     
     @Override
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
             items.add(new ItemStack(this));
-            final ItemStack vhbl = new ItemStack(this);
+            ItemStack vhbl = new ItemStack(this);
             vhbl.setTagInfo("type", new NBTTagByte((byte)1));
             items.add(vhbl);
-            final ItemStack vhbl2 = new ItemStack(this);
+            ItemStack vhbl2 = new ItemStack(this);
             vhbl2.setTagInfo("type", new NBTTagByte((byte)2));
             items.add(vhbl2);
         }
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (stack.hasTagCompound() && stack.getTagCompound().getByte("type") == 1) {
             tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("item.verdant_charm.life.text"));
         }
@@ -81,7 +81,7 @@ public class ItemVerdantCharm extends ItemTCBase implements IBauble, IRechargabl
         }
     }
     
-    public void onWornTick(final ItemStack itemstack, final EntityLivingBase player) {
+    public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
         if (!player.world.isRemote && player.ticksExisted % 20 == 0 && player instanceof EntityPlayer) {
             if (player.getActivePotionEffect(MobEffects.WITHER) != null && RechargeHelper.consumeCharge(itemstack, player, 20)) {
                 player.removePotionEffect(MobEffects.WITHER);
@@ -111,15 +111,15 @@ public class ItemVerdantCharm extends ItemTCBase implements IBauble, IRechargabl
         }
     }
     
-    public int getMaxCharge(final ItemStack stack, final EntityLivingBase player) {
+    public int getMaxCharge(ItemStack stack, EntityLivingBase player) {
         return 200;
     }
     
-    public EnumChargeDisplay showInHud(final ItemStack stack, final EntityLivingBase player) {
+    public EnumChargeDisplay showInHud(ItemStack stack, EntityLivingBase player) {
         return EnumChargeDisplay.NORMAL;
     }
     
-    public boolean willAutoSync(final ItemStack itemstack, final EntityLivingBase player) {
+    public boolean willAutoSync(ItemStack itemstack, EntityLivingBase player) {
         return true;
     }
 }

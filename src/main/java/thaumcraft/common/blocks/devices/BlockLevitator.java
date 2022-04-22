@@ -52,25 +52,25 @@ public class BlockLevitator extends BlockTCDevice implements IBlockFacing, IBloc
         setSoundType(SoundType.WOOD);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-        final RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
         if (hit == null) {
             return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
         }
-        final TileEntity tile = world.getTileEntity(pos);
+        TileEntity tile = world.getTileEntity(pos);
         if (hit.subHit == 0 && tile instanceof TileLevitator) {
             ((TileLevitator)tile).increaseRange(player);
             world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundsTC.key, SoundCategory.BLOCKS, 0.5f, 1.0f);
@@ -80,50 +80,50 @@ public class BlockLevitator extends BlockTCDevice implements IBlockFacing, IBloc
     }
     
     @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBox(final IBlockState state, final World world, final BlockPos pos) {
-        final TileEntity tile = world.getTileEntity(pos);
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof TileLevitator) {
-            final RayTraceResult hit = RayTracer.retraceBlock(world, Minecraft.getMinecraft().player, pos);
+            RayTraceResult hit = RayTracer.retraceBlock(world, Minecraft.getMinecraft().player, pos);
             if (hit != null && hit.subHit == 0) {
-                final Cuboid6 cubeoid = ((TileLevitator)tile).getCuboidByFacing(BlockStateUtils.getFacing(tile.getBlockMetadata()));
-                final Vector3 v = new Vector3(pos);
-                final Cuboid6 c = cubeoid.add(v);
+                Cuboid6 cubeoid = ((TileLevitator)tile).getCuboidByFacing(BlockStateUtils.getFacing(tile.getBlockMetadata()));
+                Vector3 v = new Vector3(pos);
+                Cuboid6 c = cubeoid.add(v);
                 return c.aabb();
             }
         }
         return super.getSelectedBoundingBox(state, world, pos);
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
-        final EnumFacing facing = BlockStateUtils.getFacing(state);
-        final float f = 0.125f;
-        final float minx = 0.0f + ((facing.getFrontOffsetX() > 0) ? f : 0.0f);
-        final float maxx = 1.0f - ((facing.getFrontOffsetX() < 0) ? f : 0.0f);
-        final float miny = 0.0f + ((facing.getFrontOffsetY() > 0) ? f : 0.0f);
-        final float maxy = 1.0f - ((facing.getFrontOffsetY() < 0) ? f : 0.0f);
-        final float minz = 0.0f + ((facing.getFrontOffsetZ() > 0) ? f : 0.0f);
-        final float maxz = 1.0f - ((facing.getFrontOffsetZ() < 0) ? f : 0.0f);
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        EnumFacing facing = BlockStateUtils.getFacing(state);
+        float f = 0.125f;
+        float minx = 0.0f + ((facing.getFrontOffsetX() > 0) ? f : 0.0f);
+        float maxx = 1.0f - ((facing.getFrontOffsetX() < 0) ? f : 0.0f);
+        float miny = 0.0f + ((facing.getFrontOffsetY() > 0) ? f : 0.0f);
+        float maxy = 1.0f - ((facing.getFrontOffsetY() < 0) ? f : 0.0f);
+        float minz = 0.0f + ((facing.getFrontOffsetZ() > 0) ? f : 0.0f);
+        float maxz = 1.0f - ((facing.getFrontOffsetZ() < 0) ? f : 0.0f);
         return new AxisAlignedBB(minx, miny, minz, maxx, maxy, maxz);
     }
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onBlockHighlight(final DrawBlockHighlightEvent event) {
+    public void onBlockHighlight(DrawBlockHighlightEvent event) {
         if (event.getTarget().typeOfHit == RayTraceResult.Type.BLOCK && event.getPlayer().world.getBlockState(event.getTarget().getBlockPos()).getBlock() == this) {
             RayTracer.retraceBlock(event.getPlayer().world, event.getPlayer(), event.getTarget().getBlockPos());
         }
     }
     
-    public RayTraceResult collisionRayTrace(final IBlockState state, final World world, final BlockPos pos, final Vec3d start, final Vec3d end) {
-        final TileEntity tile = world.getTileEntity(pos);
+    public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d start, Vec3d end) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile == null || !(tile instanceof TileLevitator)) {
             return super.collisionRayTrace(state, world, pos, start, end);
         }
-        final List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
+        List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
         if (tile instanceof TileLevitator) {
             ((TileLevitator)tile).addTraceableCuboids(cuboids);
         }
-        final ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
+        ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
         rayTracer.rayTraceCuboids(new Vector3(start), new Vector3(end), cuboids, new BlockCoord(pos), this, list);
         return (list.size() > 0) ? list.get(0) : super.collisionRayTrace(state, world, pos, start, end);
     }

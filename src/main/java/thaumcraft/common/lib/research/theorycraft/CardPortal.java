@@ -41,8 +41,8 @@ public class CardPortal extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        final String[] s = ResearchCategories.researchCategories.keySet().toArray(new String[0]);
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
+        String[] s = ResearchCategories.researchCategories.keySet().toArray(new String[0]);
         data.addTotal(s[player.getRNG().nextInt(s.length)], MathHelper.getInt(player.getRNG(), 5, 10));
         data.addTotal(s[player.getRNG().nextInt(s.length)], MathHelper.getInt(player.getRNG(), 5, 10));
         data.addTotal("ELDRITCH", MathHelper.getInt(player.getRNG(), 5, 10));

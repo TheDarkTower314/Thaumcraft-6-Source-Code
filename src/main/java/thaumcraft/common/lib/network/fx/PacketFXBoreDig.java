@@ -30,7 +30,7 @@ public class PacketFXBoreDig implements IMessage, IMessageHandler<PacketFXBoreDi
     public PacketFXBoreDig() {
     }
     
-    public PacketFXBoreDig(final BlockPos pos, final Entity bore, final int delay) {
+    public PacketFXBoreDig(BlockPos pos, Entity bore, int delay) {
         x = pos.getX();
         y = pos.getY();
         z = pos.getZ();
@@ -38,7 +38,7 @@ public class PacketFXBoreDig implements IMessage, IMessageHandler<PacketFXBoreDi
         this.delay = delay;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(x);
         buffer.writeInt(y);
         buffer.writeInt(z);
@@ -46,7 +46,7 @@ public class PacketFXBoreDig implements IMessage, IMessageHandler<PacketFXBoreDi
         buffer.writeInt(delay);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         x = buffer.readInt();
         y = buffer.readInt();
         z = buffer.readInt();
@@ -54,7 +54,7 @@ public class PacketFXBoreDig implements IMessage, IMessageHandler<PacketFXBoreDi
         delay = buffer.readInt();
     }
     
-    public IMessage onMessage(final PacketFXBoreDig message, final MessageContext ctx) {
+    public IMessage onMessage(PacketFXBoreDig message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
@@ -65,15 +65,15 @@ public class PacketFXBoreDig implements IMessage, IMessageHandler<PacketFXBoreDi
     }
     
     @SideOnly(Side.CLIENT)
-    void processMessage(final PacketFXBoreDig message) {
+    void processMessage(PacketFXBoreDig message) {
         try {
-            final World world = Minecraft.getMinecraft().world;
-            final BlockPos pos = new BlockPos(message.x, message.y, message.z);
-            final Entity entity = world.getEntityByID(message.bore);
+            World world = Minecraft.getMinecraft().world;
+            BlockPos pos = new BlockPos(message.x, message.y, message.z);
+            Entity entity = world.getEntityByID(message.bore);
             if (entity == null) {
                 return;
             }
-            final IBlockState ts = world.getBlockState(pos);
+            IBlockState ts = world.getBlockState(pos);
             if (ts.getBlock() == Blocks.AIR) {
                 return;
             }
@@ -86,6 +86,6 @@ public class PacketFXBoreDig implements IMessage, IMessageHandler<PacketFXBoreDi
                 }, a);
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
     }
 }

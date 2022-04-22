@@ -121,11 +121,11 @@ public class GuiResearchBrowser extends GuiScreen
         invisible = new ArrayList<String>();
         searchResults = new ArrayList<Pair<String, SearchResult>>();
         tx1 = new ResourceLocation("thaumcraft", "textures/gui/gui_research_browser.png");
-        final double lastX = GuiResearchBrowser.lastX;
+        double lastX = GuiResearchBrowser.lastX;
         tempMapX = lastX;
         guiMapX = lastX;
         curMouseX = lastX;
-        final double lastY = GuiResearchBrowser.lastY;
+        double lastY = GuiResearchBrowser.lastY;
         tempMapY = lastY;
         guiMapY = lastY;
         curMouseY = lastY;
@@ -133,7 +133,7 @@ public class GuiResearchBrowser extends GuiScreen
         instance = this;
     }
     
-    public GuiResearchBrowser(final double x, final double y) {
+    public GuiResearchBrowser(double x, double y) {
         mouseX = 0;
         mouseY = 0;
         screenZoom = 1.0f;
@@ -189,20 +189,20 @@ public class GuiResearchBrowser extends GuiScreen
         screenY = height - 32;
         research.clear();
         if (GuiResearchBrowser.selectedCategory == null) {
-            final Collection<String> cats = ResearchCategories.researchCategories.keySet();
+            Collection<String> cats = ResearchCategories.researchCategories.keySet();
             GuiResearchBrowser.selectedCategory = cats.iterator().next();
         }
-        final int limit = (int)Math.floor((screenY - 28) / 24.0f);
+        int limit = (int)Math.floor((screenY - 28) / 24.0f);
         addonShift = 0;
         int count = 0;
         categoriesTC.clear();
         categoriesOther.clear();
     Label_0283:
-        for (final String rcl : ResearchCategories.researchCategories.keySet()) {
+        for (String rcl : ResearchCategories.researchCategories.keySet()) {
             int rt = 0;
             int rco = 0;
-            final Collection col = ResearchCategories.getResearchCategory(rcl).research.values();
-            for (final Object res : col) {
+            Collection col = ResearchCategories.getResearchCategory(rcl).research.values();
+            for (Object res : col) {
                 if (((ResearchEntry)res).hasMeta(ResearchEntry.EnumResearchMeta.AUTOUNLOCK)) {
                     continue;
                 }
@@ -212,12 +212,12 @@ public class GuiResearchBrowser extends GuiScreen
                 }
                 ++rco;
             }
-            final int v = (int)(rco / (float)rt * 100.0f);
-            final ResearchCategory rc = ResearchCategories.getResearchCategory(rcl);
+            int v = (int)(rco / (float)rt * 100.0f);
+            ResearchCategory rc = ResearchCategories.getResearchCategory(rcl);
             if (rc.researchKey != null && !ThaumcraftCapabilities.knowsResearchStrict(player, rc.researchKey)) {
                 continue;
             }
-            for (final String tcc : ConfigResearch.TCCategories) {
+            for (String tcc : ConfigResearch.TCCategories) {
                 if (tcc.equals(rcl)) {
                     categoriesTC.add(rcl);
                     buttonList.add(new GuiCategoryButton(rc, rcl, false, 20 + categoriesTC.size(), 1, 10 + categoriesTC.size() * 24, 16, 16, I18n.translateToLocalFormatted("tc.research_category." + rcl), v));
@@ -242,15 +242,15 @@ public class GuiResearchBrowser extends GuiScreen
         if (GuiResearchBrowser.selectedCategory == null || GuiResearchBrowser.selectedCategory.equals("")) {
             return;
         }
-        final Collection col2 = ResearchCategories.getResearchCategory(GuiResearchBrowser.selectedCategory).research.values();
-        for (final Object res2 : col2) {
+        Collection col2 = ResearchCategories.getResearchCategory(GuiResearchBrowser.selectedCategory).research.values();
+        for (Object res2 : col2) {
             research.add((ResearchEntry)res2);
         }
         GuiResearchBrowser.guiBoundsLeft = 99999;
         GuiResearchBrowser.guiBoundsTop = 99999;
         GuiResearchBrowser.guiBoundsRight = -99999;
         GuiResearchBrowser.guiBoundsBottom = -99999;
-        for (final ResearchEntry res3 : research) {
+        for (ResearchEntry res3 : research) {
             if (res3 != null && isVisible(res3)) {
                 if (res3.getDisplayColumn() * 24 - screenX + 48 < GuiResearchBrowser.guiBoundsLeft) {
                     GuiResearchBrowser.guiBoundsLeft = res3.getDisplayColumn() * 24 - screenX + 48;
@@ -269,7 +269,7 @@ public class GuiResearchBrowser extends GuiScreen
         }
     }
     
-    private boolean isVisible(final ResearchEntry res) {
+    private boolean isVisible(ResearchEntry res) {
         if (ThaumcraftCapabilities.knowsResearch(player, res.getKey())) {
             return true;
         }
@@ -280,8 +280,8 @@ public class GuiResearchBrowser extends GuiScreen
             return false;
         }
         if (res.getParents() != null) {
-            for (final String r : res.getParents()) {
-                final ResearchEntry ri = ResearchCategories.getResearch(r);
+            for (String r : res.getParents()) {
+                ResearchEntry ri = ResearchCategories.getResearch(r);
                 if (ri != null && !isVisible(ri)) {
                     invisible.add(r);
                     return false;
@@ -291,7 +291,7 @@ public class GuiResearchBrowser extends GuiScreen
         return true;
     }
     
-    private boolean canUnlockResearch(final ResearchEntry res) {
+    private boolean canUnlockResearch(ResearchEntry res) {
         return ResearchManager.doesPlayerHaveRequisites(player, res.getKey());
     }
     
@@ -302,22 +302,22 @@ public class GuiResearchBrowser extends GuiScreen
         super.onGuiClosed();
     }
     
-    public void setWorldAndResolution(final Minecraft mc, final int width, final int height) {
+    public void setWorldAndResolution(Minecraft mc, int width, int height) {
         super.setWorldAndResolution(mc, width, height);
         updateResearch();
         if (GuiResearchBrowser.lastX == -9999.0 || guiMapX > GuiResearchBrowser.guiBoundsRight || guiMapX < GuiResearchBrowser.guiBoundsLeft) {
-            final double n = (GuiResearchBrowser.guiBoundsLeft + GuiResearchBrowser.guiBoundsRight) / 2;
+            double n = (GuiResearchBrowser.guiBoundsLeft + GuiResearchBrowser.guiBoundsRight) / 2;
             tempMapX = n;
             guiMapX = n;
         }
         if (GuiResearchBrowser.lastY == -9999.0 || guiMapY > GuiResearchBrowser.guiBoundsBottom || guiMapY < GuiResearchBrowser.guiBoundsTop) {
-            final double n2 = (GuiResearchBrowser.guiBoundsBottom + GuiResearchBrowser.guiBoundsTop) / 2;
+            double n2 = (GuiResearchBrowser.guiBoundsBottom + GuiResearchBrowser.guiBoundsTop) / 2;
             tempMapY = n2;
             guiMapY = n2;
         }
     }
     
-    protected void keyTyped(final char par1, final int par2) throws IOException {
+    protected void keyTyped(char par1, int par2) throws IOException {
         if (GuiResearchBrowser.searching && searchField.textboxKeyTyped(par1, par2)) {
             updateSearch();
         }
@@ -331,20 +331,20 @@ public class GuiResearchBrowser extends GuiScreen
     private void updateSearch() {
         searchResults.clear();
         invisible.clear();
-        final String s1 = searchField.getText().toLowerCase();
-        for (final String cat : categoriesTC) {
+        String s1 = searchField.getText().toLowerCase();
+        for (String cat : categoriesTC) {
             if (cat.toLowerCase().contains(s1)) {
                 searchResults.add(Pair.of(I18n.translateToLocalFormatted("tc.research_category." + cat), new SearchResult(cat, null, true)));
             }
         }
-        for (final String cat : categoriesOther) {
+        for (String cat : categoriesOther) {
             if (cat.toLowerCase().contains(s1)) {
                 searchResults.add(Pair.of(I18n.translateToLocalFormatted("tc.research_category." + cat), new SearchResult(cat, null, true)));
             }
         }
-        final ArrayList<ResourceLocation> dupCheck = new ArrayList<ResourceLocation>();
-        for (final String pre : ThaumcraftCapabilities.getKnowledge(player).getResearchList()) {
-            final ResearchEntry ri = ResearchCategories.getResearch(pre);
+        ArrayList<ResourceLocation> dupCheck = new ArrayList<ResourceLocation>();
+        for (String pre : ThaumcraftCapabilities.getKnowledge(player).getResearchList()) {
+            ResearchEntry ri = ResearchCategories.getResearch(pre);
             if (ri != null) {
                 if (ri.getLocalizedName() == null) {
                     continue;
@@ -352,16 +352,16 @@ public class GuiResearchBrowser extends GuiScreen
                 if (ri.getLocalizedName().toLowerCase().contains(s1)) {
                     searchResults.add(Pair.of(ri.getLocalizedName(), new SearchResult(pre, null)));
                 }
-                final int stage = ThaumcraftCapabilities.getKnowledge(player).getResearchStage(pre);
+                int stage = ThaumcraftCapabilities.getKnowledge(player).getResearchStage(pre);
                 if (ri.getStages() == null) {
                     continue;
                 }
-                final int s2 = (ri.getStages().length - 1 < stage + 1) ? (ri.getStages().length - 1) : (stage + 1);
-                final ResearchStage page = ri.getStages()[s2];
+                int s2 = (ri.getStages().length - 1 < stage + 1) ? (ri.getStages().length - 1) : (stage + 1);
+                ResearchStage page = ri.getStages()[s2];
                 if (page == null || page.getRecipes() == null) {
                     continue;
                 }
-                for (final ResourceLocation rec : page.getRecipes()) {
+                for (ResourceLocation rec : page.getRecipes()) {
                     if (!dupCheck.contains(rec)) {
                         dupCheck.add(rec);
                         Object recipeObject = CommonInternals.getCatalogRecipe(rec);
@@ -393,7 +393,7 @@ public class GuiResearchBrowser extends GuiScreen
         Collections.sort(searchResults);
     }
     
-    public void drawScreen(final int mx, final int my, final float par3) {
+    public void drawScreen(int mx, int my, float par3) {
         if (!GuiResearchBrowser.searching) {
             if (Mouse.isButtonDown(0)) {
                 if ((isMouseButtonDown == 0 || isMouseButtonDown == 1) && mx >= startX && mx < startX + screenX && my >= startY && my < startY + screenY) {
@@ -403,10 +403,10 @@ public class GuiResearchBrowser extends GuiScreen
                     else {
                         guiMapX -= (mx - mouseX) * (double) screenZoom;
                         guiMapY -= (my - mouseY) * (double) screenZoom;
-                        final double guiMapX = this.guiMapX;
+                        double guiMapX = this.guiMapX;
                         curMouseX = guiMapX;
                         tempMapX = guiMapX;
-                        final double guiMapY = this.guiMapY;
+                        double guiMapY = this.guiMapY;
                         curMouseY = guiMapY;
                         tempMapY = guiMapY;
                     }
@@ -429,7 +429,7 @@ public class GuiResearchBrowser extends GuiScreen
             else {
                 isMouseButtonDown = 0;
             }
-            final int k = Mouse.getDWheel();
+            int k = Mouse.getDWheel();
             if (k < 0) {
                 screenZoom += 0.25f;
             }
@@ -464,9 +464,9 @@ public class GuiResearchBrowser extends GuiScreen
         else {
             searchField.drawTextBox();
             int q = 0;
-            for (final Pair p : searchResults) {
+            for (Pair p : searchResults) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                final SearchResult sr = (SearchResult)p.getRight();
+                SearchResult sr = (SearchResult)p.getRight();
                 int color = sr.cat ? 14527146 : ((sr.recipe == null) ? 14540253 : 11184861);
                 if (sr.recipe != null) {
                     mc.renderEngine.bindTexture(tx1);
@@ -488,7 +488,7 @@ public class GuiResearchBrowser extends GuiScreen
         }
         genResearchBackgroundFixedPost(mx, my, par3, locX, locY);
         if (popuptime > System.currentTimeMillis()) {
-            final ArrayList<String> text = new ArrayList<String>();
+            ArrayList<String> text = new ArrayList<String>();
             text.add(popupmessage);
             UtilsFX.drawCustomTooltip(this, fontRenderer, text, 10, 34, -99);
         }
@@ -497,8 +497,8 @@ public class GuiResearchBrowser extends GuiScreen
     public void updateScreen() {
         curMouseX = guiMapX;
         curMouseY = guiMapY;
-        final double var1 = tempMapX - guiMapX;
-        final double var2 = tempMapY - guiMapY;
+        double var1 = tempMapX - guiMapX;
+        double var2 = tempMapY - guiMapY;
         if (var1 * var1 + var2 * var2 < 4.0) {
             guiMapX += var1;
             guiMapY += var2;
@@ -509,7 +509,7 @@ public class GuiResearchBrowser extends GuiScreen
         }
     }
     
-    private void genResearchBackgroundFixedPre(final int par1, final int par2, final float par3, final int locX, final int locY) {
+    private void genResearchBackgroundFixedPre(int par1, int par2, float par3, int locX, int locY) {
         zLevel = 0.0f;
         GL11.glDepthFunc(518);
         GL11.glPushMatrix();
@@ -520,7 +520,7 @@ public class GuiResearchBrowser extends GuiScreen
         GlStateManager.enableColorMaterial();
     }
     
-    protected void genResearchBackgroundZoomable(final int mx, final int my, final float par3, final int locX, final int locY) {
+    protected void genResearchBackgroundZoomable(int mx, int my, float par3, int locX, int locY) {
         GL11.glPushMatrix();
         GlStateManager.enableBlend();
         GL11.glEnable(3042);
@@ -541,14 +541,14 @@ public class GuiResearchBrowser extends GuiScreen
         mc.renderEngine.bindTexture(tx1);
         if (ThaumcraftCapabilities.getKnowledge(player).getResearchList() != null) {
             for (int index = 0; index < research.size(); ++index) {
-                final ResearchEntry source = research.get(index);
+                ResearchEntry source = research.get(index);
                 if (source.getParents() != null && source.getParents().length > 0) {
                     for (int a = 0; a < source.getParents().length; ++a) {
                         if (source.getParents()[a] != null && ResearchCategories.getResearch(source.getParentsClean()[a]) != null && ResearchCategories.getResearch(source.getParentsClean()[a]).getCategory().equals(GuiResearchBrowser.selectedCategory)) {
-                            final ResearchEntry parent = ResearchCategories.getResearch(source.getParentsClean()[a]);
+                            ResearchEntry parent = ResearchCategories.getResearch(source.getParentsClean()[a]);
                             if (parent.getSiblings() == null || !Arrays.asList(parent.getSiblings()).contains(source.getKey())) {
-                                final boolean knowsParent = ThaumcraftCapabilities.knowsResearchStrict(player, source.getParents()[a]);
-                                final boolean b = isVisible(source) && !source.getParents()[a].startsWith("~");
+                                boolean knowsParent = ThaumcraftCapabilities.knowsResearchStrict(player, source.getParents()[a]);
+                                boolean b = isVisible(source) && !source.getParents()[a].startsWith("~");
                                 if (b) {
                                     if (knowsParent) {
                                         drawLine(source.getDisplayColumn(), source.getDisplayRow(), parent.getDisplayColumn(), parent.getDisplayRow(), 0.6f, 0.6f, 0.6f, locX, locY, 3.0f, true, source.hasMeta(ResearchEntry.EnumResearchMeta.REVERSE));
@@ -564,8 +564,8 @@ public class GuiResearchBrowser extends GuiScreen
                 if (source.getSiblings() != null && source.getSiblings().length > 0) {
                     for (int a = 0; a < source.getSiblings().length; ++a) {
                         if (source.getSiblings()[a] != null && ResearchCategories.getResearch(source.getSiblings()[a]) != null && ResearchCategories.getResearch(source.getSiblings()[a]).getCategory().equals(GuiResearchBrowser.selectedCategory)) {
-                            final ResearchEntry sibling = ResearchCategories.getResearch(source.getSiblings()[a]);
-                            final boolean knowsSibling = ThaumcraftCapabilities.knowsResearchStrict(player, sibling.getKey());
+                            ResearchEntry sibling = ResearchCategories.getResearch(source.getSiblings()[a]);
+                            boolean knowsSibling = ThaumcraftCapabilities.knowsResearchStrict(player, sibling.getKey());
                             if (isVisible(source)) {
                                 if (!source.getSiblings()[a].startsWith("~")) {
                                     if (knowsSibling) {
@@ -587,35 +587,35 @@ public class GuiResearchBrowser extends GuiScreen
         for (int var24 = 0; var24 < research.size(); ++var24) {
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);
-            final ResearchEntry iconResearch = research.get(var24);
+            ResearchEntry iconResearch = research.get(var24);
             boolean hasWarp = false;
             if (iconResearch.getStages() != null) {
-                for (final ResearchStage stage : iconResearch.getStages()) {
+                for (ResearchStage stage : iconResearch.getStages()) {
                     if (stage.getWarp() > 0) {
                         hasWarp = true;
                         break;
                     }
                 }
             }
-            final int var25 = iconResearch.getDisplayColumn() * 24 - locX;
-            final int var26 = iconResearch.getDisplayRow() * 24 - locY;
+            int var25 = iconResearch.getDisplayColumn() * 24 - locX;
+            int var26 = iconResearch.getDisplayRow() * 24 - locY;
             if (var25 >= -24 && var26 >= -24 && var25 <= screenX * screenZoom && var26 <= screenY * screenZoom) {
-                final int iconX = startX + var25;
-                final int iconY = startY + var26;
+                int iconX = startX + var25;
+                int iconY = startY + var26;
                 if (isVisible(iconResearch)) {
                     if (hasWarp) {
                         drawForbidden(iconX + 8, iconY + 8);
                     }
                     if (ThaumcraftCapabilities.getKnowledge(player).isResearchComplete(iconResearch.getKey())) {
-                        final float var27 = 1.0f;
+                        float var27 = 1.0f;
                         GL11.glColor4f(var27, var27, var27, 1.0f);
                     }
                     else if (canUnlockResearch(iconResearch)) {
-                        final float var27 = (float)Math.sin(Minecraft.getSystemTime() % 600L / 600.0 * 3.141592653589793 * 2.0) * 0.25f + 0.75f;
+                        float var27 = (float)Math.sin(Minecraft.getSystemTime() % 600L / 600.0 * 3.141592653589793 * 2.0) * 0.25f + 0.75f;
                         GL11.glColor4f(var27, var27, var27, 1.0f);
                     }
                     else {
-                        final float var27 = 0.3f;
+                        float var27 = 0.3f;
                         GL11.glColor4f(var27, var27, var27, 1.0f);
                     }
                     mc.renderEngine.bindTexture(tx1);
@@ -641,7 +641,7 @@ public class GuiResearchBrowser extends GuiScreen
                     }
                     boolean bw = false;
                     if (!canUnlockResearch(iconResearch)) {
-                        final float var28 = 0.1f;
+                        float var28 = 0.1f;
                         GL11.glColor4f(var28, var28, var28, 1.0f);
                         bw = true;
                     }
@@ -675,9 +675,9 @@ public class GuiResearchBrowser extends GuiScreen
         GL11.glDisable(2929);
     }
     
-    public static void drawResearchIcon(final ResearchEntry iconResearch, final int iconX, final int iconY, final float zLevel, final boolean bw) {
+    public static void drawResearchIcon(ResearchEntry iconResearch, int iconX, int iconY, float zLevel, boolean bw) {
         if (iconResearch.getIcons() != null && iconResearch.getIcons().length > 0) {
-            final int idx = (int)(System.currentTimeMillis() / 1000L % iconResearch.getIcons().length);
+            int idx = (int)(System.currentTimeMillis() / 1000L % iconResearch.getIcons().length);
             GL11.glPushMatrix();
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);
@@ -686,18 +686,18 @@ public class GuiResearchBrowser extends GuiScreen
                 if (bw) {
                     GL11.glColor4f(0.2f, 0.2f, 0.2f, 1.0f);
                 }
-                final int w = GL11.glGetTexLevelParameteri(3553, 0, 4096);
-                final int h = GL11.glGetTexLevelParameteri(3553, 0, 4097);
+                int w = GL11.glGetTexLevelParameteri(3553, 0, 4096);
+                int h = GL11.glGetTexLevelParameteri(3553, 0, 4097);
                 if (h > w && h % w == 0) {
-                    final int m = h / w;
-                    final float q = 16.0f / m;
-                    final float idx2 = System.currentTimeMillis() / 150L % m * q;
+                    int m = h / w;
+                    float q = 16.0f / m;
+                    float idx2 = System.currentTimeMillis() / 150L % m * q;
                     UtilsFX.drawTexturedQuadF((float)iconX, (float)iconY, 0.0f, idx2, 16.0f, q, zLevel);
                 }
                 else if (w > h && w % h == 0) {
-                    final int m = w / h;
-                    final float q = 16.0f / m;
-                    final float idx2 = System.currentTimeMillis() / 150L % m * q;
+                    int m = w / h;
+                    float q = 16.0f / m;
+                    float idx2 = System.currentTimeMillis() / 150L % m * q;
                     UtilsFX.drawTexturedQuadF((float)iconX, (float)iconY, idx2, 0.0f, q, 16.0f, zLevel);
                 }
                 else {
@@ -716,8 +716,8 @@ public class GuiResearchBrowser extends GuiScreen
                 GL11.glEnable(2929);
             }
             else if (iconResearch.getIcons()[idx] instanceof String && ((String)iconResearch.getIcons()[idx]).startsWith("focus")) {
-                final String k = ((String)iconResearch.getIcons()[idx]).replaceAll("focus:", "");
-                final IFocusElement fp = FocusEngine.getElement(k.trim());
+                String k = ((String)iconResearch.getIcons()[idx]).replaceAll("focus:", "");
+                IFocusElement fp = FocusEngine.getElement(k.trim());
                 if (fp != null && fp instanceof FocusNode) {
                     GuiFocalManipulator.drawPart((FocusNode)fp, iconX + 8, iconY + 8, 24.0f, bw ? 50 : 220, false);
                 }
@@ -727,7 +727,7 @@ public class GuiResearchBrowser extends GuiScreen
         }
     }
     
-    private void genResearchBackgroundFixedPost(final int mx, final int my, final float par3, final int locX, final int locY) {
+    private void genResearchBackgroundFixedPost(int mx, int my, float par3, int locX, int locY) {
         mc.renderEngine.bindTexture(tx1);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
@@ -763,11 +763,11 @@ public class GuiResearchBrowser extends GuiScreen
         GL11.glEnable(3553);
         super.drawScreen(mx, my, par3);
         if (currentHighlight != null) {
-            final ArrayList<String> text = new ArrayList<String>();
+            ArrayList<String> text = new ArrayList<String>();
             text.add("§6" + currentHighlight.getLocalizedName());
             if (canUnlockResearch(currentHighlight)) {
                 if (!ThaumcraftCapabilities.getKnowledge(player).isResearchComplete(currentHighlight.getKey()) && currentHighlight.getStages() != null) {
-                    final int stage = ThaumcraftCapabilities.getKnowledge(player).getResearchStage(currentHighlight.getKey());
+                    int stage = ThaumcraftCapabilities.getKnowledge(player).getResearchStage(currentHighlight.getKey());
                     if (stage > 0) {
                         text.add("@@" + TextFormatting.AQUA + I18n.translateToLocal("tc.research.stage") + " " + stage + "/" + currentHighlight.getStages().length + TextFormatting.RESET);
                     }
@@ -779,13 +779,13 @@ public class GuiResearchBrowser extends GuiScreen
             else {
                 text.add("@@§c" + I18n.translateToLocal("tc.researchmissing"));
                 int a = 0;
-                for (final String p2 : currentHighlight.getParents()) {
+                for (String p2 : currentHighlight.getParents()) {
                     if (!ThaumcraftCapabilities.knowsResearchStrict(player, p2)) {
                         String s = "?";
                         try {
                             s = ResearchCategories.getResearch(currentHighlight.getParentsClean()[a]).getLocalizedName();
                         }
-                        catch (final Exception ex) {}
+                        catch (Exception ex) {}
                         text.add("@@§e - " + s);
                     }
                     ++a;
@@ -804,7 +804,7 @@ public class GuiResearchBrowser extends GuiScreen
         RenderHelper.disableStandardItemLighting();
     }
     
-    protected void mouseClicked(final int mx, final int my, final int par3) {
+    protected void mouseClicked(int mx, int my, int par3) {
         popuptime = System.currentTimeMillis() - 1L;
         if (!GuiResearchBrowser.searching && currentHighlight != null && !ThaumcraftCapabilities.knowsResearch(player, currentHighlight.getKey()) && canUnlockResearch(currentHighlight)) {
             updateResearch();
@@ -817,7 +817,7 @@ public class GuiResearchBrowser extends GuiScreen
             ThaumcraftCapabilities.getKnowledge(player).clearResearchFlag(currentHighlight.getKey(), IPlayerKnowledge.EnumResearchFlag.RESEARCH);
             ThaumcraftCapabilities.getKnowledge(player).clearResearchFlag(currentHighlight.getKey(), IPlayerKnowledge.EnumResearchFlag.PAGE);
             PacketHandler.INSTANCE.sendToServer(new PacketSyncResearchFlagsToServer(mc.player, currentHighlight.getKey()));
-            final int stage = ThaumcraftCapabilities.getKnowledge(player).getResearchStage(currentHighlight.getKey());
+            int stage = ThaumcraftCapabilities.getKnowledge(player).getResearchStage(currentHighlight.getKey());
             if (stage > 1 && stage >= currentHighlight.getStages().length) {
                 PacketHandler.INSTANCE.sendToServer(new PacketSyncProgressToServer(currentHighlight.getKey(), false, true, false));
             }
@@ -825,8 +825,8 @@ public class GuiResearchBrowser extends GuiScreen
         }
         else if (GuiResearchBrowser.searching) {
             int q = 0;
-            for (final Pair p : searchResults) {
-                final SearchResult sr = (SearchResult)p.getRight();
+            for (Pair p : searchResults) {
+                SearchResult sr = (SearchResult)p.getRight();
                 if (mx > 22 && mx < 18 + screenX && my >= 32 + q * 10 && my < 40 + q * 10) {
                     if (ThaumcraftCapabilities.knowsResearch(player, sr.key) && !sr.cat) {
                         mc.displayGuiScreen(new GuiResearchPage(ResearchCategories.getResearch(sr.key), sr.recipe, guiMapX, guiMapY));
@@ -839,10 +839,10 @@ public class GuiResearchBrowser extends GuiScreen
                         searchField.setFocused(false);
                         GuiResearchBrowser.selectedCategory = sr.key;
                         updateResearch();
-                        final double n = (GuiResearchBrowser.guiBoundsLeft + GuiResearchBrowser.guiBoundsRight) / 2;
+                        double n = (GuiResearchBrowser.guiBoundsLeft + GuiResearchBrowser.guiBoundsRight) / 2;
                         tempMapX = n;
                         guiMapX = n;
-                        final double n2 = (GuiResearchBrowser.guiBoundsBottom + GuiResearchBrowser.guiBoundsTop) / 2;
+                        double n2 = (GuiResearchBrowser.guiBoundsBottom + GuiResearchBrowser.guiBoundsTop) / 2;
                         tempMapY = n2;
                         guiMapY = n2;
                         break;
@@ -857,10 +857,10 @@ public class GuiResearchBrowser extends GuiScreen
         try {
             super.mouseClicked(mx, my, par3);
         }
-        catch (final IOException ex) {}
+        catch (IOException ex) {}
     }
     
-    protected void actionPerformed(final GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 2) {
             GuiResearchBrowser.selectedCategory = "";
             GuiResearchBrowser.searching = true;
@@ -885,10 +885,10 @@ public class GuiResearchBrowser extends GuiScreen
             searchField.setFocused(false);
             GuiResearchBrowser.selectedCategory = ((GuiCategoryButton)button).key;
             updateResearch();
-            final double n = (GuiResearchBrowser.guiBoundsLeft + GuiResearchBrowser.guiBoundsRight) / 2;
+            double n = (GuiResearchBrowser.guiBoundsLeft + GuiResearchBrowser.guiBoundsRight) / 2;
             tempMapX = n;
             guiMapX = n;
-            final double n2 = (GuiResearchBrowser.guiBoundsBottom + GuiResearchBrowser.guiBoundsTop) / 2;
+            double n2 = (GuiResearchBrowser.guiBoundsBottom + GuiResearchBrowser.guiBoundsTop) / 2;
             tempMapY = n2;
             guiMapY = n2;
         }
@@ -902,8 +902,8 @@ public class GuiResearchBrowser extends GuiScreen
         return false;
     }
     
-    private void drawLine(final int x, final int y, final int x2, final int y2, final float r, final float g, final float b, final int locX, final int locY, final float zMod, final boolean arrow, final boolean flipped) {
-        final float zt = zLevel;
+    private void drawLine(int x, int y, int x2, int y2, float r, float g, float b, int locX, int locY, float zMod, boolean arrow, boolean flipped) {
+        float zt = zLevel;
         zLevel += zMod;
         boolean bigCorner = false;
         int xd;
@@ -941,8 +941,8 @@ public class GuiResearchBrowser extends GuiScreen
         GL11.glColor4f(r, g, b, 1.0f);
         if (arrow) {
             if (flipped) {
-                final int xx2 = x * 24 - 8 - locX + startX;
-                final int yy2 = y * 24 - 8 - locY + startY;
+                int xx2 = x * 24 - 8 - locX + startX;
+                int yy2 = y * 24 - 8 - locY + startY;
                 if (xm < 0) {
                     drawTexturedModalRect(xx2, yy2, 160, 112, 32, 32);
                 }
@@ -1014,8 +1014,8 @@ public class GuiResearchBrowser extends GuiScreen
         zLevel = zt;
     }
     
-    public static void drawForbidden(final double x, final double y) {
-        final int count = FMLClientHandler.instance().getClient().player.ticksExisted;
+    public static void drawForbidden(double x, double y) {
+        int count = FMLClientHandler.instance().getClient().player.ticksExisted;
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, 0.0);
         UtilsFX.renderQuadCentered(UtilsFX.nodeTexture, 32, 32, 160 + count % 32, 90.0f, 0.33f, 0.0f, 0.44f, 220, 1, 0.9f);
@@ -1023,11 +1023,11 @@ public class GuiResearchBrowser extends GuiScreen
         GL11.glPopMatrix();
     }
     
-    public void drawTexturedModalRectWithDoubles(final float xCoord, final float yCoord, final double minU, final double minV, final double maxU, final double maxV) {
-        final float f2 = 0.00390625f;
-        final float f3 = 0.00390625f;
-        final Tessellator tessellator = Tessellator.getInstance();
-        final BufferBuilder BufferBuilder = tessellator.getBuffer();
+    public void drawTexturedModalRectWithDoubles(float xCoord, float yCoord, double minU, double minV, double maxU, double maxV) {
+        float f2 = 0.00390625f;
+        float f3 = 0.00390625f;
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder BufferBuilder = tessellator.getBuffer();
         BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
         BufferBuilder.pos(xCoord + 0.0f, yCoord + maxV, zLevel).tex((minU + 0.0) * f2, (minV + maxV) * f3).endVertex();
         BufferBuilder.pos(xCoord + maxU, yCoord + maxV, zLevel).tex((minU + maxU) * f2, (minV + maxV) * f3).endVertex();
@@ -1051,22 +1051,22 @@ public class GuiResearchBrowser extends GuiScreen
         ResourceLocation recipe;
         boolean cat;
         
-        private SearchResult(final String key, final ResourceLocation rec) {
+        private SearchResult(String key, ResourceLocation rec) {
             this.key = key;
             recipe = rec;
             cat = false;
         }
         
-        private SearchResult(final String key, final ResourceLocation recipe, final boolean cat) {
+        private SearchResult(String key, ResourceLocation recipe, boolean cat) {
             this.key = key;
             this.recipe = recipe;
             this.cat = cat;
         }
         
         @Override
-        public int compareTo(final Object arg0) {
-            final SearchResult arg = (SearchResult)arg0;
-            final int k = key.compareTo(arg.key);
+        public int compareTo(Object arg0) {
+            SearchResult arg = (SearchResult)arg0;
+            int k = key.compareTo(arg.key);
             return (k == 0 && recipe != null && arg.recipe != null) ? recipe.compareTo(arg.recipe) : k;
         }
     }
@@ -1078,7 +1078,7 @@ public class GuiResearchBrowser extends GuiScreen
         boolean flip;
         int completion;
         
-        public GuiCategoryButton(final ResearchCategory rc, final String key, final boolean flip, final int p_i1021_1_, final int p_i1021_2_, final int p_i1021_3_, final int p_i1021_4_, final int p_i1021_5_, final String p_i1021_6_, final int completion) {
+        public GuiCategoryButton(ResearchCategory rc, String key, boolean flip, int p_i1021_1_, int p_i1021_2_, int p_i1021_3_, int p_i1021_4_, int p_i1021_5_, String p_i1021_6_, int completion) {
             super(p_i1021_1_, p_i1021_2_, p_i1021_3_, p_i1021_4_, p_i1021_5_, p_i1021_6_);
             this.rc = rc;
             this.key = key;
@@ -1086,11 +1086,11 @@ public class GuiResearchBrowser extends GuiScreen
             this.completion = completion;
         }
         
-        public boolean mousePressed(final Minecraft mc, final int mouseX, final int mouseY) {
+        public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
             return enabled && visible && mouseX >= x && mouseY >= y + addonShift && mouseX < x + width && mouseY < y + height + addonShift;
         }
         
-        public void drawButton(final Minecraft mc, final int mouseX, final int mouseY, final float partialTicks) {
+        public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
             if (visible) {
                 hovered = (mouseX >= x && mouseY >= y + addonShift && mouseX < x + width && mouseY < y + height + addonShift);
                 GlStateManager.enableBlend();
@@ -1119,7 +1119,7 @@ public class GuiResearchBrowser extends GuiScreen
                 mc.renderEngine.bindTexture(tx1);
                 boolean nr = false;
                 boolean np = false;
-                for (final String rk : rc.research.keySet()) {
+                for (String rk : rc.research.keySet()) {
                     if (ThaumcraftCapabilities.knowsResearch(player, rk)) {
                         if (!nr && ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(rk, IPlayerKnowledge.EnumResearchFlag.RESEARCH)) {
                             nr = true;
@@ -1150,7 +1150,7 @@ public class GuiResearchBrowser extends GuiScreen
                     GL11.glPopMatrix();
                 }
                 if (hovered) {
-                    final String dp = displayString + " (" + completion + "%)";
+                    String dp = displayString + " (" + completion + "%)";
                     drawString(mc.fontRenderer, dp, flip ? (screenX + 9 - mc.fontRenderer.getStringWidth(dp)) : (x + 22), y + 4 + addonShift, 16777215);
                     int t = 9;
                     if (nr) {
@@ -1170,12 +1170,12 @@ public class GuiResearchBrowser extends GuiScreen
     {
         boolean flip;
         
-        public GuiScrollButton(final boolean flip, final int p_i1021_1_, final int p_i1021_2_, final int p_i1021_3_, final int p_i1021_4_, final int p_i1021_5_, final String p_i1021_6_) {
+        public GuiScrollButton(boolean flip, int p_i1021_1_, int p_i1021_2_, int p_i1021_3_, int p_i1021_4_, int p_i1021_5_, String p_i1021_6_) {
             super(p_i1021_1_, p_i1021_2_, p_i1021_3_, p_i1021_4_, p_i1021_5_, p_i1021_6_);
             this.flip = flip;
         }
         
-        public void drawButton(final Minecraft mc, final int mouseX, final int mouseY, final float partialTicks) {
+        public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
             if (visible) {
                 hovered = (mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height);
                 GlStateManager.enableBlend();
@@ -1198,11 +1198,11 @@ public class GuiResearchBrowser extends GuiScreen
     
     private class GuiSearchButton extends GuiButton
     {
-        public GuiSearchButton(final int p_i1021_1_, final int p_i1021_2_, final int p_i1021_3_, final int p_i1021_4_, final int p_i1021_5_, final String p_i1021_6_) {
+        public GuiSearchButton(int p_i1021_1_, int p_i1021_2_, int p_i1021_3_, int p_i1021_4_, int p_i1021_5_, String p_i1021_6_) {
             super(p_i1021_1_, p_i1021_2_, p_i1021_3_, p_i1021_4_, p_i1021_5_, p_i1021_6_);
         }
         
-        public void drawButton(final Minecraft mc, final int mouseX, final int mouseY, final float partialTicks) {
+        public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
             if (visible) {
                 hovered = (mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height);
                 GlStateManager.enableBlend();

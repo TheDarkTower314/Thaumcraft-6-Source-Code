@@ -32,19 +32,19 @@ public class FocusElementNode
         node = null;
     }
     
-    public float getPower(final HashMap<Integer, FocusElementNode> data) {
+    public float getPower(HashMap<Integer, FocusElementNode> data) {
         if (node == null) {
             return 1.0f;
         }
         float pow = node.getPowerMultiplier();
-        final FocusElementNode p = data.get(parent);
+        FocusElementNode p = data.get(parent);
         if (p != null && p.node != null) {
             pow *= p.getPower(data);
         }
         return pow;
     }
     
-    public void deserialize(final NBTTagCompound nbt) {
+    public void deserialize(NBTTagCompound nbt) {
         x = nbt.getInteger("x");
         y = nbt.getInteger("y");
         id = nbt.getInteger("id");
@@ -53,12 +53,12 @@ public class FocusElementNode
         parent = nbt.getInteger("parent");
         children = nbt.getIntArray("children");
         complexityMultiplier = nbt.getFloat("complexity");
-        final IFocusElement fe = FocusEngine.getElement(nbt.getString("key"));
+        IFocusElement fe = FocusEngine.getElement(nbt.getString("key"));
         if (fe != null) {
             node = (FocusNode)fe;
             ((FocusNode)fe).initialize();
             if (((FocusNode)fe).getSettingList() != null) {
-                for (final String ns : ((FocusNode)fe).getSettingList()) {
+                for (String ns : ((FocusNode)fe).getSettingList()) {
                     ((FocusNode)fe).getSetting(ns).setValue(nbt.getInteger("setting." + ns));
                 }
             }
@@ -66,7 +66,7 @@ public class FocusElementNode
     }
     
     public NBTTagCompound serialize() {
-        final NBTTagCompound nbt = new NBTTagCompound();
+        NBTTagCompound nbt = new NBTTagCompound();
         nbt.setInteger("x", x);
         nbt.setInteger("y", y);
         nbt.setInteger("id", id);
@@ -78,7 +78,7 @@ public class FocusElementNode
         if (node != null) {
             nbt.setString("key", node.getKey());
             if (node.getSettingList() != null) {
-                for (final String ns : node.getSettingList()) {
+                for (String ns : node.getSettingList()) {
                     nbt.setInteger("setting." + ns, node.getSettingValue(ns));
                 }
             }

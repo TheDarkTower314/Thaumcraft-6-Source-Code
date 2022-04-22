@@ -23,9 +23,9 @@ import thaumcraft.common.blocks.BlockTC;
 
 public class BlockCandle extends BlockTC implements IInfusionStabiliserExt
 {
-    public final EnumDyeColor dye;
+    public EnumDyeColor dye;
     
-    public BlockCandle(final String name, final EnumDyeColor dye) {
+    public BlockCandle(String name, EnumDyeColor dye) {
         super(Material.CIRCUITS, name);
         setHardness(0.1f);
         setSoundType(SoundType.CLOTH);
@@ -33,73 +33,73 @@ public class BlockCandle extends BlockTC implements IInfusionStabiliserExt
         this.dye = dye;
     }
     
-    public MapColor getMapColor(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return MapColor.getBlockColor(dye);
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean canPlaceBlockAt(final World par1World, final BlockPos pos) {
+    public boolean canPlaceBlockAt(World par1World, BlockPos pos) {
         return par1World.isSideSolid(pos, EnumFacing.UP);
     }
     
-    public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos pos2) {
         if (!canPlaceBlockAt(worldIn, pos.down())) {
             dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
     
-    public boolean canPlaceBlockOnSide(final World par1World, final BlockPos pos, final EnumFacing par5) {
+    public boolean canPlaceBlockOnSide(World par1World, BlockPos pos, EnumFacing par5) {
         return canPlaceBlockAt(par1World, pos.down());
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.5, 0.625);
     }
     
-    public boolean isSideSolid(final IBlockState state, final IBlockAccess world, final BlockPos pos, final EnumFacing side) {
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return false;
     }
     
-    public AxisAlignedBB getCollisionBoundingBox(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return null;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public void randomDisplayTick(final IBlockState state, final World par1World, final BlockPos pos, final Random par5Random) {
-        final double var7 = pos.getX() + 0.5f;
-        final double var8 = pos.getY() + 0.7f;
-        final double var9 = pos.getZ() + 0.5f;
+    public void randomDisplayTick(IBlockState state, World par1World, BlockPos pos, Random par5Random) {
+        double var7 = pos.getX() + 0.5f;
+        double var8 = pos.getY() + 0.7f;
+        double var9 = pos.getZ() + 0.5f;
         par1World.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, var7, var8, var9, 0.0, 0.0, 0.0);
         par1World.spawnParticle(EnumParticleTypes.FLAME, var7, var8, var9, 0.0, 0.0, 0.0);
     }
     
-    public boolean canStabaliseInfusion(final World world, final BlockPos pos) {
+    public boolean canStabaliseInfusion(World world, BlockPos pos) {
         return true;
     }
     
     @Override
-    public float getStabilizationAmount(final World world, final BlockPos pos) {
+    public float getStabilizationAmount(World world, BlockPos pos) {
         return 0.1f;
     }
     
     @Override
-    public boolean hasSymmetryPenalty(final World world, final BlockPos pos1, final BlockPos pos2) {
+    public boolean hasSymmetryPenalty(World world, BlockPos pos1, BlockPos pos2) {
         return false;
     }
     
     @Override
-    public float getSymmetryPenalty(final World world, final BlockPos pos) {
+    public float getSymmetryPenalty(World world, BlockPos pos) {
         return 0.0f;
     }
 }

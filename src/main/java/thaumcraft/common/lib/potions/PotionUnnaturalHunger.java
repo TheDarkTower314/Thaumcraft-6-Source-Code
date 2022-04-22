@@ -16,9 +16,9 @@ public class PotionUnnaturalHunger extends Potion
 {
     public static Potion instance;
     private int statusIconIndex;
-    static final ResourceLocation rl;
+    static ResourceLocation rl;
     
-    public PotionUnnaturalHunger(final boolean par2, final int par3) {
+    public PotionUnnaturalHunger(boolean par2, int par3) {
         super(par2, par3);
         statusIconIndex = -1;
         setIconIndex(0, 0);
@@ -37,13 +37,13 @@ public class PotionUnnaturalHunger extends Potion
         return super.getStatusIconIndex();
     }
     
-    public void performEffect(final EntityLivingBase target, final int par2) {
+    public void performEffect(EntityLivingBase target, int par2) {
         if (!target.world.isRemote && target instanceof EntityPlayer) {
             ((EntityPlayer)target).addExhaustion(0.025f * (par2 + 1));
         }
     }
     
-    public boolean isReady(final int par1, final int par2) {
+    public boolean isReady(int par1, int par2) {
         return true;
     }
     

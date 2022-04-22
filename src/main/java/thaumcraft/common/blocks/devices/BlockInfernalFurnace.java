@@ -38,23 +38,23 @@ public class BlockInfernalFurnace extends BlockTCDevice implements IBlockFacingH
         super(Material.ROCK, TileInfernalFurnace.class, "infernal_furnace");
         setSoundType(SoundType.STONE);
         setLightLevel(0.9f);
-        final IBlockState bs = blockState.getBaseState();
+        IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)EnumFacing.NORTH);
         setDefaultState(bs);
         setCreativeTab(null);
     }
     
     @Override
-    public boolean rotateBlock(final World world, final BlockPos pos, final EnumFacing axis) {
+    public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
         return false;
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.5, 1.0);
     }
     
     @Override
-    public void onBlockAdded(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
     }
     
     @SideOnly(Side.CLIENT)
@@ -63,13 +63,13 @@ public class BlockInfernalFurnace extends BlockTCDevice implements IBlockFacingH
     }
     
     @Override
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)placer.getHorizontalFacing().getOpposite());
         return bs;
     }
     
-    public static void destroyFurnace(final World worldIn, final BlockPos pos, final IBlockState state, final BlockPos startpos) {
+    public static void destroyFurnace(World worldIn, BlockPos pos, IBlockState state, BlockPos startpos) {
         if (BlockInfernalFurnace.ignore || worldIn.isRemote) {
             return;
         }
@@ -78,7 +78,7 @@ public class BlockInfernalFurnace extends BlockTCDevice implements IBlockFacingH
             for (int b = -1; b <= 1; ++b) {
                 for (int c = -1; c <= 1; ++c) {
                     if (pos.add(a, b, c) != startpos) {
-                        final IBlockState bs = worldIn.getBlockState(pos.add(a, b, c));
+                        IBlockState bs = worldIn.getBlockState(pos.add(a, b, c));
                         if (bs.getBlock() == BlocksTC.placeholderNetherbrick) {
                             worldIn.setBlockState(pos.add(a, b, c), Blocks.NETHER_BRICK.getDefaultState());
                         }
@@ -96,17 +96,17 @@ public class BlockInfernalFurnace extends BlockTCDevice implements IBlockFacingH
         BlockInfernalFurnace.ignore = false;
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemById(0);
     }
     
     @Override
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         destroyFurnace(worldIn, pos, state, pos);
         super.breakBlock(worldIn, pos, state);
     }
     
-    public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
         if (entity.posX < pos.getX() + 0.3f) {
             entity.motionX += 9.999999747378752E-5;
         }
@@ -123,7 +123,7 @@ public class BlockInfernalFurnace extends BlockTCDevice implements IBlockFacingH
             if (entity instanceof EntityItem) {
                 entity.motionY = 0.02500000037252903;
                 if (entity.onGround) {
-                    final TileInfernalFurnace taf = (TileInfernalFurnace)world.getTileEntity(pos);
+                    TileInfernalFurnace taf = (TileInfernalFurnace)world.getTileEntity(pos);
                     ((EntityItem)entity).setItem(taf.addItemsToInventory(((EntityItem)entity).getItem()));
                 }
             }

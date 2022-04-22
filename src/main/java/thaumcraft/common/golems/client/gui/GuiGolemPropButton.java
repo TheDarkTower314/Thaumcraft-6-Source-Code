@@ -17,14 +17,14 @@ public class GuiGolemPropButton extends GuiButton
     ISealConfigToggles.SealToggle prop;
     static ResourceLocation tex;
     
-    public GuiGolemPropButton(final int buttonId, final int x, final int y, final int width, final int height, final String buttonText, final ISealConfigToggles.SealToggle prop) {
+    public GuiGolemPropButton(int buttonId, int x, int y, int width, int height, String buttonText, ISealConfigToggles.SealToggle prop) {
         super(buttonId, x, y, width, height, buttonText);
         this.prop = prop;
     }
     
-    public void drawButton(final Minecraft mc, final int xx, final int yy, final float partialTicks) {
+    public void drawButton(Minecraft mc, int xx, int yy, float partialTicks) {
         if (visible) {
-            final FontRenderer fontrenderer = mc.fontRenderer;
+            FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiGolemPropButton.tex);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);

@@ -22,22 +22,22 @@ public class TileEssentiaInput extends TileThaumcraft implements IEssentiaTransp
     }
     
     @Override
-    public boolean isConnectable(final EnumFacing face) {
+    public boolean isConnectable(EnumFacing face) {
         return face == getFacing().getOpposite();
     }
     
     @Override
-    public boolean canInputFrom(final EnumFacing face) {
+    public boolean canInputFrom(EnumFacing face) {
         return face == getFacing().getOpposite();
     }
     
     @Override
-    public boolean canOutputTo(final EnumFacing face) {
+    public boolean canOutputTo(EnumFacing face) {
         return false;
     }
     
     @Override
-    public void setSuction(final Aspect aspect, final int amount) {
+    public void setSuction(Aspect aspect, int amount) {
     }
     
     @Override
@@ -46,32 +46,32 @@ public class TileEssentiaInput extends TileThaumcraft implements IEssentiaTransp
     }
     
     @Override
-    public Aspect getSuctionType(final EnumFacing loc) {
+    public Aspect getSuctionType(EnumFacing loc) {
         return null;
     }
     
     @Override
-    public int getSuctionAmount(final EnumFacing loc) {
+    public int getSuctionAmount(EnumFacing loc) {
         return 128;
     }
     
     @Override
-    public Aspect getEssentiaType(final EnumFacing loc) {
+    public Aspect getEssentiaType(EnumFacing loc) {
         return null;
     }
     
     @Override
-    public int getEssentiaAmount(final EnumFacing loc) {
+    public int getEssentiaAmount(EnumFacing loc) {
         return 0;
     }
     
     @Override
-    public int takeEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
+    public int takeEssentia(Aspect aspect, int amount, EnumFacing face) {
         return 0;
     }
     
     @Override
-    public int addEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
+    public int addEssentia(Aspect aspect, int amount, EnumFacing face) {
         return amount;
     }
     
@@ -82,14 +82,14 @@ public class TileEssentiaInput extends TileThaumcraft implements IEssentiaTransp
     }
     
     void fillJar() {
-        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), getFacing().getOpposite());
+        TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), getFacing().getOpposite());
         if (te != null) {
-            final IEssentiaTransport ic = (IEssentiaTransport)te;
+            IEssentiaTransport ic = (IEssentiaTransport)te;
             if (!ic.canOutputTo(getFacing())) {
                 return;
             }
             if (ic.getEssentiaAmount(getFacing()) > 0 && ic.getSuctionAmount(getFacing()) < getSuctionAmount(getFacing().getOpposite()) && getSuctionAmount(getFacing().getOpposite()) >= ic.getMinimumSuction()) {
-                final Aspect ta = ic.getEssentiaType(getFacing());
+                Aspect ta = ic.getEssentiaType(getFacing());
                 if (EssentiaHandler.addEssentia(this, ta, getFacing(), 16, false, 5)) {
                     ic.takeEssentia(ta, 1, getFacing());
                 }

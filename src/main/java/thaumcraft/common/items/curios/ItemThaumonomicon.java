@@ -44,7 +44,7 @@ public class ItemThaumonomicon extends ItemTCBase
     }
     
     @Override
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
             items.add(new ItemStack(this, 1, 0));
             if (ModConfig.CONFIG_MISC.allowCheatSheet) {
@@ -54,31 +54,31 @@ public class ItemThaumonomicon extends ItemTCBase
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         if (stack.getItemDamage() == 1) {
             tooltip.add(TextFormatting.DARK_PURPLE + "Creative only");
         }
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         if (!world.isRemote) {
             if (ModConfig.CONFIG_MISC.allowCheatSheet && player.getHeldItem(hand).getItemDamage() == 1) {
-                final Collection<ResearchCategory> rc = ResearchCategories.researchCategories.values();
-                for (final ResearchCategory cat : rc) {
-                    final Collection<ResearchEntry> rl = cat.research.values();
-                    for (final ResearchEntry ri : rl) {
+                Collection<ResearchCategory> rc = ResearchCategories.researchCategories.values();
+                for (ResearchCategory cat : rc) {
+                    Collection<ResearchEntry> rl = cat.research.values();
+                    for (ResearchEntry ri : rl) {
                         CommandThaumcraft.giveRecursiveResearch(player, ri.getKey());
                     }
                 }
             }
             else {
-                final Collection<ResearchCategory> rc = ResearchCategories.researchCategories.values();
-                for (final ResearchCategory cat : rc) {
-                    final Collection<ResearchEntry> rl = cat.research.values();
-                    for (final ResearchEntry ri : rl) {
+                Collection<ResearchCategory> rc = ResearchCategories.researchCategories.values();
+                for (ResearchCategory cat : rc) {
+                    Collection<ResearchEntry> rl = cat.research.values();
+                    for (ResearchEntry ri : rl) {
                         if (ThaumcraftCapabilities.knowsResearch(player, ri.getKey()) && ri.getSiblings() != null) {
-                            for (final String sib : ri.getSiblings()) {
+                            for (String sib : ri.getSiblings()) {
                                 if (!ThaumcraftCapabilities.knowsResearch(player, sib)) {
                                     ResearchManager.completeResearch(player, sib);
                                 }
@@ -96,7 +96,7 @@ public class ItemThaumonomicon extends ItemTCBase
         return (ActionResult<ItemStack>)new ActionResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return (itemstack.getItemDamage() != 1) ? EnumRarity.UNCOMMON : EnumRarity.EPIC;
     }
 }

@@ -42,10 +42,10 @@ import net.minecraft.item.ItemSpade;
 
 public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaumcraftItems
 {
-    private static final Block[] isEffective;
+    private static Block[] isEffective;
     EnumFacing side;
     
-    public ItemElementalShovel(final Item.ToolMaterial enumtoolmaterial) {
+    public ItemElementalShovel(Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
         side = EnumFacing.DOWN;
         setCreativeTab(ConfigItems.TABTC);
@@ -70,36 +70,36 @@ public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaum
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public Set<String> getToolClasses(final ItemStack stack) {
+    public Set<String> getToolClasses(ItemStack stack) {
         return ImmutableSet.of("shovel");
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 0)) || super.getIsRepairable(stack1, stack2);
     }
     
-    public EnumActionResult onItemUse(final EntityPlayer player, final World world, final BlockPos pos, final EnumHand hand, final EnumFacing side, final float par8, final float par9, final float par10) {
-        final IBlockState bs = world.getBlockState(pos);
-        final TileEntity te = world.getTileEntity(pos);
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+        IBlockState bs = world.getBlockState(pos);
+        TileEntity te = world.getTileEntity(pos);
         if (te == null) {
             for (int aa = -1; aa <= 1; ++aa) {
                 for (int bb = -1; bb <= 1; ++bb) {
                     int xx = 0;
                     int yy = 0;
                     int zz = 0;
-                    final byte o = getOrientation(player.getHeldItem(hand));
+                    byte o = getOrientation(player.getHeldItem(hand));
                     if (o == 1) {
                         yy = bb;
                         if (side.ordinal() <= 1) {
-                            final int l = MathHelper.floor(player.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3;
+                            int l = MathHelper.floor(player.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3;
                             if (l == 0 || l == 2) {
                                 xx = aa;
                             }
@@ -116,7 +116,7 @@ public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaum
                     }
                     else if (o == 2) {
                         if (side.ordinal() <= 1) {
-                            final int l = MathHelper.floor(player.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3;
+                            int l = MathHelper.floor(player.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3;
                             yy = bb;
                             if (l == 0 || l == 2) {
                                 xx = aa;
@@ -142,8 +142,8 @@ public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaum
                         zz = aa;
                         yy = bb;
                     }
-                    final BlockPos p2 = pos.offset(side).add(xx, yy, zz);
-                    final IBlockState b2 = world.getBlockState(p2);
+                    BlockPos p2 = pos.offset(side).add(xx, yy, zz);
+                    IBlockState b2 = world.getBlockState(p2);
                     if (bs.getBlock().canPlaceBlockAt(world, p2)) {
                         if (player.capabilities.isCreativeMode || InventoryUtils.consumePlayerItem(player, Item.getItemFromBlock(bs.getBlock()), bs.getBlock().getMetaFromState(bs))) {
                             world.playSound(p2.getX(), p2.getY(), p2.getZ(), bs.getBlock().getSoundType().getBreakSound(), SoundCategory.BLOCKS, 0.6f, 0.9f + world.rand.nextFloat() * 0.2f, false);
@@ -176,7 +176,7 @@ public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaum
         return EnumActionResult.FAIL;
     }
     
-    private boolean isEffectiveAgainst(final Block block) {
+    private boolean isEffectiveAgainst(Block block) {
         for (int var3 = 0; var3 < ItemElementalShovel.isEffective.length; ++var3) {
             if (ItemElementalShovel.isEffective[var3] == block) {
                 return true;
@@ -185,9 +185,9 @@ public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaum
         return false;
     }
     
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
-            final ItemStack w1 = new ItemStack(this);
+            ItemStack w1 = new ItemStack(this);
             EnumInfusionEnchantment.addInfusionEnchantment(w1, EnumInfusionEnchantment.DESTRUCTIVE, 1);
             items.add(w1);
         }
@@ -196,22 +196,22 @@ public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaum
         }
     }
     
-    public ArrayList<BlockPos> getArchitectBlocks(final ItemStack focusstack, final World world, final BlockPos pos, final EnumFacing side, final EntityPlayer player) {
-        final ArrayList<BlockPos> b = new ArrayList<BlockPos>();
+    public ArrayList<BlockPos> getArchitectBlocks(ItemStack focusstack, World world, BlockPos pos, EnumFacing side, EntityPlayer player) {
+        ArrayList<BlockPos> b = new ArrayList<BlockPos>();
         if (!player.isSneaking()) {
             return b;
         }
-        final IBlockState bs = world.getBlockState(pos);
+        IBlockState bs = world.getBlockState(pos);
         for (int aa = -1; aa <= 1; ++aa) {
             for (int bb = -1; bb <= 1; ++bb) {
                 int xx = 0;
                 int yy = 0;
                 int zz = 0;
-                final byte o = getOrientation(focusstack);
+                byte o = getOrientation(focusstack);
                 if (o == 1) {
                     yy = bb;
                     if (side.ordinal() <= 1) {
-                        final int l = MathHelper.floor(player.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3;
+                        int l = MathHelper.floor(player.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3;
                         if (l == 0 || l == 2) {
                             xx = aa;
                         }
@@ -228,7 +228,7 @@ public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaum
                 }
                 else if (o == 2) {
                     if (side.ordinal() <= 1) {
-                        final int l = MathHelper.floor(player.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3;
+                        int l = MathHelper.floor(player.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3;
                         yy = bb;
                         if (l == 0 || l == 2) {
                             xx = aa;
@@ -254,8 +254,8 @@ public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaum
                     zz = aa;
                     yy = bb;
                 }
-                final BlockPos p2 = pos.offset(side).add(xx, yy, zz);
-                final IBlockState b2 = world.getBlockState(p2);
+                BlockPos p2 = pos.offset(side).add(xx, yy, zz);
+                IBlockState b2 = world.getBlockState(p2);
                 if (bs.getBlock().canPlaceBlockAt(world, p2)) {
                     b.add(p2);
                 }
@@ -264,18 +264,18 @@ public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaum
         return b;
     }
     
-    public boolean showAxis(final ItemStack stack, final World world, final EntityPlayer player, final EnumFacing side, final EnumAxis axis) {
+    public boolean showAxis(ItemStack stack, World world, EntityPlayer player, EnumFacing side, EnumAxis axis) {
         return false;
     }
     
-    public static byte getOrientation(final ItemStack stack) {
+    public static byte getOrientation(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("or")) {
             return stack.getTagCompound().getByte("or");
         }
         return 0;
     }
     
-    public static void setOrientation(final ItemStack stack, final byte o) {
+    public static void setOrientation(ItemStack stack, byte o) {
         if (!stack.hasTagCompound()) {
             stack.setTagCompound(new NBTTagCompound());
         }
@@ -284,11 +284,11 @@ public class ItemElementalShovel extends ItemSpade implements IArchitect, IThaum
         }
     }
     
-    public RayTraceResult getArchitectMOP(final ItemStack stack, final World world, final EntityLivingBase player) {
+    public RayTraceResult getArchitectMOP(ItemStack stack, World world, EntityLivingBase player) {
         return Utils.rayTrace(world, player, false);
     }
     
-    public boolean useBlockHighlight(final ItemStack stack) {
+    public boolean useBlockHighlight(ItemStack stack) {
         return true;
     }
     

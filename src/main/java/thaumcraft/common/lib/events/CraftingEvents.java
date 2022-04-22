@@ -22,7 +22,7 @@ import net.minecraftforge.fml.common.IFuelHandler;
 @Mod.EventBusSubscriber
 public class CraftingEvents implements IFuelHandler
 {
-    public int getBurnTime(final ItemStack fuel) {
+    public int getBurnTime(ItemStack fuel) {
         if (fuel.isItemEqual(new ItemStack(ItemsTC.alumentum))) {
             return 4800;
         }
@@ -36,14 +36,14 @@ public class CraftingEvents implements IFuelHandler
     }
     
     @SubscribeEvent
-    public static void onCrafting(final PlayerEvent.ItemCraftedEvent event) {
-        final int warp = ThaumcraftApi.getWarp(event.crafting);
+    public static void onCrafting(PlayerEvent.ItemCraftedEvent event) {
+        int warp = ThaumcraftApi.getWarp(event.crafting);
         if (!ModConfig.CONFIG_MISC.wussMode && warp > 0 && !event.player.world.isRemote) {
             ThaumcraftApi.internalMethods.addWarpToPlayer(event.player, warp, IPlayerWarp.EnumWarpType.NORMAL);
         }
         if (event.crafting.getItem() == ItemsTC.label && event.crafting.hasTagCompound()) {
             for (int var2 = 0; var2 < 9; ++var2) {
-                final ItemStack var3 = event.craftMatrix.getStackInSlot(var2);
+                ItemStack var3 = event.craftMatrix.getStackInSlot(var2);
                 if (var3 != null && var3.getItem() instanceof ItemPhial) {
                     var3.grow(1);
                     event.craftMatrix.setInventorySlotContents(var2, var3);
@@ -62,24 +62,24 @@ public class CraftingEvents implements IFuelHandler
                 }
             }
             try {
-                final int[] oreIDs;
-                final int[] ids = oreIDs = OreDictionary.getOreIDs(event.crafting.copy());
-                for (final int id : oreIDs) {
-                    final String ore = OreDictionary.getOreName(id);
+                int[] oreIDs;
+                int[] ids = oreIDs = OreDictionary.getOreIDs(event.crafting.copy());
+                for (int id : oreIDs) {
+                    String ore = OreDictionary.getOreName(id);
                     if (ore != null) {
-                        final int cd = ("oredict:" + ore).hashCode();
+                        int cd = ("oredict:" + ore).hashCode();
                         if (ore != null && ResearchManager.craftingReferences.contains(cd)) {
                             ResearchManager.completeResearch(event.player, "[#]" + cd);
                         }
                     }
                 }
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
         }
     }
     
     @SubscribeEvent
-    public static void onAnvil(final AnvilUpdateEvent event) {
+    public static void onAnvil(AnvilUpdateEvent event) {
         if (event.getLeft().getItem() == ItemsTC.primordialPearl || event.getRight().getItem() == ItemsTC.primordialPearl) {
             event.setCanceled(true);
         }

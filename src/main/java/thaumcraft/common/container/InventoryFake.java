@@ -11,25 +11,25 @@ import net.minecraft.inventory.InventoryBasic;
 
 public class InventoryFake extends InventoryBasic
 {
-    public InventoryFake(final int size) {
+    public InventoryFake(int size) {
         super("container.fake", false, size);
     }
     
-    public InventoryFake(final NonNullList<ItemStack> inv) {
+    public InventoryFake(NonNullList<ItemStack> inv) {
         super("container.fake", false, inv.size());
         for (int a = 0; a < inv.size(); ++a) {
             setInventorySlotContents(a, inv.get(a));
         }
     }
     
-    public InventoryFake(final ItemStack... stacks) {
+    public InventoryFake(ItemStack... stacks) {
         super("container.fake", false, stacks.length);
         for (int a = 0; a < stacks.length; ++a) {
             setInventorySlotContents(a, stacks[a]);
         }
     }
     
-    public InventoryFake(final ArrayList<ItemStack> inv) {
+    public InventoryFake(ArrayList<ItemStack> inv) {
         super("container.fake", false, inv.size());
         for (int a = 0; a < inv.size(); ++a) {
             setInventorySlotContents(a, inv.get(a));

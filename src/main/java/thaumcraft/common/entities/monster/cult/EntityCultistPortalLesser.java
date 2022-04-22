@@ -30,12 +30,12 @@ import net.minecraft.entity.monster.EntityMob;
 
 public class EntityCultistPortalLesser extends EntityMob
 {
-    private static final DataParameter<Boolean> ACTIVE;
+    private static DataParameter<Boolean> ACTIVE;
     int stagecounter;
     public int activeCounter;
     public int pulse;
     
-    public EntityCultistPortalLesser(final World par1World) {
+    public EntityCultistPortalLesser(World par1World) {
         super(par1World);
         stagecounter = 100;
         activeCounter = 0;
@@ -58,7 +58,7 @@ public class EntityCultistPortalLesser extends EntityMob
         return (boolean) getDataManager().get((DataParameter)EntityCultistPortalLesser.ACTIVE);
     }
     
-    public void setActive(final boolean active) {
+    public void setActive(boolean active) {
         getDataManager().set(EntityCultistPortalLesser.ACTIVE, active);
     }
     
@@ -73,12 +73,12 @@ public class EntityCultistPortalLesser extends EntityMob
         return false;
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         nbt.setBoolean("active", isActive());
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         setActive(nbt.getBoolean("active"));
     }
@@ -91,13 +91,13 @@ public class EntityCultistPortalLesser extends EntityMob
         return false;
     }
     
-    public void move(final MoverType mt, final double par1, final double par3, final double par5) {
+    public void move(MoverType mt, double par1, double par3, double par5) {
     }
     
     public void onLivingUpdate() {
     }
     
-    public boolean isInRangeToRenderDist(final double par1) {
+    public boolean isInRangeToRenderDist(double par1) {
         return par1 < 4096.0;
     }
     
@@ -118,7 +118,7 @@ public class EntityCultistPortalLesser extends EntityMob
         if (!world.isRemote) {
             if (!isActive()) {
                 if (ticksExisted % 10 == 0) {
-                    final EntityPlayer p = world.getClosestPlayerToEntity(this, 32.0);
+                    EntityPlayer p = world.getClosestPlayerToEntity(this, 32.0);
                     if (p != null) {
                         setActive(true);
                         playSound(SoundsTC.craftstart, 1.0f, 1.0f);
@@ -126,16 +126,16 @@ public class EntityCultistPortalLesser extends EntityMob
                 }
             }
             else if (stagecounter-- <= 0) {
-                final EntityPlayer p = world.getClosestPlayerToEntity(this, 32.0);
+                EntityPlayer p = world.getClosestPlayerToEntity(this, 32.0);
                 if (p != null && canEntityBeSeen(p)) {
                     int count = (world.getDifficulty() == EnumDifficulty.HARD) ? 6 : ((world.getDifficulty() == EnumDifficulty.NORMAL) ? 4 : 2);
                     try {
-                        final List l = world.getEntitiesWithinAABB(EntityCultist.class, getEntityBoundingBox().grow(32.0, 32.0, 32.0));
+                        List l = world.getEntitiesWithinAABB(EntityCultist.class, getEntityBoundingBox().grow(32.0, 32.0, 32.0));
                         if (l != null) {
                             count -= l.size();
                         }
                     }
-                    catch (final Exception ex) {}
+                    catch (Exception ex) {}
                     if (count > 0) {
                         world.setEntityState(this, (byte)16);
                         spawnMinions();
@@ -150,7 +150,7 @@ public class EntityCultistPortalLesser extends EntityMob
     }
     
     int getTiming() {
-        final List<Entity> l = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityCultist.class, 32.0);
+        List<Entity> l = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityCultist.class, 32.0);
         return l.size() * 20;
     }
     
@@ -174,7 +174,7 @@ public class EntityCultistPortalLesser extends EntityMob
         return true;
     }
     
-    public void onCollideWithPlayer(final EntityPlayer p) {
+    public void onCollideWithPlayer(EntityPlayer p) {
         if (getDistanceSq(p) < 3.0 && p.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this), 4.0f)) {
             playSound(SoundsTC.zap, 1.0f, (rand.nextFloat() - rand.nextFloat()) * 0.1f + 1.0f);
         }
@@ -192,7 +192,7 @@ public class EntityCultistPortalLesser extends EntityMob
         return SoundsTC.monolith;
     }
     
-    protected SoundEvent getHurtSound(final DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundsTC.zap;
     }
     
@@ -204,11 +204,11 @@ public class EntityCultistPortalLesser extends EntityMob
         return Item.getItemById(0);
     }
     
-    protected void dropFewItems(final boolean flag, final int fortune) {
+    protected void dropFewItems(boolean flag, int fortune) {
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte msg) {
+    public void handleStatusUpdate(byte msg) {
         if (msg == 16) {
             pulse = 10;
         }
@@ -217,13 +217,13 @@ public class EntityCultistPortalLesser extends EntityMob
         }
     }
     
-    public void addPotionEffect(final PotionEffect p_70690_1_) {
+    public void addPotionEffect(PotionEffect p_70690_1_) {
     }
     
-    public void fall(final float distance, final float damageMultiplier) {
+    public void fall(float distance, float damageMultiplier) {
     }
     
-    public void onDeath(final DamageSource p_70645_1_) {
+    public void onDeath(DamageSource p_70645_1_) {
         if (!world.isRemote) {
             world.newExplosion(this, posX, posY, posZ, 1.5f, false, false);
         }

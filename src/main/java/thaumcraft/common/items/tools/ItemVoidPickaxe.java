@@ -24,7 +24,7 @@ import net.minecraft.item.ItemPickaxe;
 
 public class ItemVoidPickaxe extends ItemPickaxe implements IWarpingGear, IThaumcraftItems
 {
-    public ItemVoidPickaxe(final Item.ToolMaterial enumtoolmaterial) {
+    public ItemVoidPickaxe(Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
         setCreativeTab(ConfigItems.TABTC);
         setRegistryName("void_pick");
@@ -48,22 +48,22 @@ public class ItemVoidPickaxe extends ItemPickaxe implements IWarpingGear, IThaum
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public Set<String> getToolClasses(final ItemStack stack) {
+    public Set<String> getToolClasses(ItemStack stack) {
         return ImmutableSet.of("pickaxe");
     }
     
-    public void onUpdate(final ItemStack stack, final World world, final Entity entity, final int p_77663_4_, final boolean p_77663_5_) {
+    public void onUpdate(ItemStack stack, World world, Entity entity, int p_77663_4_, boolean p_77663_5_) {
         super.onUpdate(stack, world, entity, p_77663_4_, p_77663_5_);
         if (stack.isItemDamaged() && entity != null && entity.ticksExisted % 20 == 0 && entity instanceof EntityLivingBase) {
             stack.damageItem(-1, (EntityLivingBase)entity);
         }
     }
     
-    public boolean onLeftClickEntity(final ItemStack stack, final EntityPlayer player, final Entity entity) {
+    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
         if (!player.world.isRemote && entity instanceof EntityLivingBase) {
             if (!(entity instanceof EntityPlayer) || FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled()) {
                 ((EntityLivingBase)entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 80));
@@ -72,7 +72,7 @@ public class ItemVoidPickaxe extends ItemPickaxe implements IWarpingGear, IThaum
         return super.onLeftClickEntity(stack, player, entity);
     }
     
-    public int getWarp(final ItemStack itemstack, final EntityPlayer player) {
+    public int getWarp(ItemStack itemstack, EntityPlayer player) {
         return 1;
     }
 }

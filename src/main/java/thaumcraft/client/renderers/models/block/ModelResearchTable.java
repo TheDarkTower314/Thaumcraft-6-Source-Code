@@ -41,10 +41,10 @@ public class ModelResearchTable extends ModelBase
         GL11.glPopMatrix();
     }
     
-    public void renderScroll(final int color) {
+    public void renderScroll(int color) {
         GL11.glPushMatrix();
         ScrollTube.render(0.0625f);
-        final Color c = new Color(color);
+        Color c = new Color(color);
         GL11.glColor4f(c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f, 1.0f);
         GL11.glScalef(1.2f, 1.2f, 1.2f);
         ScrollRibbon.render(0.0625f);
@@ -52,7 +52,7 @@ public class ModelResearchTable extends ModelBase
         GL11.glPopMatrix();
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;

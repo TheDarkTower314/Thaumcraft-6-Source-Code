@@ -35,7 +35,7 @@ public class FXBolt extends Particle
     public float length;
     CoreGLE gle;
     
-    public FXBolt(final World par1World, final double x, final double y, final double z, final double tx, final double ty, final double tz, final float red, final float green, final float blue, final float width) {
+    public FXBolt(World par1World, double x, double y, double z, double tx, double ty, double tz, float red, float green, float blue, float width) {
         super(par1World, x, y, z, 0.0, 0.0, 0.0);
         this.width = 0.0f;
         points = new ArrayList<Vec3d>();
@@ -61,23 +61,23 @@ public class FXBolt extends Particle
         tZ = tz - z;
         this.width = width;
         particleMaxAge = 3;
-        final Vec3d vs = new Vec3d(0.0, 0.0, 0.0);
-        final Vec3d ve = new Vec3d(tX, tY, tZ);
+        Vec3d vs = new Vec3d(0.0, 0.0, 0.0);
+        Vec3d ve = new Vec3d(tX, tY, tZ);
         length = (float)(ve.lengthVector() * 3.141592653589793);
-        final int steps = (int) length;
+        int steps = (int) length;
         points.add(vs);
         pointsWidth.add(width);
         dr = (float)(rand.nextInt(50) * 3.141592653589793);
-        final float ampl = 0.1f;
+        float ampl = 0.1f;
         for (int a = 1; a < steps - 1; ++a) {
-            final float dist = a * (length / steps) + dr;
+            float dist = a * (length / steps) + dr;
             double dx = tX / steps * a + MathHelper.sin(dist / 4.0f) * ampl;
             double dy = tY / steps * a + MathHelper.sin(dist / 3.0f) * ampl;
             double dz = tZ / steps * a + MathHelper.sin(dist / 2.0f) * ampl;
             dx += (rand.nextFloat() - rand.nextFloat()) * 0.1f;
             dy += (rand.nextFloat() - rand.nextFloat()) * 0.1f;
             dz += (rand.nextFloat() - rand.nextFloat()) * 0.1f;
-            final Vec3d vp = new Vec3d(dx, dy, dz);
+            Vec3d vp = new Vec3d(dx, dy, dz);
             points.add(vp);
             pointsWidth.add(width);
         }
@@ -95,25 +95,25 @@ public class FXBolt extends Particle
         }
     }
     
-    private void calcSteps(final float f) {
-        final Random rr = new Random(seed);
+    private void calcSteps(float f) {
+        Random rr = new Random(seed);
         points.clear();
         pointsWidth.clear();
-        final Vec3d vs = new Vec3d(0.0, 0.0, 0.0);
-        final Vec3d ve = new Vec3d(tX, tY, tZ);
-        final int steps = (int) length;
+        Vec3d vs = new Vec3d(0.0, 0.0, 0.0);
+        Vec3d ve = new Vec3d(tX, tY, tZ);
+        int steps = (int) length;
         points.add(vs);
         pointsWidth.add(width);
-        final float ampl = (particleAge + f) / 10.0f;
+        float ampl = (particleAge + f) / 10.0f;
         for (int a = 1; a < steps - 1; ++a) {
-            final float dist = a * (length / steps) + dr;
+            float dist = a * (length / steps) + dr;
             double dx = tX / steps * a + MathHelper.sin(dist / 4.0f) * ampl;
             double dy = tY / steps * a + MathHelper.sin(dist / 3.0f) * ampl;
             double dz = tZ / steps * a + MathHelper.sin(dist / 2.0f) * ampl;
             dx += (rr.nextFloat() - rr.nextFloat()) * 0.1f;
             dy += (rr.nextFloat() - rr.nextFloat()) * 0.1f;
             dz += (rr.nextFloat() - rr.nextFloat()) * 0.1f;
-            final Vec3d vp = new Vec3d(dx, dy, dz);
+            Vec3d vp = new Vec3d(dx, dy, dz);
             points.add(vp);
             pointsWidth.add(((rr.nextInt(4) == 0) ? (1.0f - particleAge * 0.25f) : 1.0f) * width);
         }
@@ -121,18 +121,18 @@ public class FXBolt extends Particle
         points.add(ve);
     }
     
-    public void setRGB(final float r, final float g, final float b) {
+    public void setRGB(float r, float g, float b) {
         particleRed = r;
         particleGreen = g;
         particleBlue = b;
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity entity, final float f, final float cosyaw, final float cospitch, final float sinyaw, final float cossinpitch, final float f5) {
+    public void renderParticle(BufferBuilder wr, Entity entity, float f, float cosyaw, float cospitch, float sinyaw, float cossinpitch, float f5) {
         Tessellator.getInstance().draw();
         GL11.glPushMatrix();
-        final double ePX = prevPosX + (posX - prevPosX) * f - FXBolt.interpPosX;
-        final double ePY = prevPosY + (posY - prevPosY) * f - FXBolt.interpPosY;
-        final double ePZ = prevPosZ + (posZ - prevPosZ) * f - FXBolt.interpPosZ;
+        double ePX = prevPosX + (posX - prevPosX) * f - FXBolt.interpPosX;
+        double ePY = prevPosY + (posY - prevPosY) * f - FXBolt.interpPosY;
+        double ePZ = prevPosZ + (posZ - prevPosZ) * f - FXBolt.interpPosZ;
         GL11.glTranslated(ePX, ePY, ePZ);
         Minecraft.getMinecraft().renderEngine.bindTexture(beam);
         GL11.glDepthMask(false);
@@ -140,11 +140,11 @@ public class FXBolt extends Particle
         GL11.glBlendFunc(770, 1);
         GL11.glDisable(2884);
         calcSteps(f);
-        final float alpha = MathHelper.clamp(1.0f - particleAge / (float) particleMaxAge, 0.1f, 1.0f);
+        float alpha = MathHelper.clamp(1.0f - particleAge / (float) particleMaxAge, 0.1f, 1.0f);
         if (points != null && points.size() > 2) {
-            final double[][] pp = new double[points.size()][3];
-            final float[][] colours = new float[points.size()][4];
-            final double[] radii = new double[points.size()];
+            double[][] pp = new double[points.size()][3];
+            float[][] colours = new float[points.size()][4];
+            double[] radii = new double[points.size()];
             for (int a = 0; a < points.size(); ++a) {
                 pp[a][0] = points.get(a).x;
                 pp[a][1] = points.get(a).y;

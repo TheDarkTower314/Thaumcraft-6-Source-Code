@@ -26,11 +26,11 @@ import net.minecraft.block.BlockSlab;
 
 public class BlockSlabTC extends BlockSlab
 {
-    public static final PropertyEnum<Variant> VARIANT;
+    public static PropertyEnum<Variant> VARIANT;
     boolean wood;
     Block drop;
     
-    protected BlockSlabTC(final String name, final Block b, final boolean wood) {
+    protected BlockSlabTC(String name, Block b, boolean wood) {
         super(wood ? Material.WOOD : Material.ROCK);
         this.wood = false;
         drop = null;
@@ -48,16 +48,16 @@ public class BlockSlabTC extends BlockSlab
         useNeighborBrightness = !isDouble();
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return (drop == null) ? Item.getItemFromBlock(state.getBlock()) : Item.getItemFromBlock(drop);
     }
     
     @SideOnly(Side.CLIENT)
-    public ItemStack getItem(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
         return new ItemStack(state.getBlock());
     }
     
-    public IBlockState getStateFromMeta(final int meta) {
+    public IBlockState getStateFromMeta(int meta) {
         IBlockState iblockstate = getDefaultState().withProperty((IProperty)BlockSlabTC.VARIANT, (Comparable)Variant.DEFAULT);
         if (!isDouble()) {
             iblockstate = iblockstate.withProperty((IProperty)BlockSlabTC.HALF, (Comparable)(((meta & 0x8) == 0x0) ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP));
@@ -65,7 +65,7 @@ public class BlockSlabTC extends BlockSlab
         return iblockstate;
     }
     
-    public int getMetaFromState(final IBlockState state) {
+    public int getMetaFromState(IBlockState state) {
         int i = 0;
         if (!isDouble() && state.getValue((IProperty)BlockSlabTC.HALF) == BlockSlab.EnumBlockHalf.TOP) {
             i |= 0x8;
@@ -77,7 +77,7 @@ public class BlockSlabTC extends BlockSlab
         return isDouble() ? new BlockStateContainer(this, BlockSlabTC.VARIANT) : new BlockStateContainer(this, BlockSlabTC.HALF, BlockSlabTC.VARIANT);
     }
     
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
@@ -85,7 +85,7 @@ public class BlockSlabTC extends BlockSlab
         return false;
     }
     
-    public String getUnlocalizedName(final int meta) {
+    public String getUnlocalizedName(int meta) {
         return getUnlocalizedName();
     }
     
@@ -93,15 +93,15 @@ public class BlockSlabTC extends BlockSlab
         return BlockSlabTC.VARIANT;
     }
     
-    public Comparable<?> getTypeForItem(final ItemStack stack) {
+    public Comparable<?> getTypeForItem(ItemStack stack) {
         return Variant.DEFAULT;
     }
     
-    public int getFlammability(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return wood ? 20 : super.getFlammability(world, pos, face);
     }
     
-    public int getFireSpreadSpeed(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
+    public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return wood ? 5 : super.getFireSpreadSpeed(world, pos, face);
     }
     
@@ -111,7 +111,7 @@ public class BlockSlabTC extends BlockSlab
     
     public static class Double extends BlockSlabTC
     {
-        public Double(final String name, final Block b, final boolean wood) {
+        public Double(String name, Block b, boolean wood) {
             super(name, b, wood);
         }
         
@@ -123,7 +123,7 @@ public class BlockSlabTC extends BlockSlab
     
     public static class Half extends BlockSlabTC
     {
-        public Half(final String name, final Block b, final boolean wood) {
+        public Half(String name, Block b, boolean wood) {
             super(name, b, wood);
         }
         

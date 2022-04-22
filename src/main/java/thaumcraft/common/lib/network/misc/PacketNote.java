@@ -30,7 +30,7 @@ public class PacketNote implements IMessage, IMessageHandler<PacketNote, IMessag
     public PacketNote() {
     }
     
-    public PacketNote(final int x, final int y, final int z, final int dim) {
+    public PacketNote(int x, int y, int z, int dim) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -38,7 +38,7 @@ public class PacketNote implements IMessage, IMessageHandler<PacketNote, IMessag
         note = -1;
     }
     
-    public PacketNote(final int x, final int y, final int z, final int dim, final byte note) {
+    public PacketNote(int x, int y, int z, int dim, byte note) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -46,7 +46,7 @@ public class PacketNote implements IMessage, IMessageHandler<PacketNote, IMessag
         this.note = note;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(x);
         buffer.writeInt(y);
         buffer.writeInt(z);
@@ -54,7 +54,7 @@ public class PacketNote implements IMessage, IMessageHandler<PacketNote, IMessag
         buffer.writeByte(note);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         x = buffer.readInt();
         y = buffer.readInt();
         z = buffer.readInt();
@@ -62,10 +62,10 @@ public class PacketNote implements IMessage, IMessageHandler<PacketNote, IMessag
         note = buffer.readByte();
     }
     
-    public IMessage onMessage(final PacketNote message, final MessageContext ctx) {
+    public IMessage onMessage(PacketNote message, MessageContext ctx) {
         if (ctx.side == Side.CLIENT) {
             if (message.note >= 0) {
-                final TileEntity tile = Thaumcraft.proxy.getClientWorld().getTileEntity(new BlockPos(message.x, message.y, message.z));
+                TileEntity tile = Thaumcraft.proxy.getClientWorld().getTileEntity(new BlockPos(message.x, message.y, message.z));
                 if (tile != null && tile instanceof TileEntityNote) {
                     ((TileEntityNote)tile).note = message.note;
                 }
@@ -75,11 +75,11 @@ public class PacketNote implements IMessage, IMessageHandler<PacketNote, IMessag
             }
         }
         else if (message.note == -1) {
-            final World world = DimensionManager.getWorld(message.dim);
+            World world = DimensionManager.getWorld(message.dim);
             if (world == null) {
                 return null;
             }
-            final TileEntity tile2 = world.getTileEntity(new BlockPos(message.x, message.y, message.z));
+            TileEntity tile2 = world.getTileEntity(new BlockPos(message.x, message.y, message.z));
             byte note = -1;
             if (tile2 != null && tile2 instanceof TileEntityNote) {
                 note = ((TileEntityNote)tile2).note;

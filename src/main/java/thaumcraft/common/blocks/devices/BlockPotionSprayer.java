@@ -25,7 +25,7 @@ public class BlockPotionSprayer extends BlockTCDevice implements IBlockFacing, I
         setSoundType(SoundType.METAL);
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         }
@@ -34,7 +34,7 @@ public class BlockPotionSprayer extends BlockTCDevice implements IBlockFacing, I
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
 }

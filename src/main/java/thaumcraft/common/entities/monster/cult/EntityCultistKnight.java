@@ -32,7 +32,7 @@ import net.minecraft.world.World;
 
 public class EntityCultistKnight extends EntityCultist
 {
-    public EntityCultistKnight(final World p_i1745_1_) {
+    public EntityCultistKnight(World p_i1745_1_) {
         super(p_i1745_1_);
     }
     
@@ -58,13 +58,13 @@ public class EntityCultistKnight extends EntityCultist
     }
     
     @Override
-    protected void setLoot(final DifficultyInstance diff) {
+    protected void setLoot(DifficultyInstance diff) {
         setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ItemsTC.crimsonPlateHelm));
         setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ItemsTC.crimsonPlateChest));
         setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ItemsTC.crimsonPlateLegs));
         setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ItemsTC.crimsonBoots));
         if (rand.nextFloat() < ((world.getDifficulty() == EnumDifficulty.HARD) ? 0.05f : 0.01f)) {
-            final int i = rand.nextInt(5);
+            int i = rand.nextInt(5);
             if (i == 0) {
                 setHeldItem(getActiveHand(), new ItemStack(ItemsTC.voidSword));
                 setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ItemsTC.crimsonRobeHelm));
@@ -82,8 +82,8 @@ public class EntityCultistKnight extends EntityCultist
     }
     
     @Override
-    protected void setEnchantmentBasedOnDifficulty(final DifficultyInstance diff) {
-        final float f = diff.getClampedAdditionalDifficulty();
+    protected void setEnchantmentBasedOnDifficulty(DifficultyInstance diff) {
+        float f = diff.getClampedAdditionalDifficulty();
         if (getHeldItemMainhand() != null && !getHeldItemMainhand().isEmpty() && rand.nextFloat() < 0.25f * f) {
             EnchantmentHelper.addRandomEnchantment(rand, getHeldItemMainhand(), (int)(5.0f + f * rand.nextInt(18)), false);
         }

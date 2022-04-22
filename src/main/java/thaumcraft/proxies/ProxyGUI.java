@@ -63,7 +63,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class ProxyGUI
 {
-    public Object getClientGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (world instanceof WorldClient) {
             switch (ID) {
                 case 13: {
@@ -115,14 +115,14 @@ public class ProxyGUI
                     return new GuiVoidSiphon(player.inventory, (TileVoidSiphon)world.getTileEntity(new BlockPos(x, y, z)));
                 }
                 case 18: {
-                    final ISealEntity se = ItemGolemBell.getSeal(player);
+                    ISealEntity se = ItemGolemBell.getSeal(player);
                     if (se != null) {
                         return se.getSeal().returnGui(world, player, new BlockPos(x, y, z), se.getSealPos().face, se);
                     }
                     break;
                 }
                 case 20: {
-                    final RayTraceResult ray = RayTracer.retrace(player);
+                    RayTraceResult ray = RayTracer.retrace(player);
                     BlockPos target = null;
                     EnumFacing side = null;
                     if (ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK) {
@@ -136,7 +136,7 @@ public class ProxyGUI
         return null;
     }
     
-    public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
             case 13: {
                 return new ContainerArcaneWorkbench(player.inventory, (TileArcaneWorkbench)world.getTileEntity(new BlockPos(x, y, z)));
@@ -184,7 +184,7 @@ public class ProxyGUI
                 return new ContainerVoidSiphon(player.inventory, (TileVoidSiphon)world.getTileEntity(new BlockPos(x, y, z)));
             }
             case 18: {
-                final ISealEntity se = ItemGolemBell.getSeal(player);
+                ISealEntity se = ItemGolemBell.getSeal(player);
                 if (se != null) {
                     return se.getSeal().returnContainer(world, player, new BlockPos(x, y, z), se.getSealPos().face, se);
                 }

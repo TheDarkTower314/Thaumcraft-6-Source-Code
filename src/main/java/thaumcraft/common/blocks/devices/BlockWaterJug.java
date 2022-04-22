@@ -43,27 +43,27 @@ public class BlockWaterJug extends BlockTCDevice
         setSoundType(SoundType.STONE);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.1875, 0.0, 0.1875, 0.8125, 1.0, 0.8125);
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            final TileEntity te = world.getTileEntity(pos);
+            TileEntity te = world.getTileEntity(pos);
             if (te != null && te instanceof TileWaterJug) {
-                final TileWaterJug tile = (TileWaterJug)te;
+                TileWaterJug tile = (TileWaterJug)te;
                 if (FluidUtil.interactWithFluidHandler(player, hand, tile.tank)) {
                     player.inventoryContainer.detectAndSendChanges();
                     te.markDirty();
@@ -71,8 +71,8 @@ public class BlockWaterJug extends BlockTCDevice
                     world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 0.33f, 1.0f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3f);
                 }
                 else if (player.getHeldItem(hand).getItem() == Items.GLASS_BOTTLE && tile.tank.getFluidAmount() >= 333) {
-                    final ItemStack itemstack = player.getHeldItem(hand);
-                    final ItemStack itemstack2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER);
+                    ItemStack itemstack = player.getHeldItem(hand);
+                    ItemStack itemstack2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER);
                     if (!player.capabilities.isCreativeMode) {
                         itemstack.shrink(1);
                     }
@@ -94,12 +94,12 @@ public class BlockWaterJug extends BlockTCDevice
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random rand) {
-        final Block block = state.getBlock();
+    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+        Block block = state.getBlock();
         if (block.hasTileEntity(state)) {
-            final TileEntity te = world.getTileEntity(pos);
+            TileEntity te = world.getTileEntity(pos);
             if (te != null && te instanceof TileWaterJug) {
-                final TileWaterJug tile = (TileWaterJug)te;
+                TileWaterJug tile = (TileWaterJug)te;
                 if (tile.tank.getFluidAmount() >= tile.tank.getCapacity()) {
                     FXDispatcher.INSTANCE.jarSplashFx(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
                 }

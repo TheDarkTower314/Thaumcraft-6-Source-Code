@@ -29,15 +29,15 @@ public class BlockSpa extends BlockTCDevice
         setSoundType(SoundType.STONE);
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         }
-        final TileEntity tileEntity = world.getTileEntity(pos);
+        TileEntity tileEntity = world.getTileEntity(pos);
         if (tileEntity instanceof TileSpa && !player.isSneaking()) {
-            final FluidStack fs = FluidUtil.getFluidContained(player.getHeldItem(hand));
+            FluidStack fs = FluidUtil.getFluidContained(player.getHeldItem(hand));
             if (fs != null) {
-                final TileSpa tile = (TileSpa)tileEntity;
+                TileSpa tile = (TileSpa)tileEntity;
                 if (tile.tank.getFluidAmount() < tile.tank.getCapacity() && (tile.tank.getFluid() == null || tile.tank.getFluid().isFluidEqual(fs)) && FluidUtil.interactWithFluidHandler(player, hand, tile.tank)) {
                     player.inventoryContainer.detectAndSendChanges();
                     tile.markDirty();

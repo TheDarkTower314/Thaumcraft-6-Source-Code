@@ -19,22 +19,22 @@ public class PacketFXBlockMist implements IMessage, IMessageHandler<PacketFXBloc
     public PacketFXBlockMist() {
     }
     
-    public PacketFXBlockMist(final BlockPos pos, final int color) {
+    public PacketFXBlockMist(BlockPos pos, int color) {
         loc = pos.toLong();
         this.color = color;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeLong(loc);
         buffer.writeInt(color);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         loc = buffer.readLong();
         color = buffer.readInt();
     }
     
-    public IMessage onMessage(final PacketFXBlockMist message, final MessageContext ctx) {
+    public IMessage onMessage(PacketFXBlockMist message, MessageContext ctx) {
         FXDispatcher.INSTANCE.drawBlockMistParticles(BlockPos.fromLong(message.loc), message.color);
         return null;
     }

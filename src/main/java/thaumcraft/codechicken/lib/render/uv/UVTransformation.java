@@ -9,15 +9,15 @@ import thaumcraft.codechicken.lib.vec.ITransformation;
 
 public abstract class UVTransformation extends ITransformation<UV, UVTransformation> implements CCRenderState.IVertexOperation
 {
-    public static final int operationIndex;
+    public static int operationIndex;
     
     @Override
-    public UVTransformation at(final UV point) {
+    public UVTransformation at(UV point) {
         return new UVTransformationList(new UVTranslation(-point.u, -point.v), this, new UVTranslation(point.u, point.v));
     }
     
     @Override
-    public UVTransformationList with(final UVTransformation t) {
+    public UVTransformationList with(UVTransformation t) {
         return new UVTransformationList(this, t);
     }
     

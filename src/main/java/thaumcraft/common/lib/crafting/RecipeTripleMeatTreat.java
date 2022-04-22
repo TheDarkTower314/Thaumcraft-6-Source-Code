@@ -15,14 +15,14 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class RecipeTripleMeatTreat extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe
 {
-    public boolean matches(final InventoryCrafting inv, final World worldIn) {
+    public boolean matches(InventoryCrafting inv, World worldIn) {
         boolean sugar = false;
-        final ArrayList<Integer> meats = new ArrayList<Integer>();
+        ArrayList<Integer> meats = new ArrayList<Integer>();
         for (int a = 0; a < 3; ++a) {
             for (int b = 0; b < 3; ++b) {
                 if (inv.getStackInRowAndColumn(a, b) != null) {
                     if (!inv.getStackInRowAndColumn(a, b).isEmpty()) {
-                        final ItemStack stack = inv.getStackInRowAndColumn(a, b).copy();
+                        ItemStack stack = inv.getStackInRowAndColumn(a, b).copy();
                         if (stack.getItem() == Items.SUGAR && sugar) {
                             return false;
                         }
@@ -45,7 +45,7 @@ public class RecipeTripleMeatTreat extends IForgeRegistryEntry.Impl<IRecipe> imp
         return sugar && meats.size() == 3;
     }
     
-    public ItemStack getCraftingResult(final InventoryCrafting inv) {
+    public ItemStack getCraftingResult(InventoryCrafting inv) {
         return new ItemStack(ItemsTC.tripleMeatTreat);
     }
     
@@ -53,7 +53,7 @@ public class RecipeTripleMeatTreat extends IForgeRegistryEntry.Impl<IRecipe> imp
         return new ItemStack(ItemsTC.tripleMeatTreat);
     }
     
-    public boolean canFit(final int width, final int height) {
+    public boolean canFit(int width, int height) {
         return width * height >= 4;
     }
 }

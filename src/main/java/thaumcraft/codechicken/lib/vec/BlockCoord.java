@@ -11,46 +11,46 @@ import thaumcraft.codechicken.lib.util.Copyable;
 
 public class BlockCoord implements Comparable<BlockCoord>, Copyable<BlockCoord>
 {
-    public static final BlockCoord[] sideOffsets;
+    public static BlockCoord[] sideOffsets;
     public int x;
     public int y;
     public int z;
     
-    public BlockCoord(final int x, final int y, final int z) {
+    public BlockCoord(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
     
-    public BlockCoord(final BlockPos pos) {
+    public BlockCoord(BlockPos pos) {
         this(pos.getX(), pos.getY(), pos.getZ());
     }
     
-    public BlockCoord(final Vector3 v) {
+    public BlockCoord(Vector3 v) {
         this(MathHelper.floor(v.x), MathHelper.floor(v.y), MathHelper.floor(v.z));
     }
     
-    public BlockCoord(final TileEntity tile) {
+    public BlockCoord(TileEntity tile) {
         this(tile.getPos());
     }
     
-    public BlockCoord(final int[] ia) {
+    public BlockCoord(int[] ia) {
         this(ia[0], ia[1], ia[2]);
     }
     
     public BlockCoord() {
     }
     
-    public static BlockCoord fromAxes(final int[] ia) {
+    public static BlockCoord fromAxes(int[] ia) {
         return new BlockCoord(ia[2], ia[0], ia[1]);
     }
     
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(Object obj) {
         if (!(obj instanceof BlockCoord)) {
             return false;
         }
-        final BlockCoord o2 = (BlockCoord)obj;
+        BlockCoord o2 = (BlockCoord)obj;
         return x == o2.x && y == o2.y && z == o2.z;
     }
     
@@ -60,7 +60,7 @@ public class BlockCoord implements Comparable<BlockCoord>, Copyable<BlockCoord>
     }
     
     @Override
-    public int compareTo(final BlockCoord o) {
+    public int compareTo(BlockCoord o) {
         if (x != o.x) {
             return (x < o.x) ? 1 : -1;
         }
@@ -77,7 +77,7 @@ public class BlockCoord implements Comparable<BlockCoord>, Copyable<BlockCoord>
         return new Vector3(x + 0.5, y + 0.5, z + 0.5);
     }
     
-    public BlockCoord multiply(final int i) {
+    public BlockCoord multiply(int i) {
         x *= i;
         y *= i;
         z *= i;
@@ -100,55 +100,55 @@ public class BlockCoord implements Comparable<BlockCoord>, Copyable<BlockCoord>
         return (x == 0) ? (y == 0 || z == 0) : (y == 0 && z == 0);
     }
     
-    public BlockCoord add(final BlockCoord coord2) {
+    public BlockCoord add(BlockCoord coord2) {
         x += coord2.x;
         y += coord2.y;
         z += coord2.z;
         return this;
     }
     
-    public BlockCoord add(final int i, final int j, final int k) {
+    public BlockCoord add(int i, int j, int k) {
         x += i;
         y += j;
         z += k;
         return this;
     }
     
-    public BlockCoord sub(final BlockCoord coord2) {
+    public BlockCoord sub(BlockCoord coord2) {
         x -= coord2.x;
         y -= coord2.y;
         z -= coord2.z;
         return this;
     }
     
-    public BlockCoord sub(final int i, final int j, final int k) {
+    public BlockCoord sub(int i, int j, int k) {
         x -= i;
         y -= j;
         z -= k;
         return this;
     }
     
-    public BlockCoord offset(final int side) {
+    public BlockCoord offset(int side) {
         return offset(side, 1);
     }
     
-    public BlockCoord offset(final int side, final int amount) {
-        final BlockCoord offset = BlockCoord.sideOffsets[side];
+    public BlockCoord offset(int side, int amount) {
+        BlockCoord offset = BlockCoord.sideOffsets[side];
         x += offset.x * amount;
         y += offset.y * amount;
         z += offset.z * amount;
         return this;
     }
     
-    public BlockCoord inset(final int side) {
+    public BlockCoord inset(int side) {
         return inset(side, 1);
     }
     
-    public BlockCoord inset(final int side, final int amount) {
+    public BlockCoord inset(int side, int amount) {
         return offset(side, -amount);
     }
     
-    public int getSide(final int side) {
+    public int getSide(int side) {
         switch (side) {
             case 0:
             case 1: {
@@ -168,7 +168,7 @@ public class BlockCoord implements Comparable<BlockCoord>, Copyable<BlockCoord>
         }
     }
     
-    public BlockCoord setSide(final int s, final int v) {
+    public BlockCoord setSide(int s, int v) {
         switch (s) {
             case 0:
             case 1: {
@@ -205,26 +205,26 @@ public class BlockCoord implements Comparable<BlockCoord>, Copyable<BlockCoord>
         return new BlockCoord(x, y, z);
     }
     
-    public BlockCoord set(final int i, final int j, final int k) {
+    public BlockCoord set(int i, int j, int k) {
         x = i;
         y = j;
         z = k;
         return this;
     }
     
-    public BlockCoord set(final BlockCoord coord) {
+    public BlockCoord set(BlockCoord coord) {
         return set(coord.x, coord.y, coord.z);
     }
     
-    public BlockCoord set(final BlockPos pos) {
+    public BlockCoord set(BlockPos pos) {
         return set(pos.getX(), pos.getY(), pos.getZ());
     }
     
-    public BlockCoord set(final int[] ia) {
+    public BlockCoord set(int[] ia) {
         return set(ia[0], ia[1], ia[2]);
     }
     
-    public BlockCoord set(final TileEntity tile) {
+    public BlockCoord set(TileEntity tile) {
         return set(tile.getPos());
     }
     

@@ -17,8 +17,8 @@ public class TileJarFillableVoid extends TileJarFillable
     }
     
     @Override
-    public int addToContainer(final Aspect tt, int am) {
-        final boolean up = amount < 250;
+    public int addToContainer(Aspect tt, int am) {
+        boolean up = amount < 250;
         if (am == 0) {
             return am;
         }
@@ -46,7 +46,7 @@ public class TileJarFillableVoid extends TileJarFillable
     }
     
     @Override
-    public int getSuctionAmount(final EnumFacing loc) {
+    public int getSuctionAmount(EnumFacing loc) {
         if (aspectFilter != null && amount < 250) {
             return 48;
         }

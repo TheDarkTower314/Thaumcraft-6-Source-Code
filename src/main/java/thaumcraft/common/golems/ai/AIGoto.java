@@ -34,7 +34,7 @@ public abstract class AIGoto extends EntityAIBase
     protected BlockPos targetBlock;
     int pause;
     
-    public AIGoto(final EntityThaumcraftGolem g, final byte type) {
+    public AIGoto(EntityThaumcraftGolem g, byte type) {
         taskCounter = -1;
         this.type = 0;
         minDist = 4.0;
@@ -54,9 +54,9 @@ public abstract class AIGoto extends EntityAIBase
             return false;
         }
         targetBlock = null;
-        final boolean start = findDestination();
+        boolean start = findDestination();
         if (start && golem.getTask() != null && golem.getTask().getSealPos() != null) {
-            final ISealEntity se = GolemHelper.getSealEntity(golem.world.provider.getDimension(), golem.getTask().getSealPos());
+            ISealEntity se = GolemHelper.getSealEntity(golem.world.provider.getDimension(), golem.getTask().getSealPos());
             if (se != null) {
                 se.getSeal().onTaskStarted(golem.world, golem, golem.getTask());
             }
@@ -80,13 +80,13 @@ public abstract class AIGoto extends EntityAIBase
             return;
         }
         if (pause-- <= 0) {
-            final double dist = (golem.getTask().getType() == 0) ? golem.getDistanceSqToCenter((targetBlock == null) ? golem.getTask().getPos() : targetBlock) : golem.getDistanceSq(golem.getTask().getEntity());
+            double dist = (golem.getTask().getType() == 0) ? golem.getDistanceSqToCenter((targetBlock == null) ? golem.getTask().getPos() : targetBlock) : golem.getDistanceSq(golem.getTask().getEntity());
             if (dist > minDist) {
                 golem.getTask().setCompletion(false);
                 ++taskCounter;
                 if (taskCounter % 5 == 0) {
                     if (prevRamble != null && prevRamble.equals(golem.getPosition())) {
-                        final Vec3d vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(golem, 6, 4, new Vec3d(golem.getTask().getPos().getX(), golem.getTask().getPos().getY(), golem.getTask().getPos().getZ()));
+                        Vec3d vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(golem, 6, 4, new Vec3d(golem.getTask().getPos().getX(), golem.getTask().getPos().getY(), golem.getTask().getPos().getZ()));
                         if (vec3 != null) {
                             golem.getNavigator().tryMoveToXYZ(vec3.x + 0.5, vec3.y + 0.5, vec3.z + 0.5, golem.getGolemMoveSpeed());
                         }
@@ -128,12 +128,12 @@ public abstract class AIGoto extends EntityAIBase
     
     protected abstract boolean findDestination();
     
-    protected boolean isValidDestination(final World world, final BlockPos pos) {
+    protected boolean isValidDestination(World world, BlockPos pos) {
         return true;
     }
     
-    protected boolean areGolemTagsValidForTask(final Task ticket) {
-        final ISealEntity se = SealHandler.getSealEntity(golem.world.provider.getDimension(), ticket.getSealPos());
+    protected boolean areGolemTagsValidForTask(Task ticket) {
+        ISealEntity se = SealHandler.getSealEntity(golem.world.provider.getDimension(), ticket.getSealPos());
         if (se == null || se.getSeal() == null) {
             return true;
         }
@@ -144,7 +144,7 @@ public abstract class AIGoto extends EntityAIBase
             return false;
         }
         if (se.getSeal().getForbiddenTags() != null) {
-            for (final EnumGolemTrait tag : se.getSeal().getForbiddenTags()) {
+            for (EnumGolemTrait tag : se.getSeal().getForbiddenTags()) {
                 if (golem.getProperties().getTraits().contains(tag)) {
                     return false;
                 }

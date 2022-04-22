@@ -29,37 +29,37 @@ public class PacketStartTheoryToServer implements IMessage, IMessageHandler<Pack
         aids = new HashSet<String>();
     }
     
-    public PacketStartTheoryToServer(final BlockPos pos, final Set<String> aids) {
+    public PacketStartTheoryToServer(BlockPos pos, Set<String> aids) {
         this.aids = new HashSet<String>();
         this.pos = pos.toLong();
         this.aids = aids;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeLong(pos);
         buffer.writeByte(aids.size());
-        for (final String aid : aids) {
+        for (String aid : aids) {
             ByteBufUtils.writeUTF8String(buffer, aid);
         }
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         pos = buffer.readLong();
         for (int s = buffer.readByte(), a = 0; a < s; ++a) {
             aids.add(ByteBufUtils.readUTF8String(buffer));
         }
     }
     
-    public IMessage onMessage(final PacketStartTheoryToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketStartTheoryToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final World world = ctx.getServerHandler().player.getServerWorld();
-                final Entity player = ctx.getServerHandler().player;
-                final BlockPos bp = BlockPos.fromLong(message.pos);
+                World world = ctx.getServerHandler().player.getServerWorld();
+                Entity player = ctx.getServerHandler().player;
+                BlockPos bp = BlockPos.fromLong(message.pos);
                 if (world != null && player != null && player instanceof EntityPlayer && bp != null) {
-                    final TileEntity te = world.getTileEntity(bp);
+                    TileEntity te = world.getTileEntity(bp);
                     if (te != null && te instanceof TileResearchTable) {
                         ((TileResearchTable)te).startNewTheory((EntityPlayer)player, message.aids);
                     }

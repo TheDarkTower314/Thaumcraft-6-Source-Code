@@ -19,11 +19,11 @@ public class ItemCharmUndying extends ItemTCBase implements IBauble
         setMaxDamage(0);
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public BaubleType getBaubleType(final ItemStack itemstack) {
+    public BaubleType getBaubleType(ItemStack itemstack) {
         return BaubleType.CHARM;
     }
 }

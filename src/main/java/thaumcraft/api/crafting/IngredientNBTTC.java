@@ -8,7 +8,7 @@ import thaumcraft.api.ThaumcraftInvHelper;
 
 public class IngredientNBTTC extends Ingredient
 {
-	private final ItemStack stack;
+	private ItemStack stack;
     public IngredientNBTTC(ItemStack stack)
     {
         super(stack);

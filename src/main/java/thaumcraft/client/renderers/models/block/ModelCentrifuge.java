@@ -63,7 +63,7 @@ public class ModelCentrifuge extends ModelBase
         Core.render(0.0625f);
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;

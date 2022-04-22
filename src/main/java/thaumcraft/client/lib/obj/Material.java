@@ -24,7 +24,7 @@ public class Material
     public String StencilDecalMap;
     public String AlphaTextureMap;
     
-    public Material(final String materialName) {
+    public Material(String materialName) {
         Name = materialName;
     }
 }

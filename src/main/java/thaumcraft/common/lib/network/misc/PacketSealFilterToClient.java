@@ -30,18 +30,18 @@ public class PacketSealFilterToClient implements IMessage, IMessageHandler<Packe
     public PacketSealFilterToClient() {
     }
     
-    public PacketSealFilterToClient(final ISealEntity se) {
+    public PacketSealFilterToClient(ISealEntity se) {
         pos = se.getSealPos().pos;
         face = se.getSealPos().face;
         if (se.getSeal() != null && se.getSeal() instanceof ISealConfigFilter) {
-            final ISealConfigFilter cp = (ISealConfigFilter)se.getSeal();
+            ISealConfigFilter cp = (ISealConfigFilter)se.getSeal();
             filtersize = (byte)cp.getFilterSize();
             filter = cp.getInv();
             filterStackSize = cp.getSizes();
         }
     }
     
-    public void toBytes(final ByteBuf dos) {
+    public void toBytes(ByteBuf dos) {
         dos.writeLong(pos.toLong());
         dos.writeByte(face.ordinal());
         dos.writeByte(filtersize);
@@ -51,7 +51,7 @@ public class PacketSealFilterToClient implements IMessage, IMessageHandler<Packe
         }
     }
     
-    public void fromBytes(final ByteBuf dat) {
+    public void fromBytes(ByteBuf dat) {
         pos = BlockPos.fromLong(dat.readLong());
         face = EnumFacing.VALUES[dat.readByte()];
         filtersize = dat.readByte();
@@ -63,18 +63,18 @@ public class PacketSealFilterToClient implements IMessage, IMessageHandler<Packe
         }
     }
     
-    public IMessage onMessage(final PacketSealFilterToClient message, final MessageContext ctx) {
+    public IMessage onMessage(PacketSealFilterToClient message, MessageContext ctx) {
         try {
-            final ISealEntity seal = SealHandler.getSealEntity(Thaumcraft.proxy.getClientWorld().provider.getDimension(), new SealPos(message.pos, message.face));
+            ISealEntity seal = SealHandler.getSealEntity(Thaumcraft.proxy.getClientWorld().provider.getDimension(), new SealPos(message.pos, message.face));
             if (seal != null && seal.getSeal() instanceof ISealConfigFilter) {
-                final ISealConfigFilter cp = (ISealConfigFilter)seal.getSeal();
+                ISealConfigFilter cp = (ISealConfigFilter)seal.getSeal();
                 for (int a = 0; a < message.filtersize; ++a) {
                     cp.setFilterSlot(a, message.filter.get(a));
                     cp.setFilterSlotSize(a, message.filterStackSize.get(a));
                 }
             }
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
         return null;

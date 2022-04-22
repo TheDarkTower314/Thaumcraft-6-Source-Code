@@ -92,7 +92,7 @@ public class ModelEldritchCrab extends ModelBase
         LRLeg0.setRotationPoint(4.0f, 20.0f, -1.5f);
     }
     
-    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         if (entity instanceof EntityEldritchCrab && ((EntityEldritchCrab)entity).hasHelm()) {
@@ -122,13 +122,13 @@ public class ModelEldritchCrab extends ModelBase
         LArm.render(f5);
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;
     }
     
-    public void setRotationAngles(final float par1, final float par2, final float par3, final float par4, final float par5, final float par6, final Entity entity) {
+    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
         setRotation(RRLeg1, 0.0f, 0.2094395f, 0.4363323f);
         setRotation(RFLeg1, 0.0f, -0.2094395f, 0.4363323f);
         setRotation(LRLeg1, 0.0f, -0.2094395f, -0.4363323f);
@@ -137,48 +137,48 @@ public class ModelEldritchCrab extends ModelBase
         setRotation(RFLeg0, 0.0f, -0.2094395f, 0.4363323f);
         setRotation(LFLeg0, 0.0f, 0.2094395f, -0.4363323f);
         setRotation(LRLeg0, 0.0f, -0.2094395f, -0.4363323f);
-        final float f9 = -(MathHelper.cos(par1 * 0.6662f * 2.0f + 0.0f) * 0.4f) * par2;
-        final float f10 = -(MathHelper.cos(par1 * 0.6662f * 2.0f + 3.1415927f) * 0.4f) * par2;
-        final ModelRenderer rrLeg1 = RRLeg1;
+        float f9 = -(MathHelper.cos(par1 * 0.6662f * 2.0f + 0.0f) * 0.4f) * par2;
+        float f10 = -(MathHelper.cos(par1 * 0.6662f * 2.0f + 3.1415927f) * 0.4f) * par2;
+        ModelRenderer rrLeg1 = RRLeg1;
         rrLeg1.rotateAngleY += f9;
-        final ModelRenderer rrLeg2 = RRLeg0;
+        ModelRenderer rrLeg2 = RRLeg0;
         rrLeg2.rotateAngleY += f9;
-        final ModelRenderer lrLeg1 = LRLeg1;
+        ModelRenderer lrLeg1 = LRLeg1;
         lrLeg1.rotateAngleY += -f9;
-        final ModelRenderer lrLeg2 = LRLeg0;
+        ModelRenderer lrLeg2 = LRLeg0;
         lrLeg2.rotateAngleY += -f9;
-        final ModelRenderer rfLeg1 = RFLeg1;
+        ModelRenderer rfLeg1 = RFLeg1;
         rfLeg1.rotateAngleY += f10;
-        final ModelRenderer rfLeg2 = RFLeg0;
+        ModelRenderer rfLeg2 = RFLeg0;
         rfLeg2.rotateAngleY += f10;
-        final ModelRenderer lfLeg1 = LFLeg1;
+        ModelRenderer lfLeg1 = LFLeg1;
         lfLeg1.rotateAngleY += -f10;
-        final ModelRenderer lfLeg2 = LFLeg0;
+        ModelRenderer lfLeg2 = LFLeg0;
         lfLeg2.rotateAngleY += -f10;
-        final ModelRenderer rrLeg3 = RRLeg1;
+        ModelRenderer rrLeg3 = RRLeg1;
         rrLeg3.rotateAngleZ += f9;
-        final ModelRenderer rrLeg4 = RRLeg0;
+        ModelRenderer rrLeg4 = RRLeg0;
         rrLeg4.rotateAngleZ += f9;
-        final ModelRenderer lrLeg3 = LRLeg1;
+        ModelRenderer lrLeg3 = LRLeg1;
         lrLeg3.rotateAngleZ += -f9;
-        final ModelRenderer lrLeg4 = LRLeg0;
+        ModelRenderer lrLeg4 = LRLeg0;
         lrLeg4.rotateAngleZ += -f9;
-        final ModelRenderer rfLeg3 = RFLeg1;
+        ModelRenderer rfLeg3 = RFLeg1;
         rfLeg3.rotateAngleZ += f10;
-        final ModelRenderer rfLeg4 = RFLeg0;
+        ModelRenderer rfLeg4 = RFLeg0;
         rfLeg4.rotateAngleZ += f10;
-        final ModelRenderer lfLeg3 = LFLeg1;
+        ModelRenderer lfLeg3 = LFLeg1;
         lfLeg3.rotateAngleZ += -f10;
-        final ModelRenderer lfLeg4 = LFLeg0;
+        ModelRenderer lfLeg4 = LFLeg0;
         lfLeg4.rotateAngleZ += -f10;
-        final ModelRenderer tailBare = TailBare;
-        final ModelRenderer tailHelm = TailHelm;
-        final float n = MathHelper.cos(par1 * 0.6662f) * 2.0f * par2 * 0.125f;
+        ModelRenderer tailBare = TailBare;
+        ModelRenderer tailHelm = TailHelm;
+        float n = MathHelper.cos(par1 * 0.6662f) * 2.0f * par2 * 0.125f;
         tailHelm.rotateAngleY = n;
         tailBare.rotateAngleY = n;
-        final ModelRenderer tailBare2 = TailBare;
-        final ModelRenderer tailHelm2 = TailHelm;
-        final float n2 = MathHelper.cos(par1 * 0.6662f) * par2 * 0.125f;
+        ModelRenderer tailBare2 = TailBare;
+        ModelRenderer tailHelm2 = TailHelm;
+        float n2 = MathHelper.cos(par1 * 0.6662f) * par2 * 0.125f;
         tailHelm2.rotateAngleZ = n2;
         tailBare2.rotateAngleZ = n2;
         RClaw2.rotateAngleX = 0.3141593f - MathHelper.sin(entity.ticksExisted / 4.0f) * 0.25f;

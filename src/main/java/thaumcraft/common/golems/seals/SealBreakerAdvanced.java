@@ -39,7 +39,7 @@ public class SealBreakerAdvanced extends SealBreaker
     }
     
     @Override
-    public void setToggle(final int indx, final boolean value) {
+    public void setToggle(int indx, boolean value) {
         props[indx].setValue(value);
     }
     

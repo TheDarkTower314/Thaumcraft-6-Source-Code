@@ -31,18 +31,18 @@ public class ItemCuriosityBand extends ItemTCBase implements IBauble, IRenderBau
         setMaxDamage(0);
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public BaubleType getBaubleType(final ItemStack itemstack) {
+    public BaubleType getBaubleType(ItemStack itemstack) {
         return BaubleType.HEAD;
     }
     
     @SideOnly(Side.CLIENT)
-    public void onPlayerBaubleRender(final ItemStack stack, final EntityPlayer player, final IRenderBauble.RenderType type, final float ticks) {
+    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, IRenderBauble.RenderType type, float ticks) {
         if (type == IRenderBauble.RenderType.HEAD) {
-            final boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
+            boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
             Minecraft.getMinecraft().renderEngine.bindTexture(tex);
             IRenderBauble.Helper.translateToHeadLevel(player);
             IRenderBauble.Helper.translateToFace();

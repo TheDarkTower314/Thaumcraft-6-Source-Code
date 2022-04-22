@@ -14,14 +14,14 @@ public class FXSlimyBubble extends Particle
 {
     int particle;
     
-    public FXSlimyBubble(final World world, final double d, final double d1, final double d2, final float f) {
+    public FXSlimyBubble(World world, double d, double d1, double d2, float f) {
         super(world, d, d1, d2, 0.0, 0.0, 0.0);
         particle = 144;
         particleRed = 1.0f;
         particleGreen = 1.0f;
         particleBlue = 1.0f;
         particleGravity = 0.0f;
-        final double motionX = 0.0;
+        double motionX = 0.0;
         motionZ = motionX;
         motionY = motionX;
         this.motionX = motionX;
@@ -30,19 +30,19 @@ public class FXSlimyBubble extends Particle
         setSize(0.01f, 0.01f);
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void renderParticle(BufferBuilder wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, particleAlpha);
-        final float var8 = particle % 16 / 64.0f;
-        final float var9 = var8 + 0.015625f;
-        final float var10 = particle / 16 / 64.0f;
-        final float var11 = var10 + 0.015625f;
-        final float var12 = particleScale;
-        final float var13 = (float)(prevPosX + (posX - prevPosX) * f - FXSlimyBubble.interpPosX);
-        final float var14 = (float)(prevPosY + (posY - prevPosY) * f - FXSlimyBubble.interpPosY);
-        final float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - FXSlimyBubble.interpPosZ);
-        final int i = getBrightnessForRender(f);
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        float var8 = particle % 16 / 64.0f;
+        float var9 = var8 + 0.015625f;
+        float var10 = particle / 16 / 64.0f;
+        float var11 = var10 + 0.015625f;
+        float var12 = particleScale;
+        float var13 = (float)(prevPosX + (posX - prevPosX) * f - FXSlimyBubble.interpPosX);
+        float var14 = (float)(prevPosY + (posY - prevPosY) * f - FXSlimyBubble.interpPosY);
+        float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - FXSlimyBubble.interpPosZ);
+        int i = getBrightnessForRender(f);
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         wr.pos(var13 - f1 * var12 - f4 * var12, var14 - f2 * var12, var15 - f3 * var12 - f5 * var12).tex(var9, var11).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
         wr.pos(var13 - f1 * var12 + f4 * var12, var14 + f2 * var12, var15 - f3 * var12 + f5 * var12).tex(var9, var10).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
         wr.pos(var13 + f1 * var12 + f4 * var12, var14 + f2 * var12, var15 + f3 * var12 + f5 * var12).tex(var8, var10).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();

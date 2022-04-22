@@ -10,19 +10,19 @@ import thaumcraft.codechicken.lib.render.CCRenderState;
 
 public abstract class Transformation extends ITransformation<Vector3, Transformation> implements CCRenderState.IVertexOperation
 {
-    public static final int operationIndex;
+    public static int operationIndex;
     
-    public abstract void applyN(final Vector3 p0);
+    public abstract void applyN(Vector3 p0);
     
-    public abstract void apply(final Matrix4 p0);
+    public abstract void apply(Matrix4 p0);
     
     @Override
-    public Transformation at(final Vector3 point) {
+    public Transformation at(Vector3 point) {
         return new TransformationList(new Translation(-point.x, -point.y, -point.z), this, point.translation());
     }
     
     @Override
-    public TransformationList with(final Transformation t) {
+    public TransformationList with(Transformation t) {
         return new TransformationList(this, t);
     }
     

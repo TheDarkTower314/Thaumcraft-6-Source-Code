@@ -37,14 +37,14 @@ public class EntityFallingTaint extends Entity implements IEntityAdditionalSpawn
         return fallTile;
     }
     
-    public EntityFallingTaint(final World par1World) {
+    public EntityFallingTaint(World par1World) {
         super(par1World);
         fallTime = 0;
         fallHurtMax = 40;
         fallHurtAmount = 2.0f;
     }
     
-    public EntityFallingTaint(final World par1World, final double par2, final double par4, final double par6, final IBlockState par8, final BlockPos o) {
+    public EntityFallingTaint(World par1World, double par2, double par4, double par6, IBlockState par8, BlockPos o) {
         super(par1World);
         fallTime = 0;
         fallHurtMax = 40;
@@ -69,16 +69,16 @@ public class EntityFallingTaint extends Entity implements IEntityAdditionalSpawn
     protected void entityInit() {
     }
     
-    public void writeSpawnData(final ByteBuf data) {
+    public void writeSpawnData(ByteBuf data) {
         data.writeInt(Block.getIdFromBlock(fallTile.getBlock()));
         data.writeByte(fallTile.getBlock().getMetaFromState(fallTile));
     }
     
-    public void readSpawnData(final ByteBuf data) {
+    public void readSpawnData(ByteBuf data) {
         try {
             fallTile = Block.getBlockById(data.readInt()).getStateFromMeta(data.readByte());
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
     }
     
     public boolean canBeCollidedWith() {
@@ -99,7 +99,7 @@ public class EntityFallingTaint extends Entity implements IEntityAdditionalSpawn
             motionX *= 0.9800000190734863;
             motionY *= 0.9800000190734863;
             motionZ *= 0.9800000190734863;
-            final BlockPos bp = new BlockPos(this);
+            BlockPos bp = new BlockPos(this);
             if (!world.isRemote) {
                 if (fallTime == 1) {
                     if (world.getBlockState(oldPos) != fallTile) {
@@ -130,16 +130,16 @@ public class EntityFallingTaint extends Entity implements IEntityAdditionalSpawn
         }
     }
     
-    private boolean canPlace(final BlockPos pos) {
+    private boolean canPlace(BlockPos pos) {
         return world.getBlockState(pos).getBlock() == BlocksTC.taintFibre || world.getBlockState(pos).getBlock() == BlocksTC.fluxGoo || world.mayPlace(fallTile.getBlock(), pos, true, EnumFacing.UP, null);
     }
     
-    public void fall(final float distance, final float damageMultiplier) {
+    public void fall(float distance, float damageMultiplier) {
     }
     
-    protected void writeEntityToNBT(final NBTTagCompound par1NBTTagCompound) {
-        final Block block = (fallTile != null) ? fallTile.getBlock() : Blocks.AIR;
-        final ResourceLocation resourcelocation = Block.REGISTRY.getNameForObject(block);
+    protected void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
+        Block block = (fallTile != null) ? fallTile.getBlock() : Blocks.AIR;
+        ResourceLocation resourcelocation = Block.REGISTRY.getNameForObject(block);
         par1NBTTagCompound.setString("Block", (resourcelocation == null) ? "" : resourcelocation.toString());
         par1NBTTagCompound.setByte("Data", (byte)block.getMetaFromState(fallTile));
         par1NBTTagCompound.setByte("Time", (byte) fallTime);
@@ -148,8 +148,8 @@ public class EntityFallingTaint extends Entity implements IEntityAdditionalSpawn
         par1NBTTagCompound.setLong("Old", oldPos.toLong());
     }
     
-    protected void readEntityFromNBT(final NBTTagCompound par1NBTTagCompound) {
-        final int i = par1NBTTagCompound.getByte("Data") & 0xFF;
+    protected void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
+        int i = par1NBTTagCompound.getByte("Data") & 0xFF;
         if (par1NBTTagCompound.hasKey("Block", 8)) {
             fallTile = Block.getBlockFromName(par1NBTTagCompound.getString("Block")).getStateFromMeta(i);
         }
@@ -170,7 +170,7 @@ public class EntityFallingTaint extends Entity implements IEntityAdditionalSpawn
         }
     }
     
-    public void addEntityCrashInfo(final CrashReportCategory par1CrashReportCategory) {
+    public void addEntityCrashInfo(CrashReportCategory par1CrashReportCategory) {
         super.addEntityCrashInfo(par1CrashReportCategory);
         par1CrashReportCategory.addCrashSection("Immitating block ID", Block.getIdFromBlock(fallTile.getBlock()));
         par1CrashReportCategory.addCrashSection("Immitating block data", fallTile.getBlock().getMetaFromState(fallTile));

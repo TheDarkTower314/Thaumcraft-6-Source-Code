@@ -17,13 +17,13 @@ public enum ShardType
     ENTROPY(5, "entropy", Aspect.ENTROPY), 
     FLUX(6, "flux", Aspect.FLUX);
     
-    private static final ShardType[] METADATA_LOOKUP;
-    private final int metadata;
-    private final String name;
-    private final Aspect aspect;
+    private static ShardType[] METADATA_LOOKUP;
+    private int metadata;
+    private String name;
+    private Aspect aspect;
     private Block ore;
     
-    private ShardType(final int metadata, final String unlocalizedName, final Aspect aspect) {
+    private ShardType(int metadata, String unlocalizedName, Aspect aspect) {
         this.metadata = metadata;
         name = unlocalizedName;
         this.aspect = aspect;
@@ -41,7 +41,7 @@ public enum ShardType
         return ore;
     }
     
-    public void setOre(final Block b) {
+    public void setOre(Block b) {
         ore = b;
     }
     
@@ -54,8 +54,8 @@ public enum ShardType
         return getUnlocalizedName();
     }
     
-    public static int getMetaByAspect(final Aspect a) {
-        final ShardType[] var0 = values();
+    public static int getMetaByAspect(Aspect a) {
+        ShardType[] var0 = values();
         for (int var2 = var0.length, var3 = 0; var3 < var2; ++var3) {
             if (var0[var3].getAspect() == a) {
                 return var3;
@@ -77,7 +77,7 @@ public enum ShardType
     
     static {
         METADATA_LOOKUP = new ShardType[values().length];
-        for (final ShardType var4 : values()) {
+        for (ShardType var4 : values()) {
             ShardType.METADATA_LOOKUP[var4.getMetadata()] = var4;
         }
     }

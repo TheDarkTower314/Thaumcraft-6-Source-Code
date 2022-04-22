@@ -24,7 +24,7 @@ public class BlockLoot extends BlockTC
     LootType type;
     Random rand;
     
-    public BlockLoot(final Material mat, final String name, final LootType type) {
+    public BlockLoot(Material mat, String name, LootType type) {
         super(mat, name);
         rand = new Random();
         setHardness(0.15f);
@@ -36,11 +36,11 @@ public class BlockLoot extends BlockTC
         return (blockMaterial == Material.WOOD) ? SoundType.WOOD : SoundsTC.URN;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
@@ -48,21 +48,21 @@ public class BlockLoot extends BlockTC
         return true;
     }
     
-    public boolean canHarvestBlock(final IBlockAccess world, final BlockPos pos, final EntityPlayer player) {
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
         return true;
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         if (getMaterial(state) == Material.ROCK) {
             return new AxisAlignedBB(0.125, 0.0625, 0.125, 0.875, 0.8125, 0.875);
         }
         return new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.875, 0.9375);
     }
     
-    public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
-        final ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
         for (int q = 1 + type.ordinal() + rand.nextInt(3), a = 0; a < q; ++a) {
-            final ItemStack is = Utils.generateLoot(type.ordinal(), rand);
+            ItemStack is = Utils.generateLoot(type.ordinal(), rand);
             if (is != null && !is.isEmpty()) {
                 ret.add(is.copy());
             }

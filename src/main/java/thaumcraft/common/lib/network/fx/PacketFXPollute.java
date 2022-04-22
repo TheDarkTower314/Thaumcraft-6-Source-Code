@@ -21,7 +21,7 @@ public class PacketFXPollute implements IMessage, IMessageHandler<PacketFXPollut
     public PacketFXPollute() {
     }
     
-    public PacketFXPollute(final BlockPos pos, float amt) {
+    public PacketFXPollute(BlockPos pos, float amt) {
         x = pos.getX();
         y = pos.getY();
         z = pos.getZ();
@@ -31,25 +31,25 @@ public class PacketFXPollute implements IMessage, IMessageHandler<PacketFXPollut
         amount = (byte)amt;
     }
     
-    public PacketFXPollute(final BlockPos pos, final float amt, final boolean vary) {
+    public PacketFXPollute(BlockPos pos, float amt, boolean vary) {
         this(pos, amt);
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(x);
         buffer.writeInt(y);
         buffer.writeInt(z);
         buffer.writeByte(amount);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         x = buffer.readInt();
         y = buffer.readInt();
         z = buffer.readInt();
         amount = buffer.readByte();
     }
     
-    public IMessage onMessage(final PacketFXPollute message, final MessageContext ctx) {
+    public IMessage onMessage(PacketFXPollute message, MessageContext ctx) {
         for (int a = 0; a < Math.min(40, message.amount); ++a) {
             FXDispatcher.INSTANCE.drawPollutionParticles(new BlockPos(message.x, message.y, message.z));
         }

@@ -27,13 +27,13 @@ public class ItemBottleTaint extends ItemTCBase
         setHasSubtypes(false);
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         if (!player.capabilities.isCreativeMode) {
             player.getHeldItem(hand).shrink(1);
         }
         player.playSound(SoundEvents.ENTITY_EGG_THROW, 0.5f, 0.4f / (ItemBottleTaint.itemRand.nextFloat() * 0.4f + 0.8f));
         if (!world.isRemote) {
-            final EntityBottleTaint entityBottle = new EntityBottleTaint(world, player);
+            EntityBottleTaint entityBottle = new EntityBottleTaint(world, player);
             entityBottle.shoot(player, player.rotationPitch, player.rotationYaw, -5.0f, 0.66f, 1.0f);
             world.spawnEntity(entityBottle);
         }

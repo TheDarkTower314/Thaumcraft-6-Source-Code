@@ -13,9 +13,9 @@ public class UVTransformationList extends UVTransformation
 {
     private ArrayList<UVTransformation> transformations;
     
-    public UVTransformationList(final UVTransformation... transforms) {
+    public UVTransformationList(UVTransformation... transforms) {
         transformations = new ArrayList<UVTransformation>();
-        for (final UVTransformation t : transforms) {
+        for (UVTransformation t : transforms) {
             if (t instanceof UVTransformationList) {
                 transformations.addAll(((UVTransformationList)t).transformations);
             }
@@ -27,14 +27,14 @@ public class UVTransformationList extends UVTransformation
     }
     
     @Override
-    public void apply(final UV uv) {
+    public void apply(UV uv) {
         for (int i = 0; i < transformations.size(); ++i) {
             transformations.get(i).apply(uv);
         }
     }
     
     @Override
-    public UVTransformationList with(final UVTransformation t) {
+    public UVTransformationList with(UVTransformation t) {
         if (t.isRedundant()) {
             return this;
         }
@@ -48,7 +48,7 @@ public class UVTransformationList extends UVTransformation
         return this;
     }
     
-    public UVTransformationList prepend(final UVTransformation t) {
+    public UVTransformationList prepend(UVTransformation t) {
         if (t.isRedundant()) {
             return this;
         }
@@ -63,8 +63,8 @@ public class UVTransformationList extends UVTransformation
     }
     
     private void compact() {
-        final ArrayList<UVTransformation> newList = new ArrayList<UVTransformation>(transformations.size());
-        final Iterator<UVTransformation> iterator = transformations.iterator();
+        ArrayList<UVTransformation> newList = new ArrayList<UVTransformation>(transformations.size());
+        Iterator<UVTransformation> iterator = transformations.iterator();
         UVTransformation prev = null;
         while (iterator.hasNext()) {
             UVTransformation t = iterator.next();
@@ -72,7 +72,7 @@ public class UVTransformationList extends UVTransformation
                 continue;
             }
             if (prev != null) {
-                final UVTransformation m = prev.merge(t);
+                UVTransformation m = prev.merge(t);
                 if (m == null) {
                     newList.add(prev);
                 }
@@ -100,7 +100,7 @@ public class UVTransformationList extends UVTransformation
     
     @Override
     public UVTransformation inverse() {
-        final UVTransformationList rev = new UVTransformationList();
+        UVTransformationList rev = new UVTransformationList();
         for (int i = transformations.size() - 1; i >= 0; --i) {
             rev.with(transformations.get(i).inverse());
         }
@@ -110,7 +110,7 @@ public class UVTransformationList extends UVTransformation
     @Override
     public String toString() {
         String s = "";
-        for (final UVTransformation t : transformations) {
+        for (UVTransformation t : transformations) {
             s = s + "\n" + t.toString();
         }
         return s.trim();

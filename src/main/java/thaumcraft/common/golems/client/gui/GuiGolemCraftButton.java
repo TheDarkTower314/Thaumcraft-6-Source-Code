@@ -14,17 +14,17 @@ public class GuiGolemCraftButton extends GuiButton
 {
     static ResourceLocation tex;
     
-    public GuiGolemCraftButton(final int buttonId, final int x, final int y) {
+    public GuiGolemCraftButton(int buttonId, int x, int y) {
         super(buttonId, x, y, 24, 16, "");
     }
     
-    public void drawButton(final Minecraft mc, final int xx, final int yy, final float partialTicks) {
+    public void drawButton(Minecraft mc, int xx, int yy, float partialTicks) {
         if (visible) {
-            final FontRenderer fontrenderer = mc.fontRenderer;
+            FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiGolemCraftButton.tex);
             GlStateManager.color(0.9f, 0.9f, 0.9f, 0.9f);
             hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);
-            final int k = getHoverState(hovered);
+            int k = getHoverState(hovered);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.blendFunc(770, 771);

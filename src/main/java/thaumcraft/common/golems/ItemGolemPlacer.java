@@ -41,9 +41,9 @@ public class ItemGolemPlacer extends ItemTCBase implements ISealDisplayer
     }
     
     @Override
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
-            final ItemStack is = new ItemStack(this, 1, 0);
+            ItemStack is = new ItemStack(this, 1, 0);
             is.setTagInfo("props", new NBTTagLong(0L));
             items.add(is.copy());
             IGolemProperties props = new GolemProperties();
@@ -67,28 +67,28 @@ public class ItemGolemPlacer extends ItemTCBase implements ISealDisplayer
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("props")) {
-            final IGolemProperties props = GolemProperties.fromLong(stack.getTagCompound().getLong("props"));
+            IGolemProperties props = GolemProperties.fromLong(stack.getTagCompound().getLong("props"));
             if (props.hasTrait(EnumGolemTrait.SMART)) {
                 if (props.getRank() >= 10) {
                     tooltip.add("§6" + I18n.translateToLocal("golem.rank") + " " + props.getRank());
                 }
                 else {
-                    final int rx = stack.getTagCompound().getInteger("xp");
-                    final int xn = (props.getRank() + 1) * (props.getRank() + 1) * 1000;
+                    int rx = stack.getTagCompound().getInteger("xp");
+                    int xn = (props.getRank() + 1) * (props.getRank() + 1) * 1000;
                     tooltip.add("§6" + I18n.translateToLocal("golem.rank") + " " + props.getRank() + " §2(" + rx + "/" + xn + ")");
                 }
             }
             tooltip.add("§a" + props.getMaterial().getLocalizedName());
-            for (final EnumGolemTrait tag : props.getTraits()) {
+            for (EnumGolemTrait tag : props.getTraits()) {
                 tooltip.add("§9-" + tag.getLocalizedName());
             }
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         IBlockState bs = world.getBlockState(pos);
         if (!bs.getMaterial().isSolid()) {
             return EnumActionResult.FAIL;
@@ -101,7 +101,7 @@ public class ItemGolemPlacer extends ItemTCBase implements ISealDisplayer
         if (!player.canPlayerEdit(pos, side, player.getHeldItem(hand))) {
             return EnumActionResult.FAIL;
         }
-        final EntityThaumcraftGolem golem = new EntityThaumcraftGolem(world);
+        EntityThaumcraftGolem golem = new EntityThaumcraftGolem(world);
         golem.setPositionAndRotation(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0f, 0.0f);
         if (golem != null && world.spawnEntity(golem)) {
             golem.setOwned(true);

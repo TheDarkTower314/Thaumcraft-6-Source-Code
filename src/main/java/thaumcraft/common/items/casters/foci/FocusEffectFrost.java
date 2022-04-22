@@ -60,27 +60,27 @@ public class FocusEffectFrost extends FocusEffect
     }
     
     @Override
-    public float getDamageForDisplay(final float finalPower) {
+    public float getDamageForDisplay(float finalPower) {
         return (3 + getSettingValue("power")) * finalPower;
     }
     
     @Override
-    public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
+    public boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num) {
         PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
         if (target.typeOfHit == RayTraceResult.Type.ENTITY && target.entityHit != null) {
-            final float damage = getDamageForDisplay(finalPower);
-            final int duration = 20 * getSettingValue("duration");
-            final int potency = (int)(1.0f + getSettingValue("power") * finalPower / 3.0f);
+            float damage = getDamageForDisplay(finalPower);
+            int duration = 20 * getSettingValue("duration");
+            int potency = (int)(1.0f + getSettingValue("power") * finalPower / 3.0f);
             target.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((target.entityHit != null) ? target.entityHit : getPackage().getCaster(), getPackage().getCaster()), damage);
             if (target.entityHit instanceof EntityLivingBase) {
                 ((EntityLivingBase)target.entityHit).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, duration, potency));
             }
         }
         else if (target.typeOfHit == RayTraceResult.Type.BLOCK) {
-            final float f = Math.min(16.0f, 2 * getSettingValue("power") * finalPower);
-            for (final BlockPos.MutableBlockPos blockpos$mutableblockpos1 : BlockPos.getAllInBoxMutable(target.getBlockPos().add(-f, -f, -f), target.getBlockPos().add(f, f, f))) {
+            float f = Math.min(16.0f, 2 * getSettingValue("power") * finalPower);
+            for (BlockPos.MutableBlockPos blockpos$mutableblockpos1 : BlockPos.getAllInBoxMutable(target.getBlockPos().add(-f, -f, -f), target.getBlockPos().add(f, f, f))) {
                 if (blockpos$mutableblockpos1.distanceSqToCenter(target.hitVec.x, target.hitVec.y, target.hitVec.z) <= f * f) {
-                    final IBlockState iblockstate1 = getPackage().world.getBlockState(blockpos$mutableblockpos1);
+                    IBlockState iblockstate1 = getPackage().world.getBlockState(blockpos$mutableblockpos1);
                     if (iblockstate1.getMaterial() != Material.WATER || (int)iblockstate1.getValue((IProperty)BlockLiquid.LEVEL) != 0 || !getPackage().world.mayPlace(Blocks.FROSTED_ICE, blockpos$mutableblockpos1, false, EnumFacing.DOWN, null)) {
                         continue;
                     }
@@ -99,8 +99,8 @@ public class FocusEffectFrost extends FocusEffect
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void renderParticleFX(final World world, final double posX, final double posY, final double posZ, final double motionX, final double motionY, final double motionZ) {
-        final FXGeneric fb = new FXGeneric(world, posX, posY, posZ, motionX, motionY, motionZ);
+    public void renderParticleFX(World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
+        FXGeneric fb = new FXGeneric(world, posX, posY, posZ, motionX, motionY, motionZ);
         fb.setMaxAge(40 + world.rand.nextInt(40));
         fb.setAlphaF(1.0f, 0.0f);
         fb.setParticles(8, 1, 1);
@@ -113,7 +113,7 @@ public class FocusEffectFrost extends FocusEffect
     }
     
     @Override
-    public void onCast(final Entity caster) {
+    public void onCast(Entity caster) {
         caster.world.playSound(null, caster.getPosition().up(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, SoundCategory.PLAYERS, 0.2f, 1.0f + (float)(caster.world.rand.nextGaussian() * 0.05000000074505806));
     }
 }

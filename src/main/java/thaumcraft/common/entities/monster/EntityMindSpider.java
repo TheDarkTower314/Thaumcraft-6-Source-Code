@@ -23,10 +23,10 @@ import net.minecraft.entity.monster.EntitySpider;
 public class EntityMindSpider extends EntitySpider implements IEldritchMob
 {
     private int lifeSpan;
-    private static final DataParameter<Boolean> HARMLESS;
-    private static final DataParameter<String> VIEWER;
+    private static DataParameter<Boolean> HARMLESS;
+    private static DataParameter<String> VIEWER;
     
-    public EntityMindSpider(final World par1World) {
+    public EntityMindSpider(World par1World) {
         super(par1World);
         lifeSpan = Integer.MAX_VALUE;
         setSize(0.7f, 0.5f);
@@ -42,7 +42,7 @@ public class EntityMindSpider extends EntitySpider implements IEldritchMob
         return 0.45f;
     }
     
-    protected int getExperiencePoints(final EntityPlayer p_70693_1_) {
+    protected int getExperiencePoints(EntityPlayer p_70693_1_) {
         return isHarmless() ? 0 : super.getExperiencePoints(p_70693_1_);
     }
     
@@ -62,7 +62,7 @@ public class EntityMindSpider extends EntitySpider implements IEldritchMob
         return (String) getDataManager().get((DataParameter)EntityMindSpider.VIEWER);
     }
     
-    public void setViewer(final String player) {
+    public void setViewer(String player) {
         getDataManager().set(EntityMindSpider.VIEWER, String.valueOf(player));
     }
     
@@ -70,7 +70,7 @@ public class EntityMindSpider extends EntitySpider implements IEldritchMob
         return (boolean) getDataManager().get((DataParameter)EntityMindSpider.HARMLESS);
     }
     
-    public void setHarmless(final boolean h) {
+    public void setHarmless(boolean h) {
         if (h) {
             lifeSpan = 1200;
         }
@@ -92,7 +92,7 @@ public class EntityMindSpider extends EntitySpider implements IEldritchMob
         return Item.getItemById(0);
     }
     
-    protected void dropFewItems(final boolean p_70628_1_, final int p_70628_2_) {
+    protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
     }
     
     public boolean doesEntityNotTriggerPressurePlate() {
@@ -103,23 +103,23 @@ public class EntityMindSpider extends EntitySpider implements IEldritchMob
         return false;
     }
     
-    public boolean attackEntityAsMob(final Entity p_70652_1_) {
+    public boolean attackEntityAsMob(Entity p_70652_1_) {
         return !isHarmless() && super.attackEntityAsMob(p_70652_1_);
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         setHarmless(nbt.getBoolean("harmless"));
         setViewer(nbt.getString("viewer"));
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         nbt.setBoolean("harmless", isHarmless());
         nbt.setString("viewer", getViewer());
     }
     
-    public IEntityLivingData onInitialSpawn(final DifficultyInstance p_180482_1_, final IEntityLivingData p_180482_2_) {
+    public IEntityLivingData onInitialSpawn(DifficultyInstance p_180482_1_, IEntityLivingData p_180482_2_) {
         return p_180482_2_;
     }
     

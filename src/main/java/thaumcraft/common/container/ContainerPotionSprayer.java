@@ -18,7 +18,7 @@ public class ContainerPotionSprayer extends Container
     private TilePotionSprayer sprayer;
     private int lastBreakTime;
     
-    public ContainerPotionSprayer(final InventoryPlayer par1InventoryPlayer, final TilePotionSprayer tilePotionSprayer) {
+    public ContainerPotionSprayer(InventoryPlayer par1InventoryPlayer, TilePotionSprayer tilePotionSprayer) {
         sprayer = tilePotionSprayer;
         addSlotToContainer(new SlotPotion(tilePotionSprayer, 0, 56, 64));
         for (int i = 0; i < 3; ++i) {
@@ -31,15 +31,15 @@ public class ContainerPotionSprayer extends Container
         }
     }
     
-    public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
+    public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
         return sprayer.isUsableByPlayer(par1EntityPlayer);
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = inventorySlots.get(slot);
+        Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
-            final ItemStack stackInSlot = slotObject.getStack();
+            ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot == 0) {
                 if (!sprayer.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {

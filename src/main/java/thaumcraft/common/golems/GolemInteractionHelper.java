@@ -30,18 +30,18 @@ import net.minecraft.world.World;
 
 public class GolemInteractionHelper
 {
-    public static void golemClick(final World world, final IGolemAPI golem, final BlockPos pos, final EnumFacing face, final ItemStack clickStack, final boolean sneaking, final boolean rightClick) {
-        final FakePlayer fp = FakePlayerFactory.get((WorldServer)world, new GameProfile(null, "FakeThaumcraftGolem"));
+    public static void golemClick(World world, IGolemAPI golem, BlockPos pos, EnumFacing face, ItemStack clickStack, boolean sneaking, boolean rightClick) {
+        FakePlayer fp = FakePlayerFactory.get((WorldServer)world, new GameProfile(null, "FakeThaumcraftGolem"));
         fp.connection = new FakeNetHandlerPlayServer(fp.mcServer, new NetworkManager(EnumPacketDirection.CLIENTBOUND), fp);
         fp.setPositionAndRotation(golem.getGolemEntity().posX, golem.getGolemEntity().posY, golem.getGolemEntity().posZ, golem.getGolemEntity().rotationYaw, golem.getGolemEntity().rotationPitch);
-        final IBlockState bs = world.getBlockState(pos);
+        IBlockState bs = world.getBlockState(pos);
         fp.setHeldItem(EnumHand.MAIN_HAND, clickStack);
         fp.setSneaking(sneaking);
         if (!rightClick) {
             try {
                 fp.interactionManager.onBlockClicked(pos, face);
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
         }
         else {
             if (fp.getHeldItemMainhand().getItem() instanceof ItemBlock && !mayPlace(world, ((ItemBlock)fp.getHeldItemMainhand().getItem()).getBlock(), pos, face)) {
@@ -50,7 +50,7 @@ public class GolemInteractionHelper
             try {
                 fp.interactionManager.processRightClickBlock(fp, world, fp.getHeldItemMainhand(), EnumHand.MAIN_HAND, pos, face, 0.5f, 0.5f, 0.5f);
             }
-            catch (final Exception ex2) {}
+            catch (Exception ex2) {}
         }
         golem.addRankXp(1);
         if (!fp.getHeldItemMainhand().isEmpty() && fp.getHeldItemMainhand().getCount() <= 0) {
@@ -60,13 +60,13 @@ public class GolemInteractionHelper
         golem.swingArm();
     }
     
-    private static boolean mayPlace(final World world, final Block blockIn, final BlockPos pos, final EnumFacing side) {
-        final IBlockState block = world.getBlockState(pos);
-        final AxisAlignedBB axisalignedbb = blockIn.getBoundingBox(blockIn.getDefaultState(), world, pos);
+    private static boolean mayPlace(World world, Block blockIn, BlockPos pos, EnumFacing side) {
+        IBlockState block = world.getBlockState(pos);
+        AxisAlignedBB axisalignedbb = blockIn.getBoundingBox(blockIn.getDefaultState(), world, pos);
         return axisalignedbb == null || world.checkNoEntityCollision(axisalignedbb, null);
     }
     
-    private static void dropSomeItems(final FakePlayer fp2, final IGolemAPI golem) {
+    private static void dropSomeItems(FakePlayer fp2, IGolemAPI golem) {
         for (int i = 0; i < fp2.inventory.mainInventory.size(); ++i) {
             if (!fp2.inventory.mainInventory.get(i).isEmpty()) {
                 if (golem.canCarry(fp2.inventory.mainInventory.get(i), true)) {

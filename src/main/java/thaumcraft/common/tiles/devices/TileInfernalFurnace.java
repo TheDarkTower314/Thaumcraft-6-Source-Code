@@ -55,24 +55,24 @@ public class TileInfernalFurnace extends TileThaumcraftInventory
     }
     
     @Override
-    public int[] getSlotsForFace(final EnumFacing par1) {
+    public int[] getSlotsForFace(EnumFacing par1) {
         return (par1 == EnumFacing.UP) ? super.getSlotsForFace(par1) : new int[0];
     }
     
     @Override
-    public boolean canExtractItem(final int par1, final ItemStack stack2, final EnumFacing par3) {
+    public boolean canExtractItem(int par1, ItemStack stack2, EnumFacing par3) {
         return false;
     }
     
     @Override
-    public void readFromNBT(final NBTTagCompound nbttagcompound) {
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
         furnaceCookTime = nbttagcompound.getShort("CookTime");
         speedyTime = nbttagcompound.getShort("SpeedyTime");
     }
     
     @Override
-    public NBTTagCompound writeToNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
         nbttagcompound.setShort("CookTime", (short) furnaceCookTime);
         nbttagcompound.setShort("SpeedyTime", (short) speedyTime);
@@ -100,7 +100,7 @@ public class TileInfernalFurnace extends TileThaumcraftInventory
             if (furnaceCookTime <= 0 && cookedflag) {
                 for (int a = 0; a < getSizeInventory(); ++a) {
                     if (getStackInSlot(a) != null && !getStackInSlot(a).isEmpty()) {
-                        final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(a));
+                        ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(a));
                         if (itemstack != null && !itemstack.isEmpty()) {
                             if (speedyTime > 0) {
                                 --speedyTime;
@@ -134,10 +134,10 @@ public class TileInfernalFurnace extends TileThaumcraftInventory
     
     private int getBellows() {
         int bellows = 0;
-        for (final EnumFacing dir : EnumFacing.VALUES) {
+        for (EnumFacing dir : EnumFacing.VALUES) {
             if (dir != EnumFacing.UP) {
-                final BlockPos p2 = pos.offset(dir, 2);
-                final TileEntity tile = world.getTileEntity(p2);
+                BlockPos p2 = pos.offset(dir, 2);
+                TileEntity tile = world.getTileEntity(p2);
                 if (tile != null && tile instanceof TileBellows && BlockStateUtils.getFacing(world.getBlockState(p2)) == dir.getOpposite() && world.isBlockIndirectlyGettingPowered(p2) == 0) {
                     ++bellows;
                 }
@@ -167,19 +167,19 @@ public class TileInfernalFurnace extends TileThaumcraftInventory
     
     private void destroyItem() {
         world.playSound(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.3f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f, false);
-        final double var21 = pos.getX() + world.rand.nextFloat();
-        final double var22 = pos.getY() + 1;
-        final double var23 = pos.getZ() + world.rand.nextFloat();
+        double var21 = pos.getX() + world.rand.nextFloat();
+        double var22 = pos.getY() + 1;
+        double var23 = pos.getZ() + world.rand.nextFloat();
         world.spawnParticle(EnumParticleTypes.LAVA, var21, var22, var23, 0.0, 0.0, 0.0);
     }
     
-    public void ejectItem(final ItemStack items, final ItemStack furnaceItemStack) {
+    public void ejectItem(ItemStack items, ItemStack furnaceItemStack) {
         if (items == null || items.isEmpty()) {
             return;
         }
-        final ArrayList<ItemStack> ejecti = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> ejecti = new ArrayList<ItemStack>();
         ejecti.add(items.copy());
-        final int bellows = getBellows() + 1;
+        int bellows = getBellows() + 1;
         float lx = 0.5f;
         lx += facingX * 1.2f;
         float lz = 0.5f;
@@ -187,24 +187,24 @@ public class TileInfernalFurnace extends TileThaumcraftInventory
         float mx = 0.0f;
         float mz = 0.0f;
         for (int a = 0; a < bellows; ++a) {
-            final ItemStack[] boni = getSmeltingBonus(furnaceItemStack);
+            ItemStack[] boni = getSmeltingBonus(furnaceItemStack);
             if (boni != null) {
-                for (final ItemStack bonus : boni) {
+                for (ItemStack bonus : boni) {
                     if (!bonus.isEmpty() && bonus.getCount() > 0) {
                         ejecti.add(bonus);
                     }
                 }
             }
         }
-        for (final ItemStack outItem : ejecti) {
+        for (ItemStack outItem : ejecti) {
             if (outItem.isEmpty()) {
                 continue;
             }
-            final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata()).getOpposite();
+            EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata()).getOpposite();
             InventoryUtils.ejectStackAt(getWorld(), getPos(), facing, outItem);
         }
         int cnt = items.getCount();
-        final float xpf = FurnaceRecipes.instance().getSmeltingExperience(items);
+        float xpf = FurnaceRecipes.instance().getSmeltingExperience(items);
         if (xpf == 0.0f) {
             cnt = 0;
         }
@@ -216,9 +216,9 @@ public class TileInfernalFurnace extends TileThaumcraftInventory
             cnt = var4;
         }
         while (cnt > 0) {
-            final int var4 = EntityXPOrb.getXPSplit(cnt);
+            int var4 = EntityXPOrb.getXPSplit(cnt);
             cnt -= var4;
-            final EntityXPOrb xp = new EntityXPOrb(world, pos.getX() + lx, pos.getY() + 0.4f, pos.getZ() + lz, var4);
+            EntityXPOrb xp = new EntityXPOrb(world, pos.getX() + lx, pos.getY() + 0.4f, pos.getZ() + lz, var4);
             mx = ((facingX == 0) ? ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.025f) : (facingX * 0.13f));
             mz = ((facingZ == 0) ? ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.025f) : (facingZ * 0.13f));
             xp.motionX = mx;
@@ -228,29 +228,29 @@ public class TileInfernalFurnace extends TileThaumcraftInventory
         }
     }
     
-    private ItemStack[] getSmeltingBonus(final ItemStack in) {
-        final ArrayList<ItemStack> out = new ArrayList<ItemStack>();
-        for (final ThaumcraftApi.SmeltBonus bonus : CommonInternals.smeltingBonus) {
+    private ItemStack[] getSmeltingBonus(ItemStack in) {
+        ArrayList<ItemStack> out = new ArrayList<ItemStack>();
+        for (ThaumcraftApi.SmeltBonus bonus : CommonInternals.smeltingBonus) {
             if (bonus.in instanceof ItemStack) {
                 if (in.getItem() != ((ItemStack)bonus.in).getItem() || (in.getItemDamage() != ((ItemStack)bonus.in).getItemDamage() && ((ItemStack)bonus.in).getItemDamage() != 32767) || world.rand.nextFloat() > bonus.chance) {
                     continue;
                 }
-                final ItemStack is = bonus.out.copy();
+                ItemStack is = bonus.out.copy();
                 if (is.getCount() < 1) {
                     is.setCount(1);
                 }
                 out.add(is);
             }
             else {
-                final int[] oreIDs = OreDictionary.getOreIDs(in);
-                final int length = oreIDs.length;
+                int[] oreIDs = OreDictionary.getOreIDs(in);
+                int length = oreIDs.length;
                 int i = 0;
                 while (i < length) {
-                    final int id = oreIDs[i];
-                    final String od = OreDictionary.getOreName(id);
+                    int id = oreIDs[i];
+                    String od = OreDictionary.getOreName(id);
                     if (bonus.in.equals(od)) {
                         if (world.rand.nextFloat() <= bonus.chance) {
-                            final ItemStack is2 = bonus.out.copy();
+                            ItemStack is2 = bonus.out.copy();
                             if (is2.getCount() < 1) {
                                 is2.setCount(1);
                             }
@@ -268,19 +268,19 @@ public class TileInfernalFurnace extends TileThaumcraftInventory
         return out.toArray(new ItemStack[0]);
     }
     
-    private boolean canSmelt(final ItemStack stack) {
+    private boolean canSmelt(ItemStack stack) {
         return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
     }
     
     private void setFacing() {
         facingX = 0;
         facingZ = 0;
-        final EnumFacing face = getFacing().getOpposite();
+        EnumFacing face = getFacing().getOpposite();
         facingX = face.getFrontOffsetX();
         facingZ = face.getFrontOffsetZ();
     }
     
-    public boolean receiveClientEvent(final int i, final int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i == 3) {
             if (world.isRemote) {
                 for (int a = 0; a < 5; ++a) {

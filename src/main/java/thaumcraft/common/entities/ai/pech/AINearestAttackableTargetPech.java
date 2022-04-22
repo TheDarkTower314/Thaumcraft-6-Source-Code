@@ -10,7 +10,7 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 
 public class AINearestAttackableTargetPech extends EntityAINearestAttackableTarget
 {
-    public AINearestAttackableTargetPech(final EntityCreature p_i45878_1_, final Class p_i45878_2_, final boolean p_i45878_3_) {
+    public AINearestAttackableTargetPech(EntityCreature p_i45878_1_, Class p_i45878_2_, boolean p_i45878_3_) {
         super(p_i45878_1_, p_i45878_2_, p_i45878_3_);
     }
     

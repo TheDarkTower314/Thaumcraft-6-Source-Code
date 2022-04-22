@@ -9,12 +9,12 @@ import thaumcraft.api.aspects.Aspect;
 public class TileTubeOneway extends TileTube
 {
     @Override
-    void calculateSuction(final Aspect filter, final boolean restrict, final boolean directional) {
+    void calculateSuction(Aspect filter, boolean restrict, boolean directional) {
         super.calculateSuction(filter, restrict, true);
     }
     
     @Override
-    void equalizeWithNeighbours(final boolean directional) {
+    void equalizeWithNeighbours(boolean directional) {
         super.equalizeWithNeighbours(true);
     }
 }

@@ -17,24 +17,24 @@ import net.minecraft.block.state.IBlockState;
 
 public class BlockStateUtils
 {
-    public static EnumFacing getFacing(final IBlockState state) {
+    public static EnumFacing getFacing(IBlockState state) {
         return EnumFacing.getFront(state.getBlock().getMetaFromState(state) & 0x7);
     }
     
-    public static EnumFacing getFacing(final int meta) {
+    public static EnumFacing getFacing(int meta) {
         return EnumFacing.getFront(meta & 0x7);
     }
     
-    public static boolean isEnabled(final IBlockState state) {
+    public static boolean isEnabled(IBlockState state) {
         return (state.getBlock().getMetaFromState(state) & 0x8) != 0x8;
     }
     
-    public static boolean isEnabled(final int meta) {
+    public static boolean isEnabled(int meta) {
         return (meta & 0x8) != 0x8;
     }
     
-    public static IProperty getPropertyByName(final IBlockState blockState, final String propertyName) {
-        for (final IProperty property : blockState.getProperties().keySet()) {
+    public static IProperty getPropertyByName(IBlockState blockState, String propertyName) {
+        for (IProperty property : blockState.getProperties().keySet()) {
             if (property.getName().equals(propertyName)) {
                 return property;
             }
@@ -42,12 +42,12 @@ public class BlockStateUtils
         return null;
     }
     
-    public static boolean isValidPropertyName(final IBlockState blockState, final String propertyName) {
+    public static boolean isValidPropertyName(IBlockState blockState, String propertyName) {
         return getPropertyByName(blockState, propertyName) != null;
     }
     
-    public static Comparable getPropertyValueByName(final IBlockState blockState, final IProperty<? extends Comparable> property, final String valueName) {
-        for (final Comparable value : property.getAllowedValues()) {
+    public static Comparable getPropertyValueByName(IBlockState blockState, IProperty<? extends Comparable> property, String valueName) {
+        for (Comparable value : property.getAllowedValues()) {
             if (value.toString().equals(valueName)) {
                 return value;
             }
@@ -55,16 +55,16 @@ public class BlockStateUtils
         return null;
     }
     
-    public static ImmutableSet<IBlockState> getValidStatesForProperties(final IBlockState baseState, final IProperty... properties) {
+    public static ImmutableSet<IBlockState> getValidStatesForProperties(IBlockState baseState, IProperty... properties) {
         if (properties == null) {
             return null;
         }
-        final Set<IBlockState> validStates = Sets.newHashSet();
-        final PropertyIndexer propertyIndexer = new PropertyIndexer(properties);
+        Set<IBlockState> validStates = Sets.newHashSet();
+        PropertyIndexer propertyIndexer = new PropertyIndexer(properties);
         do {
             IBlockState currentState = baseState;
-            for (final IProperty property : properties) {
-                final IndexedProperty indexedProperty = propertyIndexer.getIndexedProperty(property);
+            for (IProperty property : properties) {
+                IndexedProperty indexedProperty = propertyIndexer.getIndexedProperty(property);
                 currentState = currentState.withProperty(property, indexedProperty.getCurrentValue());
             }
             validStates.add(currentState);
@@ -77,12 +77,12 @@ public class BlockStateUtils
         private HashMap<IProperty, IndexedProperty> indexedProperties;
         private IProperty finalProperty;
         
-        private PropertyIndexer(final IProperty... properties) {
+        private PropertyIndexer(IProperty... properties) {
             indexedProperties = new HashMap<IProperty, IndexedProperty>();
             finalProperty = properties[properties.length - 1];
             IndexedProperty previousIndexedProperty = null;
-            for (final IProperty property : properties) {
-                final IndexedProperty indexedProperty = new IndexedProperty(property);
+            for (IProperty property : properties) {
+                IndexedProperty indexedProperty = new IndexedProperty(property);
                 if (previousIndexedProperty != null) {
                     indexedProperty.parent = previousIndexedProperty;
                     previousIndexedProperty.child = indexedProperty;
@@ -96,7 +96,7 @@ public class BlockStateUtils
             return indexedProperties.get(finalProperty).increment();
         }
         
-        public IndexedProperty getIndexedProperty(final IProperty property) {
+        public IndexedProperty getIndexedProperty(IProperty property) {
             return indexedProperties.get(property);
         }
     }
@@ -109,7 +109,7 @@ public class BlockStateUtils
         private IndexedProperty parent;
         private IndexedProperty child;
         
-        private IndexedProperty(final IProperty property) {
+        private IndexedProperty(IProperty property) {
             (validValues = new ArrayList<Comparable>()).addAll(property.getAllowedValues());
             maxCount = validValues.size() - 1;
         }

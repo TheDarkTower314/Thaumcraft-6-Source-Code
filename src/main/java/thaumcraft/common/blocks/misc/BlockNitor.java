@@ -23,9 +23,9 @@ import thaumcraft.common.blocks.BlockTC;
 
 public class BlockNitor extends BlockTC implements ITileEntityProvider
 {
-    public final EnumDyeColor dye;
+    public EnumDyeColor dye;
     
-    public BlockNitor(final String name, final EnumDyeColor dye) {
+    public BlockNitor(String name, EnumDyeColor dye) {
         super(Material.CIRCUITS, name);
         setHardness(0.1f);
         setSoundType(SoundType.CLOTH);
@@ -33,39 +33,39 @@ public class BlockNitor extends BlockTC implements ITileEntityProvider
         this.dye = dye;
     }
     
-    public TileEntity createNewTileEntity(final World worldIn, final int meta) {
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileNitor();
     }
     
-    public boolean hasTileEntity(final IBlockState state) {
+    public boolean hasTileEntity(IBlockState state) {
         return true;
     }
     
-    public MapColor getMapColor(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return MapColor.getBlockColor(dye);
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public EnumBlockRenderType getRenderType(final IBlockState state) {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.INVISIBLE;
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.33000001311302185, 0.33000001311302185, 0.33000001311302185, 0.6600000262260437, 0.6600000262260437, 0.6600000262260437);
     }
     
-    public AxisAlignedBB getCollisionBoundingBox(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return null;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 }

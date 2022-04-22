@@ -62,7 +62,7 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     public float armLiftR;
     boolean lastBlast;
     
-    public EntityEldritchGuardian(final World p_i1745_1_) {
+    public EntityEldritchGuardian(World p_i1745_1_) {
         super(p_i1745_1_);
         armLiftL = 0.0f;
         armLiftR = 0.0f;
@@ -105,7 +105,7 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
         return false;
     }
     
-    public boolean attackEntityFrom(final DamageSource source, float damage) {
+    public boolean attackEntityFrom(DamageSource source, float damage) {
         if (source.isMagicDamage()) {
             damage /= 2.0f;
         }
@@ -121,16 +121,16 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
             if (armLiftR > 0.0f) {
                 armLiftR -= 0.05f;
             }
-            final float x = (float)(posX + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
-            final float z = (float)(posZ + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
+            float x = (float)(posX + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
+            float z = (float)(posZ + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
             FXDispatcher.INSTANCE.wispFXEG(x, (float)(posY + 0.22 * height), z, this);
         }
         else if (world.provider.getDimension() != ModConfig.CONFIG_WORLD.dimensionOuterId && (ticksExisted == 0 || ticksExisted % 100 == 0) && world.getDifficulty() != EnumDifficulty.EASY) {
-            final double d6 = (world.getDifficulty() == EnumDifficulty.HARD) ? 576.0 : 256.0;
+            double d6 = (world.getDifficulty() == EnumDifficulty.HARD) ? 576.0 : 256.0;
             for (int i = 0; i < world.playerEntities.size(); ++i) {
-                final EntityPlayer entityplayer1 = world.playerEntities.get(i);
+                EntityPlayer entityplayer1 = world.playerEntities.get(i);
                 if (entityplayer1.isEntityAlive()) {
-                    final double d7 = entityplayer1.getDistanceSq(posX, posY, posZ);
+                    double d7 = entityplayer1.getDistanceSq(posX, posY, posZ);
                     if (d7 < d6) {
                         PacketHandler.INSTANCE.sendTo(new PacketMiscEvent((byte)2), (EntityPlayerMP)entityplayer1);
                     }
@@ -139,10 +139,10 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
         }
     }
     
-    public boolean attackEntityAsMob(final Entity p_70652_1_) {
-        final boolean flag = super.attackEntityAsMob(p_70652_1_);
+    public boolean attackEntityAsMob(Entity p_70652_1_) {
+        boolean flag = super.attackEntityAsMob(p_70652_1_);
         if (flag) {
-            final int i = world.getDifficulty().getDifficultyId();
+            int i = world.getDifficulty().getDifficultyId();
             if (getHeldItemMainhand() == null && isBurning() && rand.nextFloat() < i * 0.3f) {
                 p_70652_1_.setFire(2 * i);
             }
@@ -166,7 +166,7 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
         return Item.getItemById(0);
     }
     
-    protected void dropFewItems(final boolean flag, final int i) {
+    protected void dropFewItems(boolean flag, int i) {
         super.dropFewItems(flag, i);
     }
     
@@ -174,7 +174,7 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
         return EnumCreatureAttribute.UNDEAD;
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         if (getHomePosition() != null && getMaximumHomeDistance() > 0.0f) {
             nbt.setInteger("HomeD", (int) getMaximumHomeDistance());
@@ -184,18 +184,18 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
         }
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         if (nbt.hasKey("HomeD")) {
             setHomePosAndDistance(new BlockPos(nbt.getInteger("HomeX"), nbt.getInteger("HomeY"), nbt.getInteger("HomeZ")), nbt.getInteger("HomeD"));
         }
     }
     
-    public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
-        final IEntityLivingData dd = super.onInitialSpawn(diff, data);
-        final float f = diff.getClampedAdditionalDifficulty();
+    public IEntityLivingData onInitialSpawn(DifficultyInstance diff, IEntityLivingData data) {
+        IEntityLivingData dd = super.onInitialSpawn(diff, data);
+        float f = diff.getClampedAdditionalDifficulty();
         if (world.provider.getDimension() == ModConfig.CONFIG_WORLD.dimensionOuterId) {
-            final int bh = (int) getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() / 2;
+            int bh = (int) getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() / 2;
             setAbsorptionAmount(getAbsorptionAmount() + bh);
         }
         return dd;
@@ -204,7 +204,7 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     protected void updateAITasks() {
         super.updateAITasks();
         if (world.provider.getDimension() == ModConfig.CONFIG_WORLD.dimensionOuterId && hurtResistantTime <= 0 && ticksExisted % 25 == 0) {
-            final int bh = (int) getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() / 2;
+            int bh = (int) getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() / 2;
             if (getAbsorptionAmount() < bh) {
                 setAbsorptionAmount(getAbsorptionAmount() + 1.0f);
             }
@@ -212,7 +212,7 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte p_70103_1_) {
+    public void handleStatusUpdate(byte p_70103_1_) {
         if (p_70103_1_ == 15) {
             armLiftL = 0.5f;
         }
@@ -237,7 +237,7 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
     }
     
     public boolean getCanSpawnHere() {
-        final List ents = world.getEntitiesWithinAABB(EntityEldritchGuardian.class, new AxisAlignedBB(posX, posY, posZ, posX + 1.0, posY + 1.0, posZ + 1.0).grow(32.0, 16.0, 32.0));
+        List ents = world.getEntitiesWithinAABB(EntityEldritchGuardian.class, new AxisAlignedBB(posX, posY, posZ, posX + 1.0, posY + 1.0, posZ + 1.0).grow(32.0, 16.0, 32.0));
         return ents.size() <= 0 && super.getCanSpawnHere();
     }
     
@@ -249,17 +249,17 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
         return 1.5f;
     }
     
-    public void attackEntityWithRangedAttack(final EntityLivingBase entitylivingbase, final float f) {
+    public void attackEntityWithRangedAttack(EntityLivingBase entitylivingbase, float f) {
         if (rand.nextFloat() > 0.15f) {
-            final EntityEldritchOrb blast = new EntityEldritchOrb(world, this);
+            EntityEldritchOrb blast = new EntityEldritchOrb(world, this);
             lastBlast = !lastBlast;
             world.setEntityState(this, (byte)(lastBlast ? 16 : 15));
-            final int rr = lastBlast ? 90 : 180;
-            final double xx = MathHelper.cos((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
-            final double yy = 0.057777777 * height;
-            final double zz = MathHelper.sin((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
+            int rr = lastBlast ? 90 : 180;
+            double xx = MathHelper.cos((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
+            double yy = 0.057777777 * height;
+            double zz = MathHelper.sin((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
             blast.setPosition(blast.posX - xx, blast.posY, blast.posZ - zz);
-            final Vec3d v = entitylivingbase.getPositionVector().addVector(entitylivingbase.motionX * 10.0, entitylivingbase.motionY * 10.0, entitylivingbase.motionZ * 10.0).subtract(getPositionVector()).normalize();
+            Vec3d v = entitylivingbase.getPositionVector().addVector(entitylivingbase.motionX * 10.0, entitylivingbase.motionY * 10.0, entitylivingbase.motionZ * 10.0).subtract(getPositionVector()).normalize();
             blast.shoot(v.x, v.y, v.z, 1.1f, 2.0f);
             playSound(SoundsTC.egattack, 2.0f, 1.0f + rand.nextFloat() * 0.1f);
             world.spawnEntity(blast);
@@ -269,7 +269,7 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
             try {
                 entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.WITHER, 400, 0));
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
             if (entitylivingbase instanceof EntityPlayer) {
                 ThaumcraftApi.internalMethods.addWarpToPlayer((EntityPlayer)entitylivingbase, 1 + world.rand.nextInt(3), IPlayerWarp.EnumWarpType.TEMPORARY);
             }
@@ -277,10 +277,10 @@ public class EntityEldritchGuardian extends EntityMob implements IRangedAttackMo
         }
     }
     
-    public boolean isOnSameTeam(final Entity el) {
+    public boolean isOnSameTeam(Entity el) {
         return el instanceof IEldritchMob;
     }
     
-    public void setSwingingArms(final boolean swingingArms) {
+    public void setSwingingArms(boolean swingingArms) {
     }
 }

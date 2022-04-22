@@ -40,47 +40,47 @@ public class BlockHole extends BlockContainer
         setCreativeTab(null);
     }
     
-    public ItemStack getPickBlock(final IBlockState state, final RayTraceResult target, final World world, final BlockPos pos, final EntityPlayer player) {
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
         return ItemStack.EMPTY;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(final CreativeTabs par2CreativeTabs, final NonNullList<ItemStack> par3List) {
+    public void getSubBlocks(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> par3List) {
     }
     
-    public boolean isSideSolid(final IBlockState state, final IBlockAccess world, final BlockPos pos, final EnumFacing o) {
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing o) {
         return true;
     }
     
-    public AxisAlignedBB getCollisionBoundingBox(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return null;
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return BlockHole.FULL_BLOCK_AABB;
     }
     
-    public AxisAlignedBB getSelectedBoundingBox(final IBlockState blockState, final World worldIn, final BlockPos pos) {
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
         return new AxisAlignedBB(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     }
     
-    public boolean isFullCube(final IBlockState blockState) {
+    public boolean isFullCube(IBlockState blockState) {
         return false;
     }
     
-    public boolean isOpaqueCube(final IBlockState blockState) {
+    public boolean isOpaqueCube(IBlockState blockState) {
         return false;
     }
     
-    public TileEntity createNewTileEntity(final World var1, final int var2) {
+    public TileEntity createNewTileEntity(World var1, int var2) {
         return new TileHole();
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemById(0);
     }
 }

@@ -41,7 +41,7 @@ public class TileMirrorEssentia extends TileThaumcraft implements IAspectSource,
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         linked = nbttagcompound.getBoolean("linked");
         linkX = nbttagcompound.getInteger("linkX");
         linkY = nbttagcompound.getInteger("linkY");
@@ -51,7 +51,7 @@ public class TileMirrorEssentia extends TileThaumcraft implements IAspectSource,
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound.setBoolean("linked", linked);
         nbttagcompound.setInteger("linkX", linkX);
         nbttagcompound.setInteger("linkY", linkY);
@@ -61,13 +61,13 @@ public class TileMirrorEssentia extends TileThaumcraft implements IAspectSource,
         return nbttagcompound;
     }
     
-    protected void addInstability(final World targetWorld, final int amt) {
+    protected void addInstability(World targetWorld, int amt) {
         instability += amt;
         markDirty();
         if (targetWorld != null) {
-            final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+            TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
             if (te != null && te instanceof TileMirrorEssentia) {
-                final TileMirrorEssentia tileMirrorEssentia = (TileMirrorEssentia)te;
+                TileMirrorEssentia tileMirrorEssentia = (TileMirrorEssentia)te;
                 tileMirrorEssentia.instability += amt;
                 if (((TileMirrorEssentia)te).instability < 0) {
                     ((TileMirrorEssentia)te).instability = 0;
@@ -79,13 +79,13 @@ public class TileMirrorEssentia extends TileThaumcraft implements IAspectSource,
     
     public void restoreLink() {
         if (isDestinationValid()) {
-            final World targetWorld = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(linkDim);
+            World targetWorld = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(linkDim);
             if (targetWorld == null) {
                 return;
             }
-            final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+            TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
             if (te != null && te instanceof TileMirrorEssentia) {
-                final TileMirrorEssentia tm = (TileMirrorEssentia)te;
+                TileMirrorEssentia tm = (TileMirrorEssentia)te;
                 tm.linked = true;
                 tm.linkX = getPos().getX();
                 tm.linkY = getPos().getY();
@@ -102,16 +102,16 @@ public class TileMirrorEssentia extends TileThaumcraft implements IAspectSource,
     }
     
     public void invalidateLink() {
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (targetWorld == null) {
             return;
         }
         if (!Utils.isChunkLoaded(targetWorld, linkX, linkZ)) {
             return;
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (te != null && te instanceof TileMirrorEssentia) {
-            final TileMirrorEssentia tm = (TileMirrorEssentia)te;
+            TileMirrorEssentia tm = (TileMirrorEssentia)te;
             tm.linked = false;
             tm.linkedFacing = EnumFacing.DOWN;
             markDirty();
@@ -124,18 +124,18 @@ public class TileMirrorEssentia extends TileThaumcraft implements IAspectSource,
         if (!linked) {
             return false;
         }
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (targetWorld == null) {
             return false;
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (te == null || !(te instanceof TileMirrorEssentia)) {
             linked = false;
             markDirty();
             syncTile(false);
             return false;
         }
-        final TileMirrorEssentia tm = (TileMirrorEssentia)te;
+        TileMirrorEssentia tm = (TileMirrorEssentia)te;
         if (!tm.linked) {
             linked = false;
             markDirty();
@@ -155,31 +155,31 @@ public class TileMirrorEssentia extends TileThaumcraft implements IAspectSource,
         if (!linked) {
             return false;
         }
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (targetWorld == null) {
             return false;
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (te == null || !(te instanceof TileMirrorEssentia)) {
             return false;
         }
-        final TileMirrorEssentia tm = (TileMirrorEssentia)te;
+        TileMirrorEssentia tm = (TileMirrorEssentia)te;
         return tm.linked && tm.linkX == getPos().getX() && tm.linkY == getPos().getY() && tm.linkZ == getPos().getZ() && tm.linkDim == world.provider.getDimension();
     }
     
     public boolean isDestinationValid() {
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (targetWorld == null) {
             return false;
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (te == null || !(te instanceof TileMirrorEssentia)) {
             linked = false;
             markDirty();
             syncTile(false);
             return false;
         }
-        final TileMirrorEssentia tm = (TileMirrorEssentia)te;
+        TileMirrorEssentia tm = (TileMirrorEssentia)te;
         return !tm.isLinkValid();
     }
     
@@ -187,29 +187,29 @@ public class TileMirrorEssentia extends TileThaumcraft implements IAspectSource,
         return null;
     }
     
-    public void setAspects(final AspectList aspects) {
+    public void setAspects(AspectList aspects) {
     }
     
-    public boolean doesContainerAccept(final Aspect tag) {
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+    public boolean doesContainerAccept(Aspect tag) {
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (linkedFacing == EnumFacing.DOWN && targetWorld != null) {
             linkedFacing = BlockStateUtils.getFacing(targetWorld.getBlockState(new BlockPos(linkX, linkY, linkZ)));
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         return te == null || !(te instanceof TileMirrorEssentia) || EssentiaHandler.canAcceptEssentia(te, tag, linkedFacing, 8, true);
     }
     
-    public int addToContainer(final Aspect tag, final int amount) {
+    public int addToContainer(Aspect tag, int amount) {
         if (!isLinkValid() || amount > 1) {
             return amount;
         }
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (linkedFacing == EnumFacing.DOWN && targetWorld != null) {
             linkedFacing = BlockStateUtils.getFacing(targetWorld.getBlockState(new BlockPos(linkX, linkY, linkZ)));
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (te != null && te instanceof TileMirrorEssentia) {
-            final boolean b = EssentiaHandler.addEssentia(te, tag, linkedFacing, 8, true, 5);
+            boolean b = EssentiaHandler.addEssentia(te, tag, linkedFacing, 8, true, 5);
             if (b) {
                 addInstability(null, amount);
             }
@@ -218,17 +218,17 @@ public class TileMirrorEssentia extends TileThaumcraft implements IAspectSource,
         return amount;
     }
     
-    public boolean takeFromContainer(final Aspect tag, final int amount) {
+    public boolean takeFromContainer(Aspect tag, int amount) {
         if (!isLinkValid() || amount > 1) {
             return false;
         }
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (linkedFacing == EnumFacing.DOWN && targetWorld != null) {
             linkedFacing = BlockStateUtils.getFacing(targetWorld.getBlockState(new BlockPos(linkX, linkY, linkZ)));
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         if (te != null && te instanceof TileMirrorEssentia) {
-            final boolean b = EssentiaHandler.drainEssentia(te, tag, linkedFacing, 8, true, 5);
+            boolean b = EssentiaHandler.drainEssentia(te, tag, linkedFacing, 8, true, 5);
             if (b) {
                 addInstability(null, amount);
             }
@@ -237,27 +237,27 @@ public class TileMirrorEssentia extends TileThaumcraft implements IAspectSource,
         return false;
     }
     
-    public boolean takeFromContainer(final AspectList ot) {
+    public boolean takeFromContainer(AspectList ot) {
         return false;
     }
     
-    public boolean doesContainerContainAmount(final Aspect tag, final int amount) {
+    public boolean doesContainerContainAmount(Aspect tag, int amount) {
         if (!isLinkValid() || amount > 1) {
             return false;
         }
-        final World targetWorld = DimensionManager.getWorld(linkDim);
+        World targetWorld = DimensionManager.getWorld(linkDim);
         if (linkedFacing == EnumFacing.DOWN && targetWorld != null) {
             linkedFacing = BlockStateUtils.getFacing(targetWorld.getBlockState(new BlockPos(linkX, linkY, linkZ)));
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(linkX, linkY, linkZ));
         return te != null && te instanceof TileMirrorEssentia && EssentiaHandler.findEssentia(te, tag, linkedFacing, 8, true);
     }
     
-    public boolean doesContainerContain(final AspectList ot) {
+    public boolean doesContainerContain(AspectList ot) {
         return false;
     }
     
-    public int containerContains(final Aspect tag) {
+    public int containerContains(Aspect tag) {
         return 0;
     }
     

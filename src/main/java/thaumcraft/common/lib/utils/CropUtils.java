@@ -21,15 +21,15 @@ public class CropUtils
     public static ArrayList<String> stackedCrops;
     public static ArrayList<String> lampBlacklist;
     
-    public static void addStandardCrop(final ItemStack stack, final int grownMeta) {
-        final Block block = Block.getBlockFromItem(stack.getItem());
+    public static void addStandardCrop(ItemStack stack, int grownMeta) {
+        Block block = Block.getBlockFromItem(stack.getItem());
         if (block == null) {
             return;
         }
         addStandardCrop(block, grownMeta);
     }
     
-    public static void addStandardCrop(final Block block, final int grownMeta) {
+    public static void addStandardCrop(Block block, int grownMeta) {
         if (grownMeta == 32767) {
             for (int a = 0; a < 16; ++a) {
                 CropUtils.standardCrops.add(block.getUnlocalizedName() + a);
@@ -43,7 +43,7 @@ public class CropUtils
         }
     }
     
-    public static void addClickableCrop(final ItemStack stack, final int grownMeta) {
+    public static void addClickableCrop(ItemStack stack, int grownMeta) {
         if (Block.getBlockFromItem(stack.getItem()) == null) {
             return;
         }
@@ -60,14 +60,14 @@ public class CropUtils
         }
     }
     
-    public static void addStackedCrop(final ItemStack stack, final int grownMeta) {
+    public static void addStackedCrop(ItemStack stack, int grownMeta) {
         if (Block.getBlockFromItem(stack.getItem()) == null) {
             return;
         }
         addStackedCrop(Block.getBlockFromItem(stack.getItem()), grownMeta);
     }
     
-    public static void addStackedCrop(final Block block, final int grownMeta) {
+    public static void addStackedCrop(Block block, int grownMeta) {
         if (grownMeta == 32767) {
             for (int a = 0; a < 16; ++a) {
                 CropUtils.stackedCrops.add(block.getUnlocalizedName() + a);
@@ -81,22 +81,22 @@ public class CropUtils
         }
     }
     
-    public static boolean isGrownCrop(final World world, final BlockPos pos) {
+    public static boolean isGrownCrop(World world, BlockPos pos) {
         if (world.isAirBlock(pos)) {
             return false;
         }
         boolean found = false;
-        final IBlockState bs = world.getBlockState(pos);
-        final Block bi = bs.getBlock();
-        final int md = bi.getMetaFromState(bs);
+        IBlockState bs = world.getBlockState(pos);
+        Block bi = bs.getBlock();
+        int md = bi.getMetaFromState(bs);
         if (CropUtils.standardCrops.contains(bi.getUnlocalizedName() + md) || CropUtils.clickableCrops.contains(bi.getUnlocalizedName() + md) || CropUtils.stackedCrops.contains(bi.getUnlocalizedName() + md)) {
             found = true;
         }
-        final Block biB = world.getBlockState(pos.down()).getBlock();
+        Block biB = world.getBlockState(pos.down()).getBlock();
         return (bi instanceof IGrowable && !((IGrowable)bi).canGrow(world, pos, world.getBlockState(pos), world.isRemote) && !(bi instanceof BlockStem)) || (bi instanceof BlockCrops && md == 7 && !found) || CropUtils.standardCrops.contains(bi.getUnlocalizedName() + md) || CropUtils.clickableCrops.contains(bi.getUnlocalizedName() + md) || (CropUtils.stackedCrops.contains(bi.getUnlocalizedName() + md) && biB == bi);
     }
     
-    public static void blacklistLamp(final ItemStack stack, final int meta) {
+    public static void blacklistLamp(ItemStack stack, int meta) {
         if (Block.getBlockFromItem(stack.getItem()) == null) {
             return;
         }
@@ -110,9 +110,9 @@ public class CropUtils
         }
     }
     
-    public static boolean doesLampGrow(final World world, final BlockPos pos) {
-        final Block bi = world.getBlockState(pos).getBlock();
-        final int md = bi.getMetaFromState(world.getBlockState(pos));
+    public static boolean doesLampGrow(World world, BlockPos pos) {
+        Block bi = world.getBlockState(pos).getBlock();
+        int md = bi.getMetaFromState(world.getBlockState(pos));
         return !CropUtils.lampBlacklist.contains(bi.getUnlocalizedName() + md);
     }
     

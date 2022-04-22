@@ -20,20 +20,20 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 @SideOnly(Side.CLIENT)
 public class TileRechargePedestalRenderer extends TileEntitySpecialRenderer<TileRechargePedestal>
 {
-    public void render(final TileRechargePedestal ped, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileRechargePedestal ped, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(ped, x, y, z, partialTicks, destroyStage, alpha);
         if (ped != null && !ped.getSyncedStackInSlot(0).isEmpty()) {
             EntityItem entityitem = null;
-            final float ticks = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted + partialTicks;
+            float ticks = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted + partialTicks;
             GL11.glPushMatrix();
             GL11.glTranslatef((float)x + 0.5f, (float)y + 0.75f, (float)z + 0.5f);
             GL11.glScaled(1.5, 1.5, 1.5);
             GL11.glRotatef(ticks % 360.0f, 0.0f, 1.0f, 0.0f);
-            final ItemStack is = ped.getSyncedStackInSlot(0).copy();
+            ItemStack is = ped.getSyncedStackInSlot(0).copy();
             is.setCount(1);
             entityitem = new EntityItem(Minecraft.getMinecraft().world, 0.0, 0.0, 0.0, is);
             entityitem.hoverStart = 0.0f;
-            final RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+            RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
             rendermanager.renderEntity(entityitem, 0.0, 0.0, 0.0, 0.0f, 0.0f, false);
             GL11.glPopMatrix();
         }

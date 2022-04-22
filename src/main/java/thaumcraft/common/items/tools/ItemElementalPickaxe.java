@@ -24,7 +24,7 @@ import net.minecraft.item.ItemPickaxe;
 
 public class ItemElementalPickaxe extends ItemPickaxe implements IThaumcraftItems
 {
-    public ItemElementalPickaxe(final Item.ToolMaterial enumtoolmaterial) {
+    public ItemElementalPickaxe(Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
         setCreativeTab(ConfigItems.TABTC);
         setRegistryName("elemental_pick");
@@ -48,23 +48,23 @@ public class ItemElementalPickaxe extends ItemPickaxe implements IThaumcraftItem
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public Set<String> getToolClasses(final ItemStack stack) {
+    public Set<String> getToolClasses(ItemStack stack) {
         return ImmutableSet.of("pickaxe");
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 0)) || super.getIsRepairable(stack1, stack2);
     }
     
-    public boolean onLeftClickEntity(final ItemStack stack, final EntityPlayer player, final Entity entity) {
+    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
         if (!player.world.isRemote) {
             if (!(entity instanceof EntityPlayer) || FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled()) {
                 entity.setFire(2);
@@ -73,9 +73,9 @@ public class ItemElementalPickaxe extends ItemPickaxe implements IThaumcraftItem
         return super.onLeftClickEntity(stack, player, entity);
     }
     
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
-            final ItemStack w1 = new ItemStack(this);
+            ItemStack w1 = new ItemStack(this);
             EnumInfusionEnchantment.addInfusionEnchantment(w1, EnumInfusionEnchantment.REFINING, 1);
             EnumInfusionEnchantment.addInfusionEnchantment(w1, EnumInfusionEnchantment.SOUNDING, 2);
             items.add(w1);

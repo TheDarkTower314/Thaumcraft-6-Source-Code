@@ -102,7 +102,7 @@ public class GuiFocalManipulator extends GuiContainer
     int scrollX;
     int scrollY;
     
-    public GuiFocalManipulator(final InventoryPlayer par1InventoryPlayer, final TileFocalManipulator table) {
+    public GuiFocalManipulator(InventoryPlayer par1InventoryPlayer, TileFocalManipulator table) {
         super(new ContainerFocalManipulator(par1InventoryPlayer, table));
         isMouseButtonDown = 0;
         mouseX = 0;
@@ -148,15 +148,15 @@ public class GuiFocalManipulator extends GuiContainer
     
     private void setupNameField() {
         Keyboard.enableRepeatEvents(true);
-        final int i = (width - xSize) / 2;
-        final int j = (height - ySize) / 2;
+        int i = (width - xSize) / 2;
+        int j = (height - ySize) / 2;
         (nameField = new GuiTextField(2, fontRenderer, i + 30, j + 11, 170, 12)).setTextColor(-1);
         nameField.setDisabledTextColour(-1);
         nameField.setEnableBackgroundDrawing(false);
         nameField.setMaxStringLength(50);
     }
     
-    protected void actionPerformed(final GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0 && buttonConfirm != null && buttonConfirm.active) {
             mc.playerController.sendEnchantPacket(inventorySlots.windowId, 0);
         }
@@ -168,7 +168,7 @@ public class GuiFocalManipulator extends GuiContainer
         }
     }
     
-    protected void keyTyped(final char typedChar, final int keyCode) throws IOException {
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (nameField.textboxKeyTyped(typedChar, keyCode)) {
             table.focusName = nameField.getText();
             PacketHandler.INSTANCE.sendToServer(new PacketFocusNameToServer(table.getPos(), table.focusName));
@@ -178,22 +178,22 @@ public class GuiFocalManipulator extends GuiContainer
         }
     }
     
-    public void drawScreen(final int mx, final int my, final float par3) {
+    public void drawScreen(int mx, int my, float par3) {
         drawDefaultBackground();
         super.drawScreen(mx, my, par3);
         GlStateManager.enableBlend();
         GL11.glBlendFunc(770, 771);
         xSize_lo = (float)mx;
         ySize_lo = (float)my;
-        final int gx = (width - xSize) / 2;
-        final int gy = (height - ySize) / 2;
+        int gx = (width - xSize) / 2;
+        int gy = (height - ySize) / 2;
         if (Mouse.isButtonDown(0)) {
             if ((isMouseButtonDown == 0 || isMouseButtonDown == 1) && isPointInRegion(guiLeft + 63, guiTop + 31, 136, 160, mx + guiLeft, my + guiTop)) {
                 if (isMouseButtonDown == 0) {
                     isMouseButtonDown = 1;
                 }
                 else {
-                    final boolean b = scrollbarParts != null && scrollbarParts.isMouseOver();
+                    boolean b = scrollbarParts != null && scrollbarParts.isMouseOver();
                     if (scrollbarMainBottom != null && !scrollbarMainBottom.isMouseOver() && !b) {
                         scrollX -= mx - mouseX;
                         curMouseX = scrollX;
@@ -228,12 +228,12 @@ public class GuiFocalManipulator extends GuiContainer
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         int count = 0;
         int index = 0;
-        for (final String sk : shownParts) {
+        for (String sk : shownParts) {
             if (++count - 1 < partsStart) {
                 continue;
             }
             GL11.glTranslated(0.0, 0.0, 5.0);
-            final FocusNode node = (FocusNode)FocusEngine.getElement(sk);
+            FocusNode node = (FocusNode)FocusEngine.getElement(sk);
             drawPart(node, gx + 38, 43 + gy + 25 * index, (node.getType() == IFocusElement.EnumUnitType.MOD) ? 24.0f : 32.0f, 220, isPointInRegion(gx + 38 - 10, 32 + gy + 24 * index, 20, 20, mx + guiLeft, my + guiTop));
             GL11.glTranslated(0.0, 0.0, -5.0);
             if (++index > 5) {
@@ -242,13 +242,13 @@ public class GuiFocalManipulator extends GuiContainer
         }
         count = 0;
         index = 0;
-        for (final String sk : shownParts) {
+        for (String sk : shownParts) {
             if (++count - 1 < partsStart) {
                 continue;
             }
-            final FocusNode node = (FocusNode)FocusEngine.getElement(sk);
+            FocusNode node = (FocusNode)FocusEngine.getElement(sk);
             if (isPointInRegion(gx + 38 - 10, 33 + gy + 25 * index, 20, 20, mx + guiLeft, my + guiTop)) {
-                final List list = genPartText(node, -1);
+                List list = genPartText(node, -1);
                 drawHoveringTextFixed(list, gx + 44, 46 + gy + 24 * index, fontRenderer, width - (guiLeft + xSize - 16));
             }
             if (++index > 5) {
@@ -256,11 +256,11 @@ public class GuiFocalManipulator extends GuiContainer
             }
         }
         if (lastNodeHover >= 0) {
-            final FocusElementNode fn = table.data.get(lastNodeHover);
+            FocusElementNode fn = table.data.get(lastNodeHover);
             if (fn != null && fn.node != null) {
-                final int xx = guiLeft + 140 - scrollX + fn.x * 24;
-                final int yy = guiTop + 50 - scrollY + fn.y * 32;
-                final List list = genPartText(fn.node, lastNodeHover);
+                int xx = guiLeft + 140 - scrollX + fn.x * 24;
+                int yy = guiTop + 50 - scrollY + fn.y * 32;
+                List list = genPartText(fn.node, lastNodeHover);
                 drawHoveringTextFixed(list, xx, yy, fontRenderer, width - (guiLeft + xSize - 16));
             }
         }
@@ -273,8 +273,8 @@ public class GuiFocalManipulator extends GuiContainer
         renderHoveredToolTip(mx, my);
     }
     
-    private List genPartText(final FocusNode node, final int idx) {
-        final List list = new ArrayList();
+    private List genPartText(FocusNode node, int idx) {
+        List list = new ArrayList();
         if (node != null) {
             FocusElementNode placed = null;
             if (idx >= 0) {
@@ -295,7 +295,7 @@ public class GuiFocalManipulator extends GuiContainer
                 list.add(TextFormatting.GOLD + I18n.translateToLocal("focuspart.eff") + ((p < 1.0f) ? TextFormatting.RED : TextFormatting.GREEN) + " x" + ItemStack.DECIMALFORMAT.format(p));
             }
             if (node instanceof FocusEffect) {
-                final FocusEffect fe = (FocusEffect)node;
+                FocusEffect fe = (FocusEffect)node;
                 float d = fe.getDamageForDisplay((placed == null) ? 1.0f : placed.getPower(table.data));
                 if (d > 0.0f) {
                     list.add(TextFormatting.DARK_RED + "" + I18n.translateToLocalFormatted("attribute.modifier.equals.0", new Object[] { ItemStack.DECIMALFORMAT.format(d), I18n.translateToLocal("attribute.name.generic.attackDamage") }));
@@ -309,11 +309,11 @@ public class GuiFocalManipulator extends GuiContainer
         return list;
     }
     
-    protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         mc.renderEngine.bindTexture(tex2);
-        final int k = (width - xSize) / 2;
-        final int l = (height - ySize) / 2;
+        int k = (width - xSize) / 2;
+        int l = (height - ySize) / 2;
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
@@ -355,7 +355,7 @@ public class GuiFocalManipulator extends GuiContainer
         }
         fontRenderer.drawStringWithShadow(TextFormatting.AQUA + "" + v, (float)(k + 242), (float)(l + 64), 10092429);
         if (costCast > 0.0f) {
-            final String cost = myFormatter.format(costCast);
+            String cost = myFormatter.format(costCast);
             fontRenderer.drawStringWithShadow(TextFormatting.AQUA + I18n.translateToLocal("item.Focus.cost1") + ": " + cost, (float)(k + 230), (float)(l + 80), 10092429);
         }
         if (components != null && components.length > 0) {
@@ -373,23 +373,23 @@ public class GuiFocalManipulator extends GuiContainer
         }
     }
     
-    private void drawClippedRect(final int x, final int y, final int sx, final int sy, final int w, final int h) {
+    private void drawClippedRect(int x, int y, int sx, int sy, int w, int h) {
         if (isPointInRegion(48, 26, 166, 174, x + w / 2, y + h / 2)) {
             drawTexturedModalRect(x, y, sx, sy, w, h);
         }
     }
     
-    private void drawNodes(final int x, final int y, final int mx, final int my) {
+    private void drawNodes(int x, int y, int mx, int my) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         GlStateManager.disableLighting();
         if (table.data != null && !table.data.isEmpty()) {
             int hover = -1;
-            for (final FocusElementNode fn : table.data.values()) {
-                final int xx = x + fn.x * 24;
-                final int yy = y + fn.y * 32;
-                final boolean mouseover = isPointInRegion(guiLeft + 63, guiTop + 31, 136, 160, mx + guiLeft, my + guiTop) && isPointInRegion(xx - 10, yy - 10, 20, 20, mx + guiLeft, my + guiTop);
+            for (FocusElementNode fn : table.data.values()) {
+                int xx = x + fn.x * 24;
+                int yy = y + fn.y * 32;
+                boolean mouseover = isPointInRegion(guiLeft + 63, guiTop + 31, 136, 160, mx + guiLeft, my + guiTop) && isPointInRegion(xx - 10, yy - 10, 20, 20, mx + guiLeft, my + guiTop);
                 if (mouseover && fn.parent >= 0) {
                     hover = fn.id;
                 }
@@ -408,7 +408,7 @@ public class GuiFocalManipulator extends GuiContainer
                     GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                     drawClippedRect(xx - 12, yy - 12, 96, 232, 24, 24);
                 }
-                final FocusElementNode parent = table.data.get(fn.parent);
+                FocusElementNode parent = table.data.get(fn.parent);
                 if (parent != null) {
                     mc.renderEngine.bindTexture(tex);
                     GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -434,7 +434,7 @@ public class GuiFocalManipulator extends GuiContainer
                     if (fn.node != null) {
                         continue;
                     }
-                    final int s = (parent.target && parent.trajectory) ? 4 : 0;
+                    int s = (parent.target && parent.trajectory) ? 4 : 0;
                     if (!isPointInRegion(48, 16, 168, 192, xx - 4, yy - 4)) {
                         continue;
                     }
@@ -472,17 +472,17 @@ public class GuiFocalManipulator extends GuiContainer
         GL11.glPopMatrix();
     }
     
-    private void drawNodeSettings(final int selectedNode2) {
-        final FocusElementNode fn = table.data.get(selectedNode2);
+    private void drawNodeSettings(int selectedNode2) {
+        FocusElementNode fn = table.data.get(selectedNode2);
         if (fn != null && fn.node != null && !fn.node.getSettingList().isEmpty()) {
             int a = 0;
-            for (final String sk : fn.node.getSettingList()) {
-                final NodeSetting setting = fn.node.getSetting(sk);
+            for (String sk : fn.node.getSettingList()) {
+                NodeSetting setting = fn.node.getSetting(sk);
                 if (setting.getResearch() != null && !ThaumcraftCapabilities.knowsResearchStrict(mc.player, setting.getResearch())) {
                     continue;
                 }
-                final int x = guiLeft + xSize;
-                final int y = guiTop + ySize - 10 - fn.node.getSettingList().size() * 26 + a * 26;
+                int x = guiLeft + xSize;
+                int y = guiTop + ySize - 10 - fn.node.getSettingList().size() * 26 + a * 26;
                 fontRenderer.drawStringWithShadow(TextFormatting.GOLD + setting.getLocalizedName(), (float)x, (float)y, 16777215);
                 ++a;
             }
@@ -491,9 +491,9 @@ public class GuiFocalManipulator extends GuiContainer
     
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
-        final int k = Mouse.getDWheel();
-        final int i = Mouse.getEventX() * width / mc.displayWidth;
-        final int j = height - Mouse.getEventY() * height / mc.displayHeight - 1;
+        int k = Mouse.getDWheel();
+        int i = Mouse.getEventX() * width / mc.displayWidth;
+        int j = height - Mouse.getEventY() * height / mc.displayHeight - 1;
         if (scrollbarParts != null && shownParts.size() > 6 && isPointInRegion(24, 24, 32, 157, i, j)) {
             if (k > 0) {
                 if (partsStart > 0) {
@@ -508,9 +508,9 @@ public class GuiFocalManipulator extends GuiContainer
         }
     }
     
-    protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         RenderHelper.disableStandardItemLighting();
-        for (final GuiButton guibutton : buttonList) {
+        for (GuiButton guibutton : buttonList) {
             if (guibutton.isMouseOver()) {
                 guibutton.drawButtonForegroundLayer(mouseX - guiLeft, mouseY - guiTop);
                 break;
@@ -518,41 +518,41 @@ public class GuiFocalManipulator extends GuiContainer
         }
         RenderHelper.enableGUIStandardItemLighting();
         if (scrollbarMainSide != null) {
-            final int sv = Math.round(scrollbarMainSide.getSliderValue());
+            int sv = Math.round(scrollbarMainSide.getSliderValue());
             if (sv != scrollY) {
                 scrollY = sv;
             }
         }
         if (scrollbarMainBottom != null) {
-            final int sv = Math.round(scrollbarMainBottom.getSliderValue());
+            int sv = Math.round(scrollbarMainBottom.getSliderValue());
             if (sv != scrollX) {
                 scrollX = sv;
             }
         }
         if (scrollbarParts != null) {
-            final int sv = Math.round(scrollbarParts.getSliderValue());
+            int sv = Math.round(scrollbarParts.getSliderValue());
             if (sv != partsStart) {
                 partsStart = sv;
             }
         }
     }
     
-    protected void mouseClicked(final int mx, final int my, final int par3) {
+    protected void mouseClicked(int mx, int my, int par3) {
         try {
             super.mouseClicked(mx, my, par3);
         }
-        catch (final IOException ex) {}
-        final int gx = (width - xSize) / 2;
-        final int gy = (height - ySize) / 2;
+        catch (IOException ex) {}
+        int gx = (width - xSize) / 2;
+        int gy = (height - ySize) / 2;
         if (table.vis <= 0.0f && table.data != null && !table.data.isEmpty()) {
             if (nameField != null) {
                 nameField.mouseClicked(mx, my, par3);
             }
             if (lastNodeHover >= 0) {
                 selectedNode = lastNodeHover;
-                final boolean r = false;
+                boolean r = false;
                 if (par3 == 1 && table.data.get(selectedNode).node != null) {
-                    final FocusElementNode fn = table.data.get(selectedNode);
+                    FocusElementNode fn = table.data.get(selectedNode);
                     if (table.data.get(fn.parent).node != null) {
                         addNodeAt(table.data.get(fn.parent).node.getClass(), fn.parent, true);
                     }
@@ -563,7 +563,7 @@ public class GuiFocalManipulator extends GuiContainer
             int count = 0;
             int index = 0;
             if (selectedNode >= 0) {
-                for (final String sk : shownParts) {
+                for (String sk : shownParts) {
                     if (++count - 1 < partsStart) {
                         continue;
                     }
@@ -587,33 +587,33 @@ public class GuiFocalManipulator extends GuiContainer
         mc.getRenderViewEntity().playSound(SoundsTC.clack, 0.4f, 2.0f);
     }
     
-    private void playSocketSound(final float pitch) {
+    private void playSocketSound(float pitch) {
         mc.getRenderViewEntity().playSound(SoundsTC.crystal, 0.4f, pitch);
     }
     
-    protected void drawHoveringTextFixed(final List listin, final int x, final int y, final FontRenderer font, final int textWidth) {
+    protected void drawHoveringTextFixed(List listin, int x, int y, FontRenderer font, int textWidth) {
         if (!listin.isEmpty()) {
             GlStateManager.disableRescaleNormal();
             RenderHelper.disableStandardItemLighting();
             GlStateManager.disableLighting();
             GlStateManager.disableDepth();
-            final List<String> list = new ArrayList<>();
-            for (final Object o : listin) {
+            List<String> list = new ArrayList<>();
+            for (Object o : listin) {
                 String s = (String)o;
                 s = trimStringNewline(s);
-                final List<String> list2 = font.listFormattedStringToWidth(s, textWidth);
-                for (final String s2 : list2) {
+                List<String> list2 = font.listFormattedStringToWidth(s, textWidth);
+                for (String s2 : list2) {
                     list.add(s2);
                 }
             }
             int k = 0;
             for (String s : list) {
-                final int l = font.getStringWidth(s);
+                int l = font.getStringWidth(s);
                 if (l > k) {
                     k = l;
                 }
             }
-            final int j2 = x + 12;
+            int j2 = x + 12;
             int k2 = y - 12;
             int i1 = 8;
             if (list.size() > 1) {
@@ -621,20 +621,20 @@ public class GuiFocalManipulator extends GuiContainer
             }
             zLevel = 300.0f;
             itemRender.zLevel = 300.0f;
-            final int j3 = -267386864;
+            int j3 = -267386864;
             drawGradientRect(j2 - 3, k2 - 4, j2 + k + 3, k2 - 3, j3, j3);
             drawGradientRect(j2 - 3, k2 + i1 + 3, j2 + k + 3, k2 + i1 + 4, j3, j3);
             drawGradientRect(j2 - 3, k2 - 3, j2 + k + 3, k2 + i1 + 3, j3, j3);
             drawGradientRect(j2 - 4, k2 - 3, j2 - 3, k2 + i1 + 3, j3, j3);
             drawGradientRect(j2 + k + 3, k2 - 3, j2 + k + 4, k2 + i1 + 3, j3, j3);
-            final int k3 = 1347420415;
-            final int l2 = (k3 & 0xFEFEFE) >> 1 | (k3 & 0xFF000000);
+            int k3 = 1347420415;
+            int l2 = (k3 & 0xFEFEFE) >> 1 | (k3 & 0xFF000000);
             drawGradientRect(j2 - 3, k2 - 3 + 1, j2 - 3 + 1, k2 + i1 + 3 - 1, k3, l2);
             drawGradientRect(j2 + k + 2, k2 - 3 + 1, j2 + k + 3, k2 + i1 + 3 - 1, k3, l2);
             drawGradientRect(j2 - 3, k2 - 3, j2 + k + 3, k2 - 3 + 1, k3, k3);
             drawGradientRect(j2 - 3, k2 + i1 + 2, j2 + k + 3, k2 + i1 + 3, l2, l2);
             for (int i2 = 0; i2 < list.size(); ++i2) {
-                final String s3 = list.get(i2);
+                String s3 = list.get(i2);
                 font.drawStringWithShadow(s3, (float)j2, (float)k2, -1);
                 if (i2 == 0) {
                     k2 += 2;
@@ -654,19 +654,19 @@ public class GuiFocalManipulator extends GuiContainer
         return text;
     }
     
-    public static void drawPart(final FocusNode node, final int x, final int y, float scale, final int bright, final boolean mouseover) {
+    public static void drawPart(FocusNode node, int x, int y, float scale, int bright, boolean mouseover) {
         GL11.glPushMatrix();
         GL11.glAlphaFunc(516, 0.003921569f);
         GL11.glTranslated(x, y, 0.0);
         GL11.glRotatef(90.0f, 0.0f, 0.0f, -1.0f);
-        final boolean root = node.getType() == IFocusElement.EnumUnitType.MOD || node.getKey().equals("thaumcraft.ROOT");
+        boolean root = node.getType() == IFocusElement.EnumUnitType.MOD || node.getKey().equals("thaumcraft.ROOT");
         if (root) {
             scale *= 2.0f;
         }
-        final Color color = new Color(FocusEngine.getElementColor(node.getKey()));
-        final float r = color.getRed() / 255.0f;
-        final float g = color.getGreen() / 255.0f;
-        final float b = color.getBlue() / 255.0f;
+        Color color = new Color(FocusEngine.getElementColor(node.getKey()));
+        float r = color.getRed() / 255.0f;
+        float g = color.getGreen() / 255.0f;
+        float b = color.getBlue() / 255.0f;
         switch (node.getType()) {
             case EFFECT: {
                 UtilsFX.renderQuadCentered(GuiFocalManipulator.iEffect, (float)(scale * 0.9 + (mouseover ? 2 : 0)), r, g, b, 220, 771, 1.0f);
@@ -693,17 +693,17 @@ public class GuiFocalManipulator extends GuiContainer
         return nodeID;
     }
     
-    private void cullChildren(final int idx) {
+    private void cullChildren(int idx) {
         if (table.data.containsKey(idx)) {
-            for (final int i : table.data.get(idx).children) {
+            for (int i : table.data.get(idx).children) {
                 cullChildren(i);
                 table.data.remove(i);
             }
         }
     }
     
-    private ArrayList<Integer> addNodeAt(final Class nodeClass, final int idx, final boolean gather) {
-        final ArrayList<Integer> ret = new ArrayList<Integer>();
+    private ArrayList<Integer> addNodeAt(Class nodeClass, int idx, boolean gather) {
+        ArrayList<Integer> ret = new ArrayList<Integer>();
         boolean same = false;
         FocusElementNode previous = null;
         if (table.data.containsKey(idx)) {
@@ -731,7 +731,7 @@ public class GuiFocalManipulator extends GuiContainer
                 selectedNode = fn.id;
                 if (previous != null && table.data.containsKey(previous.parent)) {
                     fn.parent = previous.parent;
-                    final int[] c = table.data.get(previous.parent).children;
+                    int[] c = table.data.get(previous.parent).children;
                     for (int a = 0; a < c.length; ++a) {
                         if (c[a] == previous.id) {
                             table.data.get(previous.parent).children[a] = fn.id;
@@ -749,7 +749,7 @@ public class GuiFocalManipulator extends GuiContainer
             }
             if (fn.target || fn.trajectory) {
                 if (node instanceof FocusModSplit) {
-                    final FocusElementNode blank1 = new FocusElementNode();
+                    FocusElementNode blank1 = new FocusElementNode();
                     blank1.parent = fn.id;
                     blank1.id = getNextId();
                     ret.add(nodeID);
@@ -757,7 +757,7 @@ public class GuiFocalManipulator extends GuiContainer
                     blank1.y = fn.y + 1;
                     table.data.put(nodeID, blank1);
                     selectedNode = nodeID;
-                    final FocusElementNode blank2 = new FocusElementNode();
+                    FocusElementNode blank2 = new FocusElementNode();
                     blank2.parent = fn.id;
                     blank2.x = fn.x + 1;
                     blank2.y = fn.y + 1;
@@ -767,7 +767,7 @@ public class GuiFocalManipulator extends GuiContainer
                     fn.children = new int[] { blank1.id, blank2.id };
                 }
                 else {
-                    final FocusElementNode blank3 = new FocusElementNode();
+                    FocusElementNode blank3 = new FocusElementNode();
                     blank3.parent = fn.id;
                     blank3.x = fn.x;
                     blank3.y = fn.y + 1;
@@ -779,7 +779,7 @@ public class GuiFocalManipulator extends GuiContainer
                 }
             }
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
         if (gather) {
@@ -789,7 +789,7 @@ public class GuiFocalManipulator extends GuiContainer
         return ret;
     }
     
-    private void processLeftNodes(final FocusElementNode start, final Bounds bounds) {
+    private void processLeftNodes(FocusElementNode start, Bounds bounds) {
         if (start.children.length > 0) {
             processLeftNodes(table.data.get(start.children[0]), bounds);
         }
@@ -808,14 +808,14 @@ public class GuiFocalManipulator extends GuiContainer
         }
     }
     
-    private void centerNodes(final int start, final Bounds bounds) {
-        final int x = bounds.x / 2;
-        final FocusElementNode sn = table.data.get(start);
+    private void centerNodes(int start, Bounds bounds) {
+        int x = bounds.x / 2;
+        FocusElementNode sn = table.data.get(start);
         moveNodes(sn, x);
     }
     
-    private void moveNodes(final FocusElementNode start, final int amt) {
-        for (final int ci : start.children) {
+    private void moveNodes(FocusElementNode start, int amt) {
+        for (int ci : start.children) {
             moveNodes(table.data.get(ci), amt);
         }
         start.x -= amt;
@@ -823,24 +823,24 @@ public class GuiFocalManipulator extends GuiContainer
     
     private void calcNodeTreeLayout() {
         int fsi = -1;
-        for (final FocusElementNode node : table.data.values()) {
+        for (FocusElementNode node : table.data.values()) {
             if (fsi < 0 && node.node != null && node.node instanceof FocusModSplit) {
                 fsi = node.id;
             }
         }
         if (fsi >= 0) {
-            final Bounds bounds = new Bounds();
+            Bounds bounds = new Bounds();
             processLeftNodes(table.data.get(fsi), bounds);
             centerNodes(fsi, bounds);
         }
-        for (final FocusElementNode node : table.data.values()) {
+        for (FocusElementNode node : table.data.values()) {
             if (node.node != null && node.node instanceof FocusModSplit) {
                 if (table.data.containsKey(node.parent) && table.data.get(node.parent).node != null && !(table.data.get(node.parent).node instanceof FocusModSplit)) {
                     node.x = table.data.get(node.parent).x;
                 }
                 else {
                     int xx = 0;
-                    for (final int a : node.children) {
+                    for (int a : node.children) {
                         xx += table.data.get(a).x;
                     }
                     xx /= node.children.length;
@@ -856,7 +856,7 @@ public class GuiFocalManipulator extends GuiContainer
     private void resetNodes() {
         nodeID = 0;
         table.data.clear();
-        final ArrayList<Integer> r1 = addNodeAt(FocusMediumRoot.class, 0, false);
+        ArrayList<Integer> r1 = addNodeAt(FocusMediumRoot.class, 0, false);
         selectedNode = r1.get(1);
         calcNodeTreeLayout();
         gatherInfo(true);
@@ -867,7 +867,7 @@ public class GuiFocalManipulator extends GuiContainer
         sMinY = 0;
         sMaxX = 0;
         sMaxY = 0;
-        for (final FocusElementNode fn : table.data.values()) {
+        for (FocusElementNode fn : table.data.values()) {
             if (fn.x < sMinX) {
                 sMinX = fn.x;
             }
@@ -890,13 +890,13 @@ public class GuiFocalManipulator extends GuiContainer
         }
         if (selectedNode >= 0 && table.data.containsKey(selectedNode)) {
             partsStart = 0;
-            final ArrayList<String> pMed = new ArrayList<String>();
-            final ArrayList<String> pEff = new ArrayList<String>();
-            final ArrayList<String> pMod = new ArrayList<String>();
-            final ArrayList<String> excluded = new ArrayList<String>();
+            ArrayList<String> pMed = new ArrayList<String>();
+            ArrayList<String> pEff = new ArrayList<String>();
+            ArrayList<String> pMod = new ArrayList<String>();
+            ArrayList<String> excluded = new ArrayList<String>();
             boolean hasExlusive = false;
             boolean hasMedium = false;
-            for (final FocusElementNode fn : table.data.values()) {
+            for (FocusElementNode fn : table.data.values()) {
                 if (fn.node != null && fn.node instanceof FocusMedium) {
                     hasMedium = !(fn.node instanceof FocusMediumRoot);
                     if (fn.node.isExclusive()) {
@@ -908,11 +908,11 @@ public class GuiFocalManipulator extends GuiContainer
                     excluded.add(fn.node.getKey());
                 }
             }
-            final FocusElementNode node = table.data.get(selectedNode);
-            final FocusElementNode parent = table.data.get(node.parent);
+            FocusElementNode node = table.data.get(selectedNode);
+            FocusElementNode parent = table.data.get(node.parent);
             if (parent != null && parent.node != null) {
-                for (final String key : FocusEngine.elements.keySet()) {
-                    final IFocusElement element = FocusEngine.getElement(key);
+                for (String key : FocusEngine.elements.keySet()) {
+                    IFocusElement element = FocusEngine.getElement(key);
                     if (!ThaumcraftCapabilities.knowsResearchStrict(mc.player, element.getResearch())) {
                         continue;
                     }
@@ -922,14 +922,14 @@ public class GuiFocalManipulator extends GuiContainer
                     if (!(element instanceof FocusNode)) {
                         continue;
                     }
-                    final FocusNode fn2 = (FocusNode)element;
+                    FocusNode fn2 = (FocusNode)element;
                     if (excluded.contains(fn2.getKey())) {
                         continue;
                     }
                     if (fn2.mustBeSupplied() == null) {
                         continue;
                     }
-                    for (final FocusNode.EnumSupplyType type : fn2.mustBeSupplied()) {
+                    for (FocusNode.EnumSupplyType type : fn2.mustBeSupplied()) {
                         if (parent.node.canSupply(type)) {
                             switch (element.getType()) {
                                 case EFFECT: {
@@ -962,7 +962,7 @@ public class GuiFocalManipulator extends GuiContainer
         }
     }
     
-    private void gatherInfo(final boolean sync) {
+    private void gatherInfo(boolean sync) {
         buttonList.clear();
         buttonList.add(buttonConfirm);
         buttonConfirm.x = guiLeft + 242;
@@ -970,16 +970,16 @@ public class GuiFocalManipulator extends GuiContainer
         buttonList.add(new GuiHoverButton(this, 1, guiLeft + 241, guiTop + 39, 32, 16, I18n.translateToLocal("wandtable.text5"), null, new ResourceLocation("thaumcraft", "textures/gui/complex.png")));
         buttonList.add(new GuiHoverButton(this, 2, guiLeft + 241, guiTop + 53, 32, 16, I18n.translateToLocal("wandtable.text2"), null, new ResourceLocation("thaumcraft", "textures/gui/costxp.png")));
         buttonList.add(new GuiHoverButton(this, 3, guiLeft + 241, guiTop + 67, 32, 16, I18n.translateToLocal("wandtable.text1"), null, new ResourceLocation("thaumcraft", "textures/gui/costvis.png")));
-        final FocusElementNode fn = table.data.get(selectedNode);
+        FocusElementNode fn = table.data.get(selectedNode);
         if (fn != null && fn.node != null && !fn.node.getSettingList().isEmpty()) {
             int a = 0;
-            for (final String sk : fn.node.getSettingList()) {
-                final NodeSetting setting = fn.node.getSetting(sk);
+            for (String sk : fn.node.getSettingList()) {
+                NodeSetting setting = fn.node.getSetting(sk);
                 if (setting.getResearch() != null && !ThaumcraftCapabilities.knowsResearchStrict(mc.player, setting.getResearch())) {
                     continue;
                 }
-                final int x = guiLeft + xSize;
-                final int y = guiTop + ySize + 3 - fn.node.getSettingList().size() * 26 + a * 26;
+                int x = guiLeft + xSize;
+                int y = guiTop + ySize + 3 - fn.node.getSettingList().size() * 26 + a * 26;
                 int w = 32;
                 if (setting.getType() instanceof NodeSetting.NodeSettingIntList) {
                     w = 72;
@@ -993,19 +993,19 @@ public class GuiFocalManipulator extends GuiContainer
         if (table.getStackInSlot(0) == null || table.getStackInSlot(0).isEmpty()) {
             return;
         }
-        final HashMap<String, Integer> compCount = new HashMap<String, Integer>();
+        HashMap<String, Integer> compCount = new HashMap<String, Integer>();
         totalComplexity = 0;
         maxComplexity = 0;
         if (inventorySlots.getSlot(0).getHasStack()) {
-            final ItemStack is = inventorySlots.getSlot(0).getStack();
+            ItemStack is = inventorySlots.getSlot(0).getStack();
             if (is != null && !is.isEmpty() && is.getItem() instanceof ItemFocus) {
                 maxComplexity = ((ItemFocus)is.getItem()).getMaxComplexity();
             }
         }
         boolean emptyNodes = false;
-        final AspectList crystals = new AspectList();
+        AspectList crystals = new AspectList();
         if (table.data != null && !table.data.isEmpty()) {
-            for (final FocusElementNode node : table.data.values()) {
+            for (FocusElementNode node : table.data.values()) {
                 if (node.node != null) {
                     int a2 = 0;
                     if (compCount.containsKey(node.node.getKey())) {
@@ -1033,12 +1033,12 @@ public class GuiFocalManipulator extends GuiContainer
             validCrystals = true;
             components = new ItemStack[crystals.getAspects().length];
             int r = 0;
-            for (final Aspect as : crystals.getAspects()) {
+            for (Aspect as : crystals.getAspects()) {
                 components[r] = ThaumcraftApiHelper.makeCrystal(as, crystals.getAmount(as));
                 ++r;
             }
             if (components.length >= 0) {
-                final boolean[] owns = new boolean[components.length];
+                boolean[] owns = new boolean[components.length];
                 for (int a3 = 0; a3 < components.length; ++a3) {
                     if (!(owns[a3] = InventoryUtils.isPlayerCarryingAmount(mc.player, components[a3], false))) {
                         validCrystals = false;
@@ -1049,7 +1049,7 @@ public class GuiFocalManipulator extends GuiContainer
                 int i = 0;
                 int q = 0;
                 int z = 0;
-                for (final ItemStack stack : components) {
+                for (ItemStack stack : components) {
                     buttonList.add(new GuiHoverButton(this, 11 + z, guiLeft + 234 + i * 16, guiTop + 110 + 16 * q, 16, 16, stack.getDisplayName(), null, stack));
                     if (++i > 4) {
                         i = 0;

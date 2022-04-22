@@ -13,14 +13,14 @@ public class SlotLimitedByClass extends Slot
     Class clazz;
     int limit;
     
-    public SlotLimitedByClass(final Class clazz, final IInventory par2IInventory, final int par3, final int par4, final int par5) {
+    public SlotLimitedByClass(Class clazz, IInventory par2IInventory, int par3, int par4, int par5) {
         super(par2IInventory, par3, par4, par5);
         this.clazz = Object.class;
         limit = 64;
         this.clazz = clazz;
     }
     
-    public SlotLimitedByClass(final Class clazz, final int limit, final IInventory par2IInventory, final int par3, final int par4, final int par5) {
+    public SlotLimitedByClass(Class clazz, int limit, IInventory par2IInventory, int par3, int par4, int par5) {
         super(par2IInventory, par3, par4, par5);
         this.clazz = Object.class;
         this.limit = 64;
@@ -28,7 +28,7 @@ public class SlotLimitedByClass extends Slot
         this.limit = limit;
     }
     
-    public boolean isItemValid(final ItemStack stack) {
+    public boolean isItemValid(ItemStack stack) {
         return !stack.isEmpty() && clazz.isAssignableFrom(stack.getItem().getClass());
     }
     

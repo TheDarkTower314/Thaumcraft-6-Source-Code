@@ -43,17 +43,17 @@ import net.minecraft.block.Block;
 
 public class BlockCrystal extends Block
 {
-    public static final PropertyInteger SIZE;
-    public static final PropertyInteger GENERATION;
-    public static final IUnlistedProperty<Boolean> NORTH;
-    public static final IUnlistedProperty<Boolean> EAST;
-    public static final IUnlistedProperty<Boolean> SOUTH;
-    public static final IUnlistedProperty<Boolean> WEST;
-    public static final IUnlistedProperty<Boolean> UP;
-    public static final IUnlistedProperty<Boolean> DOWN;
+    public static PropertyInteger SIZE;
+    public static PropertyInteger GENERATION;
+    public static IUnlistedProperty<Boolean> NORTH;
+    public static IUnlistedProperty<Boolean> EAST;
+    public static IUnlistedProperty<Boolean> SOUTH;
+    public static IUnlistedProperty<Boolean> WEST;
+    public static IUnlistedProperty<Boolean> UP;
+    public static IUnlistedProperty<Boolean> DOWN;
     public Aspect aspect;
     
-    public BlockCrystal(final String name, final Aspect aspect) {
+    public BlockCrystal(String name, Aspect aspect) {
         super(Material.GLASS);
         setUnlocalizedName(name);
         setRegistryName("thaumcraft", name);
@@ -69,15 +69,15 @@ public class BlockCrystal extends Block
         return SoundsTC.CRYSTAL;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public EnumBlockRenderType getRenderType(final IBlockState state) {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemById(0);
     }
     
@@ -85,18 +85,18 @@ public class BlockCrystal extends Block
         return false;
     }
     
-    public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
-        final List<ItemStack> ret = new ArrayList<ItemStack>();
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        List<ItemStack> ret = new ArrayList<ItemStack>();
         for (int count = getGrowth(state) + 1, i = 0; i < count; ++i) {
             ret.add(ThaumcraftApiHelper.makeCrystal(aspect));
         }
         return ret;
     }
     
-    public void updateTick(final World worldIn, final BlockPos pos, final IBlockState state, final Random rand) {
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote && rand.nextInt(3 + getGeneration(state)) == 0) {
-            final int threshold = 10;
-            final int growth = getGrowth(state);
+            int threshold = 10;
+            int growth = getGrowth(state);
             int generation = getGeneration(state);
             if (aspect != Aspect.FLUX) {
                 if (AuraHelper.getVis(worldIn, pos) <= threshold) {
@@ -116,7 +116,7 @@ public class BlockCrystal extends Block
                         }
                     }
                     else if (generation < 4) {
-                        final BlockPos p2 = spreadCrystal(worldIn, pos);
+                        BlockPos p2 = spreadCrystal(worldIn, pos);
                         if (p2 != null && AuraHelper.drainVis(worldIn, pos, (float)threshold, false) > 0.0f) {
                             if (rand.nextInt(6) == 0) {
                                 --generation;
@@ -143,7 +143,7 @@ public class BlockCrystal extends Block
                     }
                 }
                 else if (generation < 4) {
-                    final BlockPos p2 = spreadCrystal(worldIn, pos);
+                    BlockPos p2 = spreadCrystal(worldIn, pos);
                     if (p2 != null && AuraHelper.drainFlux(worldIn, pos, (float)threshold, false) > 0.0f) {
                         if (rand.nextInt(6) == 0) {
                             --generation;
@@ -155,42 +155,42 @@ public class BlockCrystal extends Block
         }
     }
     
-    public static BlockPos spreadCrystal(final World world, final BlockPos pos) {
-        final int xx = pos.getX() + world.rand.nextInt(3) - 1;
-        final int yy = pos.getY() + world.rand.nextInt(3) - 1;
-        final int zz = pos.getZ() + world.rand.nextInt(3) - 1;
-        final BlockPos t = new BlockPos(xx, yy, zz);
+    public static BlockPos spreadCrystal(World world, BlockPos pos) {
+        int xx = pos.getX() + world.rand.nextInt(3) - 1;
+        int yy = pos.getY() + world.rand.nextInt(3) - 1;
+        int zz = pos.getZ() + world.rand.nextInt(3) - 1;
+        BlockPos t = new BlockPos(xx, yy, zz);
         if (t.equals(pos)) {
             return null;
         }
-        final IBlockState bs = world.getBlockState(t);
-        final Material bm = bs.getMaterial();
+        IBlockState bs = world.getBlockState(t);
+        Material bm = bs.getMaterial();
         if (!bm.isLiquid() && (world.isAirBlock(t) || bs.getBlock().isReplaceable(world, t)) && world.rand.nextInt(16) == 0 && BlockUtils.isBlockTouching(world, t, Material.ROCK, true)) {
             return t;
         }
         return null;
     }
     
-    public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos fromPos) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (!BlockUtils.isBlockTouching(worldIn, pos, Material.ROCK, true)) {
             dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
     
-    public boolean isSideSolid(final IBlockState state, final IBlockAccess world, final BlockPos pos, final EnumFacing o) {
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing o) {
         return false;
     }
     
-    private boolean drawAt(final IBlockAccess worldIn, final BlockPos pos, final EnumFacing side) {
-        final IBlockState fbs = worldIn.getBlockState(pos);
+    private boolean drawAt(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+        IBlockState fbs = worldIn.getBlockState(pos);
         return fbs.getMaterial() == Material.ROCK && fbs.getBlock().isSideSolid(fbs, worldIn, pos, side.getOpposite());
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState bs, final IBlockAccess iblockaccess, final BlockPos pos) {
-        final IBlockState state = getExtendedState(bs, iblockaccess, pos);
+    public AxisAlignedBB getBoundingBox(IBlockState bs, IBlockAccess iblockaccess, BlockPos pos) {
+        IBlockState state = getExtendedState(bs, iblockaccess, pos);
         if (state instanceof IExtendedBlockState) {
-            final IExtendedBlockState es = (IExtendedBlockState)state;
+            IExtendedBlockState es = (IExtendedBlockState)state;
             int c = 0;
             if (es.getValue(BlockCrystal.UP)) {
                 ++c;
@@ -235,79 +235,79 @@ public class BlockCrystal extends Block
         return new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
     }
     
-    public AxisAlignedBB getCollisionBoundingBox(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return null;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public int getLightValue(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
+    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
         return 1;
     }
     
-    public int getPackedLightmapCoords(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
-        final int i = source.getCombinedLight(pos, state.getLightValue(source, pos));
-        final int j = 180;
-        final int k = i & 0xFF;
-        final int l = j & 0xFF;
-        final int i2 = i >> 16 & 0xFF;
-        final int j2 = j >> 16 & 0xFF;
+    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
+        int i = source.getCombinedLight(pos, state.getLightValue(source, pos));
+        int j = 180;
+        int k = i & 0xFF;
+        int l = j & 0xFF;
+        int i2 = i >> 16 & 0xFF;
+        int j2 = j >> 16 & 0xFF;
         return ((k > l) ? k : l) | ((i2 > j2) ? i2 : j2) << 16;
     }
     
     protected BlockStateContainer createBlockState() {
-        final IProperty[] listedProperties = {BlockCrystal.SIZE, BlockCrystal.GENERATION};
-        final IUnlistedProperty[] unlistedProperties = { BlockCrystal.UP, BlockCrystal.DOWN, BlockCrystal.NORTH, BlockCrystal.EAST, BlockCrystal.WEST, BlockCrystal.SOUTH };
+        IProperty[] listedProperties = {BlockCrystal.SIZE, BlockCrystal.GENERATION};
+        IUnlistedProperty[] unlistedProperties = { BlockCrystal.UP, BlockCrystal.DOWN, BlockCrystal.NORTH, BlockCrystal.EAST, BlockCrystal.WEST, BlockCrystal.SOUTH };
         return new ExtendedBlockState(this, listedProperties, unlistedProperties);
     }
     
-    public IBlockState getExtendedState(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
+    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
         if (state instanceof IExtendedBlockState) {
-            final IExtendedBlockState retval = (IExtendedBlockState)state;
+            IExtendedBlockState retval = (IExtendedBlockState)state;
             return retval.withProperty(BlockCrystal.UP, drawAt(world, pos.up(), EnumFacing.UP)).withProperty(BlockCrystal.DOWN, drawAt(world, pos.down(), EnumFacing.DOWN)).withProperty(BlockCrystal.NORTH, drawAt(world, pos.north(), EnumFacing.NORTH)).withProperty(BlockCrystal.EAST, drawAt(world, pos.east(), EnumFacing.EAST)).withProperty(BlockCrystal.SOUTH, drawAt(world, pos.south(), EnumFacing.SOUTH)).withProperty(BlockCrystal.WEST, drawAt(world, pos.west(), EnumFacing.WEST));
         }
         return state;
     }
     
-    public IBlockState getActualState(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return state;
     }
     
-    public IBlockState getStateFromMeta(final int meta) {
+    public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty((IProperty)BlockCrystal.SIZE, (Comparable)(meta & 0x3)).withProperty((IProperty)BlockCrystal.GENERATION, (Comparable)(1 + (meta >> 2 & 0x3)));
     }
     
-    public int getMetaFromState(final IBlockState state) {
+    public int getMetaFromState(IBlockState state) {
         int i = 0;
         i |= (int)state.getValue((IProperty)BlockCrystal.SIZE);
         i |= (int)state.getValue((IProperty)BlockCrystal.GENERATION) - 1 << 2;
         return i;
     }
     
-    public int getGrowth(final IBlockState state) {
+    public int getGrowth(IBlockState state) {
         return getMetaFromState(state) & 0x3;
     }
     
-    public int getGeneration(final IBlockState state) {
+    public int getGeneration(IBlockState state) {
         return 1 + (getMetaFromState(state) >> 2);
     }
     
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(final CreativeTabs tab, final NonNullList<ItemStack> list) {
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
         list.add(new ItemStack(this, 1, 0));
     }
     
-    public boolean canSilkHarvest(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player) {
+    public boolean canSilkHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
         return false;
     }
     
-    public boolean canPlaceBlockAt(final World worldIn, final BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return BlockUtils.isBlockTouching(worldIn, pos, Material.ROCK, true) && super.canPlaceBlockAt(worldIn, pos);
     }
     

@@ -54,24 +54,24 @@ import net.minecraft.block.Block;
 @Mod.EventBusSubscriber({ Side.CLIENT })
 public class BlockTaintFibre extends Block implements ITaintBlock
 {
-    public static final PropertyBool NORTH;
-    public static final PropertyBool EAST;
-    public static final PropertyBool SOUTH;
-    public static final PropertyBool WEST;
-    public static final PropertyBool UP;
-    public static final PropertyBool DOWN;
-    public static final PropertyBool GROWTH1;
-    public static final PropertyBool GROWTH2;
-    public static final PropertyBool GROWTH3;
-    public static final PropertyBool GROWTH4;
+    public static PropertyBool NORTH;
+    public static PropertyBool EAST;
+    public static PropertyBool SOUTH;
+    public static PropertyBool WEST;
+    public static PropertyBool UP;
+    public static PropertyBool DOWN;
+    public static PropertyBool GROWTH1;
+    public static PropertyBool GROWTH2;
+    public static PropertyBool GROWTH3;
+    public static PropertyBool GROWTH4;
     private RayTracer rayTracer;
-    protected static final AxisAlignedBB AABB_EMPTY;
-    protected static final AxisAlignedBB AABB_UP;
-    protected static final AxisAlignedBB AABB_DOWN;
-    protected static final AxisAlignedBB AABB_EAST;
-    protected static final AxisAlignedBB AABB_WEST;
-    protected static final AxisAlignedBB AABB_SOUTH;
-    protected static final AxisAlignedBB AABB_NORTH;
+    protected static AxisAlignedBB AABB_EMPTY;
+    protected static AxisAlignedBB AABB_UP;
+    protected static AxisAlignedBB AABB_DOWN;
+    protected static AxisAlignedBB AABB_EAST;
+    protected static AxisAlignedBB AABB_WEST;
+    protected static AxisAlignedBB AABB_SOUTH;
+    protected static AxisAlignedBB AABB_NORTH;
     
     public BlockTaintFibre() {
         super(ThaumcraftMaterials.MATERIAL_TAINT);
@@ -89,23 +89,23 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         return SoundsTC.GORE;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public int getFlammability(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return 3;
     }
     
-    public int getFireSpreadSpeed(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
+    public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return 3;
     }
     
-    public MapColor getMapColor(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return MapColor.PURPLE;
     }
     
-    public void die(final World world, final BlockPos pos, final IBlockState blockState) {
+    public void die(World world, BlockPos pos, IBlockState blockState) {
         world.setBlockToAir(pos);
     }
     
@@ -113,11 +113,11 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         return false;
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemById(0);
     }
     
-    public void dropBlockAsItemWithChance(final World worldIn, final BlockPos pos, IBlockState state, final float chance, final int fortune) {
+    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         state = getActualState(state, worldIn, pos);
         if (state instanceof IBlockState && state.getValue(BlockTaintFibre.GROWTH3)) {
             if (worldIn.rand.nextInt(5) <= fortune) {
@@ -127,7 +127,7 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         }
     }
     
-    public void updateTick(final World world, final BlockPos pos, IBlockState state, final Random random) {
+    public void updateTick(World world, BlockPos pos, IBlockState state, Random random) {
         if (!world.isRemote) {
             state = getActualState(state, world, pos);
             if (state instanceof IBlockState) {
@@ -144,16 +144,16 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         }
     }
     
-    public void neighborChanged(IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos pos2) {
         state = getActualState(state, worldIn, pos);
         if (state instanceof IBlockState && !(boolean)state.getValue(BlockTaintFibre.GROWTH1) && !(boolean)state.getValue(BlockTaintFibre.GROWTH2) && !(boolean)state.getValue(BlockTaintFibre.GROWTH3) && !(boolean)state.getValue(BlockTaintFibre.GROWTH4) && isOnlyAdjacentToTaint(worldIn, pos)) {
             worldIn.setBlockToAir(pos);
         }
     }
     
-    public static int getAdjacentTaint(final IBlockAccess world, final BlockPos pos) {
+    public static int getAdjacentTaint(IBlockAccess world, BlockPos pos) {
         int count = 0;
-        for (final EnumFacing dir : EnumFacing.VALUES) {
+        for (EnumFacing dir : EnumFacing.VALUES) {
             if (world.getBlockState(pos.offset(dir)).getMaterial() != ThaumcraftMaterials.MATERIAL_TAINT) {
                 ++count;
             }
@@ -161,8 +161,8 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         return count;
     }
     
-    public static boolean isOnlyAdjacentToTaint(final World world, final BlockPos pos) {
-        for (final EnumFacing dir : EnumFacing.VALUES) {
+    public static boolean isOnlyAdjacentToTaint(World world, BlockPos pos) {
+        for (EnumFacing dir : EnumFacing.VALUES) {
             if (!world.isAirBlock(pos.offset(dir)) && world.getBlockState(pos.offset(dir)).getMaterial() != ThaumcraftMaterials.MATERIAL_TAINT && world.getBlockState(pos.offset(dir)).getBlock().isSideSolid(world.getBlockState(pos.offset(dir)), world, pos.offset(dir), dir.getOpposite())) {
                 return false;
             }
@@ -170,10 +170,10 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         return true;
     }
     
-    public static boolean isHemmedByTaint(final World world, final BlockPos pos) {
+    public static boolean isHemmedByTaint(World world, BlockPos pos) {
         int c = 0;
-        for (final EnumFacing dir : EnumFacing.VALUES) {
-            final IBlockState block = world.getBlockState(pos.offset(dir));
+        for (EnumFacing dir : EnumFacing.VALUES) {
+            IBlockState block = world.getBlockState(pos.offset(dir));
             if (block.getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT) {
                 ++c;
             }
@@ -187,13 +187,13 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         return c > 0;
     }
     
-    public void onEntityWalk(final World world, final BlockPos pos, final Entity entity) {
+    public void onEntityWalk(World world, BlockPos pos, Entity entity) {
         if (!world.isRemote && entity instanceof EntityLivingBase && !((EntityLivingBase)entity).isEntityUndead() && world.rand.nextInt(750) == 0) {
             ((EntityLivingBase)entity).addPotionEffect(new PotionEffect(PotionFluxTaint.instance, 200, 0, false, true));
         }
     }
     
-    public boolean eventReceived(final IBlockState state, final World worldIn, final BlockPos pos, final int eventID, final int eventParam) {
+    public boolean eventReceived(IBlockState state, World worldIn, BlockPos pos, int eventID, int eventParam) {
         if (eventID == 1) {
             if (worldIn.isRemote) {
                 worldIn.playSound(null, pos, SoundEvents.BLOCK_CHORUS_FLOWER_DEATH, SoundCategory.BLOCKS, 0.1f, 0.9f + worldIn.rand.nextFloat() * 0.2f);
@@ -208,25 +208,25 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         return BlockRenderLayer.CUTOUT;
     }
     
-    public boolean isSideSolid(final IBlockState base_state, final IBlockAccess world, final BlockPos pos, final EnumFacing side) {
+    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return false;
     }
     
-    private boolean drawAt(final IBlockAccess worldIn, final BlockPos pos, final EnumFacing side) {
-        final IBlockState b = worldIn.getBlockState(pos);
+    private boolean drawAt(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+        IBlockState b = worldIn.getBlockState(pos);
         return b.getBlock() != BlocksTC.taintFibre && b.getBlock() != BlocksTC.taintFeature && b.isSideSolid(worldIn, pos, side.getOpposite());
     }
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onBlockHighlight(final DrawBlockHighlightEvent event) {
+    public void onBlockHighlight(DrawBlockHighlightEvent event) {
         if (event.getTarget().typeOfHit == RayTraceResult.Type.BLOCK && event.getPlayer().world.getBlockState(event.getTarget().getBlockPos()).getBlock() == this) {
             RayTracer.retraceBlock(event.getPlayer().world, event.getPlayer(), event.getTarget().getBlockPos());
         }
     }
     
-    public RayTraceResult collisionRayTrace(final IBlockState state, final World world, final BlockPos pos, final Vec3d start, final Vec3d end) {
-        final List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
+    public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d start, Vec3d end) {
+        List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
         if (drawAt(world, pos.up(), EnumFacing.UP)) {
             cuboids.add(new IndexedCuboid6(0, new Cuboid6(BlockTaintFibre.AABB_UP.offset(pos))));
         }
@@ -245,7 +245,7 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         if (drawAt(world, pos.north(), EnumFacing.NORTH)) {
             cuboids.add(new IndexedCuboid6(5, new Cuboid6(BlockTaintFibre.AABB_NORTH.offset(pos))));
         }
-        final IBlockState ss = getActualState(world.getBlockState(pos), world, pos);
+        IBlockState ss = getActualState(world.getBlockState(pos), world, pos);
         if (ss.getBlock() == this && ss instanceof IBlockState) {
             if (ss.getValue(BlockTaintFibre.GROWTH1)) {
                 cuboids.add(new IndexedCuboid6(6, new Cuboid6(new AxisAlignedBB(0.10000000149011612, 0.0, 0.10000000149011612, 0.8999999761581421, 0.4000000059604645, 0.8999999761581421).offset(pos))));
@@ -260,18 +260,18 @@ public class BlockTaintFibre extends Block implements ITaintBlock
                 cuboids.add(new IndexedCuboid6(6, new Cuboid6(new AxisAlignedBB(0.10000000149011612, 0.30000001192092896, 0.10000000149011612, 0.8999999761581421, 1.0, 0.8999999761581421).offset(pos))));
             }
         }
-        final ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
+        ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
         rayTracer.rayTraceCuboids(new Vector3(start), new Vector3(end), cuboids, new BlockCoord(pos), this, list);
         return (list.size() > 0) ? list.get(0) : super.collisionRayTrace(state, world, pos, start, end);
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState s, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState s, IBlockAccess source, BlockPos pos) {
         return BlockTaintFibre.AABB_EMPTY;
     }
     
     @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBox(final IBlockState s, final World world, final BlockPos pos) {
-        final IBlockState state = getActualState(world.getBlockState(pos), world, pos);
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState s, World world, BlockPos pos) {
+        IBlockState state = getActualState(world.getBlockState(pos), world, pos);
         if (state.getBlock() == this && state instanceof IBlockState) {
             if (state.getValue(BlockTaintFibre.GROWTH1)) {
                 return new AxisAlignedBB(0.10000000149011612, 0.0, 0.10000000149011612, 0.8999999761581421, 0.4000000059604645, 0.8999999761581421).offset(pos);
@@ -286,7 +286,7 @@ public class BlockTaintFibre extends Block implements ITaintBlock
                 return new AxisAlignedBB(0.10000000149011612, 0.30000001192092896, 0.10000000149011612, 0.8999999761581421, 1.0, 0.8999999761581421).offset(pos);
             }
         }
-        final RayTraceResult hit = RayTracer.retraceBlock(world, Minecraft.getMinecraft().player, pos);
+        RayTraceResult hit = RayTracer.retraceBlock(world, Minecraft.getMinecraft().player, pos);
         if (hit != null) {
             switch (hit.subHit) {
                 case 0: {
@@ -312,7 +312,7 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         return BlockTaintFibre.AABB_EMPTY;
     }
     
-    public void addCollisionBoxToList(final IBlockState state, final World worldIn, final BlockPos pos, final AxisAlignedBB entityBox, final List<AxisAlignedBB> collidingBoxes, @Nullable final Entity entityIn, final boolean isActualState) {
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
         if (drawAt(worldIn, pos.up(), EnumFacing.UP)) {
             addCollisionBoxToList(pos, entityBox, collidingBoxes, BlockTaintFibre.AABB_UP);
         }
@@ -333,38 +333,38 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         }
     }
     
-    public boolean isReplaceable(final IBlockAccess worldIn, final BlockPos pos) {
+    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
         return true;
     }
     
-    public boolean isPassable(final IBlockAccess worldIn, final BlockPos pos) {
+    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
         return true;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public int getMetaFromState(final IBlockState state) {
+    public int getMetaFromState(IBlockState state) {
         return 0;
     }
     
-    public int getLightValue(final IBlockState state2, final IBlockAccess world, final BlockPos pos) {
-        final IBlockState state3 = getActualState(world.getBlockState(pos), world, pos);
+    public int getLightValue(IBlockState state2, IBlockAccess world, BlockPos pos) {
+        IBlockState state3 = getActualState(world.getBlockState(pos), world, pos);
         if (state3.getBlock() == this && state3 instanceof IBlockState) {
             return state3.getValue(BlockTaintFibre.GROWTH3) ? 12 : ((state3.getValue(BlockTaintFibre.GROWTH2) || state3.getValue(BlockTaintFibre.GROWTH4)) ? 6 : super.getLightValue(state2, world, pos));
         }
         return super.getLightValue(state2, world, pos);
     }
     
-    private Boolean[] makeConnections(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
-        final Boolean[] cons = { false, false, false, false, false, false };
+    private Boolean[] makeConnections(IBlockState state, IBlockAccess world, BlockPos pos) {
+        Boolean[] cons = { false, false, false, false, false, false };
         int a = 0;
-        for (final EnumFacing face : EnumFacing.VALUES) {
+        for (EnumFacing face : EnumFacing.VALUES) {
             if (drawAt(world, pos.offset(face), face)) {
                 cons[a] = true;
             }
@@ -373,13 +373,13 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         return cons;
     }
     
-    public IBlockState getActualState(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
-        final Boolean[] cons = makeConnections(state, worldIn, pos);
-        final boolean d = drawAt(worldIn, pos.down(), EnumFacing.DOWN);
-        final boolean u = drawAt(worldIn, pos.up(), EnumFacing.UP);
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        Boolean[] cons = makeConnections(state, worldIn, pos);
+        boolean d = drawAt(worldIn, pos.down(), EnumFacing.DOWN);
+        boolean u = drawAt(worldIn, pos.up(), EnumFacing.UP);
         int growth = 0;
-        final Random rand = new Random(pos.toLong());
-        final int q = rand.nextInt(50);
+        Random rand = new Random(pos.toLong());
+        int q = rand.nextInt(50);
         if (d) {
             if (q < 4) {
                 growth = 1;
@@ -397,7 +397,7 @@ public class BlockTaintFibre extends Block implements ITaintBlock
         try {
             return state.withProperty(BlockTaintFibre.DOWN, cons[0]).withProperty(BlockTaintFibre.UP, cons[1]).withProperty(BlockTaintFibre.NORTH, cons[2]).withProperty(BlockTaintFibre.SOUTH, cons[3]).withProperty(BlockTaintFibre.WEST, cons[4]).withProperty(BlockTaintFibre.EAST, cons[5]).withProperty(BlockTaintFibre.GROWTH1, (growth == 1)).withProperty(BlockTaintFibre.GROWTH2, (growth == 2)).withProperty(BlockTaintFibre.GROWTH3, (growth == 3)).withProperty(BlockTaintFibre.GROWTH4, (growth == 4));
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             return state;
         }
     }

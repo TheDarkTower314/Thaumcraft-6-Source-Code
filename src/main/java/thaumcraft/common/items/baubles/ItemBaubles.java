@@ -20,7 +20,7 @@ public class ItemBaubles extends ItemTCBase implements IBauble, IVisDiscountGear
         setMaxDamage(0);
     }
     
-    public BaubleType getBaubleType(final ItemStack itemstack) {
+    public BaubleType getBaubleType(ItemStack itemstack) {
         switch (itemstack.getItemDamage()) {
             case 1:
             case 3:
@@ -37,14 +37,14 @@ public class ItemBaubles extends ItemTCBase implements IBauble, IVisDiscountGear
         }
     }
     
-    public EnumRarity getRarity(final ItemStack stack) {
+    public EnumRarity getRarity(ItemStack stack) {
         if (stack.getItemDamage() >= 3) {
             return EnumRarity.UNCOMMON;
         }
         return super.getRarity(stack);
     }
     
-    public int getVisDiscount(final ItemStack stack, final EntityPlayer player) {
+    public int getVisDiscount(ItemStack stack, EntityPlayer player) {
         if (stack.getItemDamage() == 3) {
             return 5;
         }

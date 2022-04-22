@@ -43,18 +43,18 @@ import net.minecraft.util.ResourceLocation;
 
 public class HudHandler
 {
-    final ResourceLocation HUD;
+    ResourceLocation HUD;
     public LinkedBlockingQueue<KnowledgeGainTracker> knowledgeGainTrackers;
-    public static final ResourceLocation BOOK;
-    public static final ResourceLocation[] KNOW_TYPE;
+    public static ResourceLocation BOOK;
+    public static ResourceLocation[] KNOW_TYPE;
     float kgFade;
     public static AuraChunk currentAura;
-    private final float VISCON = 525.0f;
+    private float VISCON = 525.0f;
     long nextsync;
     DecimalFormat secondsFormatter;
     ItemStack lastItem;
     int lastCount;
-    final ResourceLocation TAGBACK;
+    ResourceLocation TAGBACK;
     
     public HudHandler() {
         HUD = new ResourceLocation("thaumcraft", "textures/gui/hud.png");
@@ -68,9 +68,9 @@ public class HudHandler
     }
     
     @SideOnly(Side.CLIENT)
-    void renderHuds(final Minecraft mc, final float renderTickTime, final EntityPlayer player, final long time) {
+    void renderHuds(Minecraft mc, float renderTickTime, EntityPlayer player, long time) {
         GL11.glPushMatrix();
-        final ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
         GL11.glClear(256);
         GL11.glMatrixMode(5889);
         GL11.glLoadIdentity();
@@ -78,8 +78,8 @@ public class HudHandler
         GL11.glMatrixMode(5888);
         GL11.glLoadIdentity();
         GL11.glTranslatef(0.0f, 0.0f, -2000.0f);
-        final int ww = sr.getScaledWidth();
-        final int hh = sr.getScaledHeight();
+        int ww = sr.getScaledWidth();
+        int hh = sr.getScaledHeight();
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         renderHudsInGUI(mc, renderTickTime, player, time, ww, hh);
@@ -118,53 +118,53 @@ public class HudHandler
     }
     
     @SideOnly(Side.CLIENT)
-    void renderHudsInGUI(final Minecraft mc, final float renderTickTime, final EntityPlayer player, final long time, final int ww, final int hh) {
+    void renderHudsInGUI(Minecraft mc, float renderTickTime, EntityPlayer player, long time, int ww, int hh) {
         if (kgFade > 0.0f) {
             renderKnowledgeGains(mc, renderTickTime, player, time, ww, hh);
         }
     }
     
     @SideOnly(Side.CLIENT)
-    void renderKnowledgeGains(final Minecraft mc, final float renderTickTime, final EntityPlayer player, final long time, final int ww, final int hh) {
+    void renderKnowledgeGains(Minecraft mc, float renderTickTime, EntityPlayer player, long time, int ww, int hh) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, kgFade / 40.0f);
         mc.renderEngine.bindTexture(HudHandler.BOOK);
         UtilsFX.drawTexturedQuadFull((float)(ww - 17), (float)(hh - 17), -90.0);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        final LinkedBlockingQueue<KnowledgeGainTracker> temp = new LinkedBlockingQueue<KnowledgeGainTracker>();
+        LinkedBlockingQueue<KnowledgeGainTracker> temp = new LinkedBlockingQueue<KnowledgeGainTracker>();
         int a = 0;
         while (!knowledgeGainTrackers.isEmpty()) {
-            final KnowledgeGainTracker current = knowledgeGainTrackers.poll();
+            KnowledgeGainTracker current = knowledgeGainTrackers.poll();
             if (current != null) {
                 mc.renderEngine.bindTexture(HudHandler.KNOW_TYPE[current.type.ordinal()]);
-                final Random rand = new Random(current.seed);
+                Random rand = new Random(current.seed);
                 GL11.glPushMatrix();
                 float s = 16.0f;
                 float x = (float)(ww / 4 + rand.nextInt(32));
                 float y = (float)(hh / 3 + rand.nextInt(32));
                 float wot = 0.0f;
                 if (current.progress < current.max * 0.66f) {
-                    final float q = (current.progress - renderTickTime) / (current.max * 0.66f);
+                    float q = (current.progress - renderTickTime) / (current.max * 0.66f);
                     s *= q;
-                    final float m = (float)Math.sin(q * 3.141592653589793 - 1.5707963267948966) * 0.5f + 0.5f;
+                    float m = (float)Math.sin(q * 3.141592653589793 - 1.5707963267948966) * 0.5f + 0.5f;
                     y *= m;
-                    final float d = (float)Math.sin(m * 3.141592653589793 * 0.5);
+                    float d = (float)Math.sin(m * 3.141592653589793 * 0.5);
                     x *= d;
                 }
                 else {
                     wot = current.max - current.progress + renderTickTime;
-                    final float wot2 = wot / (current.max * 0.33f);
-                    final float m = (float)Math.sin(wot2 * 3.141592653589793 * 2.0 - 1.5707963267948966) * 0.5f + 1.5f;
+                    float wot2 = wot / (current.max * 0.33f);
+                    float m = (float)Math.sin(wot2 * 3.141592653589793 * 2.0 - 1.5707963267948966) * 0.5f + 1.5f;
                     if (wot2 < 0.5) {
                         s *= wot2 * 2.0f;
                     }
                     s *= m;
                 }
-                final float xx = ww - 12 + rand.nextInt(8) - x;
-                final float yy = hh - 12 + rand.nextInt(8) - y;
+                float xx = ww - 12 + rand.nextInt(8) - x;
+                float yy = hh - 12 + rand.nextInt(8) - y;
                 if (current.sparks && player.getRNG().nextInt((int)(1.0f + current.progress / (float)current.max * 10.0f)) == 0) {
-                    final float r = MathHelper.getInt(player.world.rand, 255, 255) / 255.0f;
-                    final float g = MathHelper.getInt(player.world.rand, 189, 255) / 255.0f;
-                    final float b = MathHelper.getInt(player.world.rand, 64, 255) / 255.0f;
+                    float r = MathHelper.getInt(player.world.rand, 255, 255) / 255.0f;
+                    float g = MathHelper.getInt(player.world.rand, 189, 255) / 255.0f;
+                    float b = MathHelper.getInt(player.world.rand, 64, 255) / 255.0f;
                     FXDispatcher.INSTANCE.drawSimpleSparkleGui(player.world.rand, xx + player.world.rand.nextGaussian() * 5.0, yy + player.world.rand.nextGaussian() * 5.0, player.world.rand.nextGaussian(), player.world.rand.nextGaussian(), 24.0f, r, g, b, player.world.rand.nextInt(5), 0.9f, -1.0f);
                 }
                 GL11.glTranslatef(xx, yy, (float)(-80 + a));
@@ -176,25 +176,25 @@ public class HudHandler
                     UtilsFX.renderQuadCentered(1, 1, 0, s * 0.75f, 1.0f, 1.0f, 1.0f, 200, 771, 1.0f);
                 }
                 if (current.progress > current.max * 0.9f) {
-                    final float wot3 = wot / (current.max * 0.1f);
-                    final float m2 = (float)Math.sin(wot3 * 3.141592653589793 * 2.0 - 1.5707963267948966) * 0.25f + 0.25f;
-                    final float size = 64.0f * m2;
+                    float wot3 = wot / (current.max * 0.1f);
+                    float m2 = (float)Math.sin(wot3 * 3.141592653589793 * 2.0 - 1.5707963267948966) * 0.25f + 0.25f;
+                    float size = 64.0f * m2;
                     GL11.glRotatef((float)rand.nextInt(360), 0.0f, 0.0f, -1.0f);
                     mc.renderEngine.bindTexture(ParticleEngine.particleTexture);
-                    final float r2 = MathHelper.getInt(rand, 255, 255) / 255.0f;
-                    final float g2 = MathHelper.getInt(rand, 189, 255) / 255.0f;
-                    final float b2 = MathHelper.getInt(rand, 64, 255) / 255.0f;
+                    float r2 = MathHelper.getInt(rand, 255, 255) / 255.0f;
+                    float g2 = MathHelper.getInt(rand, 189, 255) / 255.0f;
+                    float b2 = MathHelper.getInt(rand, 64, 255) / 255.0f;
                     UtilsFX.renderQuadCentered(64, 64, 320 + rand.nextInt(16), size, r2, g2, b2, 200, 1, 1.0f);
                 }
                 if (current.progress < current.max * 0.1f) {
-                    final float wot3 = 1.0f - (current.progress - renderTickTime) / (current.max * 0.1f);
-                    final float m2 = (float)Math.sin(wot3 * 3.141592653589793 * 2.0 - 1.5707963267948966) * 0.25f + 0.25f;
-                    final float size = 32.0f * m2;
+                    float wot3 = 1.0f - (current.progress - renderTickTime) / (current.max * 0.1f);
+                    float m2 = (float)Math.sin(wot3 * 3.141592653589793 * 2.0 - 1.5707963267948966) * 0.25f + 0.25f;
+                    float size = 32.0f * m2;
                     GL11.glRotatef((float)rand.nextInt(360), 0.0f, 0.0f, -1.0f);
                     mc.renderEngine.bindTexture(ParticleEngine.particleTexture);
-                    final float r2 = MathHelper.getInt(rand, 255, 255) / 255.0f;
-                    final float g2 = MathHelper.getInt(rand, 189, 255) / 255.0f;
-                    final float b2 = MathHelper.getInt(rand, 64, 255) / 255.0f;
+                    float r2 = MathHelper.getInt(rand, 255, 255) / 255.0f;
+                    float g2 = MathHelper.getInt(rand, 189, 255) / 255.0f;
+                    float b2 = MathHelper.getInt(rand, 64, 255) / 255.0f;
                     UtilsFX.renderQuadCentered(64, 64, 320 + rand.nextInt(16), size, r2, g2, b2, 200, 1, 1.0f);
                 }
                 temp.offer(current);
@@ -208,15 +208,15 @@ public class HudHandler
     }
     
     @SideOnly(Side.CLIENT)
-    void renderThaumometerHud(final Minecraft mc, final float partialTicks, final EntityPlayer player, final long time, final int ww, final int hh, final int shifty) {
+    void renderThaumometerHud(Minecraft mc, float partialTicks, EntityPlayer player, long time, int ww, int hh, int shifty) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         float base = MathHelper.clamp(HudHandler.currentAura.getBase() / 525.0f, 0.0f, 1.0f);
         float vis = MathHelper.clamp(HudHandler.currentAura.getVis() / 525.0f, 0.0f, 1.0f);
         float flux = MathHelper.clamp(HudHandler.currentAura.getFlux() / 525.0f, 0.0f, 1.0f);
-        final float count = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted + partialTicks;
-        final float count2 = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted / 3.0f + partialTicks;
+        float count = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted + partialTicks;
+        float count2 = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted / 3.0f + partialTicks;
         if (flux + vis > 1.0f) {
-            final float m = 1.0f / (flux + vis);
+            float m = 1.0f / (flux + vis);
             base *= m;
             vis *= m;
             flux *= m;
@@ -244,7 +244,7 @@ public class HudHandler
                 GL11.glPushMatrix();
                 GL11.glTranslated(16.0, start, 0.0);
                 GL11.glScaled(0.5, 0.5, 0.5);
-                final String msg = secondsFormatter.format(HudHandler.currentAura.getVis());
+                String msg = secondsFormatter.format(HudHandler.currentAura.getVis());
                 mc.ingameGUI.drawString(mc.fontRenderer, msg, 0, 0, 15641343);
                 GL11.glPopMatrix();
                 mc.renderEngine.bindTexture(HUD);
@@ -269,7 +269,7 @@ public class HudHandler
                 GL11.glPushMatrix();
                 GL11.glTranslated(16.0, start - 4.0f, 0.0);
                 GL11.glScaled(0.5, 0.5, 0.5);
-                final String msg = secondsFormatter.format(HudHandler.currentAura.getFlux());
+                String msg = secondsFormatter.format(HudHandler.currentAura.getFlux());
                 mc.ingameGUI.drawString(mc.fontRenderer, msg, 0, 0, 11145659);
                 GL11.glPopMatrix();
                 mc.renderEngine.bindTexture(HUD);
@@ -287,25 +287,25 @@ public class HudHandler
     }
     
     @SideOnly(Side.CLIENT)
-    void renderSanityHud(final Minecraft mc, final Float partialTicks, final EntityPlayer player, final long time, final int shifty) {
+    void renderSanityHud(Minecraft mc, Float partialTicks, EntityPlayer player, long time, int shifty) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         GL11.glTranslated(0.0, shifty, 0.0);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         UtilsFX.drawTexturedQuad(1.0f, 1.0f, 152.0f, 0.0f, 20.0f, 76.0f, -90.0);
-        final int p = ThaumcraftCapabilities.getWarp(player).get(IPlayerWarp.EnumWarpType.PERMANENT);
-        final int s = ThaumcraftCapabilities.getWarp(player).get(IPlayerWarp.EnumWarpType.NORMAL);
-        final int t = ThaumcraftCapabilities.getWarp(player).get(IPlayerWarp.EnumWarpType.TEMPORARY);
+        int p = ThaumcraftCapabilities.getWarp(player).get(IPlayerWarp.EnumWarpType.PERMANENT);
+        int s = ThaumcraftCapabilities.getWarp(player).get(IPlayerWarp.EnumWarpType.NORMAL);
+        int t = ThaumcraftCapabilities.getWarp(player).get(IPlayerWarp.EnumWarpType.TEMPORARY);
         float tw = (float)(p + s + t);
         float mod = 1.0f;
         if (tw > 100.0f) {
             mod = 100.0f / tw;
             tw = 100.0f;
         }
-        final int gap = (int)((100.0f - tw) / 100.0f * 48.0f);
-        final int wt = (int)(t / 100.0f * 48.0f * mod);
-        final int ws = (int)(s / 100.0f * 48.0f * mod);
+        int gap = (int)((100.0f - tw) / 100.0f * 48.0f);
+        int wt = (int)(t / 100.0f * 48.0f * mod);
+        int ws = (int)(s / 100.0f * 48.0f * mod);
         if (t > 0) {
             GL11.glPushMatrix();
             GL11.glColor4f(1.0f, 0.5f, 1.0f, 1.0f);
@@ -339,30 +339,30 @@ public class HudHandler
     }
     
     @SideOnly(Side.CLIENT)
-    void renderChargeMeters(final Minecraft mc, final float renderTickTime, final EntityPlayer player, final long time, final int ww, final int hh) {
+    void renderChargeMeters(Minecraft mc, float renderTickTime, EntityPlayer player, long time, int ww, int hh) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        final int start = 0;
-        final int total = 0;
+        int start = 0;
+        int total = 0;
     }
     
     @SideOnly(Side.CLIENT)
-    void renderCastingWandHud(final Minecraft mc, final float partialTicks, final EntityPlayer player, final long time, final ItemStack wandstack, final int shifty) {
-        final ICaster wand = (ICaster)wandstack.getItem();
-        final short short1 = 240;
-        final short short2 = 240;
+    void renderCastingWandHud(Minecraft mc, float partialTicks, EntityPlayer player, long time, ItemStack wandstack, int shifty) {
+        ICaster wand = (ICaster)wandstack.getItem();
+        short short1 = 240;
+        short short2 = 240;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, short1 / 1.0f, short2 / 1.0f);
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0f, (float)shifty, 0.0f);
-        final ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
         GL11.glClear(256);
         GL11.glMatrixMode(5889);
         GL11.glLoadIdentity();
         GL11.glOrtho(0.0, sr.getScaledWidth_double(), sr.getScaledHeight_double(), 0.0, 1000.0, 3000.0);
         GL11.glMatrixMode(5888);
         GL11.glLoadIdentity();
-        final int l = sr.getScaledHeight();
-        final int dailLocation = ModConfig.CONFIG_GRAPHICS.dialBottom ? (l - 32) : 0;
+        int l = sr.getScaledHeight();
+        int dailLocation = ModConfig.CONFIG_GRAPHICS.dialBottom ? (l - 32) : 0;
         GL11.glTranslatef(0.0f, (float)dailLocation, -2000.0f);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
@@ -373,17 +373,17 @@ public class HudHandler
         UtilsFX.drawTexturedQuad(0.0f, 0.0f, 0.0f, 0.0f, 64.0f, 64.0f, -90.0);
         GL11.glPopMatrix();
         GL11.glTranslatef(16.0f, 16.0f, 0.0f);
-        final int max = HudHandler.currentAura.getBase();
-        final int amt = (int)HudHandler.currentAura.getVis();
-        final ItemFocus focus = (ItemFocus)wand.getFocus(wandstack);
-        final ItemStack focusStack = wand.getFocusStack(wandstack);
+        int max = HudHandler.currentAura.getBase();
+        int amt = (int)HudHandler.currentAura.getVis();
+        ItemFocus focus = (ItemFocus)wand.getFocus(wandstack);
+        ItemStack focusStack = wand.getFocusStack(wandstack);
         GL11.glPushMatrix();
         GL11.glTranslatef(16.0f, -10.0f, 0.0f);
         GL11.glScaled(0.5, 0.5, 0.5);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        final int loc = (int)(30.0f * amt / max);
+        int loc = (int)(30.0f * amt / max);
         GL11.glPushMatrix();
-        final Color ac = new Color(Aspect.ENERGY.getColor());
+        Color ac = new Color(Aspect.ENERGY.getColor());
         GL11.glColor4f(ac.getRed() / 255.0f, ac.getGreen() / 255.0f, ac.getBlue() / 255.0f, 0.8f);
         UtilsFX.drawTexturedQuad(-4.0f, (float)(35 - loc), 104.0f, 0.0f, 8.0f, (float)loc, -90.0);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -391,7 +391,7 @@ public class HudHandler
         GL11.glPushMatrix();
         UtilsFX.drawTexturedQuad(-8.0f, -3.0f, 72.0f, 0.0f, 16.0f, 42.0f, -90.0);
         GL11.glPopMatrix();
-        final int sh = 0;
+        int sh = 0;
         if (player.isSneaking()) {
             GL11.glPushMatrix();
             GL11.glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
@@ -399,7 +399,7 @@ public class HudHandler
             mc.ingameGUI.drawString(mc.fontRenderer, msg, -32, -4, 16777215);
             GL11.glPopMatrix();
             if (focus != null && focus.getVisCost(focusStack) > 0.0f) {
-                final float mod = wand.getConsumptionModifier(wandstack, player, false);
+                float mod = wand.getConsumptionModifier(wandstack, player, false);
                 GL11.glPushMatrix();
                 msg = secondsFormatter.format(focus.getVisCost(focusStack) * mod);
                 mc.ingameGUI.drawString(mc.fontRenderer, msg, -32 - mc.ingameGUI.getFontRenderer().getStringWidth(msg) / 2, 32, 16777215);
@@ -409,7 +409,7 @@ public class HudHandler
         }
         GL11.glPopMatrix();
         if (focus != null) {
-            final ItemStack pickedStack = wand.getPickedBlock(player.inventory.getCurrentItem());
+            ItemStack pickedStack = wand.getPickedBlock(player.inventory.getCurrentItem());
             if (pickedStack != null && !pickedStack.isEmpty()) {
                 renderWandTradeHud(partialTicks, player, time, pickedStack);
             }
@@ -424,7 +424,7 @@ public class HudHandler
                 try {
                     mc.getRenderItem().renderItemAndEffectIntoGUI(wand.getFocusStack(wandstack), 16, 16);
                 }
-                catch (final Exception ex) {}
+                catch (Exception ex) {}
                 GL11.glDisable(2896);
                 GL11.glPopMatrix();
             }
@@ -434,15 +434,15 @@ public class HudHandler
     }
     
     @SideOnly(Side.CLIENT)
-    public void renderWandTradeHud(final float partialTicks, final EntityPlayer player, final long time, final ItemStack picked) {
+    public void renderWandTradeHud(float partialTicks, EntityPlayer player, long time, ItemStack picked) {
         if (picked == null) {
             return;
         }
-        final Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getMinecraft();
         int amount = lastCount;
         if (lastItem == null || lastItem.isEmpty() || player.inventory.getTimesChanged() > 0 || !picked.isItemEqual(lastItem)) {
             amount = 0;
-            for (final ItemStack is : player.inventory.mainInventory) {
+            for (ItemStack is : player.inventory.mainInventory) {
                 if (is != null && !is.isEmpty() && is.isItemEqual(picked)) {
                     amount += is.getCount();
                 }
@@ -460,11 +460,11 @@ public class HudHandler
         try {
             mc.getRenderItem().renderItemAndEffectIntoGUI(picked, -8, -8);
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         GL11.glDisable(2896);
         GL11.glPushMatrix();
-        final String am = "" + amount;
-        final int sw = mc.fontRenderer.getStringWidth(am);
+        String am = "" + amount;
+        int sw = mc.fontRenderer.getStringWidth(am);
         GL11.glTranslatef(0.0f, (float)(-mc.fontRenderer.FONT_HEIGHT), 500.0f);
         GL11.glScalef(0.5f, 0.5f, 0.5f);
         for (int a = -1; a <= 1; ++a) {
@@ -479,8 +479,8 @@ public class HudHandler
         GL11.glPopMatrix();
     }
     
-    public void renderAspectsInGui(final GuiContainer gui, final EntityPlayer player, final ItemStack stack, final int sd, final int sx, final int sy) {
-        final AspectList tags = ThaumcraftCraftingManager.getObjectTags(stack);
+    public void renderAspectsInGui(GuiContainer gui, EntityPlayer player, ItemStack stack, int sd, int sx, int sy) {
+        AspectList tags = ThaumcraftCraftingManager.getObjectTags(stack);
         if (tags == null) {
             return;
         }
@@ -489,7 +489,7 @@ public class HudHandler
         int y = 0;
         int index = 0;
         if (tags.size() > 0) {
-            for (final Aspect tag : tags.getAspectsSortedByAmount()) {
+            for (Aspect tag : tags.getAspectsSortedByAmount()) {
                 if (tag != null) {
                     x = sx + index * 18;
                     y = sy + sd - 16;
@@ -501,9 +501,9 @@ public class HudHandler
         GL11.glPopMatrix();
     }
     
-    private boolean isMouseOverSlot(final Slot par1Slot, int par2, int par3, final int par4, final int par5) {
-        final int var4 = par4;
-        final int var5 = par5;
+    private boolean isMouseOverSlot(Slot par1Slot, int par2, int par3, int par4, int par5) {
+        int var4 = par4;
+        int var5 = par5;
         par2 -= var4;
         par3 -= var5;
         return par2 >= par1Slot.xPos - 1 && par2 < par1Slot.xPos + 16 + 1 && par3 >= par1Slot.yPos - 1 && par3 < par1Slot.yPos + 16 + 1;
@@ -524,7 +524,7 @@ public class HudHandler
         long seed;
         boolean sparks;
         
-        public KnowledgeGainTracker(final IPlayerKnowledge.EnumKnowledgeType type, final ResearchCategory category, int progress, final long seed) {
+        public KnowledgeGainTracker(IPlayerKnowledge.EnumKnowledgeType type, ResearchCategory category, int progress, long seed) {
             sparks = false;
             this.type = type;
             this.category = category;

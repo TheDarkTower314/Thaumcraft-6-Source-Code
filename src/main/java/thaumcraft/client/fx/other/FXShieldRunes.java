@@ -28,9 +28,9 @@ public class FXShieldRunes extends Particle
     float yaw;
     float pitch;
     private IModelCustom model;
-    private static final ResourceLocation MODEL;
+    private static ResourceLocation MODEL;
     
-    public FXShieldRunes(final World world, final double d, final double d1, final double d2, final Entity target, final int age, final float yaw, final float pitch) {
+    public FXShieldRunes(World world, double d, double d1, double d2, Entity target, int age, float yaw, float pitch) {
         super(world, d, d1, d2, 0.0, 0.0, 0.0);
         tex1 = new ResourceLocation[15];
         tex2 = new ResourceLocation[15];
@@ -41,7 +41,7 @@ public class FXShieldRunes extends Particle
         particleGreen = 1.0f;
         particleBlue = 1.0f;
         particleGravity = 0.0f;
-        final double motionX = 0.0;
+        double motionX = 0.0;
         motionZ = motionX;
         motionY = motionX;
         this.motionX = motionX;
@@ -52,13 +52,13 @@ public class FXShieldRunes extends Particle
         this.yaw = yaw;
         this.pitch = pitch;
         if (target != null) {
-            final double posX = target.posX;
+            double posX = target.posX;
             this.posX = posX;
             prevPosX = posX;
-            final double n = (target.getEntityBoundingBox().minY + target.getEntityBoundingBox().maxY) / 2.0;
+            double n = (target.getEntityBoundingBox().minY + target.getEntityBoundingBox().maxY) / 2.0;
             posY = n;
             prevPosY = n;
-            final double posZ = target.posZ;
+            double posZ = target.posZ;
             this.posZ = posZ;
             prevPosZ = posZ;
         }
@@ -68,7 +68,7 @@ public class FXShieldRunes extends Particle
         }
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity p_180434_2_, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void renderParticle(BufferBuilder wr, Entity p_180434_2_, float f, float f1, float f2, float f3, float f4, float f5) {
         Tessellator.getInstance().draw();
         GL11.glPushMatrix();
         GL11.glDisable(2884);
@@ -78,13 +78,13 @@ public class FXShieldRunes extends Particle
         if (model == null) {
             model = AdvancedModelLoader.loadModel(FXShieldRunes.MODEL);
         }
-        final float fade = (particleAge + f) / particleMaxAge;
-        final float xx = (float)(prevPosX + (posX - prevPosX) * f - FXShieldRunes.interpPosX);
-        final float yy = (float)(prevPosY + (posY - prevPosY) * f - FXShieldRunes.interpPosY);
-        final float zz = (float)(prevPosZ + (posZ - prevPosZ) * f - FXShieldRunes.interpPosZ);
+        float fade = (particleAge + f) / particleMaxAge;
+        float xx = (float)(prevPosX + (posX - prevPosX) * f - FXShieldRunes.interpPosX);
+        float yy = (float)(prevPosY + (posY - prevPosY) * f - FXShieldRunes.interpPosY);
+        float zz = (float)(prevPosZ + (posZ - prevPosZ) * f - FXShieldRunes.interpPosZ);
         GL11.glTranslated(xx, yy, zz);
         float b = 1.0f;
-        final int frame = Math.min(15, (int)(14.0f * fade) + 1);
+        int frame = Math.min(15, (int)(14.0f * fade) + 1);
         if (target != null && target instanceof EntityMob && !(target instanceof EntityCultist)) {
             Minecraft.getMinecraft().renderEngine.bindTexture(tex1[frame - 1]);
             b = 0.5f;
@@ -92,13 +92,13 @@ public class FXShieldRunes extends Particle
         else {
             Minecraft.getMinecraft().renderEngine.bindTexture(tex2[frame - 1]);
         }
-        final int i = 220;
-        final int j = i % 65536;
-        final int k = i / 65536;
+        int i = 220;
+        int j = i % 65536;
+        int k = i / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0f, k / 1.0f);
         GL11.glRotatef(180.0f - yaw, 0.0f, 1.0f, 0.0f);
         GL11.glRotatef(-pitch, 1.0f, 0.0f, 0.0f);
-        final float th = (target == null) ? 2.0f : target.height;
+        float th = (target == null) ? 2.0f : target.height;
         GL11.glScaled(0.2 * th, 0.2 * th, 0.2 * th);
         if (target == null) {
             GL11.glColor4f(0.65f, 0.1f, 0.5f, Math.min(1.0f, (1.0f - fade) * 3.0f));

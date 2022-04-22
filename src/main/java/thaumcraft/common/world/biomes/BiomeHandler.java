@@ -29,51 +29,51 @@ public class BiomeHandler
     public static HashMap<Integer, Integer> dimensionBlacklist;
     public static HashMap<Integer, Integer> biomeBlacklist;
     
-    public static void registerBiomeInfo(final BiomeDictionary.Type type, final float auraLevel, final Aspect tag, final boolean greatwood, final float greatwoodchance) {
+    public static void registerBiomeInfo(BiomeDictionary.Type type, float auraLevel, Aspect tag, boolean greatwood, float greatwoodchance) {
         BiomeHandler.biomeInfo.put(type, Arrays.asList(auraLevel, tag, greatwood, greatwoodchance));
     }
     
-    public static float getBiomeAuraModifier(final Biome biome) {
+    public static float getBiomeAuraModifier(Biome biome) {
         try {
-            final Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biome);
+            Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biome);
             float average = 0.0f;
             int count = 0;
-            for (final BiomeDictionary.Type type : types) {
+            for (BiomeDictionary.Type type : types) {
                 average += (float)BiomeHandler.biomeInfo.get(type).get(0);
                 ++count;
             }
             return average / count;
         }
-        catch (final Exception ex) {
+        catch (Exception ex) {
             return 0.5f;
         }
     }
     
-    public static Aspect getRandomBiomeTag(final int biomeId, final Random random) {
+    public static Aspect getRandomBiomeTag(int biomeId, Random random) {
         try {
-            final Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(Biome.getBiome(biomeId));
-            final BiomeDictionary.Type type = types.toArray(new BiomeDictionary.Type[0])[random.nextInt(types.size())];
+            Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(Biome.getBiome(biomeId));
+            BiomeDictionary.Type type = types.toArray(new BiomeDictionary.Type[0])[random.nextInt(types.size())];
             return (Aspect) BiomeHandler.biomeInfo.get(type).get(1);
         }
-        catch (final Exception ex) {
+        catch (Exception ex) {
             return null;
         }
     }
     
-    public static float getBiomeSupportsGreatwood(final int biomeId) {
+    public static float getBiomeSupportsGreatwood(int biomeId) {
         try {
-            final Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(Biome.getBiome(biomeId));
-            for (final BiomeDictionary.Type type : types) {
+            Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(Biome.getBiome(biomeId));
+            for (BiomeDictionary.Type type : types) {
                 if ((boolean)BiomeHandler.biomeInfo.get(type).get(2)) {
                     return (float) BiomeHandler.biomeInfo.get(type).get(3);
                 }
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         return 0.0f;
     }
     
-    public static int getFirstFreeBiomeSlot(final int old) {
+    public static int getFirstFreeBiomeSlot(int old) {
         for (int a = 0; a < Biome.REGISTRY.getKeys().size() * 2; ++a) {
             if (Biome.getBiome(a) == null) {
                 Thaumcraft.log.warn("Biome slot " + old + " already occupied. Using first free biome slot at " + a);
@@ -83,22 +83,22 @@ public class BiomeHandler
         return -1;
     }
     
-    public static void addDimBlacklist(final int dim, final int level) {
+    public static void addDimBlacklist(int dim, int level) {
         BiomeHandler.dimensionBlacklist.put(dim, level);
     }
     
-    public static int getDimBlacklist(final int dim) {
+    public static int getDimBlacklist(int dim) {
         if (!BiomeHandler.dimensionBlacklist.containsKey(dim)) {
             return -1;
         }
         return BiomeHandler.dimensionBlacklist.get(dim);
     }
     
-    public static void addBiomeBlacklist(final int biome, final int level) {
+    public static void addBiomeBlacklist(int biome, int level) {
         BiomeHandler.biomeBlacklist.put(biome, level);
     }
     
-    public static int getBiomeBlacklist(final int biome) {
+    public static int getBiomeBlacklist(int biome) {
         if (!BiomeHandler.biomeBlacklist.containsKey(biome)) {
             return -1;
         }

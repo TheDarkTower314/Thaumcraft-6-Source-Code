@@ -37,19 +37,19 @@ public abstract class SealFiltered implements ISeal, ISealGui, ISealConfigFilter
     }
     
     @Override
-    public void readCustomNBT(final NBTTagCompound nbt) {
+    public void readCustomNBT(NBTTagCompound nbt) {
         ItemStackHelper.loadAllItems(nbt, filter = NonNullList.withSize(getFilterSize(), ItemStack.EMPTY));
-        for (final ItemStack s : filter) {
+        for (ItemStack s : filter) {
             if (s.getCount() > 1) {
                 s.setCount(1);
             }
         }
         blacklist = nbt.getBoolean("bl");
         filterSize = NonNullList.withSize(getFilterSize(), 0);
-        final NBTTagList nbttaglist = nbt.getTagList("Sizes", 10);
+        NBTTagList nbttaglist = nbt.getTagList("Sizes", 10);
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-            final NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-            final int j = nbttagcompound.getByte("Slot") & 0xFF;
+            NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
+            int j = nbttagcompound.getByte("Slot") & 0xFF;
             if (j >= 0 && j < filterSize.size()) {
                 filterSize.set(j, nbttagcompound.getInteger("Size"));
             }
@@ -57,14 +57,14 @@ public abstract class SealFiltered implements ISeal, ISealGui, ISealConfigFilter
     }
     
     @Override
-    public void writeCustomNBT(final NBTTagCompound nbt) {
+    public void writeCustomNBT(NBTTagCompound nbt) {
         ItemStackHelper.saveAllItems(nbt, filter);
         nbt.setBoolean("bl", blacklist);
-        final NBTTagList nbttaglist = new NBTTagList();
+        NBTTagList nbttaglist = new NBTTagList();
         for (int i = 0; i < filterSize.size(); ++i) {
-            final int size = filterSize.get(i);
+            int size = filterSize.get(i);
             if (size != 0) {
-                final NBTTagCompound nbttagcompound = new NBTTagCompound();
+                NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setByte("Slot", (byte)i);
                 nbttagcompound.setInteger("Size", size);
                 nbttaglist.appendTag(nbttagcompound);
@@ -74,13 +74,13 @@ public abstract class SealFiltered implements ISeal, ISealGui, ISealConfigFilter
     }
     
     @Override
-    public Object returnContainer(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing side, final ISealEntity seal) {
+    public Object returnContainer(World world, EntityPlayer player, BlockPos pos, EnumFacing side, ISealEntity seal) {
         return new SealBaseContainer(player.inventory, world, seal);
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public Object returnGui(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing side, final ISealEntity seal) {
+    public Object returnGui(World world, EntityPlayer player, BlockPos pos, EnumFacing side, ISealEntity seal) {
         return new SealBaseGUI(player.inventory, world, seal);
     }
     
@@ -105,22 +105,22 @@ public abstract class SealFiltered implements ISeal, ISealGui, ISealConfigFilter
     }
     
     @Override
-    public ItemStack getFilterSlot(final int i) {
+    public ItemStack getFilterSlot(int i) {
         return filter.get(i);
     }
     
     @Override
-    public int getFilterSlotSize(final int i) {
+    public int getFilterSlotSize(int i) {
         return filterSize.get(i);
     }
     
     @Override
-    public void setFilterSlot(final int i, final ItemStack stack) {
+    public void setFilterSlot(int i, ItemStack stack) {
         filter.set(i, stack.copy());
     }
     
     @Override
-    public void setFilterSlotSize(final int i, final int size) {
+    public void setFilterSlotSize(int i, int size) {
         filterSize.set(i, size);
     }
     
@@ -130,7 +130,7 @@ public abstract class SealFiltered implements ISeal, ISealGui, ISealConfigFilter
     }
     
     @Override
-    public void setBlacklist(final boolean black) {
+    public void setBlacklist(boolean black) {
         blacklist = black;
     }
     

@@ -34,12 +34,12 @@ import thaumcraft.common.blocks.BlockTCDevice;
 
 public class BlockMirror extends BlockTCDevice implements IBlockFacing
 {
-    public BlockMirror(final Class cls, final String name) {
+    public BlockMirror(Class cls, String name) {
         super(Material.IRON, cls, name);
         setSoundType(SoundsTC.JAR);
         setHardness(0.1f);
         setHarvestLevel(null, 0);
-        final IBlockState bs = blockState.getBaseState();
+        IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)EnumFacing.UP);
         setDefaultState(bs);
     }
@@ -48,54 +48,54 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
         return SoundsTC.JAR;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
     @Override
-    public boolean canHarvestBlock(final IBlockAccess world, final BlockPos pos, final EntityPlayer player) {
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
         return true;
     }
     
-    public EnumBlockRenderType getRenderType(final IBlockState state) {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.INVISIBLE;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
     @Override
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)facing);
         return bs;
     }
     
     @Override
-    public void onBlockAdded(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
     }
     
     @Override
-    public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
-        final EnumFacing d = BlockStateUtils.getFacing(state);
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos pos2) {
+        EnumFacing d = BlockStateUtils.getFacing(state);
         if (!worldIn.getBlockState(pos.offset(d.getOpposite())).isSideSolid(worldIn, pos.offset(d.getOpposite()), d)) {
             dropBlockAsItem(worldIn, pos, getDefaultState(), 0);
             worldIn.setBlockToAir(pos);
         }
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
-        final EnumFacing facing = BlockStateUtils.getFacing(state);
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        EnumFacing facing = BlockStateUtils.getFacing(state);
         switch (facing.ordinal()) {
             default: {
                 return new AxisAlignedBB(0.0, 0.875, 0.0, 1.0, 1.0, 1.0);
@@ -118,16 +118,16 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
         }
     }
     
-    public boolean canPlaceBlockOnSide(final World worldIn, final BlockPos pos, final EnumFacing side) {
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
         return worldIn.getBlockState(pos.offset(side.getOpposite())).isSideSolid(worldIn, pos.offset(side.getOpposite()), side);
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         return !world.isRemote || true;
     }
     
-    public void dropBlockAsItemWithChance(final World worldIn, final BlockPos pos, final IBlockState state, final float chance, final int fortune) {
-        final TileEntity te = worldIn.getTileEntity(pos);
+    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
+        TileEntity te = worldIn.getTileEntity(pos);
         if (te instanceof TileMirror || te instanceof TileMirrorEssentia) {
             dropMirror(worldIn, pos, state, te);
         }
@@ -136,7 +136,7 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
         }
     }
     
-    public void harvestBlock(final World worldIn, final EntityPlayer player, final BlockPos pos, final IBlockState state, final TileEntity te, final ItemStack stack) {
+    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
         if (te instanceof TileMirror || te instanceof TileMirrorEssentia) {
             dropMirror(worldIn, pos, state, te);
         }
@@ -145,10 +145,10 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
         }
     }
     
-    public void dropMirror(final World world, final BlockPos pos, final IBlockState state, final TileEntity te) {
+    public void dropMirror(World world, BlockPos pos, IBlockState state, TileEntity te) {
         if (tileClass == TileMirror.class) {
-            final TileMirror tm = (TileMirror)te;
-            final ItemStack drop = new ItemStack(this, 1, 0);
+            TileMirror tm = (TileMirror)te;
+            ItemStack drop = new ItemStack(this, 1, 0);
             if (tm != null && tm instanceof TileMirror) {
                 if (tm.linked) {
                     drop.setItemDamage(1);
@@ -162,8 +162,8 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
             }
         }
         else {
-            final TileMirrorEssentia tm2 = (TileMirrorEssentia)te;
-            final ItemStack drop = new ItemStack(this, 1, 0);
+            TileMirrorEssentia tm2 = (TileMirrorEssentia)te;
+            ItemStack drop = new ItemStack(this, 1, 0);
             if (tm2 != null && tm2 instanceof TileMirrorEssentia) {
                 if (tm2.linked) {
                     drop.setItemDamage(1);
@@ -178,9 +178,9 @@ public class BlockMirror extends BlockTCDevice implements IBlockFacing
         }
     }
     
-    public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
         if (!world.isRemote && tileClass == TileMirror.class && entity instanceof EntityItem && !entity.isDead && entity.timeUntilPortal == 0) {
-            final TileMirror taf = (TileMirror)world.getTileEntity(pos);
+            TileMirror taf = (TileMirror)world.getTileEntity(pos);
             if (taf != null) {
                 taf.transport((EntityItem)entity);
             }

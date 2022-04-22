@@ -84,7 +84,7 @@ public class ModelFortressArmor extends ModelCustomArmor
     private static HashMap<Integer, Integer> hasMask;
     private static HashMap<Integer, Boolean> hasGoggles;
     
-    public ModelFortressArmor(final float f) {
+    public ModelFortressArmor(float f) {
         super(f, 0, 128, 64);
         textureWidth = 128;
         textureHeight = 64;
@@ -472,11 +472,11 @@ public class ModelFortressArmor extends ModelCustomArmor
         bipedLeftLeg.addChild(BackpanelL2);
     }
     
-    private void checkSet(final Entity entity) {
+    private void checkSet(Entity entity) {
         if (entity instanceof EntityLivingBase && entity.ticksExisted % 20 == 0) {
             int set = 0;
             for (int a = 2; a < 5; ++a) {
-                final ItemStack piece = ((EntityLivingBase)entity).getItemStackFromSlot(EntityEquipmentSlot.values()[a + 1]);
+                ItemStack piece = ((EntityLivingBase)entity).getItemStackFromSlot(EntityEquipmentSlot.values()[a + 1]);
                 if (piece != null && piece.getItem() instanceof ItemFortressArmor) {
                     ++set;
                     if (a == 4) {
@@ -504,10 +504,10 @@ public class ModelFortressArmor extends ModelCustomArmor
         }
     }
     
-    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         checkSet(entity);
-        final int set = ModelFortressArmor.hasSet.containsKey(entity.getEntityId()) ? ModelFortressArmor.hasSet.get(entity.getEntityId()) : -1;
-        final int mask = ModelFortressArmor.hasMask.containsKey(entity.getEntityId()) ? ModelFortressArmor.hasMask.get(entity.getEntityId()) : -1;
+        int set = ModelFortressArmor.hasSet.containsKey(entity.getEntityId()) ? ModelFortressArmor.hasSet.get(entity.getEntityId()) : -1;
+        int mask = ModelFortressArmor.hasMask.containsKey(entity.getEntityId()) ? ModelFortressArmor.hasMask.get(entity.getEntityId()) : -1;
         Goggles.isHidden = !ModelFortressArmor.hasGoggles.containsKey(entity.getEntityId());
         for (int a = 0; a < 3; ++a) {
             if (mask == a) {
@@ -541,7 +541,7 @@ public class ModelFortressArmor extends ModelCustomArmor
         SidepanelL3.isHidden = (set < 3);
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         if (isChild) {
-            final float f6 = 2.0f;
+            float f6 = 2.0f;
             GL11.glPushMatrix();
             GL11.glScalef(1.5f / f6, 1.5f / f6, 1.5f / f6);
             GL11.glTranslatef(0.0f, 16.0f * f5, 0.0f);
@@ -572,7 +572,7 @@ public class ModelFortressArmor extends ModelCustomArmor
         }
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;

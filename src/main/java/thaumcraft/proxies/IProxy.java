@@ -13,21 +13,21 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public interface IProxy
 {
-    void preInit(final FMLPreInitializationEvent p0);
+    void preInit(FMLPreInitializationEvent p0);
     
-    void init(final FMLInitializationEvent p0);
+    void init(FMLInitializationEvent p0);
     
-    void postInit(final FMLPostInitializationEvent p0);
+    void postInit(FMLPostInitializationEvent p0);
     
     World getClientWorld();
     
     boolean getSingleplayer();
     
-    World getWorld(final int p0);
+    World getWorld(int p0);
     
     boolean isShiftKeyDown();
     
-    void registerModel(final ItemBlock p0);
+    void registerModel(ItemBlock p0);
     
-    void checkInterModComs(final FMLInterModComms.IMCEvent p0);
+    void checkInterModComs(FMLInterModComms.IMCEvent p0);
 }

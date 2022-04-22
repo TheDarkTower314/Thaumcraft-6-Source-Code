@@ -45,8 +45,8 @@ public class ModelBoreEmit extends ModelBase
         setRotation(Rod, 0.0f, 0.0f, 0.0f);
     }
     
-    public void render(final boolean focus) {
-        final float f5 = 0.0625f;
+    public void render(boolean focus) {
+        float f5 = 0.0625f;
         if (focus) {
             Knob.render(f5);
         }
@@ -56,7 +56,7 @@ public class ModelBoreEmit extends ModelBase
         Rod.render(f5);
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;

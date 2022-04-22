@@ -27,29 +27,29 @@ public class BlockStabilizer extends BlockTCDevice implements IInfusionStabilise
         setSoundType(SoundType.STONE);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
     @SideOnly(Side.CLIENT)
-    public static int colorMultiplier(final int meta) {
-        final float f = meta / 15.0f;
+    public static int colorMultiplier(int meta) {
+        float f = meta / 15.0f;
         float f2 = f * 0.5f + 0.5f;
         if (meta == 0) {
             f2 = 0.3f;
         }
-        final int i = MathHelper.clamp((int)(f2 * 255.0f), 0, 255);
-        final int j = MathHelper.clamp((int)(f2 * 255.0f), 0, 255);
-        final int k = MathHelper.clamp((int)(f2 * 255.0f), 0, 255);
+        int i = MathHelper.clamp((int)(f2 * 255.0f), 0, 255);
+        int j = MathHelper.clamp((int)(f2 * 255.0f), 0, 255);
+        int k = MathHelper.clamp((int)(f2 * 255.0f), 0, 255);
         return 0xFF000000 | i << 16 | j << 8 | k;
     }
     
@@ -57,21 +57,21 @@ public class BlockStabilizer extends BlockTCDevice implements IInfusionStabilise
         return BlockRenderLayer.CUTOUT;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public int getLightValue(final IBlockState state) {
+    public int getLightValue(IBlockState state) {
         return 4;
     }
     
     @Override
-    public boolean canStabaliseInfusion(final World world, final BlockPos pos) {
+    public boolean canStabaliseInfusion(World world, BlockPos pos) {
         return true;
     }
     
     @Override
-    public float getStabilizationAmount(final World world, final BlockPos pos) {
+    public float getStabilizationAmount(World world, BlockPos pos) {
         return 0.25f;
     }
 }

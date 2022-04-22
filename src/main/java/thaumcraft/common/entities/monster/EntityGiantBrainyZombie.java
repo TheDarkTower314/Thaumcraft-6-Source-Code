@@ -17,9 +17,9 @@ import net.minecraft.network.datasync.DataParameter;
 
 public class EntityGiantBrainyZombie extends EntityBrainyZombie
 {
-    private static final DataParameter<Float> ANGER;
+    private static DataParameter<Float> ANGER;
     
-    public EntityGiantBrainyZombie(final World world) {
+    public EntityGiantBrainyZombie(World world) {
         super(world);
         experienceValue = 15;
         tasks.addTask(2, new EntityAILeapAtTarget(this, 0.4f));
@@ -52,11 +52,11 @@ public class EntityGiantBrainyZombie extends EntityBrainyZombie
         return (float) getDataManager().get((DataParameter)EntityGiantBrainyZombie.ANGER);
     }
     
-    public void setAnger(final float par1) {
+    public void setAnger(float par1) {
         getDataManager().set(EntityGiantBrainyZombie.ANGER, par1);
     }
     
-    public boolean attackEntityFrom(final DamageSource par1DamageSource, final float par2) {
+    public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
         setAnger(Math.min(2.0f, getAnger() + 0.1f));
         return super.attackEntityFrom(par1DamageSource, par2);
     }
@@ -68,7 +68,7 @@ public class EntityGiantBrainyZombie extends EntityBrainyZombie
         getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0);
     }
     
-    protected void dropFewItems(final boolean flag, final int i) {
+    protected void dropFewItems(boolean flag, int i) {
         for (int a = 0; a < 6; ++a) {
             if (world.rand.nextBoolean()) {
                 dropItem(Items.ROTTEN_FLESH, 2);

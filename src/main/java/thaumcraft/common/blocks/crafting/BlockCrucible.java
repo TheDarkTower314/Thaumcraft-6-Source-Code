@@ -40,11 +40,11 @@ import thaumcraft.common.blocks.BlockTCTile;
 public class BlockCrucible extends BlockTCTile
 {
     private int delay;
-    protected static final AxisAlignedBB AABB_LEGS;
-    protected static final AxisAlignedBB AABB_WALL_NORTH;
-    protected static final AxisAlignedBB AABB_WALL_SOUTH;
-    protected static final AxisAlignedBB AABB_WALL_EAST;
-    protected static final AxisAlignedBB AABB_WALL_WEST;
+    protected static AxisAlignedBB AABB_LEGS;
+    protected static AxisAlignedBB AABB_WALL_NORTH;
+    protected static AxisAlignedBB AABB_WALL_SOUTH;
+    protected static AxisAlignedBB AABB_WALL_EAST;
+    protected static AxisAlignedBB AABB_WALL_WEST;
     
     public BlockCrucible() {
         super(Material.IRON, TileCrucible.class, "crucible");
@@ -52,9 +52,9 @@ public class BlockCrucible extends BlockTCTile
         setSoundType(SoundType.METAL);
     }
     
-    public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
         if (!world.isRemote) {
-            final TileCrucible tile = (TileCrucible)world.getTileEntity(pos);
+            TileCrucible tile = (TileCrucible)world.getTileEntity(pos);
             if (tile != null && entity instanceof EntityItem && !(entity instanceof EntitySpecialItem) && tile.heat > 150 && tile.tank.getFluidAmount() > 0) {
                 tile.attemptSmelt((EntityItem)entity);
             }
@@ -73,7 +73,7 @@ public class BlockCrucible extends BlockTCTile
         super.onEntityCollidedWithBlock(world, pos, state, entity);
     }
     
-    public void addCollisionBoxToList(final IBlockState state, final World worldIn, final BlockPos pos, final AxisAlignedBB AABB, final List<AxisAlignedBB> list, final Entity p_185477_6_, final boolean isActualState) {
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB AABB, List<AxisAlignedBB> list, Entity p_185477_6_, boolean isActualState) {
         addCollisionBoxToList(pos, AABB, list, BlockCrucible.AABB_LEGS);
         addCollisionBoxToList(pos, AABB, list, BlockCrucible.AABB_WALL_WEST);
         addCollisionBoxToList(pos, AABB, list, BlockCrucible.AABB_WALL_NORTH);
@@ -81,38 +81,38 @@ public class BlockCrucible extends BlockTCTile
         addCollisionBoxToList(pos, AABB, list, BlockCrucible.AABB_WALL_SOUTH);
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return BlockCrucible.FULL_BLOCK_AABB;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
     @Override
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
-        final TileEntity te = worldIn.getTileEntity(pos);
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity te = worldIn.getTileEntity(pos);
         if (te != null && te instanceof TileCrucible) {
             ((TileCrucible)te).spillRemnants();
         }
         super.breakBlock(worldIn, pos, state);
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            final FluidStack fs = FluidUtil.getFluidContained(player.getHeldItem(hand));
+            FluidStack fs = FluidUtil.getFluidContained(player.getHeldItem(hand));
             if (fs != null) {
-                final FluidStack fluidStack = fs;
-                final Fluid water = FluidRegistry.WATER;
-                final Fluid water2 = FluidRegistry.WATER;
+                FluidStack fluidStack = fs;
+                Fluid water = FluidRegistry.WATER;
+                Fluid water2 = FluidRegistry.WATER;
                 if (fluidStack.containsFluid(new FluidStack(water, 1000))) {
-                    final TileEntity te = world.getTileEntity(pos);
+                    TileEntity te = world.getTileEntity(pos);
                     if (te != null && te instanceof TileCrucible) {
-                        final TileCrucible tile = (TileCrucible)te;
+                        TileCrucible tile = (TileCrucible)te;
                         if (tile.tank.getFluidAmount() < tile.tank.getCapacity()) {
                             if (FluidUtil.interactWithFluidHandler(player, hand, tile.tank)) {
                                 player.inventoryContainer.detectAndSendChanges();
@@ -127,10 +127,10 @@ public class BlockCrucible extends BlockTCTile
                 }
             }
             if (!player.isSneaking() && !(player.getHeldItem(hand).getItem() instanceof ICaster) && side == EnumFacing.UP) {
-                final TileEntity te = world.getTileEntity(pos);
+                TileEntity te = world.getTileEntity(pos);
                 if (te != null && te instanceof TileCrucible) {
-                    final TileCrucible tile = (TileCrucible)te;
-                    final ItemStack ti = player.getHeldItem(hand).copy();
+                    TileCrucible tile = (TileCrucible)te;
+                    ItemStack ti = player.getHeldItem(hand).copy();
                     ti.setCount(1);
                     if (tile.heat > 150 && tile.tank.getFluidAmount() > 0 && tile.attemptSmelt(ti, player.getName()) == null) {
                         player.inventory.decrStackSize(player.inventory.currentItem, 1);
@@ -139,9 +139,9 @@ public class BlockCrucible extends BlockTCTile
                 }
             }
             else if (player.getHeldItem(hand).isEmpty() && player.isSneaking()) {
-                final TileEntity te = world.getTileEntity(pos);
+                TileEntity te = world.getTileEntity(pos);
                 if (te != null && te instanceof TileCrucible) {
-                    final TileCrucible tile = (TileCrucible)te;
+                    TileCrucible tile = (TileCrucible)te;
                     tile.spillRemnants();
                     return true;
                 }
@@ -151,25 +151,25 @@ public class BlockCrucible extends BlockTCTile
         return true;
     }
     
-    public boolean hasComparatorInputOverride(final IBlockState state) {
+    public boolean hasComparatorInputOverride(IBlockState state) {
         return true;
     }
     
-    public int getComparatorInputOverride(final IBlockState state, final World world, final BlockPos pos) {
-        final TileEntity te = world.getTileEntity(pos);
+    public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+        TileEntity te = world.getTileEntity(pos);
         if (te != null && te instanceof TileCrucible) {
-            final float n = (float)((TileCrucible)te).aspects.visSize();
+            float n = (float)((TileCrucible)te).aspects.visSize();
             te.getClass();
-            final float r = n / 500.0f;
+            float r = n / 500.0f;
             return MathHelper.floor(r * 14.0f) + ((((TileCrucible)te).aspects.visSize() > 0) ? 1 : 0);
         }
         return 0;
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState state, final World w, final BlockPos pos, final Random r) {
+    public void randomDisplayTick(IBlockState state, World w, BlockPos pos, Random r) {
         if (r.nextInt(10) == 0) {
-            final TileEntity te = w.getTileEntity(pos);
+            TileEntity te = w.getTileEntity(pos);
             if (te != null && te instanceof TileCrucible && ((TileCrucible)te).tank.getFluidAmount() > 0 && ((TileCrucible)te).heat > 150) {
                 w.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS, 0.1f + r.nextFloat() * 0.1f, 1.2f + r.nextFloat() * 0.2f, false);
             }

@@ -89,7 +89,7 @@ public class SoundsTC
         SoundsTC.URN = new SoundType(0.5f, 1.5f, SoundsTC.urnbreak, SoundsTC.urnbreak, SoundsTC.urnbreak, SoundsTC.urnbreak, SoundsTC.urnbreak);
     }
     
-    public static void registerSounds(final RegistryEvent.Register<SoundEvent> event) {
+    public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
         SoundsTC.zap = getRegisteredSoundEvent(event, "thaumcraft:zap");
         SoundsTC.heartbeat = getRegisteredSoundEvent(event, "thaumcraft:heartbeat");
         SoundsTC.spill = getRegisteredSoundEvent(event, "thaumcraft:spill");
@@ -157,8 +157,8 @@ public class SoundsTC
         SoundsTC.dust = getRegisteredSoundEvent(event, "thaumcraft:dust");
     }
     
-    private static SoundEvent getRegisteredSoundEvent(final RegistryEvent.Register<SoundEvent> event, final String id) {
-        final SoundEvent soundevent = new SoundEvent(new ResourceLocation(id));
+    private static SoundEvent getRegisteredSoundEvent(RegistryEvent.Register<SoundEvent> event, String id) {
+        SoundEvent soundevent = new SoundEvent(new ResourceLocation(id));
         soundevent.setRegistryName(new ResourceLocation(id));
         event.getRegistry().register(soundevent);
         return soundevent;

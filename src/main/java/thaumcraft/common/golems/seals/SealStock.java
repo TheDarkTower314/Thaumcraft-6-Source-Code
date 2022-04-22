@@ -42,14 +42,14 @@ public class SealStock extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void tickSeal(final World world, final ISealEntity seal) {
+    public void tickSeal(World world, ISealEntity seal) {
         if (delay++ % 20 != 0) {
             return;
         }
-        final IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, seal.getSealPos().pos, seal.getSealPos().face);
+        IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, seal.getSealPos().pos, seal.getSealPos().face);
         if (inv != null) {
             for (int a = 0; a < 9; ++a) {
-                final int amt = ThaumcraftInvHelper.countTotalItemsIn(inv, getFilterSlot(a), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
+                int amt = ThaumcraftInvHelper.countTotalItemsIn(inv, getFilterSlot(a), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
                 if (amt < getFilterSlotSize(a)) {
                     ItemStack fs = getFilterSlot(a).copy();
                     fs.setCount(Math.min(fs.getMaxStackSize(), getFilterSlotSize(a) - amt));
@@ -63,22 +63,22 @@ public class SealStock extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void onTaskStarted(final World world, final IGolemAPI golem, final Task task) {
+    public void onTaskStarted(World world, IGolemAPI golem, Task task) {
     }
     
     @Override
-    public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
+    public boolean onTaskCompletion(World world, IGolemAPI golem, Task task) {
         return true;
     }
     
     @Override
-    public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
+    public boolean canGolemPerformTask(IGolemAPI golem, Task task) {
         return false;
     }
     
     @Override
-    public boolean canPlaceAt(final World world, final BlockPos pos, final EnumFacing side) {
-        final IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, pos, side);
+    public boolean canPlaceAt(World world, BlockPos pos, EnumFacing side) {
+        IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, pos, side);
         return inv != null;
     }
     
@@ -103,11 +103,11 @@ public class SealStock extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void onTaskSuspension(final World world, final Task task) {
+    public void onTaskSuspension(World world, Task task) {
     }
     
     @Override
-    public void onRemoval(final World world, final BlockPos pos, final EnumFacing side) {
+    public void onRemoval(World world, BlockPos pos, EnumFacing side) {
     }
     
     @Override
@@ -126,7 +126,7 @@ public class SealStock extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void setToggle(final int indx, final boolean value) {
+    public void setToggle(int indx, boolean value) {
         props[indx].setValue(value);
     }
 }

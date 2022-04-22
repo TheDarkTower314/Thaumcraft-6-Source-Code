@@ -13,11 +13,11 @@ import thaumcraft.common.config.ModConfig;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.ARBShaderObjects;
 
-public final class ShaderHelper
+public class ShaderHelper
 {
-    private static final int VERT = 35633;
-    private static final int FRAG = 35632;
-    private static final String PREFIX = "/assets/thaumcraft/shader/";
+    private static int VERT = 35633;
+    private static int FRAG = 35632;
+    private static String PREFIX = "/assets/thaumcraft/shader/";
     public static int endShader;
     public static int sketchShader;
     
@@ -29,13 +29,13 @@ public final class ShaderHelper
         ShaderHelper.sketchShader = createProgram("sketch.vert", "sketch.frag");
     }
     
-    public static void useShader(final int shader, final ShaderCallback callback) {
+    public static void useShader(int shader, ShaderCallback callback) {
         if (!useShaders()) {
             return;
         }
         ARBShaderObjects.glUseProgramObjectARB(shader);
         if (shader != 0) {
-            final int time = ARBShaderObjects.glGetUniformLocationARB(shader, "time");
+            int time = ARBShaderObjects.glGetUniformLocationARB(shader, "time");
             ARBShaderObjects.glUniform1iARB(time, Minecraft.getMinecraft().getRenderViewEntity().ticksExisted);
             if (callback != null) {
                 callback.call(shader);
@@ -43,7 +43,7 @@ public final class ShaderHelper
         }
     }
     
-    public static void useShader(final int shader) {
+    public static void useShader(int shader) {
         useShader(shader, null);
     }
     
@@ -55,7 +55,7 @@ public final class ShaderHelper
         return !ModConfig.CONFIG_GRAPHICS.disableShaders && OpenGlHelper.shadersSupported;
     }
     
-    private static int createProgram(final String vert, final String frag) {
+    private static int createProgram(String vert, String frag) {
         int vertId = 0;
         int fragId = 0;
         int program = 0;
@@ -86,7 +86,7 @@ public final class ShaderHelper
         return program;
     }
     
-    private static int createShader(final String filename, final int shaderType) {
+    private static int createShader(String filename, int shaderType) {
         int shader = 0;
         try {
             shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
@@ -100,14 +100,14 @@ public final class ShaderHelper
             }
             return shader;
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             ARBShaderObjects.glDeleteObjectARB(shader);
             e.printStackTrace();
             return -1;
         }
     }
     
-    private static String getLogInfo(final int obj) {
+    private static String getLogInfo(int obj) {
         return ARBShaderObjects.glGetInfoLogARB(obj, ARBShaderObjects.glGetObjectParameteriARB(obj, 35716));
     }
 

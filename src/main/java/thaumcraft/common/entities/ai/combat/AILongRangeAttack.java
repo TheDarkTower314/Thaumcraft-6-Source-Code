@@ -11,10 +11,10 @@ import net.minecraft.entity.ai.EntityAIAttackRanged;
 
 public class AILongRangeAttack extends EntityAIAttackRanged
 {
-    private final EntityLiving wielder;
+    private EntityLiving wielder;
     double minDistance;
     
-    public AILongRangeAttack(final IRangedAttackMob par1IRangedAttackMob, final double min, final double p_i1650_2_, final int p_i1650_4_, final int p_i1650_5_, final float p_i1650_6_) {
+    public AILongRangeAttack(IRangedAttackMob par1IRangedAttackMob, double min, double p_i1650_2_, int p_i1650_4_, int p_i1650_5_, float p_i1650_6_) {
         super(par1IRangedAttackMob, p_i1650_2_, p_i1650_4_, p_i1650_5_, p_i1650_6_);
         minDistance = 0.0;
         minDistance = min;
@@ -22,9 +22,9 @@ public class AILongRangeAttack extends EntityAIAttackRanged
     }
     
     public boolean shouldExecute() {
-        final boolean ex = super.shouldExecute();
+        boolean ex = super.shouldExecute();
         if (ex) {
-            final EntityLivingBase var1 = wielder.getAttackTarget();
+            EntityLivingBase var1 = wielder.getAttackTarget();
             if (var1 == null) {
                 return false;
             }
@@ -32,7 +32,7 @@ public class AILongRangeAttack extends EntityAIAttackRanged
                 wielder.setAttackTarget(null);
                 return false;
             }
-            final double ra = wielder.getDistanceSq(var1.posX, var1.getEntityBoundingBox().minY, var1.posZ);
+            double ra = wielder.getDistanceSq(var1.posX, var1.getEntityBoundingBox().minY, var1.posZ);
             if (ra < minDistance * minDistance) {
                 return false;
             }

@@ -13,7 +13,7 @@ import net.minecraft.dispenser.BehaviorProjectileDispense;
 
 public class BehaviorDispenseAlumetum extends BehaviorProjectileDispense
 {
-    protected IProjectile getProjectileEntity(final World worldIn, final IPosition position, final ItemStack stackIn) {
+    protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
         return new EntityAlumentum(worldIn, position.getX(), position.getY(), position.getZ());
     }
 }

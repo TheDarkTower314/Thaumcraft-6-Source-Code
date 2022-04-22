@@ -37,15 +37,15 @@ import net.minecraft.entity.projectile.EntityThrowable;
 public class EntityFocusProjectile extends EntityThrowable implements IEntityAdditionalSpawnData
 {
     FocusPackage focusPackage;
-    private static final DataParameter<Integer> SPECIAL;
-    private static final DataParameter<Integer> OWNER;
+    private static DataParameter<Integer> SPECIAL;
+    private static DataParameter<Integer> OWNER;
     boolean noTouchy;
     private Entity target;
     boolean firstParticle;
     public float lastRenderTick;
     FocusEffect[] effects;
     
-    public EntityFocusProjectile(final World par1World) {
+    public EntityFocusProjectile(World par1World) {
         super(par1World);
         noTouchy = false;
         firstParticle = false;
@@ -54,7 +54,7 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
         setSize(0.15f, 0.15f);
     }
     
-    public EntityFocusProjectile(final FocusPackage pack, final float speed, final Trajectory trajectory, final int special) {
+    public EntityFocusProjectile(FocusPackage pack, float speed, Trajectory trajectory, int special) {
         super(pack.world, pack.getCaster());
         noTouchy = false;
         firstParticle = false;
@@ -79,7 +79,7 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
         getDataManager().register(EntityFocusProjectile.OWNER, 0);
     }
     
-    public void setOwner(final int s) {
+    public void setOwner(int s) {
         getDataManager().set(EntityFocusProjectile.OWNER, s);
     }
     
@@ -89,7 +89,7 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
     
     public EntityLivingBase getThrower() {
         if (world.isRemote) {
-            final Entity e = world.getEntityByID(getOwner());
+            Entity e = world.getEntityByID(getOwner());
             if (e != null && e instanceof EntityLivingBase) {
                 return (EntityLivingBase)e;
             }
@@ -97,7 +97,7 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
         return super.getThrower();
     }
     
-    public void setSpecial(final int s) {
+    public void setSpecial(int s) {
         getDataManager().set(EntityFocusProjectile.SPECIAL, s);
     }
     
@@ -105,42 +105,42 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
         return (int) getDataManager().get((DataParameter)EntityFocusProjectile.SPECIAL);
     }
     
-    public void writeSpawnData(final ByteBuf data) {
+    public void writeSpawnData(ByteBuf data) {
         Utils.writeNBTTagCompoundToBuffer(data, focusPackage.serialize());
     }
     
-    public void readSpawnData(final ByteBuf data) {
+    public void readSpawnData(ByteBuf data) {
         try {
             (focusPackage = new FocusPackage()).deserialize(Utils.readNBTTagCompoundFromBuffer(data));
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         nbt.setTag("pack", focusPackage.serialize());
         nbt.setInteger("special", getSpecial());
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         setSpecial(nbt.getInteger("special"));
         try {
             (focusPackage = new FocusPackage()).deserialize(nbt.getCompoundTag("pack"));
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         if (getThrower() != null) {
             setOwner(getThrower().getEntityId());
         }
     }
     
-    protected void onImpact(final RayTraceResult mop) {
+    protected void onImpact(RayTraceResult mop) {
         if (mop != null) {
             if (getSpecial() == 1 && mop.typeOfHit == RayTraceResult.Type.BLOCK) {
-                final IBlockState bs = world.getBlockState(mop.getBlockPos());
-                final AxisAlignedBB bb = bs.getCollisionBoundingBox(world, mop.getBlockPos());
+                IBlockState bs = world.getBlockState(mop.getBlockPos());
+                AxisAlignedBB bb = bs.getCollisionBoundingBox(world, mop.getBlockPos());
                 if (bb == null) {
                     return;
                 }
@@ -159,7 +159,7 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
                 motionX *= 0.9;
                 motionY *= 0.9;
                 motionZ *= 0.9;
-                final float var20 = MathHelper.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
+                float var20 = MathHelper.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
                 posX -= motionX / var20 * 0.05000000074505806;
                 posY -= motionY / var20 * 0.05000000074505806;
                 posZ -= motionZ / var20 * 0.05000000074505806;
@@ -174,8 +174,8 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
                 if (mop.entityHit != null) {
                     mop.hitVec = getPositionVector();
                 }
-                final Vec3d pv = new Vec3d(prevPosX, prevPosY, prevPosZ);
-                final Vec3d vf = new Vec3d(motionX, motionY, motionZ);
+                Vec3d pv = new Vec3d(prevPosX, prevPosY, prevPosZ);
+                Vec3d vf = new Vec3d(motionX, motionY, motionZ);
                 ServerEvents.addRunnableServer(getEntityWorld(), new Runnable() {
                     @Override
                     public void run() {
@@ -194,13 +194,13 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
         }
         firstParticle = true;
         if (target == null && ticksExisted % 5 == 0 && getSpecial() > 1) {
-            final List<EntityLivingBase> list = EntityUtils.getEntitiesInRangeSorted(getEntityWorld(), this, EntityLivingBase.class, 16.0);
-            for (final EntityLivingBase pt : list) {
+            List<EntityLivingBase> list = EntityUtils.getEntitiesInRangeSorted(getEntityWorld(), this, EntityLivingBase.class, 16.0);
+            for (EntityLivingBase pt : list) {
                 if (!pt.isDead && EntityUtils.isVisibleTo(1.75f, this, pt, 16.0f)) {
                     if (!EntityUtils.canEntityBeSeen(this, pt)) {
                         continue;
                     }
-                    final boolean f = EntityUtils.isFriendly(getThrower(), pt);
+                    boolean f = EntityUtils.isFriendly(getThrower(), pt);
                     if (f && getSpecial() == 3) {
                         target = pt;
                         break;
@@ -214,14 +214,14 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
             }
         }
         if (target != null) {
-            final double d = getDistanceSq(target);
-            final double dx = target.posX - posX;
-            final double dy = target.getEntityBoundingBox().minY + target.height * 0.6 - posY;
-            final double dz = target.posZ - posZ;
+            double d = getDistanceSq(target);
+            double dx = target.posX - posX;
+            double dy = target.getEntityBoundingBox().minY + target.height * 0.6 - posY;
+            double dz = target.posZ - posZ;
             Vec3d v = new Vec3d(dx, dy, dz);
             v = v.normalize();
             Vec3d mv = new Vec3d(motionX, motionY, motionZ);
-            final double lv = mv.lengthVector();
+            double lv = mv.lengthVector();
             mv = mv.normalize().add(v.scale(0.275));
             mv = mv.normalize().scale(lv);
             motionX = mv.x;
@@ -237,15 +237,15 @@ public class EntityFocusProjectile extends EntityThrowable implements IEntityAdd
         return new Vec3d(motionX, motionY, motionZ).normalize();
     }
     
-    public void renderParticle(final float coeff) {
+    public void renderParticle(float coeff) {
         lastRenderTick = coeff;
         if (effects == null) {
             effects = focusPackage.getFocusEffects();
         }
         if (effects != null && effects.length > 0) {
-            final FocusEffect eff = effects[rand.nextInt(effects.length)];
-            final float scale = 1.0f;
-            final Color c1 = new Color(FocusEngine.getElementColor(eff.getKey()));
+            FocusEffect eff = effects[rand.nextInt(effects.length)];
+            float scale = 1.0f;
+            Color c1 = new Color(FocusEngine.getElementColor(eff.getKey()));
             FXDispatcher.INSTANCE.drawFireMote((float)(prevPosX + (posX - prevPosX) * coeff), (float)(prevPosY + (posY - prevPosY) * coeff) + height / 2.0f, (float)(prevPosZ + (posZ - prevPosZ) * coeff), 0.0125f * (rand.nextFloat() - 0.5f) * scale, 0.0125f * (rand.nextFloat() - 0.5f) * scale, 0.0125f * (rand.nextFloat() - 0.5f) * scale, c1.getRed() / 255.0f, c1.getGreen() / 255.0f, c1.getBlue() / 255.0f, 0.5f, 7.0f * scale);
             if (firstParticle) {
                 firstParticle = false;

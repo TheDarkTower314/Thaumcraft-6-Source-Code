@@ -73,7 +73,7 @@ public class ModelPech extends ModelBiped
         setRotation(bipedLeftArm, 0.0f, 0.0f, 0.0f);
     }
     
-    public void render(final Entity par1Entity, final float par2, final float par3, final float par4, final float par5, final float par6, final float par7) {
+    public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7) {
         setRotationAngles(par2, par3, par4, par5, par6, par7, par1Entity);
         bipedBody.render(par7);
         bipedRightLeg.render(par7);
@@ -86,13 +86,13 @@ public class ModelPech extends ModelBiped
         bipedLeftArm.render(par7);
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;
     }
     
-    public void setRotationAngles(final float par1, final float par2, final float par3, final float par4, final float par5, final float par6, final Entity entity) {
+    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
         bipedHead.rotateAngleY = par4 / 57.295776f;
         bipedHead.rotateAngleX = par5 / 57.295776f;
         float mumble = 0.0f;
@@ -112,9 +112,9 @@ public class ModelPech extends ModelBiped
         LowerPack.rotateAngleY = MathHelper.cos(par1 * 0.6662f) * 2.0f * par2 * 0.125f;
         LowerPack.rotateAngleZ = MathHelper.cos(par1 * 0.6662f) * 2.0f * par2 * 0.125f;
         if (isRiding) {
-            final ModelRenderer bipedRightArm = this.bipedRightArm;
+            ModelRenderer bipedRightArm = this.bipedRightArm;
             bipedRightArm.rotateAngleX -= 0.62831855f;
-            final ModelRenderer bipedLeftArm = this.bipedLeftArm;
+            ModelRenderer bipedLeftArm = this.bipedLeftArm;
             bipedLeftArm.rotateAngleX -= 0.62831855f;
             bipedRightLeg.rotateAngleX = -1.2566371f;
             bipedLeftLeg.rotateAngleX = -1.2566371f;
@@ -125,36 +125,36 @@ public class ModelPech extends ModelBiped
         bipedLeftArm.rotateAngleY = 0.0f;
         if (swingProgress > -9990.0f) {
             float f6 = swingProgress;
-            final ModelRenderer bipedRightArm2 = bipedRightArm;
+            ModelRenderer bipedRightArm2 = bipedRightArm;
             bipedRightArm2.rotateAngleY += bipedBody.rotateAngleY;
-            final ModelRenderer bipedLeftArm2 = bipedLeftArm;
+            ModelRenderer bipedLeftArm2 = bipedLeftArm;
             bipedLeftArm2.rotateAngleY += bipedBody.rotateAngleY;
-            final ModelRenderer bipedLeftArm3 = bipedLeftArm;
+            ModelRenderer bipedLeftArm3 = bipedLeftArm;
             bipedLeftArm3.rotateAngleX += bipedBody.rotateAngleY;
             f6 = 1.0f - swingProgress;
             f6 *= f6;
             f6 *= f6;
             f6 = 1.0f - f6;
-            final float f7 = MathHelper.sin(f6 * 3.1415927f);
-            final float f8 = MathHelper.sin(swingProgress * 3.1415927f) * -(bipedHead.rotateAngleX - 0.7f) * 0.75f;
+            float f7 = MathHelper.sin(f6 * 3.1415927f);
+            float f8 = MathHelper.sin(swingProgress * 3.1415927f) * -(bipedHead.rotateAngleX - 0.7f) * 0.75f;
             bipedRightArm.rotateAngleX -= (float)(f7 * 1.2 + f8);
-            final ModelRenderer bipedRightArm3 = bipedRightArm;
+            ModelRenderer bipedRightArm3 = bipedRightArm;
             bipedRightArm3.rotateAngleY += bipedBody.rotateAngleY * 2.0f;
             bipedRightArm.rotateAngleZ = MathHelper.sin(swingProgress * 3.1415927f) * -0.4f;
         }
         if (entity.isSneaking()) {
-            final ModelRenderer bipedRightArm4 = bipedRightArm;
+            ModelRenderer bipedRightArm4 = bipedRightArm;
             bipedRightArm4.rotateAngleX += 0.4f;
-            final ModelRenderer bipedLeftArm4 = bipedLeftArm;
+            ModelRenderer bipedLeftArm4 = bipedLeftArm;
             bipedLeftArm4.rotateAngleX += 0.4f;
         }
-        final ModelRenderer bipedRightArm5 = bipedRightArm;
+        ModelRenderer bipedRightArm5 = bipedRightArm;
         bipedRightArm5.rotateAngleZ += MathHelper.cos(par3 * 0.09f) * 0.05f + 0.05f;
-        final ModelRenderer bipedLeftArm5 = bipedLeftArm;
+        ModelRenderer bipedLeftArm5 = bipedLeftArm;
         bipedLeftArm5.rotateAngleZ -= MathHelper.cos(par3 * 0.09f) * 0.05f + 0.05f;
-        final ModelRenderer bipedRightArm6 = bipedRightArm;
+        ModelRenderer bipedRightArm6 = bipedRightArm;
         bipedRightArm6.rotateAngleX += MathHelper.sin(par3 * 0.067f) * 0.05f;
-        final ModelRenderer bipedLeftArm6 = bipedLeftArm;
+        ModelRenderer bipedLeftArm6 = bipedLeftArm;
         bipedLeftArm6.rotateAngleX -= MathHelper.sin(par3 * 0.067f) * 0.05f;
     }
 }

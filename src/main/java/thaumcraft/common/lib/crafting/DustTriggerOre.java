@@ -24,34 +24,34 @@ public class DustTriggerOre implements IDustTrigger
     ItemStack result;
     String research;
     
-    public DustTriggerOre(final String research, final String target, final ItemStack result) {
+    public DustTriggerOre(String research, String target, ItemStack result) {
         this.target = target;
         this.result = result;
         this.research = research;
     }
     
     @Override
-    public Placement getValidFace(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing face) {
-        final IBlockState bs = world.getBlockState(pos);
+    public Placement getValidFace(World world, EntityPlayer player, BlockPos pos, EnumFacing face) {
+        IBlockState bs = world.getBlockState(pos);
         boolean b = false;
         try {
-            final int[] oreIDs;
-            final int[] ods = oreIDs = OreDictionary.getOreIDs(new ItemStack(bs.getBlock(), 1, bs.getBlock().damageDropped(bs)));
-            for (final int q : oreIDs) {
+            int[] oreIDs;
+            int[] ods = oreIDs = OreDictionary.getOreIDs(new ItemStack(bs.getBlock(), 1, bs.getBlock().damageDropped(bs)));
+            for (int q : oreIDs) {
                 if (q == OreDictionary.getOreID(target)) {
                     b = true;
                     break;
                 }
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         return (b && (research == null || ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(research))) ? new Placement(0, 0, 0, null) : null;
     }
     
     @Override
-    public void execute(final World world, final EntityPlayer player, final BlockPos pos, final Placement placement, final EnumFacing side) {
+    public void execute(World world, EntityPlayer player, BlockPos pos, Placement placement, EnumFacing side) {
         FMLCommonHandler.instance().firePlayerCraftingEvent(player, result, new InventoryFake(1));
-        final IBlockState state = world.getBlockState(pos);
+        IBlockState state = world.getBlockState(pos);
         ServerEvents.addRunnableServer(world, new Runnable() {
             @Override
             public void run() {

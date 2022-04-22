@@ -15,7 +15,7 @@ import net.minecraft.item.ItemHoe;
 
 public class ItemThaumiumHoe extends ItemHoe implements IThaumcraftItems
 {
-    public ItemThaumiumHoe(final Item.ToolMaterial enumtoolmaterial) {
+    public ItemThaumiumHoe(Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
         setCreativeTab(ConfigItems.TABTC);
         setRegistryName("thaumium_hoe");
@@ -39,11 +39,11 @@ public class ItemThaumiumHoe extends ItemHoe implements IThaumcraftItems
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 0)) || super.getIsRepairable(stack1, stack2);
     }
 }

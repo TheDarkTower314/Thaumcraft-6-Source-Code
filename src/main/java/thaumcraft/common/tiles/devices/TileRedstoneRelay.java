@@ -29,13 +29,13 @@ public class TileRedstoneRelay extends TileThaumcraft
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbt) {
+    public void readSyncNBT(NBTTagCompound nbt) {
         setIn(nbt.getByte("in"));
         setOut(nbt.getByte("out"));
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbt) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbt) {
         nbt.setByte("in", (byte) getIn());
         nbt.setByte("out", (byte) getOut());
         return nbt;
@@ -63,17 +63,17 @@ public class TileRedstoneRelay extends TileThaumcraft
         }
     }
     
-    public RayTraceResult rayTrace(final World world, final Vec3d vec3d, final Vec3d vec3d1, final RayTraceResult fullblock) {
+    public RayTraceResult rayTrace(World world, Vec3d vec3d, Vec3d vec3d1, RayTraceResult fullblock) {
         return fullblock;
     }
     
-    public void addTraceableCuboids(final List<IndexedCuboid6> cuboids) {
-        final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
+    public void addTraceableCuboids(List<IndexedCuboid6> cuboids) {
+        EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
         cuboids.add(new IndexedCuboid6(0, getCuboid0(facing)));
         cuboids.add(new IndexedCuboid6(1, getCuboid1(facing)));
     }
     
-    public Cuboid6 getCuboid0(final EnumFacing facing) {
+    public Cuboid6 getCuboid0(EnumFacing facing) {
         Transformation rot = Rotation.quarterRotations[0];
         switch (facing) {
             case WEST: {
@@ -92,7 +92,7 @@ public class TileRedstoneRelay extends TileThaumcraft
         return new Cuboid6(-0.375, 0.0625, -0.375, -0.125, 0.25, -0.125).apply(rot).add(new Vector3(getPos().getX() + 0.5, getPos().getY(), getPos().getZ() + 0.5));
     }
     
-    public Cuboid6 getCuboid1(final EnumFacing facing) {
+    public Cuboid6 getCuboid1(EnumFacing facing) {
         Transformation rot = Rotation.quarterRotations[0];
         switch (facing) {
             case WEST: {
@@ -115,7 +115,7 @@ public class TileRedstoneRelay extends TileThaumcraft
         return out;
     }
     
-    public void setOut(final int out) {
+    public void setOut(int out) {
         this.out = out;
     }
     
@@ -123,7 +123,7 @@ public class TileRedstoneRelay extends TileThaumcraft
         return in;
     }
     
-    public void setIn(final int in) {
+    public void setIn(int in) {
         this.in = in;
     }
 }

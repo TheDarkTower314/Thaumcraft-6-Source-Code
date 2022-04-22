@@ -33,7 +33,7 @@ public class GuiHoverButton extends GuiButton
     int color;
     Object tex;
     
-    public GuiHoverButton(final GuiScreen screen, final int buttonId, final int x, final int y, final int width, final int height, final String buttonText, final String description, final Object tex) {
+    public GuiHoverButton(GuiScreen screen, int buttonId, int x, int y, int width, int height, String buttonText, String description, Object tex) {
         super(buttonId, x, y, width, height, buttonText);
         this.tex = null;
         this.description = description;
@@ -42,7 +42,7 @@ public class GuiHoverButton extends GuiButton
         color = 16777215;
     }
     
-    public GuiHoverButton(final GuiScreen screen, final int buttonId, final int x, final int y, final int width, final int height, final String buttonText, final String description, final Object tex, final int color) {
+    public GuiHoverButton(GuiScreen screen, int buttonId, int x, int y, int width, int height, String buttonText, String description, Object tex, int color) {
         super(buttonId, x, y, width, height, buttonText);
         this.tex = null;
         this.description = description;
@@ -51,13 +51,13 @@ public class GuiHoverButton extends GuiButton
         this.color = color;
     }
     
-    public void drawButton(final Minecraft mc, final int xx, final int yy, final float pt) {
+    public void drawButton(Minecraft mc, int xx, int yy, float pt) {
         if (visible) {
-            final FontRenderer fontrenderer = mc.fontRenderer;
-            final Color c = new Color(color);
+            FontRenderer fontrenderer = mc.fontRenderer;
+            Color c = new Color(color);
             GlStateManager.color(0.9f * (c.getRed() / 255.0f), 0.9f * (c.getGreen() / 255.0f), 0.9f * (c.getBlue() / 255.0f), 0.9f);
             hovered = (xx >= x - width / 2 && yy >= y - height / 2 && xx < x - width / 2 + width && yy < y - height / 2 + height);
-            final int k = getHoverState(hovered);
+            int k = getHoverState(hovered);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.blendFunc(770, 771);
@@ -66,7 +66,7 @@ public class GuiHoverButton extends GuiButton
             }
             if (tex instanceof Aspect) {
                 mc.getTextureManager().bindTexture(((Aspect) tex).getImage());
-                final Color c2 = new Color(((Aspect) tex).getColor());
+                Color c2 = new Color(((Aspect) tex).getColor());
                 if (k != 2) {
                     GlStateManager.color(c2.getRed() / 290.0f, c2.getGreen() / 290.0f, c2.getBlue() / 290.0f, 0.9f);
                 }
@@ -92,14 +92,14 @@ public class GuiHoverButton extends GuiButton
         }
     }
     
-    public void drawButtonForegroundLayer(final int xx, final int yy) {
-        final FontRenderer fontrenderer = Minecraft.getMinecraft().fontRenderer;
+    public void drawButtonForegroundLayer(int xx, int yy) {
+        FontRenderer fontrenderer = Minecraft.getMinecraft().fontRenderer;
         zLevel += 90.0f;
         List<String> text = new ArrayList<String>();
         if (tex instanceof ItemStack) {
             text = ((ItemStack) tex).getTooltip(Minecraft.getMinecraft().player, Minecraft.getMinecraft().gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
             int qq = 0;
-            for (final String s : text) {
+            for (String s : text) {
                 if (s.endsWith(" " + TextFormatting.RESET)) {
                     text = text.subList(0, qq);
                     break;
@@ -122,7 +122,7 @@ public class GuiHoverButton extends GuiButton
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
     }
     
-    public boolean mousePressed(final Minecraft mc, final int mouseX, final int mouseY) {
+    public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         return false;
     }
 }

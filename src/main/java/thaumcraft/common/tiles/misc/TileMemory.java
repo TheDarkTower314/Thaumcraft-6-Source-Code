@@ -19,19 +19,19 @@ public class TileMemory extends TileEntity
         oldblock = Blocks.AIR.getDefaultState();
     }
     
-    public TileMemory(final IBlockState bi) {
+    public TileMemory(IBlockState bi) {
         oldblock = Blocks.AIR.getDefaultState();
         oldblock = bi;
     }
     
-    public void readFromNBT(final NBTTagCompound nbttagcompound) {
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
-        final Block b = Block.getBlockById(nbttagcompound.getInteger("oldblock"));
-        final int meta = nbttagcompound.getInteger("oldmeta");
+        Block b = Block.getBlockById(nbttagcompound.getInteger("oldblock"));
+        int meta = nbttagcompound.getInteger("oldmeta");
         oldblock = b.getStateFromMeta(meta);
     }
     
-    public NBTTagCompound writeToNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
         nbttagcompound.setInteger("oldblock", Block.getIdFromBlock(oldblock.getBlock()));
         nbttagcompound.setInteger("oldmeta", oldblock.getBlock().getMetaFromState(oldblock));

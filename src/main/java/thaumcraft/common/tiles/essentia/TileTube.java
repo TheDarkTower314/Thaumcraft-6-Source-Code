@@ -38,7 +38,7 @@ import thaumcraft.common.tiles.TileThaumcraft;
 
 public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInteractWithCaster, ITickable
 {
-    public static final int freq = 5;
+    public static int freq = 5;
     public EnumFacing facing;
     public boolean[] openSides;
     Aspect essentiaType;
@@ -62,11 +62,11 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         essentiaType = Aspect.getAspect(nbttagcompound.getString("type"));
         essentiaAmount = nbttagcompound.getInteger("amount");
         facing = EnumFacing.VALUES[nbttagcompound.getInteger("side")];
-        final byte[] sides = nbttagcompound.getByteArray("open");
+        byte[] sides = nbttagcompound.getByteArray("open");
         if (sides != null && sides.length == 6) {
             for (int a = 0; a < 6; ++a) {
                 openSides[a] = (sides[a] == 1);
@@ -75,12 +75,12 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         if (essentiaType != null) {
             nbttagcompound.setString("type", essentiaType.getTag());
         }
         nbttagcompound.setInteger("amount", essentiaAmount);
-        final byte[] sides = new byte[6];
+        byte[] sides = new byte[6];
         for (int a = 0; a < 6; ++a) {
             sides[a] = (byte)(openSides[a] ? 1 : 0);
         }
@@ -90,14 +90,14 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
     }
     
     @Override
-    public void readFromNBT(final NBTTagCompound nbttagcompound) {
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
         suctionType = Aspect.getAspect(nbttagcompound.getString("stype"));
         suction = nbttagcompound.getInteger("samount");
     }
     
     @Override
-    public NBTTagCompound writeToNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
         if (suctionType != null) {
             nbttagcompound.setString("stype", suctionType.getTag());
@@ -128,17 +128,17 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
             }
         }
         else if (venting > 0) {
-            final Random r = new Random(hashCode() * 4);
-            final float rp = r.nextFloat() * 360.0f;
-            final float ry = r.nextFloat() * 360.0f;
-            final double fx = -MathHelper.sin(ry / 180.0f * 3.1415927f) * MathHelper.cos(rp / 180.0f * 3.1415927f);
-            final double fz = MathHelper.cos(ry / 180.0f * 3.1415927f) * MathHelper.cos(rp / 180.0f * 3.1415927f);
-            final double fy = -MathHelper.sin(rp / 180.0f * 3.1415927f);
+            Random r = new Random(hashCode() * 4);
+            float rp = r.nextFloat() * 360.0f;
+            float ry = r.nextFloat() * 360.0f;
+            double fx = -MathHelper.sin(ry / 180.0f * 3.1415927f) * MathHelper.cos(rp / 180.0f * 3.1415927f);
+            double fz = MathHelper.cos(ry / 180.0f * 3.1415927f) * MathHelper.cos(rp / 180.0f * 3.1415927f);
+            double fy = -MathHelper.sin(rp / 180.0f * 3.1415927f);
             FXDispatcher.INSTANCE.drawVentParticles(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, fx / 5.0, fy / 5.0, fz / 5.0, ventColor);
         }
     }
     
-    void calculateSuction(final Aspect filter, final boolean restrict, final boolean directional) {
+    void calculateSuction(Aspect filter, boolean restrict, boolean directional) {
         suction = 0;
         suctionType = null;
         EnumFacing loc = null;
@@ -147,13 +147,13 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
                 loc = EnumFacing.VALUES[dir];
                 if (!directional || facing == loc.getOpposite()) {
                     if (isConnectable(loc)) {
-                        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, pos, loc);
+                        TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, pos, loc);
                         if (te != null) {
-                            final IEssentiaTransport ic = (IEssentiaTransport)te;
+                            IEssentiaTransport ic = (IEssentiaTransport)te;
                             if (filter == null || ic.getSuctionType(loc.getOpposite()) == null || ic.getSuctionType(loc.getOpposite()) == filter) {
                                 if (filter != null || getEssentiaAmount(loc) <= 0 || ic.getSuctionType(loc.getOpposite()) == null || getEssentiaType(loc) == ic.getSuctionType(loc.getOpposite())) {
                                     if (filter == null || getEssentiaAmount(loc) <= 0 || getEssentiaType(loc) == null || ic.getSuctionType(loc.getOpposite()) == null || getEssentiaType(loc) == ic.getSuctionType(loc.getOpposite())) {
-                                        final int suck = ic.getSuctionAmount(loc.getOpposite());
+                                        int suck = ic.getSuctionAmount(loc.getOpposite());
                                         if (suck > 0 && suck > suction + 1) {
                                             Aspect st = ic.getSuctionType(loc.getOpposite());
                                             if (st == null) {
@@ -168,7 +168,7 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
                     }
                 }
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
         }
     }
     
@@ -178,10 +178,10 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
             try {
                 loc = EnumFacing.VALUES[dir];
                 if (isConnectable(loc)) {
-                    final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, pos, loc);
+                    TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, pos, loc);
                     if (te != null) {
-                        final IEssentiaTransport ic = (IEssentiaTransport)te;
-                        final int suck = ic.getSuctionAmount(loc.getOpposite());
+                        IEssentiaTransport ic = (IEssentiaTransport)te;
+                        int suck = ic.getSuctionAmount(loc.getOpposite());
                         if (suction > 0 && (suck == suction || suck == suction - 1) && suctionType != ic.getSuctionType(loc.getOpposite()) && !(te instanceof TileTubeFilter)) {
                             int c = -1;
                             if (suctionType != null) {
@@ -193,11 +193,11 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
                     }
                 }
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
         }
     }
     
-    void equalizeWithNeighbours(final boolean directional) {
+    void equalizeWithNeighbours(boolean directional) {
         EnumFacing loc = null;
         if (essentiaAmount > 0) {
             return;
@@ -207,9 +207,9 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
                 loc = EnumFacing.VALUES[dir];
                 if (!directional || facing != loc.getOpposite()) {
                     if (isConnectable(loc)) {
-                        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, pos, loc);
+                        TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, pos, loc);
                         if (te != null) {
-                            final IEssentiaTransport ic = (IEssentiaTransport)te;
+                            IEssentiaTransport ic = (IEssentiaTransport)te;
                             if (ic.canOutputTo(loc.getOpposite())) {
                                 if ((getSuctionType(null) == null || getSuctionType(null) == ic.getEssentiaType(loc.getOpposite()) || ic.getEssentiaType(loc.getOpposite()) == null) && getSuctionAmount(null) > ic.getSuctionAmount(loc.getOpposite()) && getSuctionAmount(null) >= ic.getMinimumSuction()) {
                                     Aspect a = getSuctionType(null);
@@ -219,7 +219,7 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
                                             a = ic.getEssentiaType(null);
                                         }
                                     }
-                                    final int am = addEssentia(a, ic.takeEssentia(a, 1, loc.getOpposite()), loc);
+                                    int am = addEssentia(a, ic.takeEssentia(a, 1, loc.getOpposite()), loc);
                                     if (am > 0) {
                                         if (world.rand.nextInt(100) == 0) {
                                             world.addBlockEvent(pos, BlocksTC.tube, 0, 0);
@@ -232,53 +232,53 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
                     }
                 }
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
         }
     }
     
     @Override
-    public boolean isConnectable(final EnumFacing face) {
+    public boolean isConnectable(EnumFacing face) {
         return face != null && openSides[face.ordinal()];
     }
     
     @Override
-    public boolean canInputFrom(final EnumFacing face) {
+    public boolean canInputFrom(EnumFacing face) {
         return face != null && openSides[face.ordinal()];
     }
     
     @Override
-    public boolean canOutputTo(final EnumFacing face) {
+    public boolean canOutputTo(EnumFacing face) {
         return face != null && openSides[face.ordinal()];
     }
     
     @Override
-    public void setSuction(final Aspect aspect, final int amount) {
+    public void setSuction(Aspect aspect, int amount) {
         suctionType = aspect;
         suction = amount;
     }
     
     @Override
-    public Aspect getSuctionType(final EnumFacing loc) {
+    public Aspect getSuctionType(EnumFacing loc) {
         return suctionType;
     }
     
     @Override
-    public int getSuctionAmount(final EnumFacing loc) {
+    public int getSuctionAmount(EnumFacing loc) {
         return suction;
     }
     
     @Override
-    public Aspect getEssentiaType(final EnumFacing loc) {
+    public Aspect getEssentiaType(EnumFacing loc) {
         return essentiaType;
     }
     
     @Override
-    public int getEssentiaAmount(final EnumFacing loc) {
+    public int getEssentiaAmount(EnumFacing loc) {
         return essentiaAmount;
     }
     
     @Override
-    public int takeEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
+    public int takeEssentia(Aspect aspect, int amount, EnumFacing face) {
         if (canOutputTo(face) && essentiaType == aspect && essentiaAmount > 0 && amount > 0) {
             --essentiaAmount;
             if (essentiaAmount <= 0) {
@@ -291,7 +291,7 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
     }
     
     @Override
-    public int addEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
+    public int addEssentia(Aspect aspect, int amount, EnumFacing face) {
         if (canInputFrom(face) && essentiaAmount == 0 && amount > 0) {
             essentiaType = aspect;
             ++essentiaAmount;
@@ -306,7 +306,7 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
         return 0;
     }
     
-    public boolean receiveClientEvent(final int i, final int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i == 0) {
             if (world.isRemote) {
                 world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundsTC.creak, SoundCategory.AMBIENT, 1.0f, 1.3f + world.rand.nextFloat() * 0.2f, false);
@@ -332,8 +332,8 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
     }
     
     @Override
-    public boolean onCasterRightClick(final World world, final ItemStack wandstack, final EntityPlayer player, final BlockPos bp, final EnumFacing side, final EnumHand hand) {
-        final RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
+    public boolean onCasterRightClick(World world, ItemStack wandstack, EntityPlayer player, BlockPos bp, EnumFacing side, EnumHand hand) {
+        RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
         if (hit == null) {
             return false;
         }
@@ -343,8 +343,8 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
             markDirty();
             syncTile(true);
             openSides[hit.subHit] = !openSides[hit.subHit];
-            final EnumFacing dir = EnumFacing.VALUES[hit.subHit];
-            final TileEntity tile = world.getTileEntity(pos.offset(dir));
+            EnumFacing dir = EnumFacing.VALUES[hit.subHit];
+            TileEntity tile = world.getTileEntity(pos.offset(dir));
             if (tile != null && tile instanceof TileTube) {
                 ((TileTube)tile).openSides[dir.getOpposite().ordinal()] = openSides[hit.subHit];
                 ((TileTube)tile).syncTile(true);
@@ -376,18 +376,18 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
         return new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1);
     }
     
-    public RayTraceResult rayTrace(final World world, final Vec3d vec3d, final Vec3d vec3d1, final RayTraceResult fullblock) {
+    public RayTraceResult rayTrace(World world, Vec3d vec3d, Vec3d vec3d1, RayTraceResult fullblock) {
         return fullblock;
     }
     
-    public boolean canConnectSide(final EnumFacing side) {
-        final TileEntity tile = world.getTileEntity(pos.offset(side));
+    public boolean canConnectSide(EnumFacing side) {
+        TileEntity tile = world.getTileEntity(pos.offset(side));
         return tile != null && tile instanceof IEssentiaTransport;
     }
     
-    public void addTraceableCuboids(final List<IndexedCuboid6> cuboids) {
-        final float min = 0.375f;
-        final float max = 0.625f;
+    public void addTraceableCuboids(List<IndexedCuboid6> cuboids) {
+        float min = 0.375f;
+        float max = 0.625f;
         if (canConnectSide(EnumFacing.DOWN)) {
             cuboids.add(new IndexedCuboid6(0, new Cuboid6(pos.getX() + min, pos.getY(), pos.getZ() + min, pos.getX() + max, pos.getY() + 0.375, pos.getZ() + max)));
         }

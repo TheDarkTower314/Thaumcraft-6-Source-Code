@@ -16,17 +16,17 @@ public class WorldGenCustomFlowers extends WorldGenerator
     private Block plantBlock;
     private int plantBlockMeta;
     
-    public WorldGenCustomFlowers(final Block bi, final int md) {
+    public WorldGenCustomFlowers(Block bi, int md) {
         plantBlock = bi;
         plantBlockMeta = md;
     }
     
-    public boolean generate(final World world, final Random par2Random, final BlockPos pos) {
+    public boolean generate(World world, Random par2Random, BlockPos pos) {
         for (int var6 = 0; var6 < 18; ++var6) {
-            final int var7 = pos.getX() + par2Random.nextInt(8) - par2Random.nextInt(8);
-            final int var8 = pos.getY() + par2Random.nextInt(4) - par2Random.nextInt(4);
-            final int var9 = pos.getZ() + par2Random.nextInt(8) - par2Random.nextInt(8);
-            final BlockPos bp = new BlockPos(var7, var8, var9);
+            int var7 = pos.getX() + par2Random.nextInt(8) - par2Random.nextInt(8);
+            int var8 = pos.getY() + par2Random.nextInt(4) - par2Random.nextInt(4);
+            int var9 = pos.getZ() + par2Random.nextInt(8) - par2Random.nextInt(8);
+            BlockPos bp = new BlockPos(var7, var8, var9);
             if (world.isAirBlock(bp) && (world.getBlockState(bp.down()).getBlock() == Blocks.GRASS || world.getBlockState(bp.down()).getBlock() == Blocks.SAND)) {
                 world.setBlockState(bp, plantBlock.getStateFromMeta(plantBlockMeta), 3);
             }

@@ -42,11 +42,11 @@ public class ItemThaumometer extends ItemTCBase
         setMaxStackSize(1);
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.UNCOMMON;
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer p, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer p, EnumHand hand) {
         if (world.isRemote) {
             drawFX(world, p);
             p.world.playSound(p.posX, p.posY, p.posZ, SoundsTC.scan, SoundCategory.PLAYERS, 0.5f, 1.0f, false);
@@ -57,44 +57,44 @@ public class ItemThaumometer extends ItemTCBase
         return (ActionResult<ItemStack>)new ActionResult(EnumActionResult.SUCCESS, p.getHeldItem(hand));
     }
     
-    public void onUpdate(final ItemStack stack, final World world, final Entity entity, final int itemSlot, final boolean isSelected) {
-        final boolean held = isSelected || itemSlot == 0;
+    public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
+        boolean held = isSelected || itemSlot == 0;
         if (held && !world.isRemote && entity.ticksExisted % 20 == 0 && entity instanceof EntityPlayerMP) {
             updateAura(stack, world, (EntityPlayerMP)entity);
         }
         if (held && world.isRemote && entity.ticksExisted % 5 == 0 && entity instanceof EntityPlayer) {
-            final Entity target = EntityUtils.getPointedEntity(world, entity, 1.0, 16.0, 5.0f, true);
+            Entity target = EntityUtils.getPointedEntity(world, entity, 1.0, 16.0, 5.0f, true);
             if (target != null && ScanningManager.isThingStillScannable((EntityPlayer)entity, target)) {
                 FXDispatcher.INSTANCE.scanHighlight(target);
             }
             RenderEventHandler.thaumTarget = target;
-            final RayTraceResult mop = getRayTraceResultFromPlayerWild(world, (EntityPlayer)entity, true);
+            RayTraceResult mop = getRayTraceResultFromPlayerWild(world, (EntityPlayer)entity, true);
             if (mop != null && mop.getBlockPos() != null && ScanningManager.isThingStillScannable((EntityPlayer)entity, mop.getBlockPos())) {
                 FXDispatcher.INSTANCE.scanHighlight(mop.getBlockPos());
             }
         }
     }
     
-    protected RayTraceResult getRayTraceResultFromPlayerWild(final World worldIn, final EntityPlayer playerIn, final boolean useLiquids) {
-        final float f = playerIn.prevRotationPitch + (playerIn.rotationPitch - playerIn.prevRotationPitch) + worldIn.rand.nextInt(25) - worldIn.rand.nextInt(25);
-        final float f2 = playerIn.prevRotationYaw + (playerIn.rotationYaw - playerIn.prevRotationYaw) + worldIn.rand.nextInt(25) - worldIn.rand.nextInt(25);
-        final double d0 = playerIn.prevPosX + (playerIn.posX - playerIn.prevPosX);
-        final double d2 = playerIn.prevPosY + (playerIn.posY - playerIn.prevPosY) + playerIn.getEyeHeight();
-        final double d3 = playerIn.prevPosZ + (playerIn.posZ - playerIn.prevPosZ);
-        final Vec3d vec3 = new Vec3d(d0, d2, d3);
-        final float f3 = MathHelper.cos(-f2 * 0.017453292f - 3.1415927f);
-        final float f4 = MathHelper.sin(-f2 * 0.017453292f - 3.1415927f);
-        final float f5 = -MathHelper.cos(-f * 0.017453292f);
-        final float f6 = MathHelper.sin(-f * 0.017453292f);
-        final float f7 = f4 * f5;
-        final float f8 = f3 * f5;
-        final double d4 = 16.0;
-        final Vec3d vec4 = vec3.addVector(f7 * d4, f6 * d4, f8 * d4);
+    protected RayTraceResult getRayTraceResultFromPlayerWild(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+        float f = playerIn.prevRotationPitch + (playerIn.rotationPitch - playerIn.prevRotationPitch) + worldIn.rand.nextInt(25) - worldIn.rand.nextInt(25);
+        float f2 = playerIn.prevRotationYaw + (playerIn.rotationYaw - playerIn.prevRotationYaw) + worldIn.rand.nextInt(25) - worldIn.rand.nextInt(25);
+        double d0 = playerIn.prevPosX + (playerIn.posX - playerIn.prevPosX);
+        double d2 = playerIn.prevPosY + (playerIn.posY - playerIn.prevPosY) + playerIn.getEyeHeight();
+        double d3 = playerIn.prevPosZ + (playerIn.posZ - playerIn.prevPosZ);
+        Vec3d vec3 = new Vec3d(d0, d2, d3);
+        float f3 = MathHelper.cos(-f2 * 0.017453292f - 3.1415927f);
+        float f4 = MathHelper.sin(-f2 * 0.017453292f - 3.1415927f);
+        float f5 = -MathHelper.cos(-f * 0.017453292f);
+        float f6 = MathHelper.sin(-f * 0.017453292f);
+        float f7 = f4 * f5;
+        float f8 = f3 * f5;
+        double d4 = 16.0;
+        Vec3d vec4 = vec3.addVector(f7 * d4, f6 * d4, f8 * d4);
         return worldIn.rayTraceBlocks(vec3, vec4, useLiquids, !useLiquids, false);
     }
     
-    private void updateAura(final ItemStack stack, final World world, final EntityPlayerMP player) {
-        final AuraChunk ac = AuraHandler.getAuraChunk(world.provider.getDimension(), player.getPosition().getX() >> 4, player.getPosition().getZ() >> 4);
+    private void updateAura(ItemStack stack, World world, EntityPlayerMP player) {
+        AuraChunk ac = AuraHandler.getAuraChunk(world.provider.getDimension(), player.getPosition().getX() >> 4, player.getPosition().getZ() >> 4);
         if (ac != null) {
             if ((ac.getFlux() > ac.getVis() || ac.getFlux() > ac.getBase() / 3) && !ThaumcraftCapabilities.knowsResearch(player, "FLUX")) {
                 ResearchManager.startResearchWithPopup(player, "FLUX");
@@ -104,15 +104,15 @@ public class ItemThaumometer extends ItemTCBase
         }
     }
     
-    private void drawFX(final World worldIn, final EntityPlayer playerIn) {
-        final Entity target = EntityUtils.getPointedEntity(worldIn, playerIn, 1.0, 9.0, 0.0f, true);
+    private void drawFX(World worldIn, EntityPlayer playerIn) {
+        Entity target = EntityUtils.getPointedEntity(worldIn, playerIn, 1.0, 9.0, 0.0f, true);
         if (target != null) {
             for (int a = 0; a < 10; ++a) {
                 FXDispatcher.INSTANCE.blockRunes(target.posX - 0.5, target.posY + target.getEyeHeight() / 2.0f, target.posZ - 0.5, 0.3f + worldIn.rand.nextFloat() * 0.7f, 0.0f, 0.3f + worldIn.rand.nextFloat() * 0.7f, (int)(target.height * 15.0f), 0.03f);
             }
         }
         else {
-            final RayTraceResult mop = rayTrace(worldIn, playerIn, true);
+            RayTraceResult mop = rayTrace(worldIn, playerIn, true);
             if (mop != null && mop.getBlockPos() != null) {
                 for (int a2 = 0; a2 < 10; ++a2) {
                     FXDispatcher.INSTANCE.blockRunes(mop.getBlockPos().getX(), mop.getBlockPos().getY() + 0.25, mop.getBlockPos().getZ(), 0.3f + worldIn.rand.nextFloat() * 0.7f, 0.0f, 0.3f + worldIn.rand.nextFloat() * 0.7f, 15, 0.03f);
@@ -121,14 +121,14 @@ public class ItemThaumometer extends ItemTCBase
         }
     }
     
-    public void doScan(final World worldIn, final EntityPlayer playerIn) {
+    public void doScan(World worldIn, EntityPlayer playerIn) {
         if (!worldIn.isRemote) {
-            final Entity target = EntityUtils.getPointedEntity(worldIn, playerIn, 1.0, 9.0, 0.0f, true);
+            Entity target = EntityUtils.getPointedEntity(worldIn, playerIn, 1.0, 9.0, 0.0f, true);
             if (target != null) {
                 ScanningManager.scanTheThing(playerIn, target);
             }
             else {
-                final RayTraceResult mop = rayTrace(worldIn, playerIn, true);
+                RayTraceResult mop = rayTrace(worldIn, playerIn, true);
                 if (mop != null && mop.getBlockPos() != null) {
                     ScanningManager.scanTheThing(playerIn, mop.getBlockPos());
                 }

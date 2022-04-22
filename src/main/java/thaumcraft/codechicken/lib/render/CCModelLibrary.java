@@ -18,9 +18,9 @@ public class CCModelLibrary
     private static int i;
     
     private static void generateIcosahedron() {
-        final Vector3[] verts = { new Vector3(-1.0, 1.618033988749894, 0.0), new Vector3(1.0, 1.618033988749894, 0.0), new Vector3(1.0, -1.618033988749894, 0.0), new Vector3(-1.0, -1.618033988749894, 0.0), new Vector3(0.0, -1.0, 1.618033988749894), new Vector3(0.0, 1.0, 1.618033988749894), new Vector3(0.0, 1.0, -1.618033988749894), new Vector3(0.0, -1.0, -1.618033988749894), new Vector3(1.618033988749894, 0.0, -1.0), new Vector3(1.618033988749894, 0.0, 1.0), new Vector3(-1.618033988749894, 0.0, 1.0), new Vector3(-1.618033988749894, 0.0, -1.0) };
-        final Quat quat = Quat.aroundAxis(0.0, 0.0, 1.0, Math.atan(0.6180339887498951));
-        for (final Vector3 vec : verts) {
+        Vector3[] verts = { new Vector3(-1.0, 1.618033988749894, 0.0), new Vector3(1.0, 1.618033988749894, 0.0), new Vector3(1.0, -1.618033988749894, 0.0), new Vector3(-1.0, -1.618033988749894, 0.0), new Vector3(0.0, -1.0, 1.618033988749894), new Vector3(0.0, 1.0, 1.618033988749894), new Vector3(0.0, 1.0, -1.618033988749894), new Vector3(0.0, -1.0, -1.618033988749894), new Vector3(1.618033988749894, 0.0, -1.0), new Vector3(1.618033988749894, 0.0, 1.0), new Vector3(-1.618033988749894, 0.0, 1.0), new Vector3(-1.618033988749894, 0.0, -1.0) };
+        Quat quat = Quat.aroundAxis(0.0, 0.0, 1.0, Math.atan(0.6180339887498951));
+        for (Vector3 vec : verts) {
             quat.rotate(vec);
         }
         CCModelLibrary.icosahedron4 = CCModel.newModel(4, 60);
@@ -50,22 +50,22 @@ public class CCModelLibrary
         CCModelLibrary.icosahedron7.computeNormals().smoothNormals();
     }
     
-    private static void addIcosahedronTriangle(final Vector3 vec1, final double u1, final double v1, final Vector3 vec2, final double u2, final double v2, final Vector3 vec3, final double u3, final double v3) {
+    private static void addIcosahedronTriangle(Vector3 vec1, double u1, double v1, Vector3 vec2, double u2, double v2, Vector3 vec3, double u3, double v3) {
         CCModelLibrary.icosahedron4.verts[CCModelLibrary.i * 3] = (CCModelLibrary.icosahedron7.verts[CCModelLibrary.i * 4] = new Vertex5(vec1, u1, v1));
         CCModelLibrary.icosahedron4.verts[CCModelLibrary.i * 3 + 1] = (CCModelLibrary.icosahedron7.verts[CCModelLibrary.i * 4 + 1] = new Vertex5(vec2, u2, v2));
-        final Vertex5[] verts = CCModelLibrary.icosahedron4.verts;
-        final int n = CCModelLibrary.i * 3 + 2;
-        final Vertex5[] verts2 = CCModelLibrary.icosahedron7.verts;
-        final int n2 = CCModelLibrary.i * 4 + 2;
-        final Vertex5[] verts3 = CCModelLibrary.icosahedron7.verts;
-        final int n3 = CCModelLibrary.i * 4 + 3;
-        final Vertex5 vertex5 = new Vertex5(vec3, u3, v3);
+        Vertex5[] verts = CCModelLibrary.icosahedron4.verts;
+        int n = CCModelLibrary.i * 3 + 2;
+        Vertex5[] verts2 = CCModelLibrary.icosahedron7.verts;
+        int n2 = CCModelLibrary.i * 4 + 2;
+        Vertex5[] verts3 = CCModelLibrary.icosahedron7.verts;
+        int n3 = CCModelLibrary.i * 4 + 3;
+        Vertex5 vertex5 = new Vertex5(vec3, u3, v3);
         verts3[n3] = vertex5;
         verts[n] = (verts2[n2] = vertex5);
         ++CCModelLibrary.i;
     }
     
-    public static Matrix4 getRenderMatrix(final Vector3 position, final Rotation rotation, final double scale) {
+    public static Matrix4 getRenderMatrix(Vector3 position, Rotation rotation, double scale) {
         return new Matrix4().translate(position).apply(new Scale(scale)).apply(rotation);
     }
     

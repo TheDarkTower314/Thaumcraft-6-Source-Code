@@ -32,21 +32,21 @@ public class ItemSanitySoap extends ItemTCBase
         setHasSubtypes(false);
     }
     
-    public int getMaxItemUseDuration(final ItemStack p_77626_1_) {
+    public int getMaxItemUseDuration(ItemStack p_77626_1_) {
         return 100;
     }
     
-    public EnumAction getItemUseAction(final ItemStack p_77661_1_) {
+    public EnumAction getItemUseAction(ItemStack p_77661_1_) {
         return EnumAction.BLOCK;
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World p_77659_2_, final EntityPlayer player, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World p_77659_2_, EntityPlayer player, EnumHand hand) {
         player.setActiveHand(hand);
         return (ActionResult<ItemStack>)new ActionResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
     }
     
-    public void onUsingTick(final ItemStack stack, final EntityLivingBase player, final int count) {
-        final int ticks = getMaxItemUseDuration(stack) - count;
+    public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
+        int ticks = getMaxItemUseDuration(stack) - count;
         if (ticks > 95) {
             player.stopActiveHand();
         }
@@ -60,19 +60,19 @@ public class ItemSanitySoap extends ItemTCBase
         }
     }
     
-    public void onPlayerStoppedUsing(final ItemStack stack, final World world, final EntityLivingBase player, final int timeLeft) {
-        final int qq = getMaxItemUseDuration(stack) - timeLeft;
+    public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft) {
+        int qq = getMaxItemUseDuration(stack) - timeLeft;
         if (qq > 95 && player instanceof EntityPlayer) {
             stack.shrink(1);
             if (!world.isRemote) {
-                final IPlayerWarp warp = ThaumcraftCapabilities.getWarp((EntityPlayer)player);
+                IPlayerWarp warp = ThaumcraftCapabilities.getWarp((EntityPlayer)player);
                 int amt = 1;
                 if (player.isPotionActive(PotionWarpWard.instance)) {
                     ++amt;
                 }
-                final int i = MathHelper.floor(player.posX);
-                final int j = MathHelper.floor(player.posY);
-                final int k = MathHelper.floor(player.posZ);
+                int i = MathHelper.floor(player.posX);
+                int j = MathHelper.floor(player.posY);
+                int k = MathHelper.floor(player.posZ);
                 if (world.getBlockState(new BlockPos(i, j, k)).getBlock() == BlocksTC.purifyingFluid) {
                     ++amt;
                 }

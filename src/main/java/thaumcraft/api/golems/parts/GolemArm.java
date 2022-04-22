@@ -26,7 +26,7 @@ public class GolemArm
     public PartModel model;
     private static byte lastID;
     
-    public GolemArm(final String key, final String[] research, final ResourceLocation icon, final PartModel model, final Object[] comp, final EnumGolemTrait[] tags) {
+    public GolemArm(String key, String[] research, ResourceLocation icon, PartModel model, Object[] comp, EnumGolemTrait[] tags) {
         this.key = key;
         this.research = research;
         this.icon = icon;
@@ -36,16 +36,16 @@ public class GolemArm
         function = null;
     }
     
-    public GolemArm(final String key, final String[] research, final ResourceLocation icon, final PartModel model, final Object[] comp, final IArmFunction function, final EnumGolemTrait[] tags) {
+    public GolemArm(String key, String[] research, ResourceLocation icon, PartModel model, Object[] comp, IArmFunction function, EnumGolemTrait[] tags) {
         this(key, research, icon, model, comp, tags);
         this.function = function;
     }
     
-    public static void register(final GolemArm thing) {
+    public static void register(GolemArm thing) {
         thing.id = GolemArm.lastID;
         ++GolemArm.lastID;
         if (thing.id >= GolemArm.arms.length) {
-            final GolemArm[] temp = new GolemArm[thing.id + 1];
+            GolemArm[] temp = new GolemArm[thing.id + 1];
             System.arraycopy(GolemArm.arms, 0, temp, 0, GolemArm.arms.length);
             GolemArm.arms = temp;
         }
@@ -71,10 +71,10 @@ public class GolemArm
     
     public interface IArmFunction extends IGenericFunction
     {
-        void onMeleeAttack(final IGolemAPI p0, final Entity p1);
+        void onMeleeAttack(IGolemAPI p0, Entity p1);
         
-        void onRangedAttack(final IGolemAPI p0, final EntityLivingBase p1, final float p2);
+        void onRangedAttack(IGolemAPI p0, EntityLivingBase p1, float p2);
         
-        EntityAIAttackRanged getRangedAttackAI(final IRangedAttackMob p0);
+        EntityAIAttackRanged getRangedAttackAI(IRangedAttackMob p0);
     }
 }

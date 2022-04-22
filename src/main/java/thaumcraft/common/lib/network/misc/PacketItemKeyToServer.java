@@ -24,36 +24,36 @@ public class PacketItemKeyToServer implements IMessage, IMessageHandler<PacketIt
     public PacketItemKeyToServer() {
     }
     
-    public PacketItemKeyToServer(final int key) {
+    public PacketItemKeyToServer(int key) {
         this.key = (byte)key;
         mod = 0;
     }
     
-    public PacketItemKeyToServer(final int key, final int mod) {
+    public PacketItemKeyToServer(int key, int mod) {
         this.key = (byte)key;
         this.mod = (byte)mod;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeByte(key);
         buffer.writeByte(mod);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         key = buffer.readByte();
         mod = buffer.readByte();
     }
     
-    public IMessage onMessage(final PacketItemKeyToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketItemKeyToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final World world = ctx.getServerHandler().player.getServerWorld();
+                World world = ctx.getServerHandler().player.getServerWorld();
                 if (world == null) {
                     return;
                 }
-                final Entity player = ctx.getServerHandler().player;
+                Entity player = ctx.getServerHandler().player;
                 if (player != null && player instanceof EntityPlayer) {
                     boolean flag = false;
                     if (((EntityPlayer)player).getHeldItemMainhand() != null) {
@@ -65,9 +65,9 @@ public class PacketItemKeyToServer implements IMessage, IMessageHandler<PacketIt
                             CasterManager.toggleMisc(((EntityPlayer)player).getHeldItemOffhand(), world, (EntityPlayer)player, message.mod);
                         }
                         if (message.key == 1 && ((EntityPlayer)player).getHeldItemMainhand().getItem() instanceof ItemElementalShovel) {
-                            final ItemElementalShovel itemElementalShovel = (ItemElementalShovel)((EntityPlayer)player).getHeldItemMainhand().getItem();
-                            final byte b = ItemElementalShovel.getOrientation(((EntityPlayer)player).getHeldItemMainhand());
-                            final ItemElementalShovel itemElementalShovel2 = (ItemElementalShovel)((EntityPlayer)player).getHeldItemMainhand().getItem();
+                            ItemElementalShovel itemElementalShovel = (ItemElementalShovel)((EntityPlayer)player).getHeldItemMainhand().getItem();
+                            byte b = ItemElementalShovel.getOrientation(((EntityPlayer)player).getHeldItemMainhand());
+                            ItemElementalShovel itemElementalShovel2 = (ItemElementalShovel)((EntityPlayer)player).getHeldItemMainhand().getItem();
                             ItemElementalShovel.setOrientation(((EntityPlayer)player).getHeldItemMainhand(), (byte)(b + 1));
                             flag = true;
                         }

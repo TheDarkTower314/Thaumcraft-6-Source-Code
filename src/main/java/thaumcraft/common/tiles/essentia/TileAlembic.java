@@ -43,7 +43,7 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     }
     
     @Override
-    public void setAspects(final AspectList aspects) {
+    public void setAspects(AspectList aspects) {
     }
     
     @SideOnly(Side.CLIENT)
@@ -52,10 +52,10 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         facing = nbttagcompound.getByte("facing");
         aspectFilter = Aspect.getAspect(nbttagcompound.getString("AspectFilter"));
-        final String tag = nbttagcompound.getString("aspect");
+        String tag = nbttagcompound.getString("aspect");
         if (tag != null) {
             aspect = Aspect.getAspect(tag);
         }
@@ -64,7 +64,7 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         if (aspect != null) {
             nbttagcompound.setString("aspect", aspect.getTag());
         }
@@ -77,13 +77,13 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     }
     
     @Override
-    public int addToContainer(final Aspect tt, int am) {
+    public int addToContainer(Aspect tt, int am) {
         if (aspectFilter != null && tt != aspectFilter) {
             return am;
         }
         if ((amount < maxAmount && tt == aspect) || amount == 0) {
             aspect = tt;
-            final int added = Math.min(am, maxAmount - amount);
+            int added = Math.min(am, maxAmount - amount);
             amount += added;
             am -= added;
         }
@@ -93,7 +93,7 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     }
     
     @Override
-    public boolean takeFromContainer(final Aspect tt, final int am) {
+    public boolean takeFromContainer(Aspect tt, int am) {
         if (amount == 0 || aspect == null) {
             aspect = null;
             amount = 0;
@@ -112,76 +112,76 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
     }
     
     @Override
-    public boolean doesContainerContain(final AspectList ot) {
+    public boolean doesContainerContain(AspectList ot) {
         return amount > 0 && aspect != null && ot.getAmount(aspect) > 0;
     }
     
     @Override
-    public boolean doesContainerContainAmount(final Aspect tt, final int am) {
+    public boolean doesContainerContainAmount(Aspect tt, int am) {
         return amount >= am && tt == aspect;
     }
     
     @Override
-    public int containerContains(final Aspect tt) {
+    public int containerContains(Aspect tt) {
         return (tt == aspect) ? amount : 0;
     }
     
     @Override
-    public boolean doesContainerAccept(final Aspect tag) {
+    public boolean doesContainerAccept(Aspect tag) {
         return true;
     }
     
     @Override
-    public boolean takeFromContainer(final AspectList ot) {
+    public boolean takeFromContainer(AspectList ot) {
         return false;
     }
     
     @Override
-    public boolean isConnectable(final EnumFacing face) {
+    public boolean isConnectable(EnumFacing face) {
         return face != EnumFacing.VALUES[facing] && face != EnumFacing.DOWN;
     }
     
     @Override
-    public boolean canInputFrom(final EnumFacing face) {
+    public boolean canInputFrom(EnumFacing face) {
         return false;
     }
     
     @Override
-    public boolean canOutputTo(final EnumFacing face) {
+    public boolean canOutputTo(EnumFacing face) {
         return face != EnumFacing.VALUES[facing] && face != EnumFacing.DOWN;
     }
     
     @Override
-    public void setSuction(final Aspect aspect, final int amount) {
+    public void setSuction(Aspect aspect, int amount) {
     }
     
     @Override
-    public Aspect getSuctionType(final EnumFacing loc) {
+    public Aspect getSuctionType(EnumFacing loc) {
         return null;
     }
     
     @Override
-    public int getSuctionAmount(final EnumFacing loc) {
+    public int getSuctionAmount(EnumFacing loc) {
         return 0;
     }
     
     @Override
-    public Aspect getEssentiaType(final EnumFacing loc) {
+    public Aspect getEssentiaType(EnumFacing loc) {
         return aspect;
     }
     
     @Override
-    public int getEssentiaAmount(final EnumFacing loc) {
+    public int getEssentiaAmount(EnumFacing loc) {
         return amount;
     }
     
     @Override
-    public int takeEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
+    public int takeEssentia(Aspect aspect, int amount, EnumFacing face) {
         return (canOutputTo(face) && takeFromContainer(aspect, amount)) ? amount : 0;
     }
     
     @Override
-    public int addEssentia(final Aspect aspect, final int amount, final EnumFacing loc) {
+    public int addEssentia(Aspect aspect, int amount, EnumFacing loc) {
         return 0;
     }
     
@@ -190,12 +190,12 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
         return 0;
     }
     
-    protected static boolean processAlembics(final World world, final BlockPos pos, final Aspect aspect) {
+    protected static boolean processAlembics(World world, BlockPos pos, Aspect aspect) {
         int deep = 1;
         while (true) {
             TileEntity te = world.getTileEntity(pos.up(deep));
             if (te != null && te instanceof TileAlembic) {
-                final TileAlembic alembic = (TileAlembic)te;
+                TileAlembic alembic = (TileAlembic)te;
                 if (alembic.amount > 0 && alembic.aspect == aspect && alembic.addToContainer(aspect, 1) == 0) {
                     return true;
                 }
@@ -208,7 +208,7 @@ public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEs
                     if (te == null || !(te instanceof TileAlembic)) {
                         return false;
                     }
-                    final TileAlembic alembic = (TileAlembic)te;
+                    TileAlembic alembic = (TileAlembic)te;
                     if ((alembic.aspectFilter == null || alembic.aspectFilter == aspect) && alembic.addToContainer(aspect, 1) == 0) {
                         return true;
                     }

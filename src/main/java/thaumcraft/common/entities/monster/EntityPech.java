@@ -94,20 +94,20 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
 {
     public NonNullList<ItemStack> loot;
     public boolean trading;
-    private final EntityAIAttackRanged aiArrowAttack;
-    private final EntityAIAttackRanged aiBlastAttack;
-    private final EntityAIAttackMelee aiMeleeAttack;
-    private final EntityAIAvoidEntity aiAvoidPlayer;
-    private static final DataParameter<Byte> TYPE;
-    private static final DataParameter<Integer> ANGER;
-    private static final DataParameter<Boolean> TAMED;
-    public static final ResourceLocation LOOT;
+    private EntityAIAttackRanged aiArrowAttack;
+    private EntityAIAttackRanged aiBlastAttack;
+    private EntityAIAttackMelee aiMeleeAttack;
+    private EntityAIAvoidEntity aiAvoidPlayer;
+    private static DataParameter<Byte> TYPE;
+    private static DataParameter<Integer> ANGER;
+    private static DataParameter<Boolean> TAMED;
+    public static ResourceLocation LOOT;
     public float mumble;
     int chargecount;
     public static HashMap<Integer, Integer> valuedItems;
     public static HashMap<Integer, ArrayList<List>> tradeInventory;
     
-    public EntityPech(final World world) {
+    public EntityPech(World world) {
         super(world);
         loot = NonNullList.withSize(9, ItemStack.EMPTY);
         trading = false;
@@ -164,7 +164,7 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
             tasks.removeTask(aiMeleeAttack);
             tasks.removeTask(aiArrowAttack);
             tasks.removeTask(aiBlastAttack);
-            final ItemStack itemstack = getHeldItemMainhand();
+            ItemStack itemstack = getHeldItemMainhand();
             if (itemstack.getItem() == Items.BOW) {
                 tasks.addTask(2, aiArrowAttack);
             }
@@ -183,21 +183,21 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         }
     }
     
-    public void attackEntityWithRangedAttack(final EntityLivingBase target, final float f) {
+    public void attackEntityWithRangedAttack(EntityLivingBase target, float f) {
         if (getPechType() == 2) {
-            final EntityTippedArrow entityarrow = new EntityTippedArrow(world, this);
+            EntityTippedArrow entityarrow = new EntityTippedArrow(world, this);
             if (world.rand.nextFloat() < 0.2) {
-                final ItemStack itemstack = new ItemStack(Items.TIPPED_ARROW);
+                ItemStack itemstack = new ItemStack(Items.TIPPED_ARROW);
                 PotionUtils.appendEffects(itemstack, Collections.singletonList(new PotionEffect(MobEffects.POISON, 40)));
                 entityarrow.setPotionEffect(itemstack);
             }
-            final double d0 = target.posX - posX;
-            final double d2 = target.getEntityBoundingBox().minY + target.height / 3.0f - entityarrow.posY;
-            final double d3 = target.posZ - posZ;
-            final double d4 = MathHelper.sqrt(d0 * d0 + d3 * d3);
+            double d0 = target.posX - posX;
+            double d2 = target.getEntityBoundingBox().minY + target.height / 3.0f - entityarrow.posY;
+            double d3 = target.posZ - posZ;
+            double d4 = MathHelper.sqrt(d0 * d0 + d3 * d3);
             entityarrow.shoot(d0, d2 + d4 * 0.20000000298023224, d3, 1.6f, (float)(14 - world.getDifficulty().getDifficultyId() * 4));
-            final int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, this);
-            final int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, this);
+            int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, this);
+            int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, this);
             entityarrow.setDamage(f * 2.0f + rand.nextGaussian() * 0.25 + world.getDifficulty().getDifficultyId() * 0.11f);
             if (i > 0) {
                 entityarrow.setDamage(entityarrow.getDamage() + i * 0.5 + 0.5);
@@ -212,12 +212,12 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
             world.spawnEntity(entityarrow);
         }
         else if (getPechType() == 1) {
-            final FocusPackage p = new FocusPackage(this);
-            final FocusMediumRoot root = new FocusMediumRoot();
-            final double off = getDistance(target) / 6.0f;
+            FocusPackage p = new FocusPackage(this);
+            FocusMediumRoot root = new FocusMediumRoot();
+            double off = getDistance(target) / 6.0f;
             root.setupFromCasterToTarget(this, target, off);
             p.addNode(root);
-            final FocusMediumProjectile fp = new FocusMediumProjectile();
+            FocusMediumProjectile fp = new FocusMediumProjectile();
             fp.initialize();
             fp.getSetting("speed").setValue(2);
             p.addNode(fp);
@@ -227,14 +227,14 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         }
     }
     
-    public void setItemStackToSlot(final EntityEquipmentSlot slotIn, @Nullable final ItemStack stack) {
+    public void setItemStackToSlot(EntityEquipmentSlot slotIn, @Nullable ItemStack stack) {
         super.setItemStackToSlot(slotIn, stack);
         if (!world.isRemote && slotIn == EntityEquipmentSlot.MAINHAND) {
             setCombatTask();
         }
     }
     
-    protected void setEquipmentBasedOnDifficulty(final DifficultyInstance difficulty) {
+    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         super.setEquipmentBasedOnDifficulty(difficulty);
         switch (rand.nextInt(20)) {
             case 0:
@@ -281,9 +281,9 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         }
     }
     
-    public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
+    public IEntityLivingData onInitialSpawn(DifficultyInstance diff, IEntityLivingData data) {
         setEquipmentBasedOnDifficulty(diff);
-        final ItemStack itemstack = getHeldItem(getActiveHand());
+        ItemStack itemstack = getHeldItem(getActiveHand());
         if (itemstack.getItem() == ItemsTC.pechWand) {
             setPechType(1);
             setDropChance((getActiveHand() == EnumHand.MAIN_HAND) ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, 0.1f);
@@ -294,26 +294,26 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
             }
             setEnchantmentBasedOnDifficulty(diff);
         }
-        final float f = diff.getClampedAdditionalDifficulty();
+        float f = diff.getClampedAdditionalDifficulty();
         setCanPickUpLoot(rand.nextFloat() < 0.75f * f);
         setCombatTask();
         return super.onInitialSpawn(diff, data);
     }
     
     public boolean getCanSpawnHere() {
-        final Biome biome = world.getBiome(new BlockPos(this));
+        Biome biome = world.getBiome(new BlockPos(this));
         boolean magicBiome = false;
         if (biome != null) {
             magicBiome = BiomeDictionary.hasType(biome, BiomeDictionary.Type.MAGICAL);
         }
         int count = 0;
         try {
-            final List l = world.getEntitiesWithinAABB(EntityPech.class, getEntityBoundingBox().grow(16.0, 16.0, 16.0));
+            List l = world.getEntitiesWithinAABB(EntityPech.class, getEntityBoundingBox().grow(16.0, 16.0, 16.0));
             if (l != null) {
                 count = l.size();
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         if (world.provider.getDimension() != ModConfig.CONFIG_WORLD.overworldDim && biome != BiomeHandler.MAGICAL_FOREST && biome != BiomeHandler.EERIE) {
             magicBiome = false;
         }
@@ -347,15 +347,15 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         return getDataManager().get(EntityPech.TAMED);
     }
     
-    public void setPechType(final int par1) {
+    public void setPechType(int par1) {
         getDataManager().set(EntityPech.TYPE, (byte)par1);
     }
     
-    public void setAnger(final int par1) {
+    public void setAnger(int par1) {
         getDataManager().set(EntityPech.ANGER, par1);
     }
     
-    public void setTamed(final boolean par1) {
+    public void setTamed(boolean par1) {
         getDataManager().set(EntityPech.TAMED, par1);
     }
     
@@ -366,7 +366,7 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5);
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         nbt.setByte("PechType", (byte) getPechType());
         nbt.setShort("Anger", (short) getAnger());
@@ -374,10 +374,10 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         ItemStackHelper.saveAllItems(nbt, loot);
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         if (nbt.hasKey("PechType")) {
-            final byte b0 = nbt.getByte("PechType");
+            byte b0 = nbt.getByte("PechType");
             setPechType(b0);
         }
         setAnger(nbt.getShort("Anger"));
@@ -392,19 +392,19 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
                 return true;
             }
             int q = 0;
-            for (final ItemStack is : loot) {
+            for (ItemStack is : loot) {
                 if (is != null && is.getCount() > 0) {
                     ++q;
                 }
             }
             return q < 5;
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             return true;
         }
     }
     
-    public boolean canBeLeashedTo(final EntityPlayer player) {
+    public boolean canBeLeashedTo(EntityPlayer player) {
         return false;
     }
     
@@ -412,7 +412,7 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         return EntityPech.LOOT;
     }
     
-    protected void dropLoot(final boolean wasRecentlyHit, final int lootingModifier, final DamageSource source) {
+    protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
         for (int a = 0; a < loot.size(); ++a) {
             if (!loot.get(a).isEmpty() && world.rand.nextFloat() < 0.33f) {
                 entityDropItem(loot.get(a).copy(), 1.5f);
@@ -422,7 +422,7 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte par1) {
+    public void handleStatusUpdate(byte par1) {
         if (par1 == 16) {
             mumble = 3.1415927f;
         }
@@ -431,17 +431,17 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         }
         else if (par1 == 18) {
             for (int i = 0; i < 5; ++i) {
-                final double d0 = rand.nextGaussian() * 0.02;
-                final double d2 = rand.nextGaussian() * 0.02;
-                final double d3 = rand.nextGaussian() * 0.02;
+                double d0 = rand.nextGaussian() * 0.02;
+                double d2 = rand.nextGaussian() * 0.02;
+                double d3 = rand.nextGaussian() * 0.02;
                 world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + rand.nextFloat() * width * 2.0f - width, posY + 0.5 + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0f - width, d0, d2, d3);
             }
         }
         if (par1 == 19) {
             for (int i = 0; i < 5; ++i) {
-                final double d0 = rand.nextGaussian() * 0.02;
-                final double d2 = rand.nextGaussian() * 0.02;
-                final double d3 = rand.nextGaussian() * 0.02;
+                double d0 = rand.nextGaussian() * 0.02;
+                double d2 = rand.nextGaussian() * 0.02;
+                double d3 = rand.nextGaussian() * 0.02;
                 world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, posX + rand.nextFloat() * width * 2.0f - width, posY + 0.5 + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0f - width, d0, d2, d3);
             }
             mumble = 6.2831855f;
@@ -454,9 +454,9 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
     public void playLivingSound() {
         if (!world.isRemote) {
             if (rand.nextInt(3) == 0) {
-                final List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(4.0, 2.0, 4.0));
+                List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(4.0, 2.0, 4.0));
                 for (int i = 0; i < list.size(); ++i) {
-                    final Entity entity1 = list.get(i);
+                    Entity entity1 = list.get(i);
                     if (entity1 instanceof EntityPech) {
                         world.setEntityState(this, (byte)17);
                         playSound(SoundsTC.pech_trade, getSoundVolume(), getSoundPitch());
@@ -481,7 +481,7 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         return SoundsTC.pech_idle;
     }
     
-    protected SoundEvent getHurtSound(final DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundsTC.pech_hit;
     }
     
@@ -489,7 +489,7 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         return SoundsTC.pech_death;
     }
     
-    private void becomeAngryAt(final Entity entity) {
+    private void becomeAngryAt(Entity entity) {
         if (entity instanceof EntityPlayer && ((EntityPlayer)entity).isCreative()) {
             return;
         }
@@ -511,17 +511,17 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         return i;
     }
     
-    public boolean attackEntityFrom(final DamageSource damSource, final float par2) {
+    public boolean attackEntityFrom(DamageSource damSource, float par2) {
         if (isEntityInvulnerable(damSource)) {
             return false;
         }
-        final Entity entity = damSource.getTrueSource();
+        Entity entity = damSource.getTrueSource();
         if (entity instanceof EntityPlayer) {
-            final List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(32.0, 16.0, 32.0));
+            List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(32.0, 16.0, 32.0));
             for (int i = 0; i < list.size(); ++i) {
-                final Entity entity2 = list.get(i);
+                Entity entity2 = list.get(i);
                 if (entity2 instanceof EntityPech) {
-                    final EntityPech entitypech = (EntityPech)entity2;
+                    EntityPech entitypech = (EntityPech)entity2;
                     entitypech.becomeAngryAt(entity);
                 }
             }
@@ -548,15 +548,15 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
             world.setEntityState(this, (byte)17);
         }
         if (world.isRemote && rand.nextInt(15) == 0 && getAnger() > 0) {
-            final double d0 = rand.nextGaussian() * 0.02;
-            final double d2 = rand.nextGaussian() * 0.02;
-            final double d3 = rand.nextGaussian() * 0.02;
+            double d0 = rand.nextGaussian() * 0.02;
+            double d2 = rand.nextGaussian() * 0.02;
+            double d3 = rand.nextGaussian() * 0.02;
             world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, posX + rand.nextFloat() * width * 2.0f - width, posY + 0.5 + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0f - width, d0, d2, d3);
         }
         if (world.isRemote && rand.nextInt(25) == 0 && isTamed()) {
-            final double d0 = rand.nextGaussian() * 0.02;
-            final double d2 = rand.nextGaussian() * 0.02;
-            final double d3 = rand.nextGaussian() * 0.02;
+            double d0 = rand.nextGaussian() * 0.02;
+            double d2 = rand.nextGaussian() * 0.02;
+            double d3 = rand.nextGaussian() * 0.02;
             world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + rand.nextFloat() * width * 2.0f - width, posY + 0.5 + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0f - width, d0, d2, d3);
         }
         super.onUpdate();
@@ -569,7 +569,7 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         }
     }
     
-    public boolean canPickup(final ItemStack entityItem) {
+    public boolean canPickup(ItemStack entityItem) {
         if (entityItem == null) {
             return false;
         }
@@ -604,7 +604,7 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
                         loot.get(a).grow(entityItem.getCount());
                         return ItemStack.EMPTY;
                     }
-                    final int sz = Math.min(entityItem.getCount(), loot.get(a).getMaxStackSize() - loot.get(a).getCount());
+                    int sz = Math.min(entityItem.getCount(), loot.get(a).getMaxStackSize() - loot.get(a).getCount());
                     loot.get(a).grow(sz);
                     entityItem.shrink(sz);
                 }
@@ -638,7 +638,7 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         return entityItem;
     }
     
-    protected boolean processInteract(final EntityPlayer player, final EnumHand hand) {
+    protected boolean processInteract(EntityPlayer player, EnumHand hand) {
         if (player.isSneaking() || (player.getHeldItem(hand) != null && player.getHeldItem(hand).getItem() instanceof ItemNameTag)) {
             return false;
         }
@@ -651,13 +651,13 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         return super.processInteract(player, hand);
     }
     
-    public boolean isValued(final ItemStack item) {
+    public boolean isValued(ItemStack item) {
         if (item == null || item.isEmpty()) {
             return false;
         }
         boolean value = EntityPech.valuedItems.containsKey(Item.getIdFromItem(item.getItem()));
         if (!value) {
-            final AspectList al = ThaumcraftCraftingManager.getObjectTags(item);
+            AspectList al = ThaumcraftCraftingManager.getObjectTags(item);
             if (al.getAmount(Aspect.DESIRE) > 1) {
                 value = true;
             }
@@ -665,19 +665,19 @@ public class EntityPech extends EntityMob implements IRangedAttackMob
         return value;
     }
     
-    public int getValue(final ItemStack item) {
+    public int getValue(ItemStack item) {
         if (item == null || item.isEmpty()) {
             return 0;
         }
         int value = EntityPech.valuedItems.containsKey(Item.getIdFromItem(item.getItem())) ? EntityPech.valuedItems.get(Item.getIdFromItem(item.getItem())) : 0;
         if (value == 0) {
-            final AspectList al = ThaumcraftCraftingManager.getObjectTags(item);
+            AspectList al = ThaumcraftCraftingManager.getObjectTags(item);
             value = Math.min(32, al.getAmount(Aspect.DESIRE) / 2);
         }
         return value;
     }
     
-    public void setSwingingArms(final boolean swingingArms) {
+    public void setSwingingArms(boolean swingingArms) {
     }
     
     static {

@@ -51,19 +51,19 @@ public class TileSpa extends TileThaumcraftInventory implements IFluidHandler
         return mix;
     }
     
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         mix = nbttagcompound.getBoolean("mix");
         tank.readFromNBT(nbttagcompound);
     }
     
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound.setBoolean("mix", mix);
         tank.writeToNBT(nbttagcompound);
         return nbttagcompound;
     }
     
     @Override
-    public boolean isItemValidForSlot(final int par1, final ItemStack stack) {
+    public boolean isItemValidForSlot(int par1, ItemStack stack) {
         return stack.getItem() instanceof ItemBathSalts;
     }
     
@@ -83,17 +83,17 @@ public class TileSpa extends TileThaumcraftInventory implements IFluidHandler
     }
     
     @Override
-    public int[] getSlotsForFace(final EnumFacing side) {
+    public int[] getSlotsForFace(EnumFacing side) {
         return (side != EnumFacing.UP) ? new int[] { 0 } : new int[0];
     }
     
     @Override
-    public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing side) {
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing side) {
         return side != EnumFacing.UP;
     }
     
     @Override
-    public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing side) {
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing side) {
         return side != EnumFacing.UP;
     }
     
@@ -102,8 +102,8 @@ public class TileSpa extends TileThaumcraftInventory implements IFluidHandler
         super.update();
         Label_0267: {
             if (!world.isRemote && counter++ % 40 == 0 && !world.isBlockPowered(pos) && hasIngredients()) {
-                final Block b = world.getBlockState(pos.up()).getBlock();
-                final int m = b.getMetaFromState(world.getBlockState(pos.up()));
+                Block b = world.getBlockState(pos.up()).getBlock();
+                int m = b.getMetaFromState(world.getBlockState(pos.up()));
                 Block tb = null;
                 if (mix) {
                     tb = BlocksTC.purifyingFluid;
@@ -114,7 +114,7 @@ public class TileSpa extends TileThaumcraftInventory implements IFluidHandler
                 if (b == tb && m == 0) {
                     for (int xx = -2; xx <= 2; ++xx) {
                         for (int zz = -2; zz <= 2; ++zz) {
-                            final BlockPos p = getPos().add(xx, 1, zz);
+                            BlockPos p = getPos().add(xx, 1, zz);
                             if (isValidLocation(p, true, tb)) {
                                 consumeIngredients();
                                 world.setBlockState(p, tb.getDefaultState());
@@ -133,12 +133,12 @@ public class TileSpa extends TileThaumcraftInventory implements IFluidHandler
         }
     }
     
-    private void checkQuanta(final BlockPos pos) {
-        final Block b = world.getBlockState(pos).getBlock();
+    private void checkQuanta(BlockPos pos) {
+        Block b = world.getBlockState(pos).getBlock();
         if (b instanceof BlockFluidBase) {
-            final float p = ((BlockFluidBase)b).getQuantaPercentage(world, pos);
+            float p = ((BlockFluidBase)b).getQuantaPercentage(world, pos);
             if (p < 1.0f) {
-                final int md = (int)(1.0f / p) - 1;
+                int md = (int)(1.0f / p) - 1;
                 if (md >= 0 && md < 16) {
                     world.setBlockState(pos, b.getStateFromMeta(md));
                 }
@@ -168,24 +168,24 @@ public class TileSpa extends TileThaumcraftInventory implements IFluidHandler
         drain(1000, true);
     }
     
-    private boolean isValidLocation(final BlockPos pos, final boolean mustBeAdjacent, final Block target) {
+    private boolean isValidLocation(BlockPos pos, boolean mustBeAdjacent, Block target) {
         if ((target == Blocks.WATER || target == Blocks.FLOWING_WATER) && world.provider.doesWaterVaporize()) {
             return false;
         }
-        final Block b = world.getBlockState(pos).getBlock();
-        final IBlockState bb = world.getBlockState(pos.down());
-        final int m = b.getMetaFromState(world.getBlockState(pos));
+        Block b = world.getBlockState(pos).getBlock();
+        IBlockState bb = world.getBlockState(pos.down());
+        int m = b.getMetaFromState(world.getBlockState(pos));
         return bb.isSideSolid(world, pos.down(), EnumFacing.UP) && b.isReplaceable(world, pos) && (b != target || m != 0) && (!mustBeAdjacent || BlockUtils.isBlockTouching(world, pos, target.getStateFromMeta(0)));
     }
     
     @Override
-    public boolean hasCapability(@Nonnull final Capability<?> capability, @Nullable final EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
         return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
     }
     
     @Nullable
     @Override
-    public <T> T getCapability(@Nonnull final Capability<T> capability, @Nullable final EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return (T) tank;
         }
@@ -196,21 +196,21 @@ public class TileSpa extends TileThaumcraftInventory implements IFluidHandler
         return tank.getTankProperties();
     }
     
-    public int fill(final FluidStack resource, final boolean doFill) {
+    public int fill(FluidStack resource, boolean doFill) {
         markDirty();
         syncTile(false);
         return tank.fill(resource, doFill);
     }
     
-    public FluidStack drain(final FluidStack resource, final boolean doDrain) {
-        final FluidStack fs = tank.drain(resource, doDrain);
+    public FluidStack drain(FluidStack resource, boolean doDrain) {
+        FluidStack fs = tank.drain(resource, doDrain);
         markDirty();
         syncTile(false);
         return fs;
     }
     
-    public FluidStack drain(final int maxDrain, final boolean doDrain) {
-        final FluidStack fs = tank.drain(maxDrain, doDrain);
+    public FluidStack drain(int maxDrain, boolean doDrain) {
+        FluidStack fs = tank.drain(maxDrain, doDrain);
         markDirty();
         syncTile(false);
         return fs;

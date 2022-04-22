@@ -19,29 +19,29 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 @SideOnly(Side.CLIENT)
 public class RenderTaintCrawler extends RenderLiving
 {
-    private static final ResourceLocation textures;
+    private static ResourceLocation textures;
     
-    public RenderTaintCrawler(final RenderManager p_i46144_1_) {
+    public RenderTaintCrawler(RenderManager p_i46144_1_) {
         super(p_i46144_1_, new ModelSilverfish(), 0.2f);
     }
     
-    protected float func_180584_a(final EntityTaintCrawler p_180584_1_) {
+    protected float func_180584_a(EntityTaintCrawler p_180584_1_) {
         return 180.0f;
     }
     
-    protected ResourceLocation getEntityTexture(final EntityTaintCrawler entity) {
+    protected ResourceLocation getEntityTexture(EntityTaintCrawler entity) {
         return RenderTaintCrawler.textures;
     }
     
-    protected float getDeathMaxRotation(final EntityLivingBase p_77037_1_) {
+    protected float getDeathMaxRotation(EntityLivingBase p_77037_1_) {
         return func_180584_a((EntityTaintCrawler)p_77037_1_);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return getEntityTexture((EntityTaintCrawler)entity);
     }
     
-    protected void preRenderCallback(final EntityLivingBase par1EntityLiving, final float par2) {
+    protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2) {
         GL11.glScalef(0.7f, 0.7f, 0.7f);
     }
     

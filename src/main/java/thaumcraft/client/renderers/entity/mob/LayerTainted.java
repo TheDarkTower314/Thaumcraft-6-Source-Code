@@ -18,29 +18,29 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 
 public class LayerTainted implements LayerRenderer<EntityLiving>
 {
-    private static final ResourceLocation TAINT_TEXTURE;
-    private final RenderLivingBase renderer;
-    private final ModelBase model;
+    private static ResourceLocation TAINT_TEXTURE;
+    private RenderLivingBase renderer;
+    private ModelBase model;
     public static ArrayList<Integer> taintLayers;
     
-    public LayerTainted(final int i, final RenderLivingBase witherRendererIn, final ModelBase model) {
+    public LayerTainted(int i, RenderLivingBase witherRendererIn, ModelBase model) {
         renderer = witherRendererIn;
         this.model = model;
         LayerTainted.taintLayers.add(i);
     }
     
-    public void doRenderLayer(final EntityLiving entitylivingbaseIn, final float limbSwing, final float limbSwingAmount, final float partialTicks, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scale) {
+    public void doRenderLayer(EntityLiving entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         if (!LayerTainted.taintLayers.contains(entitylivingbaseIn.getEntityId())) {
             return;
         }
-        final boolean flag = entitylivingbaseIn.isInvisible();
+        boolean flag = entitylivingbaseIn.isInvisible();
         GlStateManager.depthMask(!flag);
         renderer.bindTexture(LayerTainted.TAINT_TEXTURE);
         GlStateManager.matrixMode(5890);
         GlStateManager.loadIdentity();
-        final float f = (float)entitylivingbaseIn.getEntityId();
-        final float f2 = MathHelper.cos(f * 2.5E-4f);
-        final float f3 = f * 0.001f;
+        float f = (float)entitylivingbaseIn.getEntityId();
+        float f2 = MathHelper.cos(f * 2.5E-4f);
+        float f3 = f * 0.001f;
         GlStateManager.scale(8.0f, 4.0f, 4.0f);
         GlStateManager.translate(f2, f3, 0.0f);
         GlStateManager.matrixMode(5888);

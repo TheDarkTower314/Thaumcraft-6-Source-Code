@@ -18,9 +18,9 @@ public class PotionThaumarhia extends Potion
 {
     public static Potion instance;
     private int statusIconIndex;
-    static final ResourceLocation rl;
+    static ResourceLocation rl;
     
-    public PotionThaumarhia(final boolean par2, final int par3) {
+    public PotionThaumarhia(boolean par2, int par3) {
         super(par2, par3);
         statusIconIndex = -1;
         setIconIndex(0, 0);
@@ -39,13 +39,13 @@ public class PotionThaumarhia extends Potion
         return super.getStatusIconIndex();
     }
     
-    public void performEffect(final EntityLivingBase target, final int par2) {
+    public void performEffect(EntityLivingBase target, int par2) {
         if (!target.world.isRemote && target.world.rand.nextInt(15) == 0 && target.world.isAirBlock(new BlockPos(target))) {
             target.world.setBlockState(new BlockPos(target), BlocksTC.fluxGoo.getDefaultState());
         }
     }
     
-    public boolean isReady(final int par1, final int par2) {
+    public boolean isReady(int par1, int par2) {
         return par1 % 20 == 0;
     }
     

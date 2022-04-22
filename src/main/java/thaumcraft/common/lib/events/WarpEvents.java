@@ -48,24 +48,24 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class WarpEvents
 {
-    public static void checkWarpEvent(final EntityPlayer player) {
-        final IPlayerWarp wc = ThaumcraftCapabilities.getWarp(player);
+    public static void checkWarpEvent(EntityPlayer player) {
+        IPlayerWarp wc = ThaumcraftCapabilities.getWarp(player);
         ThaumcraftApi.internalMethods.addWarpToPlayer(player, -1, IPlayerWarp.EnumWarpType.TEMPORARY);
-        final int tw = wc.get(IPlayerWarp.EnumWarpType.TEMPORARY);
-        final int nw = wc.get(IPlayerWarp.EnumWarpType.NORMAL);
-        final int pw = wc.get(IPlayerWarp.EnumWarpType.PERMANENT);
+        int tw = wc.get(IPlayerWarp.EnumWarpType.TEMPORARY);
+        int nw = wc.get(IPlayerWarp.EnumWarpType.NORMAL);
+        int pw = wc.get(IPlayerWarp.EnumWarpType.PERMANENT);
         int warp = tw + nw + pw;
-        final int actualwarp = pw + nw;
-        final int gearWarp = getWarpFromGear(player);
+        int actualwarp = pw + nw;
+        int gearWarp = getWarpFromGear(player);
         warp += gearWarp;
         int warpCounter = wc.getCounter();
-        final int r = player.world.rand.nextInt(100);
+        int r = player.world.rand.nextInt(100);
         if (warpCounter > 0 && warp > 0 && r <= Math.sqrt(warpCounter)) {
             warp = Math.min(100, (warp + warp + warpCounter) / 3);
             warpCounter -= (int)Math.max(5.0, Math.sqrt(warpCounter) * 2.0 - gearWarp * 2);
             wc.setCounter(warpCounter);
             int eff = player.world.rand.nextInt(warp) + gearWarp;
-            final ItemStack helm = player.inventory.armorInventory.get(3);
+            ItemStack helm = player.inventory.armorInventory.get(3);
             if (helm.getItem() instanceof ItemFortressArmor && helm.hasTagCompound() && helm.getTagCompound().hasKey("mask") && helm.getTagCompound().getInteger("mask") == 0) {
                 eff -= 2 + player.world.rand.nextInt(4);
             }
@@ -85,36 +85,36 @@ public class WarpEvents
                     player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.11")), true);
                 }
                 else if (eff <= 16) {
-                    final PotionEffect pe = new PotionEffect(PotionVisExhaust.instance, 5000, Math.min(3, warp / 15), true, true);
+                    PotionEffect pe = new PotionEffect(PotionVisExhaust.instance, 5000, Math.min(3, warp / 15), true, true);
                     pe.getCurativeItems().clear();
                     try {
                         player.addPotionEffect(pe);
                     }
-                    catch (final Exception e) {
+                    catch (Exception e) {
                         e.printStackTrace();
                     }
                     player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.1")), true);
                 }
                 else if (eff <= 20) {
-                    final PotionEffect pe = new PotionEffect(PotionThaumarhia.instance, Math.min(32000, 10 * warp), 0, true, true);
+                    PotionEffect pe = new PotionEffect(PotionThaumarhia.instance, Math.min(32000, 10 * warp), 0, true, true);
                     pe.getCurativeItems().clear();
                     try {
                         player.addPotionEffect(pe);
                     }
-                    catch (final Exception e) {
+                    catch (Exception e) {
                         e.printStackTrace();
                     }
                     player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.15")), true);
                 }
                 else if (eff <= 24) {
-                    final PotionEffect pe = new PotionEffect(PotionUnnaturalHunger.instance, 5000, Math.min(3, warp / 15), true, true);
+                    PotionEffect pe = new PotionEffect(PotionUnnaturalHunger.instance, 5000, Math.min(3, warp / 15), true, true);
                     pe.getCurativeItems().clear();
                     pe.addCurativeItem(new ItemStack(Items.ROTTEN_FLESH));
                     pe.addCurativeItem(new ItemStack(ItemsTC.brain));
                     try {
                         player.addPotionEffect(pe);
                     }
-                    catch (final Exception e) {
+                    catch (Exception e) {
                         e.printStackTrace();
                     }
                     player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.2")), true);
@@ -129,17 +129,17 @@ public class WarpEvents
                     try {
                         player.addPotionEffect(new PotionEffect(PotionBlurredVision.instance, Math.min(32000, 10 * warp), 0, true, true));
                     }
-                    catch (final Exception e2) {
+                    catch (Exception e2) {
                         e2.printStackTrace();
                     }
                 }
                 else if (eff <= 40) {
-                    final PotionEffect pe = new PotionEffect(PotionSunScorned.instance, 5000, Math.min(3, warp / 15), true, true);
+                    PotionEffect pe = new PotionEffect(PotionSunScorned.instance, 5000, Math.min(3, warp / 15), true, true);
                     pe.getCurativeItems().clear();
                     try {
                         player.addPotionEffect(pe);
                     }
-                    catch (final Exception e) {
+                    catch (Exception e) {
                         e.printStackTrace();
                     }
                     player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.5")), true);
@@ -148,18 +148,18 @@ public class WarpEvents
                     try {
                         player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 1200, Math.min(3, warp / 15), true, true));
                     }
-                    catch (final Exception e2) {
+                    catch (Exception e2) {
                         e2.printStackTrace();
                     }
                     player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.9")), true);
                 }
                 else if (eff <= 48) {
-                    final PotionEffect pe = new PotionEffect(PotionInfectiousVisExhaust.instance, 6000, Math.min(3, warp / 15));
+                    PotionEffect pe = new PotionEffect(PotionInfectiousVisExhaust.instance, 6000, Math.min(3, warp / 15));
                     pe.getCurativeItems().clear();
                     try {
                         player.addPotionEffect(pe);
                     }
-                    catch (final Exception e) {
+                    catch (Exception e) {
                         e.printStackTrace();
                     }
                     player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.1")), true);
@@ -169,12 +169,12 @@ public class WarpEvents
                     player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.10")), true);
                 }
                 else if (eff <= 56) {
-                    final PotionEffect pe = new PotionEffect(PotionDeathGaze.instance, 6000, Math.min(3, warp / 15), true, true);
+                    PotionEffect pe = new PotionEffect(PotionDeathGaze.instance, 6000, Math.min(3, warp / 15), true, true);
                     pe.getCurativeItems().clear();
                     try {
                         player.addPotionEffect(pe);
                     }
-                    catch (final Exception e) {
+                    catch (Exception e) {
                         e.printStackTrace();
                     }
                     player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.4")), true);
@@ -192,7 +192,7 @@ public class WarpEvents
                     try {
                         player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, Math.min(32000, 5 * warp), 0, true, true));
                     }
-                    catch (final Exception e2) {
+                    catch (Exception e2) {
                         e2.printStackTrace();
                     }
                 }
@@ -203,14 +203,14 @@ public class WarpEvents
                     player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.14")), true);
                 }
                 else if (eff <= 80) {
-                    final PotionEffect pe = new PotionEffect(PotionUnnaturalHunger.instance, 6000, Math.min(3, warp / 15), true, true);
+                    PotionEffect pe = new PotionEffect(PotionUnnaturalHunger.instance, 6000, Math.min(3, warp / 15), true, true);
                     pe.getCurativeItems().clear();
                     pe.addCurativeItem(new ItemStack(Items.ROTTEN_FLESH));
                     pe.addCurativeItem(new ItemStack(ItemsTC.brain));
                     try {
                         player.addPotionEffect(pe);
                     }
-                    catch (final Exception e) {
+                    catch (Exception e) {
                         e.printStackTrace();
                     }
                     player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.2")), true);
@@ -238,7 +238,7 @@ public class WarpEvents
         }
     }
     
-    private static void spawnMist(final EntityPlayer player, final int warp, int guardian) {
+    private static void spawnMist(EntityPlayer player, int warp, int guardian) {
         PacketHandler.INSTANCE.sendTo(new PacketMiscEvent((byte)1), (EntityPlayerMP)player);
         if (guardian > 0) {
             guardian = Math.min(8, guardian);
@@ -249,15 +249,15 @@ public class WarpEvents
         player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.6")), true);
     }
     
-    private static void spawnPortal(final EntityPlayer player) {
-        final EntityCultistPortalLesser eg = new EntityCultistPortalLesser(player.world);
-        final int i = MathHelper.floor(player.posX);
-        final int j = MathHelper.floor(player.posY);
-        final int k = MathHelper.floor(player.posZ);
+    private static void spawnPortal(EntityPlayer player) {
+        EntityCultistPortalLesser eg = new EntityCultistPortalLesser(player.world);
+        int i = MathHelper.floor(player.posX);
+        int j = MathHelper.floor(player.posY);
+        int k = MathHelper.floor(player.posZ);
         for (int l = 0; l < 50; ++l) {
-            final int i2 = i + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
-            final int j2 = j + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
-            final int k2 = k + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
+            int i2 = i + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
+            int j2 = j + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
+            int k2 = k + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
             eg.setPosition(i2 + 0.5, j2 + 1.0, k2 + 0.5);
             if (player.world.getBlockState(new BlockPos(i2, j2 - 1, k2)).isOpaqueCube() && player.world.checkNoEntityCollision(eg.getEntityBoundingBox()) && player.world.getCollisionBoxes(eg, eg.getEntityBoundingBox()).isEmpty() && !player.world.containsAnyLiquid(eg.getEntityBoundingBox())) {
                 eg.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(eg)), null);
@@ -268,15 +268,15 @@ public class WarpEvents
         }
     }
     
-    private static void spawnGuardian(final EntityPlayer player) {
-        final EntityEldritchGuardian eg = new EntityEldritchGuardian(player.world);
-        final int i = MathHelper.floor(player.posX);
-        final int j = MathHelper.floor(player.posY);
-        final int k = MathHelper.floor(player.posZ);
+    private static void spawnGuardian(EntityPlayer player) {
+        EntityEldritchGuardian eg = new EntityEldritchGuardian(player.world);
+        int i = MathHelper.floor(player.posX);
+        int j = MathHelper.floor(player.posY);
+        int k = MathHelper.floor(player.posZ);
         for (int l = 0; l < 50; ++l) {
-            final int i2 = i + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
-            final int j2 = j + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
-            final int k2 = k + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
+            int i2 = i + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
+            int j2 = j + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
+            int k2 = k + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
             if (player.world.getBlockState(new BlockPos(i2, j2 - 1, k2)).isFullCube()) {
                 eg.setPosition(i2, j2, k2);
                 if (player.world.checkNoEntityCollision(eg.getEntityBoundingBox()) && player.world.getCollisionBoxes(eg, eg.getEntityBoundingBox()).isEmpty() && !player.world.containsAnyLiquid(eg.getEntityBoundingBox())) {
@@ -288,17 +288,17 @@ public class WarpEvents
         }
     }
     
-    private static void suddenlySpiders(final EntityPlayer player, final int warp, final boolean real) {
+    private static void suddenlySpiders(EntityPlayer player, int warp, boolean real) {
         for (int spawns = Math.min(50, warp), a = 0; a < spawns; ++a) {
-            final EntityMindSpider spider = new EntityMindSpider(player.world);
-            final int i = MathHelper.floor(player.posX);
-            final int j = MathHelper.floor(player.posY);
-            final int k = MathHelper.floor(player.posZ);
+            EntityMindSpider spider = new EntityMindSpider(player.world);
+            int i = MathHelper.floor(player.posX);
+            int j = MathHelper.floor(player.posY);
+            int k = MathHelper.floor(player.posZ);
             boolean success = false;
             for (int l = 0; l < 50; ++l) {
-                final int i2 = i + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
-                final int j2 = j + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
-                final int k2 = k + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
+                int i2 = i + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
+                int j2 = j + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
+                int k2 = k + MathHelper.getInt(player.world.rand, 7, 24) * MathHelper.getInt(player.world.rand, -1, 1);
                 if (player.world.getBlockState(new BlockPos(i2, j2 - 1, k2)).isFullCube()) {
                     spider.setPosition(i2, j2, k2);
                     if (player.world.checkNoEntityCollision(spider.getEntityBoundingBox()) && player.world.getCollisionBoxes(spider, spider.getEntityBoundingBox()).isEmpty() && !player.world.containsAnyLiquid(spider.getEntityBoundingBox())) {
@@ -319,16 +319,16 @@ public class WarpEvents
         player.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("warp.text.7")), true);
     }
     
-    public static void checkDeathGaze(final EntityPlayer player) {
-        final PotionEffect pe = player.getActivePotionEffect(PotionDeathGaze.instance);
+    public static void checkDeathGaze(EntityPlayer player) {
+        PotionEffect pe = player.getActivePotionEffect(PotionDeathGaze.instance);
         if (pe == null) {
             return;
         }
-        final int level = pe.getAmplifier();
-        final int range = Math.min(8 + level * 3, 24);
-        final List<Entity> list = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().grow(range, range, range));
+        int level = pe.getAmplifier();
+        int range = Math.min(8 + level * 3, 24);
+        List<Entity> list = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().grow(range, range, range));
         for (int i = 0; i < list.size(); ++i) {
-            final Entity entity = list.get(i);
+            Entity entity = list.get(i);
             if (entity.canBeCollidedWith() && entity instanceof EntityLivingBase) {
                 if (entity.isEntityAlive()) {
                     if (EntityUtils.isVisibleTo(0.75f, player, entity, (float)range)) {
@@ -346,12 +346,12 @@ public class WarpEvents
         }
     }
     
-    private static int getWarpFromGear(final EntityPlayer player) {
+    private static int getWarpFromGear(EntityPlayer player) {
         int w = PlayerEvents.getFinalWarp(player.getHeldItemMainhand(), player);
         for (int a = 0; a < 4; ++a) {
             w += PlayerEvents.getFinalWarp(player.inventory.armorInventory.get(a), player);
         }
-        final IInventory baubles = BaublesApi.getBaubles(player);
+        IInventory baubles = BaublesApi.getBaubles(player);
         for (int a2 = 0; a2 < baubles.getSizeInventory(); ++a2) {
             w += PlayerEvents.getFinalWarp(baubles.getStackInSlot(a2), player);
         }

@@ -28,12 +28,12 @@ public class ItemCreativePlacer extends ItemTCBase
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(TextFormatting.DARK_PURPLE + "Creative only");
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         IBlockState bs = world.getBlockState(pos);
         if (!bs.getMaterial().isSolid()) {
             return EnumActionResult.FAIL;
@@ -57,7 +57,7 @@ public class ItemCreativePlacer extends ItemTCBase
         return EnumActionResult.SUCCESS;
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.EPIC;
     }
 }

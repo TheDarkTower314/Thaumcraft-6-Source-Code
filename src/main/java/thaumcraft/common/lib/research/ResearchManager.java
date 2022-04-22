@@ -51,17 +51,17 @@ public class ResearchManager
     public static boolean noFlags;
     public static LinkedHashSet<Integer> craftingReferences;
     
-    public static boolean addKnowledge(final EntityPlayer player, final IPlayerKnowledge.EnumKnowledgeType type, ResearchCategory category, final int amount) {
-        final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+    public static boolean addKnowledge(EntityPlayer player, IPlayerKnowledge.EnumKnowledgeType type, ResearchCategory category, int amount) {
+        IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
         if (!type.hasFields()) {
             category = null;
         }
         if (MinecraftForge.EVENT_BUS.post(new ResearchEvent.Knowledge(player, type, category, amount))) {
             return false;
         }
-        final int kp = knowledge.getKnowledge(type, category);
+        int kp = knowledge.getKnowledge(type, category);
         knowledge.addKnowledge(type, category, amount);
-        final int kr = knowledge.getKnowledge(type, category) - kp;
+        int kr = knowledge.getKnowledge(type, category) - kp;
         if (amount > 0) {
             for (int a = 0; a < kr; ++a) {
                 PacketHandler.INSTANCE.sendTo(new PacketKnowledgeGain((byte)type.ordinal(), (category == null) ? null : category.key), (EntityPlayerMP)player);
@@ -71,7 +71,7 @@ public class ResearchManager
         return true;
     }
     
-    public static boolean completeResearch(final EntityPlayer player, final String researchkey, final boolean sync) {
+    public static boolean completeResearch(EntityPlayer player, String researchkey, boolean sync) {
         boolean b = false;
         while (progressResearch(player, researchkey, sync)) {
             b = true;
@@ -79,7 +79,7 @@ public class ResearchManager
         return b;
     }
     
-    public static boolean completeResearch(final EntityPlayer player, final String researchkey) {
+    public static boolean completeResearch(EntityPlayer player, String researchkey) {
         boolean b = false;
         while (progressResearch(player, researchkey, true)) {
             b = true;
@@ -87,22 +87,22 @@ public class ResearchManager
         return b;
     }
     
-    public static boolean startResearchWithPopup(final EntityPlayer player, final String researchkey) {
-        final boolean b = progressResearch(player, researchkey, true);
+    public static boolean startResearchWithPopup(EntityPlayer player, String researchkey) {
+        boolean b = progressResearch(player, researchkey, true);
         if (b) {
-            final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+            IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
             knowledge.setResearchFlag(researchkey, IPlayerKnowledge.EnumResearchFlag.POPUP);
             knowledge.setResearchFlag(researchkey, IPlayerKnowledge.EnumResearchFlag.RESEARCH);
         }
         return b;
     }
     
-    public static boolean progressResearch(final EntityPlayer player, final String researchkey) {
+    public static boolean progressResearch(EntityPlayer player, String researchkey) {
         return progressResearch(player, researchkey, true);
     }
     
-    public static boolean progressResearch(final EntityPlayer player, final String researchkey, final boolean sync) {
-        final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+    public static boolean progressResearch(EntityPlayer player, String researchkey, boolean sync) {
+        IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
         if (knowledge.isResearchComplete(researchkey) || !doesPlayerHaveRequisites(player, researchkey)) {
             return false;
         }
@@ -112,7 +112,7 @@ public class ResearchManager
         if (!knowledge.isResearchKnown(researchkey)) {
             knowledge.addResearch(researchkey);
         }
-        final ResearchEntry re = ResearchCategories.getResearch(researchkey);
+        ResearchEntry re = ResearchCategories.getResearch(researchkey);
         if (re != null) {
             boolean popups = true;
             if (re.getStages() != null) {
@@ -142,8 +142,8 @@ public class ResearchManager
                     warp += currentStage.getWarp();
                     if (warp > 0 && !ModConfig.CONFIG_MISC.wussMode && !player.world.isRemote) {
                         if (warp > 1) {
-                            final IPlayerWarp pw = ThaumcraftCapabilities.getWarp(player);
-                            final int w2 = warp / 2;
+                            IPlayerWarp pw = ThaumcraftCapabilities.getWarp(player);
+                            int w2 = warp / 2;
                             if (warp - w2 > 0) {
                                 ThaumcraftApi.internalMethods.addWarpToPlayer(player, warp - w2, IPlayerWarp.EnumWarpType.PERMANENT);
                             }
@@ -167,27 +167,27 @@ public class ResearchManager
                         ResearchManager.noFlags = false;
                     }
                     if (re.getRewardItem() != null) {
-                        for (final ItemStack rs : re.getRewardItem()) {
+                        for (ItemStack rs : re.getRewardItem()) {
                             if (!player.inventory.addItemStackToInventory(rs.copy())) {
                                 player.entityDropItem(rs.copy(), 1.0f);
                             }
                         }
                     }
                     if (re.getRewardKnow() != null) {
-                        for (final ResearchStage.Knowledge rk : re.getRewardKnow()) {
+                        for (ResearchStage.Knowledge rk : re.getRewardKnow()) {
                             addKnowledge(player, rk.type, rk.category, rk.type.getProgression() * rk.amount);
                         }
                     }
                 }
-                for (final String rc : ResearchCategories.researchCategories.keySet()) {
-                    for (final ResearchEntry ri : ResearchCategories.getResearchCategory(rc).research.values()) {
+                for (String rc : ResearchCategories.researchCategories.keySet()) {
+                    for (ResearchEntry ri : ResearchCategories.getResearchCategory(rc).research.values()) {
                         if (ri != null && ri.getAddenda() != null) {
                             if (!knowledge.isResearchComplete(ri.getKey())) {
                                 continue;
                             }
-                            for (final ResearchAddendum addendum : ri.getAddenda()) {
+                            for (ResearchAddendum addendum : ri.getAddenda()) {
                                 if (addendum.getResearch() != null && Arrays.asList(addendum.getResearch()).contains(researchkey)) {
-                                    final ITextComponent text = new TextComponentTranslation("tc.addaddendum", ri.getLocalizedName());
+                                    ITextComponent text = new TextComponentTranslation("tc.addaddendum", ri.getLocalizedName());
                                     player.sendMessage(text);
                                     knowledge.setResearchFlag(ri.getKey(), IPlayerKnowledge.EnumResearchFlag.PAGE);
                                     break;
@@ -199,7 +199,7 @@ public class ResearchManager
             }
         }
         if (re != null && re.getSiblings() != null) {
-            for (final String sibling : re.getSiblings()) {
+            for (String sibling : re.getSiblings()) {
                 if (!knowledge.isResearchComplete(sibling) && doesPlayerHaveRequisites(player, sibling)) {
                     completeResearch(player, sibling, sync);
                 }
@@ -214,18 +214,18 @@ public class ResearchManager
         return true;
     }
     
-    public static boolean doesPlayerHaveRequisites(final EntityPlayer player, final String key) {
-        final ResearchEntry ri = ResearchCategories.getResearch(key);
+    public static boolean doesPlayerHaveRequisites(EntityPlayer player, String key) {
+        ResearchEntry ri = ResearchCategories.getResearch(key);
         if (ri == null) {
             return true;
         }
-        final String[] parents = ri.getParentsStripped();
+        String[] parents = ri.getParentsStripped();
         return parents == null || ThaumcraftCapabilities.knowsResearchStrict(player, parents);
     }
     
-    public static Aspect getCombinationResult(final Aspect aspect1, final Aspect aspect2) {
-        final Collection<Aspect> aspects = Aspect.aspects.values();
-        for (final Aspect aspect3 : aspects) {
+    public static Aspect getCombinationResult(Aspect aspect1, Aspect aspect2) {
+        Collection<Aspect> aspects = Aspect.aspects.values();
+        for (Aspect aspect3 : aspects) {
             if (aspect3.getComponents() != null && ((aspect3.getComponents()[0] == aspect1 && aspect3.getComponents()[1] == aspect2) || (aspect3.getComponents()[0] == aspect2 && aspect3.getComponents()[1] == aspect1))) {
                 return aspect3;
             }
@@ -234,27 +234,27 @@ public class ResearchManager
     }
     
     public static void parseAllResearch() {
-        final JsonParser parser = new JsonParser();
-        for (final ResourceLocation loc : CommonInternals.jsonLocs.values()) {
+        JsonParser parser = new JsonParser();
+        for (ResourceLocation loc : CommonInternals.jsonLocs.values()) {
             String s = "/assets/" + loc.getResourceDomain() + "/" + loc.getResourcePath();
             if (!s.endsWith(".json")) {
                 s += ".json";
             }
-            final InputStream stream = ResearchManager.class.getResourceAsStream(s);
+            InputStream stream = ResearchManager.class.getResourceAsStream(s);
             if (stream != null) {
                 try {
-                    final InputStreamReader reader = new InputStreamReader(stream);
-                    final JsonObject obj = parser.parse(reader).getAsJsonObject();
-                    final JsonArray entries = obj.get("entries").getAsJsonArray();
+                    InputStreamReader reader = new InputStreamReader(stream);
+                    JsonObject obj = parser.parse(reader).getAsJsonObject();
+                    JsonArray entries = obj.get("entries").getAsJsonArray();
                     int a = 0;
-                    for (final JsonElement element : entries) {
+                    for (JsonElement element : entries) {
                         ++a;
                         try {
-                            final JsonObject entry = element.getAsJsonObject();
-                            final ResearchEntry researchEntry = parseResearchJson(entry);
+                            JsonObject entry = element.getAsJsonObject();
+                            ResearchEntry researchEntry = parseResearchJson(entry);
                             addResearchToCategory(researchEntry);
                         }
-                        catch (final Exception e) {
+                        catch (Exception e) {
                             e.printStackTrace();
                             Thaumcraft.log.warn("Invalid research entry [" + a + "] found in " + loc.toString());
                             --a;
@@ -262,7 +262,7 @@ public class ResearchManager
                     }
                     Thaumcraft.log.info("Loaded " + a + " research entries from " + loc.toString());
                 }
-                catch (final Exception e2) {
+                catch (Exception e2) {
                     Thaumcraft.log.warn("Invalid research file: " + loc.toString());
                 }
             }
@@ -272,8 +272,8 @@ public class ResearchManager
         }
     }
     
-    private static ResearchEntry parseResearchJson(final JsonObject obj) throws Exception {
-        final ResearchEntry entry = new ResearchEntry();
+    private static ResearchEntry parseResearchJson(JsonObject obj) throws Exception {
+        ResearchEntry entry = new ResearchEntry();
         entry.setKey(obj.getAsJsonPrimitive("key").getAsString());
         if (entry.getKey() == null) {
             throw new Exception("Invalid key in research JSon");
@@ -284,11 +284,11 @@ public class ResearchManager
             throw new Exception("Invalid category in research JSon");
         }
         if (obj.has("icons")) {
-            final String[] icons = arrayJsonToString(obj.get("icons").getAsJsonArray());
+            String[] icons = arrayJsonToString(obj.get("icons").getAsJsonArray());
             if (icons != null && icons.length > 0) {
-                final Object[] ir = new Object[icons.length];
+                Object[] ir = new Object[icons.length];
                 for (int a = 0; a < icons.length; ++a) {
-                    final ItemStack stack = parseJSONtoItemStack(icons[a]);
+                    ItemStack stack = parseJSONtoItemStack(icons[a]);
                     if (stack != null && !stack.isEmpty()) {
                         ir[a] = stack;
                     }
@@ -309,11 +309,11 @@ public class ResearchManager
             entry.setSiblings(arrayJsonToString(obj.get("siblings").getAsJsonArray()));
         }
         if (obj.has("meta")) {
-            final String[] meta = arrayJsonToString(obj.get("meta").getAsJsonArray());
+            String[] meta = arrayJsonToString(obj.get("meta").getAsJsonArray());
             if (meta != null && meta.length > 0) {
-                final ArrayList<ResearchEntry.EnumResearchMeta> metas = new ArrayList<ResearchEntry.EnumResearchMeta>();
-                for (final String s : meta) {
-                    final ResearchEntry.EnumResearchMeta en = ResearchEntry.EnumResearchMeta.valueOf(s.toUpperCase());
+                ArrayList<ResearchEntry.EnumResearchMeta> metas = new ArrayList<ResearchEntry.EnumResearchMeta>();
+                for (String s : meta) {
+                    ResearchEntry.EnumResearchMeta en = ResearchEntry.EnumResearchMeta.valueOf(s.toUpperCase());
                     if (en == null) {
                         throw new Exception("Illegal metadata in research JSon");
                     }
@@ -323,7 +323,7 @@ public class ResearchManager
             }
         }
         if (obj.has("location")) {
-            final Integer[] location = arrayJsonToInt(obj.get("location").getAsJsonArray());
+            Integer[] location = arrayJsonToInt(obj.get("location").getAsJsonArray());
             if (location != null && location.length == 2) {
                 entry.setDisplayColumn(location[0]);
                 entry.setDisplayRow(location[1]);
@@ -333,11 +333,11 @@ public class ResearchManager
             entry.setRewardItem(parseJsonItemList(entry.getKey(), arrayJsonToString(obj.get("reward_item").getAsJsonArray())));
         }
         if (obj.has("reward_knowledge")) {
-            final String[] sl = arrayJsonToString(obj.get("reward_knowledge").getAsJsonArray());
+            String[] sl = arrayJsonToString(obj.get("reward_knowledge").getAsJsonArray());
             if (sl != null && sl.length > 0) {
-                final ArrayList<ResearchStage.Knowledge> kl = new ArrayList<ResearchStage.Knowledge>();
-                for (final String s : sl) {
-                    final ResearchStage.Knowledge k = ResearchStage.Knowledge.parse(s);
+                ArrayList<ResearchStage.Knowledge> kl = new ArrayList<ResearchStage.Knowledge>();
+                for (String s : sl) {
+                    ResearchStage.Knowledge k = ResearchStage.Knowledge.parse(s);
                     if (k != null) {
                         kl.add(k);
                     }
@@ -347,11 +347,11 @@ public class ResearchManager
                 }
             }
         }
-        final JsonArray stagesJson = obj.get("stages").getAsJsonArray();
-        final ArrayList<ResearchStage> stages = new ArrayList<ResearchStage>();
-        for (final JsonElement element : stagesJson) {
-            final JsonObject stageObj = element.getAsJsonObject();
-            final ResearchStage stage = new ResearchStage();
+        JsonArray stagesJson = obj.get("stages").getAsJsonArray();
+        ArrayList<ResearchStage> stages = new ArrayList<ResearchStage>();
+        for (JsonElement element : stagesJson) {
+            JsonObject stageObj = element.getAsJsonObject();
+            ResearchStage stage = new ResearchStage();
             stage.setText(stageObj.getAsJsonPrimitive("text").getAsString());
             if (stage.getText() == null) {
                 throw new Exception("Illegal stage text in research JSon");
@@ -363,13 +363,13 @@ public class ResearchManager
                 stage.setObtain(parseJsonOreList(entry.getKey(), arrayJsonToString(stageObj.get("required_item").getAsJsonArray())));
             }
             if (stageObj.has("required_craft")) {
-                final String[] s2 = arrayJsonToString(stageObj.get("required_craft").getAsJsonArray());
+                String[] s2 = arrayJsonToString(stageObj.get("required_craft").getAsJsonArray());
                 stage.setCraft(parseJsonOreList(entry.getKey(), s2));
                 if (stage.getCraft() != null && stage.getCraft().length > 0) {
-                    final int[] refs = new int[stage.getCraft().length];
+                    int[] refs = new int[stage.getCraft().length];
                     int q = 0;
-                    for (final Object stack2 : stage.getCraft()) {
-                        final int code = (stack2 instanceof ItemStack) ? createItemStackHash((ItemStack)stack2) : ("oredict:" + stack2).hashCode();
+                    for (Object stack2 : stage.getCraft()) {
+                        int code = (stack2 instanceof ItemStack) ? createItemStackHash((ItemStack)stack2) : ("oredict:" + stack2).hashCode();
                         ResearchManager.craftingReferences.add(code);
                         refs[q] = code;
                         ++q;
@@ -378,11 +378,11 @@ public class ResearchManager
                 }
             }
             if (stageObj.has("required_knowledge")) {
-                final String[] sl2 = arrayJsonToString(stageObj.get("required_knowledge").getAsJsonArray());
+                String[] sl2 = arrayJsonToString(stageObj.get("required_knowledge").getAsJsonArray());
                 if (sl2 != null && sl2.length > 0) {
-                    final ArrayList<ResearchStage.Knowledge> kl2 = new ArrayList<ResearchStage.Knowledge>();
-                    for (final String s3 : sl2) {
-                        final ResearchStage.Knowledge i = ResearchStage.Knowledge.parse(s3);
+                    ArrayList<ResearchStage.Knowledge> kl2 = new ArrayList<ResearchStage.Knowledge>();
+                    for (String s3 : sl2) {
+                        ResearchStage.Knowledge i = ResearchStage.Knowledge.parse(s3);
                         if (i != null) {
                             kl2.add(i);
                         }
@@ -395,10 +395,10 @@ public class ResearchManager
             if (stageObj.has("required_research")) {
                 stage.setResearch(arrayJsonToString(stageObj.get("required_research").getAsJsonArray()));
                 if (stage.getResearch() != null && stage.getResearch().length > 0) {
-                    final String[] rKey = new String[stage.getResearch().length];
-                    final String[] rIcn = new String[stage.getResearch().length];
+                    String[] rKey = new String[stage.getResearch().length];
+                    String[] rIcn = new String[stage.getResearch().length];
                     for (int a2 = 0; a2 < stage.getResearch().length; ++a2) {
-                        final String[] ss = stage.getResearch()[a2].split(";");
+                        String[] ss = stage.getResearch()[a2].split(";");
                         rKey[a2] = ss[0];
                         if (ss.length > 1) {
                             rIcn[a2] = ss[1];
@@ -420,11 +420,11 @@ public class ResearchManager
             entry.setStages(stages.toArray(new ResearchStage[stages.size()]));
         }
         if (obj.get("addenda") != null) {
-            final JsonArray addendaJson = obj.get("addenda").getAsJsonArray();
-            final ArrayList<ResearchAddendum> addenda = new ArrayList<ResearchAddendum>();
-            for (final JsonElement element2 : addendaJson) {
-                final JsonObject addendumObj = element2.getAsJsonObject();
-                final ResearchAddendum addendum = new ResearchAddendum();
+            JsonArray addendaJson = obj.get("addenda").getAsJsonArray();
+            ArrayList<ResearchAddendum> addenda = new ArrayList<ResearchAddendum>();
+            for (JsonElement element2 : addendaJson) {
+                JsonObject addendumObj = element2.getAsJsonObject();
+                ResearchAddendum addendum = new ResearchAddendum();
                 addendum.setText(addendumObj.getAsJsonPrimitive("text").getAsString());
                 if (addendum.getText() == null) {
                     throw new Exception("Illegal addendum text in research JSon");
@@ -444,7 +444,7 @@ public class ResearchManager
         return entry;
     }
     
-    public static int createItemStackHash(final ItemStack stack) {
+    public static int createItemStackHash(ItemStack stack) {
         if (stack == null || stack.isEmpty()) {
             return 0;
         }
@@ -452,39 +452,39 @@ public class ResearchManager
         return stack.toString().hashCode();
     }
     
-    private static String[] arrayJsonToString(final JsonArray jsonArray) {
-        final ArrayList<String> out = new ArrayList<String>();
-        for (final JsonElement element : jsonArray) {
+    private static String[] arrayJsonToString(JsonArray jsonArray) {
+        ArrayList<String> out = new ArrayList<String>();
+        for (JsonElement element : jsonArray) {
             out.add(element.getAsString());
         }
         return (out.size() == 0) ? null : out.toArray(new String[out.size()]);
     }
     
-    private static ResourceLocation[] arrayJsonToResourceLocations(final JsonArray jsonArray) {
-        final ArrayList<ResourceLocation> out = new ArrayList<ResourceLocation>();
-        for (final JsonElement element : jsonArray) {
+    private static ResourceLocation[] arrayJsonToResourceLocations(JsonArray jsonArray) {
+        ArrayList<ResourceLocation> out = new ArrayList<ResourceLocation>();
+        for (JsonElement element : jsonArray) {
             out.add(new ResourceLocation(element.getAsString()));
         }
         return (out.size() == 0) ? null : out.toArray(new ResourceLocation[out.size()]);
     }
     
-    private static Integer[] arrayJsonToInt(final JsonArray jsonArray) {
-        final ArrayList<Integer> out = new ArrayList<Integer>();
-        for (final JsonElement element : jsonArray) {
+    private static Integer[] arrayJsonToInt(JsonArray jsonArray) {
+        ArrayList<Integer> out = new ArrayList<Integer>();
+        for (JsonElement element : jsonArray) {
             out.add(element.getAsInt());
         }
         return (out.size() == 0) ? null : out.toArray(new Integer[out.size()]);
     }
     
-    private static ItemStack[] parseJsonItemList(final String key, final String[] stacks) {
+    private static ItemStack[] parseJsonItemList(String key, String[] stacks) {
         if (stacks == null || stacks.length == 0) {
             return null;
         }
-        final ItemStack[] work = new ItemStack[stacks.length];
+        ItemStack[] work = new ItemStack[stacks.length];
         int idx = 0;
         for (String s : stacks) {
             s = s.replace("'", "\"");
-            final ItemStack stack = parseJSONtoItemStack(s);
+            ItemStack stack = parseJSONtoItemStack(s);
             if (stack != null && !stack.isEmpty()) {
                 work[idx] = stack;
                 ++idx;
@@ -497,23 +497,23 @@ public class ResearchManager
         return out;
     }
     
-    private static Object[] parseJsonOreList(final String key, final String[] stacks) {
+    private static Object[] parseJsonOreList(String key, String[] stacks) {
         if (stacks == null || stacks.length == 0) {
             return null;
         }
-        final Object[] work = new Object[stacks.length];
+        Object[] work = new Object[stacks.length];
         int idx = 0;
         for (String s : stacks) {
             s = s.replace("'", "\"");
             if (s.startsWith("oredict:")) {
-                final String[] st = s.split(":");
+                String[] st = s.split(":");
                 if (st.length > 1) {
                     work[idx] = st[1];
                     ++idx;
                 }
             }
             else {
-                final ItemStack stack = parseJSONtoItemStack(s);
+                ItemStack stack = parseJSONtoItemStack(s);
                 if (stack != null && !stack.isEmpty()) {
                     work[idx] = stack;
                     ++idx;
@@ -527,12 +527,12 @@ public class ResearchManager
         return out;
     }
     
-    public static ItemStack parseJSONtoItemStack(final String entry) {
+    public static ItemStack parseJSONtoItemStack(String entry) {
         if (entry == null) {
             return null;
         }
-        final String[] split = entry.split(";");
-        final String name = split[0];
+        String[] split = entry.split(";");
+        String name = split[0];
         int num = -1;
         int dam = -1;
         String nbt = null;
@@ -546,7 +546,7 @@ public class ResearchManager
             try {
                 q = Integer.parseInt(split[a]);
             }
-            catch (final NumberFormatException e) {
+            catch (NumberFormatException e) {
                 continue;
             }
             if (q >= 0 && num < 0) {
@@ -564,7 +564,7 @@ public class ResearchManager
         }
         ItemStack stack = ItemStack.EMPTY;
         try {
-            final Item it = Item.getByNameOrId(name);
+            Item it = Item.getByNameOrId(name);
             if (it != null) {
                 stack = new ItemStack(it, num, dam);
                 if (nbt != null) {
@@ -572,14 +572,14 @@ public class ResearchManager
                 }
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         return stack;
     }
     
-    private static void addResearchToCategory(final ResearchEntry ri) {
-        final ResearchCategory rl = ResearchCategories.getResearchCategory(ri.getCategory());
+    private static void addResearchToCategory(ResearchEntry ri) {
+        ResearchCategory rl = ResearchCategories.getResearchCategory(ri.getCategory());
         if (rl != null && !rl.research.containsKey(ri.getKey())) {
-            for (final ResearchEntry rr : rl.research.values()) {
+            for (ResearchEntry rr : rl.research.values()) {
                 if (rr.getDisplayColumn() == ri.getDisplayColumn() && rr.getDisplayRow() == ri.getDisplayRow()) {
                     Thaumcraft.log.warn("Research [" + ri.getKey() + "] not added as it overlaps with existing research [" + rr.getKey() + "] at " + ri.getDisplayColumn() + "," + rr.getDisplayRow());
                     return;

@@ -30,7 +30,7 @@ public class AIFollowOwner extends EntityAIBase
     float minDist;
     private float oldWaterCost;
     
-    public AIFollowOwner(final EntityOwnedConstruct p_i1625_1_, final double p_i1625_2_, final float p_i1625_4_, final float p_i1625_5_) {
+    public AIFollowOwner(EntityOwnedConstruct p_i1625_1_, double p_i1625_2_, float p_i1625_4_, float p_i1625_5_) {
         thePet = p_i1625_1_;
         theWorld = p_i1625_1_.world;
         followSpeed = p_i1625_2_;
@@ -44,7 +44,7 @@ public class AIFollowOwner extends EntityAIBase
     }
     
     public boolean shouldExecute() {
-        final EntityLivingBase entitylivingbase = thePet.getOwnerEntity();
+        EntityLivingBase entitylivingbase = thePet.getOwnerEntity();
         if (entitylivingbase == null) {
             return false;
         }
@@ -71,22 +71,22 @@ public class AIFollowOwner extends EntityAIBase
         thePet.setPathPriority(PathNodeType.WATER, oldWaterCost);
     }
     
-    private boolean func_181065_a(final BlockPos p_181065_1_) {
-        final IBlockState iblockstate = theWorld.getBlockState(p_181065_1_);
-        final Block block = iblockstate.getBlock();
+    private boolean func_181065_a(BlockPos p_181065_1_) {
+        IBlockState iblockstate = theWorld.getBlockState(p_181065_1_);
+        Block block = iblockstate.getBlock();
         return block == Blocks.AIR || !iblockstate.isFullCube();
     }
     
     public void updateTask() {
         thePet.getLookHelper().setLookPositionWithEntity(theOwner, 10.0f, (float) thePet.getVerticalFaceSpeed());
-        final int timeToRecalcPath = this.timeToRecalcPath - 1;
+        int timeToRecalcPath = this.timeToRecalcPath - 1;
         this.timeToRecalcPath = timeToRecalcPath;
         if (timeToRecalcPath <= 0) {
             this.timeToRecalcPath = 10;
             if (!petPathfinder.tryMoveToEntityLiving(theOwner, followSpeed) && !thePet.getLeashed() && thePet.getDistanceSq(theOwner) >= 144.0) {
-                final int i = MathHelper.floor(theOwner.posX) - 2;
-                final int j = MathHelper.floor(theOwner.posZ) - 2;
-                final int k = MathHelper.floor(theOwner.getEntityBoundingBox().minY);
+                int i = MathHelper.floor(theOwner.posX) - 2;
+                int j = MathHelper.floor(theOwner.posZ) - 2;
+                int k = MathHelper.floor(theOwner.getEntityBoundingBox().minY);
                 for (int l = 0; l <= 4; ++l) {
                     for (int i2 = 0; i2 <= 4; ++i2) {
                         if ((l < 1 || i2 < 1 || l > 3 || i2 > 3) && theWorld.getBlockState(new BlockPos(i + l, k - 1, j + i2)).isFullCube() && func_181065_a(new BlockPos(i + l, k, j + i2)) && func_181065_a(new BlockPos(i + l, k + 1, j + i2))) {

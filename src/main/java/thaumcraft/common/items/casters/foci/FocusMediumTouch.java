@@ -53,9 +53,9 @@ public class FocusMediumTouch extends FocusMedium
         if (getParent() == null) {
             return new Trajectory[0];
         }
-        final ArrayList<Trajectory> trajectories = new ArrayList<Trajectory>();
-        final double range = (this instanceof FocusMediumBolt) ? 16.0 : RayTracer.getBlockReachDistance((EntityPlayer) getPackage().getCaster());
-        for (final Trajectory sT : getParent().supplyTrajectories()) {
+        ArrayList<Trajectory> trajectories = new ArrayList<Trajectory>();
+        double range = (this instanceof FocusMediumBolt) ? 16.0 : RayTracer.getBlockReachDistance((EntityPlayer) getPackage().getCaster());
+        for (Trajectory sT : getParent().supplyTrajectories()) {
             Vec3d end = sT.direction.normalize();
             RayTraceResult ray = EntityUtils.getPointedEntityRay(getPackage().world, getPackage().getCaster(), sT.source, end, 0.25, range, 0.25f, false);
             if (ray == null) {
@@ -80,9 +80,9 @@ public class FocusMediumTouch extends FocusMedium
         if (getParent() == null || !(getPackage().getCaster() instanceof EntityPlayer)) {
             return new RayTraceResult[0];
         }
-        final ArrayList<RayTraceResult> targets = new ArrayList<RayTraceResult>();
-        final double range = (this instanceof FocusMediumBolt) ? 16.0 : RayTracer.getBlockReachDistance((EntityPlayer) getPackage().getCaster());
-        for (final Trajectory sT : getParent().supplyTrajectories()) {
+        ArrayList<RayTraceResult> targets = new ArrayList<RayTraceResult>();
+        double range = (this instanceof FocusMediumBolt) ? 16.0 : RayTracer.getBlockReachDistance((EntityPlayer) getPackage().getCaster());
+        for (Trajectory sT : getParent().supplyTrajectories()) {
             Vec3d end = sT.direction.normalize();
             RayTraceResult ray = EntityUtils.getPointedEntityRay(getPackage().world, getPackage().getCaster(), sT.source, end, 0.25, range, 0.25f, false);
             if (ray == null) {
@@ -98,10 +98,10 @@ public class FocusMediumTouch extends FocusMedium
     }
     
     @Override
-    public boolean execute(final Trajectory trajectory) {
-        final FocusEffect[] fe = getPackage().getFocusEffects();
+    public boolean execute(Trajectory trajectory) {
+        FocusEffect[] fe = getPackage().getFocusEffects();
         if (fe != null && fe.length > 0) {
-            final String[] effects = new String[fe.length];
+            String[] effects = new String[fe.length];
             for (int a = 0; a < fe.length; ++a) {
                 effects[a] = fe[a].getKey();
             }

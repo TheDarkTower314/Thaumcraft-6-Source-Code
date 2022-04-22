@@ -58,42 +58,42 @@ public class BlockUtils
     static double lastdistance;
     public static ArrayList<String> portableHoleBlackList;
     
-    private static boolean removeBlock(final EntityPlayer player, final BlockPos pos) {
+    private static boolean removeBlock(EntityPlayer player, BlockPos pos) {
         return removeBlock(player, pos, false);
     }
     
-    private static boolean removeBlock(final EntityPlayer player, final BlockPos pos, final boolean canHarvest) {
-        final IBlockState iblockstate = player.world.getBlockState(pos);
-        final boolean flag = iblockstate.getBlock().removedByPlayer(iblockstate, player.world, pos, player, canHarvest);
+    private static boolean removeBlock(EntityPlayer player, BlockPos pos, boolean canHarvest) {
+        IBlockState iblockstate = player.world.getBlockState(pos);
+        boolean flag = iblockstate.getBlock().removedByPlayer(iblockstate, player.world, pos, player, canHarvest);
         if (flag) {
             try {
                 iblockstate.getBlock().onBlockDestroyedByPlayer(player.world, pos, iblockstate);
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
         }
         return flag;
     }
     
-    public static boolean harvestBlockSkipCheck(final World world, final EntityPlayer player, final BlockPos pos) {
+    public static boolean harvestBlockSkipCheck(World world, EntityPlayer player, BlockPos pos) {
         return harvestBlock(world, player, pos, false, false, 0, true);
     }
     
-    public static boolean harvestBlock(final World world, final EntityPlayer player, final BlockPos pos) {
+    public static boolean harvestBlock(World world, EntityPlayer player, BlockPos pos) {
         return harvestBlock(world, player, pos, false, false, 0, false);
     }
     
-    public static boolean harvestBlock(final World world, final EntityPlayer p, final BlockPos pos, final boolean alwaysDrop, final boolean silkOverride, final int fortuneOverride, final boolean skipEvent) {
+    public static boolean harvestBlock(World world, EntityPlayer p, BlockPos pos, boolean alwaysDrop, boolean silkOverride, int fortuneOverride, boolean skipEvent) {
         if (world.isRemote || !(p instanceof EntityPlayerMP)) {
             return false;
         }
-        final EntityPlayerMP player = (EntityPlayerMP)p;
-        final int exp = skipEvent ? 0 : ForgeHooks.onBlockBreakEvent(world, player.interactionManager.getGameType(), player, pos);
+        EntityPlayerMP player = (EntityPlayerMP)p;
+        int exp = skipEvent ? 0 : ForgeHooks.onBlockBreakEvent(world, player.interactionManager.getGameType(), player, pos);
         if (exp == -1) {
             return false;
         }
-        final IBlockState iblockstate = world.getBlockState(pos);
-        final TileEntity tileentity = world.getTileEntity(pos);
-        final Block block = iblockstate.getBlock();
+        IBlockState iblockstate = world.getBlockState(pos);
+        TileEntity tileentity = world.getTileEntity(pos);
+        Block block = iblockstate.getBlock();
         if ((block instanceof BlockCommandBlock || block instanceof BlockStructure) && !player.canUseCommandBlock()) {
             world.notifyBlockUpdate(pos, iblockstate, iblockstate, 3);
             return false;
@@ -105,8 +105,8 @@ public class BlockUtils
             player.interactionManager.player.connection.sendPacket(new SPacketBlockChange(world, pos));
         }
         else {
-            final ItemStack itemstack1 = player.getHeldItemMainhand();
-            final boolean flag2 = alwaysDrop || iblockstate.getBlock().canHarvestBlock(world, pos, player);
+            ItemStack itemstack1 = player.getHeldItemMainhand();
+            boolean flag2 = alwaysDrop || iblockstate.getBlock().canHarvestBlock(world, pos, player);
             flag1 = removeBlock(player, pos, flag2);
             if (flag1 && flag2) {
                 ItemStack fakeStack = itemstack1.copy();
@@ -114,11 +114,11 @@ public class BlockUtils
                     if (alwaysDrop || fakeStack.isEmpty()) {
                         fakeStack = new ItemStack(ItemsTC.enchantedPlaceholder);
                     }
-                    final Map<Enchantment, Integer> enchMap = EnchantmentHelper.getEnchantments(itemstack1);
+                    Map<Enchantment, Integer> enchMap = EnchantmentHelper.getEnchantments(itemstack1);
                     if (silkOverride) {
                         enchMap.put(Enchantments.SILK_TOUCH, 1);
                     }
-                    final int fort = Math.max(fortuneOverride, (enchMap.get(Enchantments.FORTUNE) != null) ? enchMap.get(Enchantments.FORTUNE) : 0);
+                    int fort = Math.max(fortuneOverride, (enchMap.get(Enchantments.FORTUNE) != null) ? enchMap.get(Enchantments.FORTUNE) : 0);
                     if (fort > 0) {
                         enchMap.put(Enchantments.FORTUNE, fort);
                     }
@@ -133,12 +133,12 @@ public class BlockUtils
         return flag1;
     }
     
-    public static void destroyBlockPartially(final World world, final int par1, final BlockPos pos, final int par5) {
-        for (final EntityPlayer player : world.playerEntities) {
+    public static void destroyBlockPartially(World world, int par1, BlockPos pos, int par5) {
+        for (EntityPlayer player : world.playerEntities) {
             if (player != null && player.world == FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld() && player.getEntityId() != par1) {
-                final double d0 = pos.getX() - player.posX;
-                final double d2 = pos.getY() - player.posY;
-                final double d3 = pos.getZ() - player.posZ;
+                double d0 = pos.getX() - player.posX;
+                double d2 = pos.getY() - player.posY;
+                double d3 = pos.getZ() - player.posZ;
                 if (d0 * d0 + d2 * d2 + d3 * d3 >= 1024.0) {
                     continue;
                 }
@@ -147,7 +147,7 @@ public class BlockUtils
         }
     }
     
-    public static void findBlocks(final World world, final BlockPos pos, final IBlockState block, final int reach) {
+    public static void findBlocks(World world, BlockPos pos, IBlockState block, int reach) {
         for (int xx = -reach; xx <= reach; ++xx) {
             for (int yy = reach; yy >= -reach; --yy) {
                 for (int zz = -reach; zz <= reach; ++zz) {
@@ -160,13 +160,13 @@ public class BlockUtils
                     if (Math.abs(BlockUtils.lastPos.getZ() + zz - pos.getZ()) > 24) {
                         return;
                     }
-                    final IBlockState bs = world.getBlockState(BlockUtils.lastPos.add(xx, yy, zz));
-                    final boolean same = bs.getBlock() == block.getBlock() && bs.getBlock().damageDropped(bs) == block.getBlock().damageDropped(block);
+                    IBlockState bs = world.getBlockState(BlockUtils.lastPos.add(xx, yy, zz));
+                    boolean same = bs.getBlock() == block.getBlock() && bs.getBlock().damageDropped(bs) == block.getBlock().damageDropped(block);
                     if (same && bs.getBlock().getBlockHardness(bs, world, BlockUtils.lastPos.add(xx, yy, zz)) >= 0.0f) {
-                        final double xd = BlockUtils.lastPos.getX() + xx - pos.getX();
-                        final double yd = BlockUtils.lastPos.getY() + yy - pos.getY();
-                        final double zd = BlockUtils.lastPos.getZ() + zz - pos.getZ();
-                        final double d = xd * xd + yd * yd + zd * zd;
+                        double xd = BlockUtils.lastPos.getX() + xx - pos.getX();
+                        double yd = BlockUtils.lastPos.getY() + yy - pos.getY();
+                        double zd = BlockUtils.lastPos.getZ() + zz - pos.getZ();
+                        double d = xd * xd + yd * yd + zd * zd;
                         if (d > BlockUtils.lastdistance) {
                             BlockUtils.lastdistance = d;
                             BlockUtils.lastPos = BlockUtils.lastPos.add(xx, yy, zz);
@@ -179,12 +179,12 @@ public class BlockUtils
         }
     }
     
-    public static boolean breakFurthestBlock(final World world, final BlockPos pos, final IBlockState block, final EntityPlayer player) {
+    public static boolean breakFurthestBlock(World world, BlockPos pos, IBlockState block, EntityPlayer player) {
         BlockUtils.lastPos = new BlockPos(pos);
         BlockUtils.lastdistance = 0.0;
-        final int reach = Utils.isWoodLog(world, pos) ? 2 : 1;
+        int reach = Utils.isWoodLog(world, pos) ? 2 : 1;
         findBlocks(world, pos, block, reach);
-        final boolean worked = harvestBlockSkipCheck(world, player, BlockUtils.lastPos);
+        boolean worked = harvestBlockSkipCheck(world, player, BlockUtils.lastPos);
         world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), block, block, 3);
         if (worked && Utils.isWoodLog(world, pos)) {
             world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), block, block, 3);
@@ -199,31 +199,31 @@ public class BlockUtils
         return worked;
     }
     
-    public static RayTraceResult getTargetBlock(final World world, final Entity entity, final boolean par3) {
+    public static RayTraceResult getTargetBlock(World world, Entity entity, boolean par3) {
         return getTargetBlock(world, entity, par3, par3, 10.0);
     }
     
-    public static RayTraceResult getTargetBlock(final World world, final Entity entity, final boolean stopOnLiquid, final boolean ignoreBlockWithoutBoundingBox, final double range) {
-        final float var4 = 1.0f;
-        final float var5 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * var4;
-        final float var6 = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * var4;
-        final double var7 = entity.prevPosX + (entity.posX - entity.prevPosX) * var4;
-        final double var8 = entity.prevPosY + (entity.posY - entity.prevPosY) * var4 + entity.getEyeHeight();
-        final double var9 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * var4;
-        final Vec3d var10 = new Vec3d(var7, var8, var9);
-        final float var11 = MathHelper.cos(-var6 * 0.017453292f - 3.1415927f);
-        final float var12 = MathHelper.sin(-var6 * 0.017453292f - 3.1415927f);
-        final float var13 = -MathHelper.cos(-var5 * 0.017453292f);
-        final float var14 = MathHelper.sin(-var5 * 0.017453292f);
-        final float var15 = var12 * var13;
-        final float var16 = var11 * var13;
-        final Vec3d var17 = var10.addVector(var15 * range, var14 * range, var16 * range);
+    public static RayTraceResult getTargetBlock(World world, Entity entity, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox, double range) {
+        float var4 = 1.0f;
+        float var5 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * var4;
+        float var6 = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * var4;
+        double var7 = entity.prevPosX + (entity.posX - entity.prevPosX) * var4;
+        double var8 = entity.prevPosY + (entity.posY - entity.prevPosY) * var4 + entity.getEyeHeight();
+        double var9 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * var4;
+        Vec3d var10 = new Vec3d(var7, var8, var9);
+        float var11 = MathHelper.cos(-var6 * 0.017453292f - 3.1415927f);
+        float var12 = MathHelper.sin(-var6 * 0.017453292f - 3.1415927f);
+        float var13 = -MathHelper.cos(-var5 * 0.017453292f);
+        float var14 = MathHelper.sin(-var5 * 0.017453292f);
+        float var15 = var12 * var13;
+        float var16 = var11 * var13;
+        Vec3d var17 = var10.addVector(var15 * range, var14 * range, var16 * range);
         return world.rayTraceBlocks(var10, var17, stopOnLiquid, !ignoreBlockWithoutBoundingBox, false);
     }
     
-    public static int countExposedSides(final World world, final BlockPos pos) {
+    public static int countExposedSides(World world, BlockPos pos) {
         int count = 0;
-        for (final EnumFacing dir : EnumFacing.VALUES) {
+        for (EnumFacing dir : EnumFacing.VALUES) {
             if (world.isAirBlock(pos.offset(dir))) {
                 ++count;
             }
@@ -231,8 +231,8 @@ public class BlockUtils
         return count;
     }
     
-    public static boolean isBlockExposed(final World world, final BlockPos pos) {
-        for (final EnumFacing face : EnumFacing.values()) {
+    public static boolean isBlockExposed(World world, BlockPos pos) {
+        for (EnumFacing face : EnumFacing.values()) {
             if (!world.getBlockState(pos.offset(face)).isOpaqueCube()) {
                 return true;
             }
@@ -240,8 +240,8 @@ public class BlockUtils
         return false;
     }
     
-    public static boolean isAdjacentToSolidBlock(final World world, final BlockPos pos) {
-        for (final EnumFacing face : EnumFacing.values()) {
+    public static boolean isAdjacentToSolidBlock(World world, BlockPos pos) {
+        for (EnumFacing face : EnumFacing.values()) {
             if (world.isSideSolid(pos.offset(face), face.getOpposite())) {
                 return true;
             }
@@ -249,8 +249,8 @@ public class BlockUtils
         return false;
     }
     
-    public static boolean isBlockTouching(final IBlockAccess world, final BlockPos pos, final IBlockState bs) {
-        for (final EnumFacing face : EnumFacing.values()) {
+    public static boolean isBlockTouching(IBlockAccess world, BlockPos pos, IBlockState bs) {
+        for (EnumFacing face : EnumFacing.values()) {
             if (world.getBlockState(pos.offset(face)) == bs) {
                 return true;
             }
@@ -258,8 +258,8 @@ public class BlockUtils
         return false;
     }
     
-    public static boolean isBlockTouching(final IBlockAccess world, final BlockPos pos, final Block bs) {
-        for (final EnumFacing face : EnumFacing.values()) {
+    public static boolean isBlockTouching(IBlockAccess world, BlockPos pos, Block bs) {
+        for (EnumFacing face : EnumFacing.values()) {
             if (world.getBlockState(pos.offset(face)).getBlock() == bs) {
                 return true;
             }
@@ -267,8 +267,8 @@ public class BlockUtils
         return false;
     }
     
-    public static boolean isBlockTouching(final IBlockAccess world, final BlockPos pos, final Material mat, final boolean solid) {
-        for (final EnumFacing face : EnumFacing.values()) {
+    public static boolean isBlockTouching(IBlockAccess world, BlockPos pos, Material mat, boolean solid) {
+        for (EnumFacing face : EnumFacing.values()) {
             if (world.getBlockState(pos.offset(face)).getMaterial() == mat && (!solid || world.getBlockState(pos.offset(face)).isSideSolid(world, pos.offset(face), face.getOpposite()))) {
                 return true;
             }
@@ -276,8 +276,8 @@ public class BlockUtils
         return false;
     }
     
-    public static EnumFacing getFaceBlockTouching(final IBlockAccess world, final BlockPos pos, final Block bs) {
-        for (final EnumFacing face : EnumFacing.values()) {
+    public static EnumFacing getFaceBlockTouching(IBlockAccess world, BlockPos pos, Block bs) {
+        for (EnumFacing face : EnumFacing.values()) {
             if (world.getBlockState(pos.offset(face)).getBlock() == bs) {
                 return face;
             }
@@ -285,14 +285,14 @@ public class BlockUtils
         return null;
     }
     
-    public static boolean isPortableHoleBlackListed(final IBlockState blockstate) {
+    public static boolean isPortableHoleBlackListed(IBlockState blockstate) {
         return isBlockListed(blockstate, BlockUtils.portableHoleBlackList);
     }
     
-    public static boolean isBlockListed(final IBlockState blockstate, final List<String> list) {
-        final String stateString = blockstate.toString();
-        for (final String key : list) {
-            final String[] splitString = key.split(";");
+    public static boolean isBlockListed(IBlockState blockstate, List<String> list) {
+        String stateString = blockstate.toString();
+        for (String key : list) {
+            String[] splitString = key.split(";");
             if (splitString[0].contains(":")) {
                 if (!Block.REGISTRY.getNameForObject(blockstate.getBlock()).toString().equals(splitString[0])) {
                     continue;
@@ -312,8 +312,8 @@ public class BlockUtils
                 continue;
             }
             else {
-                final ItemStack bs = new ItemStack(Item.getItemFromBlock(blockstate.getBlock()), 1, blockstate.getBlock().getMetaFromState(blockstate));
-                for (final ItemStack stack : OreDictionary.getOres(splitString[0], false)) {
+                ItemStack bs = new ItemStack(Item.getItemFromBlock(blockstate.getBlock()), 1, blockstate.getBlock().getMetaFromState(blockstate));
+                for (ItemStack stack : OreDictionary.getOres(splitString[0], false)) {
                     if (OreDictionary.itemMatches(stack, bs, false)) {
                         return true;
                     }
@@ -323,17 +323,17 @@ public class BlockUtils
         return false;
     }
     
-    public static double distance(final BlockPos b1, final BlockPos b2) {
-        final double d3 = b1.getX() - b2.getX();
-        final double d4 = b1.getY() - b2.getY();
-        final double d5 = b1.getZ() - b2.getZ();
+    public static double distance(BlockPos b1, BlockPos b2) {
+        double d3 = b1.getX() - b2.getX();
+        double d4 = b1.getY() - b2.getY();
+        double d5 = b1.getZ() - b2.getZ();
         return d3 * d3 + d4 * d4 + d5 * d5;
     }
     
-    public static EnumFacing.Axis getBlockAxis(final World world, final BlockPos pos) {
-        final IBlockState state = world.getBlockState(pos);
+    public static EnumFacing.Axis getBlockAxis(World world, BlockPos pos) {
+        IBlockState state = world.getBlockState(pos);
         EnumFacing.Axis ax = EnumFacing.Axis.Y;
-        for (final IProperty prop : state.getProperties().keySet()) {
+        for (IProperty prop : state.getProperties().keySet()) {
             if (prop.getName().equals("axis")) {
                 if (state.getValue(prop) instanceof BlockLog.EnumAxis) {
                     ax = ((state.getValue(prop) == BlockLog.EnumAxis.X) ? EnumFacing.Axis.X : ((state.getValue(prop) == BlockLog.EnumAxis.Y) ? EnumFacing.Axis.Y : ((state.getValue(prop) == BlockLog.EnumAxis.Z) ? EnumFacing.Axis.Z : EnumFacing.Axis.Y)));
@@ -352,18 +352,18 @@ public class BlockUtils
         return ax;
     }
     
-    public static boolean hasLOS(final World world, final BlockPos source, final BlockPos target) {
-        final RayTraceResult mop = ThaumcraftApiHelper.rayTraceIgnoringSource(world, new Vec3d(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5), new Vec3d(target.getX() + 0.5, target.getY() + 0.5, target.getZ() + 0.5), false, true, false);
+    public static boolean hasLOS(World world, BlockPos source, BlockPos target) {
+        RayTraceResult mop = ThaumcraftApiHelper.rayTraceIgnoringSource(world, new Vec3d(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5), new Vec3d(target.getX() + 0.5, target.getY() + 0.5, target.getZ() + 0.5), false, true, false);
         return mop == null || (mop.typeOfHit == RayTraceResult.Type.BLOCK && mop.getBlockPos().getX() == target.getX() && mop.getBlockPos().getY() == target.getY() && mop.getBlockPos().getZ() == target.getZ());
     }
     
-    public static ItemStack getSilkTouchDrop(final IBlockState bs) {
+    public static ItemStack getSilkTouchDrop(IBlockState bs) {
         ItemStack dropped = ItemStack.EMPTY;
         try {
-            final Method m = ReflectionHelper.findMethod(Block.class, "getSilkTouchDrop", "func_180643_i", IBlockState.class);
+            Method m = ReflectionHelper.findMethod(Block.class, "getSilkTouchDrop", "func_180643_i", IBlockState.class);
             dropped = (ItemStack)m.invoke(bs.getBlock(), bs);
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             Thaumcraft.log.warn("Could not invoke net.minecraft.block.Block method getSilkTouchDrop");
         }
         return dropped;
@@ -381,17 +381,17 @@ public class BlockUtils
     {
         private BlockPos source;
         
-        public BlockPosComparator(final BlockPos source) {
+        public BlockPosComparator(BlockPos source) {
             this.source = source;
         }
         
         @Override
-        public int compare(final BlockPos a, final BlockPos b) {
+        public int compare(BlockPos a, BlockPos b) {
             if (a.equals(b)) {
                 return 0;
             }
-            final double da = source.distanceSq(a);
-            final double db = source.distanceSq(b);
+            double da = source.distanceSq(a);
+            double db = source.distanceSq(b);
             return (da < db) ? -1 : ((da > db) ? 1 : 0);
         }
     }

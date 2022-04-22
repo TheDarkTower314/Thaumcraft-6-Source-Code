@@ -23,29 +23,29 @@ public class PacketSyncResearchFlagsToServer implements IMessage, IMessageHandle
     public PacketSyncResearchFlagsToServer() {
     }
     
-    public PacketSyncResearchFlagsToServer(final EntityPlayer player, final String key) {
+    public PacketSyncResearchFlagsToServer(EntityPlayer player, String key) {
         this.key = key;
         flags = Utils.pack(ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.PAGE), ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.POPUP), ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.RESEARCH));
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         ByteBufUtils.writeUTF8String(buffer, key);
         buffer.writeByte(flags);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         key = ByteBufUtils.readUTF8String(buffer);
         flags = buffer.readByte();
     }
     
-    public IMessage onMessage(final PacketSyncResearchFlagsToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketSyncResearchFlagsToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final boolean[] b = Utils.unpack(message.flags);
+                boolean[] b = Utils.unpack(message.flags);
                 if (ctx.getServerHandler().player != null) {
-                    final EntityPlayer player = ctx.getServerHandler().player;
+                    EntityPlayer player = ctx.getServerHandler().player;
                     if (b[0]) {
                         ThaumcraftCapabilities.getKnowledge(player).setResearchFlag(message.key, IPlayerKnowledge.EnumResearchFlag.PAGE);
                     }

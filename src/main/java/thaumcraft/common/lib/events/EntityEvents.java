@@ -81,10 +81,10 @@ import net.minecraftforge.fml.common.Mod;
 public class EntityEvents
 {
     @SubscribeEvent
-    public static void itemExpire(final ItemExpireEvent event) {
+    public static void itemExpire(ItemExpireEvent event) {
         if (event.getEntityItem().getItem() != null && !event.getEntityItem().getItem().isEmpty() && event.getEntityItem().getItem().getItem() != null && event.getEntityItem().getItem().getItem() instanceof ItemBathSalts) {
-            final BlockPos bp = new BlockPos(event.getEntityItem());
-            final IBlockState bs = event.getEntityItem().world.getBlockState(bp);
+            BlockPos bp = new BlockPos(event.getEntityItem());
+            IBlockState bs = event.getEntityItem().world.getBlockState(bp);
             if (bs.getBlock() == Blocks.WATER && bs.getBlock().getMetaFromState(bs) == 0) {
                 event.getEntityItem().world.setBlockState(bp, BlocksTC.purifyingFluid.getDefaultState());
             }
@@ -92,17 +92,17 @@ public class EntityEvents
     }
     
     @SubscribeEvent
-    public static void livingTick(final LivingEvent.LivingUpdateEvent event) {
+    public static void livingTick(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntity() instanceof EntityCreature && !event.getEntity().isDead) {
-            final EntityCreature mob = (EntityCreature)event.getEntity();
+            EntityCreature mob = (EntityCreature)event.getEntity();
             if (mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD) != null) {
-                final int t = (int)mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
+                int t = (int)mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
                 try {
                     if (t >= 0 && ChampionModifier.mods[t].type == 0) {
                         ChampionModifier.mods[t].effect.performEffect(mob, null, null, 0.0f);
                     }
                 }
-                catch (final Exception e) {
+                catch (Exception e) {
                     e.printStackTrace();
                     if (t >= ChampionModifier.mods.length) {
                         mob.setDead();
@@ -113,15 +113,15 @@ public class EntityEvents
     }
     
     @SubscribeEvent
-    public static void entityHurt(final LivingHurtEvent event) {
+    public static void entityHurt(LivingHurtEvent event) {
         if (event.getSource().isFireDamage() && event.getEntity() instanceof EntityPlayer && ThaumcraftCapabilities.knowsResearchStrict((EntityPlayer)event.getEntity(), "BASEAUROMANCY@2") && !ThaumcraftCapabilities.knowsResearch((EntityPlayer)event.getEntity(), "f_onfire")) {
-            final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge((EntityPlayer)event.getEntity());
+            IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge((EntityPlayer)event.getEntity());
             knowledge.addResearch("f_onfire");
             knowledge.sync((EntityPlayerMP)event.getEntity());
             ((EntityPlayer)event.getEntity()).sendStatusMessage(new TextComponentString(TextFormatting.DARK_PURPLE + I18n.translateToLocal("got.onfire")), true);
         }
         if (event.getSource().getImmediateSource() != null && event.getEntity() instanceof EntityPlayer && ThaumcraftCapabilities.knowsResearchStrict((EntityPlayer)event.getEntity(), "FOCUSPROJECTILE@2")) {
-            final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge((EntityPlayer)event.getEntity());
+            IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge((EntityPlayer)event.getEntity());
             if (!ThaumcraftCapabilities.knowsResearch((EntityPlayer)event.getEntity(), "f_arrow") && event.getSource().getImmediateSource() instanceof EntityArrow) {
                 knowledge.addResearch("f_arrow");
                 knowledge.sync((EntityPlayerMP)event.getEntity());
@@ -139,27 +139,27 @@ public class EntityEvents
             }
         }
         if (event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof EntityPlayer) {
-            final EntityPlayer leecher = (EntityPlayer)event.getSource().getTrueSource();
-            final ItemStack helm = leecher.inventory.armorInventory.get(3);
+            EntityPlayer leecher = (EntityPlayer)event.getSource().getTrueSource();
+            ItemStack helm = leecher.inventory.armorInventory.get(3);
             if (helm != null && !helm.isEmpty() && helm.getItem() instanceof ItemFortressArmor && helm.hasTagCompound() && helm.getTagCompound().hasKey("mask") && helm.getTagCompound().getInteger("mask") == 2 && leecher.world.rand.nextFloat() < event.getAmount() / 12.0f) {
                 leecher.heal(1.0f);
             }
         }
         if (event.getEntity() instanceof EntityPlayer) {
-            final EntityPlayer player = (EntityPlayer)event.getEntity();
+            EntityPlayer player = (EntityPlayer)event.getEntity();
             if (event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof EntityLivingBase) {
-                final EntityLivingBase attacker = (EntityLivingBase)event.getSource().getTrueSource();
-                final ItemStack helm2 = player.inventory.armorInventory.get(3);
+                EntityLivingBase attacker = (EntityLivingBase)event.getSource().getTrueSource();
+                ItemStack helm2 = player.inventory.armorInventory.get(3);
                 if (helm2 != null && !helm2.isEmpty() && helm2.getItem() instanceof ItemFortressArmor && helm2.hasTagCompound() && helm2.getTagCompound().hasKey("mask") && helm2.getTagCompound().getInteger("mask") == 1 && player.world.rand.nextFloat() < event.getAmount() / 10.0f) {
                     try {
                         attacker.addPotionEffect(new PotionEffect(MobEffects.WITHER, 80));
                     }
-                    catch (final Exception ex) {}
+                    catch (Exception ex) {}
                 }
             }
-            final int charge = (int)player.getAbsorptionAmount();
+            int charge = (int)player.getAbsorptionAmount();
             if (charge > 0 && PlayerEvents.runicInfo.containsKey(player.getEntityId()) && PlayerEvents.lastMaxCharge.containsKey(player.getEntityId())) {
-                final long time = System.currentTimeMillis();
+                long time = System.currentTimeMillis();
                 int target = -1;
                 if (event.getSource().getTrueSource() != null) {
                     target = event.getSource().getTrueSource().getEntityId();
@@ -179,10 +179,10 @@ public class EntityEvents
                 return;
             }
             if (event.getEntity() instanceof EntityMob) {
-                final IAttributeInstance cai = ((EntityMob)event.getEntity()).getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD);
+                IAttributeInstance cai = ((EntityMob)event.getEntity()).getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD);
                 if ((cai != null && cai.getAttributeValue() >= 0.0) || event.getEntity() instanceof IEldritchMob) {
-                    final EntityMob mob = (EntityMob)event.getEntity();
-                    final int t = (int)cai.getAttributeValue();
+                    EntityMob mob = (EntityMob)event.getEntity();
+                    int t = (int)cai.getAttributeValue();
                     if ((t == 5 || event.getEntity() instanceof IEldritchMob) && mob.getAbsorptionAmount() > 0.0f) {
                         int target2 = -1;
                         if (event.getSource().getTrueSource() != null) {
@@ -198,13 +198,13 @@ public class EntityEvents
                         event.getEntity().playSound(SoundsTC.runicShieldCharge, 0.66f, 1.1f + event.getEntity().world.rand.nextFloat() * 0.1f);
                     }
                     else if (t >= 0 && ChampionModifier.mods[t].type == 2 && event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof EntityLivingBase) {
-                        final EntityLivingBase attacker2 = (EntityLivingBase)event.getSource().getTrueSource();
+                        EntityLivingBase attacker2 = (EntityLivingBase)event.getSource().getTrueSource();
                         event.setAmount(ChampionModifier.mods[t].effect.performEffect(mob, attacker2, event.getSource(), event.getAmount()));
                     }
                 }
                 if (event.getAmount() > 0.0f && event.getSource().getTrueSource() != null && event.getEntity() instanceof EntityLivingBase && event.getSource().getTrueSource() instanceof EntityMob && ((EntityMob)event.getSource().getTrueSource()).getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue() >= 0.0) {
-                    final EntityMob mob = (EntityMob)event.getSource().getTrueSource();
-                    final int t = (int)mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
+                    EntityMob mob = (EntityMob)event.getSource().getTrueSource();
+                    int t = (int)mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
                     if (ChampionModifier.mods[t].type == 1) {
                         event.setAmount(ChampionModifier.mods[t].effect.performEffect(mob, (EntityLivingBase)event.getEntity(), event.getSource(), event.getAmount()));
                     }
@@ -214,39 +214,39 @@ public class EntityEvents
     }
     
     @SubscribeEvent
-    public static void itemPickup(final EntityItemPickupEvent event) {
+    public static void itemPickup(EntityItemPickupEvent event) {
         if (event.getEntityPlayer().getName().startsWith("FakeThaumcraft")) {
             event.setCanceled(true);
         }
     }
     
     @SubscribeEvent
-    public static void entityConstuct(final EntityEvent.EntityConstructing event) {
+    public static void entityConstuct(EntityEvent.EntityConstructing event) {
         if (event.getEntity() instanceof EntityCreature && !(event.getEntity() instanceof EntityOwnedConstruct)) {
-            final EntityCreature mob = (EntityCreature)event.getEntity();
+            EntityCreature mob = (EntityCreature)event.getEntity();
             mob.getAttributeMap().registerAttribute(ThaumcraftApiHelper.CHAMPION_MOD).setBaseValue(-2.0);
             mob.getAttributeMap().registerAttribute(ChampionModTainted.TAINTED_MOD).setBaseValue(0.0);
         }
     }
     
     @SubscribeEvent
-    public static void livingDrops(final LivingDropsEvent event) {
-        final boolean fakeplayer = event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof FakePlayer;
+    public static void livingDrops(LivingDropsEvent event) {
+        boolean fakeplayer = event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof FakePlayer;
         if (!event.getEntity().world.isRemote && event.isRecentlyHit() && !fakeplayer && event.getEntity() instanceof EntityMob && !(event.getEntity() instanceof EntityThaumcraftBoss) && ((EntityMob)event.getEntity()).getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue() >= 0.0 && ((EntityMob)event.getEntity()).getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue() != 13.0) {
             int i = 5 + event.getEntity().world.rand.nextInt(3);
             while (i > 0) {
-                final int j = EntityXPOrb.getXPSplit(i);
+                int j = EntityXPOrb.getXPSplit(i);
                 i -= j;
                 event.getEntity().world.spawnEntity(new EntityXPOrb(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, j));
             }
-            final int lb = Math.min(2, MathHelper.floor((event.getEntity().world.rand.nextInt(9) + event.getLootingLevel()) / 5.0f));
+            int lb = Math.min(2, MathHelper.floor((event.getEntity().world.rand.nextInt(9) + event.getLootingLevel()) / 5.0f));
             event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntityLiving().posX, event.getEntityLiving().posY + event.getEntityLiving().getEyeHeight(), event.getEntityLiving().posZ, new ItemStack(ItemsTC.lootBag, 1, lb)));
         }
         if (event.getEntityLiving() instanceof EntityZombie && !(event.getEntityLiving() instanceof EntityBrainyZombie) && event.isRecentlyHit() && event.getEntity().world.rand.nextInt(10) - event.getLootingLevel() < 1) {
             event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntityLiving().posX, event.getEntityLiving().posY + event.getEntityLiving().getEyeHeight(), event.getEntityLiving().posZ, new ItemStack(ItemsTC.brain)));
         }
         if (event.getEntityLiving() instanceof EntityCultist && !fakeplayer && event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof EntityPlayer) {
-            final EntityPlayer p = (EntityPlayer)event.getSource().getTrueSource();
+            EntityPlayer p = (EntityPlayer)event.getSource().getTrueSource();
             int c = ThaumcraftCapabilities.getKnowledge(p).isResearchKnown("!CrimsonCultist@2") ? 20 : 4;
             if (InventoryUtils.getPlayerSlotFor(p, new ItemStack(ItemsTC.curio, 1, 6)) >= 0) {
                 c = 50;
@@ -256,12 +256,12 @@ public class EntityEvents
             }
         }
         if (event.getSource() == DamageSourceThaumcraft.dissolve) {
-            final AspectList aspects = AspectHelper.getEntityAspects(event.getEntityLiving());
+            AspectList aspects = AspectHelper.getEntityAspects(event.getEntityLiving());
             if (aspects != null && aspects.size() > 0) {
-                final Aspect[] al = aspects.getAspects();
+                Aspect[] al = aspects.getAspects();
                 for (int q = MathHelper.getInt(event.getEntity().getEntityWorld().rand, 1, 1 + aspects.visSize() / 10), a = 0; a < q; ++a) {
-                    final Aspect aspect = al[event.getEntity().getEntityWorld().rand.nextInt(al.length)];
-                    final ItemStack stack = ThaumcraftApiHelper.makeCrystal(aspect);
+                    Aspect aspect = al[event.getEntity().getEntityWorld().rand.nextInt(al.length)];
+                    ItemStack stack = ThaumcraftApiHelper.makeCrystal(aspect);
                     event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntityLiving().posX, event.getEntityLiving().posY + event.getEntityLiving().getEyeHeight(), event.getEntityLiving().posZ, stack));
                 }
             }
@@ -269,15 +269,15 @@ public class EntityEvents
     }
     
     @SubscribeEvent
-    public static void entitySpawns(final EntityJoinWorldEvent event) {
+    public static void entitySpawns(EntityJoinWorldEvent event) {
         if (!event.getWorld().isRemote) {
             if (event.getEntity() instanceof EntityCreature && ((EntityCreature)event.getEntity()).getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD) != null && ((EntityCreature)event.getEntity()).getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue() == 13.0) {
-                final IAttributeInstance modai = ((EntityCreature)event.getEntity()).getEntityAttribute(ChampionModTainted.TAINTED_MOD);
+                IAttributeInstance modai = ((EntityCreature)event.getEntity()).getEntityAttribute(ChampionModTainted.TAINTED_MOD);
                 modai.removeModifier(new AttributeModifier(UUID.fromString("2cb22137-a9d8-4417-ae06-de0e70f11b4c"), "istainted", 1.0, 0));
                 modai.applyModifier(new AttributeModifier(UUID.fromString("2cb22137-a9d8-4417-ae06-de0e70f11b4c"), "istainted", 0.0, 0));
             }
             if (event.getEntity() instanceof EntityMob) {
-                final EntityMob mob = (EntityMob)event.getEntity();
+                EntityMob mob = (EntityMob)event.getEntity();
                 if (mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue() < -1.0) {
                     int c = event.getWorld().rand.nextInt(100);
                     if (event.getWorld().getDifficulty() == EnumDifficulty.EASY || !ModConfig.CONFIG_WORLD.allowChampionMobs) {
@@ -289,7 +289,7 @@ public class EntityEvents
                     if (event.getWorld().provider.getDimension() == ModConfig.CONFIG_WORLD.dimensionOuterId) {
                         c -= 3;
                     }
-                    final Biome bg = mob.world.getBiome(new BlockPos(mob));
+                    Biome bg = mob.world.getBiome(new BlockPos(mob));
                     if (BiomeDictionary.hasType(bg, BiomeDictionary.Type.SPOOKY) || BiomeDictionary.hasType(bg, BiomeDictionary.Type.NETHER) || BiomeDictionary.hasType(bg, BiomeDictionary.Type.END)) {
                         c -= (ModConfig.CONFIG_WORLD.allowChampionMobs ? 2 : 1);
                     }
@@ -298,7 +298,7 @@ public class EntityEvents
                     }
                     int cc = 0;
                     boolean whitelisted = false;
-                    for (final Class clazz : ConfigEntities.championModWhitelist.keySet()) {
+                    for (Class clazz : ConfigEntities.championModWhitelist.keySet()) {
                         if (clazz.isAssignableFrom(event.getEntity().getClass())) {
                             whitelisted = true;
                             if (!ModConfig.CONFIG_WORLD.allowChampionMobs && !(event.getEntity() instanceof EntityThaumcraftBoss)) {
@@ -312,7 +312,7 @@ public class EntityEvents
                         EntityUtils.makeChampion(mob, false);
                     }
                     else {
-                        final IAttributeInstance modai2 = mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD);
+                        IAttributeInstance modai2 = mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD);
                         modai2.removeModifier(ChampionModifier.ATTRIBUTE_MOD_NONE);
                         modai2.applyModifier(ChampionModifier.ATTRIBUTE_MOD_NONE);
                     }
@@ -321,7 +321,7 @@ public class EntityEvents
         }
     }
     
-    private static boolean isDangerousLocation(final World world, final int x, final int y, final int z) {
+    private static boolean isDangerousLocation(World world, int x, int y, int z) {
         return false;
     }
 }

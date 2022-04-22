@@ -21,7 +21,7 @@ import thaumcraft.common.golems.EntityThaumcraftGolem;
 
 public class AIGotoBlock extends AIGoto
 {
-    public AIGotoBlock(final EntityThaumcraftGolem g) {
+    public AIGotoBlock(EntityThaumcraftGolem g) {
         super(g, (byte)0);
     }
     
@@ -45,8 +45,8 @@ public class AIGotoBlock extends AIGoto
     
     @Override
     protected boolean findDestination() {
-        final ArrayList<Task> list = TaskHandler.getBlockTasksSorted(golem.world.provider.getDimension(), golem.getUniqueID(), golem);
-        for (final Task ticket : list) {
+        ArrayList<Task> list = TaskHandler.getBlockTasksSorted(golem.world.provider.getDimension(), golem.getUniqueID(), golem);
+        for (Task ticket : list) {
             if (areGolemTagsValidForTask(ticket) && ticket.canGolemPerformTask(golem) && golem.isWithinHomeDistanceFromPosition(ticket.getPos()) && isValidDestination(golem.world, ticket.getPos()) && canEasilyReach(ticket.getPos())) {
                 targetBlock = getAdjacentSpace(ticket.getPos());
                 golem.setTask(ticket);
@@ -60,13 +60,13 @@ public class AIGotoBlock extends AIGoto
         return false;
     }
     
-    private BlockPos getAdjacentSpace(final BlockPos pos) {
+    private BlockPos getAdjacentSpace(BlockPos pos) {
         double d = Double.MAX_VALUE;
         BlockPos closest = null;
-        for (final EnumFacing face : EnumFacing.HORIZONTALS) {
-            final IBlockState block = golem.world.getBlockState(pos.offset(face));
+        for (EnumFacing face : EnumFacing.HORIZONTALS) {
+            IBlockState block = golem.world.getBlockState(pos.offset(face));
             if (!block.getMaterial().blocksMovement()) {
-                final double dist = pos.offset(face).distanceSqToCenter(golem.posX, golem.posY, golem.posZ);
+                double dist = pos.offset(face).distanceSqToCenter(golem.posX, golem.posY, golem.posZ);
                 if (dist < d) {
                     closest = pos.offset(face);
                     d = dist;
@@ -76,20 +76,20 @@ public class AIGotoBlock extends AIGoto
         return closest;
     }
     
-    private boolean canEasilyReach(final BlockPos pos) {
+    private boolean canEasilyReach(BlockPos pos) {
         if (golem.getDistanceSqToCenter(pos) < minDist) {
             return true;
         }
-        final Path pathentity = golem.getNavigator().getPathToXYZ(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+        Path pathentity = golem.getNavigator().getPathToXYZ(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
         if (pathentity == null) {
             return false;
         }
-        final PathPoint pathpoint = pathentity.getFinalPathPoint();
+        PathPoint pathpoint = pathentity.getFinalPathPoint();
         if (pathpoint == null) {
             return false;
         }
-        final int i = pathpoint.x - MathHelper.floor((float)pos.getX());
-        final int j = pathpoint.z - MathHelper.floor((float)pos.getZ());
+        int i = pathpoint.x - MathHelper.floor((float)pos.getX());
+        int j = pathpoint.z - MathHelper.floor((float)pos.getZ());
         int k = pathpoint.y - MathHelper.floor((float)pos.getY());
         if (i == 0 && j == 0 && k == 2) {
             --k;

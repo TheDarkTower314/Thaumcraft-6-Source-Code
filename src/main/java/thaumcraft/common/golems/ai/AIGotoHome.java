@@ -18,7 +18,7 @@ public class AIGotoHome extends EntityAIBase
     private double movePosZ;
     protected int idleCounter;
     
-    public AIGotoHome(final EntityThaumcraftGolem g) {
+    public AIGotoHome(EntityThaumcraftGolem g) {
         idleCounter = 10;
         golem = g;
         setMutexBits(5);
@@ -30,7 +30,7 @@ public class AIGotoHome extends EntityAIBase
             return false;
         }
         idleCounter = 50;
-        final double dd = golem.getDistanceSqToCenter(golem.getHomePosition());
+        double dd = golem.getDistanceSqToCenter(golem.getHomePosition());
         if (dd < 5.0) {
             return false;
         }
@@ -40,7 +40,7 @@ public class AIGotoHome extends EntityAIBase
             movePosZ = golem.getHomePosition().getZ();
             return true;
         }
-        final Vec3d vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(golem, 16, 7, new Vec3d(golem.getHomePosition().getX(), golem.getHomePosition().getY(), golem.getHomePosition().getZ()));
+        Vec3d vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(golem, 16, 7, new Vec3d(golem.getHomePosition().getX(), golem.getHomePosition().getY(), golem.getHomePosition().getZ()));
         if (vec3 == null) {
             return false;
         }

@@ -17,18 +17,18 @@ public class GuiGolemBWListButton extends GuiButton
     ISealConfigFilter filter;
     static ResourceLocation tex;
     
-    public GuiGolemBWListButton(final int buttonId, final int x, final int y, final int width, final int height, final ISealConfigFilter filter) {
+    public GuiGolemBWListButton(int buttonId, int x, int y, int width, int height, ISealConfigFilter filter) {
         super(buttonId, x, y, width, height, "");
         this.filter = filter;
     }
     
-    public void drawButton(final Minecraft mc, final int xx, final int yy, final float partialTicks) {
+    public void drawButton(Minecraft mc, int xx, int yy, float partialTicks) {
         if (visible) {
-            final FontRenderer fontrenderer = mc.fontRenderer;
+            FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiGolemBWListButton.tex);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);
-            final int k = getHoverState(hovered);
+            int k = getHoverState(hovered);
             if (k == 2) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             }

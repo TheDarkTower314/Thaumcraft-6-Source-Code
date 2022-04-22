@@ -21,7 +21,7 @@ public class GuiFocusPouch extends GuiContainer
     private int blockSlot;
     ResourceLocation tex;
     
-    public GuiFocusPouch(final InventoryPlayer par1InventoryPlayer, final World world, final int x, final int y, final int z) {
+    public GuiFocusPouch(InventoryPlayer par1InventoryPlayer, World world, int x, int y, int z) {
         super(new ContainerFocusPouch(par1InventoryPlayer, world, x, y, z));
         tex = new ResourceLocation("thaumcraft", "textures/gui/gui_focuspouch.png");
         blockSlot = par1InventoryPlayer.currentItem;
@@ -29,15 +29,15 @@ public class GuiFocusPouch extends GuiContainer
         ySize = 232;
     }
     
-    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         renderHoveredToolTip(mouseX, mouseY);
     }
     
-    protected void drawGuiContainerForegroundLayer(final int par1, final int par2) {
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         mc.renderEngine.bindTexture(tex);
-        final float t = zLevel;
+        float t = zLevel;
         zLevel = 300.0f;
         GL11.glEnable(3042);
         drawTexturedModalRect(8 + blockSlot * 18, 209, 240, 0, 16, 16);
@@ -45,18 +45,18 @@ public class GuiFocusPouch extends GuiContainer
         zLevel = t;
     }
     
-    protected boolean checkHotbarKeys(final int par1) {
+    protected boolean checkHotbarKeys(int par1) {
         return false;
     }
     
-    protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         if (mc.player.inventory.mainInventory.get(blockSlot).isEmpty()) {
             mc.player.closeScreen();
         }
         mc.renderEngine.bindTexture(tex);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        final int var5 = (width - xSize) / 2;
-        final int var6 = (height - ySize) / 2;
+        int var5 = (width - xSize) / 2;
+        int var6 = (height - ySize) / 2;
         GL11.glEnable(3042);
         drawTexturedModalRect(var5, var6, 0, 0, xSize, ySize);
         GL11.glDisable(3042);

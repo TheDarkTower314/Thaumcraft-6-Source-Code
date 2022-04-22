@@ -13,18 +13,18 @@ import thaumcraft.common.blocks.BlockTC;
 
 public class BlockPlanksTC extends BlockTC
 {
-    public BlockPlanksTC(final String name) {
+    public BlockPlanksTC(String name) {
         super(Material.WOOD, name);
         setHarvestLevel("axe", 0);
         setHardness(2.0f);
         setSoundType(SoundType.WOOD);
     }
     
-    public int getFlammability(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return 20;
     }
     
-    public int getFireSpreadSpeed(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
+    public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return 5;
     }
 }

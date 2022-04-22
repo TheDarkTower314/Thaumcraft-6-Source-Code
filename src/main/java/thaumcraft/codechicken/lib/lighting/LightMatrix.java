@@ -14,7 +14,7 @@ import thaumcraft.codechicken.lib.render.CCRenderState;
 
 public class LightMatrix implements CCRenderState.IVertexOperation
 {
-    public static final int operationIndex;
+    public static int operationIndex;
     public int computed;
     public float[][] ao;
     public int[][] brightness;
@@ -23,9 +23,9 @@ public class LightMatrix implements CCRenderState.IVertexOperation
     private int sampled;
     private float[] aSamples;
     private int[] bSamples;
-    public static final int[][] ssamplem;
-    public static final int[][] qsamplem;
-    public static final float[] sideao;
+    public static int[][] ssamplem;
+    public static int[][] qsamplem;
+    public static float[] sideao;
     
     public LightMatrix() {
         computed = 0;
@@ -37,39 +37,39 @@ public class LightMatrix implements CCRenderState.IVertexOperation
         bSamples = new int[27];
     }
     
-    public void locate(final IBlockAccess a, final int x, final int y, final int z) {
+    public void locate(IBlockAccess a, int x, int y, int z) {
         access = a;
         pos.set(x, y, z);
         computed = 0;
         sampled = 0;
     }
     
-    public void sample(final int i) {
+    public void sample(int i) {
         if ((sampled & 1 << i) == 0x0) {
-            final int x = pos.x + i % 3 - 1;
-            final int y = pos.y + i / 9 - 1;
-            final int z = pos.z + i / 3 % 3 - 1;
-            final IBlockState b = access.getBlockState(new BlockPos(x, y, z));
+            int x = pos.x + i % 3 - 1;
+            int y = pos.y + i / 9 - 1;
+            int z = pos.z + i / 3 % 3 - 1;
+            IBlockState b = access.getBlockState(new BlockPos(x, y, z));
             bSamples[i] = access.getCombinedLight(new BlockPos(x, y, z), b.getBlock().getLightValue(b, access, new BlockPos(x, y, z)));
             aSamples[i] = b.getAmbientOcclusionLightValue();
         }
     }
     
-    public int[] brightness(final int side) {
+    public int[] brightness(int side) {
         sideSample(side);
         return brightness[side];
     }
     
-    public float[] ao(final int side) {
+    public float[] ao(int side) {
         sideSample(side);
         return ao[side];
     }
     
-    public void sideSample(final int side) {
+    public void sideSample(int side) {
         if ((computed & 1 << side) == 0x0) {
-            final int[] ssample = LightMatrix.ssamplem[side];
+            int[] ssample = LightMatrix.ssamplem[side];
             for (int q = 0; q < 4; ++q) {
-                final int[] qsample = LightMatrix.qsamplem[q];
+                int[] qsample = LightMatrix.qsamplem[q];
                 if (Minecraft.isAmbientOcclusionEnabled()) {
                     interp(side, q, ssample[qsample[0]], ssample[qsample[1]], ssample[qsample[2]], ssample[qsample[3]]);
                 }
@@ -81,7 +81,7 @@ public class LightMatrix implements CCRenderState.IVertexOperation
         }
     }
     
-    private void interp(final int s, final int q, final int a, final int b, final int c, final int d) {
+    private void interp(int s, int q, int a, int b, int c, int d) {
         sample(a);
         sample(b);
         sample(c);
@@ -90,11 +90,11 @@ public class LightMatrix implements CCRenderState.IVertexOperation
         brightness[s][q] = interpBrightness(bSamples[a], bSamples[b], bSamples[c], bSamples[d]);
     }
     
-    public static float interpAO(final float a, final float b, final float c, final float d) {
+    public static float interpAO(float a, float b, float c, float d) {
         return (a + b + c + d) / 4.0f;
     }
     
-    public static int interpBrightness(int a, int b, int c, final int d) {
+    public static int interpBrightness(int a, int b, int c, int d) {
         if (a == 0) {
             a = d;
         }
@@ -116,10 +116,10 @@ public class LightMatrix implements CCRenderState.IVertexOperation
     
     @Override
     public void operate() {
-        final LC lc = CCRenderState.lc;
-        final float[] a = ao(lc.side);
-        final float f = a[0] * lc.fa + a[1] * lc.fb + a[2] * lc.fc + a[3] * lc.fd;
-        final int[] b = brightness(lc.side);
+        LC lc = CCRenderState.lc;
+        float[] a = ao(lc.side);
+        float f = a[0] * lc.fa + a[1] * lc.fb + a[2] * lc.fc + a[3] * lc.fd;
+        int[] b = brightness(lc.side);
         CCRenderState.setColour(ColourRGBA.multiplyC(CCRenderState.colour, f));
         CCRenderState.setBrightness((int)(b[0] * lc.fa + b[1] * lc.fb + b[2] * lc.fc + b[3] * lc.fd) & 0xFF00FF);
     }

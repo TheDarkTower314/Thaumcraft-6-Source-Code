@@ -64,17 +64,17 @@ import net.minecraft.entity.Entity;
 
 public class EntityFluxRift extends Entity
 {
-    private static final DataParameter<Integer> SEED;
-    private static final DataParameter<Integer> SIZE;
-    private static final DataParameter<Float> STABILITY;
-    private static final DataParameter<Boolean> COLLAPSE;
+    private static DataParameter<Integer> SEED;
+    private static DataParameter<Integer> SIZE;
+    private static DataParameter<Float> STABILITY;
+    private static DataParameter<Boolean> COLLAPSE;
     int maxSize;
     int lastSize;
     static ArrayList<RandomItemChooser.Item> events;
     public ArrayList<Vec3d> points;
     public ArrayList<Float> pointsWidth;
     
-    public EntityFluxRift(final World par1World) {
+    public EntityFluxRift(World par1World) {
         super(par1World);
         maxSize = 0;
         lastSize = -1;
@@ -94,7 +94,7 @@ public class EntityFluxRift extends Entity
         return (boolean) getDataManager().get((DataParameter)EntityFluxRift.COLLAPSE);
     }
     
-    public void setCollapse(final boolean b) {
+    public void setCollapse(boolean b) {
         if (b) {
             maxSize = getRiftSize();
         }
@@ -119,7 +119,7 @@ public class EntityFluxRift extends Entity
         return (int) getDataManager().get((DataParameter)EntityFluxRift.SIZE);
     }
     
-    public void setRiftSize(final int s) {
+    public void setRiftSize(int s) {
         getDataManager().set(EntityFluxRift.SIZE, s);
         setSize();
     }
@@ -137,7 +137,7 @@ public class EntityFluxRift extends Entity
         double x2 = Double.MIN_VALUE;
         double y2 = Double.MIN_VALUE;
         double z2 = Double.MIN_VALUE;
-        for (final Vec3d v : points) {
+        for (Vec3d v : points) {
             if (v.x < x0) {
                 x0 = v.x;
             }
@@ -162,7 +162,7 @@ public class EntityFluxRift extends Entity
         height = Math.abs((float)(y2 - y0));
     }
     
-    public void setPosition(final double x, final double y, final double z) {
+    public void setPosition(double x, double y, double z) {
         posX = x;
         posY = y;
         posZ = z;
@@ -178,11 +178,11 @@ public class EntityFluxRift extends Entity
         return (int) getDataManager().get((DataParameter)EntityFluxRift.SEED);
     }
     
-    public void setRiftSeed(final int s) {
+    public void setRiftSeed(int s) {
         getDataManager().set(EntityFluxRift.SEED, s);
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbttagcompound) {
+    public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound.setInteger("MaxSize", maxSize);
         nbttagcompound.setInteger("RiftSize", getRiftSize());
         nbttagcompound.setInteger("RiftSeed", getRiftSeed());
@@ -190,7 +190,7 @@ public class EntityFluxRift extends Entity
         nbttagcompound.setBoolean("collapse", getCollapse());
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbttagcompound) {
+    public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
         maxSize = nbttagcompound.getInteger("MaxSize");
         setRiftSize(nbttagcompound.getInteger("RiftSize"));
         setRiftSeed(nbttagcompound.getInteger("RiftSeed"));
@@ -198,7 +198,7 @@ public class EntityFluxRift extends Entity
         setCollapse(nbttagcompound.getBoolean("collapse"));
     }
     
-    public void move(final MoverType type, final double x, final double y, final double z) {
+    public void move(MoverType type, double x, double y, double z) {
     }
     
     public void onUpdate() {
@@ -211,20 +211,20 @@ public class EntityFluxRift extends Entity
                 setRiftSeed(rand.nextInt());
             }
             if (!points.isEmpty()) {
-                final int pi = rand.nextInt(points.size() - 1);
-                final Vec3d v1 = points.get(pi).addVector(posX, posY, posZ);
-                final Vec3d v2 = points.get(pi + 1).addVector(posX, posY, posZ);
-                final RayTraceResult rt = world.rayTraceBlocks(v1, v2, false);
+                int pi = rand.nextInt(points.size() - 1);
+                Vec3d v1 = points.get(pi).addVector(posX, posY, posZ);
+                Vec3d v2 = points.get(pi + 1).addVector(posX, posY, posZ);
+                RayTraceResult rt = world.rayTraceBlocks(v1, v2, false);
                 if (rt != null && rt.getBlockPos() != null) {
-                    final BlockPos p = new BlockPos(rt.getBlockPos());
-                    final IBlockState bs = world.getBlockState(p);
+                    BlockPos p = new BlockPos(rt.getBlockPos());
+                    IBlockState bs = world.getBlockState(p);
                     if (!world.isAirBlock(p) && bs.getBlockHardness(world, p) >= 0.0f && bs.getBlock().canCollideCheck(bs, false)) {
                         world.playEvent(null, 2001, p, Block.getStateId(world.getBlockState(p)));
                         world.setBlockToAir(p);
                     }
                 }
-                final List<Entity> el = EntityUtils.getEntitiesInRange(getEntityWorld(), v1.x, v1.y, v1.z, this, Entity.class, 0.5);
-                for (final Entity e : el) {
+                List<Entity> el = EntityUtils.getEntitiesInRange(getEntityWorld(), v1.x, v1.y, v1.z, this, Entity.class, 0.5);
+                for (Entity e : el) {
                     if (!e.isDead) {
                         if (e instanceof EntityPlayer && ((EntityPlayer)e).isCreative()) {
                             continue;
@@ -236,7 +236,7 @@ public class EntityFluxRift extends Entity
                             }
                             e.setDead();
                         }
-                        catch (final Exception ex) {}
+                        catch (Exception ex) {}
                     }
                 }
             }
@@ -263,8 +263,8 @@ public class EntityFluxRift extends Entity
                 setRiftStability(getRiftStability() - 0.2f);
             }
             if (ticksExisted % 600 == getEntityId() % 600) {
-                final float taint = AuraHandler.getFlux(world, getPosition());
-                final double size = Math.sqrt(getRiftSize() * 2);
+                float taint = AuraHandler.getFlux(world, getPosition());
+                double size = Math.sqrt(getRiftSize() * 2);
                 if (taint >= size && getRiftSize() < 100 && getStability() != EnumStability.VERY_STABLE) {
                     AuraHandler.drainFlux(getEntityWorld(), getPosition(), (float)size, false);
                     setRiftSize(getRiftSize() + 1);
@@ -279,19 +279,19 @@ public class EntityFluxRift extends Entity
         }
         else {
             if (!points.isEmpty() && points.size() > 2 && !getCollapse() && getRiftStability() < 0.0f && rand.nextInt(150) < Math.abs(getRiftStability())) {
-                final int pi = 1 + rand.nextInt(points.size() - 2);
-                final Vec3d v1 = points.get(pi).addVector(posX, posY, posZ);
+                int pi = 1 + rand.nextInt(points.size() - 2);
+                Vec3d v1 = points.get(pi).addVector(posX, posY, posZ);
                 FXDispatcher.INSTANCE.drawCurlyWisp(v1.x, v1.y, v1.z, 0.0, 0.0, 0.0, 0.1f + pointsWidth.get(pi) * 3.0f, 1.0f, 1.0f, 1.0f, 0.25f, null, 1, 0, 0);
             }
             if (!points.isEmpty() && points.size() > 2 && getCollapse()) {
-                final int pi = 1 + rand.nextInt(points.size() - 2);
-                final Vec3d v1 = points.get(pi).addVector(posX, posY, posZ);
+                int pi = 1 + rand.nextInt(points.size() - 2);
+                Vec3d v1 = points.get(pi).addVector(posX, posY, posZ);
                 FXDispatcher.INSTANCE.drawCurlyWisp(v1.x, v1.y, v1.z, 0.0, 0.0, 0.0, 0.1f + pointsWidth.get(pi) * 3.0f, 1.0f, 0.3f + rand.nextFloat() * 0.1f, 0.3f + rand.nextFloat() * 0.1f, 0.4f, null, 1, 0, 0);
             }
         }
     }
     
-    public static void createRift(final World world, BlockPos pos) {
+    public static void createRift(World world, BlockPos pos) {
         pos = pos.add(world.rand.nextInt(16), 0, world.rand.nextInt(16));
         BlockPos p2 = world.getPrecipitationHeight(pos);
         if (!world.provider.hasSkyLight()) {
@@ -305,18 +305,18 @@ public class EntityFluxRift extends Entity
             if (EntityUtils.getEntitiesInRange(world, p2, null, (Class<? extends Entity>)EntityFluxRift.class, 32.0).size() > 0) {
                 return;
             }
-            final EntityFluxRift rift = new EntityFluxRift(world);
+            EntityFluxRift rift = new EntityFluxRift(world);
             rift.setRiftSeed(world.rand.nextInt());
             rift.setLocationAndAngles(p2.getX() + 0.5, p2.getY() + 0.5, p2.getZ() + 0.5, (float)world.rand.nextInt(360), 0.0f);
-            final float taint = AuraHandler.getFlux(world, p2);
-            final double size = Math.sqrt(taint * 3.0f);
+            float taint = AuraHandler.getFlux(world, p2);
+            double size = Math.sqrt(taint * 3.0f);
             if (size > 5.0 && world.spawnEntity(rift)) {
                 rift.setRiftSize((int)size);
                 AuraHandler.drainFlux(world, p2, (float)size, false);
-                final List<EntityPlayer> targets2 = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(p2.getX(), p2.getY(), p2.getZ(), p2.getX() + 1, p2.getY() + 1, p2.getZ() + 1).grow(32.0, 32.0, 32.0));
+                List<EntityPlayer> targets2 = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(p2.getX(), p2.getY(), p2.getZ(), p2.getX() + 1, p2.getY() + 1, p2.getZ() + 1).grow(32.0, 32.0, 32.0));
                 if (targets2 != null && targets2.size() > 0) {
-                    for (final EntityPlayer target : targets2) {
-                        final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(target);
+                    for (EntityPlayer target : targets2) {
+                        IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(target);
                         if (!knowledge.isResearchKnown("f_toomuchflux")) {
                             target.sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("tc.fluxevent.3")), true);
                             ThaumcraftApi.internalMethods.completeResearch(target, "f_toomuchflux");
@@ -328,8 +328,8 @@ public class EntityFluxRift extends Entity
     }
     
     private void executeRiftEvent() {
-        final RandomItemChooser ric = new RandomItemChooser();
-        final FluxEventEntry ei = (FluxEventEntry)ric.chooseOnWeight(EntityFluxRift.events);
+        RandomItemChooser ric = new RandomItemChooser();
+        FluxEventEntry ei = (FluxEventEntry)ric.chooseOnWeight(EntityFluxRift.events);
         if (ei == null) {
             return;
         }
@@ -339,7 +339,7 @@ public class EntityFluxRift extends Entity
         boolean didit = false;
         switch (ei.event) {
             case 0: {
-                final EntityWisp wisp = new EntityWisp(world);
+                EntityWisp wisp = new EntityWisp(world);
                 wisp.setLocationAndAngles(posX + rand.nextGaussian() * 5.0, posY + rand.nextGaussian() * 5.0, posZ + rand.nextGaussian() * 5.0, 0.0f, 0.0f);
                 if (world.rand.nextInt(5) == 0) {
                     wisp.setType(Aspect.FLUX.getTag());
@@ -351,7 +351,7 @@ public class EntityFluxRift extends Entity
                 break;
             }
             case 1: {
-                final EntityTaintSeedPrime seed = new EntityTaintSeedPrime(world);
+                EntityTaintSeedPrime seed = new EntityTaintSeedPrime(world);
                 seed.setLocationAndAngles((int)(posX + rand.nextGaussian() * 5.0) + 0.5, (int)(posY + rand.nextGaussian() * 5.0), (int)(posZ + rand.nextGaussian() * 5.0) + 0.5, (float) world.rand.nextInt(360), 0.0f);
                 if (seed.getCanSpawnHere() && world.spawnEntity(seed)) {
                     didit = true;
@@ -363,32 +363,32 @@ public class EntityFluxRift extends Entity
                 break;
             }
             case 2: {
-                final List<EntityLivingBase> targets2 = world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(16.0, 16.0, 16.0));
+                List<EntityLivingBase> targets2 = world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(16.0, 16.0, 16.0));
                 if (targets2 != null && targets2.size() > 0) {
-                    for (final EntityLivingBase target : targets2) {
+                    for (EntityLivingBase target : targets2) {
                         didit = true;
                         if (target instanceof EntityPlayer) {
                             ((EntityPlayer)target).sendStatusMessage(new TextComponentString("§5§o" + I18n.translateToLocal("tc.fluxevent.2")), true);
                         }
-                        final PotionEffect pe = new PotionEffect(PotionInfectiousVisExhaust.instance, 3000, 2);
+                        PotionEffect pe = new PotionEffect(PotionInfectiousVisExhaust.instance, 3000, 2);
                         pe.getCurativeItems().clear();
                         try {
                             target.addPotionEffect(pe);
                         }
-                        catch (final Exception ex) {}
+                        catch (Exception ex) {}
                     }
                     break;
                 }
                 break;
             }
             case 3: {
-                final EntityPlayer target2 = world.getClosestPlayerToEntity(this, 16.0);
+                EntityPlayer target2 = world.getClosestPlayerToEntity(this, 16.0);
                 if (target2 != null) {
-                    final FocusPackage p = new FocusPackage(target2);
-                    final FocusMediumRoot root = new FocusMediumRoot();
+                    FocusPackage p = new FocusPackage(target2);
+                    FocusMediumRoot root = new FocusMediumRoot();
                     root.setupFromCasterToTarget(target2, target2, 0.5);
                     p.addNode(root);
-                    final FocusMediumCloud fp = new FocusMediumCloud();
+                    FocusMediumCloud fp = new FocusMediumCloud();
                     fp.initialize();
                     fp.getSetting("radius").setValue(MathHelper.getInt(rand, 1, 3));
                     fp.getSetting("duration").setValue(MathHelper.getInt(rand, Math.min(getRiftSize() / 2, 30), Math.min(getRiftSize(), 120)));
@@ -409,17 +409,17 @@ public class EntityFluxRift extends Entity
         }
     }
     
-    private void calcSteps(final ArrayList<Vec3d> pp, final ArrayList<Float> ww, final Random rr) {
+    private void calcSteps(ArrayList<Vec3d> pp, ArrayList<Float> ww, Random rr) {
         pp.clear();
         ww.clear();
         Vec3d right = new Vec3d(rr.nextGaussian(), rr.nextGaussian(), rr.nextGaussian()).normalize();
         Vec3d left = right.scale(-1.0);
         Vec3d lr = new Vec3d(0.0, 0.0, 0.0);
         Vec3d ll = new Vec3d(0.0, 0.0, 0.0);
-        final int steps = MathHelper.ceil(getRiftSize() / 3.0f);
+        int steps = MathHelper.ceil(getRiftSize() / 3.0f);
         float girth = getRiftSize() / 300.0f;
-        final double angle = 0.33;
-        final float dec = girth / steps;
+        double angle = 0.33;
+        float dec = girth / steps;
         for (int a = 0; a < steps; ++a) {
             girth -= dec;
             right = right.rotatePitch((float)(rr.nextGaussian() * angle));
@@ -449,7 +449,7 @@ public class EntityFluxRift extends Entity
         return (getRiftStability() > 50.0f) ? EnumStability.VERY_STABLE : ((getRiftStability() >= 0.0f) ? EnumStability.STABLE : ((getRiftStability() > -25.0f) ? EnumStability.UNSTABLE : EnumStability.VERY_UNSTABLE));
     }
     
-    public void setFire(final int seconds) {
+    public void setFire(int seconds) {
     }
     
     public boolean isBurning() {
@@ -461,7 +461,7 @@ public class EntityFluxRift extends Entity
     }
     
     private void completeCollapse() {
-        final int qq = (int)Math.sqrt(maxSize);
+        int qq = (int)Math.sqrt(maxSize);
         if (rand.nextInt(100) < qq) {
             entityDropItem(new ItemStack(ItemsTC.primordialPearl, 1, 4 + rand.nextInt(4)), 0.0f);
         }
@@ -469,28 +469,28 @@ public class EntityFluxRift extends Entity
             entityDropItem(new ItemStack(ItemsTC.voidSeed), 0.0f);
         }
         PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockBamf(posX, posY, posZ, 0, true, true, null), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 64.0));
-        final List<EntityLivingBase> list = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityLivingBase.class, 32.0);
+        List<EntityLivingBase> list = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityLivingBase.class, 32.0);
         switch (getStability()) {
             case VERY_UNSTABLE: {
-                for (final EntityLivingBase p : list) {
-                    final int w = (int)((1.0 - p.getDistanceSq(this) / 32.0) * 120.0);
+                for (EntityLivingBase p : list) {
+                    int w = (int)((1.0 - p.getDistanceSq(this) / 32.0) * 120.0);
                     if (w > 0) {
                         p.addPotionEffect(new PotionEffect(PotionFluxTaint.instance, w * 20, 0));
                     }
                 }
             }
             case UNSTABLE: {
-                for (final EntityLivingBase p : list) {
-                    final int w = (int)((1.0 - p.getDistanceSq(this) / 32.0) * 300.0);
+                for (EntityLivingBase p : list) {
+                    int w = (int)((1.0 - p.getDistanceSq(this) / 32.0) * 300.0);
                     if (w > 0) {
                         p.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, w * 20, 0));
                     }
                 }
             }
             case STABLE: {
-                for (final EntityLivingBase p : list) {
+                for (EntityLivingBase p : list) {
                     if (p instanceof EntityPlayer) {
-                        final int w = (int)((1.0 - p.getDistanceSq(this) / 32.0) * 25.0);
+                        int w = (int)((1.0 - p.getDistanceSq(this) / 32.0) * 25.0);
                         if (w <= 0) {
                             continue;
                         }
@@ -523,7 +523,7 @@ public class EntityFluxRift extends Entity
         int cost;
         boolean nearTaintAllowed;
         
-        protected FluxEventEntry(final int event, final int weight, final int cost, final boolean nearTaintAllowed) {
+        protected FluxEventEntry(int event, int weight, int cost, boolean nearTaintAllowed) {
             this.weight = weight;
             this.event = event;
             this.cost = cost;

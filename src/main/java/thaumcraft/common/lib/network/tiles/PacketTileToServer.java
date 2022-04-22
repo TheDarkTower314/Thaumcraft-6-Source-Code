@@ -24,30 +24,30 @@ public class PacketTileToServer implements IMessage, IMessageHandler<PacketTileT
     public PacketTileToServer() {
     }
     
-    public PacketTileToServer(final BlockPos pos, final NBTTagCompound nbt) {
+    public PacketTileToServer(BlockPos pos, NBTTagCompound nbt) {
         this.pos = pos.toLong();
         this.nbt = nbt;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeLong(pos);
         Utils.writeNBTTagCompoundToBuffer(buffer, nbt);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         pos = buffer.readLong();
         nbt = Utils.readNBTTagCompoundFromBuffer(buffer);
     }
     
-    public IMessage onMessage(final PacketTileToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketTileToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final World world = ctx.getServerHandler().player.getServerWorld();
-                final BlockPos bp = BlockPos.fromLong(message.pos);
+                World world = ctx.getServerHandler().player.getServerWorld();
+                BlockPos bp = BlockPos.fromLong(message.pos);
                 if (world != null && bp != null) {
-                    final TileEntity te = world.getTileEntity(bp);
+                    TileEntity te = world.getTileEntity(bp);
                     if (te != null && te instanceof TileThaumcraft) {
                         ((TileThaumcraft)te).messageFromClient((message.nbt == null) ? new NBTTagCompound() : message.nbt, ctx.getServerHandler().player);
                     }

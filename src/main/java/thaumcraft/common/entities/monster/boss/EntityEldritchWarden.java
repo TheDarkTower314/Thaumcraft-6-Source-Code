@@ -67,16 +67,16 @@ import net.minecraft.entity.IRangedAttackMob;
 
 public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRangedAttackMob, IEldritchMob
 {
-    protected final BossInfoServer bossInfo2;
+    protected BossInfoServer bossInfo2;
     String[] titles;
-    private static final DataParameter<Byte> NAME;
+    private static DataParameter<Byte> NAME;
     boolean fieldFrenzy;
     int fieldFrenzyCounter;
     boolean lastBlast;
     public float armLiftL;
     public float armLiftR;
     
-    public EntityEldritchWarden(final World p_i1745_1_) {
+    public EntityEldritchWarden(World p_i1745_1_) {
         super(p_i1745_1_);
         bossInfo2 = new BossInfoServer(new TextComponentString(""), BossInfo.Color.BLUE, BossInfo.Overlay.NOTCHED_10);
         titles = new String[] { "Aphoom-Zhah", "Basatan", "Chaugnar Faugn", "Mnomquah", "Nyogtha", "Oorn", "Shaikorth", "Rhan-Tegoth", "Rhogog", "Shudde M'ell", "Vulthoom", "Yag-Kosha", "Yibb-Tstll", "Zathog", "Zushakon" };
@@ -89,13 +89,13 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
     }
     
     @Override
-    public void removeTrackingPlayer(final EntityPlayerMP player) {
+    public void removeTrackingPlayer(EntityPlayerMP player) {
         super.removeTrackingPlayer(player);
         bossInfo2.removePlayer(player);
     }
     
     @Override
-    public void addTrackingPlayer(final EntityPlayerMP player) {
+    public void addTrackingPlayer(EntityPlayerMP player) {
         super.addTrackingPlayer(player);
         bossInfo2.addPlayer(player);
     }
@@ -115,7 +115,7 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
     
     @Override
     public void generateName() {
-        final int t = (int) getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
+        int t = (int) getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
         if (t >= 0) {
             setCustomNameTag(String.format(I18n.translateToLocal("entity.Thaumcraft.EldritchWarden.name.custom"), getTitle(), ChampionModifier.mods[t].getModNameLocalized()));
         }
@@ -125,7 +125,7 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
         return titles[(byte) getDataManager().get((DataParameter)EntityEldritchWarden.NAME)];
     }
     
-    private void setTitle(final int title) {
+    private void setTitle(int title) {
         getDataManager().set(EntityEldritchWarden.NAME, (byte)title);
     }
     
@@ -144,13 +144,13 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
     }
     
     @Override
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         nbt.setByte("title", (byte) getDataManager().get((DataParameter)EntityEldritchWarden.NAME));
     }
     
     @Override
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         setTitle(nbt.getByte("title"));
     }
@@ -164,7 +164,7 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
         if (fieldFrenzyCounter == 0) {
             super.updateAITasks();
         }
-        final int bh = (int)(getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() * 0.66);
+        int bh = (int)(getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() * 0.66);
         if (hurtResistantTime <= 0 && ticksExisted % 25 == 0 && getAbsorptionAmount() < bh) {
             setAbsorptionAmount(getAbsorptionAmount() + 1.0f);
         }
@@ -184,11 +184,11 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
             if (armLiftR > 0.0f) {
                 armLiftR -= 0.05f;
             }
-            final float x = (float)(posX + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
-            final float z = (float)(posZ + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
+            float x = (float)(posX + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
+            float z = (float)(posZ + (rand.nextFloat() - rand.nextFloat()) * 0.2f);
             FXDispatcher.INSTANCE.wispFXEG(x, (float)(posY + 0.25 * height), z, this);
             if (spawnTimer > 0) {
-                final float he = Math.max(1.0f, height * ((150 - spawnTimer) / 150.0f));
+                float he = Math.max(1.0f, height * ((150 - spawnTimer) / 150.0f));
                 for (int a = 0; a < 33; ++a) {
                     FXDispatcher.INSTANCE.smokeSpiral(posX, getEntityBoundingBox().minY + he / 2.0f, posZ, he, rand.nextInt(360), MathHelper.floor(getEntityBoundingBox().minY) - 1, 2232623);
                 }
@@ -205,7 +205,7 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
             i = MathHelper.floor(posX + (l % 2 * 2 - 1) * 0.25f);
             j = MathHelper.floor(posY);
             k = MathHelper.floor(posZ + (l / 2 % 2 * 2 - 1) * 0.25f);
-            final BlockPos bp = new BlockPos(i, j, k);
+            BlockPos bp = new BlockPos(i, j, k);
             if (world.isAirBlock(bp) && BlocksTC.effectSap != null) {
                 world.setBlockState(bp, BlocksTC.effectSap.getDefaultState());
             }
@@ -221,16 +221,16 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
     private void performFieldFrenzy() {
         if (fieldFrenzyCounter < 121 && fieldFrenzyCounter % 10 == 0) {
             world.setEntityState(this, (byte)17);
-            final double radius = (150 - fieldFrenzyCounter) / 8.0;
-            final int d = 1 + fieldFrenzyCounter / 8;
-            final int i = MathHelper.floor(posX);
-            final int j = MathHelper.floor(posY);
-            final int k = MathHelper.floor(posZ);
+            double radius = (150 - fieldFrenzyCounter) / 8.0;
+            int d = 1 + fieldFrenzyCounter / 8;
+            int i = MathHelper.floor(posX);
+            int j = MathHelper.floor(posY);
+            int k = MathHelper.floor(posZ);
             for (int q = 0; q < 180 / d; ++q) {
-                final double radians = Math.toRadians(q * 2 * d);
-                final int deltaX = (int)(radius * Math.cos(radians));
-                final int deltaZ = (int)(radius * Math.sin(radians));
-                final BlockPos bp = new BlockPos(i + deltaX, j, k + deltaZ);
+                double radians = Math.toRadians(q * 2 * d);
+                int deltaX = (int)(radius * Math.cos(radians));
+                int deltaZ = (int)(radius * Math.sin(radians));
+                BlockPos bp = new BlockPos(i + deltaX, j, k + deltaZ);
                 if (world.isAirBlock(bp) && world.isBlockNormalCube(bp.down(), false)) {
                     world.setBlockState(bp, BlocksTC.effectSap.getDefaultState());
                     world.scheduleUpdate(bp, BlocksTC.effectSap, 250 + rand.nextInt(150));
@@ -245,19 +245,19 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
     }
     
     protected void teleportHome() {
-        final EnderTeleportEvent event = new EnderTeleportEvent(this, getHomePosition().getX(), getHomePosition().getY(), getHomePosition().getZ(), 0.0f);
+        EnderTeleportEvent event = new EnderTeleportEvent(this, getHomePosition().getX(), getHomePosition().getY(), getHomePosition().getZ(), 0.0f);
         if (MinecraftForge.EVENT_BUS.post(event)) {
             return;
         }
-        final double d3 = posX;
-        final double d4 = posY;
-        final double d5 = posZ;
+        double d3 = posX;
+        double d4 = posY;
+        double d5 = posZ;
         posX = event.getTargetX();
         posY = event.getTargetY();
         posZ = event.getTargetZ();
         boolean flag = false;
         int i = MathHelper.floor(posX);
-        final int j = MathHelper.floor(posY);
+        int j = MathHelper.floor(posY);
         int k = MathHelper.floor(posZ);
         BlockPos bp = new BlockPos(i, j, k);
         if (world.isBlockLoaded(bp)) {
@@ -265,8 +265,8 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
             boolean flag2 = false;
             int tries = 20;
             while (!flag2 && tries > 0) {
-                final IBlockState block = world.getBlockState(bp.down());
-                final IBlockState block2 = world.getBlockState(bp);
+                IBlockState block = world.getBlockState(bp.down());
+                IBlockState block2 = world.getBlockState(bp);
                 if (block.getMaterial().blocksMovement() && !block2.getMaterial().blocksMovement()) {
                     flag2 = true;
                 }
@@ -287,31 +287,31 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
             setPosition(d3, d4, d5);
             return;
         }
-        final short short1 = 128;
+        short short1 = 128;
         for (int l = 0; l < short1; ++l) {
-            final double d6 = l / (short1 - 1.0);
-            final float f = (rand.nextFloat() - 0.5f) * 0.2f;
-            final float f2 = (rand.nextFloat() - 0.5f) * 0.2f;
-            final float f3 = (rand.nextFloat() - 0.5f) * 0.2f;
-            final double d7 = d3 + (posX - d3) * d6 + (rand.nextDouble() - 0.5) * width * 2.0;
-            final double d8 = d4 + (posY - d4) * d6 + rand.nextDouble() * height;
-            final double d9 = d5 + (posZ - d5) * d6 + (rand.nextDouble() - 0.5) * width * 2.0;
+            double d6 = l / (short1 - 1.0);
+            float f = (rand.nextFloat() - 0.5f) * 0.2f;
+            float f2 = (rand.nextFloat() - 0.5f) * 0.2f;
+            float f3 = (rand.nextFloat() - 0.5f) * 0.2f;
+            double d7 = d3 + (posX - d3) * d6 + (rand.nextDouble() - 0.5) * width * 2.0;
+            double d8 = d4 + (posY - d4) * d6 + rand.nextDouble() * height;
+            double d9 = d5 + (posZ - d5) * d6 + (rand.nextDouble() - 0.5) * width * 2.0;
             world.spawnParticle(EnumParticleTypes.PORTAL, d7, d8, d9, f, f2, f3);
         }
         playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0f, 1.0f);
     }
     
     @Override
-    public boolean isEntityInvulnerable(final DamageSource ds) {
+    public boolean isEntityInvulnerable(DamageSource ds) {
         return fieldFrenzyCounter > 0 || super.isEntityInvulnerable(ds);
     }
     
     @Override
-    public boolean attackEntityFrom(final DamageSource source, final float damage) {
+    public boolean attackEntityFrom(DamageSource source, float damage) {
         if (isEntityInvulnerable(source) || source == DamageSource.DROWN || source == DamageSource.WITHER) {
             return false;
         }
-        final boolean aef = super.attackEntityFrom(source, damage);
+        boolean aef = super.attackEntityFrom(source, damage);
         if (!world.isRemote && aef && !fieldFrenzy && getAbsorptionAmount() <= 0.0f) {
             fieldFrenzy = true;
             fieldFrenzyCounter = 150;
@@ -320,7 +320,7 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
     }
     
     @Override
-    public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
+    public IEntityLivingData onInitialSpawn(DifficultyInstance diff, IEntityLivingData data) {
         spawnTimer = 150;
         setTitle(rand.nextInt(titles.length));
         setAbsorptionAmount((float)(getAbsorptionAmount() + getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() * 0.66));
@@ -331,19 +331,19 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
         return 3.1f;
     }
     
-    public void attackEntityWithRangedAttack(final EntityLivingBase entitylivingbase, final float f) {
+    public void attackEntityWithRangedAttack(EntityLivingBase entitylivingbase, float f) {
         if (rand.nextFloat() > 0.2f) {
-            final EntityEldritchOrb blast = new EntityEldritchOrb(world, this);
+            EntityEldritchOrb blast = new EntityEldritchOrb(world, this);
             lastBlast = !lastBlast;
             world.setEntityState(this, (byte)(lastBlast ? 16 : 15));
-            final int rr = lastBlast ? 90 : 180;
-            final double xx = MathHelper.cos((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
-            final double yy = 0.13;
-            final double zz = MathHelper.sin((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
+            int rr = lastBlast ? 90 : 180;
+            double xx = MathHelper.cos((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
+            double yy = 0.13;
+            double zz = MathHelper.sin((rotationYaw + rr) % 360.0f / 180.0f * 3.1415927f) * 0.5f;
             blast.setPosition(blast.posX - xx, blast.posY - yy, blast.posZ - zz);
-            final double d0 = entitylivingbase.posX + entitylivingbase.motionX - posX;
-            final double d2 = entitylivingbase.posY - posY - entitylivingbase.height / 2.0f;
-            final double d3 = entitylivingbase.posZ + entitylivingbase.motionZ - posZ;
+            double d0 = entitylivingbase.posX + entitylivingbase.motionX - posX;
+            double d2 = entitylivingbase.posY - posY - entitylivingbase.height / 2.0f;
+            double d3 = entitylivingbase.posZ + entitylivingbase.motionZ - posZ;
             blast.shoot(d0, d2, d3, 1.0f, 2.0f);
             playSound(SoundsTC.egattack, 2.0f, 1.0f + rand.nextFloat() * 0.1f);
             world.spawnEntity(blast);
@@ -355,7 +355,7 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
                 entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.WITHER, 400, 0));
                 entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 400, 0));
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
             if (entitylivingbase instanceof EntityPlayer) {
                 ThaumcraftApi.internalMethods.addWarpToPlayer((EntityPlayer)entitylivingbase, 3 + world.rand.nextInt(3), IPlayerWarp.EnumWarpType.TEMPORARY);
             }
@@ -364,7 +364,7 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte p_70103_1_) {
+    public void handleStatusUpdate(byte p_70103_1_) {
         if (p_70103_1_ == 15) {
             armLiftL = 0.5f;
         }
@@ -383,7 +383,7 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
         }
     }
     
-    public boolean canAttackClass(final Class clazz) {
+    public boolean canAttackClass(Class clazz) {
         return clazz != EntityEldritchGuardian.class && super.canAttackClass(clazz);
     }
     
@@ -399,7 +399,7 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements IRange
         return 500;
     }
     
-    public void setSwingingArms(final boolean swingingArms) {
+    public void setSwingingArms(boolean swingingArms) {
     }
     
     static {

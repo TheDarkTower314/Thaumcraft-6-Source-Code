@@ -19,21 +19,21 @@ import net.minecraft.util.ResourceLocation;
 public class ShaderHandler
 {
     public static int warpVignette;
-    public static final int SHADER_DESAT = 0;
-    public static final int SHADER_BLUR = 1;
-    public static final int SHADER_HUNGER = 2;
-    public static final int SHADER_SUNSCORNED = 3;
+    public static int SHADER_DESAT = 0;
+    public static int SHADER_BLUR = 1;
+    public static int SHADER_HUNGER = 2;
+    public static int SHADER_SUNSCORNED = 3;
     public static ResourceLocation[] shader_resources;
     
-    protected void checkShaders(final TickEvent.PlayerTickEvent event, final Minecraft mc) {
+    protected void checkShaders(TickEvent.PlayerTickEvent event, Minecraft mc) {
         if (event.player.isPotionActive(PotionDeathGaze.instance)) {
             ShaderHandler.warpVignette = 10;
             if (!RenderEventHandler.shaderGroups.containsKey(0)) {
                 try {
                     setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[0]), 0);
                 }
-                catch (final JsonSyntaxException ex) {}
-                catch (final IOException ex2) {}
+                catch (JsonSyntaxException ex) {}
+                catch (IOException ex2) {}
             }
         }
         else if (RenderEventHandler.shaderGroups.containsKey(0)) {
@@ -44,8 +44,8 @@ public class ShaderHandler
                 try {
                     setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[1]), 1);
                 }
-                catch (final JsonSyntaxException ex3) {}
-                catch (final IOException ex4) {}
+                catch (JsonSyntaxException ex3) {}
+                catch (IOException ex4) {}
             }
         }
         else if (RenderEventHandler.shaderGroups.containsKey(1)) {
@@ -56,8 +56,8 @@ public class ShaderHandler
                 try {
                     setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[2]), 2);
                 }
-                catch (final JsonSyntaxException ex5) {}
-                catch (final IOException ex6) {}
+                catch (JsonSyntaxException ex5) {}
+                catch (IOException ex6) {}
             }
         }
         else if (RenderEventHandler.shaderGroups.containsKey(2)) {
@@ -68,8 +68,8 @@ public class ShaderHandler
                 try {
                     setShader(new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), ShaderHandler.shader_resources[3]), 3);
                 }
-                catch (final JsonSyntaxException ex7) {}
-                catch (final IOException ex8) {}
+                catch (JsonSyntaxException ex7) {}
+                catch (IOException ex8) {}
             }
         }
         else if (RenderEventHandler.shaderGroups.containsKey(3)) {
@@ -77,7 +77,7 @@ public class ShaderHandler
         }
     }
     
-    void setShader(final ShaderGroup target, final int shaderId) {
+    void setShader(ShaderGroup target, int shaderId) {
         if (OpenGlHelper.shadersSupported) {
             if (RenderEventHandler.shaderGroups.containsKey(shaderId)) {
                 RenderEventHandler.shaderGroups.get(shaderId).deleteShaderGroup();
@@ -92,13 +92,13 @@ public class ShaderHandler
                     RenderEventHandler.shaderGroups.put(shaderId, target);
                 }
             }
-            catch (final Exception ioexception) {
+            catch (Exception ioexception) {
                 RenderEventHandler.shaderGroups.remove(shaderId);
             }
         }
     }
     
-    public void deactivateShader(final int shaderId) {
+    public void deactivateShader(int shaderId) {
         if (RenderEventHandler.shaderGroups.containsKey(shaderId)) {
             RenderEventHandler.shaderGroups.get(shaderId).deleteShaderGroup();
         }

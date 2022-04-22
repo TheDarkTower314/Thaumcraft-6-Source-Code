@@ -15,13 +15,13 @@ public interface IModelCustom
     void renderAll();
     
     @SideOnly(Side.CLIENT)
-    void renderOnly(final String... p0);
+    void renderOnly(String... p0);
     
     @SideOnly(Side.CLIENT)
-    void renderPart(final String p0);
+    void renderPart(String p0);
     
     @SideOnly(Side.CLIENT)
-    void renderAllExcept(final String... p0);
+    void renderAllExcept(String... p0);
     
     @SideOnly(Side.CLIENT)
     String[] getPartNames();

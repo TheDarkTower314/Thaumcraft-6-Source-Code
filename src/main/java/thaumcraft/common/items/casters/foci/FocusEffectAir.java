@@ -49,16 +49,16 @@ public class FocusEffectAir extends FocusEffect
     }
     
     @Override
-    public float getDamageForDisplay(final float finalPower) {
+    public float getDamageForDisplay(float finalPower) {
         return (1 + getSettingValue("power")) * finalPower;
     }
     
     @Override
-    public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
+    public boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num) {
         PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
         getPackage().world.playSound(null, target.hitVec.x, target.hitVec.y, target.hitVec.z, SoundEvents.ENTITY_ENDERDRAGON_FLAP, SoundCategory.PLAYERS, 0.5f, 0.66f);
         if (target.typeOfHit == RayTraceResult.Type.ENTITY && target.entityHit != null) {
-            final float damage = getDamageForDisplay(finalPower);
+            float damage = getDamageForDisplay(finalPower);
             target.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((target.entityHit != null) ? target.entityHit : getPackage().getCaster(), getPackage().getCaster()), damage);
             if (target.entityHit instanceof EntityLivingBase) {
                 if (trajectory != null) {
@@ -80,8 +80,8 @@ public class FocusEffectAir extends FocusEffect
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void renderParticleFX(final World world, final double posX, final double posY, final double posZ, final double motionX, final double motionY, final double motionZ) {
-        final FXDispatcher.GenPart pp = new FXDispatcher.GenPart();
+    public void renderParticleFX(World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
+        FXDispatcher.GenPart pp = new FXDispatcher.GenPart();
         pp.grav = -0.1f;
         pp.age = 20 + world.rand.nextInt(10);
         pp.alpha = new float[] { 0.5f, 0.0f };
@@ -91,13 +91,13 @@ public class FocusEffectAir extends FocusEffect
         pp.partNum = 5;
         pp.slowDown = 0.75;
         pp.rot = (float)world.rand.nextGaussian() / 2.0f;
-        final float s = (float)(2.0 + world.rand.nextGaussian() * 0.5);
+        float s = (float)(2.0 + world.rand.nextGaussian() * 0.5);
         pp.scale = new float[] { s, s * 2.0f };
         FXDispatcher.INSTANCE.drawGenericParticles(posX, posY, posZ, motionX, motionY, motionZ, pp);
     }
     
     @Override
-    public void onCast(final Entity caster) {
+    public void onCast(Entity caster) {
         caster.world.playSound(null, caster.getPosition().up(), SoundsTC.wind, SoundCategory.PLAYERS, 0.125f, 2.0f);
     }
 }

@@ -28,9 +28,9 @@ import thaumcraft.common.blocks.BlockTC;
 
 public class BlockPlaceholder extends BlockTC
 {
-    private final Random rand;
+    private Random rand;
     
-    public BlockPlaceholder(final String name) {
+    public BlockPlaceholder(String name) {
         super(Material.ROCK, name);
         rand = new Random();
         setHardness(2.5f);
@@ -38,7 +38,7 @@ public class BlockPlaceholder extends BlockTC
         setCreativeTab(null);
     }
     
-    public EnumPushReaction getMobilityFlag(final IBlockState state) {
+    public EnumPushReaction getMobilityFlag(IBlockState state) {
         return EnumPushReaction.BLOCK;
     }
     
@@ -46,26 +46,26 @@ public class BlockPlaceholder extends BlockTC
         return false;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public int getLightValue(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
+    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
         if (state.getBlock() == BlocksTC.placeholderCauldron) {
             return 13;
         }
         return super.getLightValue(state, world, pos);
     }
     
-    public EnumBlockRenderType getRenderType(final IBlockState state) {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.INVISIBLE;
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         if (state.getBlock() == BlocksTC.placeholderNetherbrick) {
             return Item.getItemFromBlock(Blocks.NETHER_BRICK);
         }
@@ -88,11 +88,11 @@ public class BlockPlaceholder extends BlockTC
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         }
@@ -100,7 +100,7 @@ public class BlockPlaceholder extends BlockTC
             for (int a = -1; a <= 1; ++a) {
                 for (int b = -1; b <= 1; ++b) {
                     for (int c = -1; c <= 1; ++c) {
-                        final IBlockState s = world.getBlockState(pos.add(a, b, c));
+                        IBlockState s = world.getBlockState(pos.add(a, b, c));
                         if (s.getBlock() == BlocksTC.golemBuilder) {
                             player.openGui(Thaumcraft.instance, 19, world, pos.add(a, b, c).getX(), pos.add(a, b, c).getY(), pos.add(a, b, c).getZ());
                             return true;
@@ -112,13 +112,13 @@ public class BlockPlaceholder extends BlockTC
         return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
     }
     
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         Label_0265: {
             if ((state.getBlock() == BlocksTC.placeholderNetherbrick || state.getBlock() == BlocksTC.placeholderObsidian) && !BlockInfernalFurnace.ignore && !worldIn.isRemote) {
                 for (int a = -1; a <= 1; ++a) {
                     for (int b = -1; b <= 1; ++b) {
                         for (int c = -1; c <= 1; ++c) {
-                            final IBlockState s = worldIn.getBlockState(pos.add(a, b, c));
+                            IBlockState s = worldIn.getBlockState(pos.add(a, b, c));
                             if (s.getBlock() == BlocksTC.infernalFurnace) {
                                 BlockInfernalFurnace.destroyFurnace(worldIn, pos.add(a, b, c), s, pos);
                                 break Label_0265;
@@ -131,7 +131,7 @@ public class BlockPlaceholder extends BlockTC
                 for (int a = -1; a <= 1; ++a) {
                     for (int b = -1; b <= 1; ++b) {
                         for (int c = -1; c <= 1; ++c) {
-                            final IBlockState s = worldIn.getBlockState(pos.add(a, b, c));
+                            IBlockState s = worldIn.getBlockState(pos.add(a, b, c));
                             if (s.getBlock() == BlocksTC.golemBuilder) {
                                 BlockGolemBuilder.destroy(worldIn, pos.add(a, b, c), s, pos);
                                 break Label_0265;

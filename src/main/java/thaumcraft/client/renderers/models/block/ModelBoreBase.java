@@ -70,7 +70,7 @@ public class ModelBoreBase extends ModelBase
     }
     
     public void render() {
-        final float f5 = 0.0625f;
+        float f5 = 0.0625f;
         Base1.render(f5);
         Base2.render(f5);
         PillarMid.render(f5);
@@ -81,12 +81,12 @@ public class ModelBoreBase extends ModelBase
     }
     
     public void renderNozzle() {
-        final float f5 = 0.0625f;
+        float f5 = 0.0625f;
         Nozzle1.render(f5);
         Nozzle2.render(f5);
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;

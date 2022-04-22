@@ -21,7 +21,7 @@ public class GolemLeg
     public PartModel model;
     private static byte lastID;
     
-    public GolemLeg(final String key, final String[] research, final ResourceLocation icon, final PartModel model, final Object[] comp, final EnumGolemTrait[] tags) {
+    public GolemLeg(String key, String[] research, ResourceLocation icon, PartModel model, Object[] comp, EnumGolemTrait[] tags) {
         this.key = key;
         this.research = research;
         this.icon = icon;
@@ -31,16 +31,16 @@ public class GolemLeg
         function = null;
     }
     
-    public GolemLeg(final String key, final String[] research, final ResourceLocation icon, final PartModel model, final Object[] comp, final ILegFunction function, final EnumGolemTrait[] tags) {
+    public GolemLeg(String key, String[] research, ResourceLocation icon, PartModel model, Object[] comp, ILegFunction function, EnumGolemTrait[] tags) {
         this(key, research, icon, model, comp, tags);
         this.function = function;
     }
     
-    public static void register(final GolemLeg thing) {
+    public static void register(GolemLeg thing) {
         thing.id = GolemLeg.lastID;
         ++GolemLeg.lastID;
         if (thing.id >= GolemLeg.legs.length) {
-            final GolemLeg[] temp = new GolemLeg[thing.id + 1];
+            GolemLeg[] temp = new GolemLeg[thing.id + 1];
             System.arraycopy(GolemLeg.legs, 0, temp, 0, GolemLeg.legs.length);
             GolemLeg.legs = temp;
         }

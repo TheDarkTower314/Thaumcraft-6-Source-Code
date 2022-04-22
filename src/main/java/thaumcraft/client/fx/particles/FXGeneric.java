@@ -44,7 +44,7 @@ public class FXGeneric extends Particle
     float anglePitch;
     int gridSize;
     
-    public FXGeneric(final World world, final double x, final double y, final double z, final double xx, final double yy, final double zz) {
+    public FXGeneric(World world, double x, double y, double z, double xx, double yy, double zz) {
         super(world, x, y, z, xx, yy, zz);
         doneFrames = false;
         flipped = false;
@@ -80,7 +80,7 @@ public class FXGeneric extends Particle
         motionZ = zz;
     }
     
-    public FXGeneric(final World world, final double x, final double y, final double z) {
+    public FXGeneric(World world, double x, double y, double z) {
         super(world, x, y, z, 0.0, 0.0, 0.0);
         doneFrames = false;
         flipped = false;
@@ -122,9 +122,9 @@ public class FXGeneric extends Particle
         float inc = (alphaKeys.length - 1) / (float) particleMaxAge;
         float is = 0.0f;
         for (int a = 0; a <= particleMaxAge; ++a) {
-            final int isF = MathHelper.floor(is);
+            int isF = MathHelper.floor(is);
             float diff = (isF < alphaKeys.length - 1) ? (diff = alphaKeys[isF + 1] - alphaKeys[isF]) : 0.0f;
-            final float pa = is - isF;
+            float pa = is - isF;
             alphaFrames[a] = alphaKeys[isF] + diff * pa;
             is += inc;
         }
@@ -135,9 +135,9 @@ public class FXGeneric extends Particle
         inc = (scaleKeys.length - 1) / (float) particleMaxAge;
         is = 0.0f;
         for (int a = 0; a <= particleMaxAge; ++a) {
-            final int isF = MathHelper.floor(is);
+            int isF = MathHelper.floor(is);
             float diff = (isF < scaleKeys.length - 1) ? (diff = scaleKeys[isF + 1] - scaleKeys[isF]) : 0.0f;
-            final float pa = is - isF;
+            float pa = is - isF;
             scaleFrames[a] = scaleKeys[isF] + diff * pa;
             is += inc;
         }
@@ -171,12 +171,12 @@ public class FXGeneric extends Particle
         }
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void renderParticle(BufferBuilder wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         if (loop) {
             setParticleTextureIndex(startParticle + particleAge / particleInc % numParticles);
         }
         else {
-            final float fs = particleAge / (float) particleMaxAge;
+            float fs = particleAge / (float) particleMaxAge;
             setParticleTextureIndex((int)(startParticle + Math.min(numParticles * fs, (float)(numParticles - 1))));
         }
         if (finalFrames != null && finalFrames.length > 0 && particleAge > particleMaxAge - finalFrames.length) {
@@ -195,16 +195,16 @@ public class FXGeneric extends Particle
         return flipped;
     }
     
-    public void setFlipped(final boolean flip) {
+    public void setFlipped(boolean flip) {
         flipped = flip;
     }
     
-    public void draw(final BufferBuilder wr, final Entity entityIn, final float partialTicks, final float rotationX, final float rotationZ, final float rotationYZ, final float rotationXY, final float rotationXZ) {
+    public void draw(BufferBuilder wr, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         float tx1 = particleTextureIndexX / (float) gridSize;
         float tx2 = tx1 + 1.0f / gridSize;
         float ty1 = particleTextureIndexY / (float) gridSize;
         float ty2 = ty1 + 1.0f / gridSize;
-        final float ts = 0.1f * particleScale;
+        float ts = 0.1f * particleScale;
         if (particleTexture != null) {
             tx1 = particleTexture.getMinU();
             tx2 = particleTexture.getMaxU();
@@ -212,20 +212,20 @@ public class FXGeneric extends Particle
             ty2 = particleTexture.getMaxV();
         }
         if (flipped) {
-            final float t = tx1;
+            float t = tx1;
             tx1 = tx2;
             tx2 = t;
         }
-        final float fs = MathHelper.clamp((particleAge + partialTicks) / particleMaxAge, 0.0f, 1.0f);
-        final float pr = particleRed + (dr - particleRed) * fs;
-        final float pg = particleGreen + (dg - particleGreen) * fs;
-        final float pb = particleBlue + (db - particleBlue) * fs;
-        final int i = getBrightnessForRender(partialTicks);
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
-        final float f5 = (float)(prevPosX + (posX - prevPosX) * partialTicks - FXGeneric.interpPosX);
-        final float f6 = (float)(prevPosY + (posY - prevPosY) * partialTicks - FXGeneric.interpPosY);
-        final float f7 = (float)(prevPosZ + (posZ - prevPosZ) * partialTicks - FXGeneric.interpPosZ);
+        float fs = MathHelper.clamp((particleAge + partialTicks) / particleMaxAge, 0.0f, 1.0f);
+        float pr = particleRed + (dr - particleRed) * fs;
+        float pg = particleGreen + (dg - particleGreen) * fs;
+        float pb = particleBlue + (db - particleBlue) * fs;
+        int i = getBrightnessForRender(partialTicks);
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
+        float f5 = (float)(prevPosX + (posX - prevPosX) * partialTicks - FXGeneric.interpPosX);
+        float f6 = (float)(prevPosY + (posY - prevPosY) * partialTicks - FXGeneric.interpPosY);
+        float f7 = (float)(prevPosZ + (posZ - prevPosZ) * partialTicks - FXGeneric.interpPosZ);
         if (angled) {
             Tessellator.getInstance().draw();
             GL11.glPushMatrix();
@@ -233,7 +233,7 @@ public class FXGeneric extends Particle
             GL11.glRotatef(-angleYaw + 90.0f, 0.0f, 1.0f, 0.0f);
             GL11.glRotatef(anglePitch + 90.0f, 1.0f, 0.0f, 0.0f);
             if (particleAngle != 0.0f) {
-                final float f8 = particleAngle + (particleAngle - prevParticleAngle) * partialTicks;
+                float f8 = particleAngle + (particleAngle - prevParticleAngle) * partialTicks;
                 GL11.glRotated(f8 * 57.29577951308232, 0.0, 0.0, 1.0);
             }
             wr.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
@@ -246,14 +246,14 @@ public class FXGeneric extends Particle
             wr.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
         }
         else {
-            final Vec3d[] avec3d = { new Vec3d(-rotationX * ts - rotationXY * ts, -rotationZ * ts, -rotationYZ * ts - rotationXZ * ts), new Vec3d(-rotationX * ts + rotationXY * ts, rotationZ * ts, -rotationYZ * ts + rotationXZ * ts), new Vec3d(rotationX * ts + rotationXY * ts, rotationZ * ts, rotationYZ * ts + rotationXZ * ts), new Vec3d(rotationX * ts - rotationXY * ts, -rotationZ * ts, rotationYZ * ts - rotationXZ * ts) };
+            Vec3d[] avec3d = { new Vec3d(-rotationX * ts - rotationXY * ts, -rotationZ * ts, -rotationYZ * ts - rotationXZ * ts), new Vec3d(-rotationX * ts + rotationXY * ts, rotationZ * ts, -rotationYZ * ts + rotationXZ * ts), new Vec3d(rotationX * ts + rotationXY * ts, rotationZ * ts, rotationYZ * ts + rotationXZ * ts), new Vec3d(rotationX * ts - rotationXY * ts, -rotationZ * ts, rotationYZ * ts - rotationXZ * ts) };
             if (particleAngle != 0.0f) {
-                final float f9 = particleAngle + (particleAngle - prevParticleAngle) * partialTicks;
-                final float f10 = MathHelper.cos(f9 * 0.5f);
-                final float f11 = MathHelper.sin(f9 * 0.5f) * (float)FXGeneric.cameraViewDir.x;
-                final float f12 = MathHelper.sin(f9 * 0.5f) * (float)FXGeneric.cameraViewDir.y;
-                final float f13 = MathHelper.sin(f9 * 0.5f) * (float)FXGeneric.cameraViewDir.z;
-                final Vec3d vec3d = new Vec3d(f11, f12, f13);
+                float f9 = particleAngle + (particleAngle - prevParticleAngle) * partialTicks;
+                float f10 = MathHelper.cos(f9 * 0.5f);
+                float f11 = MathHelper.sin(f9 * 0.5f) * (float)FXGeneric.cameraViewDir.x;
+                float f12 = MathHelper.sin(f9 * 0.5f) * (float)FXGeneric.cameraViewDir.y;
+                float f13 = MathHelper.sin(f9 * 0.5f) * (float)FXGeneric.cameraViewDir.z;
+                Vec3d vec3d = new Vec3d(f11, f12, f13);
                 for (int l = 0; l < 4; ++l) {
                     avec3d[l] = vec3d.scale(2.0 * avec3d[l].dotProduct(vec3d)).add(avec3d[l].scale(f10 * f10 - vec3d.dotProduct(vec3d))).add(vec3d.crossProduct(avec3d[l]).scale(2.0f * f10));
                 }
@@ -265,28 +265,28 @@ public class FXGeneric extends Particle
         }
     }
     
-    public void setWind(final double d) {
-        final int m = world.getMoonPhase();
-        final Vec3d vsource = new Vec3d(0.0, 0.0, 0.0);
+    public void setWind(double d) {
+        int m = world.getMoonPhase();
+        Vec3d vsource = new Vec3d(0.0, 0.0, 0.0);
         Vec3d vtar = new Vec3d(0.1, 0.0, 0.0);
         vtar = Utils.rotateAroundY(vtar, m * (40 + world.rand.nextInt(10)) / 180.0f * 3.1415927f);
-        final Vec3d vres = vsource.addVector(vtar.x, vtar.y, vtar.z);
+        Vec3d vres = vsource.addVector(vtar.x, vtar.y, vtar.z);
         windX = vres.x * d;
         windZ = vres.z * d;
     }
     
-    public void setLayer(final int layer) {
+    public void setLayer(int layer) {
         this.layer = layer;
     }
     
-    public void setRBGColorF(final float particleRedIn, final float particleGreenIn, final float particleBlueIn) {
+    public void setRBGColorF(float particleRedIn, float particleGreenIn, float particleBlueIn) {
         super.setRBGColorF(particleRedIn, particleGreenIn, particleBlueIn);
         dr = particleRedIn;
         dg = particleGreenIn;
         db = particleBlueIn;
     }
     
-    public void setRBGColorF(final float particleRedIn, final float particleGreenIn, final float particleBlueIn, final float r2, final float g2, final float b2) {
+    public void setRBGColorF(float particleRedIn, float particleGreenIn, float particleBlueIn, float r2, float g2, float b2) {
         super.setRBGColorF(particleRedIn, particleGreenIn, particleBlueIn);
         dr = r2;
         dg = g2;
@@ -297,71 +297,71 @@ public class FXGeneric extends Particle
         return layer;
     }
     
-    public void setLoop(final boolean loop) {
+    public void setLoop(boolean loop) {
         this.loop = loop;
     }
     
-    public void setRotationSpeed(final float rot) {
+    public void setRotationSpeed(float rot) {
         rotationSpeed = (float)(rot * 0.017453292519943);
     }
     
-    public void setRotationSpeed(final float start, final float rot) {
+    public void setRotationSpeed(float start, float rot) {
         particleAngle = (float)(start * 3.141592653589793 * 2.0);
         rotationSpeed = (float)(rot * 0.017453292519943);
     }
     
-    public void setMaxAge(final int max) {
+    public void setMaxAge(int max) {
         particleMaxAge = max;
     }
     
-    public void setParticles(final int startParticle, final int numParticles, final int particleInc) {
+    public void setParticles(int startParticle, int numParticles, int particleInc) {
         this.numParticles = numParticles;
         this.particleInc = particleInc;
         setParticleTextureIndex(this.startParticle = startParticle);
     }
     
-    public void setParticle(final int startParticle) {
+    public void setParticle(int startParticle) {
         numParticles = 1;
         particleInc = 1;
         setParticleTextureIndex(this.startParticle = startParticle);
     }
     
-    public void setScale(final float... scale) {
+    public void setScale(float... scale) {
         particleScale = scale[0];
         scaleKeys = scale;
     }
     
-    public void setAlphaF(final float... a1) {
+    public void setAlphaF(float... a1) {
         super.setAlphaF(a1[0]);
         alphaKeys = a1;
     }
     
-    public void setAlphaF(final float a1) {
+    public void setAlphaF(float a1) {
         super.setAlphaF(a1);
         (alphaKeys = new float[1])[0] = a1;
     }
     
-    public void setSlowDown(final double slowDown) {
+    public void setSlowDown(double slowDown) {
         this.slowDown = slowDown;
     }
     
-    public void setRandomMovementScale(final float x, final float y, final float z) {
+    public void setRandomMovementScale(float x, float y, float z) {
         randomX = x;
         randomY = y;
         randomZ = z;
     }
     
-    public void setFinalFrames(final int... frames) {
+    public void setFinalFrames(int... frames) {
         finalFrames = frames;
     }
     
-    public void setAngles(final float yaw, final float pitch) {
+    public void setAngles(float yaw, float pitch) {
         angleYaw = yaw;
         anglePitch = pitch;
         angled = true;
     }
     
-    public void setGravity(final float g) {
+    public void setGravity(float g) {
         particleGravity = g;
     }
     
@@ -373,11 +373,11 @@ public class FXGeneric extends Particle
         particleTextureIndexY = index / gridSize;
     }
     
-    public void setGridSize(final int gridSize) {
+    public void setGridSize(int gridSize) {
         this.gridSize = gridSize;
     }
     
-    public void setNoClip(final boolean clip) {
+    public void setNoClip(boolean clip) {
         canCollide = clip;
     }
 }

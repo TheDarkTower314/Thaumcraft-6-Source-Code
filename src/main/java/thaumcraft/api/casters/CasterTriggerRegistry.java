@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 public class CasterTriggerRegistry {
 	
 	private static HashMap<String,LinkedHashMap<IBlockState,List<Trigger>>> triggers = new HashMap<String,LinkedHashMap<IBlockState,List<Trigger>>>();
-	private static final String DEFAULT = "default";
+	private static String DEFAULT = "default";
 	
 	private static class Trigger {
 		ICasterTriggerManager manager;

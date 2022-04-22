@@ -27,37 +27,37 @@ public class BlockDioptra extends BlockTCDevice implements IBlockEnabled
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public boolean hasComparatorInputOverride(final IBlockState state) {
+    public boolean hasComparatorInputOverride(IBlockState state) {
         return true;
     }
     
-    public int getComparatorInputOverride(final IBlockState state, final World world, final BlockPos pos) {
-        final TileEntity tile = world.getTileEntity(pos);
+    public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof TileDioptra) {
-            final float r = ((TileDioptra)tile).grid_amt[84] / 64.0f;
+            float r = ((TileDioptra)tile).grid_amt[84] / 64.0f;
             return MathHelper.floor(r * 14.0f) + ((r > 0.0f) ? 1 : 0);
         }
         return super.getComparatorInputOverride(state, world, pos);
     }
     
     @Override
-    protected void updateState(final World worldIn, final BlockPos pos, final IBlockState state) {
+    protected void updateState(World worldIn, BlockPos pos, IBlockState state) {
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-        final boolean b = (boolean)state.getValue((IProperty)IBlockEnabled.ENABLED);
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        boolean b = (boolean)state.getValue((IProperty)IBlockEnabled.ENABLED);
         world.setBlockState(pos, state.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)!b), 3);
         return true;
     }

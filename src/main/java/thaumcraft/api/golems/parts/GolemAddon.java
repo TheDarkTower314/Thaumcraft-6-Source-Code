@@ -21,7 +21,7 @@ public class GolemAddon
     public PartModel model;
     private static byte lastID;
     
-    public GolemAddon(final String key, final String[] research, final ResourceLocation icon, final PartModel model, final Object[] comp, final EnumGolemTrait[] tags) {
+    public GolemAddon(String key, String[] research, ResourceLocation icon, PartModel model, Object[] comp, EnumGolemTrait[] tags) {
         this.key = key;
         this.research = research;
         this.icon = icon;
@@ -31,16 +31,16 @@ public class GolemAddon
         function = null;
     }
     
-    public GolemAddon(final String key, final String[] research, final ResourceLocation icon, final PartModel model, final Object[] comp, final IAddonFunction function, final EnumGolemTrait[] tags) {
+    public GolemAddon(String key, String[] research, ResourceLocation icon, PartModel model, Object[] comp, IAddonFunction function, EnumGolemTrait[] tags) {
         this(key, research, icon, model, comp, tags);
         this.function = function;
     }
     
-    public static void register(final GolemAddon thing) {
+    public static void register(GolemAddon thing) {
         thing.id = GolemAddon.lastID;
         ++GolemAddon.lastID;
         if (thing.id >= GolemAddon.addons.length) {
-            final GolemAddon[] temp = new GolemAddon[thing.id + 1];
+            GolemAddon[] temp = new GolemAddon[thing.id + 1];
             System.arraycopy(GolemAddon.addons, 0, temp, 0, GolemAddon.addons.length);
             GolemAddon.addons = temp;
         }

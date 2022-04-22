@@ -13,11 +13,11 @@ import thaumcraft.api.items.ItemGenericEssentiaContainer;
 
 public class ItemTCEssentiaContainer extends ItemGenericEssentiaContainer implements IEssentiaContainerItem, IThaumcraftItems
 {
-    private final String BASE_NAME;
+    private String BASE_NAME;
     protected String[] VARIANTS;
     protected int[] VARIANTS_META;
     
-    public ItemTCEssentiaContainer(final String name, final int base, final String... variants) {
+    public ItemTCEssentiaContainer(String name, int base, String... variants) {
         super(base);
         setRegistryName(name);
         setUnlocalizedName(name);
@@ -59,7 +59,7 @@ public class ItemTCEssentiaContainer extends ItemGenericEssentiaContainer implem
     }
     
     @Override
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         if (variant.equals(BASE_NAME)) {
             return new ModelResourceLocation("thaumcraft:" + BASE_NAME);
         }

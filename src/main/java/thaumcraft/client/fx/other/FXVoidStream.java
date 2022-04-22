@@ -34,8 +34,8 @@ public class FXVoidStream extends Particle
     private double startZ;
     private int seed;
     public int length;
-    private final ShaderCallback shaderCallback;
-    private static final ResourceLocation starsTexture;
+    private ShaderCallback shaderCallback;
+    private static ResourceLocation starsTexture;
     CoreGLE gle;
     int layer;
     double[][] points;
@@ -44,7 +44,7 @@ public class FXVoidStream extends Particle
     int growing;
     ArrayList<Quat> vecs;
     
-    public FXVoidStream(final World w, final double par2, final double par4, final double par6, final double tx, final double ty, final double tz, final int seed, final float scale) {
+    public FXVoidStream(World w, double par2, double par4, double par6, double tx, double ty, double tz, int seed, float scale) {
         super(w, par2, par4, par6, 0.0, 0.0, 0.0);
         this.seed = 0;
         length = 20;
@@ -54,11 +54,11 @@ public class FXVoidStream extends Particle
         vecs = new ArrayList<Quat>();
         shaderCallback = new ShaderCallback() {
             @Override
-            public void call(final int shader) {
-                final Minecraft mc = Minecraft.getMinecraft();
-                final int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
+            public void call(int shader) {
+                Minecraft mc = Minecraft.getMinecraft();
+                int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
                 ARBShaderObjects.glUniform1fARB(x, (float)(mc.player.rotationYaw * 2.0f * 3.141592653589793 / 360.0));
-                final int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
+                int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
                 ARBShaderObjects.glUniform1fARB(z, -(float)(mc.player.rotationPitch * 2.0f * 3.141592653589793 / 360.0));
             }
         };
@@ -68,9 +68,9 @@ public class FXVoidStream extends Particle
         targetX = tx;
         targetY = ty;
         targetZ = tz;
-        final double dx = tx - posX;
-        final double dy = ty - posY;
-        final double dz = tz - posZ;
+        double dx = tx - posX;
+        double dy = ty - posY;
+        double dz = tz - posZ;
         int base = (int)(MathHelper.sqrt(dx * dx + dy * dy + dz * dz) * 21.0f);
         if (base < 1) {
             base = 1;
@@ -87,12 +87,12 @@ public class FXVoidStream extends Particle
         startZ = posZ;
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void renderParticle(BufferBuilder wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         Tessellator.getInstance().draw();
         GL11.glPushMatrix();
-        final double ePX = startX - FXVoidStream.interpPosX;
-        final double ePY = startY - FXVoidStream.interpPosY;
-        final double ePZ = startZ - FXVoidStream.interpPosZ;
+        double ePX = startX - FXVoidStream.interpPosX;
+        double ePY = startY - FXVoidStream.interpPosY;
+        double ePZ = startZ - FXVoidStream.interpPosZ;
         GL11.glTranslated(ePX, ePY, ePZ);
         for (int q = 0; q <= 1; ++q) {
             if (q < 1) {
@@ -102,10 +102,10 @@ public class FXVoidStream extends Particle
             if (points != null && points.length > 2) {
                 Minecraft.getMinecraft().renderEngine.bindTexture(FXVoidStream.starsTexture);
                 ShaderHelper.useShader(ShaderHelper.endShader, shaderCallback);
-                final double[] r2 = new double[radii.length];
+                double[] r2 = new double[radii.length];
                 int ri = 0;
-                final float m = (1.5f - q) / 1.0f;
-                for (final double d : radii) {
+                float m = (1.5f - q) / 1.0f;
+                for (double d : radii) {
                     r2[ri] = radii[ri] * m;
                     ++ri;
                 }
@@ -126,7 +126,7 @@ public class FXVoidStream extends Particle
         wr.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
     }
     
-    public void setFXLayer(final int l) {
+    public void setFXLayer(int l) {
         layer = l;
     }
     
@@ -153,8 +153,8 @@ public class FXVoidStream extends Particle
         double dx = targetX - posX;
         double dy = targetY - posY;
         double dz = targetZ - posZ;
-        final double d13 = 0.01;
-        final double d14 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+        double d13 = 0.01;
+        double d14 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
         dx /= d14;
         dy /= d14;
         dz /= d14;
@@ -163,7 +163,7 @@ public class FXVoidStream extends Particle
         motionZ += dz * (d13 / Math.min(1.0, d14)) + rand.nextGaussian() * 0.014999999664723873;
         float scale = particleScale * (0.75f + MathHelper.sin((seed + particleAge) / 2.0f) * 0.25f);
         if (d14 < 0.5) {
-            final float f = MathHelper.sin((float)(d14 * 1.5707963267948966));
+            float f = MathHelper.sin((float)(d14 * 1.5707963267948966));
             scale *= f;
             particleScale *= f;
         }
@@ -183,19 +183,19 @@ public class FXVoidStream extends Particle
         colours = new float[vecs.size()][4];
         radii = new double[vecs.size()];
         int c = vecs.size();
-        for (final Quat v : vecs) {
+        for (Quat v : vecs) {
             --c;
-            final float variance = 1.0f + MathHelper.sin((c + particleAge) / 3.0f) * 0.2f;
-            final float xx = MathHelper.sin((c + particleAge) / 6.0f) * 0.01f;
-            final float yy = MathHelper.sin((c + particleAge) / 7.0f) * 0.01f;
-            final float zz = MathHelper.sin((c + particleAge) / 8.0f) * 0.01f;
+            float variance = 1.0f + MathHelper.sin((c + particleAge) / 3.0f) * 0.2f;
+            float xx = MathHelper.sin((c + particleAge) / 6.0f) * 0.01f;
+            float yy = MathHelper.sin((c + particleAge) / 7.0f) * 0.01f;
+            float zz = MathHelper.sin((c + particleAge) / 8.0f) * 0.01f;
             points[c][0] = v.x + xx;
             points[c][1] = v.y + yy;
             points[c][2] = v.z + zz;
             radii[c] = v.s * variance;
             if (c > vecs.size() - 10) {
-                final double[] radii = this.radii;
-                final int n = c;
+                double[] radii = this.radii;
+                int n = c;
                 radii[n] *= MathHelper.cos((float)((c - (vecs.size() - 12)) / 10.0f * 1.5707963267948966));
             }
             if (c == 0) {
@@ -226,7 +226,7 @@ public class FXVoidStream extends Particle
         }
     }
     
-    public void setGravity(final float value) {
+    public void setGravity(float value) {
         particleGravity = value;
     }
     

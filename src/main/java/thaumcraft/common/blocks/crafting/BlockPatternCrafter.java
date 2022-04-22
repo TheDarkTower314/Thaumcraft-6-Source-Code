@@ -56,39 +56,39 @@ public class BlockPatternCrafter extends BlockTCDevice implements IBlockFacingHo
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean isSideSolid(final IBlockState state, final IBlockAccess world, final BlockPos pos, final EnumFacing side) {
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return false;
     }
     
     @Override
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)placer.getHorizontalFacing());
         return bs;
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-        final RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
         if (hit == null) {
             return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
         }
-        final TileEntity tile = world.getTileEntity(pos);
+        TileEntity tile = world.getTileEntity(pos);
         if (hit.subHit == 0 && tile instanceof TilePatternCrafter) {
             if (!world.isRemote) {
                 ((TilePatternCrafter)tile).cycle();
@@ -100,42 +100,42 @@ public class BlockPatternCrafter extends BlockTCDevice implements IBlockFacingHo
     }
     
     @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBox(final IBlockState state, final World world, final BlockPos pos) {
-        final TileEntity tile = world.getTileEntity(pos);
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof TilePatternCrafter) {
-            final RayTraceResult hit = RayTracer.retraceBlock(world, Minecraft.getMinecraft().player, pos);
+            RayTraceResult hit = RayTracer.retraceBlock(world, Minecraft.getMinecraft().player, pos);
             if (hit != null && hit.subHit == 0) {
-                final Cuboid6 cubeoid = ((TilePatternCrafter)tile).getCuboidByFacing(BlockStateUtils.getFacing(tile.getBlockMetadata()));
-                final Vector3 v = new Vector3(pos);
-                final Cuboid6 c = cubeoid.sub(v);
+                Cuboid6 cubeoid = ((TilePatternCrafter)tile).getCuboidByFacing(BlockStateUtils.getFacing(tile.getBlockMetadata()));
+                Vector3 v = new Vector3(pos);
+                Cuboid6 c = cubeoid.sub(v);
                 return new AxisAlignedBB((float)c.min.x, (float)c.min.y, (float)c.min.z, (float)c.max.x, (float)c.max.y, (float)c.max.z).offset(pos);
             }
         }
         return super.getSelectedBoundingBox(state, world, pos);
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return BlockPatternCrafter.FULL_BLOCK_AABB;
     }
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onBlockHighlight(final DrawBlockHighlightEvent event) {
+    public void onBlockHighlight(DrawBlockHighlightEvent event) {
         if (event.getTarget().typeOfHit == RayTraceResult.Type.BLOCK && event.getPlayer().world.getBlockState(event.getTarget().getBlockPos()).getBlock() == this) {
             RayTracer.retraceBlock(event.getPlayer().world, event.getPlayer(), event.getTarget().getBlockPos());
         }
     }
     
-    public RayTraceResult collisionRayTrace(final IBlockState state, final World world, final BlockPos pos, final Vec3d start, final Vec3d end) {
-        final TileEntity tile = world.getTileEntity(pos);
+    public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d start, Vec3d end) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile == null || !(tile instanceof TilePatternCrafter)) {
             return super.collisionRayTrace(state, world, pos, start, end);
         }
-        final List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
+        List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
         if (tile instanceof TilePatternCrafter) {
             ((TilePatternCrafter)tile).addTraceableCuboids(cuboids);
         }
-        final ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
+        ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
         rayTracer.rayTraceCuboids(new Vector3(start), new Vector3(end), cuboids, new BlockCoord(pos), this, list);
         return (list.size() > 0) ? list.get(0) : super.collisionRayTrace(state, world, pos, start, end);
     }

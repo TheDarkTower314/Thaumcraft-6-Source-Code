@@ -9,7 +9,7 @@ import thaumcraft.api.aspects.Aspect;
 public class TileTubeRestrict extends TileTube
 {
     @Override
-    void calculateSuction(final Aspect filter, final boolean restrict, final boolean dir) {
+    void calculateSuction(Aspect filter, boolean restrict, boolean dir) {
         super.calculateSuction(filter, true, dir);
     }
 }

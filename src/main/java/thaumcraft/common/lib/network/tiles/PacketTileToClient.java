@@ -25,29 +25,29 @@ public class PacketTileToClient implements IMessage, IMessageHandler<PacketTileT
     public PacketTileToClient() {
     }
     
-    public PacketTileToClient(final BlockPos pos, final NBTTagCompound nbt) {
+    public PacketTileToClient(BlockPos pos, NBTTagCompound nbt) {
         this.pos = pos.toLong();
         this.nbt = nbt;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeLong(pos);
         Utils.writeNBTTagCompoundToBuffer(buffer, nbt);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         pos = buffer.readLong();
         nbt = Utils.readNBTTagCompoundFromBuffer(buffer);
     }
     
-    public IMessage onMessage(final PacketTileToClient message, final MessageContext ctx) {
+    public IMessage onMessage(PacketTileToClient message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final World world = Thaumcraft.proxy.getClientWorld();
-                final BlockPos bp = BlockPos.fromLong(message.pos);
+                World world = Thaumcraft.proxy.getClientWorld();
+                BlockPos bp = BlockPos.fromLong(message.pos);
                 if (world != null && bp != null) {
-                    final TileEntity te = world.getTileEntity(bp);
+                    TileEntity te = world.getTileEntity(bp);
                     if (te != null && te instanceof TileThaumcraft) {
                         ((TileThaumcraft)te).messageFromServer((message.nbt == null) ? new NBTTagCompound() : message.nbt);
                     }

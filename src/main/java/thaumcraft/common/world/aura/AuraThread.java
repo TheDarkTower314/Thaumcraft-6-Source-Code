@@ -21,7 +21,7 @@ import java.util.Random;
 public class AuraThread implements Runnable
 {
     public int dim;
-    private final long INTERVAL = 1000L;
+    private long INTERVAL = 1000L;
     private boolean stop;
     Random rand;
     private float phaseVis;
@@ -31,7 +31,7 @@ public class AuraThread implements Runnable
     private float[] phaseTable;
     private float[] maxTable;
     
-    public AuraThread(final int dim2) {
+    public AuraThread(int dim2) {
         stop = false;
         rand = new Random(System.currentTimeMillis());
         phaseVis = 0.0f;
@@ -51,10 +51,10 @@ public class AuraThread implements Runnable
                 Thaumcraft.log.warn("No auras found!");
                 break;
             }
-            final long startTime = System.currentTimeMillis();
-            final AuraWorld auraWorld = AuraHandler.getAuraWorld(dim);
+            long startTime = System.currentTimeMillis();
+            AuraWorld auraWorld = AuraHandler.getAuraWorld(dim);
             if (auraWorld != null) {
-                final World world = DimensionManager.getWorld(dim);
+                World world = DimensionManager.getWorld(dim);
                 if (lastWorldTime != world.getWorldTime()) {
                     lastWorldTime = world.getWorldTime();
                     if (world != null) {
@@ -62,7 +62,7 @@ public class AuraThread implements Runnable
                         phaseMax = 1.0f + maxTable[world.provider.getMoonPhase(world.getWorldInfo().getWorldTime())];
                         phaseFlux = 0.25f - phaseVis;
                     }
-                    for (final AuraChunk auraChunk : auraWorld.auraChunks.values()) {
+                    for (AuraChunk auraChunk : auraWorld.auraChunks.values()) {
                         processAuraChunk(auraWorld, auraChunk);
                     }
                 }
@@ -70,30 +70,30 @@ public class AuraThread implements Runnable
             else {
                 stop();
             }
-            final long executionTime = System.currentTimeMillis() - startTime;
+            long executionTime = System.currentTimeMillis() - startTime;
             try {
                 if (executionTime > 1000L) {
                     Thaumcraft.log.warn("AURAS TAKING " + (executionTime - 1000L) + " ms LONGER THAN NORMAL IN DIM " + dim);
                 }
                 Thread.sleep(Math.max(1L, 1000L - executionTime));
             }
-            catch (final InterruptedException ex) {}
+            catch (InterruptedException ex) {}
         }
         Thaumcraft.log.info("Stopping aura thread for dim " + dim);
         try {
             ServerEvents.auraThreads.remove(dim);
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    private void processAuraChunk(final AuraWorld auraWorld, final AuraChunk auraChunk) {
-        final List<Integer> directions = Arrays.asList(0, 1, 2, 3);
+    private void processAuraChunk(AuraWorld auraWorld, AuraChunk auraChunk) {
+        List<Integer> directions = Arrays.asList(0, 1, 2, 3);
         Collections.shuffle(directions, rand);
-        final int x = auraChunk.loc.x;
-        final int y = auraChunk.loc.z;
-        final float base = auraChunk.getBase() * phaseMax;
+        int x = auraChunk.loc.x;
+        int y = auraChunk.loc.z;
+        float base = auraChunk.getBase() * phaseMax;
         boolean dirty = false;
         float currentVis = auraChunk.getVis();
         float currentFlux = auraChunk.getFlux();
@@ -101,9 +101,9 @@ public class AuraThread implements Runnable
         AuraChunk neighbourFluxChunk = null;
         float lowestVis = Float.MAX_VALUE;
         float lowestFlux = Float.MAX_VALUE;
-        for (final Integer a : directions) {
-            final EnumFacing dir = EnumFacing.getHorizontal(a);
-            final AuraChunk n = auraWorld.getAuraChunkAt(x + dir.getFrontOffsetX(), y + dir.getFrontOffsetZ());
+        for (Integer a : directions) {
+            EnumFacing dir = EnumFacing.getHorizontal(a);
+            AuraChunk n = auraWorld.getAuraChunkAt(x + dir.getFrontOffsetX(), y + dir.getFrontOffsetZ());
             if (n != null) {
                 if ((neighbourVisChunk == null || lowestVis > n.getVis()) && n.getVis() + n.getFlux() < n.getBase() * phaseMax) {
                     neighbourVisChunk = n;
@@ -117,21 +117,21 @@ public class AuraThread implements Runnable
             }
         }
         if (neighbourVisChunk != null && lowestVis < currentVis && lowestVis / currentVis < 0.75) {
-            final float inc = Math.min(currentVis - lowestVis, 1.0f);
+            float inc = Math.min(currentVis - lowestVis, 1.0f);
             currentVis -= inc;
             neighbourVisChunk.setVis(lowestVis + inc);
             dirty = true;
             markChunkAsDirty(neighbourVisChunk, auraWorld.dim);
         }
         if (neighbourFluxChunk != null && currentFlux > Math.max(5.0f, auraChunk.getBase() / 10.0f) && lowestFlux < currentFlux / 1.75) {
-            final float inc = Math.min(currentFlux - lowestFlux, 1.0f);
+            float inc = Math.min(currentFlux - lowestFlux, 1.0f);
             currentFlux -= inc;
             neighbourFluxChunk.setFlux(lowestFlux + inc);
             dirty = true;
             markChunkAsDirty(neighbourFluxChunk, auraWorld.dim);
         }
         if (currentVis + currentFlux < base) {
-            final float inc = Math.min(base - (currentVis + currentFlux), phaseVis);
+            float inc = Math.min(base - (currentVis + currentFlux), phaseVis);
             currentVis += inc;
             dirty = true;
         }
@@ -154,15 +154,15 @@ public class AuraThread implements Runnable
         }
     }
     
-    private void markChunkAsDirty(final AuraChunk chunk, final int dim) {
+    private void markChunkAsDirty(AuraChunk chunk, int dim) {
         if (chunk.isModified()) {
             return;
         }
-        final ChunkPos pos = new ChunkPos(chunk.loc.x, chunk.loc.z);
+        ChunkPos pos = new ChunkPos(chunk.loc.x, chunk.loc.z);
         if (!AuraHandler.dirtyChunks.containsKey(dim)) {
             AuraHandler.dirtyChunks.put(dim, new CopyOnWriteArrayList<ChunkPos>());
         }
-        final CopyOnWriteArrayList<ChunkPos> dc = AuraHandler.dirtyChunks.get(dim);
+        CopyOnWriteArrayList<ChunkPos> dc = AuraHandler.dirtyChunks.get(dim);
         if (!dc.contains(pos)) {
             dc.add(pos);
         }

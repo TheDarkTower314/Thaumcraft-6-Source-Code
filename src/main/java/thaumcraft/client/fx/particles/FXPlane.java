@@ -19,13 +19,13 @@ public class FXPlane extends Particle
     float angleYaw;
     float anglePitch;
     
-    public FXPlane(final World world, final double d, final double d1, final double d2, final double m, final double m1, final double m2, final int life) {
+    public FXPlane(World world, double d, double d1, double d2, double m, double m1, double m2, int life) {
         super(world, d, d1, d2, 0.0, 0.0, 0.0);
         particleRed = 1.0f;
         particleGreen = 1.0f;
         particleBlue = 1.0f;
         particleGravity = 0.0f;
-        final double motionX = 0.0;
+        double motionX = 0.0;
         motionZ = motionX;
         motionY = motionX;
         this.motionX = motionX;
@@ -36,15 +36,15 @@ public class FXPlane extends Particle
         prevPosZ = posZ;
         particleScale = 1.0f;
         particleAlpha = 0.0f;
-        final double dx = m - posX;
-        final double dy = m1 - posY;
-        final double dz = m2 - posZ;
+        double dx = m - posX;
+        double dy = m1 - posY;
+        double dz = m2 - posZ;
         this.motionX = dx / particleMaxAge;
         motionY = dy / particleMaxAge;
         motionZ = dz / particleMaxAge;
         particleTextureIndexX = 22;
         particleTextureIndexY = 10;
-        final double d3 = MathHelper.sqrt(dx * dx + dz * dz);
+        double d3 = MathHelper.sqrt(dx * dx + dz * dz);
         angleYaw = 0.0f;
         anglePitch = 0.0f;
         if (d3 >= 1.0E-7) {
@@ -58,27 +58,27 @@ public class FXPlane extends Particle
         return 0;
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity p_180434_2_, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void renderParticle(BufferBuilder wr, Entity p_180434_2_, float f, float f1, float f2, float f3, float f4, float f5) {
         Tessellator.getInstance().draw();
         GL11.glPushMatrix();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, particleAlpha / 2.0f);
-        final float var13 = (float)(prevPosX + (posX - prevPosX) * f - FXPlane.interpPosX);
-        final float var14 = (float)(prevPosY + (posY - prevPosY) * f - FXPlane.interpPosY);
-        final float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - FXPlane.interpPosZ);
+        float var13 = (float)(prevPosX + (posX - prevPosX) * f - FXPlane.interpPosX);
+        float var14 = (float)(prevPosY + (posY - prevPosY) * f - FXPlane.interpPosY);
+        float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - FXPlane.interpPosZ);
         GL11.glTranslated(var13, var14, var15);
         GL11.glRotatef(-angleYaw + 90.0f, 0.0f, 1.0f, 0.0f);
         GL11.glRotatef(anglePitch + 90.0f, 0.0f, 0.0f, 1.0f);
         GL11.glRotatef(angle, 0.0f, 1.0f, 0.0f);
         particleTextureIndexX = 22 + Math.round((particleAge + f) / particleMaxAge * 8.0f);
-        final float var16 = particleTextureIndexX / 32.0f;
-        final float var17 = var16 + 0.03125f;
-        final float var18 = particleTextureIndexY / 32.0f;
-        final float var19 = var18 + 0.03125f;
-        final float var20 = particleScale * (0.5f + (particleAge + f) / particleMaxAge);
-        final float var21 = 1.0f;
-        final int i = 240;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        float var16 = particleTextureIndexX / 32.0f;
+        float var17 = var16 + 0.03125f;
+        float var18 = particleTextureIndexY / 32.0f;
+        float var19 = var18 + 0.03125f;
+        float var20 = particleScale * (0.5f + (particleAge + f) / particleMaxAge);
+        float var21 = 1.0f;
+        int i = 240;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         GL11.glDisable(2884);
         wr.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
         wr.pos(-0.5 * var20, 0.5 * var20, 0.0).tex(var17, var19).color(particleRed * var21, particleGreen * var21, particleBlue * var21, particleAlpha / 2.0f).lightmap(j, k).endVertex();
@@ -95,7 +95,7 @@ public class FXPlane extends Particle
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
-        final float threshold = particleMaxAge / 5.0f;
+        float threshold = particleMaxAge / 5.0f;
         if (particleAge <= threshold) {
             particleAlpha = particleAge / threshold;
         }
@@ -110,7 +110,7 @@ public class FXPlane extends Particle
         posZ += motionZ;
     }
     
-    public void setGravity(final float value) {
+    public void setGravity(float value) {
         particleGravity = value;
     }
 }

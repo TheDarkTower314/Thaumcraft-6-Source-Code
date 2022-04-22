@@ -33,7 +33,7 @@ public class RenderGrapple extends Render
     public ArrayList<Vec3d> points;
     public float length;
     
-    public RenderGrapple(final RenderManager rm) {
+    public RenderGrapple(RenderManager rm) {
         super(rm);
         beam = new ResourceLocation("thaumcraft", "textures/entity/grappler.png");
         rope = new ResourceLocation("thaumcraft", "textures/misc/rope.png");
@@ -44,8 +44,8 @@ public class RenderGrapple extends Render
         model = new ModelGrappler();
     }
     
-    public void renderEntityAt(final Entity entity, final double x, final double y, final double z, final float fq, final float pticks) {
-        final Tessellator tessellator = Tessellator.getInstance();
+    public void renderEntityAt(Entity entity, double x, double y, double z, float fq, float pticks) {
+        Tessellator tessellator = Tessellator.getInstance();
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, z);
         GL11.glPushMatrix();
@@ -58,20 +58,20 @@ public class RenderGrapple extends Render
         GL11.glBlendFunc(770, 1);
         GL11.glDisable(2884);
         bindTexture(ParticleEngine.particleTexture);
-        final float f2 = (1 + entity.ticksExisted % 6) / 32.0f;
-        final float f3 = f2 + 0.03125f;
-        final float f4 = 0.21875f;
-        final float f5 = f4 + 0.03125f;
-        final float f6 = 0.5f;
+        float f2 = (1 + entity.ticksExisted % 6) / 32.0f;
+        float f3 = f2 + 0.03125f;
+        float f4 = 0.21875f;
+        float f5 = f4 + 0.03125f;
+        float f6 = 0.5f;
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.8f);
         GL11.glRotatef(180.0f - renderManager.playerViewY, 0.0f, 1.0f, 0.0f);
         GL11.glRotatef(-renderManager.playerViewX, 1.0f, 0.0f, 0.0f);
-        final float bob = MathHelper.sin(entity.ticksExisted / 5.0f) * 0.2f + 0.2f;
+        float bob = MathHelper.sin(entity.ticksExisted / 5.0f) * 0.2f + 0.2f;
         GL11.glScalef(1.0f + bob, 1.0f + bob, 1.0f + bob);
         tessellator.getBuffer().begin(7, UtilsFX.VERTEXFORMAT_POS_TEX_CO_LM_NO);
-        final int i = 220;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        int i = 220;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         tessellator.getBuffer().pos(-f6, -f6, 0.0).tex(f2, f5).color(1.0f, 1.0f, 1.0f, 0.21f).lightmap(j, k).normal(0.0f, 1.0f, 0.0f).endVertex();
         tessellator.getBuffer().pos(f6, -f6, 0.0).tex(f3, f5).color(1.0f, 1.0f, 1.0f, 0.21f).lightmap(j, k).normal(0.0f, 1.0f, 0.0f).endVertex();
         tessellator.getBuffer().pos(f6, f6, 0.0).tex(f3, f4).color(1.0f, 1.0f, 1.0f, 0.21f).lightmap(j, k).normal(0.0f, 1.0f, 0.0f).endVertex();
@@ -89,9 +89,9 @@ public class RenderGrapple extends Render
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         if (points != null && points.size() > 2) {
-            final double[][] pp = new double[points.size()][3];
-            final float[][] colours = new float[points.size()][4];
-            final double[] radii = new double[points.size()];
+            double[][] pp = new double[points.size()][3];
+            float[][] colours = new float[points.size()][4];
+            double[] radii = new double[points.size()];
             for (int a = 0; a < points.size(); ++a) {
                 pp[a][0] = points.get(a).x + x;
                 pp[a][1] = points.get(a).y + y;
@@ -113,7 +113,7 @@ public class RenderGrapple extends Render
         GL11.glPopMatrix();
     }
     
-    private void calcPoints(final EntityLivingBase thrower, final EntityGrapple grapple, final float pt) {
+    private void calcPoints(EntityLivingBase thrower, EntityGrapple grapple, float pt) {
         if (thrower == null || grapple == null) {
             return;
         }
@@ -121,41 +121,41 @@ public class RenderGrapple extends Render
         double ty = thrower.lastTickPosY + (thrower.posY - thrower.lastTickPosY) * pt;
         double tz = thrower.lastTickPosZ + (thrower.posZ - thrower.lastTickPosZ) * pt;
         if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
-            final double yy = thrower.prevRotationYaw + (thrower.rotationYaw - thrower.prevRotationYaw) * (double)pt;
-            final double px = -MathHelper.cos((float)((yy - 0.5) / 180.0 * 3.1415929794311523)) * 0.1f * ((grapple.hand == EnumHand.MAIN_HAND) ? 1 : -1);
-            final double pz = -MathHelper.sin((float)((yy - 0.5) / 180.0 * 3.1415929794311523)) * 0.1f * ((grapple.hand == EnumHand.MAIN_HAND) ? 1 : -1);
-            final Vec3d vl = thrower.getLookVec();
+            double yy = thrower.prevRotationYaw + (thrower.rotationYaw - thrower.prevRotationYaw) * (double)pt;
+            double px = -MathHelper.cos((float)((yy - 0.5) / 180.0 * 3.1415929794311523)) * 0.1f * ((grapple.hand == EnumHand.MAIN_HAND) ? 1 : -1);
+            double pz = -MathHelper.sin((float)((yy - 0.5) / 180.0 * 3.1415929794311523)) * 0.1f * ((grapple.hand == EnumHand.MAIN_HAND) ? 1 : -1);
+            Vec3d vl = thrower.getLookVec();
             tx += px + vl.x / 5.0;
             ty += thrower.getEyeHeight() / 2.6 + vl.y / 5.0;
             tz += pz + vl.z / 5.0;
         }
-        final double gx = grapple.lastTickPosX + (grapple.posX - grapple.lastTickPosX) * pt;
-        final double gy = grapple.lastTickPosY + (grapple.posY - grapple.lastTickPosY) * pt;
-        final double gz = grapple.lastTickPosZ + (grapple.posZ - grapple.lastTickPosZ) * pt;
+        double gx = grapple.lastTickPosX + (grapple.posX - grapple.lastTickPosX) * pt;
+        double gy = grapple.lastTickPosY + (grapple.posY - grapple.lastTickPosY) * pt;
+        double gz = grapple.lastTickPosZ + (grapple.posZ - grapple.lastTickPosZ) * pt;
         points.clear();
-        final Vec3d vs = new Vec3d(0.0, 0.0, 0.0);
-        final Vec3d ve = new Vec3d(tx - gx, ty - gy + thrower.height / 2.0f, tz - gz);
+        Vec3d vs = new Vec3d(0.0, 0.0, 0.0);
+        Vec3d ve = new Vec3d(tx - gx, ty - gy + thrower.height / 2.0f, tz - gz);
         length = (float)(ve.lengthVector() * 5.0);
-        final int steps = (int) length;
+        int steps = (int) length;
         points.add(vs);
         for (int a = 1; a < steps - 1; ++a) {
-            final float dist = a * (length / steps);
-            final float ss = 1.0f - a / (steps * 1.25f);
-            final double dx = (tx - gx) / steps * a + MathHelper.sin(dist / 10.0f) * grapple.ampl * ss;
-            final double dy = (ty - gy + thrower.height / 2.0f) / steps * a + MathHelper.sin(dist / 8.0f) * grapple.ampl * ss;
-            final double dz = (tz - gz) / steps * a + MathHelper.sin(dist / 6.0f) * grapple.ampl * ss;
-            final Vec3d vp = new Vec3d(dx, dy, dz);
+            float dist = a * (length / steps);
+            float ss = 1.0f - a / (steps * 1.25f);
+            double dx = (tx - gx) / steps * a + MathHelper.sin(dist / 10.0f) * grapple.ampl * ss;
+            double dy = (ty - gy + thrower.height / 2.0f) / steps * a + MathHelper.sin(dist / 8.0f) * grapple.ampl * ss;
+            double dz = (tz - gz) / steps * a + MathHelper.sin(dist / 6.0f) * grapple.ampl * ss;
+            Vec3d vp = new Vec3d(dx, dy, dz);
             points.add(vp);
         }
         points.add(ve);
         points.add(ve);
     }
     
-    public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
+    public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
         renderEntityAt(entity, d, d1, d2, f, f1);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 }

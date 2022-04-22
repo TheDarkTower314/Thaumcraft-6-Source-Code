@@ -25,13 +25,13 @@ public class ItemAlumentum extends ItemTCBase
         setMaxDamage(0);
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         if (!player.capabilities.isCreativeMode) {
             player.getHeldItem(hand).shrink(1);
         }
         player.playSound(SoundEvents.ENTITY_EGG_THROW, 0.3f, 0.4f / (ItemAlumentum.itemRand.nextFloat() * 0.4f + 0.8f));
         if (!world.isRemote) {
-            final EntityAlumentum alumentum = new EntityAlumentum(world, player);
+            EntityAlumentum alumentum = new EntityAlumentum(world, player);
             alumentum.shoot(player, player.rotationPitch, player.rotationYaw, -5.0f, 0.4f, 2.0f);
             world.spawnEntity(alumentum);
         }

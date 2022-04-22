@@ -29,7 +29,7 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 
 public class BlockFluidDeath extends BlockFluidClassic
 {
-    public static final Material FLUID_DEATH_MATERIAL;
+    public static Material FLUID_DEATH_MATERIAL;
     
     public BlockFluidDeath() {
         super(ConfigBlocks.FluidDeath.instance, BlockFluidDeath.FLUID_DEATH_MATERIAL);
@@ -39,7 +39,7 @@ public class BlockFluidDeath extends BlockFluidClassic
         setQuantaPerBlock(4);
     }
     
-    public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
         entity.motionX *= 1.0f - getQuantaPercentage(world, pos) / 2.0f;
         entity.motionZ *= 1.0f - getQuantaPercentage(world, pos) / 2.0f;
         if (!world.isRemote && entity instanceof EntityLivingBase) {
@@ -52,19 +52,19 @@ public class BlockFluidDeath extends BlockFluidClassic
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random rand) {
+    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
         if (rand.nextInt(20) == 0) {
-            final int meta = getMetaFromState(state);
-            final float h = rand.nextFloat() * 0.075f;
-            final FXSlimyBubble ef = new FXSlimyBubble(world, pos.getX() + rand.nextFloat(), pos.getY() + 0.1f + 0.225f * (4 - meta), pos.getZ() + rand.nextFloat(), 0.075f + h);
+            int meta = getMetaFromState(state);
+            float h = rand.nextFloat() * 0.075f;
+            FXSlimyBubble ef = new FXSlimyBubble(world, pos.getX() + rand.nextFloat(), pos.getY() + 0.1f + 0.225f * (4 - meta), pos.getZ() + rand.nextFloat(), 0.075f + h);
             ef.setAlphaF(0.8f);
             ef.setRBGColorF(0.3f - rand.nextFloat() * 0.1f, 0.0f, 0.4f + rand.nextFloat() * 0.1f);
             ParticleEngine.addEffect(world, ef);
         }
         if (rand.nextInt(50) == 0) {
-            final double var21 = pos.getX() + rand.nextFloat();
-            final double var22 = pos.getY() + (double)(getMaxRenderHeightMeta() / 4.0f);
-            final double var23 = pos.getZ() + rand.nextFloat();
+            double var21 = pos.getX() + rand.nextFloat();
+            double var22 = pos.getY() + (double)(getMaxRenderHeightMeta() / 4.0f);
+            double var23 = pos.getZ() + rand.nextFloat();
             world.playSound(var21, var22, var23, SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS, 0.1f + rand.nextFloat() * 0.1f, 0.9f + rand.nextFloat() * 0.15f, false);
         }
     }

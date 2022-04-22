@@ -36,23 +36,23 @@ public class CardInfuse extends TheorycraftCard
     
     @Override
     public NBTTagCompound serialize() {
-        final NBTTagCompound nbt = super.serialize();
+        NBTTagCompound nbt = super.serialize();
         nbt.setString("aspect", aspect.getTag());
         nbt.setTag("stack", stack.serializeNBT());
         return nbt;
     }
     
     @Override
-    public void deserialize(final NBTTagCompound nbt) {
+    public void deserialize(NBTTagCompound nbt) {
         super.deserialize(nbt);
         aspect = Aspect.getAspect(nbt.getString("aspect"));
         stack = new ItemStack(nbt.getCompoundTag("stack"));
     }
     
     @Override
-    public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(getSeed());
-        final int num = r.nextInt(Aspect.getCompoundAspects().size());
+    public boolean initialize(EntityPlayer player, ResearchTableData data) {
+        Random r = new Random(getSeed());
+        int num = r.nextInt(Aspect.getCompoundAspects().size());
         aspect = Aspect.getCompoundAspects().get(num);
         stack = CardInfuse.options[r.nextInt(CardInfuse.options.length)].copy();
         return aspect != null && stack != null;
@@ -83,7 +83,7 @@ public class CardInfuse extends TheorycraftCard
         try {
             q += (int)(Math.sqrt(ThaumcraftCraftingManager.getObjectTags(stack).visSize()) * 1.5);
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         return q;
     }
     
@@ -98,7 +98,7 @@ public class CardInfuse extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
         data.addTotal(getResearchCategory(), getVal());
         return true;
     }

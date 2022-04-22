@@ -47,7 +47,7 @@ public class SealPickupAdvanced extends SealPickup implements ISealConfigToggles
     }
     
     @Override
-    public void setToggle(final int indx, final boolean value) {
+    public void setToggle(int indx, boolean value) {
         props[indx].setValue(value);
     }
 }

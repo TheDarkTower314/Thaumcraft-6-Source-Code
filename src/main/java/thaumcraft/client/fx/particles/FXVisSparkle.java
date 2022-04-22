@@ -18,10 +18,10 @@ public class FXVisSparkle extends Particle
     private double targetZ;
     float sizeMod;
     
-    public FXVisSparkle(final World par1World, final double par2, final double par4, final double par6, final double tx, final double ty, final double tz) {
+    public FXVisSparkle(World par1World, double par2, double par4, double par6, double tx, double ty, double tz) {
         super(par1World, par2, par4, par6, 0.0, 0.0, 0.0);
         sizeMod = 0.0f;
-        final float particleRed = 0.6f;
+        float particleRed = 0.6f;
         particleBlue = particleRed;
         particleGreen = particleRed;
         this.particleRed = particleRed;
@@ -30,7 +30,7 @@ public class FXVisSparkle extends Particle
         targetY = ty;
         targetZ = tz;
         particleMaxAge = 1000;
-        final float f3 = 0.01f;
+        float f3 = 0.01f;
         motionX = (float) rand.nextGaussian() * f3;
         motionY = (float) rand.nextGaussian() * f3;
         motionZ = (float) rand.nextGaussian() * f3;
@@ -41,22 +41,22 @@ public class FXVisSparkle extends Particle
         particleGravity = 0.2f;
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity p_180434_2_, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
-        final float bob = MathHelper.sin(particleAge / 3.0f) * 0.3f + 6.0f;
+    public void renderParticle(BufferBuilder wr, Entity p_180434_2_, float f, float f1, float f2, float f3, float f4, float f5) {
+        float bob = MathHelper.sin(particleAge / 3.0f) * 0.3f + 6.0f;
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.75f);
-        final int part = particleAge % 16;
-        final float var8 = part / 64.0f;
-        final float var9 = var8 + 0.015625f;
-        final float var10 = 0.125f;
-        final float var11 = var10 + 0.015625f;
-        final float var12 = 0.1f * particleScale * bob;
-        final float var13 = (float)(prevPosX + (posX - prevPosX) * f - FXVisSparkle.interpPosX);
-        final float var14 = (float)(prevPosY + (posY - prevPosY) * f - FXVisSparkle.interpPosY);
-        final float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - FXVisSparkle.interpPosZ);
-        final float var16 = 1.0f;
-        final int i = 240;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        int part = particleAge % 16;
+        float var8 = part / 64.0f;
+        float var9 = var8 + 0.015625f;
+        float var10 = 0.125f;
+        float var11 = var10 + 0.015625f;
+        float var12 = 0.1f * particleScale * bob;
+        float var13 = (float)(prevPosX + (posX - prevPosX) * f - FXVisSparkle.interpPosX);
+        float var14 = (float)(prevPosY + (posY - prevPosY) * f - FXVisSparkle.interpPosY);
+        float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - FXVisSparkle.interpPosZ);
+        float var16 = 1.0f;
+        int i = 240;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         wr.pos(var13 - f1 * var12 - f4 * var12, var14 - f2 * var12, var15 - f3 * var12 - f5 * var12).tex(var9, var11).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 0.5f).lightmap(j, k).endVertex();
         wr.pos(var13 - f1 * var12 + f4 * var12, var14 + f2 * var12, var15 - f3 * var12 + f5 * var12).tex(var9, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 0.5f).lightmap(j, k).endVertex();
         wr.pos(var13 + f1 * var12 + f4 * var12, var14 + f2 * var12, var15 + f3 * var12 + f5 * var12).tex(var8, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 0.5f).lightmap(j, k).endVertex();
@@ -74,8 +74,8 @@ public class FXVisSparkle extends Particle
         double dx = targetX - posX;
         double dy = targetY - posY;
         double dz = targetZ - posZ;
-        final double d13 = 0.10000000149011612;
-        final double d14 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+        double d13 = 0.10000000149011612;
+        double d14 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
         if (d14 < 2.0) {
             particleScale *= 0.95f;
         }
@@ -99,7 +99,7 @@ public class FXVisSparkle extends Particle
         }
     }
     
-    public void setGravity(final float value) {
+    public void setGravity(float value) {
         particleGravity = value;
     }
 }

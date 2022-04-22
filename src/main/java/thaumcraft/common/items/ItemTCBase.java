@@ -14,11 +14,11 @@ import net.minecraft.item.Item;
 
 public class ItemTCBase extends Item implements IThaumcraftItems
 {
-    protected final String BASE_NAME;
+    protected String BASE_NAME;
     protected String[] VARIANTS;
     protected int[] VARIANTS_META;
     
-    public ItemTCBase(final String name, final String... variants) {
+    public ItemTCBase(String name, String... variants) {
         setRegistryName(name);
         setUnlocalizedName(name);
         setCreativeTab(ConfigItems.TABTC);
@@ -38,14 +38,14 @@ public class ItemTCBase extends Item implements IThaumcraftItems
         ConfigItems.ITEM_VARIANT_HOLDERS.add(this);
     }
     
-    public String getUnlocalizedName(final ItemStack itemStack) {
+    public String getUnlocalizedName(ItemStack itemStack) {
         if (hasSubtypes && itemStack.getMetadata() < VARIANTS.length && VARIANTS[itemStack.getMetadata()] != BASE_NAME) {
             return String.format(super.getUnlocalizedName() + ".%s", VARIANTS[itemStack.getMetadata()]);
         }
         return super.getUnlocalizedName(itemStack);
     }
     
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
             if (!getHasSubtypes()) {
                 super.getSubItems(tab, items);
@@ -74,7 +74,7 @@ public class ItemTCBase extends Item implements IThaumcraftItems
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         if (variant.equals(BASE_NAME)) {
             return new ModelResourceLocation("thaumcraft:" + BASE_NAME);
         }

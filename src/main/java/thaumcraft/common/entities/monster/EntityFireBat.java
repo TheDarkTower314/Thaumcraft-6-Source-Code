@@ -29,11 +29,11 @@ public class EntityFireBat extends EntityMob
 {
     private BlockPos currentFlightTarget;
     public EntityLivingBase owner;
-    private static final DataParameter<Boolean> HANGING;
+    private static DataParameter<Boolean> HANGING;
     public int damBonus;
     private int attackTime;
     
-    public EntityFireBat(final World par1World) {
+    public EntityFireBat(World par1World) {
         super(par1World);
         owner = null;
         damBonus = 0;
@@ -68,7 +68,7 @@ public class EntityFireBat extends EntityMob
         return (getIsBatHanging() && rand.nextInt(4) != 0) ? null : SoundEvents.ENTITY_BAT_AMBIENT;
     }
     
-    protected SoundEvent getHurtSound(final DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundEvents.ENTITY_BAT_HURT;
     }
     
@@ -90,7 +90,7 @@ public class EntityFireBat extends EntityMob
         return (boolean) getDataManager().get((DataParameter)EntityFireBat.HANGING);
     }
     
-    public void setIsBatHanging(final boolean par1) {
+    public void setIsBatHanging(boolean par1) {
         getDataManager().set(EntityFireBat.HANGING, par1);
     }
     
@@ -104,7 +104,7 @@ public class EntityFireBat extends EntityMob
     public void onUpdate() {
         super.onUpdate();
         if (getIsBatHanging()) {
-            final double motionX = 0.0;
+            double motionX = 0.0;
             motionZ = motionX;
             motionY = motionX;
             this.motionX = motionX;
@@ -120,8 +120,8 @@ public class EntityFireBat extends EntityMob
         if (attackTime > 0) {
             --attackTime;
         }
-        final BlockPos blockpos = new BlockPos(this);
-        final BlockPos blockpos2 = blockpos.up();
+        BlockPos blockpos = new BlockPos(this);
+        BlockPos blockpos2 = blockpos.up();
         if (getIsBatHanging()) {
             if (!world.getBlockState(blockpos2).isNormalCube()) {
                 setIsBatHanging(false);
@@ -144,14 +144,14 @@ public class EntityFireBat extends EntityMob
             if (currentFlightTarget == null || rand.nextInt(30) == 0 || getDistanceSqToCenter(currentFlightTarget) < 4.0) {
                 currentFlightTarget = new BlockPos((int) posX + rand.nextInt(7) - rand.nextInt(7), (int) posY + rand.nextInt(6) - 2, (int) posZ + rand.nextInt(7) - rand.nextInt(7));
             }
-            final double var1 = currentFlightTarget.getX() + 0.5 - posX;
-            final double var2 = currentFlightTarget.getY() + 0.1 - posY;
-            final double var3 = currentFlightTarget.getZ() + 0.5 - posZ;
+            double var1 = currentFlightTarget.getX() + 0.5 - posX;
+            double var2 = currentFlightTarget.getY() + 0.1 - posY;
+            double var3 = currentFlightTarget.getZ() + 0.5 - posZ;
             motionX += (Math.signum(var1) * 0.5 - motionX) * 0.10000000149011612;
             motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
             motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.10000000149011612;
-            final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
-            final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+            float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+            float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
             moveForward = 0.5f;
             rotationYaw += var5;
             if (rand.nextInt(100) == 0 && world.getBlockState(blockpos2).isNormalCube()) {
@@ -159,14 +159,14 @@ public class EntityFireBat extends EntityMob
             }
         }
         else {
-            final double var1 = getAttackTarget().posX - posX;
-            final double var2 = getAttackTarget().posY + getAttackTarget().getEyeHeight() * 0.66f - posY;
-            final double var3 = getAttackTarget().posZ - posZ;
+            double var1 = getAttackTarget().posX - posX;
+            double var2 = getAttackTarget().posY + getAttackTarget().getEyeHeight() * 0.66f - posY;
+            double var3 = getAttackTarget().posZ - posZ;
             motionX += (Math.signum(var1) * 0.5 - motionX) * 0.10000000149011612;
             motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
             motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.10000000149011612;
-            final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
-            final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+            float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+            float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
             moveForward = 0.5f;
             rotationYaw += var5;
         }
@@ -174,7 +174,7 @@ public class EntityFireBat extends EntityMob
             setAttackTarget(findPlayerToAttack());
         }
         else if (getAttackTarget().isEntityAlive()) {
-            final float f = getAttackTarget().getDistance(this);
+            float f = getAttackTarget().getDistance(this);
             if (isEntityAlive() && canEntityBeSeen(getAttackTarget())) {
                 attackEntity(getAttackTarget(), f);
             }
@@ -191,17 +191,17 @@ public class EntityFireBat extends EntityMob
         return false;
     }
     
-    public void fall(final float par1, final float damageMultiplier) {
+    public void fall(float par1, float damageMultiplier) {
     }
     
-    protected void updateFallState(final double p_180433_1_, final boolean p_180433_3_, final IBlockState state, final BlockPos pos) {
+    protected void updateFallState(double p_180433_1_, boolean p_180433_3_, IBlockState state, BlockPos pos) {
     }
     
     public boolean doesEntityNotTriggerPressurePlate() {
         return true;
     }
     
-    public boolean attackEntityFrom(final DamageSource par1DamageSource, final float par2) {
+    public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
         if (isEntityInvulnerable(par1DamageSource) || par1DamageSource.isFireDamage() || par1DamageSource.isExplosion()) {
             return false;
         }
@@ -211,7 +211,7 @@ public class EntityFireBat extends EntityMob
         return super.attackEntityFrom(par1DamageSource, par2);
     }
     
-    protected void attackEntity(final Entity entity, final float par2) {
+    protected void attackEntity(Entity entity, float par2) {
         if (attackTime <= 0 && par2 < Math.max(2.5f, entity.width * 1.1f) && entity.getEntityBoundingBox().maxY > getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < getEntityBoundingBox().maxY) {
             attackTime = 20 + world.rand.nextInt(20);
             if (world.rand.nextInt(10) == 0 && !world.isRemote) {
@@ -225,29 +225,29 @@ public class EntityFireBat extends EntityMob
     }
     
     protected EntityLivingBase findPlayerToAttack() {
-        final double var1 = 12.0;
+        double var1 = 12.0;
         return world.getClosestPlayerToEntity(this, var1);
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         setIsBatHanging(nbt.getBoolean("hang"));
         damBonus = nbt.getByte("damBonus");
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         nbt.setBoolean("hang", getIsBatHanging());
         nbt.setByte("damBonus", (byte) damBonus);
     }
     
     public boolean getCanSpawnHere() {
-        final int i = MathHelper.floor(posX);
-        final int j = MathHelper.floor(getEntityBoundingBox().minY);
-        final int k = MathHelper.floor(posZ);
-        final BlockPos blockpos = new BlockPos(i, j, k);
-        final int var4 = world.getLight(blockpos);
-        final byte var5 = 7;
+        int i = MathHelper.floor(posX);
+        int j = MathHelper.floor(getEntityBoundingBox().minY);
+        int k = MathHelper.floor(posZ);
+        BlockPos blockpos = new BlockPos(i, j, k);
+        int var4 = world.getLight(blockpos);
+        byte var5 = 7;
         return var4 <= rand.nextInt(var5) && super.getCanSpawnHere();
     }
     

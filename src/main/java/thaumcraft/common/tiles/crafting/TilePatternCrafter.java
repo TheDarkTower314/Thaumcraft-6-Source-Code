@@ -35,7 +35,7 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
 {
     public byte type;
     public int count;
-    private final InventoryCrafting craftMatrix;
+    private InventoryCrafting craftMatrix;
     float power;
     public float rot;
     public float rp;
@@ -46,7 +46,7 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
         type = 0;
         count = new Random(System.currentTimeMillis()).nextInt(20);
         craftMatrix = new InventoryCrafting(new Container() {
-            public boolean canInteractWith(final EntityPlayer playerIn) {
+            public boolean canInteractWith(EntityPlayer playerIn) {
                 return false;
             }
         }, 3, 3);
@@ -56,24 +56,24 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbt) {
+    public void readSyncNBT(NBTTagCompound nbt) {
         type = nbt.getByte("type");
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbt) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbt) {
         nbt.setByte("type", type);
         return nbt;
     }
     
     @Override
-    public void readFromNBT(final NBTTagCompound nbt) {
+    public void readFromNBT(NBTTagCompound nbt) {
         power = nbt.getFloat("power");
         super.readFromNBT(nbt);
     }
     
     @Override
-    public NBTTagCompound writeToNBT(final NBTTagCompound nbt) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         nbt.setFloat("power", power);
         return super.writeToNBT(nbt);
     }
@@ -130,11 +130,11 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
                     break;
                 }
             }
-            final IItemHandler above = ThaumcraftInvHelper.getItemHandlerAt(getWorld(), getPos().up(), EnumFacing.DOWN);
-            final IItemHandler below = ThaumcraftInvHelper.getItemHandlerAt(getWorld(), getPos().down(), EnumFacing.UP);
+            IItemHandler above = ThaumcraftInvHelper.getItemHandlerAt(getWorld(), getPos().up(), EnumFacing.DOWN);
+            IItemHandler below = ThaumcraftInvHelper.getItemHandlerAt(getWorld(), getPos().down(), EnumFacing.UP);
             if (above != null && below != null) {
                 for (int a = 0; a < above.getSlots(); ++a) {
-                    final ItemStack testStack = above.getStackInSlot(a).copy();
+                    ItemStack testStack = above.getStackInSlot(a).copy();
                     if (!testStack.isEmpty()) {
                         testStack.setCount(amt);
                         if (InventoryUtils.removeStackFrom(getWorld(), getPos().up(), EnumFacing.DOWN, testStack.copy(), ThaumcraftInvHelper.InvFilter.BASEORE, true).getCount() == amt && craft(testStack) && power >= 1.0f && ItemHandlerHelper.insertItem(below, outStack.copy(), true).isEmpty()) {
@@ -164,7 +164,7 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
         }
     }
     
-    private boolean craft(final ItemStack inStack) {
+    private boolean craft(ItemStack inStack) {
         outStack = ItemStack.EMPTY;
         craftMatrix.clear();
         switch (type) {
@@ -233,15 +233,15 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
                 break;
             }
         }
-        final IRecipe ir = CraftingManager.findMatchingRecipe(craftMatrix, world);
+        IRecipe ir = CraftingManager.findMatchingRecipe(craftMatrix, world);
         if (ir == null) {
             return false;
         }
         outStack = ir.getCraftingResult(craftMatrix);
-        final NonNullList<ItemStack> aitemstack = CraftingManager.getRemainingItems(craftMatrix, world);
+        NonNullList<ItemStack> aitemstack = CraftingManager.getRemainingItems(craftMatrix, world);
         for (int i = 0; i < aitemstack.size(); ++i) {
-            final ItemStack itemstack1 = craftMatrix.getStackInSlot(i);
-            final ItemStack itemstack2 = aitemstack.get(i);
+            ItemStack itemstack1 = craftMatrix.getStackInSlot(i);
+            ItemStack itemstack2 = aitemstack.get(i);
             if (!itemstack1.isEmpty()) {
                 craftMatrix.setInventorySlotContents(i, ItemStack.EMPTY);
             }
@@ -261,7 +261,7 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
         markDirty();
     }
     
-    public boolean receiveClientEvent(final int i, final int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i == 1) {
             if (world.isRemote) {
                 rotTicks = 10;
@@ -271,16 +271,16 @@ public class TilePatternCrafter extends TileThaumcraft implements ITickable
         return super.receiveClientEvent(i, j);
     }
     
-    public RayTraceResult rayTrace(final World world, final Vec3d vec3d, final Vec3d vec3d1, final RayTraceResult fullblock) {
+    public RayTraceResult rayTrace(World world, Vec3d vec3d, Vec3d vec3d1, RayTraceResult fullblock) {
         return fullblock;
     }
     
-    public void addTraceableCuboids(final List<IndexedCuboid6> cuboids) {
-        final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
+    public void addTraceableCuboids(List<IndexedCuboid6> cuboids) {
+        EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
         cuboids.add(new IndexedCuboid6(0, getCuboidByFacing(facing)));
     }
     
-    public Cuboid6 getCuboidByFacing(final EnumFacing facing) {
+    public Cuboid6 getCuboidByFacing(EnumFacing facing) {
         switch (facing) {
             default: {
                 return new Cuboid6(getPos().getX() + 0.75, getPos().getY() + 0.125, getPos().getZ() + 0.375, getPos().getX() + 0.875, getPos().getY() + 0.375, getPos().getZ() + 0.625);

@@ -29,11 +29,11 @@ public class TileThaumatoriumRenderer extends TileEntitySpecialRenderer
         entityitem = null;
     }
     
-    public void renderTileEntityAt(final TileThaumatorium tile, final double par2, final double par4, final double par6, final float par8) {
-        final EnumFacing facing = BlockStateUtils.getFacing(tile.getBlockMetadata());
+    public void renderTileEntityAt(TileThaumatorium tile, double par2, double par4, double par6, float par8) {
+        EnumFacing facing = BlockStateUtils.getFacing(tile.getBlockMetadata());
         if (tile != null && tile.getWorld() != null && tile.recipeHash != null && tile.recipeHash.size() > 0) {
-            final int stack = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted / 20 % tile.recipeHash.size();
-            final CrucibleRecipe recipe = ThaumcraftApi.getCrucibleRecipeFromHash(tile.recipeHash.get(stack));
+            int stack = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted / 20 % tile.recipeHash.size();
+            CrucibleRecipe recipe = ThaumcraftApi.getCrucibleRecipeFromHash(tile.recipeHash.get(stack));
             if (recipe != null) {
                 GL11.glPushMatrix();
                 GL11.glTranslatef((float)par2 + 0.5f + facing.getFrontOffsetX() / 1.99f, (float)par4 + 1.125f, (float)par6 + 0.5f + facing.getFrontOffsetZ() / 1.99f);
@@ -52,18 +52,18 @@ public class TileThaumatoriumRenderer extends TileEntitySpecialRenderer
                     }
                 }
                 GL11.glScaled(0.75, 0.75, 0.75);
-                final ItemStack is = recipe.getRecipeOutput().copy();
+                ItemStack is = recipe.getRecipeOutput().copy();
                 is.setCount(1);
                 entityitem = new EntityItem(tile.getWorld(), 0.0, 0.0, 0.0, is);
                 entityitem.hoverStart = 0.0f;
-                final RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+                RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
                 rendermanager.renderEntity(entityitem, 0.0, 0.0, 0.0, 0.0f, 0.0f, false);
                 GL11.glPopMatrix();
             }
         }
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderTileEntityAt((TileThaumatorium)te, x, y, z, partialTicks);
     }

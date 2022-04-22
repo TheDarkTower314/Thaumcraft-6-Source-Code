@@ -24,18 +24,18 @@ import net.minecraft.item.ItemBlock;
 
 public class BlockBannerTCItem extends ItemBlock
 {
-    public BlockBannerTCItem(final BlockBannerTC block) {
+    public BlockBannerTCItem(BlockBannerTC block) {
         super(block);
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (stack.hasTagCompound() && stack.getTagCompound().getString("aspect") != null && Aspect.getAspect(stack.getTagCompound().getString("aspect")) != null) {
             tooltip.add(Aspect.getAspect(stack.getTagCompound().getString("aspect")).getName());
         }
     }
     
-    public EnumActionResult onItemUse(final EntityPlayer player, final World worldIn, BlockPos pos, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (side == EnumFacing.DOWN) {
             return EnumActionResult.FAIL;
         }
@@ -53,10 +53,10 @@ public class BlockBannerTCItem extends ItemBlock
             return EnumActionResult.FAIL;
         }
         worldIn.setBlockState(pos, block.getDefaultState(), 3);
-        final TileBanner tile = (TileBanner)worldIn.getTileEntity(pos);
+        TileBanner tile = (TileBanner)worldIn.getTileEntity(pos);
         if (tile != null) {
             if (side == EnumFacing.UP) {
-                final int i = MathHelper.floor((player.rotationYaw + 180.0f) * 16.0f / 360.0f + 0.5) & 0xF;
+                int i = MathHelper.floor((player.rotationYaw + 180.0f) * 16.0f / 360.0f + 0.5) & 0xF;
                 tile.setBannerFacing((byte)i);
             }
             else {

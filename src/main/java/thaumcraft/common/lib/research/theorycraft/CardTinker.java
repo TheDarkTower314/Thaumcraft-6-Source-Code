@@ -31,20 +31,20 @@ public class CardTinker extends TheorycraftCard
     
     @Override
     public NBTTagCompound serialize() {
-        final NBTTagCompound nbt = super.serialize();
+        NBTTagCompound nbt = super.serialize();
         nbt.setTag("stack", stack.serializeNBT());
         return nbt;
     }
     
     @Override
-    public void deserialize(final NBTTagCompound nbt) {
+    public void deserialize(NBTTagCompound nbt) {
         super.deserialize(nbt);
         stack = new ItemStack(nbt.getCompoundTag("stack"));
     }
     
     @Override
-    public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(getSeed());
+    public boolean initialize(EntityPlayer player, ResearchTableData data) {
+        Random r = new Random(getSeed());
         stack = CardTinker.options[r.nextInt(CardTinker.options.length)].copy();
         return stack != null;
     }
@@ -64,7 +64,7 @@ public class CardTinker extends TheorycraftCard
         try {
             q += (int)Math.sqrt(ThaumcraftCraftingManager.getObjectTags(stack).visSize());
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         return q;
     }
     
@@ -75,8 +75,8 @@ public class CardTinker extends TheorycraftCard
     
     @Override
     public String getLocalizedText() {
-        final int a = getVal() * 2;
-        final int b = a + 10;
+        int a = getVal() * 2;
+        int b = a + 10;
         return new TextComponentTranslation("card.tinker.text", a, b).getFormattedText();
     }
     
@@ -86,8 +86,8 @@ public class CardTinker extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        final int q = getVal() * 2;
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
+        int q = getVal() * 2;
         data.addTotal(getResearchCategory(), MathHelper.getInt(player.getRNG(), q, q + 10));
         return true;
     }

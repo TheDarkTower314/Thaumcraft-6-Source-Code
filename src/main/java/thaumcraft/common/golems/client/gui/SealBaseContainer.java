@@ -43,7 +43,7 @@ public class SealBaseContainer extends Container
     private int lastAreaY;
     private int lastAreaZ;
     
-    public SealBaseContainer(final InventoryPlayer iinventory, final World par2World, final ISealEntity seal) {
+    public SealBaseContainer(InventoryPlayer iinventory, World par2World, ISealEntity seal) {
         this.seal = null;
         player = null;
         category = -1;
@@ -79,22 +79,22 @@ public class SealBaseContainer extends Container
     
     private void setupFilterInventory() {
         if (seal.getSeal() instanceof ISealConfigFilter) {
-            final int s = ((ISealConfigFilter) seal.getSeal()).getFilterSize();
-            final int sx = 16 + (s - 1) % 3 * 12;
-            final int sy = 16 + (s - 1) / 3 * 12;
-            final int middleX = 88;
-            final int middleY = 72;
+            int s = ((ISealConfigFilter) seal.getSeal()).getFilterSize();
+            int sx = 16 + (s - 1) % 3 * 12;
+            int sy = 16 + (s - 1) / 3 * 12;
+            int middleX = 88;
+            int middleY = 72;
             temp = new InventoryFake(((ISealConfigFilter) seal.getSeal()).getInv());
             for (int a = 0; a < s; ++a) {
-                final int x = a % 3;
-                final int y = a / 3;
+                int x = a % 3;
+                int y = a / 3;
                 addSlotToContainer(new SlotGhost(temp, a, middleX + x * 24 - sx + 8, middleY + y * 24 - sy + 8));
                 ++t;
             }
         }
     }
     
-    protected void bindPlayerInventory(final InventoryPlayer inventoryPlayer) {
+    protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 150 + i * 18));
@@ -105,23 +105,23 @@ public class SealBaseContainer extends Container
         }
     }
     
-    public boolean canInteractWith(final EntityPlayer var1) {
+    public boolean canInteractWith(EntityPlayer var1) {
         return true;
     }
     
-    public boolean enchantItem(final EntityPlayer player, final int par2) {
+    public boolean enchantItem(EntityPlayer player, int par2) {
         if (par2 >= 0 && par2 < categories.length) {
             category = categories[par2];
             setupCategories();
             return true;
         }
         if (category == 3 && seal.getSeal() instanceof ISealConfigToggles && par2 >= 30 && par2 < 30 + ((ISealConfigToggles) seal.getSeal()).getToggles().length) {
-            final ISealConfigToggles cp = (ISealConfigToggles) seal.getSeal();
+            ISealConfigToggles cp = (ISealConfigToggles) seal.getSeal();
             cp.setToggle(par2 - 30, true);
             return true;
         }
         if (category == 3 && seal.getSeal() instanceof ISealConfigToggles && par2 >= 60 && par2 < 60 + ((ISealConfigToggles) seal.getSeal()).getToggles().length) {
-            final ISealConfigToggles cp = (ISealConfigToggles) seal.getSeal();
+            ISealConfigToggles cp = (ISealConfigToggles) seal.getSeal();
             cp.setToggle(par2 - 60, false);
             return true;
         }
@@ -134,7 +134,7 @@ public class SealBaseContainer extends Container
             return true;
         }
         if (category == 1 && seal.getSeal() instanceof ISealConfigFilter && par2 >= 20 && par2 <= 21) {
-            final ISealConfigFilter cp2 = (ISealConfigFilter) seal.getSeal();
+            ISealConfigFilter cp2 = (ISealConfigFilter) seal.getSeal();
             cp2.setBlacklist(par2 == 20);
             return true;
         }
@@ -183,7 +183,7 @@ public class SealBaseContainer extends Container
         return super.enchantItem(player, par2);
     }
     
-    public void addListener(final IContainerListener crafting) {
+    public void addListener(IContainerListener crafting) {
         super.addListener(crafting);
         crafting.sendWindowProperty(this, 0, seal.getPriority());
         crafting.sendWindowProperty(this, 4, seal.getColor());
@@ -192,7 +192,7 @@ public class SealBaseContainer extends Container
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         for (int i = 0; i < listeners.size(); ++i) {
-            final IContainerListener icrafting = listeners.get(i);
+            IContainerListener icrafting = listeners.get(i);
             if (lastPriority != seal.getPriority()) {
                 icrafting.sendWindowProperty(this, 0, seal.getPriority());
             }
@@ -222,7 +222,7 @@ public class SealBaseContainer extends Container
     }
     
     @SideOnly(Side.CLIENT)
-    public void updateProgressBar(final int par1, final int par2) {
+    public void updateProgressBar(int par1, int par2) {
         if (par1 == 0) {
             seal.setPriority((byte)par2);
         }
@@ -240,18 +240,18 @@ public class SealBaseContainer extends Container
         }
     }
     
-    public ItemStack slotClick(final int slotId, final int clickedButton, final ClickType mode, final EntityPlayer playerIn) {
+    public ItemStack slotClick(int slotId, int clickedButton, ClickType mode, EntityPlayer playerIn) {
         if (slotId >= 0) {
-            final Slot slot = inventorySlots.get(slotId);
-            final InventoryPlayer inventoryplayer = playerIn.inventory;
+            Slot slot = inventorySlots.get(slotId);
+            InventoryPlayer inventoryplayer = playerIn.inventory;
             ItemStack ic = ItemStack.EMPTY;
             if (inventoryplayer.getItemStack() != null && !inventoryplayer.getItemStack().isEmpty()) {
                 ic = inventoryplayer.getItemStack().copy();
             }
             if (slot != null && slot instanceof SlotGhost) {
-                final boolean filter = ((ISealConfigFilter) seal.getSeal()).hasStacksizeLimiters();
+                boolean filter = ((ISealConfigFilter) seal.getSeal()).hasStacksizeLimiters();
                 if (playerIn.world.isRemote) {
-                    final Thaumcraft instance = Thaumcraft.instance;
+                    Thaumcraft instance = Thaumcraft.instance;
                     if (Thaumcraft.proxy.getSingleplayer()) {
                         return ItemStack.EMPTY;
                     }
@@ -293,7 +293,7 @@ public class SealBaseContainer extends Container
                         ((ISealConfigFilter) seal.getSeal()).setFilterSlotSize(slot.slotNumber, 0);
                     }
                     else {
-                        final int os = ic.getCount();
+                        int os = ic.getCount();
                         ic.setCount(1);
                         if (slot.getHasStack() && ItemStack.areItemsEqual(ic, slot.getStack()) && ItemStack.areItemStackTagsEqual(ic, slot.getStack())) {
                             ((ISealConfigFilter) seal.getSeal()).setFilterSlotSize(slot.slotNumber, ((ISealConfigFilter) seal.getSeal()).getFilterSlotSize(slot.slotNumber) + os);
@@ -314,11 +314,11 @@ public class SealBaseContainer extends Container
         return super.slotClick(slotId, clickedButton, mode, playerIn);
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer player, final int par2) {
+    public ItemStack transferStackInSlot(EntityPlayer player, int par2) {
         ItemStack itemstack = null;
-        final Slot slot = inventorySlots.get(par2);
+        Slot slot = inventorySlots.get(par2);
         if (slot != null && slot.getHasStack()) {
-            final ItemStack itemstack2 = slot.getStack();
+            ItemStack itemstack2 = slot.getStack();
             itemstack = itemstack2.copy();
             if (itemstack2.getCount() == 0) {
                 slot.putStack(ItemStack.EMPTY);

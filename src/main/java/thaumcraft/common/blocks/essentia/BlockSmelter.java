@@ -33,21 +33,21 @@ import thaumcraft.common.blocks.BlockTCDevice;
 
 public class BlockSmelter extends BlockTCDevice implements IBlockEnabled, IBlockFacingHorizontal
 {
-    public BlockSmelter(final String name) {
+    public BlockSmelter(String name) {
         super(Material.IRON, TileSmelter.class, name);
         setSoundType(SoundType.METAL);
-        final IBlockState bs = blockState.getBaseState();
+        IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)EnumFacing.NORTH);
         bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false);
         setDefaultState(bs);
     }
     
     @Override
-    public void onBlockAdded(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
     }
     
     @Override
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacingHorizontal.FACING, (Comparable)placer.getHorizontalFacing().getOpposite());
         bs = bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false);
@@ -55,46 +55,46 @@ public class BlockSmelter extends BlockTCDevice implements IBlockEnabled, IBlock
     }
     
     @Override
-    public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
-        final TileEntity te = worldIn.getTileEntity(pos);
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos pos2) {
+        TileEntity te = worldIn.getTileEntity(pos);
         if (te != null && te instanceof TileSmelter) {
             ((TileSmelter)te).checkNeighbours();
         }
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote && !player.isSneaking()) {
             player.openGui(Thaumcraft.instance, 9, world, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
     }
     
-    public int getLightValue(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
+    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
         return BlockStateUtils.isEnabled(world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos))) ? 13 : super.getLightValue(state, world, pos);
     }
     
-    public boolean hasComparatorInputOverride(final IBlockState state) {
+    public boolean hasComparatorInputOverride(IBlockState state) {
         return true;
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public int getComparatorInputOverride(final IBlockState state, final World world, final BlockPos pos) {
-        final TileEntity te = world.getTileEntity(pos);
+    public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+        TileEntity te = world.getTileEntity(pos);
         if (te != null && te instanceof IInventory) {
             return Container.calcRedstoneFromInventory((IInventory)te);
         }
         return 0;
     }
     
-    public static void setFurnaceState(final World world, final BlockPos pos, final boolean state) {
+    public static void setFurnaceState(World world, BlockPos pos, boolean state) {
         if (state == BlockStateUtils.isEnabled(world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)))) {
             return;
         }
-        final TileEntity tileentity = world.getTileEntity(pos);
+        TileEntity tileentity = world.getTileEntity(pos);
         BlockSmelter.keepInventory = true;
         world.setBlockState(pos, world.getBlockState(pos).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)state), 3);
         world.setBlockState(pos, world.getBlockState(pos).withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)state), 3);
@@ -106,23 +106,23 @@ public class BlockSmelter extends BlockTCDevice implements IBlockEnabled, IBlock
     }
     
     @Override
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
-        final TileEntity tileentity = worldIn.getTileEntity(pos);
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
         if (tileentity instanceof TileSmelter && !worldIn.isRemote && ((TileSmelter)tileentity).vis > 0) {
-            final int ess = ((TileSmelter)tileentity).vis;
+            int ess = ((TileSmelter)tileentity).vis;
             AuraHelper.polluteAura(worldIn, pos, (float)ess, true);
         }
         super.breakBlock(worldIn, pos, state);
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState state, final World w, final BlockPos pos, final Random r) {
+    public void randomDisplayTick(IBlockState state, World w, BlockPos pos, Random r) {
         if (BlockStateUtils.isEnabled(state)) {
-            final float f = pos.getX() + 0.5f;
-            final float f2 = pos.getY() + 0.2f + r.nextFloat() * 5.0f / 16.0f;
-            final float f3 = pos.getZ() + 0.5f;
-            final float f4 = 0.52f;
-            final float f5 = r.nextFloat() * 0.5f - 0.25f;
+            float f = pos.getX() + 0.5f;
+            float f2 = pos.getY() + 0.2f + r.nextFloat() * 5.0f / 16.0f;
+            float f3 = pos.getZ() + 0.5f;
+            float f4 = 0.52f;
+            float f5 = r.nextFloat() * 0.5f - 0.25f;
             if (BlockStateUtils.getFacing(state) == EnumFacing.WEST) {
                 w.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, f - f4, f2, f3 + f5, 0.0, 0.0, 0.0);
                 w.spawnParticle(EnumParticleTypes.FLAME, f - f4, f2, f3 + f5, 0.0, 0.0, 0.0);

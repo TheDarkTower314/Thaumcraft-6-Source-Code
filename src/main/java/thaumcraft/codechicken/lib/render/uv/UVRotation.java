@@ -14,15 +14,15 @@ public class UVRotation extends UVTransformation
 {
     public double angle;
     
-    public UVRotation(final double angle) {
+    public UVRotation(double angle) {
         this.angle = angle;
     }
     
     @Override
-    public void apply(final UV uv) {
-        final double c = MathHelper.cos(angle);
-        final double s = MathHelper.sin(angle);
-        final double u2 = c * uv.u + s * uv.v;
+    public void apply(UV uv) {
+        double c = MathHelper.cos(angle);
+        double s = MathHelper.sin(angle);
+        double u2 = c * uv.u + s * uv.v;
         uv.v = -s * uv.u + c * uv.v;
         uv.u = u2;
     }
@@ -33,7 +33,7 @@ public class UVRotation extends UVTransformation
     }
     
     @Override
-    public UVTransformation merge(final UVTransformation next) {
+    public UVTransformation merge(UVTransformation next) {
         if (next instanceof UVRotation) {
             return new UVRotation(angle + ((UVRotation)next).angle);
         }
@@ -47,7 +47,7 @@ public class UVRotation extends UVTransformation
     
     @Override
     public String toString() {
-        final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
+        MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
         return "UVRotation(" + new BigDecimal(angle, cont) + ")";
     }
 }

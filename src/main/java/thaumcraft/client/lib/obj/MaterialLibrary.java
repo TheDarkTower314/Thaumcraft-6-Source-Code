@@ -21,8 +21,8 @@ import java.util.Dictionary;
 
 class MaterialLibrary extends Dictionary<String, Material>
 {
-    static final Set<String> unknownCommands;
-    private final Dictionary<String, Material> materialLibrary;
+    static Set<String> unknownCommands;
+    private Dictionary<String, Material> materialLibrary;
     private Material currentMaterial;
     
     public MaterialLibrary() {
@@ -50,26 +50,26 @@ class MaterialLibrary extends Dictionary<String, Material>
     }
     
     @Override
-    public Material get(final Object key) {
+    public Material get(Object key) {
         return materialLibrary.get(key);
     }
     
     @Override
-    public Material put(final String key, final Material value) {
+    public Material put(String key, Material value) {
         return materialLibrary.put(key, value);
     }
     
     @Override
-    public Material remove(final Object key) {
+    public Material remove(Object key) {
         return materialLibrary.remove(key);
     }
     
-    public void loadFromStream(final ResourceLocation loc) throws IOException {
-        final IResource res = Minecraft.getMinecraft().getResourceManager().getResource(loc);
-        final InputStreamReader lineStream = new InputStreamReader(res.getInputStream(), Charsets.UTF_8);
-        final BufferedReader lineReader = new BufferedReader(lineStream);
+    public void loadFromStream(ResourceLocation loc) throws IOException {
+        IResource res = Minecraft.getMinecraft().getResourceManager().getResource(loc);
+        InputStreamReader lineStream = new InputStreamReader(res.getInputStream(), Charsets.UTF_8);
+        BufferedReader lineReader = new BufferedReader(lineStream);
         while (true) {
-            final String currentLine = lineReader.readLine();
+            String currentLine = lineReader.readLine();
             if (currentLine == null) {
                 break;
             }
@@ -79,9 +79,9 @@ class MaterialLibrary extends Dictionary<String, Material>
             if (currentLine.startsWith("#")) {
                 continue;
             }
-            final String[] fields = currentLine.split(" ", 2);
-            final String keyword = fields[0];
-            final String data = fields[1];
+            String[] fields = currentLine.split(" ", 2);
+            String keyword = fields[0];
+            String data = fields[1];
             if (keyword.equalsIgnoreCase("newmtl")) {
                 pushMaterial(data);
             }
@@ -105,11 +105,11 @@ class MaterialLibrary extends Dictionary<String, Material>
             }
             else if (keyword.equalsIgnoreCase("map_Ka")) {
                 currentMaterial.AmbientTextureMap = data;
-                final ResourceLocation resourceLocation = new ResourceLocation(data);
+                ResourceLocation resourceLocation = new ResourceLocation(data);
             }
             else if (keyword.equalsIgnoreCase("map_Kd")) {
                 currentMaterial.DiffuseTextureMap = data;
-                final ResourceLocation resourceLocation2 = new ResourceLocation(data);
+                ResourceLocation resourceLocation2 = new ResourceLocation(data);
             }
             else if (keyword.equalsIgnoreCase("map_Ks")) {
                 currentMaterial.SpecularTextureMap = data;
@@ -141,20 +141,20 @@ class MaterialLibrary extends Dictionary<String, Material>
         }
     }
     
-    private float parseFloat(final String data) {
+    private float parseFloat(String data) {
         return Float.parseFloat(data);
     }
     
-    private int parseInt(final String data) {
+    private int parseInt(String data) {
         return Integer.parseInt(data);
     }
     
-    private Vector3f parseVector3f(final String data) {
-        final String[] parts = data.split(" ");
+    private Vector3f parseVector3f(String data) {
+        String[] parts = data.split(" ");
         return new Vector3f(Float.parseFloat(parts[0]), Float.parseFloat(parts[1]), Float.parseFloat(parts[2]));
     }
     
-    private void pushMaterial(final String materialName) {
+    private void pushMaterial(String materialName) {
         currentMaterial = new Material(materialName);
         materialLibrary.put(currentMaterial.Name, currentMaterial);
     }

@@ -21,7 +21,7 @@ import thaumcraft.common.tiles.TileThaumcraftInventory;
 
 public class TileRechargePedestal extends TileThaumcraftInventory implements IAspectContainer
 {
-    private static final int[] slots;
+    private static int[] slots;
     int counter;
     
     public TileRechargePedestal() {
@@ -41,12 +41,12 @@ public class TileRechargePedestal extends TileThaumcraftInventory implements IAs
         if (!getWorld().isRemote && counter++ % 10 == 0 && getStackInSlot(0) != null && RechargeHelper.rechargeItem(getWorld(), getStackInSlot(0), pos, null, 5) > 0.0f) {
             syncTile(false);
             markDirty();
-            final ArrayList<Aspect> al = Aspect.getPrimalAspects();
+            ArrayList<Aspect> al = Aspect.getPrimalAspects();
             world.addBlockEvent(pos, getBlockType(), 5, al.get(getWorld().rand.nextInt(al.size())).getColor());
         }
     }
     
-    public void setInventorySlotContentsFromInfusion(final int par1, final ItemStack stack2) {
+    public void setInventorySlotContentsFromInfusion(int par1, ItemStack stack2) {
         setInventorySlotContents(par1, stack2);
         markDirty();
         if (!world.isRemote) {
@@ -55,75 +55,75 @@ public class TileRechargePedestal extends TileThaumcraftInventory implements IAs
     }
     
     @Override
-    public boolean isItemValidForSlot(final int par1, final ItemStack stack) {
+    public boolean isItemValidForSlot(int par1, ItemStack stack) {
         return stack.getItem() instanceof IRechargable;
     }
     
     @Override
-    public int[] getSlotsForFace(final EnumFacing side) {
+    public int[] getSlotsForFace(EnumFacing side) {
         return TileRechargePedestal.slots;
     }
     
     @Override
-    public boolean canInsertItem(final int par1, final ItemStack stack, final EnumFacing par3) {
+    public boolean canInsertItem(int par1, ItemStack stack, EnumFacing par3) {
         return stack.getItem() instanceof IRechargable;
     }
     
     @Override
-    public boolean canExtractItem(final int par1, final ItemStack stack2, final EnumFacing par3) {
+    public boolean canExtractItem(int par1, ItemStack stack2, EnumFacing par3) {
         return true;
     }
     
     @Override
     public AspectList getAspects() {
-        final ItemStack s = (world == null || world.isRemote) ? getSyncedStackInSlot(0) : getStackInSlot(0);
+        ItemStack s = (world == null || world.isRemote) ? getSyncedStackInSlot(0) : getStackInSlot(0);
         if (s != null && s.getItem() instanceof IRechargable) {
-            final float c = (float)RechargeHelper.getCharge(s);
+            float c = (float)RechargeHelper.getCharge(s);
             return new AspectList().add(Aspect.ENERGY, Math.round(c));
         }
         return null;
     }
     
     @Override
-    public void setAspects(final AspectList aspects) {
+    public void setAspects(AspectList aspects) {
     }
     
     @Override
-    public int addToContainer(final Aspect tag, final int amount) {
+    public int addToContainer(Aspect tag, int amount) {
         return 0;
     }
     
     @Override
-    public boolean takeFromContainer(final Aspect tag, final int amount) {
+    public boolean takeFromContainer(Aspect tag, int amount) {
         return false;
     }
     
     @Override
-    public boolean takeFromContainer(final AspectList ot) {
+    public boolean takeFromContainer(AspectList ot) {
         return false;
     }
     
     @Override
-    public boolean doesContainerContainAmount(final Aspect tag, final int amount) {
+    public boolean doesContainerContainAmount(Aspect tag, int amount) {
         return false;
     }
     
     @Override
-    public boolean doesContainerContain(final AspectList ot) {
+    public boolean doesContainerContain(AspectList ot) {
         return false;
     }
     
     @Override
-    public int containerContains(final Aspect tag) {
+    public int containerContains(Aspect tag) {
         return 0;
     }
     
     @Override
-    public boolean doesContainerAccept(final Aspect tag) {
+    public boolean doesContainerAccept(Aspect tag) {
         return true;
     }
     
-    public boolean receiveClientEvent(final int i, final int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i == 5) {
             if (world.isRemote) {
                 FXDispatcher.INSTANCE.visSparkle(pos.getX() + getWorld().rand.nextInt(3) - getWorld().rand.nextInt(3), pos.up().getY() + getWorld().rand.nextInt(3), pos.getZ() + getWorld().rand.nextInt(3) - getWorld().rand.nextInt(3), pos.getX(), pos.up().getY(), pos.getZ(), j);

@@ -8,5 +8,5 @@ import thaumcraft.api.golems.IGolemAPI;
 
 public interface IGenericFunction
 {
-    void onUpdateTick(final IGolemAPI p0);
+    void onUpdateTick(IGolemAPI p0);
 }

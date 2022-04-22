@@ -14,14 +14,14 @@ import net.minecraft.client.renderer.entity.Render;
 
 public class RenderNoProjectile extends Render
 {
-    public RenderNoProjectile(final RenderManager rm) {
+    public RenderNoProjectile(RenderManager rm) {
         super(rm);
         shadowSize = 0.1f;
     }
     
-    public void renderEntityAt(final EntityThrowable tg, final double x, final double y, final double z, final float fq) {
+    public void renderEntityAt(EntityThrowable tg, double x, double y, double z, float fq) {
         if (tg instanceof EntityFocusProjectile) {
-            final EntityFocusProjectile gp = (EntityFocusProjectile)tg;
+            EntityFocusProjectile gp = (EntityFocusProjectile)tg;
             float qq = fq - gp.lastRenderTick;
             if (qq < 0.0f) {
                 ++qq;
@@ -32,11 +32,11 @@ public class RenderNoProjectile extends Render
         }
     }
     
-    public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
+    public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
         renderEntityAt((EntityThrowable)entity, d, d1, d2, f1);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 }

@@ -6,10 +6,10 @@ package com.sasmaster.glelwjgl.java;
 
 public class intersect
 {
-    public static final String VERSION;
-    private static final double DEGENERATE_TOLERANCE = 2.0E-6;
+    public static String VERSION;
+    private static double DEGENERATE_TOLERANCE = 2.0E-6;
     
-    public static final int FIND_NON_DEGENERATE_POINT(final int index, final int npoints, double len, final double[] diff, final double[][] point_array) {
+    public static int FIND_NON_DEGENERATE_POINT(int index, int npoints, double len, double[] diff, double[][] point_array) {
         double[] summa = null;
         int i = index;
         double tlen = len;
@@ -29,13 +29,13 @@ public class intersect
         return i;
     }
     
-    public static final double[] INNERSECT(final double[] p, double[] n, final double[] v1, final double[] v2) {
+    public static double[] INNERSECT(double[] p, double[] n, double[] v1, double[] v2) {
         double deno = 0.0;
         double numer = 0.0;
         double t = 0.0;
         double omt = 0.0;
         boolean valid = false;
-        final double[] sect = new double[3];
+        double[] sect = new double[3];
         deno = (v1[0] - v2[0]) * n[0];
         deno += (v1[1] - v2[1]) * n[1];
         deno += (v1[2] - v2[2]) * n[2];
@@ -60,7 +60,7 @@ public class intersect
         return sect;
     }
     
-    public static final double[] bisecting_plane(final double[] v1, final double[] v2, final double[] v3) {
+    public static double[] bisecting_plane(double[] v1, double[] v2, double[] v3) {
         boolean valid = false;
         double[] v4 = null;
         double[] v5 = null;
@@ -91,7 +91,7 @@ public class intersect
                 v4 = matrix.VEC_SCALE(len21, v4);
                 len22 = 1.0 / len22;
                 v5 = matrix.VEC_SCALE(len22, v5);
-                final double dot = matrix.VEC_DOT_PRODUCT(v5, v4);
+                double dot = matrix.VEC_DOT_PRODUCT(v5, v4);
                 if (dot >= 0.999998 || dot <= -0.999998) {
                     n = matrix.VEC_COPY(v4);
                 }
@@ -106,7 +106,7 @@ public class intersect
         return n;
     }
     
-    public static final boolean CUTTING_PLANE(final double[] n, final double[] v1, final double[] v2, final double[] v3) {
+    public static boolean CUTTING_PLANE(double[] n, double[] v1, double[] v2, double[] v3) {
         double[] v4 = new double[3];
         double[] v5 = new double[3];
         double len21 = 0.0;
@@ -158,7 +158,7 @@ public class intersect
         return valid;
     }
     
-    public static boolean COLINEAR(final double[] v1, final double[] v2, final double[] v3) {
+    public static boolean COLINEAR(double[] v1, double[] v2, double[] v3) {
         double[] v4 = new double[3];
         double[] v5 = new double[3];
         boolean rv = false;

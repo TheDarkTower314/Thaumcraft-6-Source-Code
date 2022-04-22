@@ -16,7 +16,7 @@ public class GuiScrollButton extends GuiButton
     boolean vertical;
     static ResourceLocation tex;
     
-    public GuiScrollButton(final int buttonId, final int x, final int y, final int width, final int height, final boolean minus, final boolean vertical) {
+    public GuiScrollButton(int buttonId, int x, int y, int width, int height, boolean minus, boolean vertical) {
         super(buttonId, x, y, width, height, "");
         this.minus = false;
         this.vertical = false;
@@ -24,20 +24,20 @@ public class GuiScrollButton extends GuiButton
         this.vertical = vertical;
     }
     
-    public GuiScrollButton(final int buttonId, final int x, final int y, final int width, final int height, final boolean minus) {
+    public GuiScrollButton(int buttonId, int x, int y, int width, int height, boolean minus) {
         super(buttonId, x, y, width, height, "");
         this.minus = false;
         vertical = false;
         this.minus = minus;
     }
     
-    public void drawButton(final Minecraft mc, final int xx, final int yy, final float pt) {
+    public void drawButton(Minecraft mc, int xx, int yy, float pt) {
         if (visible) {
-            final FontRenderer fontrenderer = mc.fontRenderer;
+            FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiScrollButton.tex);
             GlStateManager.color(0.9f, 0.9f, 0.9f, 0.9f);
             hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);
-            final int k = getHoverState(hovered);
+            int k = getHoverState(hovered);
             if (k == 2) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             }

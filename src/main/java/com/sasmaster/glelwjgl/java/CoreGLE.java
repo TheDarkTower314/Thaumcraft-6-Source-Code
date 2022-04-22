@@ -13,9 +13,9 @@ import org.lwjgl.util.glu.GLU;
 
 public class CoreGLE implements GLE
 {
-    public static final String VERSION;
-    private static final String GLE_VERSION;
-    private final GLEContext context_;
+    public static String VERSION;
+    private static String GLE_VERSION;
+    private GLEContext context_;
     private int _POLYCYL_TESS;
     private int __ROUND_TESS_PIECES;
     private static GLU glu_;
@@ -23,11 +23,11 @@ public class CoreGLE implements GLE
     private float SLICE;
     private float SLICE_PROGRESS;
     
-    public void set_POLYCYL_TESS(final int _POLYCYL_TESS) {
+    public void set_POLYCYL_TESS(int _POLYCYL_TESS) {
         this._POLYCYL_TESS = _POLYCYL_TESS;
     }
     
-    public void set__ROUND_TESS_PIECES(final int __ROUND_TESS_PIECES) {
+    public void set__ROUND_TESS_PIECES(int __ROUND_TESS_PIECES) {
         this.__ROUND_TESS_PIECES = __ROUND_TESS_PIECES;
     }
     
@@ -46,27 +46,27 @@ public class CoreGLE implements GLE
     }
     
     @Override
-    public void gleSetJoinStyle(final int style) {
+    public void gleSetJoinStyle(int style) {
         context_.setJoinStyle(style);
     }
     
     @Override
-    public void gleTextureMode(final int mode) {
+    public void gleTextureMode(int mode) {
     }
     
-    private void gen_polycone(final int npoints, final double[][] pointArray, final float[][] colourArray, double radius, final double[][][] xformArray, final float texSlice, final float start) {
+    private void gen_polycone(int npoints, double[][] pointArray, float[][] colourArray, double radius, double[][][] xformArray, float texSlice, float start) {
         SLICE = texSlice;
         SLICE_PROGRESS = start;
-        final double[][] circle = new double[_POLYCYL_TESS][2];
-        final double[][] norm = new double[_POLYCYL_TESS][2];
-        final double[] v21 = new double[3];
+        double[][] circle = new double[_POLYCYL_TESS][2];
+        double[][] norm = new double[_POLYCYL_TESS][2];
+        double[] v21 = new double[3];
         double len = 0.0;
-        final double[] up = new double[3];
+        double[] up = new double[3];
         if (xformArray != null) {
             radius = 1.0;
         }
-        final double s = Math.sin(6.283185307179586 / _POLYCYL_TESS);
-        final double c = Math.cos(6.283185307179586 / _POLYCYL_TESS);
+        double s = Math.sin(6.283185307179586 / _POLYCYL_TESS);
+        double c = Math.cos(6.283185307179586 / _POLYCYL_TESS);
         norm[0][0] = 1.0;
         norm[0][1] = 0.0;
         circle[0][0] = radius;
@@ -84,13 +84,13 @@ public class CoreGLE implements GLE
             return;
         }
         if (v21[0] == 0.0 && v21[2] == 0.0) {
-            final double[] array = up;
-            final int n = 0;
-            final double[] array2 = up;
-            final int n2 = 1;
-            final double[] array3 = up;
-            final int n3 = 2;
-            final double n4 = 1.0;
+            double[] array = up;
+            int n = 0;
+            double[] array2 = up;
+            int n2 = 1;
+            double[] array3 = up;
+            int n3 = 2;
+            double n4 = 1.0;
             array3[n3] = n4;
             array[n] = (array2[n2] = n4);
         }
@@ -98,7 +98,7 @@ public class CoreGLE implements GLE
             up[0] = (up[2] = 0.0);
             up[1] = 1.0;
         }
-        final int savedStyle = gleGetJoinStyle();
+        int savedStyle = gleGetJoinStyle();
         gleSetJoinStyle(savedStyle | 0x1000);
         if (!GL11.glIsEnabled(2896)) {
             gleSuperExtrusion(_POLYCYL_TESS, circle, null, up, npoints, pointArray, colourArray, xformArray);
@@ -110,13 +110,13 @@ public class CoreGLE implements GLE
     }
     
     @Override
-    public void glePolyCylinder(final int npoints, final double[][] pointArray, final float[][] colourArray, final double radius, final float texSlice, final float start) throws GLEException {
+    public void glePolyCylinder(int npoints, double[][] pointArray, float[][] colourArray, double radius, float texSlice, float start) throws GLEException {
         gen_polycone(npoints, pointArray, colourArray, radius, null, texSlice, start);
     }
     
     @Override
-    public void glePolyCone(final int npoints, final double[][] pointArray, final float[][] colourArray, final double[] radiusArray, final float texSlice, final float start) throws GLEException {
-        final double[][][] xforms = new double[npoints][2][3];
+    public void glePolyCone(int npoints, double[][] pointArray, float[][] colourArray, double[] radiusArray, float texSlice, float start) throws GLEException {
+        double[][][] xforms = new double[npoints][2][3];
         for (int i = 0; i < npoints; ++i) {
             xforms[i][0][0] = radiusArray[i];
             xforms[i][0][1] = 0.0;
@@ -129,13 +129,13 @@ public class CoreGLE implements GLE
     }
     
     @Override
-    public void gleExtrusion(final int ncp, final double[][] contour, final double[][] contourNormal, final double[] up, final int npoints, final double[][] pointArray, final float[][] colourArray) throws GLEException {
+    public void gleExtrusion(int ncp, double[][] contour, double[][] contourNormal, double[] up, int npoints, double[][] pointArray, float[][] colourArray) throws GLEException {
         gleSuperExtrusion(ncp, contour, contourNormal, up, npoints, pointArray, colourArray, null);
     }
     
     @Override
-    public void gleTwistExtrusion(final int ncp, final double[][] contour, final double[][] contourNormal, final double[] up, final int npoints, final double[][] pointArray, final float[][] colourArray, final double[] twistArray) throws GLEException {
-        final double[][][] xforms = new double[npoints][2][3];
+    public void gleTwistExtrusion(int ncp, double[][] contour, double[][] contourNormal, double[] up, int npoints, double[][] pointArray, float[][] colourArray, double[] twistArray) throws GLEException {
+        double[][][] xforms = new double[npoints][2][3];
         double angle = 0.0;
         double si = 0.0;
         double co = 0.0;
@@ -154,7 +154,7 @@ public class CoreGLE implements GLE
     }
     
     @Override
-    public void gleSuperExtrusion(final int ncp, final double[][] contour, final double[][] contourNormal, final double[] up, final int npoints, final double[][] pointArray, final float[][] colourArray, final double[][][] xformArray) throws GLEException {
+    public void gleSuperExtrusion(int ncp, double[][] contour, double[][] contourNormal, double[] up, int npoints, double[][] pointArray, float[][] colourArray, double[][][] xformArray) throws GLEException {
         context_.ncp = ncp;
         context_.contour = contour;
         context_.contourNormal = contourNormal;
@@ -184,8 +184,8 @@ public class CoreGLE implements GLE
     }
     
     @Override
-    public void gleSpiral(final int ncp, final double[][] contour, final double[][] contourNormal, final double[] up, double startRadius, double drdTheta, double startZ, double dzdTheta, final double[][] startTransform, final double[][] dTransformdTheta, double startTheta, final double sweepTheta) throws GLEException {
-        final int npoints = (int)(_POLYCYL_TESS / 360.0 * Math.abs(sweepTheta) + 4.0);
+    public void gleSpiral(int ncp, double[][] contour, double[][] contourNormal, double[] up, double startRadius, double drdTheta, double startZ, double dzdTheta, double[][] startTransform, double[][] dTransformdTheta, double startTheta, double sweepTheta) throws GLEException {
+        int npoints = (int)(_POLYCYL_TESS / 360.0 * Math.abs(sweepTheta) + 4.0);
         double[][] points = null;
         double[][][] xforms = null;
         double delta = 0.0;
@@ -199,8 +199,8 @@ public class CoreGLE implements GLE
         double[][] mA = new double[2][2];
         double[][] mB = new double[2][2];
         double[][] run = new double[2][2];
-        final double[] deltaTrans = new double[2];
-        final double[] trans = new double[2];
+        double[] deltaTrans = new double[2];
+        double[] trans = new double[2];
         points = new double[npoints][3];
         if (startTransform == null) {
             xforms = null;
@@ -273,17 +273,17 @@ public class CoreGLE implements GLE
                     run = matrix.COPY_MATRIX_2X2(mA);
                     xforms[j][0][2] = trans[0];
                     xforms[j][1][2] = trans[1];
-                    final double[] array = trans;
-                    final int n = 0;
+                    double[] array = trans;
+                    int n = 0;
                     array[n] += deltaTrans[0];
-                    final double[] array2 = trans;
-                    final int n2 = 1;
+                    double[] array2 = trans;
+                    int n2 = 1;
                     array2[n2] += deltaTrans[1];
                 }
             }
         }
         int style;
-        final int saveStyle = style = gleGetJoinStyle();
+        int saveStyle = style = gleGetJoinStyle();
         style &= 0xFFFFFFF0;
         style |= 0x2;
         gleSetJoinStyle(style);
@@ -292,11 +292,11 @@ public class CoreGLE implements GLE
     }
     
     @Override
-    public void gleLathe(final int ncp, final double[][] contour, final double[][] contourNormal, final double[] up, final double startRadius, final double drdTheta, final double startZ, final double dzdTheta, final double[][] startTransform, final double[][] dTransformdTheta, final double startTheta, final double sweepTheta) throws GLEException {
+    public void gleLathe(int ncp, double[][] contour, double[][] contourNormal, double[] up, double startRadius, double drdTheta, double startZ, double dzdTheta, double[][] startTransform, double[][] dTransformdTheta, double startTheta, double sweepTheta) throws GLEException {
         double[] localup = new double[3];
         double len = 0.0;
-        final double[] trans = new double[2];
-        final double[][] start = new double[2][3];
+        double[] trans = new double[2];
+        double[][] start = new double[2][3];
         double[][] delt = new double[2][3];
         if (up != null) {
             if (up[1] != 0.0) {
@@ -306,11 +306,11 @@ public class CoreGLE implements GLE
                 len = matrix.VEC_LENGTH(localup);
                 if (len != 0.0) {
                     len = 1.0 / len;
-                    final double[] array = localup;
-                    final int n = 0;
+                    double[] array = localup;
+                    int n = 0;
                     array[n] *= len;
-                    final double[] array2 = localup;
-                    final int n2 = 2;
+                    double[] array2 = localup;
+                    int n2 = 2;
                     array2[n2] *= len;
                     localup = matrix.VEC_SCALE(len, localup);
                 }
@@ -332,11 +332,11 @@ public class CoreGLE implements GLE
         if (startTransform != null) {
             if (dTransformdTheta != null) {
                 delt = matrix.COPY_MATRIX_2X3(dTransformdTheta);
-                final double[] array3 = delt[0];
-                final int n3 = 2;
+                double[] array3 = delt[0];
+                int n3 = 2;
                 array3[n3] += trans[0];
-                final double[] array4 = delt[1];
-                final int n4 = 2;
+                double[] array4 = delt[1];
+                int n4 = 2;
                 array4[n4] += trans[1];
             }
             else {
@@ -367,20 +367,20 @@ public class CoreGLE implements GLE
     }
     
     @Override
-    public void gleHelicoid(final double rToroid, final double startRadius, final double drdTheta, final double startZ, final double dzdTheta, final double[][] startTransform, final double[][] dTransformdTheta, final double startTheta, final double sweepTheta) throws GLEException {
+    public void gleHelicoid(double rToroid, double startRadius, double drdTheta, double startZ, double dzdTheta, double[][] startTransform, double[][] dTransformdTheta, double startTheta, double sweepTheta) throws GLEException {
         super_helix(rToroid, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta, "Spiral");
     }
     
     @Override
-    public void gleToroid(final double rToroid, final double startRadius, final double drdTheta, final double startZ, final double dzdTheta, final double[][] startTransform, final double[][] dTransformdTheta, final double startTheta, final double sweepTheta) throws GLEException {
+    public void gleToroid(double rToroid, double startRadius, double drdTheta, double startZ, double dzdTheta, double[][] startTransform, double[][] dTransformdTheta, double startTheta, double sweepTheta) throws GLEException {
         super_helix(rToroid, startRadius, drdTheta, startZ, dzdTheta, startTransform, dTransformdTheta, startTheta, sweepTheta, "Lathe");
     }
     
     @Override
-    public void gleScrew(final int ncp, final double[][] contour, final double[][] contourNormal, final double[] up, final double startz, final double endz, final double twist) throws GLEException {
-        final int numsegs = (int)Math.abs(twist / 18.0) + 4;
-        final double[][] path = new double[numsegs][3];
-        final double[] twarr = new double[numsegs];
+    public void gleScrew(int ncp, double[][] contour, double[][] contourNormal, double[] up, double startz, double endz, double twist) throws GLEException {
+        int numsegs = (int)Math.abs(twist / 18.0) + 4;
+        double[][] path = new double[numsegs][3];
+        double[] twarr = new double[numsegs];
         double delta = 0.0;
         double currz = 0.0;
         double currang = 0.0;
@@ -400,12 +400,12 @@ public class CoreGLE implements GLE
         gleTwistExtrusion(ncp, contour, contourNormal, up, numsegs, path, null, twarr);
     }
     
-    private final void super_helix(final double rToroid, final double startRadius, final double drdTheta, final double startZ, final double dzdTheta, final double[][] startTransform, final double[][] dTransformdTheta, final double startTheta, final double sweepTheta, final String callback) {
-        final double[][] circle = new double[_POLYCYL_TESS][2];
-        final double[][] norm = new double[_POLYCYL_TESS][2];
+    private void super_helix(double rToroid, double startRadius, double drdTheta, double startZ, double dzdTheta, double[][] startTransform, double[][] dTransformdTheta, double startTheta, double sweepTheta, String callback) {
+        double[][] circle = new double[_POLYCYL_TESS][2];
+        double[][] norm = new double[_POLYCYL_TESS][2];
         double c = 0.0;
         double s = 0.0;
-        final double[] up = new double[3];
+        double[] up = new double[3];
         s = Math.sin(6.283185307179586 / _POLYCYL_TESS);
         c = Math.cos(6.283185307179586 / _POLYCYL_TESS);
         norm[0][0] = 1.0;
@@ -421,7 +421,7 @@ public class CoreGLE implements GLE
         up[1] = (up[2] = 0.0);
         up[0] = 1.0;
         int style;
-        final int saveStyle = style = gleGetJoinStyle();
+        int saveStyle = style = gleGetJoinStyle();
         style |= 0x1000;
         style |= 0x400;
         gleSetJoinStyle(style);
@@ -448,7 +448,7 @@ public class CoreGLE implements GLE
         gleSetJoinStyle(saveStyle);
     }
     
-    private double[] up_sanity_check(final double[] up, final int npoints, final double[][] pointArray) {
+    private double[] up_sanity_check(double[] up, int npoints, double[][] pointArray) {
         double len = 0.0;
         double[] diff = null;
         double[] vtmp = null;
@@ -475,20 +475,20 @@ public class CoreGLE implements GLE
         return vtmp;
     }
     
-    private final void extrusion_raw_join(final int ncp, final double[][] contour, final double[][] contourNormal, double[] up, final int npoints, final double[][] pointArray, final float[][] colourArray, final double[][][] xformArray) {
+    private void extrusion_raw_join(int ncp, double[][] contour, double[][] contourNormal, double[] up, int npoints, double[][] pointArray, float[][] colourArray, double[][][] xformArray) {
         int i = 0;
         int j = 0;
         int inext = 0;
         double[][] m = null;
         double len = 0.0;
-        final double[] diff = new double[3];
+        double[] diff = new double[3];
         double[] bi_0 = new double[3];
         double[] yup = new double[3];
-        final double[] nrmv = new double[3];
-        final boolean no_norm = contourNormal == null;
-        final boolean no_cols = colourArray == null;
-        final boolean no_xform = xformArray == null;
-        final double[][] mem_anchor = null;
+        double[] nrmv = new double[3];
+        boolean no_norm = contourNormal == null;
+        boolean no_cols = colourArray == null;
+        boolean no_xform = xformArray == null;
+        double[][] mem_anchor = null;
         double[][] front_loop = null;
         double[][] back_loop = null;
         double[][] front_norm = null;
@@ -529,7 +529,7 @@ public class CoreGLE implements GLE
             bi_0 = intersect.bisecting_plane(pointArray[i - 1], pointArray[i], pointArray[inext]);
             yup = matrix.VEC_REFLECT(yup, bi_0);
             m = matrix.uviewpoint_d(pointArray[i], pointArray[inext], yup);
-            final DoubleBuffer mbuffer = BufferUtils.createDoubleBuffer(16);
+            DoubleBuffer mbuffer = BufferUtils.createDoubleBuffer(16);
             mbuffer.put(new double[] { m[0][0], m[0][1], m[0][2], m[0][3], m[1][0], m[1][1], m[1][2], m[1][3], m[2][0], m[2][1], m[2][2], m[2][3], m[3][0], m[3][1], m[3][2], m[3][3] });
             mbuffer.flip();
             GL11.glPushMatrix();
@@ -620,8 +620,8 @@ public class CoreGLE implements GLE
         }
     }
     
-    private final void draw_raw_segment_plain(final int ncp, final double[][] contour, final int inext, final double len) {
-        final double[] point = new double[3];
+    private void draw_raw_segment_plain(int ncp, double[][] contour, int inext, double len) {
+        double[] point = new double[3];
         System.err.println("draw_raw_segment_plain()");
         GL11.glBegin(5);
         for (int j = 0; j < ncp; ++j) {
@@ -647,8 +647,8 @@ public class CoreGLE implements GLE
         }
     }
     
-    private final void draw_raw_segment_color(final int ncp, final double[][] contour, final float[][] color_array, final int inext, final double len) {
-        final double[] point = new double[3];
+    private void draw_raw_segment_color(int ncp, double[][] contour, float[][] color_array, int inext, double len) {
+        double[] point = new double[3];
         System.out.println("draw_raw_segment_color");
         GL11.glBegin(5);
         double tc = 0.0;
@@ -689,9 +689,9 @@ public class CoreGLE implements GLE
         SLICE_PROGRESS += SLICE;
     }
     
-    private final void draw_raw_segment_edge_n(final int ncp, final double[][] contour, final double[][] cont_normal, final int inext, final double len) {
-        final double[] point = new double[3];
-        final double[] norm = new double[3];
+    private void draw_raw_segment_edge_n(int ncp, double[][] contour, double[][] cont_normal, int inext, double len) {
+        double[] point = new double[3];
+        double[] norm = new double[3];
         System.err.println("draw_raw_segment_edge_n");
         norm[2] = 0.0;
         GL11.glBegin(5);
@@ -730,9 +730,9 @@ public class CoreGLE implements GLE
         }
     }
     
-    private final void draw_raw_segment_c_and_edge_n(final int ncp, final double[][] contour, final float[][] color_array, final double[][] cont_normal, final int inext, final double len) {
-        final double[] point = new double[3];
-        final double[] norm = new double[3];
+    private void draw_raw_segment_c_and_edge_n(int ncp, double[][] contour, float[][] color_array, double[][] cont_normal, int inext, double len) {
+        double[] point = new double[3];
+        double[] norm = new double[3];
         System.out.println("draw_raw_segment_c_and_edge_n");
         norm[2] = 0.0;
         GL11.glBegin(5);
@@ -780,9 +780,9 @@ public class CoreGLE implements GLE
         }
     }
     
-    private final void draw_raw_segment_facet_n(final int ncp, final double[][] contour, final double[][] cont_normal, final int inext, final double len) {
-        final double[] point = new double[3];
-        final double[] norm = new double[3];
+    private void draw_raw_segment_facet_n(int ncp, double[][] contour, double[][] cont_normal, int inext, double len) {
+        double[] point = new double[3];
+        double[] norm = new double[3];
         System.out.println("draw_raw_segment_facet_n");
         norm[2] = 0.0;
         GL11.glBegin(5);
@@ -832,10 +832,10 @@ public class CoreGLE implements GLE
         }
     }
     
-    private final void draw_raw_segment_c_and_facet_n(final int ncp, final double[][] contour, final float[][] color_array, final double[][] cont_normal, final int inext, final double len) {
+    private void draw_raw_segment_c_and_facet_n(int ncp, double[][] contour, float[][] color_array, double[][] cont_normal, int inext, double len) {
         System.out.println("draw_raw_segment_c_and_facet_n");
-        final double[] point = new double[3];
-        final double[] norm = { 0.0, 0.0, 0.0 };
+        double[] point = new double[3];
+        double[] norm = { 0.0, 0.0, 0.0 };
         GL11.glBegin(5);
         for (int j = 0; j < ncp - 1; ++j) {
             GL11.glColor4f(color_array[inext - 1][0], color_array[inext - 1][1], color_array[inext - 1][2], color_array[inext - 1][3]);
@@ -901,9 +901,9 @@ public class CoreGLE implements GLE
         }
     }
     
-    private final void draw_raw_style_end_cap(final int ncp, final double[][] contour, final double zval, final boolean frontwards) {
+    private void draw_raw_style_end_cap(int ncp, double[][] contour, double zval, boolean frontwards) {
         System.out.println("draw_raw_style_end_cap");
-        final GLUtessellator tobj = GLU.gluNewTess();
+        GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100130.0);
         tobj.gluTessCallback(100101, tessCallback);
         tobj.gluTessCallback(100100, tessCallback);
@@ -913,13 +913,13 @@ public class CoreGLE implements GLE
         tobj.gluTessBeginContour();
         if (frontwards) {
             for (int j = 0; j < ncp; ++j) {
-                final double[] vertex = { contour[j][0], contour[j][1], zval };
+                double[] vertex = { contour[j][0], contour[j][1], zval };
                 tobj.gluTessVertex(vertex, 0, vertex);
             }
         }
         else {
             for (int j = ncp - 1; j > -1; --j) {
-                final double[] vertex = { contour[j][0], contour[j][1], zval };
+                double[] vertex = { contour[j][0], contour[j][1], zval };
                 tobj.gluTessVertex(vertex, 0, vertex);
             }
         }
@@ -928,8 +928,8 @@ public class CoreGLE implements GLE
         tobj.gluDeleteTess();
     }
     
-    private final void draw_front_contour_cap(final int ncp, final double[][] contour) {
-        final GLUtessellator tobj = GLU.gluNewTess();
+    private void draw_front_contour_cap(int ncp, double[][] contour) {
+        GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100130.0);
         tobj.gluTessCallback(100101, tessCallback);
         tobj.gluTessCallback(100100, tessCallback);
@@ -945,8 +945,8 @@ public class CoreGLE implements GLE
         tobj.gluDeleteTess();
     }
     
-    private final void draw_back_contour_cap(final int ncp, final double[][] contour) {
-        final GLUtessellator tobj = GLU.gluNewTess();
+    private void draw_back_contour_cap(int ncp, double[][] contour) {
+        GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100132.0);
         tobj.gluTessCallback(100101, tessCallback);
         tobj.gluTessCallback(100100, tessCallback);
@@ -962,7 +962,7 @@ public class CoreGLE implements GLE
         tobj.gluDeleteTess();
     }
     
-    private final void extrusion_angle_join(final int ncp, final double[][] contour, final double[][] cont_normal, final double[] up, final int npoints, final double[][] point_array, final float[][] color_array, final double[][][] xform_array) {
+    private void extrusion_angle_join(int ncp, double[][] contour, double[][] cont_normal, double[] up, int npoints, double[][] point_array, float[][] color_array, double[][][] xform_array) {
         int i = 0;
         int j = 0;
         int inext = 0;
@@ -970,15 +970,15 @@ public class CoreGLE implements GLE
         double[][] m = new double[4][4];
         double len = 0.0;
         double len_seg = 0.0;
-        final double[] diff = new double[3];
+        double[] diff = new double[3];
         double[] bi_0 = new double[3];
         double[] bi_2 = new double[3];
         double[] bisector_0 = new double[3];
         double[] bisector_2 = new double[3];
         double[] end_point_0 = new double[3];
         double[] end_point_2 = new double[3];
-        final double[] origin = new double[3];
-        final double[] neg_z = new double[3];
+        double[] origin = new double[3];
+        double[] neg_z = new double[3];
         double[] yup = new double[3];
         if (up == null) {
             yup[0] = 0.0;
@@ -998,11 +998,11 @@ public class CoreGLE implements GLE
         len = (len_seg = matrix.VEC_LENGTH(diff));
         bi_0 = intersect.bisecting_plane(point_array[0], point_array[1], point_array[inext]);
         yup = matrix.VEC_REFLECT(yup, bi_0);
-        final double[][] front_loop = new double[ncp][3];
-        final double[][] back_loop = new double[ncp][3];
+        double[][] front_loop = new double[ncp][3];
+        double[][] back_loop = new double[ncp][3];
         double[][] front_norm = new double[ncp][3];
         double[][] back_norm = new double[ncp][3];
-        final double[][] norm_loop = front_norm;
+        double[][] norm_loop = front_norm;
         if (cont_normal != null) {
             if (xform_array == null) {
                 for (j = 0; j < ncp; ++j) {
@@ -1025,7 +1025,7 @@ public class CoreGLE implements GLE
             len = matrix.VEC_LENGTH(diff);
             bi_2 = intersect.bisecting_plane(point_array[i], point_array[inext], point_array[inextnext]);
             m = matrix.uviewpoint_d(point_array[i], point_array[inext], yup);
-            final DoubleBuffer mbuffer = BufferUtils.createDoubleBuffer(16);
+            DoubleBuffer mbuffer = BufferUtils.createDoubleBuffer(16);
             mbuffer.put(new double[] { m[0][0], m[0][1], m[0][2], m[0][3], m[1][0], m[1][1], m[1][2], m[1][3], m[2][0], m[2][1], m[2][2], m[2][3], m[3][0], m[3][1], m[3][2], m[3][3] });
             mbuffer.flip();
             GL11.glPushMatrix();
@@ -1134,15 +1134,15 @@ public class CoreGLE implements GLE
             i = inext;
             inext = inextnext;
             bi_0 = matrix.VEC_COPY(bi_2);
-            final double[][] tmp = front_norm;
+            double[][] tmp = front_norm;
             front_norm = back_norm;
             back_norm = tmp;
             yup = matrix.VEC_REFLECT(yup, bi_0);
         }
     }
     
-    private final void draw_angle_style_front_cap(final int ncp, double[] bi, final double[][] point_array) {
-        final GLUtessellator tobj = GLU.gluNewTess();
+    private void draw_angle_style_front_cap(int ncp, double[] bi, double[][] point_array) {
+        GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100130.0);
         tobj.gluTessCallback(100101, tessCallback);
         tobj.gluTessCallback(100100, tessCallback);
@@ -1162,8 +1162,8 @@ public class CoreGLE implements GLE
         tobj.gluDeleteTess();
     }
     
-    private final void draw_angle_style_back_cap(final int ncp, double[] bi, final double[][] point_array) {
-        final GLUtessellator tobj = GLU.gluNewTess();
+    private void draw_angle_style_back_cap(int ncp, double[] bi, double[][] point_array) {
+        GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100130.0);
         tobj.gluTessCallback(100101, tessCallback);
         tobj.gluTessCallback(100100, tessCallback);
@@ -1183,11 +1183,11 @@ public class CoreGLE implements GLE
         tobj.gluDeleteTess();
     }
     
-    private final void draw_segment_plain(final int ncp, final double[][] front_contour, final double[][] back_contour, final int inext, final double len) {
+    private void draw_segment_plain(int ncp, double[][] front_contour, double[][] back_contour, int inext, double len) {
         System.out.println("draw_segment_plain");
         GL11.glBegin(5);
         for (int j = 0; j < ncp; ++j) {
-            final double tc = j / (double)ncp;
+            double tc = j / (double)ncp;
             GL11.glTexCoord2d(tc, SLICE_PROGRESS);
             GL11.glVertex3d(front_contour[j][0], front_contour[j][1], front_contour[j][2]);
             GL11.glTexCoord2d(tc, SLICE_PROGRESS + SLICE);
@@ -1203,7 +1203,7 @@ public class CoreGLE implements GLE
         SLICE_PROGRESS += SLICE;
     }
     
-    private final void draw_segment_color(final int ncp, final double[][] front_contour, final double[][] back_contour, final float[] color_last, final float[] color_next, final int inext, final double len) {
+    private void draw_segment_color(int ncp, double[][] front_contour, double[][] back_contour, float[] color_last, float[] color_next, int inext, double len) {
         GL11.glBegin(5);
         double tc = 0.0;
         for (int j = 0; j < ncp; ++j) {
@@ -1227,7 +1227,7 @@ public class CoreGLE implements GLE
         SLICE_PROGRESS += SLICE;
     }
     
-    private final void draw_segment_edge_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] norm_cont, final int inext, final double len) {
+    private void draw_segment_edge_n(int ncp, double[][] front_contour, double[][] back_contour, double[][] norm_cont, int inext, double len) {
         System.out.println("draw_segment_edge_n");
         GL11.glBegin(5);
         for (int j = 0; j < ncp; ++j) {
@@ -1243,7 +1243,7 @@ public class CoreGLE implements GLE
         GL11.glEnd();
     }
     
-    private final void draw_segment_c_and_edge_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] norm_cont, final float[] color_last, final float[] color_next, final int inext, final double len) {
+    private void draw_segment_c_and_edge_n(int ncp, double[][] front_contour, double[][] back_contour, double[][] norm_cont, float[] color_last, float[] color_next, int inext, double len) {
         GL11.glBegin(5);
         double tc = 0.0;
         for (int j = 0; j < ncp; ++j) {
@@ -1271,7 +1271,7 @@ public class CoreGLE implements GLE
         SLICE_PROGRESS += SLICE;
     }
     
-    private final void draw_segment_facet_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] norm_cont, final int inext, final double len) {
+    private void draw_segment_facet_n(int ncp, double[][] front_contour, double[][] back_contour, double[][] norm_cont, int inext, double len) {
         GL11.glBegin(5);
         for (int j = 0; j < ncp - 1; ++j) {
             GL11.glNormal3d(norm_cont[j][0], norm_cont[j][1], norm_cont[j][2]);
@@ -1290,7 +1290,7 @@ public class CoreGLE implements GLE
         GL11.glEnd();
     }
     
-    private final void draw_segment_c_and_facet_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] norm_cont, final float[] color_last, final float[] color_next, final int inext, final double len) {
+    private void draw_segment_c_and_facet_n(int ncp, double[][] front_contour, double[][] back_contour, double[][] norm_cont, float[] color_last, float[] color_next, int inext, double len) {
         System.out.println("draw_segment_c_and_facet_n");
         GL11.glBegin(5);
         for (int j = 0; j < ncp - 1; ++j) {
@@ -1324,7 +1324,7 @@ public class CoreGLE implements GLE
         GL11.glEnd();
     }
     
-    private final void draw_binorm_segment_edge_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] front_norm, final double[][] back_norm, final int inext, final double len) {
+    private void draw_binorm_segment_edge_n(int ncp, double[][] front_contour, double[][] back_contour, double[][] front_norm, double[][] back_norm, int inext, double len) {
         GL11.glBegin(5);
         double tc = 0.0;
         for (int j = 0; j < ncp; ++j) {
@@ -1348,7 +1348,7 @@ public class CoreGLE implements GLE
         SLICE_PROGRESS += SLICE;
     }
     
-    private final void draw_binorm_segment_c_and_edge_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] front_norm, final double[][] back_norm, final float[] color_last, final float[] color_next, final int inext, final double len) {
+    private void draw_binorm_segment_c_and_edge_n(int ncp, double[][] front_contour, double[][] back_contour, double[][] front_norm, double[][] back_norm, float[] color_last, float[] color_next, int inext, double len) {
         GL11.glBegin(5);
         double tc = 0.0;
         for (int j = 0; j < ncp; ++j) {
@@ -1376,7 +1376,7 @@ public class CoreGLE implements GLE
         SLICE_PROGRESS += SLICE;
     }
     
-    private final void draw_binorm_segment_facet_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] front_norm, final double[][] back_norm, final int inext, final double len) {
+    private void draw_binorm_segment_facet_n(int ncp, double[][] front_contour, double[][] back_contour, double[][] front_norm, double[][] back_norm, int inext, double len) {
         System.out.println("draw_binorm_segment_facet_n");
         GL11.glBegin(5);
         for (int j = 0; j < ncp - 1; ++j) {
@@ -1402,7 +1402,7 @@ public class CoreGLE implements GLE
         GL11.glEnd();
     }
     
-    private final void draw_binorm_segment_c_and_facet_n(final int ncp, final double[][] front_contour, final double[][] back_contour, final double[][] front_norm, final double[][] back_norm, final float[] color_last, final float[] color_next, final int inext, final double len) {
+    private void draw_binorm_segment_c_and_facet_n(int ncp, double[][] front_contour, double[][] back_contour, double[][] front_norm, double[][] back_norm, float[] color_last, float[] color_next, int inext, double len) {
         System.out.println("draw_binorm_segment_c_and_facet_n");
         GL11.glBegin(5);
         for (int j = 0; j < ncp - 1; ++j) {
@@ -1436,7 +1436,7 @@ public class CoreGLE implements GLE
         GL11.glEnd();
     }
     
-    private final void extrusion_round_or_cut_join(final int ncp, final double[][] contour, final double[][] cont_normal, final double[] up, final int npoints, final double[][] point_array, final float[][] color_array, final double[][][] xform_array) {
+    private void extrusion_round_or_cut_join(int ncp, double[][] contour, double[][] cont_normal, double[] up, int npoints, double[][] point_array, float[][] color_array, double[][][] xform_array) {
         int i = 0;
         int j = 0;
         int inext = 0;
@@ -1444,13 +1444,13 @@ public class CoreGLE implements GLE
         double[][] m = new double[4][4];
         double tube_len = 0.0;
         double seg_len = 0.0;
-        final double[] diff = new double[3];
+        double[] diff = new double[3];
         double[] bi_0 = new double[3];
         double[] bi_2 = new double[3];
         double[] bisector_0 = new double[3];
         double[] bisector_2 = new double[3];
         double[] cut_0 = new double[3];
-        final double[] cut_2 = new double[3];
+        double[] cut_2 = new double[3];
         double[] lcut_0 = new double[3];
         double[] lcut_2 = new double[3];
         boolean valid_cut_0 = false;
@@ -1460,8 +1460,8 @@ public class CoreGLE implements GLE
         double[] torsion_point_0 = new double[3];
         double[] torsion_point_2 = new double[3];
         double[] isect_point = new double[3];
-        final double[] origin = new double[3];
-        final double[] neg_z = new double[3];
+        double[] origin = new double[3];
+        double[] neg_z = new double[3];
         double[] yup = new double[3];
         double[][] front_cap = null;
         double[][] back_cap = null;
@@ -1541,7 +1541,7 @@ public class CoreGLE implements GLE
             bi_2 = intersect.bisecting_plane(point_array[i], point_array[inext], point_array[inextnext]);
             valid_cut_2 = intersect.CUTTING_PLANE(cut_2, point_array[i], point_array[inext], point_array[inextnext]);
             m = matrix.uviewpoint_d(point_array[i], point_array[inext], yup);
-            final DoubleBuffer mbuffer = BufferUtils.createDoubleBuffer(16);
+            DoubleBuffer mbuffer = BufferUtils.createDoubleBuffer(16);
             mbuffer.put(new double[] { m[0][0], m[0][1], m[0][2], m[0][3], m[1][0], m[1][1], m[1][2], m[1][3], m[2][0], m[2][1], m[2][2], m[2][3], m[3][0], m[3][1], m[3][2], m[3][3] });
             mbuffer.flip();
             GL11.glPushMatrix();
@@ -1746,7 +1746,7 @@ public class CoreGLE implements GLE
         }
     }
     
-    private final void draw_fillets_and_join_plain(final int ncp, final double[][] trimmed_loop, final double[][] untrimmed_loop, final boolean[] is_trimmed, final double[] bis_origin, final double[] bis_vector, final float[] front_color, final float[] back_color, final double[] cut_vector, final boolean face, final String cap_callback) {
+    private void draw_fillets_and_join_plain(int ncp, double[][] trimmed_loop, double[][] untrimmed_loop, boolean[] is_trimmed, double[] bis_origin, double[] bis_vector, float[] front_color, float[] back_color, double[] cut_vector, boolean face, String cap_callback) {
         int istop = 0;
         int icnt = 0;
         int icnt_prev = 0;
@@ -1840,7 +1840,7 @@ public class CoreGLE implements GLE
         gleSetJoinStyle(save_style);
     }
     
-    private final void draw_fillets_and_join_n_norms(final int ncp, final double[][] trimmed_loop, final double[][] untrimmed_loop, final boolean[] is_trimmed, final double[] bis_origin, final double[] bis_vector, final double[][] normals, final float[] front_color, final float[] back_color, final double[] cut_vector, final boolean face, final String cap_callback) {
+    private void draw_fillets_and_join_n_norms(int ncp, double[][] trimmed_loop, double[][] untrimmed_loop, boolean[] is_trimmed, double[] bis_origin, double[] bis_vector, double[][] normals, float[] front_color, float[] back_color, double[] cut_vector, boolean face, String cap_callback) {
         int istop = 0;
         int icnt = 0;
         int icnt_prev = 0;
@@ -1950,7 +1950,7 @@ public class CoreGLE implements GLE
         gleSetJoinStyle(save_style);
     }
     
-    private static void draw_fillet_triangle_plain(final double[] va, final double[] vb, final double[] vc, final boolean face, final float[] front_color, final float[] back_color) {
+    private static void draw_fillet_triangle_plain(double[] va, double[] vb, double[] vc, boolean face, float[] front_color, float[] back_color) {
         if (front_color != null) {
             GL11.glColor4f(front_color[0], front_color[1], front_color[2], front_color[3]);
         }
@@ -1967,7 +1967,7 @@ public class CoreGLE implements GLE
         GL11.glEnd();
     }
     
-    private final void draw_fillet_triangle_n_norms(final double[] va, final double[] vb, final double[] vc, final boolean face, final float[] front_color, final float[] back_color, final double[] na, final double[] nb) {
+    private void draw_fillet_triangle_n_norms(double[] va, double[] vb, double[] vc, boolean face, float[] front_color, float[] back_color, double[] na, double[] nb) {
         if (front_color != null) {
             GL11.glColor4f(front_color[0], front_color[1], front_color[2], front_color[3]);
         }
@@ -2003,11 +2003,11 @@ public class CoreGLE implements GLE
         GL11.glEnd();
     }
     
-    private final void draw_cut_style_cap_callback(final int iloop, final double[][] cap, final float[] face_color, double[] cut_vector, final double[] bisect_vector, final double[][] norms, final boolean frontwards) {
+    private void draw_cut_style_cap_callback(int iloop, double[][] cap, float[] face_color, double[] cut_vector, double[] bisect_vector, double[][] norms, boolean frontwards) {
         double[] previous_vertex = null;
         double[] first_vertex = null;
         boolean is_colinear = false;
-        final GLUtessellator tobj = GLU.gluNewTess();
+        GLUtessellator tobj = GLU.gluNewTess();
         tobj.gluTessProperty(100140, 100130.0);
         tobj.gluTessCallback(100101, tessCallback);
         tobj.gluTessCallback(100100, tessCallback);
@@ -2081,7 +2081,7 @@ public class CoreGLE implements GLE
         tobj.gluDeleteTess();
     }
     
-    private final void draw_round_style_cap_callback(final int ncp, final double[][] cap, final float[] face_color, double[] cut, double[] bi, final double[][] norms, final boolean frontwards) {
+    private void draw_round_style_cap_callback(int ncp, double[][] cap, float[] face_color, double[] cut, double[] bi, double[][] norms, boolean frontwards) {
         double[] axis = new double[3];
         double[] xycut = new double[3];
         double theta = 0.0;
@@ -2160,18 +2160,18 @@ public class CoreGLE implements GLE
         }
         for (i = 0; i < __ROUND_TESS_PIECES; ++i) {
             for (j = 0; j < ncp; ++j) {
-                final double[] array = next_contour[j];
-                final int n = 2;
+                double[] array = next_contour[j];
+                int n = 2;
                 array[n] -= cap_z[j];
-                final double[] array2 = last_contour[j];
-                final int n2 = 2;
+                double[] array2 = last_contour[j];
+                int n2 = 2;
                 array2[n2] -= cap_z[j];
                 next_contour[j] = matrix.MAT_DOT_VEC_3X3(m, last_contour[j]);
-                final double[] array3 = next_contour[j];
-                final int n3 = 2;
+                double[] array3 = next_contour[j];
+                int n3 = 2;
                 array3[n3] += cap_z[j];
-                final double[] array4 = last_contour[j];
-                final int n4 = 2;
+                double[] array4 = last_contour[j];
+                int n4 = 2;
                 array4[n4] += cap_z[j];
             }
             if (norms != null) {
@@ -2205,10 +2205,10 @@ public class CoreGLE implements GLE
     
     class tessellCallBack implements GLUtessellatorCallback
     {
-        public tessellCallBack(final GLU glu) {
+        public tessellCallBack(GLU glu) {
         }
         
-        public void begin(final int type) {
+        public void begin(int type) {
             GL11.glBegin(type);
         }
         
@@ -2216,9 +2216,9 @@ public class CoreGLE implements GLE
             GL11.glEnd();
         }
         
-        public void vertex(final Object vertexData) {
+        public void vertex(Object vertexData) {
             if (vertexData instanceof double[]) {
-                final double[] pointer = (double[])vertexData;
+                double[] pointer = (double[])vertexData;
                 if (pointer.length == 6) {
                     GL11.glColor3d(pointer[3], pointer[4], pointer[5]);
                 }
@@ -2226,38 +2226,38 @@ public class CoreGLE implements GLE
             }
         }
         
-        public void vertexData(final Object vertexData, final Object polygonData) {
+        public void vertexData(Object vertexData, Object polygonData) {
         }
         
-        public void combine(final double[] coords, final Object[] data, final float[] weight, final Object[] outData) {
-            final double[] vertex = { coords[0], coords[1], coords[2], 0.0, 0.0, 0.0 };
+        public void combine(double[] coords, Object[] data, float[] weight, Object[] outData) {
+            double[] vertex = { coords[0], coords[1], coords[2], 0.0, 0.0, 0.0 };
             for (int i = 3; i < 6; ++i) {
                 vertex[i] = weight[0] * ((double[])data[0])[i] + weight[1] * ((double[])data[1])[i] + weight[2] * ((double[])data[2])[i] + weight[3] * ((double[])data[3])[i];
             }
             outData[0] = vertex;
         }
         
-        public void combineData(final double[] coords, final Object[] data, final float[] weight, final Object[] outData, final Object polygonData) {
+        public void combineData(double[] coords, Object[] data, float[] weight, Object[] outData, Object polygonData) {
         }
         
-        public void error(final int errnum) {
-            final String estring = GLU.gluErrorString(errnum);
+        public void error(int errnum) {
+            String estring = GLU.gluErrorString(errnum);
             System.err.println("Tessellation Error: " + estring);
         }
         
-        public void beginData(final int type, final Object polygonData) {
+        public void beginData(int type, Object polygonData) {
         }
         
-        public void endData(final Object polygonData) {
+        public void endData(Object polygonData) {
         }
         
-        public void edgeFlag(final boolean boundaryEdge) {
+        public void edgeFlag(boolean boundaryEdge) {
         }
         
-        public void edgeFlagData(final boolean boundaryEdge, final Object polygonData) {
+        public void edgeFlagData(boolean boundaryEdge, Object polygonData) {
         }
         
-        public void errorData(final int errnum, final Object polygonData) {
+        public void errorData(int errnum, Object polygonData) {
         }
     }
 }

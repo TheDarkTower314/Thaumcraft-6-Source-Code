@@ -11,8 +11,8 @@ public class SwapYZ extends VariableTransformation
     }
     
     @Override
-    public void apply(final Vector3 vec) {
-        final double vz = vec.z;
+    public void apply(Vector3 vec) {
+        double vz = vec.z;
         vec.z = vec.y;
         vec.y = vz;
     }

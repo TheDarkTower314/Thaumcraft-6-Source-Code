@@ -26,11 +26,11 @@ public class GuiVoidSiphon extends GuiContainer
     private ContainerVoidSiphon container;
     private EntityPlayer player;
     CoreGLE gle;
-    private final ShaderCallback shaderCallback;
-    private static final ResourceLocation starsTexture;
+    private ShaderCallback shaderCallback;
+    private static ResourceLocation starsTexture;
     ResourceLocation tex;
     
-    public GuiVoidSiphon(final InventoryPlayer par1InventoryPlayer, final TileVoidSiphon tileVoidSiphon) {
+    public GuiVoidSiphon(InventoryPlayer par1InventoryPlayer, TileVoidSiphon tileVoidSiphon) {
         super(new ContainerVoidSiphon(par1InventoryPlayer, tileVoidSiphon));
         container = null;
         player = null;
@@ -43,27 +43,27 @@ public class GuiVoidSiphon extends GuiContainer
         player = par1InventoryPlayer.player;
         shaderCallback = new ShaderCallback() {
             @Override
-            public void call(final int shader) {
-                final Minecraft mc = Minecraft.getMinecraft();
-                final int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
+            public void call(int shader) {
+                Minecraft mc = Minecraft.getMinecraft();
+                int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
                 ARBShaderObjects.glUniform1fARB(x, (float)(mc.player.rotationYaw * 2.0f * 3.141592653589793 / 360.0));
-                final int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
+                int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
                 ARBShaderObjects.glUniform1fARB(z, -(float)(mc.player.rotationPitch * 2.0f * 3.141592653589793 / 360.0));
             }
         };
     }
     
-    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         renderHoveredToolTip(mouseX, mouseY);
     }
     
-    protected void drawGuiContainerBackgroundLayer(final float par1, final int mx, final int my) {
+    protected void drawGuiContainerBackgroundLayer(float par1, int mx, int my) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         mc.renderEngine.bindTexture(tex);
-        final int k = (width - xSize) / 2;
-        final int l = (height - ySize) / 2;
+        int k = (width - xSize) / 2;
+        int l = (height - ySize) / 2;
         GL11.glEnable(3042);
         drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
     }

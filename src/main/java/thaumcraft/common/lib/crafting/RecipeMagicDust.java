@@ -18,16 +18,16 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class RecipeMagicDust extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe
 {
-    public boolean matches(final InventoryCrafting inv, final World worldIn) {
+    public boolean matches(InventoryCrafting inv, World worldIn) {
         boolean bowl = false;
         boolean flint = false;
         boolean redstone = false;
-        final ArrayList<String> crystals = new ArrayList<String>();
+        ArrayList<String> crystals = new ArrayList<String>();
         for (int a = 0; a < 3; ++a) {
             for (int b = 0; b < 3; ++b) {
                 if (inv.getStackInRowAndColumn(a, b) != null) {
                     if (!inv.getStackInRowAndColumn(a, b).isEmpty()) {
-                        final ItemStack stack = inv.getStackInRowAndColumn(a, b).copy();
+                        ItemStack stack = inv.getStackInRowAndColumn(a, b).copy();
                         if (stack.getItem() == Items.BOWL && bowl) {
                             return false;
                         }
@@ -52,7 +52,7 @@ public class RecipeMagicDust extends IForgeRegistryEntry.Impl<IRecipe> implement
                                     if (stack.getItem() != ItemsTC.crystalEssence) {
                                         return false;
                                     }
-                                    final ItemCrystalEssence ice = (ItemCrystalEssence)stack.getItem();
+                                    ItemCrystalEssence ice = (ItemCrystalEssence)stack.getItem();
                                     if (crystals.contains(ice.getAspects(stack).getAspects()[0].getTag()) || crystals.size() >= 3) {
                                         return false;
                                     }
@@ -67,11 +67,11 @@ public class RecipeMagicDust extends IForgeRegistryEntry.Impl<IRecipe> implement
         return bowl && redstone && flint && crystals.size() == 3;
     }
     
-    public ItemStack getCraftingResult(final InventoryCrafting inv) {
+    public ItemStack getCraftingResult(InventoryCrafting inv) {
         return new ItemStack(ItemsTC.salisMundus);
     }
     
-    public boolean canFit(final int width, final int height) {
+    public boolean canFit(int width, int height) {
         return width * height >= 6;
     }
     
@@ -79,13 +79,13 @@ public class RecipeMagicDust extends IForgeRegistryEntry.Impl<IRecipe> implement
         return new ItemStack(ItemsTC.salisMundus);
     }
     
-    public NonNullList<ItemStack> getRemainingItems(final InventoryCrafting inv) {
-        final NonNullList<ItemStack> ret = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+        NonNullList<ItemStack> ret = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
         for (int i = 0; i < ret.size(); ++i) {
-            final ItemStack itemstack = inv.getStackInSlot(i);
+            ItemStack itemstack = inv.getStackInSlot(i);
             ItemStack itemstack2 = ForgeHooks.getContainerItem(itemstack);
             if (itemstack != null && !itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT || itemstack.getItem() == Items.BOWL)) {
-                final ItemStack is = itemstack.copy();
+                ItemStack is = itemstack.copy();
                 is.setCount(1);
                 itemstack2 = is;
             }

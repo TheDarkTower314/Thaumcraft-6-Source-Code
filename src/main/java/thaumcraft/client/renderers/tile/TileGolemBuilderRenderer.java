@@ -26,8 +26,8 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 public class TileGolemBuilderRenderer extends TileEntitySpecialRenderer
 {
     private IModelCustom model;
-    private static final ResourceLocation TM;
-    private static final ResourceLocation TEX;
+    private static ResourceLocation TM;
+    private static ResourceLocation TEX;
     EntityItem entityitem;
     
     public TileGolemBuilderRenderer() {
@@ -35,7 +35,7 @@ public class TileGolemBuilderRenderer extends TileEntitySpecialRenderer
         model = AdvancedModelLoader.loadModel(TileGolemBuilderRenderer.TM);
     }
     
-    public void renderTileEntityAt(final TileGolemBuilder tile, final double par2, final double par4, final double par6, final float pt, final int destroyStage) {
+    public void renderTileEntityAt(TileGolemBuilder tile, double par2, double par4, double par6, float pt, int destroyStage) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float)par2 + 0.5f, (float)par4, (float)par6 + 0.5f);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -54,7 +54,7 @@ public class TileGolemBuilderRenderer extends TileEntitySpecialRenderer
             GL11.glScalef(1.0f, -1.0f, 1.0f);
             GL11.glMatrixMode(5888);
         }
-        final EnumFacing facing = BlockStateUtils.getFacing(tile.getBlockMetadata());
+        EnumFacing facing = BlockStateUtils.getFacing(tile.getBlockMetadata());
         if (tile.getWorld() != null) {
             switch (facing.ordinal()) {
                 case 5: {
@@ -73,8 +73,8 @@ public class TileGolemBuilderRenderer extends TileEntitySpecialRenderer
         }
         model.renderAllExcept("press");
         GL11.glPushMatrix();
-        final float h = (float)tile.press;
-        final double s = Math.sin(Math.toRadians(h)) * 0.625;
+        float h = (float)tile.press;
+        double s = Math.sin(Math.toRadians(h)) * 0.625;
         GL11.glTranslated(0.0, -s, 0.0);
         model.renderPart("press");
         GL11.glPopMatrix();
@@ -91,12 +91,12 @@ public class TileGolemBuilderRenderer extends TileEntitySpecialRenderer
         }
         GL11.glTranslatef(-0.3125f, 0.625f, 1.3125f);
         GL11.glRotatef(90.0f, -1.0f, 0.0f, 0.0f);
-        final TextureAtlasSprite icon = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(Blocks.LAVA.getDefaultState());
+        TextureAtlasSprite icon = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(Blocks.LAVA.getDefaultState());
         UtilsFX.renderQuadFromIcon(icon, 0.625f, 1.0f, 1.0f, 1.0f, 200, 771, 1.0f);
         GL11.glPopMatrix();
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderTileEntityAt((TileGolemBuilder)te, x, y, z, partialTicks, destroyStage);
     }

@@ -37,29 +37,29 @@ public class BlockVisGenerator extends BlockTCDevice implements IBlockFacing, IB
         setSoundType(SoundType.WOOD);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
     @Override
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        for (final EnumFacing face : EnumFacing.VALUES) {
-            final TileEntity tileentity = worldIn.getTileEntity(pos.offset(face));
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        for (EnumFacing face : EnumFacing.VALUES) {
+            TileEntity tileentity = worldIn.getTileEntity(pos.offset(face));
             if (tileentity != null && tileentity.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
-                final IEnergyStorage capability = tileentity.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
+                IEnergyStorage capability = tileentity.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
                 if (capability.canReceive()) {
                     IBlockState bs = getDefaultState();
                     bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)face);
@@ -72,18 +72,18 @@ public class BlockVisGenerator extends BlockTCDevice implements IBlockFacing, IB
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random rand) {
-        final Block block = state.getBlock();
+    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+        Block block = state.getBlock();
         if (block.hasTileEntity(state)) {
-            final TileEntity tileentity = world.getTileEntity(pos);
+            TileEntity tileentity = world.getTileEntity(pos);
             if (tileentity != null) {
-                final EnumFacing face = BlockStateUtils.getFacing(state);
+                EnumFacing face = BlockStateUtils.getFacing(state);
                 if (tileentity.hasCapability(CapabilityEnergy.ENERGY, face)) {
-                    final IEnergyStorage capability = tileentity.getCapability(CapabilityEnergy.ENERGY, face);
+                    IEnergyStorage capability = tileentity.getCapability(CapabilityEnergy.ENERGY, face);
                     if (capability.getEnergyStored() > 0) {
-                        final double x = (face.getFrontOffsetX() == 0) ? (rand.nextGaussian() * 0.1) : (face.getFrontOffsetX() * 0.1);
-                        final double y = (face.getFrontOffsetY() == 0) ? (rand.nextGaussian() * 0.1) : (face.getFrontOffsetY() * 0.1);
-                        final double z = (face.getFrontOffsetZ() == 0) ? (rand.nextGaussian() * 0.1) : (face.getFrontOffsetZ() * 0.1);
+                        double x = (face.getFrontOffsetX() == 0) ? (rand.nextGaussian() * 0.1) : (face.getFrontOffsetX() * 0.1);
+                        double y = (face.getFrontOffsetY() == 0) ? (rand.nextGaussian() * 0.1) : (face.getFrontOffsetY() * 0.1);
+                        double z = (face.getFrontOffsetZ() == 0) ? (rand.nextGaussian() * 0.1) : (face.getFrontOffsetZ() * 0.1);
                         FXDispatcher.INSTANCE.spark(pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, 0.66f + rand.nextFloat(), 0.65f + rand.nextFloat() * 0.1f, 1.0f, 1.0f, 0.8f);
                     }
                 }
@@ -91,7 +91,7 @@ public class BlockVisGenerator extends BlockTCDevice implements IBlockFacing, IB
         }
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return Utils.rotateBlockAABB(new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.875, 0.75), BlockStateUtils.getFacing(getMetaFromState(state)));
     }
 }

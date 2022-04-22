@@ -24,25 +24,25 @@ public class ItemTurretPlacer extends ItemTCBase
         super("turret", "basic", "advanced", "bore");
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         if (side == EnumFacing.DOWN) {
             return EnumActionResult.PASS;
         }
-        final boolean flag = world.getBlockState(pos).getBlock().isReplaceable(world, pos);
-        final BlockPos blockpos = flag ? pos : pos.offset(side);
+        boolean flag = world.getBlockState(pos).getBlock().isReplaceable(world, pos);
+        BlockPos blockpos = flag ? pos : pos.offset(side);
         if (!player.canPlayerEdit(blockpos, side, player.getHeldItem(hand))) {
             return EnumActionResult.PASS;
         }
-        final BlockPos blockpos2 = blockpos.up();
+        BlockPos blockpos2 = blockpos.up();
         boolean flag2 = !world.isAirBlock(blockpos) && !world.getBlockState(blockpos).getBlock().isReplaceable(world, blockpos);
         flag2 |= (!world.isAirBlock(blockpos2) && !world.getBlockState(blockpos2).getBlock().isReplaceable(world, blockpos2));
         if (flag2) {
             return EnumActionResult.PASS;
         }
-        final double d0 = blockpos.getX();
-        final double d2 = blockpos.getY();
-        final double d3 = blockpos.getZ();
-        final List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(d0, d2, d3, d0 + 1.0, d2 + 2.0, d3 + 1.0));
+        double d0 = blockpos.getX();
+        double d2 = blockpos.getY();
+        double d3 = blockpos.getZ();
+        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(d0, d2, d3, d0 + 1.0, d2 + 2.0, d3 + 1.0));
         if (!list.isEmpty()) {
             return EnumActionResult.PASS;
         }

@@ -11,7 +11,7 @@ public class AIPechTradePlayer extends EntityAIBase
 {
     private EntityPech villager;
     
-    public AIPechTradePlayer(final EntityPech par1EntityVillager) {
+    public AIPechTradePlayer(EntityPech par1EntityVillager) {
         villager = par1EntityVillager;
         setMutexBits(5);
     }

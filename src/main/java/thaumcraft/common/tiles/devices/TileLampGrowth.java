@@ -61,7 +61,7 @@ public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport
     }
     
     @Override
-    public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         if (world != null && world.isRemote) {
             world.checkLightFor(EnumSkyBlock.BLOCK, getPos());
@@ -104,24 +104,24 @@ public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport
         }
     }
     
-    boolean isPlant(final BlockPos bp) {
-        final IBlockState b = world.getBlockState(bp);
-        final boolean flag = b.getBlock() instanceof IGrowable;
-        final Material mat = b.getMaterial();
+    boolean isPlant(BlockPos bp) {
+        IBlockState b = world.getBlockState(bp);
+        boolean flag = b.getBlock() instanceof IGrowable;
+        Material mat = b.getMaterial();
         return (flag || mat == Material.CACTUS || mat == Material.PLANTS) && mat != Material.GRASS;
     }
     
     private void updatePlant() {
-        final IBlockState bs = world.getBlockState(new BlockPos(lx, ly, lz));
+        IBlockState bs = world.getBlockState(new BlockPos(lx, ly, lz));
         if (lid != bs.getBlock() || lmd != bs.getBlock().getMetaFromState(bs)) {
-            final EntityPlayer p = world.getClosestPlayer(lx, ly, lz, 32.0, false);
+            EntityPlayer p = world.getClosestPlayer(lx, ly, lz, 32.0, false);
             if (p != null) {
                 PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockMist(new BlockPos(lx, ly, lz), 4259648), new NetworkRegistry.TargetPoint(world.provider.getDimension(), lx, ly, lz, 32.0));
             }
             lid = bs.getBlock();
             lmd = bs.getBlock().getMetaFromState(bs);
         }
-        final int distance = 6;
+        int distance = 6;
         if (checklist.size() == 0) {
             for (int a = -distance; a <= distance; ++a) {
                 for (int b = -distance; b <= distance; ++b) {
@@ -130,18 +130,18 @@ public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport
             }
             Collections.shuffle(checklist, world.rand);
         }
-        final int x = checklist.get(0).getX();
+        int x = checklist.get(0).getX();
         int y = checklist.get(0).getY();
-        final int z = checklist.get(0).getZ();
+        int z = checklist.get(0).getZ();
         checklist.remove(0);
         while (y >= pos.getY() - distance) {
-            final BlockPos bp = new BlockPos(x, y, z);
+            BlockPos bp = new BlockPos(x, y, z);
             if (!world.isAirBlock(bp) && isPlant(bp) && getDistanceSq(x + 0.5, y + 0.5, z + 0.5) < distance * distance && !CropUtils.isGrownCrop(world, bp) && CropUtils.doesLampGrow(world, bp)) {
                 --charges;
                 lx = x;
                 ly = y;
                 lz = z;
-                final IBlockState bs2 = world.getBlockState(bp);
+                IBlockState bs2 = world.getBlockState(bp);
                 lid = bs2.getBlock();
                 lmd = bs2.getBlock().getMetaFromState(bs2);
                 world.scheduleUpdate(bp, lid, 1);
@@ -152,13 +152,13 @@ public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         reserve = nbttagcompound.getBoolean("reserve");
         charges = nbttagcompound.getInteger("charges");
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound.setBoolean("reserve", reserve);
         nbttagcompound.setInteger("charges", charges);
         return nbttagcompound;
@@ -168,9 +168,9 @@ public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport
         if (++drawDelay % 5 != 0) {
             return false;
         }
-        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), BlockStateUtils.getFacing(getBlockMetadata()));
+        TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), BlockStateUtils.getFacing(getBlockMetadata()));
         if (te != null) {
-            final IEssentiaTransport ic = (IEssentiaTransport)te;
+            IEssentiaTransport ic = (IEssentiaTransport)te;
             if (!ic.canOutputTo(BlockStateUtils.getFacing(getBlockMetadata()).getOpposite())) {
                 return false;
             }
@@ -182,22 +182,22 @@ public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport
     }
     
     @Override
-    public boolean isConnectable(final EnumFacing face) {
+    public boolean isConnectable(EnumFacing face) {
         return face == BlockStateUtils.getFacing(getBlockMetadata());
     }
     
     @Override
-    public boolean canInputFrom(final EnumFacing face) {
+    public boolean canInputFrom(EnumFacing face) {
         return face == BlockStateUtils.getFacing(getBlockMetadata());
     }
     
     @Override
-    public boolean canOutputTo(final EnumFacing face) {
+    public boolean canOutputTo(EnumFacing face) {
         return false;
     }
     
     @Override
-    public void setSuction(final Aspect aspect, final int amount) {
+    public void setSuction(Aspect aspect, int amount) {
     }
     
     @Override
@@ -206,32 +206,32 @@ public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport
     }
     
     @Override
-    public Aspect getSuctionType(final EnumFacing face) {
+    public Aspect getSuctionType(EnumFacing face) {
         return Aspect.PLANT;
     }
     
     @Override
-    public int getSuctionAmount(final EnumFacing face) {
+    public int getSuctionAmount(EnumFacing face) {
         return (face == BlockStateUtils.getFacing(getBlockMetadata()) && (!reserve || charges <= 0)) ? 128 : 0;
     }
     
     @Override
-    public Aspect getEssentiaType(final EnumFacing loc) {
+    public Aspect getEssentiaType(EnumFacing loc) {
         return null;
     }
     
     @Override
-    public int getEssentiaAmount(final EnumFacing loc) {
+    public int getEssentiaAmount(EnumFacing loc) {
         return 0;
     }
     
     @Override
-    public int takeEssentia(final Aspect aspect, final int amount, final EnumFacing loc) {
+    public int takeEssentia(Aspect aspect, int amount, EnumFacing loc) {
         return 0;
     }
     
     @Override
-    public int addEssentia(final Aspect aspect, final int amount, final EnumFacing loc) {
+    public int addEssentia(Aspect aspect, int amount, EnumFacing loc) {
         return 0;
     }
 }

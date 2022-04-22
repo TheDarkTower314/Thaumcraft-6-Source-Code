@@ -51,7 +51,7 @@ public class ModelKnightArmor extends ModelCustomArmor
     ModelRenderer Frontcloth2;
     ModelRenderer SidepanelL1;
     
-    public ModelKnightArmor(final float f) {
+    public ModelKnightArmor(float f) {
         super(f, 0, 128, 64);
         textureWidth = 128;
         textureHeight = 64;
@@ -237,18 +237,18 @@ public class ModelKnightArmor extends ModelCustomArmor
         bipedLeftLeg.addChild(SidepanelL3);
     }
     
-    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-        final float a = MathHelper.cos(f * 0.6662f) * 1.4f * f1;
-        final float b = MathHelper.cos(f * 0.6662f + 3.1415927f) * 1.4f * f1;
-        final float c = Math.min(a, b);
+        float a = MathHelper.cos(f * 0.6662f) * 1.4f * f1;
+        float b = MathHelper.cos(f * 0.6662f + 3.1415927f) * 1.4f * f1;
+        float c = Math.min(a, b);
         Frontcloth1.rotateAngleX = c - 0.1047198f;
         Frontcloth2.rotateAngleX = c - 0.3316126f;
         Cloak1.rotateAngleX = -c / 2.0f + 0.1396263f;
         Cloak2.rotateAngleX = -c / 2.0f + 0.3069452f;
         Cloak3.rotateAngleX = -c / 2.0f + 0.4465716f;
         if (isChild) {
-            final float f6 = 2.0f;
+            float f6 = 2.0f;
             GL11.glPushMatrix();
             GL11.glScalef(1.5f / f6, 1.5f / f6, 1.5f / f6);
             GL11.glTranslatef(0.0f, 16.0f * f5, 0.0f);
@@ -279,7 +279,7 @@ public class ModelKnightArmor extends ModelCustomArmor
         }
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;

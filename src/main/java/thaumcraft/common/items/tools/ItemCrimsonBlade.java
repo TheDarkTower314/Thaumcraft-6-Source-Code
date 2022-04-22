@@ -57,40 +57,40 @@ public class ItemCrimsonBlade extends ItemSword implements IWarpingGear, IThaumc
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.EPIC;
     }
     
-    public void onUpdate(final ItemStack stack, final World world, final Entity entity, final int p_77663_4_, final boolean p_77663_5_) {
+    public void onUpdate(ItemStack stack, World world, Entity entity, int p_77663_4_, boolean p_77663_5_) {
         super.onUpdate(stack, world, entity, p_77663_4_, p_77663_5_);
         if (stack.isItemDamaged() && entity != null && entity.ticksExisted % 20 == 0 && entity instanceof EntityLivingBase) {
             stack.damageItem(-1, (EntityLivingBase)entity);
         }
     }
     
-    public boolean hitEntity(final ItemStack is, final EntityLivingBase target, final EntityLivingBase hitter) {
+    public boolean hitEntity(ItemStack is, EntityLivingBase target, EntityLivingBase hitter) {
         if (!target.world.isRemote) {
             if (!(target instanceof EntityPlayer) || !(hitter instanceof EntityPlayer) || FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled()) {
                 try {
                     target.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 60));
                     target.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 120));
                 }
-                catch (final Exception ex) {}
+                catch (Exception ex) {}
             }
         }
         return super.hitEntity(is, target, hitter);
     }
     
-    public int getWarp(final ItemStack itemstack, final EntityPlayer player) {
+    public int getWarp(ItemStack itemstack, EntityPlayer player) {
         return 2;
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("enchantment.special.sapgreat"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }

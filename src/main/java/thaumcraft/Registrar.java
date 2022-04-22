@@ -42,10 +42,10 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
-public final class Registrar
+public class Registrar
 {
     @SubscribeEvent
-    public static void registerBlocks(final RegistryEvent.Register<Block> event) {
+    public static void registerBlocks(RegistryEvent.Register<Block> event) {
         ConfigBlocks.initBlocks(event.getRegistry());
         ConfigBlocks.initTileEntities();
         ConfigBlocks.initMisc();
@@ -53,12 +53,12 @@ public final class Registrar
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void registerBlocksClient(final RegistryEvent.Register<Block> event) {
+    public static void registerBlocksClient(RegistryEvent.Register<Block> event) {
         ProxyBlock.setupBlocksClient(event.getRegistry());
     }
     
     @SubscribeEvent
-    public static void registerItems(final RegistryEvent.Register<Item> event) {
+    public static void registerItems(RegistryEvent.Register<Item> event) {
         ConfigItems.preInitSeals();
         ConfigItems.initItems(event.getRegistry());
         ConfigItems.initMisc();
@@ -66,17 +66,17 @@ public final class Registrar
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void registerItemsClient(final RegistryEvent.Register<Item> event) {
+    public static void registerItemsClient(RegistryEvent.Register<Item> event) {
         ConfigItems.initModelsAndVariants();
     }
     
     @SubscribeEvent
-    public static void registerEntities(final RegistryEvent.Register<EntityEntry> event) {
+    public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
         ConfigEntities.initEntities(event.getRegistry());
     }
     
     @SubscribeEvent
-    public static void registerVanillaRecipes(final RegistryEvent.Register<IRecipe> event) {
+    public static void registerVanillaRecipes(RegistryEvent.Register<IRecipe> event) {
         ModConfig.modCompatibility();
         ConfigRecipes.initializeNormalRecipes(event.getRegistry());
         ConfigRecipes.initializeArcaneRecipes(event.getRegistry());
@@ -86,7 +86,7 @@ public final class Registrar
     }
     
     @SubscribeEvent
-    public static void registerPotions(final RegistryEvent.Register<Potion> event) {
+    public static void registerPotions(RegistryEvent.Register<Potion> event) {
         PotionFluxTaint.instance = new PotionFluxTaint(true, 6697847).setRegistryName("fluxTaint");
         PotionVisExhaust.instance = new PotionVisExhaust(true, 6702199).setRegistryName("visExhaust");
         PotionInfectiousVisExhaust.instance = new PotionInfectiousVisExhaust(true, 6706551).setRegistryName("infectiousVisExhaust");
@@ -108,7 +108,7 @@ public final class Registrar
     }
     
     @SubscribeEvent
-    public static void registerBiomes(final RegistryEvent.Register<Biome> event) {
+    public static void registerBiomes(RegistryEvent.Register<Biome> event) {
         BiomeHandler.MAGICAL_FOREST = new BiomeGenMagicalForest(new Biome.BiomeProperties("Magical Forest").setBaseHeight(0.2f).setHeightVariation(0.3f).setTemperature(0.8f).setRainfall(0.4f));
         event.getRegistry().register(BiomeHandler.MAGICAL_FOREST);
         BiomeHandler.EERIE = new BiomeGenEerie(new Biome.BiomeProperties("Eerie").setBaseHeight(0.125f).setHeightVariation(0.4f).setTemperature(0.8f).setRainDisabled());
@@ -123,7 +123,7 @@ public final class Registrar
     }
     
     @SubscribeEvent
-    public static void registerSounds(final RegistryEvent.Register<SoundEvent> event) {
+    public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
         SoundsTC.registerSounds(event);
         SoundsTC.registerSoundTypes();
     }

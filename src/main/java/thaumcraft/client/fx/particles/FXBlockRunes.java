@@ -19,7 +19,7 @@ public class FXBlockRunes extends Particle
     float rotation;
     int runeIndex;
     
-    public FXBlockRunes(final World world, final double d, final double d1, final double d2, float f1, final float f2, final float f3, final int m) {
+    public FXBlockRunes(World world, double d, double d1, double d2, float f1, float f2, float f3, int m) {
         super(world, d, d1, d2, 0.0, 0.0, 0.0);
         ofx = 0.0;
         ofy = 0.0;
@@ -33,7 +33,7 @@ public class FXBlockRunes extends Particle
         particleGreen = f2;
         particleBlue = f3;
         particleGravity = 0.0f;
-        final double motionX = 0.0;
+        double motionX = 0.0;
         motionZ = motionX;
         motionY = motionX;
         this.motionX = motionX;
@@ -49,35 +49,35 @@ public class FXBlockRunes extends Particle
         particleAlpha = 0.0f;
     }
     
-    public void setScale(final float s) {
+    public void setScale(float s) {
         particleScale = s;
     }
     
-    public void setOffsetX(final double f) {
+    public void setOffsetX(double f) {
         ofx = f;
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity p_180434_2_, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void renderParticle(BufferBuilder wr, Entity p_180434_2_, float f, float f1, float f2, float f3, float f4, float f5) {
         Tessellator.getInstance().draw();
         GL11.glPushMatrix();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, particleAlpha / 2.0f);
-        final float var13 = (float)(prevPosX + (posX - prevPosX) * f - FXBlockRunes.interpPosX);
-        final float var14 = (float)(prevPosY + (posY - prevPosY) * f - FXBlockRunes.interpPosY);
-        final float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - FXBlockRunes.interpPosZ);
+        float var13 = (float)(prevPosX + (posX - prevPosX) * f - FXBlockRunes.interpPosX);
+        float var14 = (float)(prevPosY + (posY - prevPosY) * f - FXBlockRunes.interpPosY);
+        float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - FXBlockRunes.interpPosZ);
         GL11.glTranslated(var13, var14, var15);
         GL11.glRotatef(rotation, 0.0f, 1.0f, 0.0f);
         GL11.glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
         GL11.glTranslated(ofx, ofy, -0.51);
-        final float var16 = runeIndex % 16 / 64.0f;
-        final float var17 = var16 + 0.015625f;
-        final float var18 = 0.09375f;
-        final float var19 = var18 + 0.015625f;
-        final float var20 = 0.3f * particleScale;
-        final float var21 = 1.0f;
+        float var16 = runeIndex % 16 / 64.0f;
+        float var17 = var16 + 0.015625f;
+        float var18 = 0.09375f;
+        float var19 = var18 + 0.015625f;
+        float var20 = 0.3f * particleScale;
+        float var21 = 1.0f;
         wr.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
-        final int i = 240;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        int i = 240;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         wr.pos(-0.5 * var20, 0.5 * var20, 0.0).tex(var17, var19).color(particleRed * var21, particleGreen * var21, particleBlue * var21, particleAlpha / 2.0f).lightmap(j, k).endVertex();
         wr.pos(0.5 * var20, 0.5 * var20, 0.0).tex(var17, var18).color(particleRed * var21, particleGreen * var21, particleBlue * var21, particleAlpha / 2.0f).lightmap(j, k).endVertex();
         wr.pos(0.5 * var20, -0.5 * var20, 0.0).tex(var16, var18).color(particleRed * var21, particleGreen * var21, particleBlue * var21, particleAlpha / 2.0f).lightmap(j, k).endVertex();
@@ -91,7 +91,7 @@ public class FXBlockRunes extends Particle
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
-        final float threshold = particleMaxAge / 5.0f;
+        float threshold = particleMaxAge / 5.0f;
         if (particleAge <= threshold) {
             particleAlpha = particleAge / threshold;
         }
@@ -107,7 +107,7 @@ public class FXBlockRunes extends Particle
         posZ += motionZ;
     }
     
-    public void setGravity(final float value) {
+    public void setGravity(float value) {
         particleGravity = value;
     }
 }

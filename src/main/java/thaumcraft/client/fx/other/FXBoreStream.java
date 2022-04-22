@@ -33,7 +33,7 @@ public class FXBoreStream extends Particle
     private String key;
     private BlockPos startPos;
     CoreGLE gle;
-    private static final ResourceLocation TEX0;
+    private static ResourceLocation TEX0;
     int layer;
     double[][] points;
     float[][] colours;
@@ -41,7 +41,7 @@ public class FXBoreStream extends Particle
     int growing;
     ArrayList<Quat> vecs;
     
-    public FXBoreStream(final World w, final double par2, final double par4, final double par6, final Entity target, final int count, final int color, final float scale, final int extend, final double my) {
+    public FXBoreStream(World w, double par2, double par4, double par6, Entity target, int count, int color, float scale, int extend, double my) {
         super(w, par2, par4, par6, 0.0, 0.0, 0.0);
         this.count = 0;
         length = 5;
@@ -59,7 +59,7 @@ public class FXBoreStream extends Particle
         motionX = MathHelper.sin(count / 4.0f) * 0.15f;
         motionY = my + MathHelper.sin(count / 3.0f) * 0.15f;
         motionZ = MathHelper.sin(count / 2.0f) * 0.15f;
-        final Color c = new Color(color);
+        Color c = new Color(color);
         particleRed = c.getRed() / 255.0f;
         particleGreen = c.getGreen() / 255.0f;
         particleBlue = c.getBlue() / 255.0f;
@@ -72,12 +72,12 @@ public class FXBoreStream extends Particle
         startPos = new BlockPos(startX, startY, startZ);
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void renderParticle(BufferBuilder wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         Tessellator.getInstance().draw();
         GL11.glPushMatrix();
-        final double ePX = startX - FXBoreStream.interpPosX;
-        final double ePY = startY - FXBoreStream.interpPosY;
-        final double ePZ = startZ - FXBoreStream.interpPosZ;
+        double ePX = startX - FXBoreStream.interpPosX;
+        double ePY = startY - FXBoreStream.interpPosY;
+        double ePZ = startZ - FXBoreStream.interpPosZ;
         GL11.glTranslated(ePX, ePY, ePZ);
         if (points != null && points.length > 2) {
             Minecraft.getMinecraft().renderEngine.bindTexture(FXBoreStream.TEX0);
@@ -91,7 +91,7 @@ public class FXBoreStream extends Particle
         wr.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
     }
     
-    public void setFXLayer(final int l) {
+    public void setFXLayer(int l) {
         layer = l;
     }
     
@@ -115,8 +115,8 @@ public class FXBoreStream extends Particle
         double dx = target.posX - posX;
         double dy = target.posY + target.getEyeHeight() - posY;
         double dz = target.posZ - posZ;
-        final double d11 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
-        final double clamp = d11 / 10.0;
+        double d11 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+        double clamp = d11 / 10.0;
         motionX = MathHelper.clamp((float) motionX, -clamp, clamp);
         motionY = MathHelper.clamp((float) motionY, -clamp, clamp);
         motionZ = MathHelper.clamp((float) motionZ, -clamp, clamp);
@@ -128,7 +128,7 @@ public class FXBoreStream extends Particle
         motionZ += dz * (clamp / Math.min(1.0, d11));
         float scale = particleScale * (0.75f + MathHelper.sin((count + particleAge) / 2.0f) * 0.25f);
         if (d11 < 1.0) {
-            final float f = MathHelper.sin((float)(d11 * 1.5707963267948966));
+            float f = MathHelper.sin((float)(d11 * 1.5707963267948966));
             scale *= f;
             particleScale *= f;
         }
@@ -148,19 +148,19 @@ public class FXBoreStream extends Particle
         colours = new float[vecs.size()][4];
         radii = new double[vecs.size()];
         int c = vecs.size();
-        for (final Quat v : vecs) {
+        for (Quat v : vecs) {
             --c;
-            final float variance = 1.0f + MathHelper.sin((c + particleAge) / 3.0f) * 0.2f;
-            final float xx = MathHelper.sin((c + particleAge) / 6.0f) * 0.03f;
-            final float yy = MathHelper.sin((c + particleAge) / 7.0f) * 0.03f;
-            final float zz = MathHelper.sin((c + particleAge) / 8.0f) * 0.03f;
+            float variance = 1.0f + MathHelper.sin((c + particleAge) / 3.0f) * 0.2f;
+            float xx = MathHelper.sin((c + particleAge) / 6.0f) * 0.03f;
+            float yy = MathHelper.sin((c + particleAge) / 7.0f) * 0.03f;
+            float zz = MathHelper.sin((c + particleAge) / 8.0f) * 0.03f;
             points[c][0] = v.x + xx;
             points[c][1] = v.y + yy;
             points[c][2] = v.z + zz;
             radii[c] = v.s * variance;
             if (c > vecs.size() - 10) {
-                final double[] radii = this.radii;
-                final int n = c;
+                double[] radii = this.radii;
+                int n = c;
                 radii[n] *= MathHelper.cos((float)((c - (vecs.size() - 12)) / 10.0f * 1.5707963267948966));
             }
             if (c == 0) {
@@ -178,7 +178,7 @@ public class FXBoreStream extends Particle
             else if (c == 4) {
                 radii[c] = (particleScale + radii[c] * 2.0) / 3.0;
             }
-            final float v2 = 1.0f - MathHelper.sin((c + particleAge) / 2.0f) * 0.1f;
+            float v2 = 1.0f - MathHelper.sin((c + particleAge) / 2.0f) * 0.1f;
             colours[c][0] = particleRed * v2;
             colours[c][1] = particleGreen * v2;
             colours[c][2] = particleBlue * v2;
@@ -186,7 +186,7 @@ public class FXBoreStream extends Particle
         }
     }
     
-    public void setGravity(final float value) {
+    public void setGravity(float value) {
         particleGravity = value;
     }
     

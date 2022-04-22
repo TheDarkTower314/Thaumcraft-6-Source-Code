@@ -17,7 +17,7 @@ import net.minecraft.block.Block;
 
 public class BlockTC extends Block
 {
-    public BlockTC(final Material material, final String name) {
+    public BlockTC(Material material, String name) {
         super(material);
         setUnlocalizedName(name);
         setRegistryName("thaumcraft", name);
@@ -26,17 +26,17 @@ public class BlockTC extends Block
         setHardness(1.5f);
     }
     
-    public BlockTC(final Material mat, final String name, final SoundType st) {
+    public BlockTC(Material mat, String name, SoundType st) {
         this(mat, name);
         setSoundType(st);
     }
     
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(final CreativeTabs tab, final NonNullList<ItemStack> list) {
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
         list.add(new ItemStack(this, 1, 0));
     }
     
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
 }

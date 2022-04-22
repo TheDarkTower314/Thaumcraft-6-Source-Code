@@ -49,7 +49,7 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
     boolean firstRun;
     public float attackAnim;
     
-    public EntityTaintSeed(final World par1World) {
+    public EntityTaintSeed(World par1World) {
         super(par1World);
         boost = 0;
         firstRun = false;
@@ -68,24 +68,24 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
         targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         boost = nbt.getInteger("boost");
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         nbt.setInteger("boost", boost);
     }
     
-    public boolean attackEntityAsMob(final Entity p_70652_1_) {
+    public boolean attackEntityAsMob(Entity p_70652_1_) {
         world.setEntityState(this, (byte)16);
         playSound(SoundsTC.tentacle, getSoundVolume(), getSoundPitch());
         return super.attackEntityAsMob(p_70652_1_);
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte par1) {
+    public void handleStatusUpdate(byte par1) {
         if (par1 == 16) {
             attackAnim = 0.5f;
         }
@@ -94,11 +94,11 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
         }
     }
     
-    public boolean canAttackClass(final Class clazz) {
+    public boolean canAttackClass(Class clazz) {
         return !ITaintedMob.class.isAssignableFrom(clazz);
     }
     
-    public boolean isOnSameTeam(final Entity otherEntity) {
+    public boolean isOnSameTeam(Entity otherEntity) {
         return otherEntity instanceof ITaintedMob || super.isOnSameTeam(otherEntity);
     }
     
@@ -117,7 +117,7 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.0);
     }
     
-    public void onDeath(final DamageSource cause) {
+    public void onDeath(DamageSource cause) {
         TaintHelper.removeTaintSeed(getEntityWorld(), getPosition());
         super.onDeath(cause);
     }
@@ -131,9 +131,9 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
                 firstRun = true;
             }
             if (isEntityAlive()) {
-                final boolean tickFlag = ticksExisted % 20 == 0;
+                boolean tickFlag = ticksExisted % 20 == 0;
                 if (boost > 0 || tickFlag) {
-                    final float mod = (boost > 0) ? 1.0f : AuraHandler.getFluxSaturation(world, getPosition());
+                    float mod = (boost > 0) ? 1.0f : AuraHandler.getFluxSaturation(world, getPosition());
                     if (boost > 0) {
                         --boost;
                     }
@@ -149,8 +149,8 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
                     if (getAttackTarget() != null && getDistanceSq(getAttackTarget()) < getArea() * 256 && getEntitySenses().canSee(getAttackTarget())) {
                         spawnTentacles(getAttackTarget());
                     }
-                    final List<EntityLivingBase> list = EntityUtils.getEntitiesInRange(getEntityWorld(), getPosition(), this, EntityLivingBase.class, getArea() * 4);
-                    for (final EntityLivingBase elb : list) {
+                    List<EntityLivingBase> list = EntityUtils.getEntitiesInRange(getEntityWorld(), getPosition(), this, EntityLivingBase.class, getArea() * 4);
+                    for (EntityLivingBase elb : list) {
                         elb.addPotionEffect(new PotionEffect(PotionFluxTaint.instance, 100, getArea() - 1, false, true));
                     }
                 }
@@ -163,8 +163,8 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
             if (attackAnim < 0.001) {
                 attackAnim = 0.0f;
             }
-            final float xx = 1.0f * MathHelper.sin(ticksExisted * 0.05f - 0.5f) / 5.0f;
-            final float zz = 1.0f * MathHelper.sin(ticksExisted * 0.06f - 0.5f) / 5.0f + hurtTime / 200.0f + attackAnim;
+            float xx = 1.0f * MathHelper.sin(ticksExisted * 0.05f - 0.5f) / 5.0f;
+            float zz = 1.0f * MathHelper.sin(ticksExisted * 0.06f - 0.5f) / 5.0f + hurtTime / 200.0f + attackAnim;
             if (rand.nextFloat() < 0.033) {
                 FXDispatcher.INSTANCE.drawLightningFlash((float) posX + xx, (float) posY + height + 0.25f, (float) posZ + zz, 0.7f, 0.1f, 0.9f, 0.5f, 1.5f + rand.nextFloat());
             }
@@ -174,9 +174,9 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
         }
     }
     
-    protected void spawnTentacles(final Entity entity) {
+    protected void spawnTentacles(Entity entity) {
         if (world.getBiome(entity.getPosition()) == BiomeHandler.ELDRITCH || world.getBlockState(entity.getPosition()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT || world.getBlockState(entity.getPosition().down()).getMaterial() == ThaumcraftMaterials.MATERIAL_TAINT) {
-            final EntityTaintacleSmall taintlet = new EntityTaintacleSmall(world);
+            EntityTaintacleSmall taintlet = new EntityTaintacleSmall(world);
             taintlet.setLocationAndAngles(entity.posX + world.rand.nextFloat() - world.rand.nextFloat(), entity.posY, entity.posZ + world.rand.nextFloat() - world.rand.nextFloat(), 0.0f, 0.0f);
             world.spawnEntity(taintlet);
             playSound(SoundsTC.tentacle, getSoundVolume(), getSoundPitch());
@@ -202,7 +202,7 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
         return height / 8.0f;
     }
     
-    protected SoundEvent getHurtSound(final DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundsTC.tentacle;
     }
     
@@ -214,7 +214,7 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
         return Item.getItemById(0);
     }
     
-    protected void dropFewItems(final boolean flag, final int i) {
+    protected void dropFewItems(boolean flag, int i) {
         entityDropItem(ConfigItems.FLUX_CRYSTAL.copy(), height / 2.0f);
     }
     
@@ -226,10 +226,10 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
         return true;
     }
     
-    public void moveRelative(final float strafe, final float forward, final float friction, final float g) {
+    public void moveRelative(float strafe, float forward, float friction, float g) {
     }
     
-    public void move(final MoverType mt, double par1, double par3, double par5) {
+    public void move(MoverType mt, double par1, double par3, double par5) {
         par1 = 0.0;
         par5 = 0.0;
         if (par3 > 0.0) {
@@ -238,7 +238,7 @@ public class EntityTaintSeed extends EntityMob implements ITaintedMob
         super.move(mt, par1, par3, par5);
     }
     
-    protected int decreaseAirSupply(final int air) {
+    protected int decreaseAirSupply(int air) {
         return air;
     }
     

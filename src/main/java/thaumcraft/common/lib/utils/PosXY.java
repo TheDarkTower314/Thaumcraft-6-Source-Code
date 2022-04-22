@@ -12,22 +12,22 @@ public class PosXY implements Comparable
     public PosXY() {
     }
     
-    public PosXY(final int x, final int z) {
+    public PosXY(int x, int z) {
         this.x = x;
         y = z;
     }
     
-    public PosXY(final PosXY c) {
+    public PosXY(PosXY c) {
         x = c.x;
         y = c.y;
     }
     
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (!(o instanceof PosXY)) {
             return false;
         }
-        final PosXY chunkcoordinates = (PosXY)o;
+        PosXY chunkcoordinates = (PosXY)o;
         return x == chunkcoordinates.x && y == chunkcoordinates.y;
     }
     
@@ -36,22 +36,22 @@ public class PosXY implements Comparable
         return x + y << 8;
     }
     
-    public int compareTo(final PosXY c) {
+    public int compareTo(PosXY c) {
         return (y == c.y) ? (x - c.x) : (y - c.y);
     }
     
-    public void set(final int x, final int z) {
+    public void set(int x, int z) {
         this.x = x;
         y = z;
     }
     
-    public float getDistanceSquared(final int x, final int z) {
-        final float f = (float)(this.x - x);
-        final float f2 = (float)(y - z);
+    public float getDistanceSquared(int x, int z) {
+        float f = (float)(this.x - x);
+        float f2 = (float)(y - z);
         return f * f + f2 * f2;
     }
     
-    public float getDistanceSquaredToChunkCoordinates(final PosXY c) {
+    public float getDistanceSquaredToChunkCoordinates(PosXY c) {
         return getDistanceSquared(c.x, c.y);
     }
     
@@ -61,7 +61,7 @@ public class PosXY implements Comparable
     }
     
     @Override
-    public int compareTo(final Object o) {
+    public int compareTo(Object o) {
         return compareTo((PosXY)o);
     }
 }

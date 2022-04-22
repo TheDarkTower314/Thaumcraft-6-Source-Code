@@ -46,10 +46,10 @@ public class BlockFluxGoo extends BlockFluidFinite
         return SoundsTC.GORE;
     }
     
-    public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
-        final int md = (int)state.getValue((IProperty)BlockFluxGoo.LEVEL);
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+        int md = (int)state.getValue((IProperty)BlockFluxGoo.LEVEL);
         if (entity instanceof EntityThaumicSlime) {
-            final EntityThaumicSlime slime = (EntityThaumicSlime)entity;
+            EntityThaumicSlime slime = (EntityThaumicSlime)entity;
             if (slime.getSlimeSize() < md && world.rand.nextBoolean()) {
                 slime.setSlimeSize(slime.getSlimeSize() + 1, true);
                 if (md > 1) {
@@ -64,18 +64,18 @@ public class BlockFluxGoo extends BlockFluidFinite
             entity.motionX *= 1.0f - getQuantaPercentage(world, pos);
             entity.motionZ *= 1.0f - getQuantaPercentage(world, pos);
             if (entity instanceof EntityLivingBase) {
-                final PotionEffect pe = new PotionEffect(PotionVisExhaust.instance, 600, md / 3, true, true);
+                PotionEffect pe = new PotionEffect(PotionVisExhaust.instance, 600, md / 3, true, true);
                 pe.getCurativeItems().clear();
                 ((EntityLivingBase)entity).addPotionEffect(pe);
             }
         }
     }
     
-    public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
-        final int meta = (int)state.getValue((IProperty)BlockFluxGoo.LEVEL);
+    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+        int meta = (int)state.getValue((IProperty)BlockFluxGoo.LEVEL);
         if (meta >= 2 && meta < 6 && world.isAirBlock(pos.up()) && rand.nextInt(50) == 0) {
             world.setBlockToAir(pos);
-            final EntityThaumicSlime slime = new EntityThaumicSlime(world);
+            EntityThaumicSlime slime = new EntityThaumicSlime(world);
             slime.setLocationAndAngles(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f, 0.0f, 0.0f);
             slime.setSlimeSize(1, true);
             world.spawnEntity(slime);
@@ -84,7 +84,7 @@ public class BlockFluxGoo extends BlockFluidFinite
         }
         if (meta >= 6 && world.isAirBlock(pos.up()) && rand.nextInt(50) == 0) {
             world.setBlockToAir(pos);
-            final EntityThaumicSlime slime = new EntityThaumicSlime(world);
+            EntityThaumicSlime slime = new EntityThaumicSlime(world);
             slime.setLocationAndAngles(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f, 0.0f, 0.0f);
             slime.setSlimeSize(2, true);
             world.spawnEntity(slime);
@@ -110,19 +110,19 @@ public class BlockFluxGoo extends BlockFluidFinite
         super.updateTick(world, pos, state, rand);
     }
     
-    public boolean isReplaceable(final IBlockAccess world, final BlockPos pos) {
+    public boolean isReplaceable(IBlockAccess world, BlockPos pos) {
         return (int)world.getBlockState(pos).getValue((IProperty)BlockFluxGoo.LEVEL) < 4;
     }
     
-    public boolean isSideSolid(final IBlockState base_state, final IBlockAccess world, final BlockPos pos, final EnumFacing side) {
+    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return false;
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random rand) {
-        final int meta = getMetaFromState(state);
+    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+        int meta = getMetaFromState(state);
         if (rand.nextInt(44) <= meta) {
-            final FXGeneric fb = new FXGeneric(world, pos.getX() + rand.nextFloat(), pos.getY() + 0.125f * meta, pos.getZ() + rand.nextFloat(), 0.0, 0.0, 0.0);
+            FXGeneric fb = new FXGeneric(world, pos.getX() + rand.nextFloat(), pos.getY() + 0.125f * meta, pos.getZ() + rand.nextFloat(), 0.0, 0.0, 0.0);
             fb.setMaxAge(2 + world.rand.nextInt(3));
             fb.setScale(world.rand.nextFloat() * 0.3f + 0.2f);
             fb.setRBGColorF(1.0f, 0.0f, 0.5f);

@@ -15,26 +15,26 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 
 public class RenderTurretCrossbow extends RenderLiving
 {
-    private static final ResourceLocation rl;
+    private static ResourceLocation rl;
     
-    public RenderTurretCrossbow(final RenderManager rm) {
+    public RenderTurretCrossbow(RenderManager rm) {
         super(rm, new ModelCrossbow(), 0.5f);
     }
     
-    protected float getSwingProgress(final EntityLivingBase e, final float p_77040_2_) {
+    protected float getSwingProgress(EntityLivingBase e, float p_77040_2_) {
         ((EntityTurretCrossbow)e).loadProgressForRender = ((EntityTurretCrossbow)e).getLoadProgress(p_77040_2_);
         e.renderYawOffset = 0.0f;
         e.prevRenderYawOffset = 0.0f;
         return super.getSwingProgress(e, p_77040_2_);
     }
     
-    protected void preRenderCallback(final EntityLivingBase entitylivingbaseIn, final float partialTickTime) {
+    protected void preRenderCallback(EntityLivingBase entitylivingbaseIn, float partialTickTime) {
         entitylivingbaseIn.renderYawOffset = 0.0f;
         entitylivingbaseIn.prevRenderYawOffset = 0.0f;
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return RenderTurretCrossbow.rl;
     }
     

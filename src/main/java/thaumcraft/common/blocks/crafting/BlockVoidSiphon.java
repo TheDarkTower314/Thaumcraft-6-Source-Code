@@ -27,10 +27,10 @@ import thaumcraft.common.blocks.BlockTCDevice;
 @Mod.EventBusSubscriber({ Side.CLIENT })
 public class BlockVoidSiphon extends BlockTCDevice implements IBlockEnabled
 {
-    protected static final AxisAlignedBB AABB_MAIN;
-    protected static final AxisAlignedBB AABB_BASE;
-    protected static final AxisAlignedBB AABB_TOP;
-    protected static final AxisAlignedBB AABB_ORB;
+    protected static AxisAlignedBB AABB_MAIN;
+    protected static AxisAlignedBB AABB_BASE;
+    protected static AxisAlignedBB AABB_TOP;
+    protected static AxisAlignedBB AABB_ORB;
     
     public BlockVoidSiphon() {
         super(Material.IRON, TileVoidSiphon.class, "void_siphon");
@@ -38,37 +38,37 @@ public class BlockVoidSiphon extends BlockTCDevice implements IBlockEnabled
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean isSideSolid(final IBlockState state, final IBlockAccess world, final BlockPos pos, final EnumFacing side) {
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return false;
     }
     
-    public void addCollisionBoxToList(final IBlockState state, final World worldIn, final BlockPos pos, final AxisAlignedBB AABB, final List<AxisAlignedBB> list, final Entity p_185477_6_, final boolean isActualState) {
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB AABB, List<AxisAlignedBB> list, Entity p_185477_6_, boolean isActualState) {
         addCollisionBoxToList(pos, AABB, list, BlockVoidSiphon.AABB_BASE);
         addCollisionBoxToList(pos, AABB, list, BlockVoidSiphon.AABB_TOP);
         addCollisionBoxToList(pos, AABB, list, BlockVoidSiphon.AABB_ORB);
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return BlockVoidSiphon.AABB_MAIN;
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         }

@@ -16,14 +16,14 @@ import net.minecraft.item.crafting.RecipesArmorDyes;
 
 public class RecipesRobeArmorDyes extends RecipesArmorDyes
 {
-    public boolean matches(final InventoryCrafting par1InventoryCrafting, final World par2World) {
+    public boolean matches(InventoryCrafting par1InventoryCrafting, World par2World) {
         ItemStack itemstack = ItemStack.EMPTY;
-        final ArrayList arraylist = new ArrayList();
+        ArrayList arraylist = new ArrayList();
         for (int i = 0; i < par1InventoryCrafting.getSizeInventory(); ++i) {
-            final ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(i);
+            ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(i);
             if (itemstack2 != null && !itemstack2.isEmpty()) {
                 if (itemstack2.getItem() instanceof ItemArmor) {
-                    final ItemArmor itemarmor = (ItemArmor)itemstack2.getItem();
+                    ItemArmor itemarmor = (ItemArmor)itemstack2.getItem();
                     if (!(itemarmor instanceof ItemRobeArmor) || !itemstack.isEmpty()) {
                         return false;
                     }
@@ -40,14 +40,14 @@ public class RecipesRobeArmorDyes extends RecipesArmorDyes
         return !itemstack.isEmpty() && !arraylist.isEmpty();
     }
     
-    public ItemStack getCraftingResult(final InventoryCrafting par1InventoryCrafting) {
+    public ItemStack getCraftingResult(InventoryCrafting par1InventoryCrafting) {
         ItemStack itemstack = ItemStack.EMPTY;
-        final int[] aint = new int[3];
+        int[] aint = new int[3];
         int i = 0;
         int j = 0;
         ItemArmor itemarmor = null;
         for (int k = 0; k < par1InventoryCrafting.getSizeInventory(); ++k) {
-            final ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(k);
+            ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(k);
             if (itemstack2 != null && !itemstack2.isEmpty()) {
                 if (itemstack2.getItem() instanceof ItemArmor) {
                     itemarmor = (ItemArmor)itemstack2.getItem();
@@ -57,10 +57,10 @@ public class RecipesRobeArmorDyes extends RecipesArmorDyes
                     itemstack = itemstack2.copy();
                     itemstack.setCount(1);
                     if (itemarmor.hasColor(itemstack2)) {
-                        final int l = itemarmor.getColor(itemstack);
-                        final float f = (l >> 16 & 0xFF) / 255.0f;
-                        final float f2 = (l >> 8 & 0xFF) / 255.0f;
-                        final float f3 = (l & 0xFF) / 255.0f;
+                        int l = itemarmor.getColor(itemstack);
+                        float f = (l >> 16 & 0xFF) / 255.0f;
+                        float f2 = (l >> 8 & 0xFF) / 255.0f;
+                        float f3 = (l & 0xFF) / 255.0f;
                         i += (int)(Math.max(f, Math.max(f2, f3)) * 255.0f);
                         aint[0] += (int)(f * 255.0f);
                         aint[1] += (int)(f2 * 255.0f);
@@ -72,19 +72,19 @@ public class RecipesRobeArmorDyes extends RecipesArmorDyes
                     if (!DyeUtils.isDye(itemstack2)) {
                         return ItemStack.EMPTY;
                     }
-                    final float[] afloat = DyeUtils.colorFromStack(itemstack2).get().getColorComponentValues();
-                    final int j2 = (int)(afloat[0] * 255.0f);
-                    final int k2 = (int)(afloat[1] * 255.0f);
-                    final int i2 = (int)(afloat[2] * 255.0f);
+                    float[] afloat = DyeUtils.colorFromStack(itemstack2).get().getColorComponentValues();
+                    int j2 = (int)(afloat[0] * 255.0f);
+                    int k2 = (int)(afloat[1] * 255.0f);
+                    int i2 = (int)(afloat[2] * 255.0f);
                     i += Math.max(j2, Math.max(k2, i2));
-                    final int[] array = aint;
-                    final int n = 0;
+                    int[] array = aint;
+                    int n = 0;
                     array[n] += j2;
-                    final int[] array2 = aint;
-                    final int n2 = 1;
+                    int[] array2 = aint;
+                    int n2 = 1;
                     array2[n2] += k2;
-                    final int[] array3 = aint;
-                    final int n3 = 2;
+                    int[] array3 = aint;
+                    int n3 = 2;
                     array3[n3] += i2;
                     ++j;
                 }
@@ -96,8 +96,8 @@ public class RecipesRobeArmorDyes extends RecipesArmorDyes
         int k = aint[0] / j;
         int l2 = aint[1] / j;
         int l = aint[2] / j;
-        final float f = i / (float)j;
-        final float f2 = (float)Math.max(k, Math.max(l2, l));
+        float f = i / (float)j;
+        float f2 = (float)Math.max(k, Math.max(l2, l));
         k = (int)(k * f / f2);
         l2 = (int)(l2 * f / f2);
         l = (int)(l * f / f2);

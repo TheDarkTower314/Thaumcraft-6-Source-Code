@@ -50,7 +50,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 public class PacketHandler
 {
-    public static final SimpleNetworkWrapper INSTANCE;
+    public static SimpleNetworkWrapper INSTANCE;
     
     public static void preInit() {
         int idx = 0;

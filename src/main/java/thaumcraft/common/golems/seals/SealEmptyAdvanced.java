@@ -36,16 +36,16 @@ public class SealEmptyAdvanced extends SealEmpty implements ISealConfigToggles
     }
     
     @Override
-    public NonNullList<ItemStack> getInv(final int c) {
+    public NonNullList<ItemStack> getInv(int c) {
         if (getToggles()[4].value && !isBlacklist()) {
-            final ArrayList<ItemStack> w = new ArrayList<ItemStack>();
-            for (final ItemStack s : super.getInv()) {
+            ArrayList<ItemStack> w = new ArrayList<ItemStack>();
+            for (ItemStack s : super.getInv()) {
                 if (s != null && !s.isEmpty()) {
                     w.add(s);
                 }
             }
             if (w.size() > 0) {
-                final int i = Math.abs(c % w.size());
+                int i = Math.abs(c % w.size());
                 return NonNullList.withSize(1, w.get(i));
             }
         }
@@ -68,7 +68,7 @@ public class SealEmptyAdvanced extends SealEmpty implements ISealConfigToggles
     }
     
     @Override
-    public void setToggle(final int indx, final boolean value) {
+    public void setToggle(int indx, boolean value) {
         props[indx].setValue(value);
     }
     

@@ -12,21 +12,21 @@ import net.minecraft.inventory.InventoryBasic;
 
 public class InventoryPech extends InventoryBasic
 {
-    private final EntityPech theMerchant;
-    private final EntityPlayer thePlayer;
+    private EntityPech theMerchant;
+    private EntityPlayer thePlayer;
     
-    public InventoryPech(final IInventoryChangedListener listener, final EntityPlayer par1EntityPlayer, final EntityPech par2IMerchant) {
+    public InventoryPech(IInventoryChangedListener listener, EntityPlayer par1EntityPlayer, EntityPech par2IMerchant) {
         super("container.pech", false, 5);
         addInventoryChangeListener(listener);
         thePlayer = par1EntityPlayer;
         theMerchant = par2IMerchant;
     }
     
-    public boolean isUsableByPlayer(final EntityPlayer player) {
+    public boolean isUsableByPlayer(EntityPlayer player) {
         return theMerchant.isTamed();
     }
     
-    public boolean isItemValidForSlot(final int index, final ItemStack stack) {
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
         return index == 0;
     }
 }

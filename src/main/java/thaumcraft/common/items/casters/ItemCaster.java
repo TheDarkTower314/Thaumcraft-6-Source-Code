@@ -61,7 +61,7 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
     DecimalFormat myFormatter;
     ArrayList<BlockPos> checked;
     
-    public ItemCaster(final String name, final int area) {
+    public ItemCaster(String name, int area) {
         super(name);
         this.area = 0;
         myFormatter = new DecimalFormat("#######.#");
@@ -71,8 +71,8 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
         setMaxDamage(0);
         addPropertyOverride(new ResourceLocation("focus"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
-            public float apply(final ItemStack stack, @Nullable final World worldIn, @Nullable final EntityLivingBase entityIn) {
-                final ItemFocus f = ((ItemCaster)stack.getItem()).getFocus(stack);
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+                ItemFocus f = ((ItemCaster)stack.getItem()).getFocus(stack);
                 if (stack.getItem() instanceof ItemCaster && f != null) {
                     return 1.0f;
                 }
@@ -81,10 +81,10 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
         });
     }
     
-    public boolean shouldCauseReequipAnimation(final ItemStack oldStack, final ItemStack newStack, final boolean slotChanged) {
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
         if (oldStack.getItem() != null && oldStack.getItem() == this && newStack.getItem() != null && newStack.getItem() == this) {
-            final ItemFocus oldf = ((ItemCaster)oldStack.getItem()).getFocus(oldStack);
-            final ItemFocus newf = ((ItemCaster)newStack.getItem()).getFocus(newStack);
+            ItemFocus oldf = ((ItemCaster)oldStack.getItem()).getFocus(oldStack);
+            ItemFocus newf = ((ItemCaster)newStack.getItem()).getFocus(newStack);
             int s1 = 0;
             int s2 = 0;
             if (oldf != null && oldf.getSortingHelper(((ItemCaster)oldStack.getItem()).getFocusStack(oldStack)) != null) {
@@ -107,7 +107,7 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
         return true;
     }
     
-    private float getAuraPool(final EntityPlayer player) {
+    private float getAuraPool(EntityPlayer player) {
         float tot = 0.0f;
         switch (area) {
             default: {
@@ -116,7 +116,7 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
             }
             case 1: {
                 tot = AuraHandler.getVis(player.world, player.getPosition());
-                for (final EnumFacing face : EnumFacing.HORIZONTALS) {
+                for (EnumFacing face : EnumFacing.HORIZONTALS) {
                     tot += AuraHandler.getVis(player.world, player.getPosition().offset(face, 16));
                 }
                 break;
@@ -135,9 +135,9 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
     }
     
     @Override
-    public boolean consumeVis(final ItemStack is, final EntityPlayer player, float amount, final boolean crafting, final boolean sim) {
+    public boolean consumeVis(ItemStack is, EntityPlayer player, float amount, boolean crafting, boolean sim) {
         amount *= getConsumptionModifier(is, player, crafting);
-        final float tot = getAuraPool(player);
+        float tot = getAuraPool(player);
         if (tot < amount) {
             return false;
         }
@@ -163,7 +163,7 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
                         if (i > amount) {
                             i = amount;
                         }
-                        for (final EnumFacing face : EnumFacing.HORIZONTALS) {
+                        for (EnumFacing face : EnumFacing.HORIZONTALS) {
                             amount -= AuraHandler.drainVis(player.world, player.getPosition().offset(face, 16), i, sim);
                             if (amount <= 0.0f) {
                                 break Label_0309;
@@ -195,7 +195,7 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
     }
     
     @Override
-    public float getConsumptionModifier(final ItemStack is, final EntityPlayer player, final boolean crafting) {
+    public float getConsumptionModifier(ItemStack is, EntityPlayer player, boolean crafting) {
         float consumptionModifier = 1.0f;
         if (player != null) {
             consumptionModifier -= CasterManager.getTotalVisDiscount(player);
@@ -204,10 +204,10 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
     }
     
     @Override
-    public ItemFocus getFocus(final ItemStack stack) {
+    public ItemFocus getFocus(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("focus")) {
-            final NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("focus");
-            final ItemStack fs = new ItemStack(nbt);
+            NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("focus");
+            ItemStack fs = new ItemStack(nbt);
             if (fs != null && !fs.isEmpty()) {
                 return (ItemFocus)fs.getItem();
             }
@@ -216,16 +216,16 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
     }
     
     @Override
-    public ItemStack getFocusStack(final ItemStack stack) {
+    public ItemStack getFocusStack(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("focus")) {
-            final NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("focus");
+            NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("focus");
             return new ItemStack(nbt);
         }
         return null;
     }
     
     @Override
-    public void setFocus(final ItemStack stack, final ItemStack focus) {
+    public void setFocus(ItemStack stack, ItemStack focus) {
         if (focus == null || focus.isEmpty()) {
             stack.getTagCompound().removeTag("focus");
         }
@@ -234,17 +234,17 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
         }
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.UNCOMMON;
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (stack.hasTagCompound()) {
             String text = "";
-            final ItemStack focus = getFocusStack(stack);
+            ItemStack focus = getFocusStack(stack);
             if (focus != null && !focus.isEmpty()) {
-                final float amt = ((ItemFocus)focus.getItem()).getVisCost(focus);
+                float amt = ((ItemFocus)focus.getItem()).getVisCost(focus);
                 if (amt > 0.0f) {
                     text = "§r" + myFormatter.format(amt) + " " + I18n.translateToLocal("item.Focus.cost1");
                 }
@@ -257,13 +257,13 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
         }
     }
     
-    public void onArmorTick(final World world, final EntityPlayer player, final ItemStack itemStack) {
+    public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
         super.onArmorTick(world, player, itemStack);
     }
     
-    public void onUpdate(final ItemStack is, final World w, final Entity e, final int slot, final boolean currentItem) {
+    public void onUpdate(ItemStack is, World w, Entity e, int slot, boolean currentItem) {
         if (!w.isRemote && e.ticksExisted % 10 == 0 && e instanceof EntityPlayerMP) {
-            for (final ItemStack h : e.getHeldEquipment()) {
+            for (ItemStack h : e.getHeldEquipment()) {
                 if (h != null && !h.isEmpty() && h.getItem() instanceof ICaster) {
                     updateAura(is, w, (EntityPlayerMP)e);
                     break;
@@ -272,13 +272,13 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
         }
     }
     
-    private void updateAura(final ItemStack stack, final World world, final EntityPlayerMP player) {
+    private void updateAura(ItemStack stack, World world, EntityPlayerMP player) {
         float cv = 0.0f;
         float cf = 0.0f;
         short bv = 0;
         switch (area) {
             default: {
-                final AuraChunk ac = AuraHandler.getAuraChunk(world.provider.getDimension(), (int)player.posX >> 4, (int)player.posZ >> 4);
+                AuraChunk ac = AuraHandler.getAuraChunk(world.provider.getDimension(), (int)player.posX >> 4, (int)player.posZ >> 4);
                 if (ac == null) {
                     break;
                 }
@@ -295,7 +295,7 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
                 cv = ac.getVis();
                 cf = ac.getFlux();
                 bv = ac.getBase();
-                for (final EnumFacing face : EnumFacing.HORIZONTALS) {
+                for (EnumFacing face : EnumFacing.HORIZONTALS) {
                     ac = AuraHandler.getAuraChunk(world.provider.getDimension(), ((int)player.posX >> 4) + face.getFrontOffsetX(), ((int)player.posZ >> 4) + face.getFrontOffsetZ());
                     if (ac != null) {
                         cv += ac.getVis();
@@ -308,7 +308,7 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
             case 2: {
                 for (int xx = -1; xx <= 1; ++xx) {
                     for (int zz = -1; zz <= 1; ++zz) {
-                        final AuraChunk ac = AuraHandler.getAuraChunk(world.provider.getDimension(), ((int)player.posX >> 4) + xx, ((int)player.posZ >> 4) + zz);
+                        AuraChunk ac = AuraHandler.getAuraChunk(world.provider.getDimension(), ((int)player.posX >> 4) + xx, ((int)player.posZ >> 4) + zz);
                         if (ac != null) {
                             cv += ac.getVis();
                             cf += ac.getFlux();
@@ -322,34 +322,34 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
         PacketHandler.INSTANCE.sendTo(new PacketAuraToClient(new AuraChunk(null, bv, cv, cf)), player);
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
-        final IBlockState bs = world.getBlockState(pos);
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        IBlockState bs = world.getBlockState(pos);
         if (bs.getBlock() instanceof IInteractWithCaster && ((IInteractWithCaster)bs.getBlock()).onCasterRightClick(world, player.getHeldItem(hand), player, pos, side, hand)) {
             return EnumActionResult.PASS;
         }
-        final TileEntity tile = world.getTileEntity(pos);
+        TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof IInteractWithCaster && ((IInteractWithCaster)tile).onCasterRightClick(world, player.getHeldItem(hand), player, pos, side, hand)) {
             return EnumActionResult.PASS;
         }
         if (CasterTriggerRegistry.hasTrigger(bs)) {
             return CasterTriggerRegistry.performTrigger(world, player.getHeldItem(hand), player, pos, side, bs) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
         }
-        final ItemStack fb = getFocusStack(player.getHeldItem(hand));
+        ItemStack fb = getFocusStack(player.getHeldItem(hand));
         if (fb != null && !fb.isEmpty()) {
-            final FocusPackage core = ItemFocus.getPackage(fb);
-            for (final IFocusElement fe : core.nodes) {
+            FocusPackage core = ItemFocus.getPackage(fb);
+            for (IFocusElement fe : core.nodes) {
                 if (fe instanceof IFocusBlockPicker && player.isSneaking() && world.getTileEntity(pos) == null) {
                     if (!world.isRemote) {
                         ItemStack isout = new ItemStack(bs.getBlock(), 1, bs.getBlock().getMetaFromState(bs));
                         try {
                             if (bs != Blocks.AIR) {
-                                final ItemStack is = BlockUtils.getSilkTouchDrop(bs);
+                                ItemStack is = BlockUtils.getSilkTouchDrop(bs);
                                 if (is != null && !is.isEmpty()) {
                                     isout = is.copy();
                                 }
                             }
                         }
-                        catch (final Exception ex) {}
+                        catch (Exception ex) {}
                         storePickedBlock(player.getHeldItem(hand), isout);
                         return EnumActionResult.SUCCESS;
                     }
@@ -361,7 +361,7 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
         return EnumActionResult.PASS;
     }
     
-    private RayTraceResult generateSourceVector(final Entity e) {
+    private RayTraceResult generateSourceVector(Entity e) {
         Vec3d v = e.getPositionVector();
         boolean mainhand = true;
         if (e instanceof EntityPlayer) {
@@ -372,24 +372,24 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
                 mainhand = false;
             }
         }
-        final double posX = -MathHelper.cos((e.rotationYaw - 0.5f) / 180.0f * 3.141593f) * 0.20000000298023224 * (mainhand ? 1 : -1);
-        final double posZ = -MathHelper.sin((e.rotationYaw - 0.5f) / 180.0f * 3.141593f) * 0.30000001192092896 * (mainhand ? 1 : -1);
-        final Vec3d vl = e.getLookVec();
+        double posX = -MathHelper.cos((e.rotationYaw - 0.5f) / 180.0f * 3.141593f) * 0.20000000298023224 * (mainhand ? 1 : -1);
+        double posZ = -MathHelper.sin((e.rotationYaw - 0.5f) / 180.0f * 3.141593f) * 0.30000001192092896 * (mainhand ? 1 : -1);
+        Vec3d vl = e.getLookVec();
         v = v.addVector(posX, e.getEyeHeight() - 0.4000000014901161, posZ);
         v = v.add(vl);
         return new RayTraceResult(e, v);
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
-        final ItemStack focusStack = getFocusStack(player.getHeldItem(hand));
-        final ItemFocus focus = getFocus(player.getHeldItem(hand));
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack focusStack = getFocusStack(player.getHeldItem(hand));
+        ItemFocus focus = getFocus(player.getHeldItem(hand));
         if (focus == null || CasterManager.isOnCooldown(player)) {
             return super.onItemRightClick(world, player, hand);
         }
         CasterManager.setCooldown(player, focus.getActivationTime(focusStack));
-        final FocusPackage core = ItemFocus.getPackage(focusStack);
+        FocusPackage core = ItemFocus.getPackage(focusStack);
         if (player.isSneaking()) {
-            for (final IFocusElement fe : core.nodes) {
+            for (IFocusElement fe : core.nodes) {
                 if (fe instanceof IFocusBlockPicker && player.isSneaking()) {
                     return (ActionResult<ItemStack>)new ActionResult(EnumActionResult.PASS, player.getHeldItem(hand));
                 }
@@ -406,21 +406,21 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
         return (ActionResult<ItemStack>)new ActionResult(EnumActionResult.FAIL, player.getHeldItem(hand));
     }
     
-    public int getMaxItemUseDuration(final ItemStack itemstack) {
+    public int getMaxItemUseDuration(ItemStack itemstack) {
         return 72000;
     }
     
-    public EnumAction getItemUseAction(final ItemStack stack1) {
+    public EnumAction getItemUseAction(ItemStack stack1) {
         return EnumAction.BOW;
     }
     
     @Override
-    public ArrayList<BlockPos> getArchitectBlocks(final ItemStack stack, final World world, final BlockPos pos, final EnumFacing side, final EntityPlayer player) {
-        final ItemFocus focus = getFocus(stack);
+    public ArrayList<BlockPos> getArchitectBlocks(ItemStack stack, World world, BlockPos pos, EnumFacing side, EntityPlayer player) {
+        ItemFocus focus = getFocus(stack);
         if (focus != null) {
-            final FocusPackage fp = ItemFocus.getPackage(getFocusStack(stack));
+            FocusPackage fp = ItemFocus.getPackage(getFocusStack(stack));
             if (fp != null) {
-                for (final IFocusElement fe : fp.nodes) {
+                for (IFocusElement fe : fp.nodes) {
                     if (fe instanceof IArchitect) {
                         return ((IArchitect)fe).getArchitectBlocks(stack, world, pos, side, player);
                     }
@@ -431,12 +431,12 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
     }
     
     @Override
-    public boolean showAxis(final ItemStack stack, final World world, final EntityPlayer player, final EnumFacing side, final EnumAxis axis) {
-        final ItemFocus focus = getFocus(stack);
+    public boolean showAxis(ItemStack stack, World world, EntityPlayer player, EnumFacing side, EnumAxis axis) {
+        ItemFocus focus = getFocus(stack);
         if (focus != null) {
-            final FocusPackage fp = ItemFocus.getPackage(getFocusStack(stack));
+            FocusPackage fp = ItemFocus.getPackage(getFocusStack(stack));
             if (fp != null) {
-                for (final IFocusElement fe : fp.nodes) {
+                for (IFocusElement fe : fp.nodes) {
                     if (fe instanceof IArchitect) {
                         return ((IArchitect)fe).showAxis(stack, world, player, side, axis);
                     }
@@ -447,10 +447,10 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
     }
     
     @Override
-    public RayTraceResult getArchitectMOP(final ItemStack stack, final World world, final EntityLivingBase player) {
-        final ItemFocus focus = getFocus(stack);
+    public RayTraceResult getArchitectMOP(ItemStack stack, World world, EntityLivingBase player) {
+        ItemFocus focus = getFocus(stack);
         if (focus != null) {
-            final FocusPackage fp = ItemFocus.getPackage(getFocusStack(stack));
+            FocusPackage fp = ItemFocus.getPackage(getFocusStack(stack));
             if (fp != null && FocusEngine.doesPackageContainElement(fp, "thaumcraft.PLAN")) {
                 return ((IArchitect)FocusEngine.getElement("thaumcraft.PLAN")).getArchitectMOP(getFocusStack(stack), world, player);
             }
@@ -459,32 +459,32 @@ public class ItemCaster extends ItemTCBase implements IArchitect, ICaster
     }
     
     @Override
-    public boolean useBlockHighlight(final ItemStack stack) {
+    public boolean useBlockHighlight(ItemStack stack) {
         return false;
     }
     
-    public void storePickedBlock(final ItemStack stack, final ItemStack stackout) {
-        final NBTTagCompound item = new NBTTagCompound();
+    public void storePickedBlock(ItemStack stack, ItemStack stackout) {
+        NBTTagCompound item = new NBTTagCompound();
         stack.setTagInfo("picked", stackout.writeToNBT(item));
     }
     
     @Override
-    public ItemStack getPickedBlock(final ItemStack stack) {
+    public ItemStack getPickedBlock(ItemStack stack) {
         if (stack == null || stack.isEmpty()) {
             return ItemStack.EMPTY;
         }
         ItemStack out = null;
-        final ItemFocus focus = getFocus(stack);
+        ItemFocus focus = getFocus(stack);
         if (focus != null && stack.hasTagCompound() && stack.getTagCompound().hasKey("picked")) {
-            final FocusPackage fp = ItemFocus.getPackage(getFocusStack(stack));
+            FocusPackage fp = ItemFocus.getPackage(getFocusStack(stack));
             if (fp != null) {
-                for (final IFocusElement fe : fp.nodes) {
+                for (IFocusElement fe : fp.nodes) {
                     if (fe instanceof IFocusBlockPicker) {
                         out = new ItemStack(Blocks.AIR);
                         try {
                             out = new ItemStack(stack.getTagCompound().getCompoundTag("picked"));
                         }
-                        catch (final Exception ex) {}
+                        catch (Exception ex) {}
                         break;
                     }
                 }

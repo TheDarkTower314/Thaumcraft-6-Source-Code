@@ -27,25 +27,25 @@ public class PacketWarpMessage implements IMessage, IMessageHandler<PacketWarpMe
         type = 0;
     }
     
-    public PacketWarpMessage(final EntityPlayer player, final byte type, final int change) {
+    public PacketWarpMessage(EntityPlayer player, byte type, int change) {
         data = 0;
         this.type = 0;
         data = change;
         this.type = type;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(data);
         buffer.writeByte(type);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         data = buffer.readInt();
         type = buffer.readByte();
     }
     
     @SideOnly(Side.CLIENT)
-    public IMessage onMessage(final PacketWarpMessage message, final MessageContext ctx) {
+    public IMessage onMessage(PacketWarpMessage message, MessageContext ctx) {
         if (message.data != 0) {
             Minecraft.getMinecraft().addScheduledTask(new Runnable() {
                 @Override
@@ -58,7 +58,7 @@ public class PacketWarpMessage implements IMessage, IMessageHandler<PacketWarpMe
     }
     
     @SideOnly(Side.CLIENT)
-    void processMessage(final PacketWarpMessage message) {
+    void processMessage(PacketWarpMessage message) {
         if (message.type == 0 && message.data > 0) {
             String text = I18n.translateToLocal("tc.addwarp");
             if (message.data < 0) {

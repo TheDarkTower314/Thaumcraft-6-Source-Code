@@ -36,14 +36,14 @@ public class Matrix4 extends Transformation implements Copyable<Matrix4>
     public double m33;
     
     public Matrix4() {
-        final double n = 1.0;
+        double n = 1.0;
         m33 = n;
         m22 = n;
         m11 = n;
         m00 = n;
     }
     
-    public Matrix4(final double d00, final double d01, final double d02, final double d03, final double d10, final double d11, final double d12, final double d13, final double d20, final double d21, final double d22, final double d23, final double d30, final double d31, final double d32, final double d33) {
+    public Matrix4(double d00, double d01, double d02, double d03, double d10, double d11, double d12, double d13, double d20, double d21, double d22, double d23, double d30, double d31, double d32, double d33) {
         m00 = d00;
         m01 = d01;
         m02 = d02;
@@ -62,17 +62,17 @@ public class Matrix4 extends Transformation implements Copyable<Matrix4>
         m33 = d33;
     }
     
-    public Matrix4(final Matrix4 mat) {
+    public Matrix4(Matrix4 mat) {
         set(mat);
     }
     
     public Matrix4 setIdentity() {
-        final double n = 1.0;
+        double n = 1.0;
         m33 = n;
         m22 = n;
         m11 = n;
         m00 = n;
-        final double n2 = 0.0;
+        double n2 = 0.0;
         m32 = n2;
         m31 = n2;
         m30 = n2;
@@ -88,7 +88,7 @@ public class Matrix4 extends Transformation implements Copyable<Matrix4>
         return this;
     }
     
-    public Matrix4 translate(final Vector3 vec) {
+    public Matrix4 translate(Vector3 vec) {
         m03 += m00 * vec.x + m01 * vec.y + m02 * vec.z;
         m13 += m10 * vec.x + m11 * vec.y + m12 * vec.z;
         m23 += m20 * vec.x + m21 * vec.y + m22 * vec.z;
@@ -96,7 +96,7 @@ public class Matrix4 extends Transformation implements Copyable<Matrix4>
         return this;
     }
     
-    public Matrix4 scale(final Vector3 vec) {
+    public Matrix4 scale(Vector3 vec) {
         m00 *= vec.x;
         m10 *= vec.x;
         m20 *= vec.x;
@@ -112,33 +112,33 @@ public class Matrix4 extends Transformation implements Copyable<Matrix4>
         return this;
     }
     
-    public Matrix4 rotate(final double angle, final Vector3 axis) {
-        final double c = Math.cos(angle);
-        final double s = Math.sin(angle);
-        final double mc = 1.0 - c;
-        final double xy = axis.x * axis.y;
-        final double yz = axis.y * axis.z;
-        final double xz = axis.x * axis.z;
-        final double xs = axis.x * s;
-        final double ys = axis.y * s;
-        final double zs = axis.z * s;
-        final double f00 = axis.x * axis.x * mc + c;
-        final double f2 = xy * mc + zs;
-        final double f3 = xz * mc - ys;
-        final double f4 = xy * mc - zs;
-        final double f5 = axis.y * axis.y * mc + c;
-        final double f6 = yz * mc + xs;
-        final double f7 = xz * mc + ys;
-        final double f8 = yz * mc - xs;
-        final double f9 = axis.z * axis.z * mc + c;
-        final double t00 = m00 * f00 + m01 * f2 + m02 * f3;
-        final double t2 = m10 * f00 + m11 * f2 + m12 * f3;
-        final double t3 = m20 * f00 + m21 * f2 + m22 * f3;
-        final double t4 = m30 * f00 + m31 * f2 + m32 * f3;
-        final double t5 = m00 * f4 + m01 * f5 + m02 * f6;
-        final double t6 = m10 * f4 + m11 * f5 + m12 * f6;
-        final double t7 = m20 * f4 + m21 * f5 + m22 * f6;
-        final double t8 = m30 * f4 + m31 * f5 + m32 * f6;
+    public Matrix4 rotate(double angle, Vector3 axis) {
+        double c = Math.cos(angle);
+        double s = Math.sin(angle);
+        double mc = 1.0 - c;
+        double xy = axis.x * axis.y;
+        double yz = axis.y * axis.z;
+        double xz = axis.x * axis.z;
+        double xs = axis.x * s;
+        double ys = axis.y * s;
+        double zs = axis.z * s;
+        double f00 = axis.x * axis.x * mc + c;
+        double f2 = xy * mc + zs;
+        double f3 = xz * mc - ys;
+        double f4 = xy * mc - zs;
+        double f5 = axis.y * axis.y * mc + c;
+        double f6 = yz * mc + xs;
+        double f7 = xz * mc + ys;
+        double f8 = yz * mc - xs;
+        double f9 = axis.z * axis.z * mc + c;
+        double t00 = m00 * f00 + m01 * f2 + m02 * f3;
+        double t2 = m10 * f00 + m11 * f2 + m12 * f3;
+        double t3 = m20 * f00 + m21 * f2 + m22 * f3;
+        double t4 = m30 * f00 + m31 * f2 + m32 * f3;
+        double t5 = m00 * f4 + m01 * f5 + m02 * f6;
+        double t6 = m10 * f4 + m11 * f5 + m12 * f6;
+        double t7 = m20 * f4 + m21 * f5 + m22 * f6;
+        double t8 = m30 * f4 + m31 * f5 + m32 * f6;
         m02 = m00 * f7 + m01 * f8 + m02 * f9;
         m12 = m10 * f7 + m11 * f8 + m12 * f9;
         m22 = m20 * f7 + m21 * f8 + m22 * f9;
@@ -154,28 +154,28 @@ public class Matrix4 extends Transformation implements Copyable<Matrix4>
         return this;
     }
     
-    public Matrix4 rotate(final Rotation rotation) {
+    public Matrix4 rotate(Rotation rotation) {
         rotation.apply(this);
         return this;
     }
     
-    public Matrix4 leftMultiply(final Matrix4 mat) {
-        final double n00 = m00 * mat.m00 + m10 * mat.m01 + m20 * mat.m02 + m30 * mat.m03;
-        final double n2 = m01 * mat.m00 + m11 * mat.m01 + m21 * mat.m02 + m31 * mat.m03;
-        final double n3 = m02 * mat.m00 + m12 * mat.m01 + m22 * mat.m02 + m32 * mat.m03;
-        final double n4 = m03 * mat.m00 + m13 * mat.m01 + m23 * mat.m02 + m33 * mat.m03;
-        final double n5 = m00 * mat.m10 + m10 * mat.m11 + m20 * mat.m12 + m30 * mat.m13;
-        final double n6 = m01 * mat.m10 + m11 * mat.m11 + m21 * mat.m12 + m31 * mat.m13;
-        final double n7 = m02 * mat.m10 + m12 * mat.m11 + m22 * mat.m12 + m32 * mat.m13;
-        final double n8 = m03 * mat.m10 + m13 * mat.m11 + m23 * mat.m12 + m33 * mat.m13;
-        final double n9 = m00 * mat.m20 + m10 * mat.m21 + m20 * mat.m22 + m30 * mat.m23;
-        final double n10 = m01 * mat.m20 + m11 * mat.m21 + m21 * mat.m22 + m31 * mat.m23;
-        final double n11 = m02 * mat.m20 + m12 * mat.m21 + m22 * mat.m22 + m32 * mat.m23;
-        final double n12 = m03 * mat.m20 + m13 * mat.m21 + m23 * mat.m22 + m33 * mat.m23;
-        final double n13 = m00 * mat.m30 + m10 * mat.m31 + m20 * mat.m32 + m30 * mat.m33;
-        final double n14 = m01 * mat.m30 + m11 * mat.m31 + m21 * mat.m32 + m31 * mat.m33;
-        final double n15 = m02 * mat.m30 + m12 * mat.m31 + m22 * mat.m32 + m32 * mat.m33;
-        final double n16 = m03 * mat.m30 + m13 * mat.m31 + m23 * mat.m32 + m33 * mat.m33;
+    public Matrix4 leftMultiply(Matrix4 mat) {
+        double n00 = m00 * mat.m00 + m10 * mat.m01 + m20 * mat.m02 + m30 * mat.m03;
+        double n2 = m01 * mat.m00 + m11 * mat.m01 + m21 * mat.m02 + m31 * mat.m03;
+        double n3 = m02 * mat.m00 + m12 * mat.m01 + m22 * mat.m02 + m32 * mat.m03;
+        double n4 = m03 * mat.m00 + m13 * mat.m01 + m23 * mat.m02 + m33 * mat.m03;
+        double n5 = m00 * mat.m10 + m10 * mat.m11 + m20 * mat.m12 + m30 * mat.m13;
+        double n6 = m01 * mat.m10 + m11 * mat.m11 + m21 * mat.m12 + m31 * mat.m13;
+        double n7 = m02 * mat.m10 + m12 * mat.m11 + m22 * mat.m12 + m32 * mat.m13;
+        double n8 = m03 * mat.m10 + m13 * mat.m11 + m23 * mat.m12 + m33 * mat.m13;
+        double n9 = m00 * mat.m20 + m10 * mat.m21 + m20 * mat.m22 + m30 * mat.m23;
+        double n10 = m01 * mat.m20 + m11 * mat.m21 + m21 * mat.m22 + m31 * mat.m23;
+        double n11 = m02 * mat.m20 + m12 * mat.m21 + m22 * mat.m22 + m32 * mat.m23;
+        double n12 = m03 * mat.m20 + m13 * mat.m21 + m23 * mat.m22 + m33 * mat.m23;
+        double n13 = m00 * mat.m30 + m10 * mat.m31 + m20 * mat.m32 + m30 * mat.m33;
+        double n14 = m01 * mat.m30 + m11 * mat.m31 + m21 * mat.m32 + m31 * mat.m33;
+        double n15 = m02 * mat.m30 + m12 * mat.m31 + m22 * mat.m32 + m32 * mat.m33;
+        double n16 = m03 * mat.m30 + m13 * mat.m31 + m23 * mat.m32 + m33 * mat.m33;
         m00 = n00;
         m01 = n2;
         m02 = n3;
@@ -195,23 +195,23 @@ public class Matrix4 extends Transformation implements Copyable<Matrix4>
         return this;
     }
     
-    public Matrix4 multiply(final Matrix4 mat) {
-        final double n00 = m00 * mat.m00 + m01 * mat.m10 + m02 * mat.m20 + m03 * mat.m30;
-        final double n2 = m00 * mat.m01 + m01 * mat.m11 + m02 * mat.m21 + m03 * mat.m31;
-        final double n3 = m00 * mat.m02 + m01 * mat.m12 + m02 * mat.m22 + m03 * mat.m32;
-        final double n4 = m00 * mat.m03 + m01 * mat.m13 + m02 * mat.m23 + m03 * mat.m33;
-        final double n5 = m10 * mat.m00 + m11 * mat.m10 + m12 * mat.m20 + m13 * mat.m30;
-        final double n6 = m10 * mat.m01 + m11 * mat.m11 + m12 * mat.m21 + m13 * mat.m31;
-        final double n7 = m10 * mat.m02 + m11 * mat.m12 + m12 * mat.m22 + m13 * mat.m32;
-        final double n8 = m10 * mat.m03 + m11 * mat.m13 + m12 * mat.m23 + m13 * mat.m33;
-        final double n9 = m20 * mat.m00 + m21 * mat.m10 + m22 * mat.m20 + m23 * mat.m30;
-        final double n10 = m20 * mat.m01 + m21 * mat.m11 + m22 * mat.m21 + m23 * mat.m31;
-        final double n11 = m20 * mat.m02 + m21 * mat.m12 + m22 * mat.m22 + m23 * mat.m32;
-        final double n12 = m20 * mat.m03 + m21 * mat.m13 + m22 * mat.m23 + m23 * mat.m33;
-        final double n13 = m30 * mat.m00 + m31 * mat.m10 + m32 * mat.m20 + m33 * mat.m30;
-        final double n14 = m30 * mat.m01 + m31 * mat.m11 + m32 * mat.m21 + m33 * mat.m31;
-        final double n15 = m30 * mat.m02 + m31 * mat.m12 + m32 * mat.m22 + m33 * mat.m32;
-        final double n16 = m30 * mat.m03 + m31 * mat.m13 + m32 * mat.m23 + m33 * mat.m33;
+    public Matrix4 multiply(Matrix4 mat) {
+        double n00 = m00 * mat.m00 + m01 * mat.m10 + m02 * mat.m20 + m03 * mat.m30;
+        double n2 = m00 * mat.m01 + m01 * mat.m11 + m02 * mat.m21 + m03 * mat.m31;
+        double n3 = m00 * mat.m02 + m01 * mat.m12 + m02 * mat.m22 + m03 * mat.m32;
+        double n4 = m00 * mat.m03 + m01 * mat.m13 + m02 * mat.m23 + m03 * mat.m33;
+        double n5 = m10 * mat.m00 + m11 * mat.m10 + m12 * mat.m20 + m13 * mat.m30;
+        double n6 = m10 * mat.m01 + m11 * mat.m11 + m12 * mat.m21 + m13 * mat.m31;
+        double n7 = m10 * mat.m02 + m11 * mat.m12 + m12 * mat.m22 + m13 * mat.m32;
+        double n8 = m10 * mat.m03 + m11 * mat.m13 + m12 * mat.m23 + m13 * mat.m33;
+        double n9 = m20 * mat.m00 + m21 * mat.m10 + m22 * mat.m20 + m23 * mat.m30;
+        double n10 = m20 * mat.m01 + m21 * mat.m11 + m22 * mat.m21 + m23 * mat.m31;
+        double n11 = m20 * mat.m02 + m21 * mat.m12 + m22 * mat.m22 + m23 * mat.m32;
+        double n12 = m20 * mat.m03 + m21 * mat.m13 + m22 * mat.m23 + m23 * mat.m33;
+        double n13 = m30 * mat.m00 + m31 * mat.m10 + m32 * mat.m20 + m33 * mat.m30;
+        double n14 = m30 * mat.m01 + m31 * mat.m11 + m32 * mat.m21 + m33 * mat.m31;
+        double n15 = m30 * mat.m02 + m31 * mat.m12 + m32 * mat.m22 + m33 * mat.m32;
+        double n16 = m30 * mat.m03 + m31 * mat.m13 + m32 * mat.m23 + m33 * mat.m33;
         m00 = n00;
         m01 = n2;
         m02 = n3;
@@ -232,22 +232,22 @@ public class Matrix4 extends Transformation implements Copyable<Matrix4>
     }
     
     public Matrix4 transpose() {
-        final double n00 = m00;
-        final double n2 = m01;
-        final double n3 = m02;
-        final double n4 = m03;
-        final double n5 = m10;
-        final double n6 = m11;
-        final double n7 = m12;
-        final double n8 = m13;
-        final double n9 = m20;
-        final double n10 = m21;
-        final double n11 = m22;
-        final double n12 = m23;
-        final double n13 = m30;
-        final double n14 = m31;
-        final double n15 = m32;
-        final double n16 = m33;
+        double n00 = m00;
+        double n2 = m01;
+        double n3 = m02;
+        double n4 = m03;
+        double n5 = m10;
+        double n6 = m11;
+        double n7 = m12;
+        double n8 = m13;
+        double n9 = m20;
+        double n10 = m21;
+        double n11 = m22;
+        double n12 = m23;
+        double n13 = m30;
+        double n14 = m31;
+        double n15 = m32;
+        double n16 = m33;
         m00 = n00;
         m01 = n5;
         m02 = n9;
@@ -272,7 +272,7 @@ public class Matrix4 extends Transformation implements Copyable<Matrix4>
         return new Matrix4(this);
     }
     
-    public Matrix4 set(final Matrix4 mat) {
+    public Matrix4 set(Matrix4 mat) {
         m00 = mat.m00;
         m01 = mat.m01;
         m02 = mat.m02;
@@ -293,38 +293,38 @@ public class Matrix4 extends Transformation implements Copyable<Matrix4>
     }
     
     @Override
-    public void apply(final Matrix4 mat) {
+    public void apply(Matrix4 mat) {
         mat.multiply(this);
     }
     
-    private void mult3x3(final Vector3 vec) {
-        final double x = m00 * vec.x + m01 * vec.y + m02 * vec.z;
-        final double y = m10 * vec.x + m11 * vec.y + m12 * vec.z;
-        final double z = m20 * vec.x + m21 * vec.y + m22 * vec.z;
+    private void mult3x3(Vector3 vec) {
+        double x = m00 * vec.x + m01 * vec.y + m02 * vec.z;
+        double y = m10 * vec.x + m11 * vec.y + m12 * vec.z;
+        double z = m20 * vec.x + m21 * vec.y + m22 * vec.z;
         vec.x = x;
         vec.y = y;
         vec.z = z;
     }
     
     @Override
-    public void apply(final Vector3 vec) {
+    public void apply(Vector3 vec) {
         mult3x3(vec);
         vec.add(m03, m13, m23);
     }
     
     @Override
-    public void applyN(final Vector3 vec) {
+    public void applyN(Vector3 vec) {
         mult3x3(vec);
         vec.normalize();
     }
     
     @Override
     public String toString() {
-        final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
+        MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
         return "[" + new BigDecimal(m00, cont) + "," + new BigDecimal(m01, cont) + "," + new BigDecimal(m02, cont) + "," + new BigDecimal(m03, cont) + "]\n[" + new BigDecimal(m10, cont) + "," + new BigDecimal(m11, cont) + "," + new BigDecimal(m12, cont) + "," + new BigDecimal(m13, cont) + "]\n[" + new BigDecimal(m20, cont) + "," + new BigDecimal(m21, cont) + "," + new BigDecimal(m22, cont) + "," + new BigDecimal(m23, cont) + "]\n[" + new BigDecimal(m30, cont) + "," + new BigDecimal(m31, cont) + "," + new BigDecimal(m32, cont) + "," + new BigDecimal(m33, cont) + "]";
     }
     
-    public Matrix4 apply(final Transformation t) {
+    public Matrix4 apply(Transformation t) {
         t.apply(this);
         return this;
     }

@@ -28,7 +28,7 @@ public class ContainerSmelter extends Container
     private int lastSmelt;
     private int lastFlux;
     
-    public ContainerSmelter(final InventoryPlayer par1InventoryPlayer, final TileSmelter tileEntity) {
+    public ContainerSmelter(InventoryPlayer par1InventoryPlayer, TileSmelter tileEntity) {
         furnace = tileEntity;
         addSlotToContainer(new SlotLimitedHasAspects(tileEntity, 0, 80, 8));
         addSlotToContainer(new Slot(tileEntity, 1, 80, 48));
@@ -42,7 +42,7 @@ public class ContainerSmelter extends Container
         }
     }
     
-    public void addListener(final IContainerListener listener) {
+    public void addListener(IContainerListener listener) {
         super.addListener(listener);
         listener.sendAllWindowProperties(this, furnace);
         listener.sendWindowProperty(this, 0, furnace.furnaceCookTime);
@@ -55,7 +55,7 @@ public class ContainerSmelter extends Container
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         for (int i = 0; i < listeners.size(); ++i) {
-            final IContainerListener icrafting = listeners.get(i);
+            IContainerListener icrafting = listeners.get(i);
             if (lastCookTime != furnace.furnaceCookTime) {
                 icrafting.sendWindowProperty(this, 0, furnace.furnaceCookTime);
             }
@@ -80,7 +80,7 @@ public class ContainerSmelter extends Container
     }
     
     @SideOnly(Side.CLIENT)
-    public void updateProgressBar(final int par1, final int par2) {
+    public void updateProgressBar(int par1, int par2) {
         if (par1 == 0) {
             furnace.furnaceCookTime = par2;
         }
@@ -98,18 +98,18 @@ public class ContainerSmelter extends Container
         }
     }
     
-    public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
+    public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
         return furnace.isUsableByPlayer(par1EntityPlayer);
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int par2) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
         ItemStack itemstack = ItemStack.EMPTY;
-        final Slot slot = inventorySlots.get(par2);
+        Slot slot = inventorySlots.get(par2);
         if (slot != null && slot.getHasStack()) {
-            final ItemStack itemstack2 = slot.getStack();
+            ItemStack itemstack2 = slot.getStack();
             itemstack = itemstack2.copy();
             if (par2 != 1 && par2 != 0) {
-                final AspectList al = ThaumcraftCraftingManager.getObjectTags(itemstack2);
+                AspectList al = ThaumcraftCraftingManager.getObjectTags(itemstack2);
                 if (TileSmelter.isItemFuel(itemstack2)) {
                     if (!mergeItemStack(itemstack2, 1, 2, false) && !mergeItemStack(itemstack2, 0, 1, false)) {
                         return ItemStack.EMPTY;

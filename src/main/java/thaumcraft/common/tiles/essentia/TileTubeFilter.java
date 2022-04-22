@@ -18,7 +18,7 @@ public class TileTubeFilter extends TileTube implements IAspectContainer
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         super.readSyncNBT(nbttagcompound);
         aspectFilter = Aspect.getAspect(nbttagcompound.getString("AspectFilter"));
     }
@@ -33,7 +33,7 @@ public class TileTubeFilter extends TileTube implements IAspectContainer
     }
     
     @Override
-    void calculateSuction(final Aspect filter, final boolean restrict, final boolean dir) {
+    void calculateSuction(Aspect filter, boolean restrict, boolean dir) {
         super.calculateSuction(aspectFilter, restrict, dir);
     }
     
@@ -46,41 +46,41 @@ public class TileTubeFilter extends TileTube implements IAspectContainer
     }
     
     @Override
-    public void setAspects(final AspectList aspects) {
+    public void setAspects(AspectList aspects) {
     }
     
     @Override
-    public boolean doesContainerAccept(final Aspect tag) {
+    public boolean doesContainerAccept(Aspect tag) {
         return false;
     }
     
     @Override
-    public int addToContainer(final Aspect tag, final int amount) {
+    public int addToContainer(Aspect tag, int amount) {
         return 0;
     }
     
     @Override
-    public boolean takeFromContainer(final Aspect tag, final int amount) {
+    public boolean takeFromContainer(Aspect tag, int amount) {
         return false;
     }
     
     @Override
-    public boolean takeFromContainer(final AspectList ot) {
+    public boolean takeFromContainer(AspectList ot) {
         return false;
     }
     
     @Override
-    public boolean doesContainerContainAmount(final Aspect tag, final int amount) {
+    public boolean doesContainerContainAmount(Aspect tag, int amount) {
         return false;
     }
     
     @Override
-    public boolean doesContainerContain(final AspectList ot) {
+    public boolean doesContainerContain(AspectList ot) {
         return false;
     }
     
     @Override
-    public int containerContains(final Aspect tag) {
+    public int containerContains(Aspect tag) {
         return 0;
     }
 }

@@ -29,60 +29,60 @@ import thaumcraft.common.blocks.BlockTC;
 
 public class BlockPillar extends BlockTC
 {
-    public static final PropertyDirection FACING;
-    private final Random rand;
+    public static PropertyDirection FACING;
+    private Random rand;
     
-    public BlockPillar(final String name) {
+    public BlockPillar(String name) {
         super(Material.ROCK, name);
         rand = new Random();
         setHardness(2.5f);
         setSoundType(SoundType.STONE);
-        final IBlockState bs = blockState.getBaseState();
+        IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)BlockPillar.FACING, (Comparable)EnumFacing.NORTH);
         setDefaultState(bs);
     }
     
-    public EnumPushReaction getMobilityFlag(final IBlockState state) {
+    public EnumPushReaction getMobilityFlag(IBlockState state) {
         return EnumPushReaction.BLOCK;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.5, 1.0);
     }
     
-    public AxisAlignedBB getCollisionBoundingBox(final IBlockState blockState, final IBlockAccess worldIn, final BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         return new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 2.0, 1.0);
     }
     
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
-        final IBlockState bs = blockState.getBaseState();
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)BlockPillar.FACING, (Comparable)placer.getHorizontalFacing());
         return bs;
     }
     
-    public void onBlockPlacedBy(final World worldIn, final BlockPos pos, IBlockState state, final EntityLivingBase placer, final ItemStack stack) {
-        final EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3).getOpposite();
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3).getOpposite();
         state = state.withProperty((IProperty)BlockPillar.FACING, (Comparable)enumfacing);
         worldIn.setBlockState(pos, state, 3);
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemById(0);
     }
     
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (state.getBlock() == BlocksTC.pillarArcane) {
             spawnAsEntity(worldIn, pos, new ItemStack(BlocksTC.stoneArcane, 2));
         }
@@ -95,8 +95,8 @@ public class BlockPillar extends BlockTC
         super.breakBlock(worldIn, pos, state);
     }
     
-    public IBlockState getStateFromMeta(final int meta) {
-        final EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
+    public IBlockState getStateFromMeta(int meta) {
+        EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
         return getBlockState().getBaseState().withProperty((IProperty)BlockPillar.FACING, (Comparable)enumfacing);
     }
     
@@ -104,11 +104,11 @@ public class BlockPillar extends BlockTC
         if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
             enumfacing = EnumFacing.NORTH;
         }
-        final IBlockState state = BlocksTC.pillarArcane.getBlockState().getBaseState();
+        IBlockState state = BlocksTC.pillarArcane.getBlockState().getBaseState();
         return BlocksTC.pillarArcane.getMetaFromState(state.withProperty((IProperty)BlockPillar.FACING, (Comparable)enumfacing));
     }
     
-    public int getMetaFromState(final IBlockState state) {
+    public int getMetaFromState(IBlockState state) {
         return ((EnumFacing)state.getValue((IProperty)BlockPillar.FACING)).getHorizontalIndex();
     }
     

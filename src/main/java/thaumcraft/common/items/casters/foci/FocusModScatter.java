@@ -30,8 +30,8 @@ public class FocusModScatter extends FocusMod
     
     @Override
     public NodeSetting[] createSettings() {
-        final int[] angles = { 10, 30, 60, 90, 180, 270, 360 };
-        final String[] anglesDesc = { "10", "30", "60", "90", "180", "270", "360" };
+        int[] angles = { 10, 30, 60, 90, 180, 270, 360 };
+        String[] anglesDesc = { "10", "30", "60", "90", "180", "270", "360" };
         return new NodeSetting[] { new NodeSetting("forks", "focus.scatter.forks", new NodeSetting.NodeSettingIntRange(2, 10)), new NodeSetting("cone", "focus.scatter.cone", new NodeSetting.NodeSettingIntList(angles, anglesDesc)) };
     }
     
@@ -50,13 +50,13 @@ public class FocusModScatter extends FocusMod
         if (getParent() == null) {
             return new Trajectory[0];
         }
-        final ArrayList<Trajectory> tT = new ArrayList<Trajectory>();
-        final int forks = getSettingValue("forks");
-        final int angle = getSettingValue("cone");
+        ArrayList<Trajectory> tT = new ArrayList<Trajectory>();
+        int forks = getSettingValue("forks");
+        int angle = getSettingValue("cone");
         if (getParent().supplyTrajectories() != null) {
-            for (final Trajectory sT : getParent().supplyTrajectories()) {
+            for (Trajectory sT : getParent().supplyTrajectories()) {
                 for (int a = 0; a < forks; ++a) {
-                    final Vec3d sV = sT.source;
+                    Vec3d sV = sT.source;
                     Vec3d dV = sT.direction;
                     dV = dV.normalize();
                     dV = dV.addVector(getPackage().world.rand.nextGaussian() * 0.007499999832361937 * angle, getPackage().world.rand.nextGaussian() * 0.007499999832361937 * angle, getPackage().world.rand.nextGaussian() * 0.007499999832361937 * angle);

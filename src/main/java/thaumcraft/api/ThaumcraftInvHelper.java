@@ -42,8 +42,8 @@ public class ThaumcraftInvHelper {
 			return this;
 		}
 		
-		public final static InvFilter STRICT = new InvFilter(false,false,false,false);
-		public final static InvFilter BASEORE = new InvFilter(false,false,true,false);
+		public static InvFilter STRICT = new InvFilter(false,false,false,false);
+		public static InvFilter BASEORE = new InvFilter(false,false,true,false);
 	}
 
 	public static IItemHandler getItemHandlerAt(World world, BlockPos pos, EnumFacing side) {

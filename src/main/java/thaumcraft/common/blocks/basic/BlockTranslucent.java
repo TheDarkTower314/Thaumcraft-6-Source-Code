@@ -20,28 +20,28 @@ import thaumcraft.common.blocks.BlockTC;
 
 public class BlockTranslucent extends BlockTC
 {
-    public BlockTranslucent(final String name) {
+    public BlockTranslucent(String name) {
         super(Material.GLASS, name);
         setHardness(0.5f);
         setSoundType(SoundType.STONE);
     }
     
-    public boolean isBeaconBase(final IBlockAccess world, final BlockPos pos, final BlockPos beacon) {
+    public boolean isBeaconBase(IBlockAccess world, BlockPos pos, BlockPos beacon) {
         return true;
     }
     
-    public boolean canHarvestBlock(final IBlockAccess world, final BlockPos pos, final EntityPlayer player) {
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
         return true;
     }
     
-    public EnumPushReaction getMobilityFlag(final IBlockState state) {
+    public EnumPushReaction getMobilityFlag(IBlockState state) {
         return EnumPushReaction.NORMAL;
     }
     
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(final IBlockState blockState, final IBlockAccess blockAccess, final BlockPos pos, final EnumFacing side) {
-        final IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
-        final Block block = iblockstate.getBlock();
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
+        Block block = iblockstate.getBlock();
         return block != this && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
     
@@ -50,7 +50,7 @@ public class BlockTranslucent extends BlockTC
         return BlockRenderLayer.TRANSLUCENT;
     }
     
-    public boolean isOpaqueCube(final IBlockState iblockstate) {
+    public boolean isOpaqueCube(IBlockState iblockstate) {
         return false;
     }
 }

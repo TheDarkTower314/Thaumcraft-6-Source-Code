@@ -36,12 +36,12 @@ public class TileJarBrain extends TileJar
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         xp = nbttagcompound.getInteger("XP");
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound.setInteger("XP", xp);
         return nbttagcompound;
     }
@@ -55,18 +55,18 @@ public class TileJarBrain extends TileJar
         if (xp < xpMax) {
             entity = getClosestXPOrb();
             if (entity != null && eatDelay == 0) {
-                final double var3 = (pos.getX() + 0.5 - entity.posX) / 25.0;
-                final double var4 = (pos.getY() + 0.5 - entity.posY) / 25.0;
-                final double var5 = (pos.getZ() + 0.5 - entity.posZ) / 25.0;
-                final double var6 = Math.sqrt(var3 * var3 + var4 * var4 + var5 * var5);
+                double var3 = (pos.getX() + 0.5 - entity.posX) / 25.0;
+                double var4 = (pos.getY() + 0.5 - entity.posY) / 25.0;
+                double var5 = (pos.getZ() + 0.5 - entity.posZ) / 25.0;
+                double var6 = Math.sqrt(var3 * var3 + var4 * var4 + var5 * var5);
                 double var7 = 1.0 - var6;
                 if (var7 > 0.0) {
                     var7 *= var7;
-                    final Entity entity2 = entity;
+                    Entity entity2 = entity;
                     entity2.motionX += var3 / var6 * var7 * 0.3;
-                    final Entity entity3 = entity;
+                    Entity entity3 = entity;
                     entity3.motionY += var4 / var6 * var7 * 0.5;
-                    final Entity entity4 = entity;
+                    Entity entity4 = entity;
                     entity4.motionZ += var5 / var6 * var7 * 0.3;
                 }
             }
@@ -81,12 +81,12 @@ public class TileJarBrain extends TileJar
                 }
             }
             if (entity != null) {
-                final double d = entity.posX - (pos.getX() + 0.5f);
-                final double d2 = entity.posZ - (pos.getZ() + 0.5f);
+                double d = entity.posX - (pos.getX() + 0.5f);
+                double d2 = entity.posZ - (pos.getZ() + 0.5f);
                 field_40066_q = (float)Math.atan2(d2, d);
                 field_40059_f += 0.1f;
                 if (field_40059_f < 0.5f || TileJarBrain.rand.nextInt(40) == 0) {
-                    final float f3 = field_40061_d;
+                    float f3 = field_40061_d;
                     do {
                         field_40061_d += TileJarBrain.rand.nextInt(4) - TileJarBrain.rand.nextInt(4);
                     } while (f3 == field_40061_d);
@@ -118,10 +118,10 @@ public class TileJarBrain extends TileJar
             --eatDelay;
         }
         else if (xp < xpMax) {
-            final List ents = world.getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(pos.getX() - 0.1, pos.getY() - 0.1, pos.getZ() - 0.1, pos.getX() + 1.1, pos.getY() + 1.1, pos.getZ() + 1.1));
+            List ents = world.getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(pos.getX() - 0.1, pos.getY() - 0.1, pos.getZ() - 0.1, pos.getX() + 1.1, pos.getY() + 1.1, pos.getZ() + 1.1));
             if (ents.size() > 0) {
-                for (final Object ent : ents) {
-                    final EntityXPOrb eo = (EntityXPOrb)ent;
+                for (Object ent : ents) {
+                    EntityXPOrb eo = (EntityXPOrb)ent;
                     xp += eo.getXpValue();
                     eo.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.1f, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2f + 1.0f);
                     eo.setDead();
@@ -135,11 +135,11 @@ public class TileJarBrain extends TileJar
     public Entity getClosestXPOrb() {
         double cdist = Double.MAX_VALUE;
         Entity orb = null;
-        final List ents = world.getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1).grow(8.0, 8.0, 8.0));
+        List ents = world.getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1).grow(8.0, 8.0, 8.0));
         if (ents.size() > 0) {
-            for (final Object ent : ents) {
-                final EntityXPOrb eo = (EntityXPOrb)ent;
-                final double d = getDistanceSq(eo.posX, eo.posY, eo.posZ);
+            for (Object ent : ents) {
+                EntityXPOrb eo = (EntityXPOrb)ent;
+                double d = getDistanceSq(eo.posX, eo.posY, eo.posZ);
                 if (d < cdist) {
                     orb = eo;
                     cdist = d;

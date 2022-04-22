@@ -36,11 +36,11 @@ import net.minecraft.item.ItemBlock;
 
 public class BlockJarItem extends ItemBlock implements IEssentiaContainerItem
 {
-    public BlockJarItem(final Block block) {
+    public BlockJarItem(Block block) {
         super(block);
         addPropertyOverride(new ResourceLocation("fill"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
-            public float apply(final ItemStack stack, @Nullable final World worldIn, @Nullable final EntityLivingBase entityIn) {
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
                 if (stack.getItem().getDurabilityForDisplay(stack) == 1.0) {
                     return 0.0f;
                 }
@@ -58,20 +58,20 @@ public class BlockJarItem extends ItemBlock implements IEssentiaContainerItem
         });
     }
     
-    public boolean showDurabilityBar(final ItemStack stack) {
+    public boolean showDurabilityBar(ItemStack stack) {
         return getAspects(stack) != null;
     }
     
-    public double getDurabilityForDisplay(final ItemStack stack) {
-        final AspectList al = getAspects(stack);
+    public double getDurabilityForDisplay(ItemStack stack) {
+        AspectList al = getAspects(stack);
         return (al == null) ? 1.0 : (1.0 - al.visSize() / 250.0);
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
-        final Block bi = world.getBlockState(pos).getBlock();
-        final ItemStack itemstack = player.getHeldItem(hand);
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        Block bi = world.getBlockState(pos).getBlock();
+        ItemStack itemstack = player.getHeldItem(hand);
         if (bi == BlocksTC.alembic && !world.isRemote) {
-            final TileAlembic tile = (TileAlembic)world.getTileEntity(pos);
+            TileAlembic tile = (TileAlembic)world.getTileEntity(pos);
             if (tile.amount > 0) {
                 if (getFilter(itemstack) != null && getFilter(itemstack) != tile.aspect) {
                     return EnumActionResult.FAIL;
@@ -86,11 +86,11 @@ public class BlockJarItem extends ItemBlock implements IEssentiaContainerItem
                 if (amt <= 0) {
                     return EnumActionResult.FAIL;
                 }
-                final Aspect a = tile.aspect;
+                Aspect a = tile.aspect;
                 if (tile.takeFromContainer(tile.aspect, amt)) {
-                    final int base = (getAspects(itemstack) == null) ? 0 : getAspects(itemstack).visSize();
+                    int base = (getAspects(itemstack) == null) ? 0 : getAspects(itemstack).visSize();
                     if (itemstack.getCount() > 1) {
-                        final ItemStack stack = itemstack.copy();
+                        ItemStack stack = itemstack.copy();
                         setAspects(stack, new AspectList().add(a, base + amt));
                         itemstack.shrink(1);
                         stack.setCount(1);
@@ -110,12 +110,12 @@ public class BlockJarItem extends ItemBlock implements IEssentiaContainerItem
         return EnumActionResult.PASS;
     }
     
-    public boolean placeBlockAt(final ItemStack stack, final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final IBlockState newState) {
-        final boolean b = super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState);
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState) {
+        boolean b = super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState);
         if (b && !world.isRemote) {
-            final TileEntity te = world.getTileEntity(pos);
+            TileEntity te = world.getTileEntity(pos);
             if (te != null && te instanceof TileJarFillable) {
-                final TileJarFillable jar = (TileJarFillable)te;
+                TileJarFillable jar = (TileJarFillable)te;
                 jar.setAspects(getAspects(stack));
                 if (stack.hasTagCompound() && stack.getTagCompound().hasKey("AspectFilter")) {
                     jar.aspectFilter = Aspect.getAspect(stack.getTagCompound().getString("AspectFilter"));
@@ -128,32 +128,32 @@ public class BlockJarItem extends ItemBlock implements IEssentiaContainerItem
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("AspectFilter")) {
-            final String tf = stack.getTagCompound().getString("AspectFilter");
-            final Aspect tag = Aspect.getAspect(tf);
+            String tf = stack.getTagCompound().getString("AspectFilter");
+            Aspect tag = Aspect.getAspect(tf);
             tooltip.add("§5" + tag.getName());
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
     
-    public AspectList getAspects(final ItemStack itemstack) {
+    public AspectList getAspects(ItemStack itemstack) {
         if (itemstack.hasTagCompound()) {
-            final AspectList aspects = new AspectList();
+            AspectList aspects = new AspectList();
             aspects.readFromNBT(itemstack.getTagCompound());
             return (aspects.size() > 0) ? aspects : null;
         }
         return null;
     }
     
-    public Aspect getFilter(final ItemStack itemstack) {
+    public Aspect getFilter(ItemStack itemstack) {
         if (itemstack.hasTagCompound()) {
             return Aspect.getAspect(itemstack.getTagCompound().getString("AspectFilter"));
         }
         return null;
     }
     
-    public void setAspects(final ItemStack itemstack, final AspectList aspects) {
+    public void setAspects(ItemStack itemstack, AspectList aspects) {
         if (!itemstack.hasTagCompound()) {
             itemstack.setTagCompound(new NBTTagCompound());
         }

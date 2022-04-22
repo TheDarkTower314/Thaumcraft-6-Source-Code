@@ -37,14 +37,14 @@ public class BlockStonePorous extends BlockTC
         setSoundType(SoundType.STONE);
     }
     
-    public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
-        final List<ItemStack> ret = new ArrayList<ItemStack>();
-        final int rr = BlockStonePorous.r.nextInt(15) + fortune;
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        List<ItemStack> ret = new ArrayList<ItemStack>();
+        int rr = BlockStonePorous.r.nextInt(15) + fortune;
         if (rr > 13) {
             if (BlockStonePorous.pdrops == null || BlockStonePorous.pdrops.size() <= 0) {
                 createDrops();
             }
-            final ItemStack s = ((WeightedRandomLoot)WeightedRandom.getRandomItem(BlockStonePorous.r, (List)BlockStonePorous.pdrops)).item.copy();
+            ItemStack s = ((WeightedRandomLoot)WeightedRandom.getRandomItem(BlockStonePorous.r, (List)BlockStonePorous.pdrops)).item.copy();
             ret.add(s);
         }
         else {
@@ -55,8 +55,8 @@ public class BlockStonePorous extends BlockTC
     
     private void createDrops() {
         BlockStonePorous.pdrops = new ArrayList<WeightedRandomLoot>();
-        for (final Aspect aspect : Aspect.getCompoundAspects()) {
-            final ItemStack is = new ItemStack(ItemsTC.crystalEssence);
+        for (Aspect aspect : Aspect.getCompoundAspects()) {
+            ItemStack is = new ItemStack(ItemsTC.crystalEssence);
             ((ItemGenericEssentiaContainer)ItemsTC.crystalEssence).setAspects(is, new AspectList().add(aspect, (aspect == Aspect.FLUX) ? 100 : (aspect.isPrimal() ? 20 : 1)));
             BlockStonePorous.pdrops.add(new WeightedRandomLoot(is, 1));
         }

@@ -52,16 +52,16 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void tickSeal(final World world, final ISealEntity seal) {
+    public void tickSeal(World world, ISealEntity seal) {
         if (delay++ % 5 != 0) {
             return;
         }
-        final Task oldTask = TaskHandler.getTask(world.provider.getDimension(), watchedTask);
+        Task oldTask = TaskHandler.getTask(world.provider.getDimension(), watchedTask);
         if (oldTask == null || oldTask.isSuspended() || oldTask.isCompleted()) {
             if (getToggles()[5].value != world.isAirBlock(seal.getSealPos().pos)) {
                 return;
             }
-            final Task task = new Task(seal.getSealPos(), seal.getSealPos().pos);
+            Task task = new Task(seal.getSealPos(), seal.getSealPos().pos);
             task.setPriority(seal.getPriority());
             TaskHandler.addTask(world.provider.getDimension(), task);
             watchedTask = task.getId();
@@ -69,17 +69,17 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void onTaskStarted(final World world, final IGolemAPI golem, final Task task) {
+    public void onTaskStarted(World world, IGolemAPI golem, Task task) {
     }
     
-    public boolean mayPlace(final World world, final Block blockIn, final BlockPos pos, final EnumFacing side) {
-        final IBlockState block = world.getBlockState(pos);
-        final AxisAlignedBB axisalignedbb = blockIn.getBoundingBox(blockIn.getDefaultState(), world, pos);
+    public boolean mayPlace(World world, Block blockIn, BlockPos pos, EnumFacing side) {
+        IBlockState block = world.getBlockState(pos);
+        AxisAlignedBB axisalignedbb = blockIn.getBoundingBox(blockIn.getDefaultState(), world, pos);
         return axisalignedbb == null || world.checkNoEntityCollision(axisalignedbb, null);
     }
     
     @Override
-    public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
+    public boolean onTaskCompletion(World world, IGolemAPI golem, Task task) {
         if (getToggles()[5].value == world.isAirBlock(task.getPos())) {
             ItemStack clickStack = golem.getCarrying().get(0);
             if (!filter.get(0).isEmpty()) {
@@ -98,7 +98,7 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
         return true;
     }
     
-    private void dropSomeItems(final FakePlayer fp2, final IGolemAPI golem) {
+    private void dropSomeItems(FakePlayer fp2, IGolemAPI golem) {
         for (int i = 0; i < fp2.inventory.mainInventory.size(); ++i) {
             if (!fp2.inventory.mainInventory.get(i).isEmpty()) {
                 if (golem.canCarry(fp2.inventory.mainInventory.get(i), true)) {
@@ -124,13 +124,13 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
+    public boolean canGolemPerformTask(IGolemAPI golem, Task task) {
         if (!props[6].value) {
-            final boolean found = !InventoryUtils.findFirstMatchFromFilter(filter, filterSize, blacklist, golem.getCarrying(), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value)).isEmpty();
+            boolean found = !InventoryUtils.findFirstMatchFromFilter(filter, filterSize, blacklist, golem.getCarrying(), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value)).isEmpty();
             if (!found && getToggles()[8].value && !blacklist && getInv().get(0) != null) {
-                final ISealEntity se = SealHandler.getSealEntity(golem.getGolemWorld().provider.getDimension(), task.getSealPos());
+                ISealEntity se = SealHandler.getSealEntity(golem.getGolemWorld().provider.getDimension(), task.getSealPos());
                 if (se != null) {
-                    final ItemStack stack = getInv().get(0).copy();
+                    ItemStack stack = getInv().get(0).copy();
                     if (!props[0].value) {
                         stack.setItemDamage(32767);
                     }
@@ -143,11 +143,11 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void onTaskSuspension(final World world, final Task task) {
+    public void onTaskSuspension(World world, Task task) {
     }
     
     @Override
-    public boolean canPlaceAt(final World world, final BlockPos pos, final EnumFacing side) {
+    public boolean canPlaceAt(World world, BlockPos pos, EnumFacing side) {
         return true;
     }
     
@@ -157,17 +157,17 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void onRemoval(final World world, final BlockPos pos, final EnumFacing side) {
+    public void onRemoval(World world, BlockPos pos, EnumFacing side) {
     }
     
     @Override
-    public Object returnContainer(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing side, final ISealEntity seal) {
+    public Object returnContainer(World world, EntityPlayer player, BlockPos pos, EnumFacing side, ISealEntity seal) {
         return new SealBaseContainer(player.inventory, world, seal);
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public Object returnGui(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing side, final ISealEntity seal) {
+    public Object returnGui(World world, EntityPlayer player, BlockPos pos, EnumFacing side, ISealEntity seal) {
         return new SealBaseGUI(player.inventory, world, seal);
     }
     
@@ -192,7 +192,7 @@ public class SealUse extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void setToggle(final int indx, final boolean value) {
+    public void setToggle(int indx, boolean value) {
         props[indx].setValue(value);
     }
 }

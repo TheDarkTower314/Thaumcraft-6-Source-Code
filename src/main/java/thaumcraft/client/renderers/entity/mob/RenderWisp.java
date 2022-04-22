@@ -18,18 +18,18 @@ import net.minecraft.client.renderer.entity.Render;
 
 public class RenderWisp extends Render
 {
-    public RenderWisp(final RenderManager rm) {
+    public RenderWisp(RenderManager rm) {
         super(rm);
         shadowSize = 0.0f;
     }
     
-    public void renderEntityAt(final Entity entity, final double x, final double y, final double z, final float fq, final float pticks) {
+    public void renderEntityAt(Entity entity, double x, double y, double z, float fq, float pticks) {
         if (((EntityLiving)entity).getHealth() <= 0.0f) {
             return;
         }
-        final double xx = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * pticks;
-        final double yy = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * pticks;
-        final double zz = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * pticks;
+        double xx = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * pticks;
+        double yy = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * pticks;
+        double zz = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * pticks;
         int color = 0;
         if (Aspect.getAspect(((EntityWisp)entity).getType()) != null) {
             color = Aspect.getAspect(((EntityWisp)entity).getType()).getColor();
@@ -47,11 +47,11 @@ public class RenderWisp extends Render
         GL11.glPopMatrix();
     }
     
-    public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
+    public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
         renderEntityAt(entity, d, d1, d2, f, f1);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 }

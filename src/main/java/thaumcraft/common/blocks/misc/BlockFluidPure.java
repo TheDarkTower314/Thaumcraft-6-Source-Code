@@ -32,7 +32,7 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 
 public class BlockFluidPure extends BlockFluidClassic
 {
-    public static final Material FLUID_PURE_MATERIAL;
+    public static Material FLUID_PURE_MATERIAL;
     
     public BlockFluidPure() {
         super(ConfigBlocks.FluidPure.instance, BlockFluidPure.FLUID_PURE_MATERIAL);
@@ -41,11 +41,11 @@ public class BlockFluidPure extends BlockFluidClassic
         setCreativeTab(ConfigItems.TABTC);
     }
     
-    public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
         entity.motionX *= 1.0f - getQuantaPercentage(world, pos) / 2.0f;
         entity.motionZ *= 1.0f - getQuantaPercentage(world, pos) / 2.0f;
         if (!world.isRemote && isSourceBlock(world, pos) && entity instanceof EntityPlayer && !((EntityPlayer)entity).isPotionActive(PotionWarpWard.instance)) {
-            final int warp = ThaumcraftCapabilities.getWarp((EntityPlayer)entity).get(IPlayerWarp.EnumWarpType.PERMANENT);
+            int warp = ThaumcraftCapabilities.getWarp((EntityPlayer)entity).get(IPlayerWarp.EnumWarpType.PERMANENT);
             int div = 1;
             if (warp > 0) {
                 div = (int)Math.sqrt(warp);
@@ -59,10 +59,10 @@ public class BlockFluidPure extends BlockFluidClassic
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random rand) {
-        final int meta = getMetaFromState(state);
+    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+        int meta = getMetaFromState(state);
         if (rand.nextInt(10) == 0) {
-            final FXGeneric fb = new FXGeneric(world, pos.getX() + rand.nextFloat(), pos.getY() + 0.125f * (8 - meta), pos.getZ() + rand.nextFloat(), 0.0, 0.0, 0.0);
+            FXGeneric fb = new FXGeneric(world, pos.getX() + rand.nextFloat(), pos.getY() + 0.125f * (8 - meta), pos.getZ() + rand.nextFloat(), 0.0, 0.0, 0.0);
             fb.setMaxAge(10 + world.rand.nextInt(10));
             fb.setScale(world.rand.nextFloat() * 0.3f + 0.3f);
             fb.setRBGColorF(1.0f, 1.0f, 1.0f);
@@ -74,9 +74,9 @@ public class BlockFluidPure extends BlockFluidClassic
             ParticleEngine.addEffect(world, fb);
         }
         if (rand.nextInt(50) == 0) {
-            final double var21 = pos.getX() + rand.nextFloat();
-            final double var22 = pos.getY() + 0.5;
-            final double var23 = pos.getZ() + rand.nextFloat();
+            double var21 = pos.getX() + rand.nextFloat();
+            double var22 = pos.getY() + 0.5;
+            double var23 = pos.getZ() + rand.nextFloat();
             world.playSound(var21, var22, var23, SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS, 0.1f + rand.nextFloat() * 0.1f, 0.9f + rand.nextFloat() * 0.15f, false);
         }
     }

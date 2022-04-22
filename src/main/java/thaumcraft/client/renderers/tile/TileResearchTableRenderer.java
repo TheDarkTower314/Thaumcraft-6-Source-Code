@@ -21,13 +21,13 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 public class TileResearchTableRenderer extends TileEntitySpecialRenderer<TileResearchTable>
 {
     private ModelResearchTable tableModel;
-    private static final ResourceLocation TEX;
+    private static ResourceLocation TEX;
     
     public TileResearchTableRenderer() {
         tableModel = new ModelResearchTable();
     }
     
-    public void render(final TileResearchTable table, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileResearchTable table, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         GL11.glPushMatrix();
         bindTexture(TileResearchTableRenderer.TEX);
         GL11.glTranslatef((float)x + 0.5f, (float)y + 1.0f, (float)z + 0.5f);

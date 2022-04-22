@@ -49,28 +49,28 @@ public class ItemCultistBoots extends ItemArmor implements IWarpingGear, IVisDis
     }
     
     @SideOnly(Side.CLIENT)
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
     @SideOnly(Side.CLIENT)
-    public String getArmorTexture(final ItemStack stack, final Entity entity, final EntityEquipmentSlot slot, final String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         return "thaumcraft:textures/entity/armor/cultistboots.png";
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(Items.IRON_INGOT)) || super.getIsRepairable(stack1, stack2);
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.UNCOMMON;
     }
     
-    public int getWarp(final ItemStack itemstack, final EntityPlayer player) {
+    public int getWarp(ItemStack itemstack, EntityPlayer player) {
         return 1;
     }
     
-    public int getVisDiscount(final ItemStack stack, final EntityPlayer player) {
+    public int getVisDiscount(ItemStack stack, EntityPlayer player) {
         return 1;
     }
 }

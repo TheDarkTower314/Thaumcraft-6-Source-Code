@@ -36,26 +36,26 @@ public class TileFocalManipulatorRenderer extends TileEntitySpecialRenderer
         entityitem = null;
     }
     
-    public void renderTileEntityAt(final TileFocalManipulator table, final double par2, final double par4, final double par6, final float par8) {
+    public void renderTileEntityAt(TileFocalManipulator table, double par2, double par4, double par6, float par8) {
         if (table.getWorld() != null) {
-            final float ticks = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted + par8;
+            float ticks = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted + par8;
             if (table.getSyncedStackInSlot(0) != null) {
                 GL11.glPushMatrix();
                 GL11.glTranslatef((float)par2 + 0.5f, (float)par4 + 0.8f, (float)par6 + 0.5f);
                 GL11.glRotatef(ticks % 360.0f, 0.0f, 1.0f, 0.0f);
-                final ItemStack is = table.getSyncedStackInSlot(0).copy();
+                ItemStack is = table.getSyncedStackInSlot(0).copy();
                 entityitem = new EntityItem(table.getWorld(), 0.0, 0.0, 0.0, is);
                 entityitem.hoverStart = MathHelper.sin(ticks / 14.0f) * 0.2f + 0.2f;
-                final RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+                RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
                 rendermanager.renderEntity(entityitem, 0.0, 0.0, 0.0, 0.0f, 0.0f, false);
                 GL11.glPopMatrix();
             }
             if (table.crystalsSync.getAspects().length > 0) {
-                final int q = table.crystalsSync.getAspects().length;
-                final float ang = (float)(360 / q);
+                int q = table.crystalsSync.getAspects().length;
+                float ang = (float)(360 / q);
                 for (int a = 0; a < q; ++a) {
-                    final float angle = ticks % 720.0f / 2.0f + ang * a;
-                    final float bob = MathHelper.sin((ticks + a * 10) / 12.0f) * 0.02f + 0.02f;
+                    float angle = ticks % 720.0f / 2.0f + ang * a;
+                    float bob = MathHelper.sin((ticks + a * 10) / 12.0f) * 0.02f + 0.02f;
                     GL11.glPushMatrix();
                     GL11.glTranslatef((float)par2 + 0.5f, (float)par4 + 1.3f, (float)par6 + 0.5f);
                     GL11.glRotatef(angle, 0.0f, 1.0f, 0.0f);
@@ -66,10 +66,10 @@ public class TileFocalManipulatorRenderer extends TileEntitySpecialRenderer
                     GL11.glBlendFunc(770, 1);
                     GL11.glAlphaFunc(516, 0.003921569f);
                     GL11.glDepthMask(false);
-                    final Color c = new Color(table.crystalsSync.getAspects()[a].getColor());
-                    final float r = c.getRed() / 255.0f;
-                    final float g = c.getGreen() / 255.0f;
-                    final float b = c.getBlue() / 255.0f;
+                    Color c = new Color(table.crystalsSync.getAspects()[a].getColor());
+                    float r = c.getRed() / 255.0f;
+                    float g = c.getGreen() / 255.0f;
+                    float b = c.getBlue() / 255.0f;
                     GL11.glColor4f(r, g, b, 0.66f);
                     UtilsFX.renderBillboardQuad(0.17499999701976776, 64, 64, 320 + Minecraft.getMinecraft().getRenderViewEntity().ticksExisted % 16);
                     GL11.glDepthMask(true);
@@ -82,12 +82,12 @@ public class TileFocalManipulatorRenderer extends TileEntitySpecialRenderer
                     GL11.glRotatef(angle, 0.0f, 1.0f, 0.0f);
                     GL11.glTranslatef(0.0f, bob, 0.4f);
                     GL11.glScaled(0.5, 0.5, 0.5);
-                    final ItemStack is2 = ThaumcraftApiHelper.makeCrystal(table.crystalsSync.getAspects()[a]);
+                    ItemStack is2 = ThaumcraftApiHelper.makeCrystal(table.crystalsSync.getAspects()[a]);
                     entityitem = new EntityItem(table.getWorld(), 0.0, 0.0, 0.0, is2);
                     entityitem.hoverStart = 0.0f;
                     renderRay(angle, a, bob, r, g, b, ticks);
                     renderRay(angle, (a + 1) * 5, bob, r, g, b, ticks);
-                    final RenderManager rendermanager2 = Minecraft.getMinecraft().getRenderManager();
+                    RenderManager rendermanager2 = Minecraft.getMinecraft().getRenderManager();
                     rendermanager2.renderEntity(entityitem, 0.0, 0.0, 0.0, 0.0f, 0.0f, false);
                     GL11.glPopMatrix();
                 }
@@ -95,13 +95,13 @@ public class TileFocalManipulatorRenderer extends TileEntitySpecialRenderer
         }
     }
     
-    private void renderRay(final float angle, final int num, final float lift, final float r, final float g, final float b, final float ticks) {
-        final Random random = new Random(187L + num * num);
+    private void renderRay(float angle, int num, float lift, float r, float g, float b, float ticks) {
+        Random random = new Random(187L + num * num);
         GL11.glPushMatrix();
-        final float pan = MathHelper.sin((ticks + num * 10) / 15.0f) * 15.0f;
-        final float aparture = MathHelper.sin((ticks + num * 10) / 14.0f) * 2.0f;
-        final Tessellator tessellator = Tessellator.getInstance();
-        final BufferBuilder wr = tessellator.getBuffer();
+        float pan = MathHelper.sin((ticks + num * 10) / 15.0f) * 15.0f;
+        float aparture = MathHelper.sin((ticks + num * 10) / 14.0f) * 2.0f;
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder wr = tessellator.getBuffer();
         RenderHelper.disableStandardItemLighting();
         GL11.glTranslatef(0.0f, 0.475f + lift, 0.0f);
         GL11.glDisable(3553);
@@ -140,7 +140,7 @@ public class TileFocalManipulatorRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderTileEntityAt((TileFocalManipulator)te, x, y, z, partialTicks);
     }

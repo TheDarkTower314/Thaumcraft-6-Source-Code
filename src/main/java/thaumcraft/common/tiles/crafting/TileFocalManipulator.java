@@ -59,29 +59,29 @@ public class TileFocalManipulator extends TileThaumcraftInventory
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbt) {
+    public void readSyncNBT(NBTTagCompound nbt) {
         super.readSyncNBT(nbt);
         vis = nbt.getFloat("vis");
         focusName = nbt.getString("focusName");
         (crystalsSync = new AspectList()).readFromNBT(nbt, "crystals");
-        final NBTTagList nodelist = nbt.getTagList("nodes", 10);
+        NBTTagList nodelist = nbt.getTagList("nodes", 10);
         data.clear();
         for (int x = 0; x < nodelist.tagCount(); ++x) {
-            final NBTTagCompound nodenbt = nodelist.getCompoundTagAt(x);
-            final FocusElementNode node = new FocusElementNode();
+            NBTTagCompound nodenbt = nodelist.getCompoundTagAt(x);
+            FocusElementNode node = new FocusElementNode();
             node.deserialize(nodenbt);
             data.put(node.id, node);
         }
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbt) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbt) {
         super.writeSyncNBT(nbt);
         nbt.setFloat("vis", vis);
         nbt.setString("focusName", focusName);
         crystalsSync.writeToNBT(nbt, "crystals");
-        final NBTTagList nodelist = new NBTTagList();
-        for (final FocusElementNode node : data.values()) {
+        NBTTagList nodelist = new NBTTagList();
+        for (FocusElementNode node : data.values()) {
             nodelist.appendTag(node.serialize());
         }
         nbt.setTag("nodes", nodelist);
@@ -94,8 +94,8 @@ public class TileFocalManipulator extends TileThaumcraftInventory
     }
     
     @Override
-    public void setInventorySlotContents(final int par1, final ItemStack stack) {
-        final ItemStack prev = getStackInSlot(par1);
+    public void setInventorySlotContents(int par1, ItemStack stack) {
+        ItemStack prev = getStackInSlot(par1);
         super.setInventorySlotContents(par1, stack);
         if (stack.isEmpty() || !ItemStack.areItemStacksEqual(stack, prev)) {
             if (world.isRemote) {
@@ -111,7 +111,7 @@ public class TileFocalManipulator extends TileThaumcraftInventory
         }
     }
     
-    public float spendAura(final float vis) {
+    public float spendAura(float vis) {
         if (world.getBlockState(getPos().up()).getBlock() == BlocksTC.arcaneWorkbenchCharger) {
             float q = vis;
             float z = vis / 9.0f;
@@ -145,7 +145,7 @@ public class TileFocalManipulator extends TileThaumcraftInventory
                     world.playSound(null, pos, SoundsTC.wandfail, SoundCategory.BLOCKS, 0.33f, 1.0f);
                 }
                 if (!complete && vis > 0.0f) {
-                    final float amt = spendAura(Math.min(20.0f, vis));
+                    float amt = spendAura(Math.min(20.0f, vis));
                     if (amt > 0.0f) {
                         world.addBlockEvent(pos, getBlockType(), 5, 1);
                         vis -= amt;
@@ -171,10 +171,10 @@ public class TileFocalManipulator extends TileThaumcraftInventory
     
     private FocusPackage generateFocus() {
         if (data != null && !data.isEmpty()) {
-            final FocusPackage core = new FocusPackage();
+            FocusPackage core = new FocusPackage();
             int totalComplexity = 0;
-            final HashMap<String, Integer> compCount = new HashMap<String, Integer>();
-            for (final FocusElementNode node : data.values()) {
+            HashMap<String, Integer> compCount = new HashMap<String, Integer>();
+            for (FocusElementNode node : data.values()) {
                 if (node.node != null) {
                     int a = 0;
                     if (compCount.containsKey(node.node.getKey())) {
@@ -187,14 +187,14 @@ public class TileFocalManipulator extends TileThaumcraftInventory
                 }
             }
             core.setComplexity(totalComplexity);
-            final FocusElementNode root = data.get(0);
+            FocusElementNode root = data.get(0);
             traverseChildren(core, root);
             return core;
         }
         return null;
     }
     
-    private void traverseChildren(final FocusPackage currentPackage, final FocusElementNode currentNode) {
+    private void traverseChildren(FocusPackage currentPackage, FocusElementNode currentNode) {
         if (currentPackage == null || currentNode == null) {
             return;
         }
@@ -206,10 +206,10 @@ public class TileFocalManipulator extends TileThaumcraftInventory
             traverseChildren(currentPackage, data.get(currentNode.children[0]));
         }
         else {
-            final FocusModSplit splitNode = (FocusModSplit)currentNode.node;
+            FocusModSplit splitNode = (FocusModSplit)currentNode.node;
             splitNode.getSplitPackages().clear();
-            for (final int c : currentNode.children) {
-                final FocusPackage splitPackage = new FocusPackage();
+            for (int c : currentNode.children) {
+                FocusPackage splitPackage = new FocusPackage();
                 traverseChildren(splitPackage, data.get(c));
                 splitNode.getSplitPackages().add(splitPackage);
             }
@@ -219,10 +219,10 @@ public class TileFocalManipulator extends TileThaumcraftInventory
     public void endCraft() {
         vis = 0.0f;
         if (getStackInSlot(0) != null && !getStackInSlot(0).isEmpty() && getStackInSlot(0).getItem() instanceof ItemFocus) {
-            final FocusPackage core = generateFocus();
+            FocusPackage core = generateFocus();
             if (core != null) {
                 world.playSound(null, pos, SoundsTC.wand, SoundCategory.BLOCKS, 1.0f, 1.0f);
-                final ItemStack focus = getStackInSlot(0);
+                ItemStack focus = getStackInSlot(0);
                 if (focus.getTagCompound() != null) {
                     focus.getTagCompound().removeTag("color");
                 }
@@ -237,15 +237,15 @@ public class TileFocalManipulator extends TileThaumcraftInventory
         }
     }
     
-    public boolean startCraft(final int id, final EntityPlayer p) {
+    public boolean startCraft(int id, EntityPlayer p) {
         if (data == null || data.isEmpty() || vis > 0.0f || getStackInSlot(0) == null || getStackInSlot(0).isEmpty() || !(getStackInSlot(0).getItem() instanceof ItemFocus)) {
             return false;
         }
-        final int maxComplexity = ((ItemFocus) getStackInSlot(0).getItem()).getMaxComplexity();
+        int maxComplexity = ((ItemFocus) getStackInSlot(0).getItem()).getMaxComplexity();
         int totalComplexity = 0;
         crystals = new AspectList();
-        final HashMap<String, Integer> compCount = new HashMap<String, Integer>();
-        for (final FocusElementNode node : data.values()) {
+        HashMap<String, Integer> compCount = new HashMap<String, Integer>();
+        for (FocusElementNode node : data.values()) {
             if (node.node == null) {
                 return false;
             }
@@ -275,9 +275,9 @@ public class TileFocalManipulator extends TileThaumcraftInventory
             p.addExperienceLevel(-xpCost);
         }
         if (crystals.getAspects().length > 0) {
-            final ItemStack[] components = new ItemStack[crystals.getAspects().length];
+            ItemStack[] components = new ItemStack[crystals.getAspects().length];
             int r = 0;
-            for (final Aspect as : crystals.getAspects()) {
+            for (Aspect as : crystals.getAspects()) {
                 components[r] = ThaumcraftApiHelper.makeCrystal(as, crystals.getAmount(as));
                 ++r;
             }
@@ -303,11 +303,11 @@ public class TileFocalManipulator extends TileThaumcraftInventory
     }
     
     @Override
-    public boolean isItemValidForSlot(final int par1, final ItemStack stack) {
+    public boolean isItemValidForSlot(int par1, ItemStack stack) {
         return stack.getItem() instanceof ItemFocus;
     }
     
-    public boolean receiveClientEvent(final int i, final int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i == 1) {
             doGuiReset = true;
         }

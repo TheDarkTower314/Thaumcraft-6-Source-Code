@@ -10,11 +10,11 @@ public class Vertex
     public float y;
     public float z;
     
-    public Vertex(final float x, final float y) {
+    public Vertex(float x, float y) {
         this(x, y, 0.0f);
     }
     
-    public Vertex(final float x, final float y, final float z) {
+    public Vertex(float x, float y, float z) {
         this.x = x;
         this.y = y;
         this.z = z;

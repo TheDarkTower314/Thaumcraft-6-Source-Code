@@ -27,39 +27,39 @@ import thaumcraft.common.blocks.BlockTCDevice;
 
 public class BlockLamp extends BlockTCDevice implements IBlockFacing, IBlockEnabled
 {
-    public BlockLamp(final Class tc, final String name) {
+    public BlockLamp(Class tc, String name) {
         super(Material.IRON, tc, name);
         setSoundType(SoundType.METAL);
         setHardness(1.0f);
-        final IBlockState bs = blockState.getBaseState();
+        IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)EnumFacing.DOWN);
         bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)true);
         setDefaultState(bs);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public int getLightValue(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
+    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
         return BlockStateUtils.isEnabled(world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos))) ? 15 : super.getLightValue(state, world, pos);
     }
     
     @Override
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)facing.getOpposite());
         bs = bs.withProperty((IProperty)IBlockEnabled.ENABLED, (Comparable)false);
@@ -67,8 +67,8 @@ public class BlockLamp extends BlockTCDevice implements IBlockFacing, IBlockEnab
     }
     
     @Override
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
-        final TileEntity te = worldIn.getTileEntity(pos);
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity te = worldIn.getTileEntity(pos);
         if (te != null && te instanceof TileLampArcane) {
             ((TileLampArcane)te).removeLights();
         }
@@ -76,13 +76,13 @@ public class BlockLamp extends BlockTCDevice implements IBlockFacing, IBlockEnab
     }
     
     @Override
-    public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos pos2) {
         if (worldIn.isAirBlock(pos.offset(BlockStateUtils.getFacing(state)))) {
             dropBlockAsItem(worldIn, pos, getDefaultState(), 0);
             worldIn.setBlockToAir(pos);
             return;
         }
-        final TileEntity te = worldIn.getTileEntity(pos);
+        TileEntity te = worldIn.getTileEntity(pos);
         if (te != null && te instanceof TileLampArcane && BlockStateUtils.isEnabled(state) && worldIn.isBlockPowered(pos)) {
             ((TileLampArcane)te).removeLights();
         }
@@ -98,7 +98,7 @@ public class BlockLamp extends BlockTCDevice implements IBlockFacing, IBlockEnab
         }
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.25, 0.125, 0.25, 0.75, 0.875, 0.75);
     }
 }

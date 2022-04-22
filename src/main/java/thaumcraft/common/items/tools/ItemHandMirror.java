@@ -46,16 +46,16 @@ public class ItemHandMirror extends ItemTCBase
         return true;
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.UNCOMMON;
     }
     
-    public boolean hasEffect(final ItemStack stack1) {
+    public boolean hasEffect(ItemStack stack1) {
         return stack1.hasTagCompound();
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float par8, final float par9, final float par10, final EnumHand hand) {
-        final Block bi = world.getBlockState(pos).getBlock();
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float par8, float par9, float par10, EnumHand hand) {
+        Block bi = world.getBlockState(pos).getBlock();
         if (bi != BlocksTC.mirror) {
             return EnumActionResult.FAIL;
         }
@@ -63,7 +63,7 @@ public class ItemHandMirror extends ItemTCBase
             player.swingArm(hand);
             return super.onItemUseFirst(player, world, pos, side, par8, par9, par10, hand);
         }
-        final TileEntity tm = world.getTileEntity(pos);
+        TileEntity tm = world.getTileEntity(pos);
         if (tm != null && tm instanceof TileMirror) {
             player.getHeldItem(hand).setTagInfo("linkX", new NBTTagInt(pos.getX()));
             player.getHeldItem(hand).setTagInfo("linkY", new NBTTagInt(pos.getY()));
@@ -76,17 +76,17 @@ public class ItemHandMirror extends ItemTCBase
         return EnumActionResult.PASS;
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         if (!world.isRemote && player.getHeldItem(hand).hasTagCompound()) {
-            final int lx = player.getHeldItem(hand).getTagCompound().getInteger("linkX");
-            final int ly = player.getHeldItem(hand).getTagCompound().getInteger("linkY");
-            final int lz = player.getHeldItem(hand).getTagCompound().getInteger("linkZ");
-            final int ldim = player.getHeldItem(hand).getTagCompound().getInteger("linkDim");
-            final World targetWorld = DimensionManager.getWorld(ldim);
+            int lx = player.getHeldItem(hand).getTagCompound().getInteger("linkX");
+            int ly = player.getHeldItem(hand).getTagCompound().getInteger("linkY");
+            int lz = player.getHeldItem(hand).getTagCompound().getInteger("linkZ");
+            int ldim = player.getHeldItem(hand).getTagCompound().getInteger("linkDim");
+            World targetWorld = DimensionManager.getWorld(ldim);
             if (targetWorld == null) {
                 return super.onItemRightClick(world, player, hand);
             }
-            final TileEntity te = targetWorld.getTileEntity(new BlockPos(lx, ly, lz));
+            TileEntity te = targetWorld.getTileEntity(new BlockPos(lx, ly, lz));
             if (te == null || !(te instanceof TileMirror)) {
                 player.getHeldItem(hand).setTagCompound(null);
                 player.playSound(SoundsTC.zap, 1.0f, 0.8f);
@@ -99,36 +99,36 @@ public class ItemHandMirror extends ItemTCBase
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (stack.hasTagCompound()) {
-            final int lx = stack.getTagCompound().getInteger("linkX");
-            final int ly = stack.getTagCompound().getInteger("linkY");
-            final int lz = stack.getTagCompound().getInteger("linkZ");
-            final int ldim = stack.getTagCompound().getInteger("linkDim");
+            int lx = stack.getTagCompound().getInteger("linkX");
+            int ly = stack.getTagCompound().getInteger("linkY");
+            int lz = stack.getTagCompound().getInteger("linkZ");
+            int ldim = stack.getTagCompound().getInteger("linkDim");
             tooltip.add(I18n.translateToLocal("tc.handmirrorlinkedto") + " " + lx + "," + ly + "," + lz + " in " + ldim);
         }
     }
     
-    public static boolean transport(final ItemStack mirror, ItemStack items, final EntityPlayer player, final World worldObj) {
+    public static boolean transport(ItemStack mirror, ItemStack items, EntityPlayer player, World worldObj) {
         if (!mirror.hasTagCompound()) {
             return false;
         }
-        final int lx = mirror.getTagCompound().getInteger("linkX");
-        final int ly = mirror.getTagCompound().getInteger("linkY");
-        final int lz = mirror.getTagCompound().getInteger("linkZ");
-        final int ldim = mirror.getTagCompound().getInteger("linkDim");
-        final World targetWorld = DimensionManager.getWorld(ldim);
+        int lx = mirror.getTagCompound().getInteger("linkX");
+        int ly = mirror.getTagCompound().getInteger("linkY");
+        int lz = mirror.getTagCompound().getInteger("linkZ");
+        int ldim = mirror.getTagCompound().getInteger("linkDim");
+        World targetWorld = DimensionManager.getWorld(ldim);
         if (targetWorld == null) {
             return false;
         }
-        final TileEntity te = targetWorld.getTileEntity(new BlockPos(lx, ly, lz));
+        TileEntity te = targetWorld.getTileEntity(new BlockPos(lx, ly, lz));
         if (te == null || !(te instanceof TileMirror)) {
             mirror.setTagCompound(null);
             player.playSound(SoundsTC.zap, 1.0f, 0.8f);
             player.sendMessage(new TextComponentTranslation("tc.handmirrorerror"));
             return false;
         }
-        final TileMirror tm = (TileMirror)te;
+        TileMirror tm = (TileMirror)te;
         if (tm.transportDirect(items)) {
             items = ItemStack.EMPTY;
             player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 0.1f, 1.0f);

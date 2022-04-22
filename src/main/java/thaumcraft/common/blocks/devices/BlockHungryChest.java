@@ -42,8 +42,8 @@ import net.minecraft.block.BlockContainer;
 
 public class BlockHungryChest extends BlockContainer
 {
-    public static final PropertyDirection FACING;
-    private final Random rand;
+    public static PropertyDirection FACING;
+    private Random rand;
     
     public BlockHungryChest() {
         super(Material.WOOD);
@@ -56,46 +56,46 @@ public class BlockHungryChest extends BlockContainer
         setCreativeTab(ConfigItems.TABTC);
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean canHarvestBlock(final IBlockAccess world, final BlockPos pos, final EntityPlayer player) {
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
         return true;
     }
     
-    public EnumBlockRenderType getRenderType(final IBlockState state) {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.INVISIBLE;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.875, 0.9375);
     }
     
-    public AxisAlignedBB getCollisionBoundingBox(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.875, 0.9375);
     }
     
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return getDefaultState().withProperty((IProperty)BlockHungryChest.FACING, (Comparable)placer.getHorizontalFacing());
     }
     
-    public void onBlockPlacedBy(final World worldIn, final BlockPos pos, IBlockState state, final EntityLivingBase placer, final ItemStack stack) {
-        final EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3).getOpposite();
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3).getOpposite();
         state = state.withProperty((IProperty)BlockHungryChest.FACING, (Comparable)enumfacing);
         worldIn.setBlockState(pos, state, 3);
     }
     
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
-        final TileEntity tileentity = worldIn.getTileEntity(pos);
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
         if (tileentity instanceof IInventory) {
             InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
             worldIn.updateComparatorOutputLevel(pos, this);
@@ -103,19 +103,19 @@ public class BlockHungryChest extends BlockContainer
         super.breakBlock(worldIn, pos, state);
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         }
-        final TileEntity tileentity = world.getTileEntity(pos);
+        TileEntity tileentity = world.getTileEntity(pos);
         if (tileentity instanceof IInventory) {
             player.displayGUIChest((IInventory)tileentity);
         }
         return true;
     }
     
-    public void onEntityCollidedWithBlock(final World world, final BlockPos pos, final IBlockState state, final Entity entity) {
-        final Object var10 = world.getTileEntity(pos);
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+        Object var10 = world.getTileEntity(pos);
         if (var10 == null) {
             return;
         }
@@ -123,7 +123,7 @@ public class BlockHungryChest extends BlockContainer
             return;
         }
         if (entity instanceof EntityItem && !entity.isDead) {
-            final ItemStack leftovers = ThaumcraftInvHelper.insertStackAt(world, pos, EnumFacing.UP, ((EntityItem)entity).getItem(), false);
+            ItemStack leftovers = ThaumcraftInvHelper.insertStackAt(world, pos, EnumFacing.UP, ((EntityItem)entity).getItem(), false);
             if (leftovers == null || leftovers.isEmpty() || leftovers.getCount() != ((EntityItem)entity).getItem().getCount()) {
                 entity.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.25f, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2f + 1.0f);
             }
@@ -137,21 +137,21 @@ public class BlockHungryChest extends BlockContainer
         }
     }
     
-    public boolean hasComparatorInputOverride(final IBlockState state) {
+    public boolean hasComparatorInputOverride(IBlockState state) {
         return true;
     }
     
-    public int getComparatorInputOverride(final IBlockState state, final World worldIn, final BlockPos pos) {
-        final Object var10 = worldIn.getTileEntity(pos);
+    public int getComparatorInputOverride(IBlockState state, World worldIn, BlockPos pos) {
+        Object var10 = worldIn.getTileEntity(pos);
         if (var10 instanceof TileHungryChest) {
             return Container.calcRedstoneFromInventory((IInventory)var10);
         }
         return 0;
     }
     
-    public boolean rotateBlock(final World world, final BlockPos pos, final EnumFacing axis) {
-        final IBlockState state = world.getBlockState(pos);
-        for (final IProperty<?> prop : state.getProperties().keySet()) {
+    public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+        IBlockState state = world.getBlockState(pos);
+        for (IProperty<?> prop : state.getProperties().keySet()) {
             if (prop.getName().equals("facing")) {
                 world.setBlockState(pos, state.cycleProperty((IProperty)prop));
                 return true;
@@ -160,7 +160,7 @@ public class BlockHungryChest extends BlockContainer
         return false;
     }
     
-    public IBlockState getStateFromMeta(final int meta) {
+    public IBlockState getStateFromMeta(int meta) {
         EnumFacing enumfacing = EnumFacing.getFront(meta);
         if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
             enumfacing = EnumFacing.NORTH;
@@ -168,7 +168,7 @@ public class BlockHungryChest extends BlockContainer
         return getDefaultState().withProperty((IProperty)BlockHungryChest.FACING, (Comparable)enumfacing);
     }
     
-    public int getMetaFromState(final IBlockState state) {
+    public int getMetaFromState(IBlockState state) {
         return ((EnumFacing)state.getValue((IProperty)BlockHungryChest.FACING)).getIndex();
     }
     
@@ -176,15 +176,15 @@ public class BlockHungryChest extends BlockContainer
         return new BlockStateContainer(this, BlockHungryChest.FACING);
     }
     
-    public TileEntity createNewTileEntity(final World par1World, final int m) {
+    public TileEntity createNewTileEntity(World par1World, int m) {
         return new TileHungryChest();
     }
     
-    public IBlockState withRotation(final IBlockState state, final Rotation rot) {
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
         return state.withProperty((IProperty)BlockHungryChest.FACING, (Comparable)rot.rotate((EnumFacing)state.getValue((IProperty)BlockHungryChest.FACING)));
     }
     
-    public IBlockState withMirror(final IBlockState state, final Mirror mirrorIn) {
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
         return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue((IProperty)BlockHungryChest.FACING)));
     }
     

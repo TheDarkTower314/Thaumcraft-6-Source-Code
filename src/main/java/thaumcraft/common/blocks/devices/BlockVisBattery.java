@@ -26,7 +26,7 @@ import net.minecraft.block.Block;
 
 public class BlockVisBattery extends Block
 {
-    public static final PropertyInteger CHARGE;
+    public static PropertyInteger CHARGE;
     
     public BlockVisBattery() {
         super(Material.ROCK);
@@ -39,13 +39,13 @@ public class BlockVisBattery extends Block
         setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockVisBattery.CHARGE, (Comparable)0));
     }
     
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public void updateTick(final World worldIn, final BlockPos pos, final IBlockState state, final Random rand) {
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
-            final int charge = getMetaFromState(state);
+            int charge = getMetaFromState(state);
             if (worldIn.isBlockPowered(pos)) {
                 if (charge > 0) {
                     AuraHandler.addVis(worldIn, pos, 1.0f);
@@ -54,8 +54,8 @@ public class BlockVisBattery extends Block
                 }
             }
             else {
-                final float aura = AuraHelper.getVis(worldIn, pos);
-                final int base = AuraHelper.getAuraBase(worldIn, pos);
+                float aura = AuraHelper.getVis(worldIn, pos);
+                int base = AuraHelper.getAuraBase(worldIn, pos);
                 if (charge < 10 && aura > base * 0.9 && aura > 1.0f) {
                     AuraHandler.drainVis(worldIn, pos, 1.0f, false);
                     worldIn.setBlockState(pos, state.withProperty((IProperty)BlockVisBattery.CHARGE, (Comparable)(charge + 1)));
@@ -70,31 +70,31 @@ public class BlockVisBattery extends Block
         }
     }
     
-    public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos fromPos) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (worldIn.isBlockPowered(pos)) {
             worldIn.scheduleUpdate(pos, this, 1);
         }
     }
     
-    public boolean hasComparatorInputOverride(final IBlockState state) {
+    public boolean hasComparatorInputOverride(IBlockState state) {
         return true;
     }
     
-    public int getComparatorInputOverride(final IBlockState state, final World world, final BlockPos pos) {
+    public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
         return getMetaFromState(state);
     }
     
-    public int getLightValue(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
+    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
         return state.getBlock().getMetaFromState(state);
     }
     
-    public int getPackedLightmapCoords(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
-        final int i = source.getCombinedLight(pos, state.getLightValue(source, pos));
-        final int j = 180;
-        final int k = i & 0xFF;
-        final int l = j & 0xFF;
-        final int i2 = i >> 16 & 0xFF;
-        final int j2 = j >> 16 & 0xFF;
+    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
+        int i = source.getCombinedLight(pos, state.getLightValue(source, pos));
+        int j = 180;
+        int k = i & 0xFF;
+        int l = j & 0xFF;
+        int i2 = i >> 16 & 0xFF;
+        int j2 = j >> 16 & 0xFF;
         return ((k > l) ? k : l) | ((i2 > j2) ? i2 : j2) << 16;
     }
     
@@ -102,16 +102,16 @@ public class BlockVisBattery extends Block
         return new BlockStateContainer(this, BlockVisBattery.CHARGE);
     }
     
-    public IBlockState getStateFromMeta(final int meta) {
+    public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty((IProperty)BlockVisBattery.CHARGE, (Comparable)meta);
     }
     
-    public int getMetaFromState(final IBlockState state) {
+    public int getMetaFromState(IBlockState state) {
         return (int)state.getValue((IProperty)BlockVisBattery.CHARGE);
     }
     
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(final CreativeTabs tab, final NonNullList<ItemStack> list) {
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
         list.add(new ItemStack(this, 1, 0));
     }
     

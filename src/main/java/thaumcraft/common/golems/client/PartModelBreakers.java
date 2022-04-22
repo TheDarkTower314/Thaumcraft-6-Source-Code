@@ -14,13 +14,13 @@ public class PartModelBreakers extends PartModel
 {
     private HashMap<Integer, Float[]> ani;
     
-    public PartModelBreakers(final ResourceLocation objModel, final ResourceLocation objTexture, final EnumAttachPoint attachPoint) {
+    public PartModelBreakers(ResourceLocation objModel, ResourceLocation objTexture, EnumAttachPoint attachPoint) {
         super(objModel, objTexture, attachPoint);
         ani = new HashMap<Integer, Float[]>();
     }
     
     @Override
-    public void preRenderObjectPart(final String partName, final IGolemAPI golem, final float partialTicks, final EnumLimbSide side) {
+    public void preRenderObjectPart(String partName, IGolemAPI golem, float partialTicks, EnumLimbSide side) {
         if (partName.equals("grinder")) {
             float lastSpeed = 0.0f;
             float lastRot = 0.0f;
@@ -28,8 +28,8 @@ public class PartModelBreakers extends PartModel
                 lastSpeed = ani.get(golem.getGolemEntity().getEntityId())[0];
                 lastRot = ani.get(golem.getGolemEntity().getEntityId())[1];
             }
-            final float f = Math.max(lastSpeed, golem.getGolemEntity().getSwingProgress(partialTicks) * 20.0f);
-            final float rot = lastRot + f;
+            float f = Math.max(lastSpeed, golem.getGolemEntity().getSwingProgress(partialTicks) * 20.0f);
+            float rot = lastRot + f;
             lastSpeed = f * 0.99f;
             ani.put(golem.getGolemEntity().getEntityId(), new Float[] { lastSpeed, rot });
             GlStateManager.translate(0.0, -0.34, 0.0);

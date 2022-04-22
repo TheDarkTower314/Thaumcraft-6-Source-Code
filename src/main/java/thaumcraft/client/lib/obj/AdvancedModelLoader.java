@@ -17,21 +17,21 @@ public class AdvancedModelLoader
 {
     private static Map<String, IModelCustomLoader> instances;
     
-    public static void registerModelHandler(final IModelCustomLoader modelHandler) {
-        for (final String suffix : modelHandler.getSuffixes()) {
+    public static void registerModelHandler(IModelCustomLoader modelHandler) {
+        for (String suffix : modelHandler.getSuffixes()) {
             AdvancedModelLoader.instances.put(suffix, modelHandler);
         }
     }
     
-    public static IModelCustom loadModel(final ResourceLocation resource) throws IllegalArgumentException, WavefrontObject.ModelFormatException {
-        final String name = resource.getResourcePath();
-        final int i = name.lastIndexOf(46);
+    public static IModelCustom loadModel(ResourceLocation resource) throws IllegalArgumentException, WavefrontObject.ModelFormatException {
+        String name = resource.getResourcePath();
+        int i = name.lastIndexOf(46);
         if (i == -1) {
             FMLLog.severe("The resource name %s is not valid", resource);
             throw new IllegalArgumentException("The resource name is not valid");
         }
-        final String suffix = name.substring(i + 1);
-        final IModelCustomLoader loader = AdvancedModelLoader.instances.get(suffix);
+        String suffix = name.substring(i + 1);
+        IModelCustomLoader loader = AdvancedModelLoader.instances.get(suffix);
         if (loader == null) {
             FMLLog.severe("The resource name %s is not supported", resource);
             throw new IllegalArgumentException("The resource name is not supported");

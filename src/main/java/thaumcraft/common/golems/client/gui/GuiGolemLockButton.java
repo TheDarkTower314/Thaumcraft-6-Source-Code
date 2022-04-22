@@ -17,18 +17,18 @@ public class GuiGolemLockButton extends GuiButton
     ISealEntity seal;
     static ResourceLocation tex;
     
-    public GuiGolemLockButton(final int buttonId, final int x, final int y, final int width, final int height, final ISealEntity seal) {
+    public GuiGolemLockButton(int buttonId, int x, int y, int width, int height, ISealEntity seal) {
         super(buttonId, x, y, width, height, "");
         this.seal = seal;
     }
     
-    public void drawButton(final Minecraft mc, final int xx, final int yy, final float partialTicks) {
+    public void drawButton(Minecraft mc, int xx, int yy, float partialTicks) {
         if (visible) {
-            final FontRenderer fontrenderer = mc.fontRenderer;
+            FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiGolemLockButton.tex);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);
-            final int k = getHoverState(hovered);
+            int k = getHoverState(hovered);
             if (k == 2) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             }
@@ -45,7 +45,7 @@ public class GuiGolemLockButton extends GuiButton
                 drawTexturedModalRect(x, y, 48, 136, 16, 16);
             }
             if (k == 2) {
-                final String s = seal.isLocked() ? I18n.translateToLocal("golem.prop.lock") : I18n.translateToLocal("golem.prop.unlock");
+                String s = seal.isLocked() ? I18n.translateToLocal("golem.prop.lock") : I18n.translateToLocal("golem.prop.unlock");
                 drawCenteredString(fontrenderer, s, x + 8, y + 17, 16777215);
             }
             mouseDragged(mc, xx, yy);

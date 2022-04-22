@@ -40,7 +40,7 @@ public class ConfigAspects
         CommonInternals.objectTags.clear();
         registerItemAspects();
         registerEntityAspects();
-        final AspectRegistryEvent are = new AspectRegistryEvent();
+        AspectRegistryEvent are = new AspectRegistryEvent();
         are.register = new AspectEventProxy();
         MinecraftForge.EVENT_BUS.post(are);
     }
@@ -125,7 +125,7 @@ public class ConfigAspects
         ThaumcraftApi.registerEntityTag("Thaumcraft.EldritchGolem", new AspectList().add(Aspect.ELDRITCH, 40).add(Aspect.ENERGY, 40).add(Aspect.MECHANISM, 40));
         ThaumcraftApi.registerEntityTag("Thaumcraft.CultistLeader", new AspectList().add(Aspect.ELDRITCH, 40).add(Aspect.AVERSION, 40).add(Aspect.MAN, 40));
         ThaumcraftApi.registerEntityTag("Thaumcraft.TaintacleGiant", new AspectList().add(Aspect.ELDRITCH, 40).add(Aspect.BEAST, 40).add(Aspect.FLUX, 40));
-        for (final Aspect tag : Aspect.aspects.values()) {
+        for (Aspect tag : Aspect.aspects.values()) {
             ThaumcraftApi.registerEntityTag("Thaumcraft.Wisp", new AspectList().add(tag, 5).add(Aspect.AURA, 5).add(Aspect.FLIGHT, 5), new ThaumcraftApi.EntityTagsNBT("Type", tag.getTag()));
         }
         ThaumcraftApi.registerEntityTag("Thaumcraft.Golem", new AspectList().add(Aspect.MECHANISM, 10).add(Aspect.MAN, 10).add(Aspect.MOTION, 10));
@@ -400,8 +400,8 @@ public class ConfigAspects
         ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.FISHING_ROD, 1, 32767), new AspectList().add(Aspect.WATER, 10).add(Aspect.TOOL, 5));
         ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.SHIELD, 1, 32767), new AspectList().add(Aspect.PROTECT, 20));
         for (int a = 0; a < 16; ++a) {
-            final ItemStack sis = new ItemStack(Items.SHIELD, 1, 32767);
-            final NBTTagCompound nbttagcompound = new NBTTagCompound();
+            ItemStack sis = new ItemStack(Items.SHIELD, 1, 32767);
+            NBTTagCompound nbttagcompound = new NBTTagCompound();
             nbttagcompound.setInteger("Base", a);
             sis.setTagInfo("BlockEntityTag", nbttagcompound);
             ThaumcraftApi.registerComplexObjectTag(sis, new AspectList().merge(Aspect.PROTECT, 20));
@@ -453,14 +453,14 @@ public class ConfigAspects
         ThaumcraftApi.registerComplexObjectTag(new ItemStack(Blocks.TRIPWIRE, 1, 32767), new AspectList().merge(Aspect.SENSES, 5).merge(Aspect.MECHANISM, 5).merge(Aspect.TRAP, 5));
         ThaumcraftApi.registerComplexObjectTag(new ItemStack(Blocks.DAYLIGHT_DETECTOR, 1, 32767), new AspectList().merge(Aspect.SENSES, 10).merge(Aspect.LIGHT, 10).merge(Aspect.MECHANISM, 5));
         ThaumcraftApi.registerComplexObjectTag("gear*", new AspectList().add(Aspect.MECHANISM, 5));
-        for (final PotionType potiontype : PotionType.REGISTRY) {
-            final ItemStack stack = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), potiontype);
+        for (PotionType potiontype : PotionType.REGISTRY) {
+            ItemStack stack = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), potiontype);
             ThaumcraftApi.registerObjectTag(stack, getPotionAspects(stack).add(Aspect.WATER, 5));
-            final ItemStack stack2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), potiontype);
+            ItemStack stack2 = PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), potiontype);
             ThaumcraftApi.registerObjectTag(stack2, getPotionAspects(stack2).add(Aspect.AVERSION, 5));
-            final ItemStack stack3 = PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potiontype);
+            ItemStack stack3 = PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potiontype);
             ThaumcraftApi.registerObjectTag(stack3, getPotionAspects(stack3).add(Aspect.ENERGY, 5));
-            final ItemStack stack4 = PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), potiontype);
+            ItemStack stack4 = PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), potiontype);
             ThaumcraftApi.registerObjectTag(stack4, getPotionAspects(stack4).add(Aspect.TRAP, 5));
         }
         ThaumcraftApi.registerObjectTag(new ItemStack(Items.DYE, 1, 0), new AspectList().add(Aspect.WATER, 2).add(Aspect.BEAST, 2));
@@ -530,7 +530,7 @@ public class ConfigAspects
         ThaumcraftApi.registerObjectTag(new ItemStack(ItemsTC.chunks, 1, 32767), new AspectList().add(Aspect.LIFE, 5).add(Aspect.ENTROPY, 1));
         ThaumcraftApi.registerObjectTag(new ItemStack(ItemsTC.salisMundus), new AspectList().add(Aspect.MAGIC, 5).add(Aspect.ENERGY, 5));
         ThaumcraftApi.registerObjectTag(new ItemStack(BlocksTC.crucible), new AspectList(new ItemStack(Items.CAULDRON, 1, 32767)).add(Aspect.CRAFT, 20).add(Aspect.ALCHEMY, 20));
-        for (final Block ca : BlocksTC.candles.values()) {
+        for (Block ca : BlocksTC.candles.values()) {
             ThaumcraftApi.registerComplexObjectTag(new ItemStack(ca), new AspectList().add(Aspect.LIGHT, 5));
         }
         ThaumcraftApi.registerObjectTag(new ItemStack(ItemsTC.thaumonomicon, 1, 32767), new AspectList(new ItemStack(Blocks.BOOKSHELF)).merge(Aspect.MAGIC, 10));
@@ -553,7 +553,7 @@ public class ConfigAspects
         ThaumcraftApi.registerObjectTag(new ItemStack(ItemsTC.crimsonRobeHelm, 1, 32767), new AspectList(new ItemStack(Items.LEATHER_HELMET)).add(Aspect.MAGIC, 5).add(Aspect.ELDRITCH, 5));
         ThaumcraftApi.registerObjectTag(new ItemStack(ItemsTC.crimsonBoots, 1, 32767), new AspectList(new ItemStack(Items.IRON_BOOTS)).add(Aspect.ELDRITCH, 5));
         ThaumcraftApi.registerObjectTag(new ItemStack(ItemsTC.crimsonBlade, 1, 32767), new AspectList(new ItemStack(Items.IRON_SWORD)).add(Aspect.ELDRITCH, 10).add(Aspect.DEATH, 10));
-        for (final Block ca : BlocksTC.banners.values()) {
+        for (Block ca : BlocksTC.banners.values()) {
             ThaumcraftApi.registerComplexObjectTag(new ItemStack(ca), new AspectList().add(Aspect.ELDRITCH, 5));
         }
         ThaumcraftApi.registerObjectTag(new ItemStack(ItemsTC.eldritchEye), new AspectList().add(Aspect.ELDRITCH, 15).add(Aspect.AURA, 15).add(Aspect.SENSES, 15).add(Aspect.SOUL, 15));
@@ -577,28 +577,28 @@ public class ConfigAspects
         ThaumcraftApi.registerObjectTag(new ItemStack(BlocksTC.eldritch, 1, 7), new AspectList().add(Aspect.VOID, 10).add(Aspect.ELDRITCH, 10).add(Aspect.BEAST, 15));
     }
     
-    public static AspectList getPotionAspects(final ItemStack itemstack) {
-        final AspectList tmp = new AspectList();
+    public static AspectList getPotionAspects(ItemStack itemstack) {
+        AspectList tmp = new AspectList();
         boolean didit = false;
-        final PotionType potion = PotionUtils.getPotionFromItem(itemstack);
+        PotionType potion = PotionUtils.getPotionFromItem(itemstack);
         if (potion != PotionTypes.WATER) {
-            final HashSet<ItemStack> hs = new HashSet<ItemStack>();
+            HashSet<ItemStack> hs = new HashSet<ItemStack>();
             ThaumcraftCraftingManager.getPotionReagentsRecursive(potion, hs);
-            for (final ItemStack his : hs) {
-                final AspectList tmp2 = ThaumcraftCraftingManager.getObjectTags(his);
-                for (final Aspect a : tmp2.aspects.keySet()) {
+            for (ItemStack his : hs) {
+                AspectList tmp2 = ThaumcraftCraftingManager.getObjectTags(his);
+                for (Aspect a : tmp2.aspects.keySet()) {
                     tmp.add(a, tmp2.getAmount(a));
                 }
                 didit = true;
                 tmp.add(Aspect.ALCHEMY, 3);
             }
             try {
-                for (final Aspect a2 : tmp.aspects.keySet().toArray(new Aspect[0])) {
-                    final int amt = tmp.getAmount(a2);
+                for (Aspect a2 : tmp.aspects.keySet().toArray(new Aspect[0])) {
+                    int amt = tmp.getAmount(a2);
                     tmp.remove(a2, (int)(amt * 0.66));
                 }
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
             if (!didit) {
                 tmp.add(Aspect.MAGIC, 5);
                 tmp.add(Aspect.ALCHEMY, 5);

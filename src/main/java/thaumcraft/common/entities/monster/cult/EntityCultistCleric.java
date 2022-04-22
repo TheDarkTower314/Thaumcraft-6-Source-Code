@@ -53,9 +53,9 @@ import net.minecraft.entity.IRangedAttackMob;
 public class EntityCultistCleric extends EntityCultist implements IRangedAttackMob, IEntityAdditionalSpawnData
 {
     public int rage;
-    private static final DataParameter<Boolean> RITUALIST;
+    private static DataParameter<Boolean> RITUALIST;
     
-    public EntityCultistCleric(final World p_i1745_1_) {
+    public EntityCultistCleric(World p_i1745_1_) {
         super(p_i1745_1_);
         rage = 0;
     }
@@ -84,7 +84,7 @@ public class EntityCultistCleric extends EntityCultist implements IRangedAttackM
     }
     
     @Override
-    protected void setLoot(final DifficultyInstance diff) {
+    protected void setLoot(DifficultyInstance diff) {
         setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ItemsTC.crimsonRobeHelm));
         setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ItemsTC.crimsonRobeChest));
         setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ItemsTC.crimsonRobeLegs));
@@ -93,25 +93,25 @@ public class EntityCultistCleric extends EntityCultist implements IRangedAttackM
         }
     }
     
-    public void attackEntityWithRangedAttack(final EntityLivingBase entitylivingbase, final float f) {
-        final double d0 = entitylivingbase.posX - posX;
-        final double d2 = entitylivingbase.getEntityBoundingBox().minY + entitylivingbase.height / 2.0f - (posY + height / 2.0f);
-        final double d3 = entitylivingbase.posZ - posZ;
+    public void attackEntityWithRangedAttack(EntityLivingBase entitylivingbase, float f) {
+        double d0 = entitylivingbase.posX - posX;
+        double d2 = entitylivingbase.getEntityBoundingBox().minY + entitylivingbase.height / 2.0f - (posY + height / 2.0f);
+        double d3 = entitylivingbase.posZ - posZ;
         swingArm(getActiveHand());
-        final float rf = rand.nextFloat();
+        float rf = rand.nextFloat();
         if (rf > 0.66f) {
-            final EntityGolemOrb blast = new EntityGolemOrb(world, this, entitylivingbase, true);
-            final Vec3d v = entitylivingbase.getPositionVector().addVector(entitylivingbase.motionX * 10.0, entitylivingbase.motionY * 10.0, entitylivingbase.motionZ * 10.0).subtract(getPositionVector()).normalize();
+            EntityGolemOrb blast = new EntityGolemOrb(world, this, entitylivingbase, true);
+            Vec3d v = entitylivingbase.getPositionVector().addVector(entitylivingbase.motionX * 10.0, entitylivingbase.motionY * 10.0, entitylivingbase.motionZ * 10.0).subtract(getPositionVector()).normalize();
             blast.setPosition(blast.posX + v.x, blast.posY + v.y, blast.posZ + v.z);
             blast.shoot(v.x, v.y, v.z, 0.66f, 3.0f);
             playSound(SoundsTC.egattack, 1.0f, 1.0f + rand.nextFloat() * 0.1f);
             world.spawnEntity(blast);
         }
         else {
-            final float f2 = MathHelper.sqrt(f) * 0.5f;
+            float f2 = MathHelper.sqrt(f) * 0.5f;
             world.playEvent(null, 1009, getPosition(), 0);
             for (int i = 0; i < 3; ++i) {
-                final EntitySmallFireball entitysmallfireball = new EntitySmallFireball(world, this, d0 + rand.nextGaussian() * f2, d2, d3 + rand.nextGaussian() * f2);
+                EntitySmallFireball entitysmallfireball = new EntitySmallFireball(world, this, d0 + rand.nextGaussian() * f2, d2, d3 + rand.nextGaussian() * f2);
                 entitysmallfireball.posY = posY + height / 2.0f + 0.5;
                 world.spawnEntity(entitysmallfireball);
             }
@@ -132,11 +132,11 @@ public class EntityCultistCleric extends EntityCultist implements IRangedAttackM
         return (boolean) getDataManager().get((DataParameter)EntityCultistCleric.RITUALIST);
     }
     
-    public void setIsRitualist(final boolean par1) {
+    public void setIsRitualist(boolean par1) {
         getDataManager().set(EntityCultistCleric.RITUALIST, par1);
     }
     
-    public boolean attackEntityFrom(final DamageSource p_70097_1_, final float p_70097_2_) {
+    public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_) {
         if (isEntityInvulnerable(p_70097_1_)) {
             return false;
         }
@@ -145,36 +145,36 @@ public class EntityCultistCleric extends EntityCultist implements IRangedAttackM
     }
     
     @Override
-    public void readEntityFromNBT(final NBTTagCompound par1NBTTagCompound) {
+    public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
         super.readEntityFromNBT(par1NBTTagCompound);
         setIsRitualist(par1NBTTagCompound.getBoolean("ritualist"));
     }
     
     @Override
-    public void writeEntityToNBT(final NBTTagCompound par1NBTTagCompound) {
+    public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
         super.writeEntityToNBT(par1NBTTagCompound);
         par1NBTTagCompound.setBoolean("ritualist", getIsRitualist());
     }
     
-    public void writeSpawnData(final ByteBuf data) {
+    public void writeSpawnData(ByteBuf data) {
         data.writeInt(getHomePosition().getX());
         data.writeInt(getHomePosition().getY());
         data.writeInt(getHomePosition().getZ());
     }
     
-    public void readSpawnData(final ByteBuf data) {
+    public void readSpawnData(ByteBuf data) {
         setHomePosAndDistance(new BlockPos(data.readInt(), data.readInt(), data.readInt()), 8);
     }
     
     public void onUpdate() {
         super.onUpdate();
         if (world.isRemote && getIsRitualist()) {
-            final double d0 = getHomePosition().getX() + 0.5 - posX;
-            final double d2 = getHomePosition().getY() + 1.5 - (posY + getEyeHeight());
-            final double d3 = getHomePosition().getZ() + 0.5 - posZ;
-            final double d4 = MathHelper.sqrt(d0 * d0 + d3 * d3);
-            final float f = (float)(Math.atan2(d3, d0) * 180.0 / 3.141592653589793) - 90.0f;
-            final float f2 = (float)(-(Math.atan2(d2, d4) * 180.0 / 3.141592653589793));
+            double d0 = getHomePosition().getX() + 0.5 - posX;
+            double d2 = getHomePosition().getY() + 1.5 - (posY + getEyeHeight());
+            double d3 = getHomePosition().getZ() + 0.5 - posZ;
+            double d4 = MathHelper.sqrt(d0 * d0 + d3 * d3);
+            float f = (float)(Math.atan2(d3, d0) * 180.0 / 3.141592653589793) - 90.0f;
+            float f2 = (float)(-(Math.atan2(d2, d4) * 180.0 / 3.141592653589793));
             rotationPitch = updateRotation(rotationPitch, f2, 10.0f);
             rotationYawHead = updateRotation(rotationYawHead, f, (float) getVerticalFaceSpeed());
         }
@@ -183,7 +183,7 @@ public class EntityCultistCleric extends EntityCultist implements IRangedAttackM
         }
     }
     
-    private float updateRotation(final float p_75652_1_, final float p_75652_2_, final float p_75652_3_) {
+    private float updateRotation(float p_75652_1_, float p_75652_2_, float p_75652_3_) {
         float f3 = MathHelper.wrapDegrees(p_75652_2_ - p_75652_1_);
         if (f3 > p_75652_3_) {
             f3 = p_75652_3_;
@@ -203,12 +203,12 @@ public class EntityCultistCleric extends EntityCultist implements IRangedAttackM
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte par1) {
+    public void handleStatusUpdate(byte par1) {
         if (par1 == 19) {
             for (int i = 0; i < 3; ++i) {
-                final double d0 = rand.nextGaussian() * 0.02;
-                final double d2 = rand.nextGaussian() * 0.02;
-                final double d3 = rand.nextGaussian() * 0.02;
+                double d0 = rand.nextGaussian() * 0.02;
+                double d2 = rand.nextGaussian() * 0.02;
+                double d3 = rand.nextGaussian() * 0.02;
                 world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, posX + rand.nextFloat() * width * 2.0f - width, posY + 0.5 + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0f - width, d0, d2, d3);
             }
         }
@@ -217,7 +217,7 @@ public class EntityCultistCleric extends EntityCultist implements IRangedAttackM
         }
     }
     
-    public void setSwingingArms(final boolean swingingArms) {
+    public void setSwingingArms(boolean swingingArms) {
     }
     
     static {

@@ -87,16 +87,16 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
         return new AxisAlignedBB(getPos().getX() - 0.1, getPos().getY() - 0.1, getPos().getZ() - 0.1, getPos().getX() + 1.1, getPos().getY() + 2.1, getPos().getZ() + 1.1);
     }
     
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         essentia.readFromNBT(nbttagcompound);
         maxRecipes = nbttagcompound.getByte("maxrec");
         recipeEssentia = new ArrayList<AspectList>();
         recipeHash = new ArrayList<Integer>();
         recipePlayer = new ArrayList<String>();
-        final int[] hashes = nbttagcompound.getIntArray("recipes");
+        int[] hashes = nbttagcompound.getIntArray("recipes");
         if (hashes != null) {
-            for (final int hash : hashes) {
-                final CrucibleRecipe recipe = ThaumcraftApi.getCrucibleRecipeFromHash(hash);
+            for (int hash : hashes) {
+                CrucibleRecipe recipe = ThaumcraftApi.getCrucibleRecipeFromHash(hash);
                 if (recipe != null) {
                     recipeEssentia.add(recipe.getAspects().copy());
                     recipePlayer.add("");
@@ -106,12 +106,12 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
         }
     }
     
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound.setByte("maxrec", (byte) maxRecipes);
         essentia.writeToNBT(nbttagcompound);
-        final int[] hashes = new int[recipeHash.size()];
+        int[] hashes = new int[recipeHash.size()];
         int a = 0;
-        for (final Integer i : recipeHash) {
+        for (Integer i : recipeHash) {
             hashes[a] = i;
             ++a;
         }
@@ -120,9 +120,9 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     @Override
-    public void readFromNBT(final NBTTagCompound nbtCompound) {
+    public void readFromNBT(NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
-        final NBTTagList nbttaglist2 = nbtCompound.getTagList("OutputPlayer", 8);
+        NBTTagList nbttaglist2 = nbtCompound.getTagList("OutputPlayer", 8);
         for (int a = 0; a < nbttaglist2.tagCount(); ++a) {
             if (recipePlayer.size() > a) {
                 recipePlayer.set(a, nbttaglist2.getStringTagAt(a));
@@ -131,13 +131,13 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     @Override
-    public NBTTagCompound writeToNBT(final NBTTagCompound nbtCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbtCompound) {
         super.writeToNBT(nbtCompound);
-        final NBTTagList nbttaglist2 = new NBTTagList();
+        NBTTagList nbttaglist2 = new NBTTagList();
         if (recipePlayer.size() > 0) {
             for (int a = 0; a < recipePlayer.size(); ++a) {
                 if (recipePlayer.get(a) != null) {
-                    final NBTTagString nbttagcompound1 = new NBTTagString(recipePlayer.get(a));
+                    NBTTagString nbttagcompound1 = new NBTTagString(recipePlayer.get(a));
                     nbttaglist2.appendTag(nbttagcompound1);
                 }
             }
@@ -147,15 +147,15 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     boolean checkHeat() {
-        final Material mat = world.getBlockState(pos.down(2)).getMaterial();
-        final Block bi = world.getBlockState(pos.down(2)).getBlock();
+        Material mat = world.getBlockState(pos.down(2)).getMaterial();
+        Block bi = world.getBlockState(pos.down(2)).getBlock();
         return mat == Material.LAVA || mat == Material.FIRE || BlocksTC.nitor.containsValue(bi) || bi == Blocks.MAGMA;
     }
     
     public ItemStack getCurrentOutputRecipe() {
         ItemStack out = ItemStack.EMPTY;
         if (currentCraft >= 0 && recipeHash != null && recipeHash.size() > 0) {
-            final CrucibleRecipe recipe = ThaumcraftApi.getCrucibleRecipeFromHash(recipeHash.get(currentCraft));
+            CrucibleRecipe recipe = ThaumcraftApi.getCrucibleRecipeFromHash(recipeHash.get(currentCraft));
             if (recipe != null) {
                 out = recipe.getRecipeOutput().copy();
             }
@@ -178,7 +178,7 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
                 }
                 if (currentCraft < 0 || currentCraft >= recipeHash.size() || currentRecipe == null || !currentRecipe.catalystMatches(getStackInSlot(0))) {
                     for (int a = 0; a < recipeHash.size(); ++a) {
-                        final CrucibleRecipe recipe = ThaumcraftApi.getCrucibleRecipeFromHash(recipeHash.get(a));
+                        CrucibleRecipe recipe = ThaumcraftApi.getCrucibleRecipeFromHash(recipeHash.get(a));
                         if (recipe.catalystMatches(getStackInSlot(0))) {
                             currentCraft = a;
                             currentRecipe = recipe;
@@ -191,7 +191,7 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
                 }
                 boolean done = true;
                 currentSuction = null;
-                for (final Aspect aspect : recipeEssentia.get(currentCraft).getAspectsSortedByName()) {
+                for (Aspect aspect : recipeEssentia.get(currentCraft).getAspectsSortedByName()) {
                     if (essentia.getAmount(aspect) < recipeEssentia.get(currentCraft).getAmount(aspect)) {
                         currentSuction = aspect;
                         done = false;
@@ -208,14 +208,14 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
         }
         else if (venting > 0) {
             --venting;
-            final float fx = 0.1f - world.rand.nextFloat() * 0.2f;
-            final float fz = 0.1f - world.rand.nextFloat() * 0.2f;
-            final float fy = 0.1f - world.rand.nextFloat() * 0.2f;
-            final float fx2 = 0.1f - world.rand.nextFloat() * 0.2f;
-            final float fz2 = 0.1f - world.rand.nextFloat() * 0.2f;
-            final float fy2 = 0.1f - world.rand.nextFloat() * 0.2f;
-            final int color = 16777215;
-            final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
+            float fx = 0.1f - world.rand.nextFloat() * 0.2f;
+            float fz = 0.1f - world.rand.nextFloat() * 0.2f;
+            float fy = 0.1f - world.rand.nextFloat() * 0.2f;
+            float fx2 = 0.1f - world.rand.nextFloat() * 0.2f;
+            float fz2 = 0.1f - world.rand.nextFloat() * 0.2f;
+            float fy2 = 0.1f - world.rand.nextFloat() * 0.2f;
+            int color = 16777215;
+            EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
             FXDispatcher.INSTANCE.drawVentParticles(pos.getX() + 0.5f + fx + facing.getFrontOffsetX() / 2.0f, pos.getY() + 0.5f + fy, pos.getZ() + 0.5f + fz + facing.getFrontOffsetZ() / 2.0f, facing.getFrontOffsetX() / 4.0f + fx2, fy2, facing.getFrontOffsetZ() / 4.0f + fz2, color);
         }
     }
@@ -223,12 +223,12 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     private void completeRecipe() {
         if (currentRecipe != null && currentCraft < recipeHash.size() && currentRecipe.matches(essentia, getStackInSlot(0)) && decrStackSize(0, 1) != null) {
             essentia = new AspectList();
-            final ItemStack dropped = getCurrentOutputRecipe();
-            final EntityPlayer p = world.getPlayerEntityByName(recipePlayer.get(currentCraft));
+            ItemStack dropped = getCurrentOutputRecipe();
+            EntityPlayer p = world.getPlayerEntityByName(recipePlayer.get(currentCraft));
             if (p != null) {
                 FMLCommonHandler.instance().firePlayerCraftingEvent(p, dropped, new InventoryFake(getStackInSlot(0)));
             }
-            final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
+            EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
             InventoryUtils.ejectStackAt(getWorld(), getPos(), facing, dropped);
             world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.25f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
             currentCraft = -1;
@@ -238,18 +238,18 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     void fill() {
-        final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
+        EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
         TileEntity te = null;
         IEssentiaTransport ic = null;
         for (int y = 0; y <= 1; ++y) {
-            for (final EnumFacing dir : EnumFacing.VALUES) {
+            for (EnumFacing dir : EnumFacing.VALUES) {
                 if (dir != facing && dir != EnumFacing.DOWN) {
                     if (y != 0 || dir != EnumFacing.UP) {
                         te = ThaumcraftApiHelper.getConnectableTile(world, pos.up(y), dir);
                         if (te != null) {
                             ic = (IEssentiaTransport)te;
                             if (ic.getEssentiaAmount(dir.getOpposite()) > 0 && ic.getSuctionAmount(dir.getOpposite()) < getSuctionAmount(null) && getSuctionAmount(null) >= ic.getMinimumSuction()) {
-                                final int ess = ic.takeEssentia(currentSuction, 1, dir.getOpposite());
+                                int ess = ic.takeEssentia(currentSuction, 1, dir.getOpposite());
                                 if (ess > 0) {
                                     addToContainer(currentSuction, ess);
                                     return;
@@ -263,12 +263,12 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     @Override
-    public int addToContainer(final Aspect tt, final int am) {
-        final int ce = currentRecipe.getAspects().getAmount(tt) - essentia.getAmount(tt);
+    public int addToContainer(Aspect tt, int am) {
+        int ce = currentRecipe.getAspects().getAmount(tt) - essentia.getAmount(tt);
         if (currentRecipe == null || ce <= 0) {
             return am;
         }
-        final int add = Math.min(ce, am);
+        int add = Math.min(ce, am);
         essentia.add(tt, add);
         syncTile(false);
         markDirty();
@@ -276,7 +276,7 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     @Override
-    public boolean takeFromContainer(final Aspect tt, final int am) {
+    public boolean takeFromContainer(Aspect tt, int am) {
         if (essentia.getAmount(tt) >= am) {
             essentia.remove(tt, am);
             syncTile(false);
@@ -287,31 +287,31 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     @Override
-    public boolean takeFromContainer(final AspectList ot) {
+    public boolean takeFromContainer(AspectList ot) {
         return false;
     }
     
     @Override
-    public boolean doesContainerContain(final AspectList ot) {
+    public boolean doesContainerContain(AspectList ot) {
         return false;
     }
     
     @Override
-    public boolean doesContainerContainAmount(final Aspect tt, final int am) {
+    public boolean doesContainerContainAmount(Aspect tt, int am) {
         return essentia.getAmount(tt) >= am;
     }
     
     @Override
-    public int containerContains(final Aspect tt) {
+    public int containerContains(Aspect tt) {
         return essentia.getAmount(tt);
     }
     
     @Override
-    public boolean doesContainerAccept(final Aspect tag) {
+    public boolean doesContainerAccept(Aspect tag) {
         return true;
     }
     
-    public boolean receiveClientEvent(final int i, final int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i >= 0) {
             if (world.isRemote) {
                 venting = 7;
@@ -322,52 +322,52 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     @Override
-    public boolean isConnectable(final EnumFacing face) {
+    public boolean isConnectable(EnumFacing face) {
         return face != BlockStateUtils.getFacing(getBlockMetadata());
     }
     
     @Override
-    public boolean canInputFrom(final EnumFacing face) {
+    public boolean canInputFrom(EnumFacing face) {
         return face != BlockStateUtils.getFacing(getBlockMetadata());
     }
     
     @Override
-    public boolean canOutputTo(final EnumFacing face) {
+    public boolean canOutputTo(EnumFacing face) {
         return false;
     }
     
     @Override
-    public void setSuction(final Aspect aspect, final int amount) {
+    public void setSuction(Aspect aspect, int amount) {
         currentSuction = aspect;
     }
     
     @Override
-    public Aspect getSuctionType(final EnumFacing loc) {
+    public Aspect getSuctionType(EnumFacing loc) {
         return currentSuction;
     }
     
     @Override
-    public int getSuctionAmount(final EnumFacing loc) {
+    public int getSuctionAmount(EnumFacing loc) {
         return (currentSuction != null) ? 128 : 0;
     }
     
     @Override
-    public Aspect getEssentiaType(final EnumFacing loc) {
+    public Aspect getEssentiaType(EnumFacing loc) {
         return null;
     }
     
     @Override
-    public int getEssentiaAmount(final EnumFacing loc) {
+    public int getEssentiaAmount(EnumFacing loc) {
         return 0;
     }
     
     @Override
-    public int takeEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
+    public int takeEssentia(Aspect aspect, int amount, EnumFacing face) {
         return (canOutputTo(face) && takeFromContainer(aspect, amount)) ? amount : 0;
     }
     
     @Override
-    public int addEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
+    public int addEssentia(Aspect aspect, int amount, EnumFacing face) {
         return canInputFrom(face) ? (amount - addToContainer(aspect, amount)) : 0;
     }
     
@@ -382,7 +382,7 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     @Override
-    public void setAspects(final AspectList aspects) {
+    public void setAspects(AspectList aspects) {
         essentia = aspects;
     }
     
@@ -394,7 +394,7 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     @Override
-    public int[] getSlotsForFace(final EnumFacing side) {
+    public int[] getSlotsForFace(EnumFacing side) {
         return new int[] { 0 };
     }
     
@@ -403,16 +403,16 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     public void getUpgrades() {
-        final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
+        EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
         int mr = 1;
         for (int yy = 0; yy <= 1; ++yy) {
-            for (final EnumFacing dir : EnumFacing.VALUES) {
+            for (EnumFacing dir : EnumFacing.VALUES) {
                 if (dir != EnumFacing.DOWN) {
                     if (dir != facing) {
-                        final int xx = pos.getX() + dir.getFrontOffsetX();
-                        final int zz = pos.getZ() + dir.getFrontOffsetZ();
-                        final BlockPos bp = new BlockPos(xx, pos.getY() + yy + dir.getFrontOffsetY(), zz);
-                        final IBlockState bs = world.getBlockState(bp);
+                        int xx = pos.getX() + dir.getFrontOffsetX();
+                        int zz = pos.getZ() + dir.getFrontOffsetZ();
+                        BlockPos bp = new BlockPos(xx, pos.getY() + yy + dir.getFrontOffsetY(), zz);
+                        IBlockState bs = world.getBlockState(bp);
                         if (bs == BlocksTC.brainBox.getDefaultState().withProperty((IProperty)IBlockFacing.FACING, (Comparable)dir.getOpposite())) {
                             mr += 2;
                         }
@@ -445,13 +445,13 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
         return null;
     }
     
-    public void updateRecipes(final EntityPlayer player) {
+    public void updateRecipes(EntityPlayer player) {
         recipes.clear();
-        final ArrayList<CrucibleRecipe> recipesTemp = new ArrayList<CrucibleRecipe>();
+        ArrayList<CrucibleRecipe> recipesTemp = new ArrayList<CrucibleRecipe>();
         if (getStackInSlot(0) != null && !getStackInSlot(0).isEmpty() && recipeHash != null) {
-            for (final Object r : ThaumcraftApi.getCraftingRecipes().values()) {
+            for (Object r : ThaumcraftApi.getCraftingRecipes().values()) {
                 if (r instanceof CrucibleRecipe) {
-                    final CrucibleRecipe creps = (CrucibleRecipe)r;
+                    CrucibleRecipe creps = (CrucibleRecipe)r;
                     if (ThaumcraftCapabilities.knowsResearchStrict(player, creps.getResearch()) && creps.catalystMatches(getStackInSlot(0))) {
                         recipesTemp.add(creps);
                     }
@@ -459,7 +459,7 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
                         if (recipeHash == null || recipeHash.size() <= 0) {
                             continue;
                         }
-                        for (final Integer hash : recipeHash) {
+                        for (Integer hash : recipeHash) {
                             if (creps.hash == hash) {
                                 recipesTemp.add(creps);
                                 break;
@@ -473,17 +473,17 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
     }
     
     public ArrayList<Integer> generateRecipeHashlist() {
-        final ArrayList<Integer> hashList = new ArrayList<Integer>();
+        ArrayList<Integer> hashList = new ArrayList<Integer>();
     Label_0016:
-        for (final int hash : recipeHash) {
-            for (final CrucibleRecipe cr : recipes) {
+        for (int hash : recipeHash) {
+            for (CrucibleRecipe cr : recipes) {
                 if (cr.hash == hash) {
                     continue Label_0016;
                 }
             }
             hashList.add(hash);
         }
-        for (final CrucibleRecipe cr2 : recipes) {
+        for (CrucibleRecipe cr2 : recipes) {
             hashList.add(cr2.hash);
         }
         return hashList;
@@ -495,7 +495,7 @@ public class TileThaumatorium extends TileThaumcraftInventory implements IAspect
         }
         
         @Override
-        public int compare(final CrucibleRecipe a, final CrucibleRecipe b) {
+        public int compare(CrucibleRecipe a, CrucibleRecipe b) {
             if (a.equals(b)) {
                 return 0;
             }

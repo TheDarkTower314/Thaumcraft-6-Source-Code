@@ -20,9 +20,9 @@ public class ContainerArcaneBore extends Container
 {
     private EntityArcaneBore turret;
     private EntityPlayer player;
-    private final World theWorld;
+    private World theWorld;
     
-    public ContainerArcaneBore(final InventoryPlayer par1InventoryPlayer, final World par3World, final EntityArcaneBore ent) {
+    public ContainerArcaneBore(InventoryPlayer par1InventoryPlayer, World par3World, EntityArcaneBore ent) {
         turret = ent;
         theWorld = par3World;
         player = par1InventoryPlayer.player;
@@ -37,23 +37,23 @@ public class ContainerArcaneBore extends Container
         }
     }
     
-    public boolean enchantItem(final EntityPlayer par1EntityPlayer, final int par2) {
+    public boolean enchantItem(EntityPlayer par1EntityPlayer, int par2) {
         return par2 == 0 || super.enchantItem(par1EntityPlayer, par2);
     }
     
     @SideOnly(Side.CLIENT)
-    public void updateProgressBar(final int par1, final int par2) {
+    public void updateProgressBar(int par1, int par2) {
     }
     
-    public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
+    public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
         return true;
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = inventorySlots.get(slot);
+        Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
-            final ItemStack stackInSlot = slotObject.getStack();
+            ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot == 0) {
                 if (!mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {

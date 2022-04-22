@@ -16,15 +16,15 @@ public class GuiToggleButton extends GuiButton
     Runnable runnable;
     public static boolean toggled;
     
-    public GuiToggleButton(final int buttonId, final int x, final int y, final int width, final int height, final String buttonText, final Runnable runnable) {
+    public GuiToggleButton(int buttonId, int x, int y, int width, int height, String buttonText, Runnable runnable) {
         super(buttonId, x, y, width, height, buttonText);
         this.runnable = runnable;
     }
     
-    public void drawButton(final Minecraft mc, final int xx, final int yy, final float partialTicks) {
+    public void drawButton(Minecraft mc, int xx, int yy, float partialTicks) {
         if (visible) {
             runnable.run();
-            final FontRenderer fontrenderer = mc.fontRenderer;
+            FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiTurretAdvanced.tex);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);

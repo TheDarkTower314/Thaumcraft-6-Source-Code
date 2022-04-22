@@ -17,9 +17,9 @@ public class PotionSunScorned extends Potion
 {
     public static Potion instance;
     private int statusIconIndex;
-    static final ResourceLocation rl;
+    static ResourceLocation rl;
     
-    public PotionSunScorned(final boolean par2, final int par3) {
+    public PotionSunScorned(boolean par2, int par3) {
         super(par2, par3);
         statusIconIndex = -1;
         setIconIndex(0, 0);
@@ -38,9 +38,9 @@ public class PotionSunScorned extends Potion
         return super.getStatusIconIndex();
     }
     
-    public void performEffect(final EntityLivingBase target, final int par2) {
+    public void performEffect(EntityLivingBase target, int par2) {
         if (!target.world.isRemote) {
-            final float f = target.getBrightness();
+            float f = target.getBrightness();
             if (f > 0.5f && target.world.rand.nextFloat() * 30.0f < (f - 0.4f) * 2.0f && target.world.canBlockSeeSky(new BlockPos(MathHelper.floor(target.posX), MathHelper.floor(target.posY), MathHelper.floor(target.posZ)))) {
                 target.setFire(4);
             }
@@ -50,7 +50,7 @@ public class PotionSunScorned extends Potion
         }
     }
     
-    public boolean isReady(final int par1, final int par2) {
+    public boolean isReady(int par1, int par2) {
         return par1 % 40 == 0;
     }
     

@@ -44,9 +44,9 @@ public class EntityWisp extends EntityFlying implements IMob
     public int prevAttackCounter;
     public int attackCounter;
     private BlockPos currentFlightTarget;
-    private static final DataParameter<String> TYPE;
+    private static DataParameter<String> TYPE;
     
-    public EntityWisp(final World world) {
+    public EntityWisp(World world) {
         super(world);
         courseChangeCooldown = 0;
         aggroCooldown = 0;
@@ -67,11 +67,11 @@ public class EntityWisp extends EntityFlying implements IMob
         return false;
     }
     
-    public int decreaseAirSupply(final int par1) {
+    public int decreaseAirSupply(int par1) {
         return par1;
     }
     
-    public boolean attackEntityFrom(final DamageSource damagesource, final float i) {
+    public boolean attackEntityFrom(DamageSource damagesource, float i) {
         if (damagesource.getTrueSource() instanceof EntityLivingBase) {
             setAttackTarget((EntityLivingBase)damagesource.getTrueSource());
             aggroCooldown = 200;
@@ -84,7 +84,7 @@ public class EntityWisp extends EntityFlying implements IMob
         getDataManager().register(EntityWisp.TYPE, String.valueOf(""));
     }
     
-    public void onDeath(final DamageSource par1DamageSource) {
+    public void onDeath(DamageSource par1DamageSource) {
         super.onDeath(par1DamageSource);
         if (world.isRemote) {
             FXDispatcher.INSTANCE.burst(posX, posY + 0.44999998807907104, posZ, 1.0f);
@@ -106,7 +106,7 @@ public class EntityWisp extends EntityFlying implements IMob
         return (String) getDataManager().get((DataParameter)EntityWisp.TYPE);
     }
     
-    public void setType(final String t) {
+    public void setType(String t) {
         getDataManager().set(EntityWisp.TYPE, String.valueOf(t));
     }
     
@@ -115,11 +115,11 @@ public class EntityWisp extends EntityFlying implements IMob
         if (isServerWorld()) {
             if (!world.isRemote && Aspect.getAspect(getType()) == null) {
                 if (world.rand.nextInt(10) != 0) {
-                    final ArrayList<Aspect> as = Aspect.getPrimalAspects();
+                    ArrayList<Aspect> as = Aspect.getPrimalAspects();
                     setType(as.get(world.rand.nextInt(as.size())).getTag());
                 }
                 else {
-                    final ArrayList<Aspect> as = Aspect.getCompoundAspects();
+                    ArrayList<Aspect> as = Aspect.getCompoundAspects();
                     setType(as.get(world.rand.nextInt(as.size())).getTag());
                 }
             }
@@ -127,7 +127,7 @@ public class EntityWisp extends EntityFlying implements IMob
                 setDead();
             }
             prevAttackCounter = attackCounter;
-            final double attackrange = 16.0;
+            double attackrange = 16.0;
             if (getAttackTarget() == null || !canEntityBeSeen(getAttackTarget())) {
                 if (currentFlightTarget != null && (!world.isAirBlock(currentFlightTarget) || currentFlightTarget.getY() < 1 || currentFlightTarget.getY() > world.getPrecipitationHeight(currentFlightTarget).up(8).getY())) {
                     currentFlightTarget = null;
@@ -135,26 +135,26 @@ public class EntityWisp extends EntityFlying implements IMob
                 if (currentFlightTarget == null || rand.nextInt(30) == 0 || getDistanceSqToCenter(currentFlightTarget) < 4.0) {
                     currentFlightTarget = new BlockPos((int) posX + rand.nextInt(7) - rand.nextInt(7), (int) posY + rand.nextInt(6) - 2, (int) posZ + rand.nextInt(7) - rand.nextInt(7));
                 }
-                final double var1 = currentFlightTarget.getX() + 0.5 - posX;
-                final double var2 = currentFlightTarget.getY() + 0.1 - posY;
-                final double var3 = currentFlightTarget.getZ() + 0.5 - posZ;
+                double var1 = currentFlightTarget.getX() + 0.5 - posX;
+                double var2 = currentFlightTarget.getY() + 0.1 - posY;
+                double var3 = currentFlightTarget.getZ() + 0.5 - posZ;
                 motionX += (Math.signum(var1) * 0.5 - motionX) * 0.10000000149011612;
                 motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
                 motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.10000000149011612;
-                final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
-                final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+                float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+                float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
                 moveForward = 0.15f;
                 rotationYaw += var5;
             }
             else if (getDistanceSq(getAttackTarget()) > attackrange * attackrange / 2.0 && canEntityBeSeen(getAttackTarget())) {
-                final double var1 = getAttackTarget().posX - posX;
-                final double var2 = getAttackTarget().posY + getAttackTarget().getEyeHeight() * 0.66f - posY;
-                final double var3 = getAttackTarget().posZ - posZ;
+                double var1 = getAttackTarget().posX - posX;
+                double var2 = getAttackTarget().posY + getAttackTarget().getEyeHeight() * 0.66f - posY;
+                double var3 = getAttackTarget().posZ - posZ;
                 motionX += (Math.signum(var1) * 0.5 - motionX) * 0.10000000149011612;
                 motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
                 motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.10000000149011612;
-                final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
-                final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+                float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+                float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
                 moveForward = 0.5f;
                 rotationYaw += var5;
             }
@@ -172,10 +172,10 @@ public class EntityWisp extends EntityFlying implements IMob
                 }
             }
             if (isEntityAlive() && getAttackTarget() != null && getAttackTarget().getDistanceSq(this) < attackrange * attackrange) {
-                final double d5 = getAttackTarget().posX - posX;
-                final double d6 = getAttackTarget().getEntityBoundingBox().minY + getAttackTarget().height / 2.0f - (posY + height / 2.0f);
-                final double d7 = getAttackTarget().posZ - posZ;
-                final float n = -(float)Math.atan2(d5, d7) * 180.0f / 3.141593f;
+                double d5 = getAttackTarget().posX - posX;
+                double d6 = getAttackTarget().getEntityBoundingBox().minY + getAttackTarget().height / 2.0f - (posY + height / 2.0f);
+                double d7 = getAttackTarget().posZ - posZ;
+                float n = -(float)Math.atan2(d5, d7) * 180.0f / 3.141593f;
                 rotationYaw = n;
                 renderYawOffset = n;
                 if (canEntityBeSeen(getAttackTarget())) {
@@ -183,7 +183,7 @@ public class EntityWisp extends EntityFlying implements IMob
                     if (attackCounter == 20) {
                         playSound(SoundsTC.zap, 1.0f, 1.1f);
                         PacketHandler.INSTANCE.sendToAllAround(new PacketFXWispZap(getEntityId(), getAttackTarget().getEntityId()), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 32.0));
-                        final float damage = (float) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+                        float damage = (float) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
                         if (Math.abs(getAttackTarget().motionX) > 0.10000000149011612 || Math.abs(getAttackTarget().motionY) > 0.10000000149011612 || Math.abs(getAttackTarget().motionZ) > 0.10000000149011612) {
                             if (world.rand.nextFloat() < 0.4f) {
                                 getAttackTarget().attackEntityFrom(DamageSource.causeMobDamage(this), damage);
@@ -206,7 +206,7 @@ public class EntityWisp extends EntityFlying implements IMob
         return SoundsTC.wisplive;
     }
     
-    protected SoundEvent getHurtSound(final DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundEvents.BLOCK_LAVA_EXTINGUISH;
     }
     
@@ -218,7 +218,7 @@ public class EntityWisp extends EntityFlying implements IMob
         return Item.getItemById(0);
     }
     
-    protected void dropFewItems(final boolean flag, final int i) {
+    protected void dropFewItems(boolean flag, int i) {
         if (Aspect.getAspect(getType()) != null) {
             entityDropItem(ThaumcraftApiHelper.makeCrystal(Aspect.getAspect(getType())), 0.0f);
         }
@@ -235,23 +235,23 @@ public class EntityWisp extends EntityFlying implements IMob
     public boolean getCanSpawnHere() {
         int count = 0;
         try {
-            final List l = world.getEntitiesWithinAABB(EntityWisp.class, getEntityBoundingBox().grow(16.0, 16.0, 16.0));
+            List l = world.getEntitiesWithinAABB(EntityWisp.class, getEntityBoundingBox().grow(16.0, 16.0, 16.0));
             if (l != null) {
                 count = l.size();
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         return count < 8 && world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
     }
     
     protected boolean isValidLightLevel() {
-        final BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
+        BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
         if (world.getLightFor(EnumSkyBlock.SKY, blockpos) > rand.nextInt(32)) {
             return false;
         }
         int i = world.getLightFromNeighbors(blockpos);
         if (world.isThundering()) {
-            final int j = world.getSkylightSubtracted();
+            int j = world.getSkylightSubtracted();
             world.setSkylightSubtracted(10);
             i = world.getLightFromNeighbors(blockpos);
             world.setSkylightSubtracted(j);
@@ -259,12 +259,12 @@ public class EntityWisp extends EntityFlying implements IMob
         return i <= rand.nextInt(8);
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbttagcompound) {
+    public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
         super.writeEntityToNBT(nbttagcompound);
         nbttagcompound.setString("Type", getType());
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbttagcompound) {
+    public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
         super.readEntityFromNBT(nbttagcompound);
         setType(nbttagcompound.getString("Type"));
     }

@@ -25,26 +25,26 @@ public class PacketSyncWarp implements IMessage, IMessageHandler<PacketSyncWarp,
     public PacketSyncWarp() {
     }
     
-    public PacketSyncWarp(final EntityPlayer player) {
-        final IPlayerWarp pk = ThaumcraftCapabilities.getWarp(player);
+    public PacketSyncWarp(EntityPlayer player) {
+        IPlayerWarp pk = ThaumcraftCapabilities.getWarp(player);
         data = pk.serializeNBT();
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         Utils.writeNBTTagCompoundToBuffer(buffer, data);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         data = Utils.readNBTTagCompoundFromBuffer(buffer);
     }
     
     @SideOnly(Side.CLIENT)
-    public IMessage onMessage(final PacketSyncWarp message, final MessageContext ctx) {
+    public IMessage onMessage(PacketSyncWarp message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final EntityPlayer player = Minecraft.getMinecraft().player;
-                final IPlayerWarp pk = ThaumcraftCapabilities.getWarp(player);
+                EntityPlayer player = Minecraft.getMinecraft().player;
+                IPlayerWarp pk = ThaumcraftCapabilities.getWarp(player);
                 pk.deserializeNBT(message.data);
             }
         });

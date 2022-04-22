@@ -19,23 +19,23 @@ import net.minecraft.client.renderer.entity.RenderSpider;
 @SideOnly(Side.CLIENT)
 public class RenderMindSpider extends RenderSpider
 {
-    public RenderMindSpider(final RenderManager rm) {
+    public RenderMindSpider(RenderManager rm) {
         super(rm);
         shadowSize = 0.5f;
         addLayer(new LayerSpiderEyes(this));
     }
     
-    protected void preRenderCallback(final EntityLivingBase par1EntityLiving, final float par2) {
+    protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2) {
         GL11.glScalef(0.6f, 0.6f, 0.6f);
     }
     
-    public void doRender(final EntityLiving p_76986_1_, final double p_76986_2_, final double p_76986_4_, final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
+    public void doRender(EntityLiving p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
         if (((EntityMindSpider)p_76986_1_).getViewer().length() == 0 || ((EntityMindSpider)p_76986_1_).getViewer().equals(renderManager.renderViewEntity.getName())) {
             super.doRender(p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
         }
     }
     
-    protected void renderModel(final EntityLivingBase entity, final float p_77036_2_, final float p_77036_3_, final float p_77036_4_, final float p_77036_5_, final float p_77036_6_, final float p_77036_7_) {
+    protected void renderModel(EntityLivingBase entity, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float p_77036_7_) {
         bindEntityTexture(entity);
         GL11.glPushMatrix();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, Math.min(0.1f, entity.ticksExisted / 100.0f));

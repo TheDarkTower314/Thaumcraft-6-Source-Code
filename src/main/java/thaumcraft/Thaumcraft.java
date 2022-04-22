@@ -26,43 +26,43 @@ import net.minecraftforge.fml.common.Mod;
 @Mod(modid = "thaumcraft", name = "Thaumcraft", version = "6.1.BETA26", dependencies = "required-after:forge@[14.23.5.2768,);required-after:baubles@[1.5.2,)", acceptedMinecraftVersions = "[1.12.2]")
 public class Thaumcraft
 {
-    public static final String MODID = "thaumcraft";
-    public static final String MODNAME = "Thaumcraft";
-    public static final String VERSION = "6.1.BETA26";
+    public static String MODID = "thaumcraft";
+    public static String MODNAME = "Thaumcraft";
+    public static String VERSION = "6.1.BETA26";
     @SidedProxy(clientSide = "thaumcraft.proxies.ClientProxy", serverSide = "thaumcraft.proxies.ServerProxy")
     public static IProxy proxy;
     @Mod.Instance("thaumcraft")
     public static Thaumcraft instance;
     public File modDir;
-    public static final Logger log;
+    public static Logger log;
     
     @Mod.EventHandler
-    public void preInit(final FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event) {
         Thaumcraft.proxy.preInit(event);
     }
     
     @Mod.EventHandler
-    public void init(final FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
         Thaumcraft.proxy.init(event);
     }
     
     @Mod.EventHandler
-    public void postInit(final FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
         Thaumcraft.proxy.postInit(event);
     }
     
     @Mod.EventHandler
-    public void serverLoad(final FMLServerStartingEvent event) {
+    public void serverLoad(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandThaumcraft());
     }
     
     @Mod.EventHandler
-    public void interModComs(final FMLInterModComms.IMCEvent event) {
+    public void interModComs(FMLInterModComms.IMCEvent event) {
         Thaumcraft.proxy.checkInterModComs(event);
     }
     
     @SubscribeEvent
-    public void onConfigChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
+    public void onConfigChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals("thaumcraft")) {
             ConfigManager.sync("thaumcraft", Config.Type.INSTANCE);
         }

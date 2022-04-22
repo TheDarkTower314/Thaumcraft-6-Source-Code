@@ -51,7 +51,7 @@ import java.util.ArrayList;
 
 public class ModConfig
 {
-    public static final float auraSize = 4.0f;
+    public static float auraSize = 4.0f;
     public static ArrayList<Aspect> aspectOrder;
     public static boolean foundCopperIngot;
     public static boolean foundTinIngot;
@@ -64,10 +64,10 @@ public class ModConfig
     public static boolean isHalloween;
     
     public static void postInitLoot() {
-        final int COMMON = 0;
-        final int UNCOMMON = 1;
-        final int RARE = 2;
-        final Random rand = new Random(System.currentTimeMillis());
+        int COMMON = 0;
+        int UNCOMMON = 1;
+        int RARE = 2;
+        Random rand = new Random(System.currentTimeMillis());
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.GOLD_NUGGET, 1), 2500, 0);
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.GOLD_NUGGET, 2), 2250, 1);
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.GOLD_NUGGET, 3), 2000, 2);
@@ -108,45 +108,45 @@ public class ModConfig
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.GOLDEN_APPLE, 1, 0), 6, 1);
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.GOLDEN_APPLE, 1, 0), 9, 2);
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.BOOK), 10, 0, 1, 2);
-        for (final PotionType pt : PotionType.REGISTRY) {
+        for (PotionType pt : PotionType.REGISTRY) {
             ThaumcraftApi.addLootBagItem(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), pt), 2, 0, 1, 2);
             ThaumcraftApi.addLootBagItem(PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), pt), 2, 0, 1, 2);
             ThaumcraftApi.addLootBagItem(PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), pt), 2, 1, 2);
         }
-        final ItemStack[] commonLoot = { new ItemStack(ItemsTC.lootBag, 1, 0), new ItemStack(ItemsTC.ingots), new ItemStack(ItemsTC.amber) };
-        final ItemStack[] uncommonLoot = { new ItemStack(ItemsTC.lootBag, 1, 1), new ItemStack(ItemsTC.baubles, 1, 0), new ItemStack(ItemsTC.baubles, 1, 1), new ItemStack(ItemsTC.baubles, 1, 2) };
-        final ItemStack[] rareLoot = { new ItemStack(ItemsTC.lootBag, 1, 2), new ItemStack(ItemsTC.thaumonomicon), new ItemStack(ItemsTC.thaumiumSword), new ItemStack(ItemsTC.thaumiumAxe), new ItemStack(ItemsTC.thaumiumHoe), new ItemStack(ItemsTC.thaumiumPick), new ItemStack(ItemsTC.baubles, 1, 3), new ItemStack(ItemsTC.baubles, 1, 4), new ItemStack(ItemsTC.baubles, 1, 5), new ItemStack(ItemsTC.baubles, 1, 6), new ItemStack(ItemsTC.amuletVis, 1, 0) };
+        ItemStack[] commonLoot = { new ItemStack(ItemsTC.lootBag, 1, 0), new ItemStack(ItemsTC.ingots), new ItemStack(ItemsTC.amber) };
+        ItemStack[] uncommonLoot = { new ItemStack(ItemsTC.lootBag, 1, 1), new ItemStack(ItemsTC.baubles, 1, 0), new ItemStack(ItemsTC.baubles, 1, 1), new ItemStack(ItemsTC.baubles, 1, 2) };
+        ItemStack[] rareLoot = { new ItemStack(ItemsTC.lootBag, 1, 2), new ItemStack(ItemsTC.thaumonomicon), new ItemStack(ItemsTC.thaumiumSword), new ItemStack(ItemsTC.thaumiumAxe), new ItemStack(ItemsTC.thaumiumHoe), new ItemStack(ItemsTC.thaumiumPick), new ItemStack(ItemsTC.baubles, 1, 3), new ItemStack(ItemsTC.baubles, 1, 4), new ItemStack(ItemsTC.baubles, 1, 5), new ItemStack(ItemsTC.baubles, 1, 6), new ItemStack(ItemsTC.amuletVis, 1, 0) };
     }
     
     public static void modCompatibility() {
         Thaumcraft.log.info("Checking for mod & oredict compatibilities");
-        final ResourceLocation defaultGroup = new ResourceLocation("");
+        ResourceLocation defaultGroup = new ResourceLocation("");
         try {
             if (OreDictionary.doesOreNameExist("oreIron") && OreDictionary.getOres("oreIron", false).size() > 1) {
-                for (final ItemStack is : OreDictionary.getOres("oreIron", false)) {
+                for (ItemStack is : OreDictionary.getOres("oreIron", false)) {
                     if (is.getItem() != Item.getItemFromBlock(Blocks.IRON_ORE)) {
                         Utils.addSpecialMiningResult(is, new ItemStack(ItemsTC.clusters, 1, 0), 1.0f);
                     }
                 }
             }
             if (OreDictionary.doesOreNameExist("oreGold") && OreDictionary.getOres("oreGold", false).size() > 1) {
-                for (final ItemStack is : OreDictionary.getOres("oreGold", false)) {
+                for (ItemStack is : OreDictionary.getOres("oreGold", false)) {
                     if (is.getItem() != Item.getItemFromBlock(Blocks.GOLD_ORE)) {
                         Utils.addSpecialMiningResult(is, new ItemStack(ItemsTC.clusters, 1, 1), 1.0f);
                     }
                 }
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         if (OreDictionary.doesOreNameExist("oreCopper")) {
-            for (final ItemStack is : OreDictionary.getOres("oreCopper", false)) {
+            for (ItemStack is : OreDictionary.getOres("oreCopper", false)) {
                 Utils.addSpecialMiningResult(is, new ItemStack(ItemsTC.clusters, 1, 2), 1.0f);
                 ModConfig.foundCopperOre = true;
             }
         }
         if (OreDictionary.doesOreNameExist("ingotCopper")) {
             boolean first = true;
-            for (final ItemStack is2 : OreDictionary.getOres("ingotCopper", false)) {
+            for (ItemStack is2 : OreDictionary.getOres("ingotCopper", false)) {
                 if (is2.getCount() > 1) {
                     is2.setCount(1);
                 }
@@ -160,14 +160,14 @@ public class ModConfig
             }
         }
         if (OreDictionary.doesOreNameExist("oreTin")) {
-            for (final ItemStack is : OreDictionary.getOres("oreTin", false)) {
+            for (ItemStack is : OreDictionary.getOres("oreTin", false)) {
                 Utils.addSpecialMiningResult(is, new ItemStack(ItemsTC.clusters, 1, 3), 1.0f);
                 ModConfig.foundTinOre = true;
             }
         }
         if (OreDictionary.doesOreNameExist("ingotTin")) {
             boolean first = true;
-            for (final ItemStack is2 : OreDictionary.getOres("ingotTin", false)) {
+            for (ItemStack is2 : OreDictionary.getOres("ingotTin", false)) {
                 if (is2.getCount() > 1) {
                     is2.setCount(1);
                 }
@@ -181,14 +181,14 @@ public class ModConfig
             }
         }
         if (OreDictionary.doesOreNameExist("oreSilver")) {
-            for (final ItemStack is : OreDictionary.getOres("oreSilver", false)) {
+            for (ItemStack is : OreDictionary.getOres("oreSilver", false)) {
                 Utils.addSpecialMiningResult(is, new ItemStack(ItemsTC.clusters, 1, 4), 1.0f);
                 ModConfig.foundSilverOre = true;
             }
         }
         if (OreDictionary.doesOreNameExist("ingotSilver")) {
             boolean first = true;
-            for (final ItemStack is2 : OreDictionary.getOres("ingotSilver", false)) {
+            for (ItemStack is2 : OreDictionary.getOres("ingotSilver", false)) {
                 if (is2.getCount() > 1) {
                     is2.setCount(1);
                 }
@@ -202,14 +202,14 @@ public class ModConfig
             }
         }
         if (OreDictionary.doesOreNameExist("oreLead")) {
-            for (final ItemStack is : OreDictionary.getOres("oreLead", false)) {
+            for (ItemStack is : OreDictionary.getOres("oreLead", false)) {
                 Utils.addSpecialMiningResult(is, new ItemStack(ItemsTC.clusters, 1, 5), 1.0f);
                 ModConfig.foundLeadOre = true;
             }
         }
         if (OreDictionary.doesOreNameExist("ingotLead")) {
             boolean first = true;
-            for (final ItemStack is2 : OreDictionary.getOres("ingotLead", false)) {
+            for (ItemStack is2 : OreDictionary.getOres("ingotLead", false)) {
                 if (is2.getCount() > 1) {
                     is2.setCount(1);
                 }
@@ -239,28 +239,28 @@ public class ModConfig
         registerSafariNetBlacklist(EntityInhabitedZombie.class);
     }
     
-    public static void registerSafariNetBlacklist(final Class<?> blacklistedEntity) {
+    public static void registerSafariNetBlacklist(Class<?> blacklistedEntity) {
         try {
-            final Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
+            Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
             if (registry != null) {
-                final Method reg = registry.getMethod("registerSafariNetBlacklist", Class.class);
+                Method reg = registry.getMethod("registerSafariNetBlacklist", Class.class);
                 reg.invoke(registry, blacklistedEntity);
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
     }
     
     public static void postInitMisc() {
-        for (final Item item : ForgeRegistries.ITEMS.getValuesCollection()) {
+        for (Item item : ForgeRegistries.ITEMS.getValuesCollection()) {
             if (item != null && item instanceof IPlantable) {
                 try {
-                    final IBlockState bs = ((IPlantable)item).getPlant(null, null);
+                    IBlockState bs = ((IPlantable)item).getPlant(null, null);
                     if (bs == null) {
                         continue;
                     }
                     ThaumcraftApi.registerSeed(bs.getBlock(), new ItemStack(item));
                 }
-                catch (final Exception ex) {}
+                catch (Exception ex) {}
             }
         }
         CropUtils.addStandardCrop(Blocks.MELON_BLOCK, 32767);
@@ -273,8 +273,8 @@ public class ModConfig
         Utils.addSpecialMiningResult(new ItemStack(Blocks.GOLD_ORE), new ItemStack(ItemsTC.clusters, 1, 1), 1.0f);
         Utils.addSpecialMiningResult(new ItemStack(BlocksTC.oreCinnabar), new ItemStack(ItemsTC.clusters, 1, 6), 1.0f);
         Utils.addSpecialMiningResult(new ItemStack(Items.QUARTZ), new ItemStack(ItemsTC.clusters, 1, 7), 1.0f);
-        final Collection<Aspect> pa = Aspect.aspects.values();
-        for (final Aspect aspect : pa) {
+        Collection<Aspect> pa = Aspect.aspects.values();
+        for (Aspect aspect : pa) {
             ModConfig.aspectOrder.add(aspect);
         }
     }

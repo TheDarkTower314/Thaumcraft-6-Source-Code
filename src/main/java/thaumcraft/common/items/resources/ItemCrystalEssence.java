@@ -21,17 +21,17 @@ public class ItemCrystalEssence extends ItemTCEssentiaContainer
     }
     
     @Override
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
-            for (final Aspect tag : Aspect.aspects.values()) {
-                final ItemStack i = new ItemStack(this);
+            for (Aspect tag : Aspect.aspects.values()) {
+                ItemStack i = new ItemStack(this);
                 setAspects(i, new AspectList().add(tag, base));
                 items.add(i);
             }
         }
     }
     
-    public String getItemStackDisplayName(final ItemStack stack) {
+    public String getItemStackDisplayName(ItemStack stack) {
         return (getAspects(stack) != null && !getAspects(stack).aspects.isEmpty()) ? String.format(super.getItemStackDisplayName(stack), getAspects(stack).getAspects()[0].getName()) : super.getItemStackDisplayName(stack);
     }
 }

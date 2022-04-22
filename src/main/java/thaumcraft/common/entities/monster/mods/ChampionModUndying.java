@@ -14,7 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 public class ChampionModUndying implements IChampionModifierEffect
 {
     @Override
-    public float performEffect(final EntityLivingBase mob, final EntityLivingBase target, final DamageSource source, final float amount) {
+    public float performEffect(EntityLivingBase mob, EntityLivingBase target, DamageSource source, float amount) {
         if (mob.ticksExisted % 20 == 0) {
             mob.heal(1.0f);
         }
@@ -23,17 +23,17 @@ public class ChampionModUndying implements IChampionModifierEffect
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void showFX(final EntityLivingBase boss) {
+    public void showFX(EntityLivingBase boss) {
         if (boss.world.rand.nextBoolean()) {
             return;
         }
-        final float w = boss.world.rand.nextFloat() * boss.width;
-        final float d = boss.world.rand.nextFloat() * boss.width;
-        final float h = boss.world.rand.nextFloat() * boss.height;
+        float w = boss.world.rand.nextFloat() * boss.width;
+        float d = boss.world.rand.nextFloat() * boss.width;
+        float h = boss.world.rand.nextFloat() * boss.height;
         FXDispatcher.INSTANCE.drawGenericParticles(boss.getEntityBoundingBox().minX + w, boss.getEntityBoundingBox().minY + h, boss.getEntityBoundingBox().minZ + d, 0.0, 0.03, 0.0, 0.1f + boss.world.rand.nextFloat() * 0.1f, 0.8f + boss.world.rand.nextFloat() * 0.2f, 0.1f + boss.world.rand.nextFloat() * 0.1f, 0.9f, true, 69, 4, 1, 4 + boss.world.rand.nextInt(4), 0, 0.5f + boss.world.rand.nextFloat() * 0.2f, 0.0f, 0);
     }
     
     @Override
-    public void preRender(final EntityLivingBase boss, final RenderLivingBase renderLivingBase) {
+    public void preRender(EntityLivingBase boss, RenderLivingBase renderLivingBase) {
     }
 }

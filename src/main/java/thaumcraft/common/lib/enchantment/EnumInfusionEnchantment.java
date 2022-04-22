@@ -33,23 +33,23 @@ public enum EnumInfusionEnchantment
     public int maxLevel;
     public String research;
     
-    private EnumInfusionEnchantment(final Set<String> toolClasses, final int ml, final String research) {
+    private EnumInfusionEnchantment(Set<String> toolClasses, int ml, String research) {
         this.toolClasses = toolClasses;
         maxLevel = ml;
         this.research = research;
     }
     
-    public static NBTTagList getInfusionEnchantmentTagList(final ItemStack stack) {
+    public static NBTTagList getInfusionEnchantmentTagList(ItemStack stack) {
         return (stack == null || stack.isEmpty() || stack.getTagCompound() == null) ? null : stack.getTagCompound().getTagList("infench", 10);
     }
     
-    public static List<EnumInfusionEnchantment> getInfusionEnchantments(final ItemStack stack) {
-        final NBTTagList nbttaglist = getInfusionEnchantmentTagList(stack);
-        final List<EnumInfusionEnchantment> list = new ArrayList<EnumInfusionEnchantment>();
+    public static List<EnumInfusionEnchantment> getInfusionEnchantments(ItemStack stack) {
+        NBTTagList nbttaglist = getInfusionEnchantmentTagList(stack);
+        List<EnumInfusionEnchantment> list = new ArrayList<EnumInfusionEnchantment>();
         if (nbttaglist != null) {
             for (int j = 0; j < nbttaglist.tagCount(); ++j) {
-                final int k = nbttaglist.getCompoundTagAt(j).getShort("id");
-                final int l = nbttaglist.getCompoundTagAt(j).getShort("lvl");
+                int k = nbttaglist.getCompoundTagAt(j).getShort("id");
+                int l = nbttaglist.getCompoundTagAt(j).getShort("lvl");
                 if (k >= 0 && k < values().length) {
                     list.add(values()[k]);
                 }
@@ -58,13 +58,13 @@ public enum EnumInfusionEnchantment
         return list;
     }
     
-    public static int getInfusionEnchantmentLevel(final ItemStack stack, final EnumInfusionEnchantment enchantment) {
-        final NBTTagList nbttaglist = getInfusionEnchantmentTagList(stack);
-        final List<EnumInfusionEnchantment> list = new ArrayList<EnumInfusionEnchantment>();
+    public static int getInfusionEnchantmentLevel(ItemStack stack, EnumInfusionEnchantment enchantment) {
+        NBTTagList nbttaglist = getInfusionEnchantmentTagList(stack);
+        List<EnumInfusionEnchantment> list = new ArrayList<EnumInfusionEnchantment>();
         if (nbttaglist != null) {
             for (int j = 0; j < nbttaglist.tagCount(); ++j) {
-                final int k = nbttaglist.getCompoundTagAt(j).getShort("id");
-                final int l = nbttaglist.getCompoundTagAt(j).getShort("lvl");
+                int k = nbttaglist.getCompoundTagAt(j).getShort("id");
+                int l = nbttaglist.getCompoundTagAt(j).getShort("lvl");
                 if (k >= 0 && k < values().length && values()[k] == enchantment) {
                     return l;
                 }
@@ -73,7 +73,7 @@ public enum EnumInfusionEnchantment
         return 0;
     }
     
-    public static void addInfusionEnchantment(final ItemStack stack, final EnumInfusionEnchantment ie, final int level) {
+    public static void addInfusionEnchantment(ItemStack stack, EnumInfusionEnchantment ie, int level) {
         if (stack == null || stack.isEmpty() || level > ie.maxLevel) {
             return;
         }
@@ -81,8 +81,8 @@ public enum EnumInfusionEnchantment
         if (nbttaglist != null) {
             int j = 0;
             while (j < nbttaglist.tagCount()) {
-                final int k = nbttaglist.getCompoundTagAt(j).getShort("id");
-                final int l = nbttaglist.getCompoundTagAt(j).getShort("lvl");
+                int k = nbttaglist.getCompoundTagAt(j).getShort("id");
+                int l = nbttaglist.getCompoundTagAt(j).getShort("lvl");
                 if (k == ie.ordinal()) {
                     if (level <= l) {
                         return;
@@ -99,7 +99,7 @@ public enum EnumInfusionEnchantment
         else {
             nbttaglist = new NBTTagList();
         }
-        final NBTTagCompound nbttagcompound = new NBTTagCompound();
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
         nbttagcompound.setShort("id", (short)ie.ordinal());
         nbttagcompound.setShort("lvl", (short)level);
         nbttaglist.appendTag(nbttagcompound);

@@ -21,7 +21,7 @@ public class GuiTurretBasic extends GuiContainer
     EntityTurretCrossbow turret;
     ResourceLocation tex;
     
-    public GuiTurretBasic(final InventoryPlayer par1InventoryPlayer, final World world, final EntityTurretCrossbow t) {
+    public GuiTurretBasic(InventoryPlayer par1InventoryPlayer, World world, EntityTurretCrossbow t) {
         super(new ContainerTurretBasic(par1InventoryPlayer, world, t));
         tex = new ResourceLocation("thaumcraft", "textures/gui/gui_turret_basic.png");
         xSize = 175;
@@ -29,23 +29,23 @@ public class GuiTurretBasic extends GuiContainer
         turret = t;
     }
     
-    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         renderHoveredToolTip(mouseX, mouseY);
     }
     
-    protected void drawGuiContainerForegroundLayer(final int par1, final int par2) {
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
     }
     
-    protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         mc.renderEngine.bindTexture(tex);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        final int k = (width - xSize) / 2;
-        final int l = (height - ySize) / 2;
+        int k = (width - xSize) / 2;
+        int l = (height - ySize) / 2;
         GL11.glEnable(3042);
         drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
-        final int h = (int)(39.0f * (turret.getHealth() / turret.getMaxHealth()));
+        int h = (int)(39.0f * (turret.getHealth() / turret.getMaxHealth()));
         drawTexturedModalRect(k + 68, l + 59, 192, 48, h, 6);
     }
 }

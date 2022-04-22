@@ -22,15 +22,15 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 public class RenderTurretCrossbowAdvanced extends RenderLiving
 {
     private IModelCustom model;
-    private static final ResourceLocation TURMODEL;
-    private static final ResourceLocation rl;
+    private static ResourceLocation TURMODEL;
+    private static ResourceLocation rl;
     
-    public RenderTurretCrossbowAdvanced(final RenderManager rm) {
+    public RenderTurretCrossbowAdvanced(RenderManager rm) {
         super(rm, null, 0.5f);
         model = AdvancedModelLoader.loadModel(RenderTurretCrossbowAdvanced.TURMODEL);
     }
     
-    public void renderTurret(final EntityTurretCrossbow turret, final double x, final double y, final double z, final float par8, final float pTicks) {
+    public void renderTurret(EntityTurretCrossbow turret, double x, double y, double z, float par8, float pTicks) {
         bindEntityTexture(turret);
         GL11.glPushMatrix();
         GL11.glEnable(32826);
@@ -46,7 +46,7 @@ public class RenderTurretCrossbowAdvanced extends RenderLiving
         GL11.glPushMatrix();
         if (turret.hurtTime > 0) {
             GlStateManager.color(1.0f, 0.5f, 0.5f, 1.0f);
-            final float jiggle = turret.hurtTime / 500.0f;
+            float jiggle = turret.hurtTime / 500.0f;
             GL11.glTranslated(turret.getRNG().nextGaussian() * jiggle, turret.getRNG().nextGaussian() * jiggle, turret.getRNG().nextGaussian() * jiggle);
         }
         GL11.glRotatef(turret.prevRotationYawHead + (turret.rotationYawHead - turret.prevRotationYawHead) * pTicks, 0.0f, -1.0f, 0.0f);
@@ -79,12 +79,12 @@ public class RenderTurretCrossbowAdvanced extends RenderLiving
         GL11.glPopMatrix();
     }
     
-    protected float getSwingProgress(final EntityLivingBase e, final float p_77040_2_) {
+    protected float getSwingProgress(EntityLivingBase e, float p_77040_2_) {
         ((EntityTurretCrossbow)e).loadProgressForRender = ((EntityTurretCrossbow)e).getLoadProgress(p_77040_2_);
         return super.getSwingProgress(e, p_77040_2_);
     }
     
-    private void translateFromOrientation(final int orientation) {
+    private void translateFromOrientation(int orientation) {
         GL11.glTranslated(0.0, 0.5, 0.0);
         if (orientation == 0) {
             GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
@@ -106,11 +106,11 @@ public class RenderTurretCrossbowAdvanced extends RenderLiving
         GL11.glTranslated(0.0, -0.5, 0.0);
     }
     
-    public void doRender(final EntityLiving par1Entity, final double par2, final double par4, final double par6, final float par8, final float par9) {
+    public void doRender(EntityLiving par1Entity, double par2, double par4, double par6, float par8, float par9) {
         renderTurret((EntityTurretCrossbow)par1Entity, par2, par4, par6, par8, par9);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return RenderTurretCrossbowAdvanced.rl;
     }
     

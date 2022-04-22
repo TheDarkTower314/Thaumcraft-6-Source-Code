@@ -46,13 +46,13 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     public EntityLivingBase owner;
     FocusPackage focusPackage;
     private UUID ownerUniqueId;
-    private static final DataParameter<Boolean> FRIENDLY;
+    private static DataParameter<Boolean> FRIENDLY;
     public int damBonus;
     private int attackTime;
     FocusEffect[] effects;
     public int color;
     
-    public EntitySpellBat(final World world) {
+    public EntitySpellBat(World world) {
         super(world);
         owner = null;
         damBonus = 0;
@@ -61,7 +61,7 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
         setSize(0.5f, 0.9f);
     }
     
-    public EntitySpellBat(final FocusPackage pac, final boolean friendly) {
+    public EntitySpellBat(FocusPackage pac, boolean friendly) {
         super(pac.world);
         owner = null;
         damBonus = 0;
@@ -82,24 +82,24 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
         return (boolean) getDataManager().get((DataParameter)EntitySpellBat.FRIENDLY);
     }
     
-    public void setIsFriendly(final boolean par1) {
+    public void setIsFriendly(boolean par1) {
         getDataManager().set(EntitySpellBat.FRIENDLY, par1);
     }
     
-    public void writeSpawnData(final ByteBuf data) {
+    public void writeSpawnData(ByteBuf data) {
         Utils.writeNBTTagCompoundToBuffer(data, focusPackage.serialize());
     }
     
-    public void readSpawnData(final ByteBuf data) {
+    public void readSpawnData(ByteBuf data) {
         try {
             (focusPackage = new FocusPackage()).deserialize(Utils.readNBTTagCompoundFromBuffer(data));
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    public void setOwner(@Nullable final EntityLivingBase ownerIn) {
+    public void setOwner(@Nullable EntityLivingBase ownerIn) {
         owner = ownerIn;
         ownerUniqueId = ((ownerIn == null) ? null : ownerIn.getUniqueID());
     }
@@ -107,7 +107,7 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     @Nullable
     public EntityLivingBase getOwner() {
         if (owner == null && ownerUniqueId != null && world instanceof WorldServer) {
-            final Entity entity = ((WorldServer) world).getEntityFromUuid(ownerUniqueId);
+            Entity entity = ((WorldServer) world).getEntityFromUuid(ownerUniqueId);
             if (entity instanceof EntityLivingBase) {
                 owner = (EntityLivingBase)entity;
             }
@@ -136,7 +136,7 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
         return SoundEvents.ENTITY_BAT_AMBIENT;
     }
     
-    protected SoundEvent getHurtSound(final DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundEvents.ENTITY_BAT_HURT;
     }
     
@@ -155,15 +155,15 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     }
     
     public Team getTeam() {
-        final EntityLivingBase entitylivingbase = getOwner();
+        EntityLivingBase entitylivingbase = getOwner();
         if (entitylivingbase != null) {
             return entitylivingbase.getTeam();
         }
         return super.getTeam();
     }
     
-    public boolean isOnSameTeam(final Entity otherEntity) {
-        final EntityLivingBase owner = getOwner();
+    public boolean isOnSameTeam(Entity otherEntity) {
+        EntityLivingBase owner = getOwner();
         if (otherEntity == owner) {
             return true;
         }
@@ -185,8 +185,8 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
                 int r = 0;
                 int g = 0;
                 int b = 0;
-                for (final FocusEffect ef : effects) {
-                    final Color c = new Color(FocusEngine.getElementColor(ef.getKey()));
+                for (FocusEffect ef : effects) {
+                    Color c = new Color(FocusEngine.getElementColor(ef.getKey()));
                     r += c.getRed();
                     g += c.getGreen();
                     b += c.getBlue();
@@ -194,11 +194,11 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
                 r /= effects.length;
                 g /= effects.length;
                 b /= effects.length;
-                final Color c2 = new Color(r, g, b);
+                Color c2 = new Color(r, g, b);
                 color = c2.getRGB();
             }
             if (effects != null && effects.length > 0) {
-                final FocusEffect eff = effects[rand.nextInt(effects.length)];
+                FocusEffect eff = effects[rand.nextInt(effects.length)];
                 eff.renderParticleFX(world, posX + world.rand.nextGaussian() * 0.125, posY + height / 2.0f + world.rand.nextGaussian() * 0.125, posZ + world.rand.nextGaussian() * 0.125, 0.0, 0.0, 0.0);
             }
         }
@@ -209,8 +209,8 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
         if (attackTime > 0) {
             --attackTime;
         }
-        final BlockPos blockpos = new BlockPos(this);
-        final BlockPos blockpos2 = blockpos.up();
+        BlockPos blockpos = new BlockPos(this);
+        BlockPos blockpos2 = blockpos.up();
         if (getAttackTarget() == null) {
             if (currentFlightTarget != null && (!world.isAirBlock(currentFlightTarget) || currentFlightTarget.getY() < 1)) {
                 currentFlightTarget = null;
@@ -218,26 +218,26 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
             if (currentFlightTarget == null || rand.nextInt(30) == 0 || getDistanceSqToCenter(currentFlightTarget) < 4.0) {
                 currentFlightTarget = new BlockPos((int) posX + rand.nextInt(7) - rand.nextInt(7), (int) posY + rand.nextInt(6) - 2, (int) posZ + rand.nextInt(7) - rand.nextInt(7));
             }
-            final double var1 = currentFlightTarget.getX() + 0.5 - posX;
-            final double var2 = currentFlightTarget.getY() + 0.1 - posY;
-            final double var3 = currentFlightTarget.getZ() + 0.5 - posZ;
+            double var1 = currentFlightTarget.getX() + 0.5 - posX;
+            double var2 = currentFlightTarget.getY() + 0.1 - posY;
+            double var3 = currentFlightTarget.getZ() + 0.5 - posZ;
             motionX += (Math.signum(var1) * 0.5 - motionX) * 0.10000000149011612;
             motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
             motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.10000000149011612;
-            final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
-            final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+            float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+            float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
             moveForward = 0.5f;
             rotationYaw += var5;
         }
         else {
-            final double var1 = getAttackTarget().posX - posX;
-            final double var2 = getAttackTarget().posY + getAttackTarget().getEyeHeight() * 0.66f - posY;
-            final double var3 = getAttackTarget().posZ - posZ;
+            double var1 = getAttackTarget().posX - posX;
+            double var2 = getAttackTarget().posY + getAttackTarget().getEyeHeight() * 0.66f - posY;
+            double var3 = getAttackTarget().posZ - posZ;
             motionX += (Math.signum(var1) * 0.5 - motionX) * 0.10000000149011612;
             motionY += (Math.signum(var2) * 0.699999988079071 - motionY) * 0.10000000149011612;
             motionZ += (Math.signum(var3) * 0.5 - motionZ) * 0.10000000149011612;
-            final float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
-            final float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
+            float var4 = (float)(Math.atan2(motionZ, motionX) * 180.0 / 3.141592653589793) - 90.0f;
+            float var5 = MathHelper.wrapDegrees(var4 - rotationYaw);
             moveForward = 0.5f;
             rotationYaw += var5;
         }
@@ -245,7 +245,7 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
             setAttackTarget(findTargetToAttack());
         }
         else if (getAttackTarget().isEntityAlive()) {
-            final float f = getAttackTarget().getDistance(this);
+            float f = getAttackTarget().getDistance(this);
             if (isEntityAlive() && canEntityBeSeen(getAttackTarget())) {
                 attackEntity(getAttackTarget(), f);
             }
@@ -262,27 +262,27 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
         return false;
     }
     
-    public void fall(final float par1, final float damageMultiplier) {
+    public void fall(float par1, float damageMultiplier) {
     }
     
-    protected void updateFallState(final double p_180433_1_, final boolean p_180433_3_, final IBlockState state, final BlockPos pos) {
+    protected void updateFallState(double p_180433_1_, boolean p_180433_3_, IBlockState state, BlockPos pos) {
     }
     
     public boolean doesEntityNotTriggerPressurePlate() {
         return true;
     }
     
-    public boolean attackEntityFrom(final DamageSource par1DamageSource, final float par2) {
+    public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
         return super.attackEntityFrom(par1DamageSource, par2);
     }
     
-    protected void attackEntity(final Entity target, final float par2) {
+    protected void attackEntity(Entity target, float par2) {
         if (attackTime <= 0 && par2 < Math.max(2.5f, target.width * 1.1f) && target.getEntityBoundingBox().maxY > getEntityBoundingBox().minY && target.getEntityBoundingBox().minY < getEntityBoundingBox().maxY) {
             attackTime = 40;
             if (!world.isRemote) {
-                final RayTraceResult ray = new RayTraceResult(target);
+                RayTraceResult ray = new RayTraceResult(target);
                 ray.hitVec = target.getPositionVector().addVector(0.0, target.height / 2.0f, 0.0);
-                final Trajectory tra = new Trajectory(getPositionVector(), getPositionVector().subtractReverse(ray.hitVec));
+                Trajectory tra = new Trajectory(getPositionVector(), getPositionVector().subtractReverse(ray.hitVec));
                 FocusEngine.runFocusPackage(focusPackage.copy(getOwner()), new Trajectory[] { tra }, new RayTraceResult[] { ray });
                 setHealth(getHealth() - 1.0f);
             }
@@ -290,7 +290,7 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
         }
     }
     
-    protected void collideWithEntity(final Entity entityIn) {
+    protected void collideWithEntity(Entity entityIn) {
         if (getIsFriendly()) {
             return;
         }
@@ -298,11 +298,11 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     }
     
     protected EntityLivingBase findTargetToAttack() {
-        final double var1 = 12.0;
-        final List<EntityLivingBase> list = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityLivingBase.class, var1);
+        double var1 = 12.0;
+        List<EntityLivingBase> list = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityLivingBase.class, var1);
         double d = Double.MAX_VALUE;
         EntityLivingBase ret = null;
-        for (final EntityLivingBase e : list) {
+        for (EntityLivingBase e : list) {
             if (e.isDead) {
                 continue;
             }
@@ -319,7 +319,7 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
                     continue;
                 }
             }
-            final double ed = getDistanceSq(e);
+            double ed = getDistanceSq(e);
             if (ed >= d) {
                 continue;
             }
@@ -329,17 +329,17 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
         return ret;
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         ownerUniqueId = nbt.getUniqueId("OwnerUUID");
         setIsFriendly(nbt.getBoolean("friendly"));
         try {
             (focusPackage = new FocusPackage()).deserialize(nbt.getCompoundTag("pack"));
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         if (ownerUniqueId != null) {
             nbt.setUniqueId("OwnerUUID", ownerUniqueId);
@@ -349,12 +349,12 @@ public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnD
     }
     
     public boolean getCanSpawnHere() {
-        final int i = MathHelper.floor(posX);
-        final int j = MathHelper.floor(getEntityBoundingBox().minY);
-        final int k = MathHelper.floor(posZ);
-        final BlockPos blockpos = new BlockPos(i, j, k);
-        final int var4 = world.getLight(blockpos);
-        final byte var5 = 7;
+        int i = MathHelper.floor(posX);
+        int j = MathHelper.floor(getEntityBoundingBox().minY);
+        int k = MathHelper.floor(posZ);
+        BlockPos blockpos = new BlockPos(i, j, k);
+        int var4 = world.getLight(blockpos);
+        byte var5 = 7;
         return var4 <= rand.nextInt(var5) && super.getCanSpawnHere();
     }
     

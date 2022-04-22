@@ -20,17 +20,17 @@ import net.minecraft.client.renderer.entity.Render;
 @SideOnly(Side.CLIENT)
 public class RenderDart extends Render
 {
-    private static final ResourceLocation arrowTextures;
+    private static ResourceLocation arrowTextures;
     int size1;
     int size2;
     
-    public RenderDart(final RenderManager renderManager) {
+    public RenderDart(RenderManager renderManager) {
         super(renderManager);
         size1 = 0;
         size2 = 0;
     }
     
-    public void renderArrow(final EntityArrow arrow, final double x, final double y, final double z, final float ns, final float prt) {
+    public void renderArrow(EntityArrow arrow, double x, double y, double z, float ns, float prt) {
         bindEntityTexture(arrow);
         GL11.glPushMatrix();
         GL11.glEnable(3042);
@@ -38,21 +38,21 @@ public class RenderDart extends Render
         GL11.glTranslatef((float)x, (float)y, (float)z);
         GL11.glRotatef(arrow.prevRotationYaw + (arrow.rotationYaw - arrow.prevRotationYaw) * prt - 90.0f, 0.0f, 1.0f, 0.0f);
         GL11.glRotatef(arrow.prevRotationPitch + (arrow.rotationPitch - arrow.prevRotationPitch) * prt, 0.0f, 0.0f, 1.0f);
-        final Tessellator tessellator = Tessellator.getInstance();
-        final byte b0 = 0;
-        final float f2 = 0.0f;
-        final float f3 = 0.5f;
-        final float f4 = (0 + b0 * 10) / 32.0f;
-        final float f5 = (5 + b0 * 10) / 32.0f;
-        final float f6 = 0.0f;
-        final float f7 = 0.15625f;
-        final float f8 = (5 + b0 * 10) / 32.0f;
-        final float f9 = (10 + b0 * 10) / 32.0f;
-        final float f10 = 0.033f;
+        Tessellator tessellator = Tessellator.getInstance();
+        byte b0 = 0;
+        float f2 = 0.0f;
+        float f3 = 0.5f;
+        float f4 = (0 + b0 * 10) / 32.0f;
+        float f5 = (5 + b0 * 10) / 32.0f;
+        float f6 = 0.0f;
+        float f7 = 0.15625f;
+        float f8 = (5 + b0 * 10) / 32.0f;
+        float f9 = (10 + b0 * 10) / 32.0f;
+        float f10 = 0.033f;
         GL11.glEnable(32826);
-        final float f11 = arrow.arrowShake - prt;
+        float f11 = arrow.arrowShake - prt;
         if (f11 > 0.0f) {
-            final float f12 = -MathHelper.sin(f11 * 3.0f) * f11;
+            float f12 = -MathHelper.sin(f11 * 3.0f) * f11;
             GL11.glRotatef(f12, 0.0f, 0.0f, 1.0f);
         }
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -91,15 +91,15 @@ public class RenderDart extends Render
         GL11.glPopMatrix();
     }
     
-    protected ResourceLocation getArrowTextures(final EntityArrow par1EntityArrow) {
+    protected ResourceLocation getArrowTextures(EntityArrow par1EntityArrow) {
         return RenderDart.arrowTextures;
     }
     
-    protected ResourceLocation getEntityTexture(final Entity par1Entity) {
+    protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return getArrowTextures((EntityArrow)par1Entity);
     }
     
-    public void doRender(final Entity par1Entity, final double par2, final double par4, final double par6, final float par8, final float par9) {
+    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
         renderArrow((EntityArrow)par1Entity, par2, par4, par6, par8, par9);
     }
     

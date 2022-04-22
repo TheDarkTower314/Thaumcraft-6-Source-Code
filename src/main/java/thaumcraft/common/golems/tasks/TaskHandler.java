@@ -18,43 +18,43 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class TaskHandler
 {
-    static final int TASK_LIMIT = 10000;
+    static int TASK_LIMIT = 10000;
     public static ConcurrentHashMap<Integer, ConcurrentHashMap<Integer, Task>> tasks;
     
-    public static void addTask(final int dim, final Task ticket) {
+    public static void addTask(int dim, Task ticket) {
         if (!TaskHandler.tasks.containsKey(dim)) {
             TaskHandler.tasks.put(dim, new ConcurrentHashMap<Integer, Task>());
         }
-        final ConcurrentHashMap<Integer, Task> dc = TaskHandler.tasks.get(dim);
+        ConcurrentHashMap<Integer, Task> dc = TaskHandler.tasks.get(dim);
         if (dc.size() > 10000) {
             try {
-                final Iterator<Task> i = dc.values().iterator();
+                Iterator<Task> i = dc.values().iterator();
                 if (i.hasNext()) {
                     i.next();
                     i.remove();
                 }
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
         }
         dc.put(ticket.getId(), ticket);
     }
     
-    public static Task getTask(final int dim, final int id) {
+    public static Task getTask(int dim, int id) {
         return getTasks(dim).get(id);
     }
     
-    public static ConcurrentHashMap<Integer, Task> getTasks(final int dim) {
+    public static ConcurrentHashMap<Integer, Task> getTasks(int dim) {
         if (!TaskHandler.tasks.containsKey(dim)) {
             TaskHandler.tasks.put(dim, new ConcurrentHashMap<Integer, Task>());
         }
         return TaskHandler.tasks.get(dim);
     }
     
-    public static ArrayList<Task> getBlockTasksSorted(final int dim, final UUID uuid, final Entity golem) {
-        final ConcurrentHashMap<Integer, Task> tickets = getTasks(dim);
-        final ArrayList<Task> out = new ArrayList<Task>();
+    public static ArrayList<Task> getBlockTasksSorted(int dim, UUID uuid, Entity golem) {
+        ConcurrentHashMap<Integer, Task> tickets = getTasks(dim);
+        ArrayList<Task> out = new ArrayList<Task>();
     Label_0025:
-        for (final Task ticket : tickets.values()) {
+        for (Task ticket : tickets.values()) {
             if (!ticket.isReserved()) {
                 if (ticket.getType() != 0) {
                     continue;
@@ -83,11 +83,11 @@ public class TaskHandler
         return out;
     }
     
-    public static ArrayList<Task> getEntityTasksSorted(final int dim, final UUID uuid, final Entity golem) {
-        final ConcurrentHashMap<Integer, Task> tickets = getTasks(dim);
-        final ArrayList<Task> out = new ArrayList<Task>();
+    public static ArrayList<Task> getEntityTasksSorted(int dim, UUID uuid, Entity golem) {
+        ConcurrentHashMap<Integer, Task> tickets = getTasks(dim);
+        ArrayList<Task> out = new ArrayList<Task>();
     Label_0025:
-        for (final Task ticket : tickets.values()) {
+        for (Task ticket : tickets.values()) {
             if (!ticket.isReserved()) {
                 if (ticket.getType() != 1) {
                     continue;
@@ -119,11 +119,11 @@ public class TaskHandler
         return out;
     }
     
-    public static void completeTask(final Task task, final EntityThaumcraftGolem golem) {
+    public static void completeTask(Task task, EntityThaumcraftGolem golem) {
         if (task.isCompleted() || task.isSuspended()) {
             return;
         }
-        final ISealEntity se = SealHandler.getSealEntity(golem.world.provider.getDimension(), task.getSealPos());
+        ISealEntity se = SealHandler.getSealEntity(golem.world.provider.getDimension(), task.getSealPos());
         if (se != null) {
             task.setCompletion(se.getSeal().onTaskCompletion(golem.world, golem, task));
         }
@@ -132,16 +132,16 @@ public class TaskHandler
         }
     }
     
-    public static void clearSuspendedOrExpiredTasks(final World world) {
-        final ConcurrentHashMap<Integer, Task> tickets = getTasks(world.provider.getDimension());
-        final ConcurrentHashMap<Integer, Task> temp = new ConcurrentHashMap<Integer, Task>();
-        for (final Task ticket : tickets.values()) {
+    public static void clearSuspendedOrExpiredTasks(World world) {
+        ConcurrentHashMap<Integer, Task> tickets = getTasks(world.provider.getDimension());
+        ConcurrentHashMap<Integer, Task> temp = new ConcurrentHashMap<Integer, Task>();
+        for (Task ticket : tickets.values()) {
             if (!ticket.isSuspended() && ticket.getLifespan() > 0L) {
                 ticket.setLifespan((short)(ticket.getLifespan() - 1L));
                 temp.put(ticket.getId(), ticket);
             }
             else {
-                final ISealEntity sEnt = SealHandler.getSealEntity(world.provider.getDimension(), ticket.getSealPos());
+                ISealEntity sEnt = SealHandler.getSealEntity(world.provider.getDimension(), ticket.getSealPos());
                 if (sEnt == null) {
                     continue;
                 }

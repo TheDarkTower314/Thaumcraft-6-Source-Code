@@ -27,12 +27,12 @@ public class CasterManager
     static HashMap<Integer, Long> cooldownServer;
     static HashMap<Integer, Long> cooldownClient;
     
-    public static float getTotalVisDiscount(final EntityPlayer player) {
+    public static float getTotalVisDiscount(EntityPlayer player) {
         int total = 0;
         if (player == null) {
             return 0.0f;
         }
-        final IInventory baubles = BaublesApi.getBaubles(player);
+        IInventory baubles = BaublesApi.getBaubles(player);
         for (int a = 0; a < baubles.getSizeInventory(); ++a) {
             if (baubles.getStackInSlot(a) != null && baubles.getStackInSlot(a).getItem() instanceof IVisDiscountGear) {
                 total += ((IVisDiscountGear)baubles.getStackInSlot(a).getItem()).getVisDiscount(baubles.getStackInSlot(a), player);
@@ -57,11 +57,11 @@ public class CasterManager
         return total / 100.0f;
     }
     
-    public static boolean consumeVisFromInventory(final EntityPlayer player, final float cost) {
+    public static boolean consumeVisFromInventory(EntityPlayer player, float cost) {
         for (int a = player.inventory.mainInventory.size() - 1; a >= 0; --a) {
-            final ItemStack item = player.inventory.mainInventory.get(a);
+            ItemStack item = player.inventory.mainInventory.get(a);
             if (item.getItem() instanceof ICaster) {
-                final boolean done = ((ICaster)item.getItem()).consumeVis(item, player, cost, true, false);
+                boolean done = ((ICaster)item.getItem()).consumeVis(item, player, cost, true, false);
                 if (done) {
                     return true;
                 }
@@ -70,23 +70,23 @@ public class CasterManager
         return false;
     }
     
-    public static void changeFocus(final ItemStack is, final World w, final EntityPlayer player, final String focus) {
-        final ICaster wand = (ICaster)is.getItem();
-        final TreeMap<String, Integer> foci = new TreeMap<String, Integer>();
-        final HashMap<Integer, Integer> pouches = new HashMap<Integer, Integer>();
+    public static void changeFocus(ItemStack is, World w, EntityPlayer player, String focus) {
+        ICaster wand = (ICaster)is.getItem();
+        TreeMap<String, Integer> foci = new TreeMap<String, Integer>();
+        HashMap<Integer, Integer> pouches = new HashMap<Integer, Integer>();
         int pouchcount = 0;
         ItemStack item = ItemStack.EMPTY;
-        final IInventory baubles = BaublesApi.getBaubles(player);
+        IInventory baubles = BaublesApi.getBaubles(player);
         for (int a = 0; a < baubles.getSizeInventory(); ++a) {
             if (baubles.getStackInSlot(a).getItem() instanceof ItemFocusPouch) {
                 ++pouchcount;
                 item = baubles.getStackInSlot(a);
                 pouches.put(pouchcount, a - 4);
-                final NonNullList<ItemStack> inv = ((ItemFocusPouch)item.getItem()).getInventory(item);
+                NonNullList<ItemStack> inv = ((ItemFocusPouch)item.getItem()).getInventory(item);
                 for (int q = 0; q < inv.size(); ++q) {
                     item = inv.get(q);
                     if (item.getItem() instanceof ItemFocus) {
-                        final String sh = ((ItemFocus)item.getItem()).getSortingHelper(item);
+                        String sh = ((ItemFocus)item.getItem()).getSortingHelper(item);
                         if (sh != null) {
                             foci.put(sh, q + pouchcount * 1000);
                         }
@@ -97,7 +97,7 @@ public class CasterManager
         for (int a = 0; a < 36; ++a) {
             item = player.inventory.mainInventory.get(a);
             if (item.getItem() instanceof ItemFocus) {
-                final String sh2 = ((ItemFocus)item.getItem()).getSortingHelper(item);
+                String sh2 = ((ItemFocus)item.getItem()).getSortingHelper(item);
                 if (sh2 == null) {
                     continue;
                 }
@@ -106,11 +106,11 @@ public class CasterManager
             if (item.getItem() instanceof ItemFocusPouch) {
                 ++pouchcount;
                 pouches.put(pouchcount, a);
-                final NonNullList<ItemStack> inv = ((ItemFocusPouch)item.getItem()).getInventory(item);
+                NonNullList<ItemStack> inv = ((ItemFocusPouch)item.getItem()).getInventory(item);
                 for (int q = 0; q < inv.size(); ++q) {
                     item = inv.get(q);
                     if (item.getItem() instanceof ItemFocus) {
-                        final String sh = ((ItemFocus)item.getItem()).getSortingHelper(item);
+                        String sh = ((ItemFocus)item.getItem()).getSortingHelper(item);
                         if (sh != null) {
                             foci.put(sh, q + pouchcount * 1000);
                         }
@@ -137,10 +137,10 @@ public class CasterManager
                 item = player.inventory.mainInventory.get(foci.get(newkey)).copy();
             }
             else {
-                final int pid = foci.get(newkey) / 1000;
+                int pid = foci.get(newkey) / 1000;
                 if (pouches.containsKey(pid)) {
-                    final int pouchslot = pouches.get(pid);
-                    final int focusslot = foci.get(newkey) - pid * 1000;
+                    int pouchslot = pouches.get(pid);
+                    int focusslot = foci.get(newkey) - pid * 1000;
                     ItemStack tmp = ItemStack.EMPTY;
                     if (pouchslot >= 0) {
                         tmp = player.inventory.mainInventory.get(pouchslot).copy();
@@ -170,10 +170,10 @@ public class CasterManager
         }
     }
     
-    private static ItemStack fetchFocusFromPouch(final EntityPlayer player, final int focusid, final ItemStack pouch, final int pouchslot) {
+    private static ItemStack fetchFocusFromPouch(EntityPlayer player, int focusid, ItemStack pouch, int pouchslot) {
         ItemStack focus = ItemStack.EMPTY;
-        final NonNullList<ItemStack> inv = ((ItemFocusPouch)pouch.getItem()).getInventory(pouch);
-        final ItemStack contents = inv.get(focusid);
+        NonNullList<ItemStack> inv = ((ItemFocusPouch)pouch.getItem()).getInventory(pouch);
+        ItemStack contents = inv.get(focusid);
         if (contents.getItem() instanceof ItemFocus) {
             focus = contents.copy();
             inv.set(focusid, ItemStack.EMPTY);
@@ -183,7 +183,7 @@ public class CasterManager
                 player.inventory.markDirty();
             }
             else {
-                final IInventory baubles = BaublesApi.getBaubles(player);
+                IInventory baubles = BaublesApi.getBaubles(player);
                 baubles.setInventorySlotContents(pouchslot + 4, pouch);
                 BaublesApi.getBaublesHandler(player).setChanged(pouchslot + 4, true);
                 baubles.markDirty();
@@ -192,9 +192,9 @@ public class CasterManager
         return focus;
     }
     
-    private static boolean addFocusToPouch(final EntityPlayer player, final ItemStack focus, final HashMap<Integer, Integer> pouches) {
-        final IInventory baubles = BaublesApi.getBaubles(player);
-        for (final Integer pouchslot : pouches.values()) {
+    private static boolean addFocusToPouch(EntityPlayer player, ItemStack focus, HashMap<Integer, Integer> pouches) {
+        IInventory baubles = BaublesApi.getBaubles(player);
+        for (Integer pouchslot : pouches.values()) {
             ItemStack pouch;
             if (pouchslot >= 0) {
                 pouch = player.inventory.mainInventory.get(pouchslot);
@@ -202,9 +202,9 @@ public class CasterManager
             else {
                 pouch = baubles.getStackInSlot(pouchslot + 4);
             }
-            final NonNullList<ItemStack> inv = ((ItemFocusPouch)pouch.getItem()).getInventory(pouch);
+            NonNullList<ItemStack> inv = ((ItemFocusPouch)pouch.getItem()).getInventory(pouch);
             for (int q = 0; q < inv.size(); ++q) {
-                final ItemStack contents = inv.get(q);
+                ItemStack contents = inv.get(q);
                 if (contents.isEmpty()) {
                     inv.set(q, focus.copy());
                     ((ItemFocusPouch)pouch.getItem()).setInventory(pouch, inv);
@@ -224,20 +224,20 @@ public class CasterManager
         return false;
     }
     
-    public static void toggleMisc(final ItemStack itemstack, final World world, final EntityPlayer player, final int mod) {
+    public static void toggleMisc(ItemStack itemstack, World world, EntityPlayer player, int mod) {
         if (!(itemstack.getItem() instanceof ICaster)) {
             return;
         }
-        final ICaster caster = (ICaster)itemstack.getItem();
-        final ItemFocus focus = (ItemFocus)caster.getFocus(itemstack);
-        final FocusPackage fp = ItemFocus.getPackage(caster.getFocusStack(itemstack));
+        ICaster caster = (ICaster)itemstack.getItem();
+        ItemFocus focus = (ItemFocus)caster.getFocus(itemstack);
+        FocusPackage fp = ItemFocus.getPackage(caster.getFocusStack(itemstack));
         if (fp != null && FocusEngine.doesPackageContainElement(fp, "thaumcraft.PLAN")) {
             int dim = getAreaDim(itemstack);
             if (mod == 0) {
                 int areax = getAreaX(itemstack);
                 int areay = getAreaY(itemstack);
                 int areaz = getAreaZ(itemstack);
-                final int max = getAreaSize(itemstack);
+                int max = getAreaSize(itemstack);
                 if (dim == 0) {
                     ++areax;
                     ++areaz;
@@ -274,25 +274,25 @@ public class CasterManager
         }
     }
     
-    private static int getAreaSize(final ItemStack itemstack) {
-        final boolean pot = false;
+    private static int getAreaSize(ItemStack itemstack) {
+        boolean pot = false;
         if (!(itemstack.getItem() instanceof ICaster)) {
             return 0;
         }
-        final ICaster caster = (ICaster)itemstack.getItem();
-        final ItemFocus focus = (ItemFocus)caster.getFocus(itemstack);
+        ICaster caster = (ICaster)itemstack.getItem();
+        ItemFocus focus = (ItemFocus)caster.getFocus(itemstack);
         return pot ? 6 : 3;
     }
     
-    public static int getAreaDim(final ItemStack stack) {
+    public static int getAreaDim(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("aread")) {
             return stack.getTagCompound().getInteger("aread");
         }
         return 0;
     }
     
-    public static int getAreaX(final ItemStack stack) {
-        final ICaster wand = (ICaster)stack.getItem();
+    public static int getAreaX(ItemStack stack) {
+        ICaster wand = (ICaster)stack.getItem();
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("areax")) {
             int a = stack.getTagCompound().getInteger("areax");
             if (a > getAreaSize(stack)) {
@@ -303,8 +303,8 @@ public class CasterManager
         return getAreaSize(stack);
     }
     
-    public static int getAreaY(final ItemStack stack) {
-        final ICaster wand = (ICaster)stack.getItem();
+    public static int getAreaY(ItemStack stack) {
+        ICaster wand = (ICaster)stack.getItem();
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("areay")) {
             int a = stack.getTagCompound().getInteger("areay");
             if (a > getAreaSize(stack)) {
@@ -315,8 +315,8 @@ public class CasterManager
         return getAreaSize(stack);
     }
     
-    public static int getAreaZ(final ItemStack stack) {
-        final ICaster wand = (ICaster)stack.getItem();
+    public static int getAreaZ(ItemStack stack) {
+        ICaster wand = (ICaster)stack.getItem();
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("areaz")) {
             int a = stack.getTagCompound().getInteger("areaz");
             if (a > getAreaSize(stack)) {
@@ -327,45 +327,45 @@ public class CasterManager
         return getAreaSize(stack);
     }
     
-    public static void setAreaX(final ItemStack stack, final int area) {
+    public static void setAreaX(ItemStack stack, int area) {
         if (stack.hasTagCompound()) {
             stack.getTagCompound().setInteger("areax", area);
         }
     }
     
-    public static void setAreaY(final ItemStack stack, final int area) {
+    public static void setAreaY(ItemStack stack, int area) {
         if (stack.hasTagCompound()) {
             stack.getTagCompound().setInteger("areay", area);
         }
     }
     
-    public static void setAreaZ(final ItemStack stack, final int area) {
+    public static void setAreaZ(ItemStack stack, int area) {
         if (stack.hasTagCompound()) {
             stack.getTagCompound().setInteger("areaz", area);
         }
     }
     
-    public static void setAreaDim(final ItemStack stack, final int dim) {
+    public static void setAreaDim(ItemStack stack, int dim) {
         if (stack.hasTagCompound()) {
             stack.getTagCompound().setInteger("aread", dim);
         }
     }
     
-    static boolean isOnCooldown(final EntityLivingBase entityLiving) {
+    static boolean isOnCooldown(EntityLivingBase entityLiving) {
         if (entityLiving.world.isRemote && CasterManager.cooldownClient.containsKey(entityLiving.getEntityId())) {
             return CasterManager.cooldownClient.get(entityLiving.getEntityId()) > System.currentTimeMillis();
         }
         return !entityLiving.world.isRemote && CasterManager.cooldownServer.containsKey(entityLiving.getEntityId()) && CasterManager.cooldownServer.get(entityLiving.getEntityId()) > System.currentTimeMillis();
     }
     
-    public static float getCooldown(final EntityLivingBase entityLiving) {
+    public static float getCooldown(EntityLivingBase entityLiving) {
         if (entityLiving.world.isRemote && CasterManager.cooldownClient.containsKey(entityLiving.getEntityId())) {
             return (CasterManager.cooldownClient.get(entityLiving.getEntityId()) - System.currentTimeMillis()) / 1000.0f;
         }
         return 0.0f;
     }
     
-    public static void setCooldown(final EntityLivingBase entityLiving, final int cd) {
+    public static void setCooldown(EntityLivingBase entityLiving, int cd) {
         if (cd == 0) {
             CasterManager.cooldownClient.remove(entityLiving.getEntityId());
             CasterManager.cooldownServer.remove(entityLiving.getEntityId());

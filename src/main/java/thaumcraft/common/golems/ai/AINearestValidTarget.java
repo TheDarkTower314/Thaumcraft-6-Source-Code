@@ -24,36 +24,34 @@ import net.minecraft.entity.ai.EntityAITarget;
 
 public class AINearestValidTarget extends EntityAITarget
 {
-    protected final Class<EntityLivingBase> targetClass;
-    private final int targetChance;
-    protected final EntityAINearestAttackableTarget.Sorter theNearestAttackableTargetSorter;
+    protected Class<EntityLivingBase> targetClass;
+    private int targetChance;
+    protected EntityAINearestAttackableTarget.Sorter theNearestAttackableTargetSorter;
     protected Predicate targetEntitySelector;
     protected EntityLivingBase targetEntity;
     private int targetUnseenTicks;
     
-    public AINearestValidTarget(final EntityCreature p_i45878_1_, final Class p_i45878_2_, final boolean p_i45878_3_) {
+    public AINearestValidTarget(EntityCreature p_i45878_1_, Class p_i45878_2_, boolean p_i45878_3_) {
         this(p_i45878_1_, p_i45878_2_, p_i45878_3_, false);
     }
     
-    public AINearestValidTarget(final EntityCreature p_i45879_1_, final Class p_i45879_2_, final boolean p_i45879_3_, final boolean p_i45879_4_) {
+    public AINearestValidTarget(EntityCreature p_i45879_1_, Class p_i45879_2_, boolean p_i45879_3_, boolean p_i45879_4_) {
         this(p_i45879_1_, p_i45879_2_, 10, p_i45879_3_, p_i45879_4_, null);
     }
 
-    public AINearestValidTarget(final EntityCreature owner, final Class<EntityLivingBase> targetClass, final int targetChance, final boolean checkSight, final boolean nearbyOnly, final Predicate tselector) {
+    public AINearestValidTarget(EntityCreature owner, Class<EntityLivingBase> targetClass, int targetChance, boolean checkSight, boolean nearbyOnly, Predicate tselector) {
         super(owner, checkSight, nearbyOnly);
         this.targetClass = targetClass;
         this.targetChance = targetChance;
         theNearestAttackableTargetSorter = new EntityAINearestAttackableTarget.Sorter(owner);
         setMutexBits(1);
         targetEntitySelector = new Predicate<EntityLivingBase>() {
-            private static final String __OBFID = "CL_00001621";
-            
-            public boolean applySelection(final EntityLivingBase entity) {
+            public boolean applySelection(EntityLivingBase entity) {
                 if (tselector != null && !tselector.apply(entity)) {
                     return false;
                 }
                 if (entity instanceof EntityPlayer) {
-                    double d0 = AINearestValidTarget.access$000(AINearestValidTarget.this);
+                    double d0 = getTargetDistance();
                     if (entity.isSneaking()) {
                         d0 *= 0.800000011920929;
                     }
@@ -71,29 +69,29 @@ public class AINearestValidTarget extends EntityAITarget
                 return isSuitableTarget(entity, false);
             }
             
-            public boolean apply(final EntityLivingBase p_apply_1_) {
+            public boolean apply(EntityLivingBase p_apply_1_) {
                 return applySelection(p_apply_1_);
             }
         };
     }
     
     public boolean shouldContinueExecuting() {
-        final EntityLivingBase entitylivingbase = taskOwner.getAttackTarget();
+        EntityLivingBase entitylivingbase = taskOwner.getAttackTarget();
         if (entitylivingbase == null) {
             return false;
         }
         if (!entitylivingbase.isEntityAlive()) {
             return false;
         }
-        final Team team = taskOwner.getTeam();
-        final Team team2 = entitylivingbase.getTeam();
+        Team team = taskOwner.getTeam();
+        Team team2 = entitylivingbase.getTeam();
         if (team != null && team2 == team && !((ITargets) taskOwner).getTargetFriendly()) {
             return false;
         }
         if (team != null && team2 != team && ((ITargets) taskOwner).getTargetFriendly()) {
             return false;
         }
-        final double d0 = getTargetDistance();
+        double d0 = getTargetDistance();
         if (taskOwner.getDistanceSq(entitylivingbase) > d0 * d0) {
             return false;
         }
@@ -108,11 +106,11 @@ public class AINearestValidTarget extends EntityAITarget
         return true;
     }
     
-    protected boolean isSuitableTarget(final EntityLivingBase p_75296_1_, final boolean p_75296_2_) {
+    protected boolean isSuitableTarget(EntityLivingBase p_75296_1_, boolean p_75296_2_) {
         return isGoodTarget(taskOwner, p_75296_1_, p_75296_2_, shouldCheckSight) && taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(p_75296_1_));
     }
     
-    private boolean isGoodTarget(final EntityLiving attacker, final EntityLivingBase posTar, final boolean p_179445_2_, final boolean checkSight) {
+    private boolean isGoodTarget(EntityLiving attacker, EntityLivingBase posTar, boolean p_179445_2_, boolean checkSight) {
         if (posTar == null) {
             return false;
         }
@@ -125,8 +123,8 @@ public class AINearestValidTarget extends EntityAITarget
         if (!attacker.canAttackClass(posTar.getClass())) {
             return false;
         }
-        final Team team = attacker.getTeam();
-        final Team team2 = posTar.getTeam();
+        Team team = attacker.getTeam();
+        Team team2 = posTar.getTeam();
         if (team != null && team2 == team && !((ITargets)attacker).getTargetFriendly()) {
             return false;
         }
@@ -157,8 +155,8 @@ public class AINearestValidTarget extends EntityAITarget
         if (targetChance > 0 && taskOwner.getRNG().nextInt(targetChance) != 0) {
             return false;
         }
-        final double d0 = getTargetDistance();
-        final List<EntityLivingBase> list = taskOwner.world.getEntitiesWithinAABB(targetClass, taskOwner.getEntityBoundingBox().grow(d0, 4.0, d0), Predicates.and(targetEntitySelector, EntitySelectors.NOT_SPECTATING));
+        double d0 = getTargetDistance();
+        List<EntityLivingBase> list = taskOwner.world.getEntitiesWithinAABB(targetClass, taskOwner.getEntityBoundingBox().grow(d0, 4.0, d0), Predicates.and(targetEntitySelector, EntitySelectors.NOT_SPECTATING));
         Collections.sort(list, theNearestAttackableTargetSorter);
         if (list.isEmpty()) {
             return false;
@@ -173,27 +171,22 @@ public class AINearestValidTarget extends EntityAITarget
         super.startExecuting();
     }
     
-    static /* synthetic */ double access$000(final AINearestValidTarget x0) {
-        return x0.getTargetDistance();
-    }
-    
     public class Sorter implements Comparator
     {
-        private final Entity theEntity;
-        private static final String __OBFID = "CL_00001622";
+        private Entity theEntity;
         
-        public Sorter(final Entity p_i1662_1_) {
+        public Sorter(Entity p_i1662_1_) {
             theEntity = p_i1662_1_;
         }
         
-        public int compare(final Entity p_compare_1_, final Entity p_compare_2_) {
-            final double d0 = theEntity.getDistanceSq(p_compare_1_);
-            final double d2 = theEntity.getDistanceSq(p_compare_2_);
+        public int compare(Entity p_compare_1_, Entity p_compare_2_) {
+            double d0 = theEntity.getDistanceSq(p_compare_1_);
+            double d2 = theEntity.getDistanceSq(p_compare_2_);
             return (d0 < d2) ? -1 : ((d0 > d2) ? 1 : 0);
         }
         
         @Override
-        public int compare(final Object p_compare_1_, final Object p_compare_2_) {
+        public int compare(Object p_compare_1_, Object p_compare_2_) {
             return compare((Entity)p_compare_1_, (Entity)p_compare_2_);
         }
     }

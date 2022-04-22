@@ -56,15 +56,15 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     }
     
     @Override
-    public void messageFromClient(final NBTTagCompound nbt, final EntityPlayerMP player) {
+    public void messageFromClient(NBTTagCompound nbt, EntityPlayerMP player) {
         super.messageFromClient(nbt, player);
         if (nbt.hasKey("check")) {
             hasStuff = checkCraft(nbt.getLong("golem"));
-            final byte[] ba = new byte[hasStuff.length];
+            byte[] ba = new byte[hasStuff.length];
             for (int a = 0; a < ba.length; ++a) {
                 ba[a] = (byte)(hasStuff[a] ? 1 : 0);
             }
-            final NBTTagCompound nbt2 = new NBTTagCompound();
+            NBTTagCompound nbt2 = new NBTTagCompound();
             nbt2.setByteArray("stuff", ba);
             sendMessageToClient(nbt2, player);
         }
@@ -74,11 +74,11 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     }
     
     @Override
-    public void messageFromServer(final NBTTagCompound nbt) {
+    public void messageFromServer(NBTTagCompound nbt) {
         super.messageFromServer(nbt);
         if (nbt.hasKey("stuff")) {
             hasStuff = null;
-            final byte[] ba = nbt.getByteArray("stuff");
+            byte[] ba = nbt.getByteArray("stuff");
             if (ba != null && ba.length > 0) {
                 hasStuff = new boolean[ba.length];
                 for (int a = 0; a < ba.length; ++a) {
@@ -90,7 +90,7 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         super.readSyncNBT(nbttagcompound);
         golem = nbttagcompound.getLong("golem");
         cost = nbttagcompound.getInteger("cost");
@@ -100,7 +100,7 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
                 props = GolemProperties.fromLong(golem);
                 components = props.generateComponents();
             }
-            catch (final Exception e) {
+            catch (Exception e) {
                 props = null;
                 components = null;
                 cost = 0;
@@ -110,7 +110,7 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound.setLong("golem", golem);
         nbttagcompound.setInteger("cost", cost);
         nbttagcompound.setInteger("mcost", maxCost);
@@ -135,7 +135,7 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
                     markDirty();
                 }
                 if (cost <= 0) {
-                    final ItemStack placer = new ItemStack(ItemsTC.golemPlacer);
+                    ItemStack placer = new ItemStack(ItemsTC.golemPlacer);
                     placer.setTagInfo("props", new NBTTagLong(golem));
                     if (getStackInSlot(0).isEmpty() || (getStackInSlot(0).getCount() < getStackInSlot(0).getMaxStackSize() && getStackInSlot(0).isItemEqual(placer) && ItemStack.areItemStackTagsEqual(getStackInSlot(0), placer))) {
                         if (getStackInSlot(0) == null || getStackInSlot(0).isEmpty()) {
@@ -181,20 +181,20 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
         }
     }
     
-    public boolean[] checkCraft(final long id) {
-        final IGolemProperties props = GolemProperties.fromLong(id);
-        final ItemStack[] cc = props.generateComponents();
-        final boolean[] ret = new boolean[cc.length];
+    public boolean[] checkCraft(long id) {
+        IGolemProperties props = GolemProperties.fromLong(id);
+        ItemStack[] cc = props.generateComponents();
+        boolean[] ret = new boolean[cc.length];
         int a = 0;
-        for (final ItemStack stack : props.generateComponents()) {
+        for (ItemStack stack : props.generateComponents()) {
             ret[a] = InventoryUtils.checkAdjacentChests(world, pos, stack);
             ++a;
         }
         return ret;
     }
     
-    public boolean startCraft(final long id, final EntityPlayer p) {
-        final ItemStack placer = new ItemStack(ItemsTC.golemPlacer);
+    public boolean startCraft(long id, EntityPlayer p) {
+        ItemStack placer = new ItemStack(ItemsTC.golemPlacer);
         placer.setTagInfo("props", new NBTTagLong(id));
         if (getStackInSlot(0) != null && !getStackInSlot(0).isEmpty() && (getStackInSlot(0).getCount() >= getStackInSlot(0).getMaxStackSize() || !getStackInSlot(0).isItemEqual(placer) || !ItemStack.areItemStackTagsEqual(getStackInSlot(0), placer))) {
             cost = 0;
@@ -214,7 +214,7 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
             return false;
         }
         cost = props.getTraits().size() * 2;
-        for (final ItemStack stack : components) {
+        for (ItemStack stack : components) {
             cost += stack.getCount();
         }
         InventoryUtils.consumeItemsFromAdjacentInventoryOrPlayer(getWorld(), getPos(), p, false, components);
@@ -226,15 +226,15 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     }
     
     @Override
-    public boolean isItemValidForSlot(final int par1, final ItemStack stack2) {
+    public boolean isItemValidForSlot(int par1, ItemStack stack2) {
         return stack2 != null && !stack2.isEmpty() && stack2.getItem() instanceof ItemGolemPlacer;
     }
     
     boolean drawEssentia() {
-        for (final EnumFacing face : EnumFacing.VALUES) {
-            final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), face);
+        for (EnumFacing face : EnumFacing.VALUES) {
+            TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), face);
             if (te != null) {
-                final IEssentiaTransport ic = (IEssentiaTransport)te;
+                IEssentiaTransport ic = (IEssentiaTransport)te;
                 if (!ic.canOutputTo(face.getOpposite())) {
                     return false;
                 }
@@ -247,22 +247,22 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     }
     
     @Override
-    public boolean isConnectable(final EnumFacing face) {
+    public boolean isConnectable(EnumFacing face) {
         return face.getHorizontalIndex() >= 0 || face == EnumFacing.DOWN;
     }
     
     @Override
-    public boolean canInputFrom(final EnumFacing face) {
+    public boolean canInputFrom(EnumFacing face) {
         return isConnectable(face);
     }
     
     @Override
-    public boolean canOutputTo(final EnumFacing face) {
+    public boolean canOutputTo(EnumFacing face) {
         return false;
     }
     
     @Override
-    public void setSuction(final Aspect aspect, final int amount) {
+    public void setSuction(Aspect aspect, int amount) {
     }
     
     @Override
@@ -271,32 +271,32 @@ public class TileGolemBuilder extends TileThaumcraftInventory implements IEssent
     }
     
     @Override
-    public Aspect getSuctionType(final EnumFacing face) {
+    public Aspect getSuctionType(EnumFacing face) {
         return Aspect.MECHANISM;
     }
     
     @Override
-    public int getSuctionAmount(final EnumFacing face) {
+    public int getSuctionAmount(EnumFacing face) {
         return (cost > 0 && golem >= 0L) ? 128 : 0;
     }
     
     @Override
-    public Aspect getEssentiaType(final EnumFacing loc) {
+    public Aspect getEssentiaType(EnumFacing loc) {
         return null;
     }
     
     @Override
-    public int getEssentiaAmount(final EnumFacing loc) {
+    public int getEssentiaAmount(EnumFacing loc) {
         return 0;
     }
     
     @Override
-    public int takeEssentia(final Aspect aspect, final int amount, final EnumFacing facing) {
+    public int takeEssentia(Aspect aspect, int amount, EnumFacing facing) {
         return 0;
     }
     
     @Override
-    public int addEssentia(final Aspect aspect, final int amount, final EnumFacing facing) {
+    public int addEssentia(Aspect aspect, int amount, EnumFacing facing) {
         if (!bufferedEssentia && cost > 0 && golem >= 0L && aspect == Aspect.MECHANISM) {
             bufferedEssentia = true;
             return 1;

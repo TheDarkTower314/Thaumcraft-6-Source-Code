@@ -23,28 +23,28 @@ import net.minecraft.client.renderer.entity.Render;
 public class RenderHomingShard extends Render
 {
     private Random random;
-    private static final ResourceLocation beamTexture;
+    private static ResourceLocation beamTexture;
     
-    public RenderHomingShard(final RenderManager rm) {
+    public RenderHomingShard(RenderManager rm) {
         super(rm);
         random = new Random();
         shadowSize = 0.0f;
     }
     
-    public void renderEntityAt(final EntityHomingShard entity, final double x, final double y, final double z, final float fq, final float pticks) {
-        final Tessellator tessellator = Tessellator.getInstance();
+    public void renderEntityAt(EntityHomingShard entity, double x, double y, double z, float fq, float pticks) {
+        Tessellator tessellator = Tessellator.getInstance();
         GL11.glPushMatrix();
         GL11.glDepthMask(false);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 1);
         bindTexture(ParticleEngine.particleTexture);
-        final float f2 = (8 + entity.ticksExisted % 8) / 64.0f;
-        final float f3 = f2 + 0.015625f;
-        final float f4 = 0.0625f;
-        final float f5 = f4 + 0.015625f;
-        final float f6 = 1.0f;
-        final float f7 = 0.5f;
-        final float f8 = 0.5f;
+        float f2 = (8 + entity.ticksExisted % 8) / 64.0f;
+        float f3 = f2 + 0.015625f;
+        float f4 = 0.0625f;
+        float f5 = f4 + 0.015625f;
+        float f6 = 1.0f;
+        float f7 = 0.5f;
+        float f8 = 0.5f;
         GL11.glColor4f(0.9f, 0.075f, 0.9525f, 1.0f);
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, z);
@@ -52,9 +52,9 @@ public class RenderHomingShard extends Render
         GL11.glRotatef(-renderManager.playerViewX, 1.0f, 0.0f, 0.0f);
         GL11.glScalef(0.4f + 0.1f * entity.getStrength(), 0.4f + 0.1f * entity.getStrength(), 0.4f + 0.1f * entity.getStrength());
         tessellator.getBuffer().begin(7, UtilsFX.VERTEXFORMAT_POS_TEX_CO_LM_NO);
-        final int i = 240;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        int i = 240;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         tessellator.getBuffer().pos(-f7, -f8, 0.0).tex(f2, f5).color(0.9f, 0.075f, 0.9525f, 1.0f).lightmap(j, k).normal(0.0f, 1.0f, 0.0f).endVertex();
         tessellator.getBuffer().pos(f6 - f7, -f8, 0.0).tex(f3, f5).color(0.9f, 0.075f, 0.9525f, 1.0f).lightmap(j, k).normal(0.0f, 1.0f, 0.0f).endVertex();
         tessellator.getBuffer().pos(f6 - f7, 1.0f - f8, 0.0).tex(f3, f4).color(0.9f, 0.075f, 0.9525f, 1.0f).lightmap(j, k).normal(0.0f, 1.0f, 0.0f).endVertex();
@@ -64,16 +64,16 @@ public class RenderHomingShard extends Render
         GL11.glPushMatrix();
         GL11.glBlendFunc(770, 1);
         bindTexture(RenderHomingShard.beamTexture);
-        final Minecraft mc = Minecraft.getMinecraft();
-        final EntityPlayerSP p = mc.player;
-        final double doubleX = p.lastTickPosX + (p.posX - p.lastTickPosX) * pticks;
-        final double doubleY = p.lastTickPosY + (p.posY - p.lastTickPosY) * pticks;
-        final double doubleZ = p.lastTickPosZ + (p.posZ - p.lastTickPosZ) * pticks;
-        final UtilsFX.Vector player = new UtilsFX.Vector((float)doubleX, (float)doubleY, (float)doubleZ);
-        final double dX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * pticks;
-        final double dY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * pticks;
-        final double dZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * pticks;
-        final UtilsFX.Vector start = new UtilsFX.Vector((float)dX, (float)dY, (float)dZ);
+        Minecraft mc = Minecraft.getMinecraft();
+        EntityPlayerSP p = mc.player;
+        double doubleX = p.lastTickPosX + (p.posX - p.lastTickPosX) * pticks;
+        double doubleY = p.lastTickPosY + (p.posY - p.lastTickPosY) * pticks;
+        double doubleZ = p.lastTickPosZ + (p.posZ - p.lastTickPosZ) * pticks;
+        UtilsFX.Vector player = new UtilsFX.Vector((float)doubleX, (float)doubleY, (float)doubleZ);
+        double dX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * pticks;
+        double dY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * pticks;
+        double dZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * pticks;
+        UtilsFX.Vector start = new UtilsFX.Vector((float)dX, (float)dY, (float)dZ);
         if (entity.vl.size() == 0) {
             entity.vl.add(start);
         }
@@ -81,7 +81,7 @@ public class RenderHomingShard extends Render
         UtilsFX.Vector vs = new UtilsFX.Vector((float)dX, (float)dY, (float)dZ);
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
         int c = entity.vl.size();
-        for (final UtilsFX.Vector nv : entity.vl) {
+        for (UtilsFX.Vector nv : entity.vl) {
             UtilsFX.drawBeam(vs, nv, player, 0.25f * (c / (float)entity.vl.size()), 240, 0.405f, 0.075f, 0.525f, 0.5f);
             vs = nv;
             --c;
@@ -96,11 +96,11 @@ public class RenderHomingShard extends Render
         GL11.glPopMatrix();
     }
     
-    public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
+    public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
         renderEntityAt((EntityHomingShard)entity, d, d1, d2, f, f1);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
     

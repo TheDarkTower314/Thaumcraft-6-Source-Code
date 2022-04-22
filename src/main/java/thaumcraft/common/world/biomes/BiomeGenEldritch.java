@@ -16,7 +16,7 @@ import net.minecraft.world.biome.Biome;
 
 public class BiomeGenEldritch extends Biome
 {
-    public BiomeGenEldritch(final Biome.BiomeProperties p_i1990_1_) {
+    public BiomeGenEldritch(Biome.BiomeProperties p_i1990_1_) {
         super(p_i1990_1_);
         setRegistryName("thaumcraft", "eldritch");
         spawnableMonsterList.clear();
@@ -30,10 +30,10 @@ public class BiomeGenEldritch extends Biome
     }
     
     @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(final float p_76731_1_) {
+    public int getSkyColorByTemp(float p_76731_1_) {
         return 0;
     }
     
-    public void decorate(final World world, final Random random, final BlockPos pos) {
+    public void decorate(World world, Random random, BlockPos pos) {
     }
 }

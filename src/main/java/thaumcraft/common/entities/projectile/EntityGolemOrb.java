@@ -24,13 +24,13 @@ public class EntityGolemOrb extends EntityThrowable implements IEntityAdditional
     EntityLivingBase target;
     public boolean red;
     
-    public EntityGolemOrb(final World par1World) {
+    public EntityGolemOrb(World par1World) {
         super(par1World);
         targetID = 0;
         red = false;
     }
     
-    public EntityGolemOrb(final World par1World, final EntityLivingBase par2EntityLiving, final EntityLivingBase t, final boolean r) {
+    public EntityGolemOrb(World par1World, EntityLivingBase par2EntityLiving, EntityLivingBase t, boolean r) {
         super(par1World, par2EntityLiving);
         targetID = 0;
         red = false;
@@ -42,7 +42,7 @@ public class EntityGolemOrb extends EntityThrowable implements IEntityAdditional
         return 0.0f;
     }
     
-    public void writeSpawnData(final ByteBuf data) {
+    public void writeSpawnData(ByteBuf data) {
         int id = -1;
         if (target != null) {
             id = target.getEntityId();
@@ -51,18 +51,18 @@ public class EntityGolemOrb extends EntityThrowable implements IEntityAdditional
         data.writeBoolean(red);
     }
     
-    public void readSpawnData(final ByteBuf data) {
-        final int id = data.readInt();
+    public void readSpawnData(ByteBuf data) {
+        int id = data.readInt();
         try {
             if (id >= 0) {
                 target = (EntityLivingBase) world.getEntityByID(id);
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         red = data.readBoolean();
     }
     
-    protected void onImpact(final RayTraceResult mop) {
+    protected void onImpact(RayTraceResult mop) {
         if (!world.isRemote && getThrower() != null && mop.typeOfHit == RayTraceResult.Type.ENTITY) {
             mop.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, getThrower()), (float) getThrower().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * (red ? 1.0f : 0.6f));
         }
@@ -79,11 +79,11 @@ public class EntityGolemOrb extends EntityThrowable implements IEntityAdditional
             setDead();
         }
         if (target != null) {
-            final double d = getDistanceSq(target);
+            double d = getDistanceSq(target);
             double dx = target.posX - posX;
             double dy = target.getEntityBoundingBox().minY + target.height * 0.6 - posY;
             double dz = target.posZ - posZ;
-            final double d2 = 0.2;
+            double d2 = 0.2;
             dx /= d;
             dy /= d;
             dz /= d;
@@ -96,12 +96,12 @@ public class EntityGolemOrb extends EntityThrowable implements IEntityAdditional
         }
     }
     
-    public boolean attackEntityFrom(final DamageSource source, final float damage) {
+    public boolean attackEntityFrom(DamageSource source, float damage) {
         if (isEntityInvulnerable(source)) {
             return false;
         }
         if (source.getTrueSource() != null) {
-            final Vec3d vec3 = source.getTrueSource().getLookVec();
+            Vec3d vec3 = source.getTrueSource().getLookVec();
             if (vec3 != null) {
                 motionX = vec3.x;
                 motionY = vec3.y;

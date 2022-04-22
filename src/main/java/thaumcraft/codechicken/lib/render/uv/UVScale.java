@@ -14,17 +14,17 @@ public class UVScale extends UVTransformation
     double su;
     double sv;
     
-    public UVScale(final double scaleu, final double scalev) {
+    public UVScale(double scaleu, double scalev) {
         su = scaleu;
         sv = scalev;
     }
     
-    public UVScale(final double d) {
+    public UVScale(double d) {
         this(d, d);
     }
     
     @Override
-    public void apply(final UV uv) {
+    public void apply(UV uv) {
         uv.u *= su;
         uv.v *= sv;
     }
@@ -36,7 +36,7 @@ public class UVScale extends UVTransformation
     
     @Override
     public String toString() {
-        final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
+        MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
         return "UVScale(" + new BigDecimal(su, cont) + ", " + new BigDecimal(sv, cont) + ")";
     }
 }

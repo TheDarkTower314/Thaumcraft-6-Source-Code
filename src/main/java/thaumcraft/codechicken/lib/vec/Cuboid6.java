@@ -20,22 +20,22 @@ public class Cuboid6 implements Copyable<Cuboid6>
         this(new Vector3(), new Vector3());
     }
     
-    public Cuboid6(final Vector3 min, final Vector3 max) {
+    public Cuboid6(Vector3 min, Vector3 max) {
         this.min = min;
         this.max = max;
     }
     
-    public Cuboid6(final AxisAlignedBB aabb) {
+    public Cuboid6(AxisAlignedBB aabb) {
         min = new Vector3(aabb.minX, aabb.minY, aabb.minZ);
         max = new Vector3(aabb.maxX, aabb.maxY, aabb.maxZ);
     }
     
-    public Cuboid6(final Cuboid6 cuboid) {
+    public Cuboid6(Cuboid6 cuboid) {
         min = cuboid.min.copy();
         max = cuboid.max.copy();
     }
     
-    public Cuboid6(final double minx, final double miny, final double minz, final double maxx, final double maxy, final double maxz) {
+    public Cuboid6(double minx, double miny, double minz, double maxx, double maxy, double maxz) {
         min = new Vector3(minx, miny, minz);
         max = new Vector3(maxx, maxy, maxz);
     }
@@ -49,49 +49,49 @@ public class Cuboid6 implements Copyable<Cuboid6>
         return new Cuboid6(this);
     }
     
-    public Cuboid6 set(final Cuboid6 c) {
+    public Cuboid6 set(Cuboid6 c) {
         return set(c.min, c.max);
     }
     
-    public Cuboid6 set(final Vector3 min, final Vector3 max) {
+    public Cuboid6 set(Vector3 min, Vector3 max) {
         this.min.set(min);
         this.max.set(max);
         return this;
     }
     
-    public Cuboid6 set(final double minx, final double miny, final double minz, final double maxx, final double maxy, final double maxz) {
+    public Cuboid6 set(double minx, double miny, double minz, double maxx, double maxy, double maxz) {
         min.set(minx, miny, minz);
         max.set(maxx, maxy, maxz);
         return this;
     }
     
-    public Cuboid6 add(final Vector3 vec) {
+    public Cuboid6 add(Vector3 vec) {
         min.add(vec);
         max.add(vec);
         return this;
     }
     
-    public Cuboid6 sub(final Vector3 vec) {
+    public Cuboid6 sub(Vector3 vec) {
         min.subtract(vec);
         max.subtract(vec);
         return this;
     }
     
-    public Cuboid6 expand(final double d) {
+    public Cuboid6 expand(double d) {
         return expand(new Vector3(d, d, d));
     }
     
-    public Cuboid6 expand(final Vector3 vec) {
+    public Cuboid6 expand(Vector3 vec) {
         min.sub(vec);
         max.add(vec);
         return this;
     }
     
-    public boolean intersects(final Cuboid6 b) {
+    public boolean intersects(Cuboid6 b) {
         return max.x - 1.0E-5 > b.min.x && b.max.x - 1.0E-5 > min.x && max.y - 1.0E-5 > b.min.y && b.max.y - 1.0E-5 > min.y && max.z - 1.0E-5 > b.min.z && b.max.z - 1.0E-5 > min.z;
     }
     
-    public Cuboid6 offset(final Cuboid6 o) {
+    public Cuboid6 offset(Cuboid6 o) {
         min.add(o.min);
         max.add(o.max);
         return this;
@@ -101,17 +101,17 @@ public class Cuboid6 implements Copyable<Cuboid6>
         return min.copy().add(max).multiply(0.5);
     }
     
-    public static boolean intersects(final Cuboid6 a, final Cuboid6 b) {
+    public static boolean intersects(Cuboid6 a, Cuboid6 b) {
         return a != null && b != null && a.intersects(b);
     }
     
     @Override
     public String toString() {
-        final MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
+        MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
         return "Cuboid: (" + new BigDecimal(min.x, cont) + ", " + new BigDecimal(min.y, cont) + ", " + new BigDecimal(min.z, cont) + ") -> (" + new BigDecimal(max.x, cont) + ", " + new BigDecimal(max.y, cont) + ", " + new BigDecimal(max.z, cont) + ")";
     }
     
-    public Cuboid6 enclose(final Vector3 vec) {
+    public Cuboid6 enclose(Vector3 vec) {
         if (min.x > vec.x) {
             min.x = vec.x;
         }
@@ -133,7 +133,7 @@ public class Cuboid6 implements Copyable<Cuboid6>
         return this;
     }
     
-    public Cuboid6 enclose(final Cuboid6 c) {
+    public Cuboid6 enclose(Cuboid6 c) {
         if (min.x > c.min.x) {
             min.x = c.min.x;
         }
@@ -155,28 +155,28 @@ public class Cuboid6 implements Copyable<Cuboid6>
         return this;
     }
     
-    public Cuboid6 apply(final Transformation t) {
+    public Cuboid6 apply(Transformation t) {
         t.apply(min);
         t.apply(max);
         if (min.x > max.x) {
-            final double temp = min.x;
+            double temp = min.x;
             min.x = max.x;
             max.x = temp;
         }
         if (min.y > max.y) {
-            final double temp = min.y;
+            double temp = min.y;
             min.y = max.y;
             max.y = temp;
         }
         if (min.z > max.z) {
-            final double temp = min.z;
+            double temp = min.z;
             min.z = max.z;
             max.z = temp;
         }
         return this;
     }
     
-    public double getSide(final int s) {
+    public double getSide(int s) {
         switch (s) {
             case 0: {
                 return min.y;
@@ -202,7 +202,7 @@ public class Cuboid6 implements Copyable<Cuboid6>
         }
     }
     
-    public Cuboid6 setSide(final int s, final double d) {
+    public Cuboid6 setSide(int s, double d) {
         switch (s) {
             case 0: {
                 min.y = d;

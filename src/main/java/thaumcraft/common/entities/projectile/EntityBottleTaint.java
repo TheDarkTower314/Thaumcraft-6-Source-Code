@@ -24,20 +24,20 @@ import net.minecraft.entity.projectile.EntityThrowable;
 
 public class EntityBottleTaint extends EntityThrowable
 {
-    public EntityBottleTaint(final World p_i1788_1_) {
+    public EntityBottleTaint(World p_i1788_1_) {
         super(p_i1788_1_);
     }
     
-    public EntityBottleTaint(final World p_i1790_1_, final EntityLivingBase p_i1790_2) {
+    public EntityBottleTaint(World p_i1790_1_, EntityLivingBase p_i1790_2) {
         super(p_i1790_1_, p_i1790_2);
     }
     
-    public EntityBottleTaint(final World worldIn, final double x, final double y, final double z) {
+    public EntityBottleTaint(World worldIn, double x, double y, double z) {
         super(worldIn, x, y, z);
     }
     
     @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(final byte id) {
+    public void handleStatusUpdate(byte id) {
         if (id == 3) {
             for (int a = 0; a < 100; ++a) {
                 FXDispatcher.INSTANCE.taintsplosionFX(this);
@@ -46,20 +46,20 @@ public class EntityBottleTaint extends EntityThrowable
         }
     }
     
-    protected void onImpact(final RayTraceResult ray) {
+    protected void onImpact(RayTraceResult ray) {
         if (!world.isRemote) {
-            final List ents = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX, posY, posZ, posX, posY, posZ).grow(5.0, 5.0, 5.0));
+            List ents = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX, posY, posZ, posX, posY, posZ).grow(5.0, 5.0, 5.0));
             if (ents.size() > 0) {
-                for (final Object ent : ents) {
-                    final EntityLivingBase el = (EntityLivingBase)ent;
+                for (Object ent : ents) {
+                    EntityLivingBase el = (EntityLivingBase)ent;
                     if (!(el instanceof ITaintedMob) && !el.isEntityUndead()) {
                         el.addPotionEffect(new PotionEffect(PotionFluxTaint.instance, 100, 0, false, true));
                     }
                 }
             }
             for (int a = 0; a < 10; ++a) {
-                final int xx = (int)((rand.nextFloat() - rand.nextFloat()) * 4.0f);
-                final int zz = (int)((rand.nextFloat() - rand.nextFloat()) * 4.0f);
+                int xx = (int)((rand.nextFloat() - rand.nextFloat()) * 4.0f);
+                int zz = (int)((rand.nextFloat() - rand.nextFloat()) * 4.0f);
                 BlockPos p = getPosition().add(xx, 0, zz);
                 if (world.rand.nextBoolean()) {
                     if (world.isBlockNormalCube(p.down(), false) && world.getBlockState(p).getBlock().isReplaceable(world, p)) {

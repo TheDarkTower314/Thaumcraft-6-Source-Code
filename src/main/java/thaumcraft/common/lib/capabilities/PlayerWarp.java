@@ -25,11 +25,11 @@ public class PlayerWarp
 {
     public static void preInit() {
         CapabilityManager.INSTANCE.register(IPlayerWarp.class, new Capability.IStorage<IPlayerWarp>() {
-            public NBTTagCompound writeNBT(final Capability<IPlayerWarp> capability, final IPlayerWarp instance, final EnumFacing side) {
+            public NBTTagCompound writeNBT(Capability<IPlayerWarp> capability, IPlayerWarp instance, EnumFacing side) {
                 return instance.serializeNBT();
             }
             
-            public void readNBT(final Capability<IPlayerWarp> capability, final IPlayerWarp instance, final EnumFacing side, final NBTBase nbt) {
+            public void readNBT(Capability<IPlayerWarp> capability, IPlayerWarp instance, EnumFacing side, NBTBase nbt) {
                 if (nbt instanceof NBTTagCompound) {
                     instance.deserializeNBT((NBTTagCompound) nbt);
                 }
@@ -53,43 +53,43 @@ public class PlayerWarp
         }
         
         @Override
-        public int get(@Nonnull final EnumWarpType type) {
+        public int get(@Nonnull EnumWarpType type) {
             return warp[type.ordinal()];
         }
         
         @Override
-        public void set(final EnumWarpType type, final int amount) {
+        public void set(EnumWarpType type, int amount) {
             warp[type.ordinal()] = MathHelper.clamp(amount, 0, 500);
         }
         
         @Override
-        public int add(@Nonnull final EnumWarpType type, final int amount) {
+        public int add(@Nonnull EnumWarpType type, int amount) {
             return warp[type.ordinal()] = MathHelper.clamp(warp[type.ordinal()] + amount, 0, 500);
         }
         
         @Override
-        public int reduce(@Nonnull final EnumWarpType type, final int amount) {
+        public int reduce(@Nonnull EnumWarpType type, int amount) {
             return warp[type.ordinal()] = MathHelper.clamp(warp[type.ordinal()] - amount, 0, 500);
         }
         
         @Override
-        public void sync(@Nonnull final EntityPlayerMP player) {
+        public void sync(@Nonnull EntityPlayerMP player) {
             PacketHandler.INSTANCE.sendTo(new PacketSyncWarp(player), player);
         }
         
         public NBTTagCompound serializeNBT() {
-            final NBTTagCompound properties = new NBTTagCompound();
+            NBTTagCompound properties = new NBTTagCompound();
             properties.setIntArray("warp", warp);
             properties.setInteger("counter", getCounter());
             return properties;
         }
         
-        public void deserializeNBT(final NBTTagCompound properties) {
+        public void deserializeNBT(NBTTagCompound properties) {
             if (properties == null) {
                 return;
             }
             clear();
-            final int[] ba = properties.getIntArray("warp");
+            int[] ba = properties.getIntArray("warp");
             if (ba != null) {
                 int l = EnumWarpType.values().length;
                 if (ba.length < l) {
@@ -108,25 +108,25 @@ public class PlayerWarp
         }
         
         @Override
-        public void setCounter(final int amount) {
+        public void setCounter(int amount) {
             counter = amount;
         }
     }
     
     public static class Provider implements ICapabilitySerializable<NBTTagCompound>
     {
-        public static final ResourceLocation NAME;
-        private final DefaultImpl warp;
+        public static ResourceLocation NAME;
+        private DefaultImpl warp;
         
         public Provider() {
             warp = new DefaultImpl();
         }
         
-        public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
+        public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
             return capability == ThaumcraftCapabilities.WARP;
         }
         
-        public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
+        public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
             if (capability == ThaumcraftCapabilities.WARP) {
                 return ThaumcraftCapabilities.WARP.cast(warp);
             }
@@ -137,7 +137,7 @@ public class PlayerWarp
             return warp.serializeNBT();
         }
         
-        public void deserializeNBT(final NBTTagCompound nbt) {
+        public void deserializeNBT(NBTTagCompound nbt) {
             warp.deserializeNBT(nbt);
         }
         

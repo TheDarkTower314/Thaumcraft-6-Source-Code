@@ -14,7 +14,7 @@ public class Rectangle4i
     public Rectangle4i() {
     }
     
-    public Rectangle4i(final int x, final int y, final int w, final int h) {
+    public Rectangle4i(int x, int y, int w, int h) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -37,20 +37,20 @@ public class Rectangle4i
         return y + h - 1;
     }
     
-    public void set(final int x, final int y, final int w, final int h) {
+    public void set(int x, int y, int w, int h) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
     }
     
-    public Rectangle4i offset(final int dx, final int dy) {
+    public Rectangle4i offset(int dx, int dy) {
         x += dx;
         y += dy;
         return this;
     }
     
-    public Rectangle4i include(final int px, final int py) {
+    public Rectangle4i include(int px, int py) {
         if (px < x) {
             expand(px - x, 0);
         }
@@ -66,12 +66,12 @@ public class Rectangle4i
         return this;
     }
     
-    public Rectangle4i include(final Rectangle4i r) {
+    public Rectangle4i include(Rectangle4i r) {
         include(r.x, r.y);
         return include(r.x2(), r.y2());
     }
     
-    public Rectangle4i expand(final int px, final int py) {
+    public Rectangle4i expand(int px, int py) {
         if (px > 0) {
             w += px;
         }
@@ -89,11 +89,11 @@ public class Rectangle4i
         return this;
     }
     
-    public boolean contains(final int px, final int py) {
+    public boolean contains(int px, int py) {
         return x <= px && px < x + w && y <= py && py < y + h;
     }
     
-    public boolean intersects(final Rectangle4i r) {
+    public boolean intersects(Rectangle4i r) {
         return r.x + r.w > x && r.x < x + w && r.y + r.h > y && r.y < y + h;
     }
     

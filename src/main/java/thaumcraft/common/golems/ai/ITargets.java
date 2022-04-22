@@ -8,17 +8,17 @@ public interface ITargets
 {
     boolean getTargetAnimal();
     
-    void setTargetAnimal(final boolean p0);
+    void setTargetAnimal(boolean p0);
     
     boolean getTargetMob();
     
-    void setTargetMob(final boolean p0);
+    void setTargetMob(boolean p0);
     
     boolean getTargetPlayer();
     
-    void setTargetPlayer(final boolean p0);
+    void setTargetPlayer(boolean p0);
     
     boolean getTargetFriendly();
     
-    void setTargetFriendly(final boolean p0);
+    void setTargetFriendly(boolean p0);
 }

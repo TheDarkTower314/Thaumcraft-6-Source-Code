@@ -37,36 +37,36 @@ public class BlockPedestal extends BlockTCTile implements IInfusionStabiliserExt
 {
     public static BlockPedestal instance;
     
-    public BlockPedestal(final String name) {
+    public BlockPedestal(String name) {
         super(Material.ROCK, TilePedestal.class, name);
         setSoundType(SoundType.STONE);
         BlockPedestal.instance = this;
-        final IBlockState bs = blockState.getBaseState();
+        IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)BlockInlay.CHARGE, (Comparable)0);
         setDefaultState(bs);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         }
-        final TileEntity tile = world.getTileEntity(pos);
+        TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof TilePedestal) {
-            final TilePedestal ped = (TilePedestal)tile;
+            TilePedestal ped = (TilePedestal)tile;
             if (ped.getStackInSlot(0).isEmpty() && !player.inventory.getCurrentItem().isEmpty() && player.inventory.getCurrentItem().getCount() > 0) {
-                final ItemStack i = player.getHeldItem(hand).copy();
+                ItemStack i = player.getHeldItem(hand).copy();
                 i.setCount(1);
                 ped.setInventorySlotContents(0, i);
                 player.getHeldItem(hand).shrink(1);
@@ -86,11 +86,11 @@ public class BlockPedestal extends BlockTCTile implements IInfusionStabiliserExt
         return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
     }
     
-    public IBlockState getStateFromMeta(final int meta) {
+    public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty((IProperty)BlockInlay.CHARGE, (Comparable)meta);
     }
     
-    public int getMetaFromState(final IBlockState state) {
+    public int getMetaFromState(IBlockState state) {
         return (int)state.getValue((IProperty)BlockInlay.CHARGE);
     }
     
@@ -99,56 +99,56 @@ public class BlockPedestal extends BlockTCTile implements IInfusionStabiliserExt
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState stateIn, final World worldIn, final BlockPos pos, final Random rand) {
-        final int charge = (int)stateIn.getValue((IProperty)BlockInlay.CHARGE);
+    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        int charge = (int)stateIn.getValue((IProperty)BlockInlay.CHARGE);
         if (charge > 0) {
             FXDispatcher.INSTANCE.blockRunes2(pos.getX(), pos.getY() - 0.375, pos.getZ(), 1.0f, 0.0f, 0.0f, 10, 0.0f);
         }
     }
     
-    public void onBlockAdded(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
             BlockInlay.updateSurroundingInlay(worldIn, pos, state);
-            for (final EnumFacing enumfacing1 : EnumFacing.Plane.HORIZONTAL) {
+            for (EnumFacing enumfacing1 : EnumFacing.Plane.HORIZONTAL) {
                 BlockInlay.notifyInlayNeighborsOfStateChange(worldIn, pos.offset(enumfacing1));
             }
         }
     }
     
     @Override
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         super.breakBlock(worldIn, pos, state);
         if (!worldIn.isRemote) {
-            for (final EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
                 worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
             }
             BlockInlay.updateSurroundingInlay(worldIn, pos, state);
-            for (final EnumFacing enumfacing2 : EnumFacing.Plane.HORIZONTAL) {
+            for (EnumFacing enumfacing2 : EnumFacing.Plane.HORIZONTAL) {
                 BlockInlay.notifyInlayNeighborsOfStateChange(worldIn, pos.offset(enumfacing2));
             }
         }
     }
     
-    public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos fromPos) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (!worldIn.isRemote) {
             BlockInlay.updateSurroundingInlay(worldIn, pos, state);
         }
     }
     
-    public boolean canStabaliseInfusion(final World world, final BlockPos pos) {
+    public boolean canStabaliseInfusion(World world, BlockPos pos) {
         return true;
     }
     
     @Override
-    public float getStabilizationAmount(final World world, final BlockPos pos) {
-        final Block b = world.getBlockState(pos).getBlock();
+    public float getStabilizationAmount(World world, BlockPos pos) {
+        Block b = world.getBlockState(pos).getBlock();
         return (b == BlocksTC.pedestalEldritch) ? 0.1f : 0.0f;
     }
     
     @Override
-    public boolean hasSymmetryPenalty(final World world, final BlockPos pos1, final BlockPos pos2) {
-        final TileEntity te1 = world.getTileEntity(pos1);
-        final TileEntity te2 = world.getTileEntity(pos2);
+    public boolean hasSymmetryPenalty(World world, BlockPos pos1, BlockPos pos2) {
+        TileEntity te1 = world.getTileEntity(pos1);
+        TileEntity te2 = world.getTileEntity(pos2);
         if (world.isRemote) {
             if (te1 != null && te2 != null && te1 instanceof TilePedestal && te2 instanceof TilePedestal) {
                 return ((TilePedestal)te1).getSyncedStackInSlot(0).isEmpty() != ((TilePedestal)te2).getSyncedStackInSlot(0).isEmpty();
@@ -161,7 +161,7 @@ public class BlockPedestal extends BlockTCTile implements IInfusionStabiliserExt
     }
     
     @Override
-    public float getSymmetryPenalty(final World world, final BlockPos pos) {
+    public float getSymmetryPenalty(World world, BlockPos pos) {
         return 0.1f;
     }
 }

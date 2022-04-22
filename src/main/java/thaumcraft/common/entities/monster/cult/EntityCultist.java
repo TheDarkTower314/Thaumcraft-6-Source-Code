@@ -22,9 +22,9 @@ import net.minecraft.entity.monster.EntityMob;
 
 public class EntityCultist extends EntityMob
 {
-    public static final ResourceLocation LOOT;
+    public static ResourceLocation LOOT;
     
-    public EntityCultist(final World p_i1745_1_) {
+    public EntityCultist(World p_i1745_1_) {
         super(p_i1745_1_);
         setSize(0.6f, 1.8f);
         experienceValue = 10;
@@ -62,13 +62,13 @@ public class EntityCultist extends EntityMob
         return EntityCultist.LOOT;
     }
     
-    protected void setLoot(final DifficultyInstance diff) {
+    protected void setLoot(DifficultyInstance diff) {
     }
     
-    protected void setEnchantmentBasedOnDifficulty(final DifficultyInstance diff) {
+    protected void setEnchantmentBasedOnDifficulty(DifficultyInstance diff) {
     }
     
-    public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
+    public IEntityLivingData onInitialSpawn(DifficultyInstance diff, IEntityLivingData data) {
         setLoot(diff);
         setEnchantmentBasedOnDifficulty(diff);
         return super.onInitialSpawn(diff, data);
@@ -78,14 +78,14 @@ public class EntityCultist extends EntityMob
         return true;
     }
     
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         if (nbt.hasKey("HomeD")) {
             setHomePosAndDistance(new BlockPos(nbt.getInteger("HomeX"), nbt.getInteger("HomeY"), nbt.getInteger("HomeZ")), nbt.getInteger("HomeD"));
         }
     }
     
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         if (getHomePosition() != null && getMaximumHomeDistance() > 0.0f) {
             nbt.setInteger("HomeD", (int) getMaximumHomeDistance());
@@ -95,21 +95,21 @@ public class EntityCultist extends EntityMob
         }
     }
     
-    public boolean isOnSameTeam(final Entity el) {
+    public boolean isOnSameTeam(Entity el) {
         return el instanceof EntityCultist || el instanceof EntityCultistLeader;
     }
     
-    public boolean canAttackClass(final Class clazz) {
+    public boolean canAttackClass(Class clazz) {
         return clazz != EntityCultistCleric.class && clazz != EntityCultistLeader.class && clazz != EntityCultistKnight.class && super.canAttackClass(clazz);
     }
     
     public void spawnExplosionParticle() {
         if (world.isRemote) {
             for (int i = 0; i < 20; ++i) {
-                final double d0 = rand.nextGaussian() * 0.05;
-                final double d2 = rand.nextGaussian() * 0.05;
-                final double d3 = rand.nextGaussian() * 0.05;
-                final double d4 = 2.0;
+                double d0 = rand.nextGaussian() * 0.05;
+                double d2 = rand.nextGaussian() * 0.05;
+                double d3 = rand.nextGaussian() * 0.05;
+                double d4 = 2.0;
                 FXDispatcher.INSTANCE.cultistSpawn(posX + rand.nextFloat() * width * 2.0f - width + d0 * d4, posY + rand.nextFloat() * height + d2 * d4, posZ + rand.nextFloat() * width * 2.0f - width + d3 * d4, d0, d2, d3);
             }
         }

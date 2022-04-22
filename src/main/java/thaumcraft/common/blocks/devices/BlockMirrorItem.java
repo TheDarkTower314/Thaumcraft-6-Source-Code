@@ -35,20 +35,20 @@ import net.minecraft.item.ItemBlock;
 
 public class BlockMirrorItem extends ItemBlock
 {
-    public BlockMirrorItem(final Block par1) {
+    public BlockMirrorItem(Block par1) {
         super(par1);
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         if (world.getBlockState(pos).getBlock() instanceof BlockMirror) {
             if (world.isRemote) {
                 player.swingArm(hand);
                 return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
             }
             if (block == BlocksTC.mirror) {
-                final TileEntity tm = world.getTileEntity(pos);
+                TileEntity tm = world.getTileEntity(pos);
                 if (tm != null && tm instanceof TileMirror && !((TileMirror)tm).isLinkValid()) {
-                    final ItemStack st = player.getHeldItem(hand).copy();
+                    ItemStack st = player.getHeldItem(hand).copy();
                     st.setCount(1);
                     st.setItemDamage(1);
                     st.setTagInfo("linkX", new NBTTagInt(tm.getPos().getX()));
@@ -69,9 +69,9 @@ public class BlockMirrorItem extends ItemBlock
                 }
             }
             else {
-                final TileEntity tm = world.getTileEntity(pos);
+                TileEntity tm = world.getTileEntity(pos);
                 if (tm != null && tm instanceof TileMirrorEssentia && !((TileMirrorEssentia)tm).isLinkValid()) {
-                    final ItemStack st = player.getHeldItem(hand).copy();
+                    ItemStack st = player.getHeldItem(hand).copy();
                     st.setCount(1);
                     st.setItemDamage(1);
                     st.setTagInfo("linkX", new NBTTagInt(tm.getPos().getX()));
@@ -95,11 +95,11 @@ public class BlockMirrorItem extends ItemBlock
         return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
     }
     
-    public boolean placeBlockAt(final ItemStack stack, final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final IBlockState newState) {
-        final boolean ret = super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState);
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState) {
+        boolean ret = super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState);
         if (ret && !world.isRemote) {
             if (block == BlocksTC.mirror) {
-                final TileEntity te = world.getTileEntity(pos);
+                TileEntity te = world.getTileEntity(pos);
                 if (te != null && te instanceof TileMirror && stack.hasTagCompound()) {
                     ((TileMirror)te).linkX = stack.getTagCompound().getInteger("linkX");
                     ((TileMirror)te).linkY = stack.getTagCompound().getInteger("linkY");
@@ -109,7 +109,7 @@ public class BlockMirrorItem extends ItemBlock
                 }
             }
             else {
-                final TileEntity te = world.getTileEntity(pos);
+                TileEntity te = world.getTileEntity(pos);
                 if (te != null && te instanceof TileMirrorEssentia && stack.hasTagCompound()) {
                     ((TileMirrorEssentia)te).linkX = stack.getTagCompound().getInteger("linkX");
                     ((TileMirrorEssentia)te).linkY = stack.getTagCompound().getInteger("linkY");
@@ -122,19 +122,19 @@ public class BlockMirrorItem extends ItemBlock
         return ret;
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.UNCOMMON;
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack item, final World worldIn, final List<String> list, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack item, World worldIn, List<String> list, ITooltipFlag flagIn) {
         if (item.hasTagCompound()) {
-            final int lx = item.getTagCompound().getInteger("linkX");
-            final int ly = item.getTagCompound().getInteger("linkY");
-            final int lz = item.getTagCompound().getInteger("linkZ");
-            final int ldim = item.getTagCompound().getInteger("linkDim");
+            int lx = item.getTagCompound().getInteger("linkX");
+            int ly = item.getTagCompound().getInteger("linkY");
+            int lz = item.getTagCompound().getInteger("linkZ");
+            int ldim = item.getTagCompound().getInteger("linkDim");
             String desc = "" + ldim;
-            final World world = DimensionManager.getWorld(ldim);
+            World world = DimensionManager.getWorld(ldim);
             if (world != null) {
                 desc = world.provider.getDimensionType().getName();
             }

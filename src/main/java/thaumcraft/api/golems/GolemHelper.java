@@ -42,7 +42,7 @@ public class GolemHelper {
 	}
 	
 	public static HashMap<Integer,ArrayList<ProvisionRequest>> provisionRequests = new HashMap<>();
-	final static int LISTLIMIT = 1000;
+	static int LISTLIMIT = 1000;
 	
 	/**
 	 * 

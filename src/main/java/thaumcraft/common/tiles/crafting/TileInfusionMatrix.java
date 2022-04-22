@@ -147,7 +147,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbtCompound) {
+    public void readSyncNBT(NBTTagCompound nbtCompound) {
         active = nbtCompound.getBoolean("active");
         crafting = nbtCompound.getBoolean("crafting");
         stability = nbtCompound.getFloat("stability");
@@ -156,7 +156,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbtCompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbtCompound) {
         nbtCompound.setBoolean("active", active);
         nbtCompound.setBoolean("crafting", crafting);
         nbtCompound.setFloat("stability", stability);
@@ -166,15 +166,15 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     @Override
-    public void readFromNBT(final NBTTagCompound nbtCompound) {
+    public void readFromNBT(NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
-        final NBTTagList nbttaglist = nbtCompound.getTagList("recipein", 10);
+        NBTTagList nbttaglist = nbtCompound.getTagList("recipein", 10);
         recipeIngredients = new ArrayList<ItemStack>();
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-            final NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
+            NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
             recipeIngredients.add(new ItemStack(nbttagcompound1));
         }
-        final String rot = nbtCompound.getString("rotype");
+        String rot = nbtCompound.getString("rotype");
         if (rot != null && rot.equals("@")) {
             recipeOutput = new ItemStack(nbtCompound.getCompoundTag("recipeout"));
         }
@@ -192,13 +192,13 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     @Override
-    public NBTTagCompound writeToNBT(final NBTTagCompound nbtCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbtCompound) {
         super.writeToNBT(nbtCompound);
         if (recipeIngredients != null && recipeIngredients.size() > 0) {
-            final NBTTagList nbttaglist = new NBTTagList();
-            for (final ItemStack stack : recipeIngredients) {
+            NBTTagList nbttaglist = new NBTTagList();
+            for (ItemStack stack : recipeIngredients) {
                 if (!stack.isEmpty()) {
-                    final NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+                    NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                     nbttagcompound1.setByte("item", (byte) count);
                     stack.writeToNBT(nbttagcompound1);
                     nbttaglist.appendTag(nbttagcompound1);
@@ -292,7 +292,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         return world.getBlockState(pos.add(0, -2, 0)).getBlock() instanceof BlockPedestal && world.getBlockState(pos.add(1, -2, 1)).getBlock() instanceof BlockPillar && world.getBlockState(pos.add(-1, -2, 1)).getBlock() instanceof BlockPillar && world.getBlockState(pos.add(1, -2, -1)).getBlock() instanceof BlockPillar && world.getBlockState(pos.add(-1, -2, -1)).getBlock() instanceof BlockPillar;
     }
     
-    public void craftingStart(final EntityPlayer player) {
+    public void craftingStart(EntityPlayer player) {
         if (!validLocation()) {
             active = false;
             markDirty();
@@ -304,7 +304,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         recipeInput = ItemStack.EMPTY;
         te = world.getTileEntity(pos.down(2));
         if (te != null && te instanceof TilePedestal) {
-            final TilePedestal ped = (TilePedestal)te;
+            TilePedestal ped = (TilePedestal)te;
             if (!ped.getStackInSlot(0).isEmpty()) {
                 recipeInput = ped.getStackInSlot(0).copy();
             }
@@ -312,11 +312,11 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         if (recipeInput == null || recipeInput.isEmpty()) {
             return;
         }
-        final ArrayList<ItemStack> components = new ArrayList<ItemStack>();
-        for (final BlockPos cc : pedestals) {
+        ArrayList<ItemStack> components = new ArrayList<ItemStack>();
+        for (BlockPos cc : pedestals) {
             te = world.getTileEntity(cc);
             if (te != null && te instanceof TilePedestal) {
-                final TilePedestal ped2 = (TilePedestal)te;
+                TilePedestal ped2 = (TilePedestal)te;
                 if (ped2.getStackInSlot(0).isEmpty()) {
                     continue;
                 }
@@ -326,7 +326,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         if (components.size() == 0) {
             return;
         }
-        final InfusionRecipe recipe = ThaumcraftCraftingManager.findMatchingInfusionRecipe(components, recipeInput, player);
+        InfusionRecipe recipe = ThaumcraftCraftingManager.findMatchingInfusionRecipe(components, recipeInput, player);
         if (costMult < 0.5) {
             costMult = 0.5f;
         }
@@ -334,7 +334,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
             recipeType = 0;
             recipeIngredients = components;
             if (recipe.getRecipeOutput(player, recipeInput, components) instanceof Object[]) {
-                final Object[] obj = (Object[])recipe.getRecipeOutput(player, recipeInput, components);
+                Object[] obj = (Object[])recipe.getRecipeOutput(player, recipeInput, components);
                 recipeOutputLabel = (String)obj[0];
                 recipeOutput = obj[1];
             }
@@ -342,9 +342,9 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                 recipeOutput = recipe.getRecipeOutput(player, recipeInput, components);
             }
             recipeInstability = recipe.getInstability(player, recipeInput, components);
-            final AspectList al = recipe.getAspects(player, recipeInput, components);
-            final AspectList al2 = new AspectList();
-            for (final Aspect as : al.getAspects()) {
+            AspectList al = recipe.getAspects(player, recipeInput, components);
+            AspectList al2 = new AspectList();
+            for (Aspect as : al.getAspects()) {
                 if ((int)(al.getAmount(as) * costMult) > 0) {
                     al2.add(as, (int)(al.getAmount(as) * costMult));
                 }
@@ -364,7 +364,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     
     public void craftCycle() {
         boolean valid = false;
-        final float ff = world.rand.nextFloat() * getLossPerCycle();
+        float ff = world.rand.nextFloat() * getLossPerCycle();
         stability -= ff;
         stability += stabilityReplenish;
         if (stability < -100.0f) {
@@ -375,9 +375,9 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         }
         TileEntity te = world.getTileEntity(pos.down(2));
         if (te != null && te instanceof TilePedestal) {
-            final TilePedestal ped = (TilePedestal)te;
+            TilePedestal ped = (TilePedestal)te;
             if (!ped.getStackInSlot(0).isEmpty()) {
-                final ItemStack i2 = ped.getStackInSlot(0).copy();
+                ItemStack i2 = ped.getStackInSlot(0).copy();
                 if (recipeInput.getItemDamage() == 32767) {
                     i2.setItemDamage(32767);
                 }
@@ -465,9 +465,9 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
             return;
         }
         if (recipeType == 1 && recipeXP > 0) {
-            final List<EntityPlayer> targets = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
+            List<EntityPlayer> targets = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
             if (targets != null && targets.size() > 0) {
-                for (final EntityPlayer target : targets) {
+                for (EntityPlayer target : targets) {
                     if (target.capabilities.isCreativeMode || target.experienceLevel > 0) {
                         if (!target.capabilities.isCreativeMode) {
                             target.addExperienceLevel(-1);
@@ -480,9 +480,9 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                         return;
                     }
                 }
-                final Aspect[] ingEss = recipeEssentia.getAspects();
+                Aspect[] ingEss = recipeEssentia.getAspects();
                 if (ingEss != null && ingEss.length > 0 && world.rand.nextInt(3) == 0) {
-                    final Aspect as = ingEss[world.rand.nextInt(ingEss.length)];
+                    Aspect as = ingEss[world.rand.nextInt(ingEss.length)];
                     recipeEssentia.add(as, 1);
                     stability -= 0.25f;
                     syncTile(false);
@@ -498,8 +498,8 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
             countDelay = 1;
         }
         if (recipeEssentia.visSize() > 0) {
-            for (final Aspect aspect : recipeEssentia.getAspects()) {
-                final int na = recipeEssentia.getAmount(aspect);
+            for (Aspect aspect : recipeEssentia.getAspects()) {
+                int na = recipeEssentia.getAmount(aspect);
                 if (na > 0) {
                     if (EssentiaHandler.drainEssentia(this, aspect, null, 12, (na > 1) ? countDelay : 0)) {
                         recipeEssentia.reduce(aspect, 1);
@@ -517,7 +517,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         }
         if (recipeIngredients.size() > 0) {
             for (int a = 0; a < recipeIngredients.size(); ++a) {
-                for (final BlockPos cc : pedestals) {
+                for (BlockPos cc : pedestals) {
                     te = world.getTileEntity(cc);
                     if (te != null && te instanceof TilePedestal && ((TilePedestal)te).getStackInSlot(0) != null && !((TilePedestal)te).getStackInSlot(0).isEmpty() && ThaumcraftInvHelper.areItemStacksEqualForCrafting(((TilePedestal)te).getStackInSlot(0), recipeIngredients.get(a))) {
                         if (itemCount == 0) {
@@ -525,7 +525,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                             PacketHandler.INSTANCE.sendToAllAround(new PacketFXInfusionSource(pos, cc, 0), new NetworkRegistry.TargetPoint(getWorld().provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 32.0));
                         }
                         else if (itemCount-- <= 1) {
-                            final ItemStack is = ((TilePedestal)te).getStackInSlot(0).getItem().getContainerItem(((TilePedestal)te).getStackInSlot(0));
+                            ItemStack is = ((TilePedestal)te).getStackInSlot(0).getItem().getContainerItem(((TilePedestal)te).getStackInSlot(0));
                             ((TilePedestal)te).setInventorySlotContents(0, (is == null || is.isEmpty()) ? ItemStack.EMPTY : is.copy());
                             te.markDirty();
                             ((TilePedestal)te).syncTile(false);
@@ -535,9 +535,9 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                         return;
                     }
                 }
-                final Aspect[] ingEss = recipeEssentia.getAspects();
+                Aspect[] ingEss = recipeEssentia.getAspects();
                 if (ingEss != null && ingEss.length > 0 && world.rand.nextInt(1 + a) == 0) {
-                    final Aspect as = ingEss[world.rand.nextInt(ingEss.length)];
+                    Aspect as = ingEss[world.rand.nextInt(ingEss.length)];
                     recipeEssentia.add(as, 1);
                     stability -= 0.25f;
                     syncTile(false);
@@ -553,10 +553,10 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         markDirty();
     }
     
-    private void inEvZap(final boolean all) {
-        final List<EntityLivingBase> targets = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
+    private void inEvZap(boolean all) {
+        List<EntityLivingBase> targets = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
         if (targets != null && targets.size() > 0) {
-            for (final EntityLivingBase target : targets) {
+            for (EntityLivingBase target : targets) {
                 PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockArc(pos, target, 0.3f - world.rand.nextFloat() * 0.1f, 0.0f, 0.3f - world.rand.nextFloat() * 0.1f), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 32.0));
                 target.attackEntityFrom(DamageSource.MAGIC, (float)(4 + world.rand.nextInt(4)));
                 if (!all) {
@@ -566,15 +566,15 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         }
     }
     
-    private void inEvHarm(final boolean all) {
-        final List<EntityLivingBase> targets = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
+    private void inEvHarm(boolean all) {
+        List<EntityLivingBase> targets = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1).grow(10.0, 10.0, 10.0));
         if (targets != null && targets.size() > 0) {
-            for (final EntityLivingBase target : targets) {
+            for (EntityLivingBase target : targets) {
                 if (world.rand.nextBoolean()) {
                     target.addPotionEffect(new PotionEffect(PotionFluxTaint.instance, 120, 0, false, true));
                 }
                 else {
-                    final PotionEffect pe = new PotionEffect(PotionVisExhaust.instance, 2400, 0, true, true);
+                    PotionEffect pe = new PotionEffect(PotionVisExhaust.instance, 2400, 0, true, true);
                     pe.getCurativeItems().clear();
                     target.addPotionEffect(pe);
                 }
@@ -586,10 +586,10 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     private void inResAdd() {
-        final List<EntityPlayer> targets = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1).grow(10.0));
+        List<EntityPlayer> targets = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1).grow(10.0));
         if (targets != null && targets.size() > 0) {
-            for (final EntityPlayer player : targets) {
-                final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+            for (EntityPlayer player : targets) {
+                IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
                 if (!knowledge.isResearchKnown("!INSTABILITY")) {
                     knowledge.addResearch("!INSTABILITY");
                     knowledge.sync((EntityPlayerMP)player);
@@ -600,9 +600,9 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     private void inEvWarp() {
-        final List<EntityPlayer> targets = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1).grow(10.0));
+        List<EntityPlayer> targets = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1, getPos().getZ() + 1).grow(10.0));
         if (targets != null && targets.size() > 0) {
-            final EntityPlayer target = targets.get(world.rand.nextInt(targets.size()));
+            EntityPlayer target = targets.get(world.rand.nextInt(targets.size()));
             if (world.rand.nextFloat() < 0.25f) {
                 ThaumcraftApi.internalMethods.addWarpToPlayer(target, 1, IPlayerWarp.EnumWarpType.NORMAL);
             }
@@ -612,16 +612,16 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         }
     }
     
-    private void inEvEjectItem(final int type) {
+    private void inEvEjectItem(int type) {
         for (int retries = 0; retries < 25 && pedestals.size() > 0; ++retries) {
-            final BlockPos cc = pedestals.get(world.rand.nextInt(pedestals.size()));
-            final TileEntity te = world.getTileEntity(cc);
+            BlockPos cc = pedestals.get(world.rand.nextInt(pedestals.size()));
+            TileEntity te = world.getTileEntity(cc);
             if (te != null && te instanceof TilePedestal && ((TilePedestal)te).getStackInSlot(0) != null && !((TilePedestal)te).getStackInSlot(0).isEmpty()) {
-                final BlockPos stabPos = ((TilePedestal)te).findInstabilityMitigator();
+                BlockPos stabPos = ((TilePedestal)te).findInstabilityMitigator();
                 if (stabPos != null) {
-                    final TileEntity ste = world.getTileEntity(stabPos);
+                    TileEntity ste = world.getTileEntity(stabPos);
                     if (ste != null && ste instanceof TileStabilizer) {
-                        final TileStabilizer tste = (TileStabilizer)ste;
+                        TileStabilizer tste = (TileStabilizer)ste;
                         if (tste.mitigate(MathHelper.getInt(world.rand, 5, 10))) {
                             world.addBlockEvent(cc, world.getBlockState(cc).getBlock(), 5, 0);
                             PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockArc(pos, cc.up(), 0.3f - world.rand.nextFloat() * 0.1f, 0.0f, 0.3f - world.rand.nextFloat() * 0.1f), new NetworkRegistry.TargetPoint(world.provider.getDimension(), cc.getX(), cc.getY(), cc.getZ(), 32.0));
@@ -643,7 +643,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                     world.playSound(null, cc, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 0.3f, 1.0f);
                 }
                 else if (type == 2 || type == 4) {
-                    final int a = 5 + world.rand.nextInt(5);
+                    int a = 5 + world.rand.nextInt(5);
                     AuraHelper.polluteAura(world, cc, (float)a, true);
                 }
                 else if (type == 5) {
@@ -656,12 +656,12 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         }
     }
     
-    public void craftingFinish(final Object out, final String label) {
-        final TileEntity te = world.getTileEntity(pos.down(2));
+    public void craftingFinish(Object out, String label) {
+        TileEntity te = world.getTileEntity(pos.down(2));
         if (te != null && te instanceof TilePedestal) {
             float dmg = 1.0f;
             if (out instanceof ItemStack) {
-                final ItemStack qs = ((ItemStack)out).copy();
+                ItemStack qs = ((ItemStack)out).copy();
                 if (((TilePedestal)te).getStackInSlot(0).isItemStackDamageable() && ((TilePedestal)te).getStackInSlot(0).isItemDamaged()) {
                     dmg = ((TilePedestal)te).getStackInSlot(0).getItemDamage() / (float)((TilePedestal)te).getStackInSlot(0).getMaxDamage();
                     if (qs.isItemStackDamageable() && !qs.isItemDamaged()) {
@@ -671,22 +671,22 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                 ((TilePedestal)te).setInventorySlotContentsFromInfusion(0, qs);
             }
             else if (out instanceof NBTBase) {
-                final ItemStack temp = ((TilePedestal)te).getStackInSlot(0);
-                final NBTBase tag = (NBTBase)out;
+                ItemStack temp = ((TilePedestal)te).getStackInSlot(0);
+                NBTBase tag = (NBTBase)out;
                 temp.setTagInfo(label, tag);
                 syncTile(false);
                 te.markDirty();
             }
             else if (out instanceof Enchantment) {
-                final ItemStack temp = ((TilePedestal)te).getStackInSlot(0);
-                final Map enchantments = EnchantmentHelper.getEnchantments(temp);
+                ItemStack temp = ((TilePedestal)te).getStackInSlot(0);
+                Map enchantments = EnchantmentHelper.getEnchantments(temp);
                 enchantments.put(out, EnchantmentHelper.getEnchantmentLevel((Enchantment)out, temp) + 1);
                 EnchantmentHelper.setEnchantments(enchantments, temp);
                 syncTile(false);
                 te.markDirty();
             }
             if (recipePlayer != null) {
-                final EntityPlayer p = world.getPlayerEntityByName(recipePlayer);
+                EntityPlayer p = world.getPlayerEntityByName(recipePlayer);
                 if (p != null) {
                     FMLCommonHandler.instance().firePlayerCraftingEvent(p, ((TilePedestal)te).getStackInSlot(0), new InventoryFake(recipeIngredients));
                 }
@@ -701,7 +701,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     private void getSurroundings() {
-        final Set<Long> stuff = new HashSet<Long>();
+        Set<Long> stuff = new HashSet<Long>();
         pedestals.clear();
         tempBlockCount.clear();
         problemBlocks.clear();
@@ -711,14 +711,14 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         try {
             for (int xx = -8; xx <= 8; ++xx) {
                 for (int zz = -8; zz <= 8; ++zz) {
-                    final boolean skip = false;
+                    boolean skip = false;
                     for (int yy = -3; yy <= 7; ++yy) {
                         if (xx != 0 || zz != 0) {
-                            final int x = pos.getX() + xx;
-                            final int y = pos.getY() - yy;
-                            final int z = pos.getZ() + zz;
-                            final BlockPos bp = new BlockPos(x, y, z);
-                            final Block bi = world.getBlockState(bp).getBlock();
+                            int x = pos.getX() + xx;
+                            int y = pos.getY() - yy;
+                            int z = pos.getZ() + zz;
+                            BlockPos bp = new BlockPos(x, y, z);
+                            Block bi = world.getBlockState(bp).getBlock();
                             if (bi instanceof BlockPedestal) {
                                 pedestals.add(bp);
                             }
@@ -727,29 +727,29 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                                     stuff.add(bp.toLong());
                                 }
                             }
-                            catch (final Exception ex) {}
+                            catch (Exception ex) {}
                         }
                     }
                 }
             }
             while (!stuff.isEmpty()) {
-                final Long[] posArray = stuff.toArray(new Long[stuff.size()]);
+                Long[] posArray = stuff.toArray(new Long[stuff.size()]);
                 if (posArray == null) {
                     break;
                 }
                 if (posArray[0] == null) {
                     break;
                 }
-                final long lp = posArray[0];
+                long lp = posArray[0];
                 try {
-                    final BlockPos c1 = BlockPos.fromLong(lp);
-                    final int x2 = pos.getX() - c1.getX();
-                    final int z2 = pos.getZ() - c1.getZ();
-                    final int x3 = pos.getX() + x2;
-                    final int z3 = pos.getZ() + z2;
-                    final BlockPos c2 = new BlockPos(x3, c1.getY(), z3);
-                    final Block sb1 = world.getBlockState(c1).getBlock();
-                    final Block sb2 = world.getBlockState(c2).getBlock();
+                    BlockPos c1 = BlockPos.fromLong(lp);
+                    int x2 = pos.getX() - c1.getX();
+                    int z2 = pos.getZ() - c1.getZ();
+                    int x3 = pos.getX() + x2;
+                    int z3 = pos.getZ() + z2;
+                    BlockPos c2 = new BlockPos(x3, c1.getY(), z3);
+                    Block sb1 = world.getBlockState(c1).getBlock();
+                    Block sb2 = world.getBlockState(c2).getBlock();
                     float amt1 = 0.1f;
                     float amt2 = 0.1f;
                     if (sb1 instanceof IInfusionStabiliserExt) {
@@ -773,7 +773,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                     }
                     stuff.remove(c2.toLong());
                 }
-                catch (final Exception ex2) {}
+                catch (Exception ex2) {}
                 stuff.remove(lp);
             }
             if (world.getBlockState(pos.add(-1, -2, -1)).getBlock() instanceof BlockPillar && world.getBlockState(pos.add(1, -2, -1)).getBlock() instanceof BlockPillar && world.getBlockState(pos.add(1, -2, 1)).getBlock() instanceof BlockPillar && world.getBlockState(pos.add(-1, -2, 1)).getBlock() instanceof BlockPillar) {
@@ -788,10 +788,10 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                     stabilityReplenish += 0.2f;
                 }
             }
-            final int[] xm = { -1, 1, 1, -1 };
-            final int[] zm = { -1, -1, 1, 1 };
+            int[] xm = { -1, 1, 1, -1 };
+            int[] zm = { -1, -1, 1, 1 };
             for (int a = 0; a < 4; ++a) {
-                final Block b = world.getBlockState(pos.add(xm[a], -3, zm[a])).getBlock();
+                Block b = world.getBlockState(pos.add(xm[a], -3, zm[a])).getBlock();
                 if (b == BlocksTC.matrixSpeed) {
                     --cycleTime;
                     costMult += 0.01f;
@@ -802,12 +802,12 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                 }
             }
             countDelay = cycleTime / 2;
-            final int apc = 0;
-            for (final BlockPos cc : pedestals) {
-                final boolean items = false;
-                final int x4 = pos.getX() - cc.getX();
-                final int z4 = pos.getZ() - cc.getZ();
-                final Block bb = world.getBlockState(cc).getBlock();
+            int apc = 0;
+            for (BlockPos cc : pedestals) {
+                boolean items = false;
+                int x4 = pos.getX() - cc.getX();
+                int z4 = pos.getZ() - cc.getZ();
+                Block bb = world.getBlockState(cc).getBlock();
                 if (bb == BlocksTC.pedestalEldritch) {
                     costMult += 0.0025f;
                 }
@@ -816,12 +816,12 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                 }
             }
         }
-        catch (final Exception ex3) {}
+        catch (Exception ex3) {}
     }
     
-    private float calcDeminishingReturns(final Block b, final float base) {
+    private float calcDeminishingReturns(Block b, float base) {
         float bb = base;
-        final int c = tempBlockCount.containsKey(b) ? tempBlockCount.get(b) : 0;
+        int c = tempBlockCount.containsKey(b) ? tempBlockCount.get(b) : 0;
         if (c > 0) {
             bb *= (float)Math.pow(0.75, c);
         }
@@ -830,7 +830,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     @Override
-    public boolean onCasterRightClick(final World world, final ItemStack wandstack, final EntityPlayer player, final BlockPos pos, final EnumFacing side, final EnumHand hand) {
+    public boolean onCasterRightClick(World world, ItemStack wandstack, EntityPlayer player, BlockPos pos, EnumFacing side, EnumHand hand) {
         if (world.isRemote && active && !crafting) {
             checkSurroundings = true;
         }
@@ -884,14 +884,14 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                 startUp = 0.0f;
             }
         }
-        for (final String fxk : sourceFX.keySet().toArray(new String[0])) {
-            final SourceFX fx = sourceFX.get(fxk);
+        for (String fxk : sourceFX.keySet().toArray(new String[0])) {
+            SourceFX fx = sourceFX.get(fxk);
             if (fx.ticks <= 0) {
                 sourceFX.remove(fxk);
             }
             else {
                 if (fx.loc.equals(pos)) {
-                    final Entity player = world.getEntityByID(fx.color);
+                    Entity player = world.getEntityByID(fx.color);
                     if (player != null) {
                         for (int a = 0; a < 4; ++a) {
                             FXDispatcher.INSTANCE.drawInfusionParticles4(player.posX + (world.rand.nextFloat() - world.rand.nextFloat()) * player.width, player.getEntityBoundingBox().minY + world.rand.nextFloat() * player.height, player.posZ + (world.rand.nextFloat() - world.rand.nextFloat()) * player.width, pos.getX(), pos.getY(), pos.getZ());
@@ -899,15 +899,15 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                     }
                 }
                 else {
-                    final TileEntity tile = world.getTileEntity(fx.loc);
+                    TileEntity tile = world.getTileEntity(fx.loc);
                     if (tile instanceof TilePedestal) {
-                        final ItemStack is = ((TilePedestal)tile).getSyncedStackInSlot(0);
+                        ItemStack is = ((TilePedestal)tile).getSyncedStackInSlot(0);
                         if (is != null && !is.isEmpty()) {
                             if (world.rand.nextInt(3) == 0) {
                                 FXDispatcher.INSTANCE.drawInfusionParticles3(fx.loc.getX() + world.rand.nextFloat(), fx.loc.getY() + world.rand.nextFloat() + 1.0f, fx.loc.getZ() + world.rand.nextFloat(), pos.getX(), pos.getY(), pos.getZ());
                             }
                             else {
-                                final Item bi = is.getItem();
+                                Item bi = is.getItem();
                                 if (bi instanceof ItemBlock) {
                                     for (int a2 = 0; a2 < 4; ++a2) {
                                         FXDispatcher.INSTANCE.drawInfusionParticles2(fx.loc.getX() + world.rand.nextFloat(), fx.loc.getY() + world.rand.nextFloat() + 1.0f, fx.loc.getZ() + world.rand.nextFloat(), pos, Block.getBlockFromItem(bi).getDefaultState(), is.getItemDamage());
@@ -925,7 +925,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                         fx.ticks = 0;
                     }
                 }
-                final SourceFX sourceFX = fx;
+                SourceFX sourceFX = fx;
                 --sourceFX.ticks;
                 this.sourceFX.put(fxk, fx);
             }
@@ -934,7 +934,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
             FXDispatcher.INSTANCE.spark(getPos().getX() + world.rand.nextFloat(), getPos().getY() + world.rand.nextFloat(), getPos().getZ() + world.rand.nextFloat(), 3.0f + world.rand.nextFloat() * 2.0f, 0.7f + world.rand.nextFloat() * 0.1f, 0.1f, 0.65f + world.rand.nextFloat() * 0.1f, 0.8f);
         }
         if (active && !problemBlocks.isEmpty() && world.rand.nextInt(25) == 0) {
-            final BlockPos p = problemBlocks.get(world.rand.nextInt(problemBlocks.size()));
+            BlockPos p = problemBlocks.get(world.rand.nextInt(problemBlocks.size()));
             FXDispatcher.INSTANCE.spark(p.getX() + world.rand.nextFloat(), p.getY() + world.rand.nextFloat(), p.getZ() + world.rand.nextFloat(), 2.0f + world.rand.nextFloat(), 0.7f + world.rand.nextFloat() * 0.1f, 0.1f, 0.65f + world.rand.nextFloat() * 0.1f, 0.8f);
         }
     }
@@ -945,41 +945,41 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     @Override
-    public void setAspects(final AspectList aspects) {
+    public void setAspects(AspectList aspects) {
     }
     
     @Override
-    public int addToContainer(final Aspect tag, final int amount) {
+    public int addToContainer(Aspect tag, int amount) {
         return 0;
     }
     
     @Override
-    public boolean takeFromContainer(final Aspect tag, final int amount) {
+    public boolean takeFromContainer(Aspect tag, int amount) {
         return false;
     }
     
     @Override
-    public boolean takeFromContainer(final AspectList ot) {
+    public boolean takeFromContainer(AspectList ot) {
         return false;
     }
     
     @Override
-    public boolean doesContainerContainAmount(final Aspect tag, final int amount) {
+    public boolean doesContainerContainAmount(Aspect tag, int amount) {
         return false;
     }
     
     @Override
-    public boolean doesContainerContain(final AspectList ot) {
+    public boolean doesContainerContain(AspectList ot) {
         return false;
     }
     
     @Override
-    public int containerContains(final Aspect tag) {
+    public int containerContains(Aspect tag) {
         return 0;
     }
     
     @Override
-    public boolean doesContainerAccept(final Aspect tag) {
+    public boolean doesContainerAccept(Aspect tag) {
         return true;
     }
     
@@ -988,7 +988,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
     
     public String[] getIGogglesText() {
-        final float lpc = getLossPerCycle();
+        float lpc = getLossPerCycle();
         if (lpc != 0.0f) {
             return new String[] { TextFormatting.BOLD + I18n.translateToLocal("stability." + getStability().name()), TextFormatting.GOLD + "" + TextFormatting.ITALIC + TileInfusionMatrix.myFormatter.format(stabilityReplenish) + " " + I18n.translateToLocal("stability.gain"), TextFormatting.RED + "" + I18n.translateToLocal("stability.range") + TextFormatting.ITALIC + TileInfusionMatrix.myFormatter.format(lpc) + " " + I18n.translateToLocal("stability.loss") };
         }
@@ -1006,7 +1006,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         public int color;
         public int entity;
         
-        public SourceFX(final BlockPos loc, final int ticks, final int color) {
+        public SourceFX(BlockPos loc, int ticks, int color) {
             this.loc = loc;
             this.ticks = ticks;
             this.color = color;

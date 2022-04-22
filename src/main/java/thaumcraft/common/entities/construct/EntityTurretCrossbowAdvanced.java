@@ -46,9 +46,9 @@ import net.minecraft.network.datasync.DataParameter;
 
 public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
 {
-    private static final DataParameter<Byte> FLAGS;
+    private static DataParameter<Byte> FLAGS;
     
-    public EntityTurretCrossbowAdvanced(final World worldIn) {
+    public EntityTurretCrossbowAdvanced(World worldIn) {
         super(worldIn);
         setSize(0.95f, 1.5f);
         stepHeight = 0.0f;
@@ -70,7 +70,7 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
         return 1.0f;
     }
     
-    public EntityTurretCrossbowAdvanced(final World worldIn, final BlockPos pos) {
+    public EntityTurretCrossbowAdvanced(World worldIn, BlockPos pos) {
         this(worldIn);
         setPositionAndRotation(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0f, 0.0f);
     }
@@ -81,7 +81,7 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
         getDataManager().register((DataParameter)EntityTurretCrossbowAdvanced.FLAGS, 0);
     }
     
-    public boolean canAttackClass(final Class clazz) {
+    public boolean canAttackClass(Class clazz) {
         if (IAnimals.class.isAssignableFrom(clazz) && !IMob.class.isAssignableFrom(clazz) && getTargetAnimal()) {
             return true;
         }
@@ -102,8 +102,8 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
         return Utils.getBit((byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS), 0);
     }
     
-    public void setTargetAnimal(final boolean par1) {
-        final byte var2 = (byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS);
+    public void setTargetAnimal(boolean par1) {
+        byte var2 = (byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS);
         if (par1) {
             getDataManager().set(EntityTurretCrossbowAdvanced.FLAGS, (byte)Utils.setBit(var2, 0));
         }
@@ -117,8 +117,8 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
         return Utils.getBit((byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS), 1);
     }
     
-    public void setTargetMob(final boolean par1) {
-        final byte var2 = (byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS);
+    public void setTargetMob(boolean par1) {
+        byte var2 = (byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS);
         if (par1) {
             getDataManager().set(EntityTurretCrossbowAdvanced.FLAGS, (byte)Utils.setBit(var2, 1));
         }
@@ -132,8 +132,8 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
         return Utils.getBit((byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS), 2);
     }
     
-    public void setTargetPlayer(final boolean par1) {
-        final byte var2 = (byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS);
+    public void setTargetPlayer(boolean par1) {
+        byte var2 = (byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS);
         if (par1) {
             getDataManager().set(EntityTurretCrossbowAdvanced.FLAGS, (byte)Utils.setBit(var2, 2));
         }
@@ -147,8 +147,8 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
         return Utils.getBit((byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS), 3);
     }
     
-    public void setTargetFriendly(final boolean par1) {
-        final byte var2 = (byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS);
+    public void setTargetFriendly(boolean par1) {
+        byte var2 = (byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS);
         if (par1) {
             getDataManager().set(EntityTurretCrossbowAdvanced.FLAGS, (byte)Utils.setBit(var2, 3));
         }
@@ -161,7 +161,7 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
     @Override
     public Team getTeam() {
         if (isOwned()) {
-            final EntityLivingBase entitylivingbase = getOwnerEntity();
+            EntityLivingBase entitylivingbase = getOwnerEntity();
             if (entitylivingbase != null) {
                 return entitylivingbase.getTeam();
             }
@@ -189,24 +189,24 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
     }
     
     @Override
-    public void readEntityFromNBT(final NBTTagCompound nbt) {
+    public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         getDataManager().set(EntityTurretCrossbowAdvanced.FLAGS, nbt.getByte("targets"));
     }
     
     @Override
-    public void writeEntityToNBT(final NBTTagCompound nbt) {
+    public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         nbt.setByte("targets", (byte) getDataManager().get((DataParameter)EntityTurretCrossbowAdvanced.FLAGS));
     }
     
     @Override
-    public void knockBack(final Entity p_70653_1_, final float p_70653_2_, final double p_70653_3_, final double p_70653_5_) {
+    public void knockBack(Entity p_70653_1_, float p_70653_2_, double p_70653_3_, double p_70653_5_) {
         super.knockBack(p_70653_1_, p_70653_2_, p_70653_3_ / 10.0, p_70653_5_ / 10.0);
     }
     
     @Override
-    protected boolean processInteract(final EntityPlayer player, final EnumHand hand) {
+    protected boolean processInteract(EntityPlayer player, EnumHand hand) {
         if (!world.isRemote && isOwner(player) && !isDead) {
             if (player.isSneaking()) {
                 playSound(SoundsTC.zap, 1.0f, 1.0f);
@@ -224,13 +224,13 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
     }
     
     @Override
-    public void move(final MoverType t, final double x, final double y, final double z) {
+    public void move(MoverType t, double x, double y, double z) {
         super.move(t, x / 15.0, y, z / 15.0);
     }
     
     @Override
-    protected void dropFewItems(final boolean p_70628_1_, final int p_70628_2_) {
-        final float b = p_70628_2_ * 0.15f;
+    protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
+        float b = p_70628_2_ * 0.15f;
         if (rand.nextFloat() < 0.2f + b) {
             entityDropItem(new ItemStack(ItemsTC.mind, 1, 1), 0.5f);
         }
@@ -264,7 +264,7 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
         protected Entity closestEntity;
         private int lookTime;
         
-        public EntityAIWatchTarget(final EntityLiving p_i1631_1_) {
+        public EntityAIWatchTarget(EntityLiving p_i1631_1_) {
             theWatcher = p_i1631_1_;
             setMutexBits(2);
         }
@@ -277,7 +277,7 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
         }
         
         public boolean shouldContinueExecuting() {
-            final float d = (float) getTargetDistance();
+            float d = (float) getTargetDistance();
             return closestEntity.isEntityAlive() && theWatcher.getDistanceSq(closestEntity) <= d * d && lookTime > 0;
         }
         
@@ -295,38 +295,37 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
         }
         
         protected double getTargetDistance() {
-            final IAttributeInstance iattributeinstance = theWatcher.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
+            IAttributeInstance iattributeinstance = theWatcher.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
             return (iattributeinstance == null) ? 16.0 : iattributeinstance.getAttributeValue();
         }
     }
     
     protected class EntityAINearestValidTarget extends EntityAITarget
     {
-        protected final Class<? extends EntityLivingBase> targetClass;
-        private final int targetChance;
-        protected final EntityAINearestAttackableTarget.Sorter theNearestAttackableTargetSorter;
+        protected Class<? extends EntityLivingBase> targetClass;
+        private int targetChance;
+        protected EntityAINearestAttackableTarget.Sorter theNearestAttackableTargetSorter;
         protected Predicate<EntityLivingBase> targetEntitySelector;
         protected EntityLivingBase targetEntity;
         private int targetUnseenTicks;
         
-        /*public EntityAINearestValidTarget(final EntityTurretCrossbowAdvanced this$0, final EntityCreature p_i45878_1_, final Class p_i45878_2_, final boolean p_i45878_3_) {
+        /*public EntityAINearestValidTarget(EntityTurretCrossbowAdvanced this$0, EntityCreature p_i45878_1_, Class p_i45878_2_, boolean p_i45878_3_) {
             this(this$0, p_i45878_1_, p_i45878_2_, p_i45878_3_, false);
         }
         
-        public EntityAINearestValidTarget(final EntityTurretCrossbowAdvanced this$0, final EntityCreature p_i45879_1_, final Class p_i45879_2_, final boolean p_i45879_3_, final boolean p_i45879_4_) {
+        public EntityAINearestValidTarget(EntityTurretCrossbowAdvanced this$0, EntityCreature p_i45879_1_, Class p_i45879_2_, boolean p_i45879_3_, boolean p_i45879_4_) {
             this(this$0, p_i45879_1_, p_i45879_2_, 10, p_i45879_3_, p_i45879_4_, null);
         }*/
         
-        public EntityAINearestValidTarget(final EntityCreature owner, final Class<? extends EntityLivingBase> targetCls, final int targetChance, final boolean checkSight, final boolean onlyNearby, final Predicate<EntityLivingBase> tselector) {
+        public EntityAINearestValidTarget(EntityCreature owner, Class<? extends EntityLivingBase> targetCls, int targetChance, boolean checkSight, boolean onlyNearby, Predicate<EntityLivingBase> tselector) {
             super(owner, checkSight, onlyNearby);
             targetClass = targetCls;
             this.targetChance = targetChance;
             theNearestAttackableTargetSorter = new EntityAINearestAttackableTarget.Sorter(owner);
             setMutexBits(1);
             targetEntitySelector = new Predicate<EntityLivingBase>() {
-                private static final String __OBFID = "CL_00001621";
                 
-                public boolean applySelection(final EntityLivingBase entity) {
+                public boolean applySelection(EntityLivingBase entity) {
                     if (tselector != null && !tselector.apply(entity)) {
                         return false;
                     }
@@ -349,29 +348,29 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
                     return isSuitableTarget(entity, false);
                 }
                 
-                public boolean apply(final EntityLivingBase p_apply_1_) {
+                public boolean apply(EntityLivingBase p_apply_1_) {
                     return applySelection(p_apply_1_);
                 }
             };
         }
         
         public boolean shouldContinueExecuting() {
-            final EntityLivingBase entitylivingbase = taskOwner.getAttackTarget();
+            EntityLivingBase entitylivingbase = taskOwner.getAttackTarget();
             if (entitylivingbase == null) {
                 return false;
             }
             if (!entitylivingbase.isEntityAlive()) {
                 return false;
             }
-            final Team team = taskOwner.getTeam();
-            final Team team2 = entitylivingbase.getTeam();
+            Team team = taskOwner.getTeam();
+            Team team2 = entitylivingbase.getTeam();
             if (team != null && team2 == team && !((EntityTurretCrossbowAdvanced) taskOwner).getTargetFriendly()) {
                 return false;
             }
             if (team != null && team2 != team && ((EntityTurretCrossbowAdvanced) taskOwner).getTargetFriendly()) {
                 return false;
             }
-            final double d0 = getTargetDistance();
+            double d0 = getTargetDistance();
             if (taskOwner.getDistanceSq(entitylivingbase) > d0 * d0) {
                 return false;
             }
@@ -386,11 +385,11 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
             return true;
         }
         
-        protected boolean isSuitableTarget(final EntityLivingBase p_75296_1_, final boolean p_75296_2_) {
+        protected boolean isSuitableTarget(EntityLivingBase p_75296_1_, boolean p_75296_2_) {
             return isGoodTarget(taskOwner, p_75296_1_, p_75296_2_, shouldCheckSight) && taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(p_75296_1_));
         }
         
-        private boolean isGoodTarget(final EntityLiving attacker, final EntityLivingBase posTar, final boolean p_179445_2_, final boolean checkSight) {
+        private boolean isGoodTarget(EntityLiving attacker, EntityLivingBase posTar, boolean p_179445_2_, boolean checkSight) {
             if (posTar == null) {
                 return false;
             }
@@ -403,8 +402,8 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
             if (!attacker.canAttackClass(posTar.getClass())) {
                 return false;
             }
-            final Team team = attacker.getTeam();
-            final Team team2 = posTar.getTeam();
+            Team team = attacker.getTeam();
+            Team team2 = posTar.getTeam();
             if (team != null && team2 == team && !((EntityTurretCrossbowAdvanced)attacker).getTargetFriendly()) {
                 return false;
             }
@@ -435,8 +434,8 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
             if (targetChance > 0 && taskOwner.getRNG().nextInt(targetChance) != 0) {
                 return false;
             }
-            final double d0 = getTargetDistance();
-            final List<EntityLivingBase> list = taskOwner.world.getEntitiesWithinAABB(targetClass, taskOwner.getEntityBoundingBox().grow(d0, 4.0, d0), Predicates.and(targetEntitySelector, EntitySelectors.NOT_SPECTATING));
+            double d0 = getTargetDistance();
+            List<EntityLivingBase> list = taskOwner.world.getEntitiesWithinAABB(targetClass, taskOwner.getEntityBoundingBox().grow(d0, 4.0, d0), Predicates.and(targetEntitySelector, EntitySelectors.NOT_SPECTATING));
             Collections.sort(list, theNearestAttackableTargetSorter);
             if (list.isEmpty()) {
                 return false;
@@ -454,21 +453,20 @@ public class EntityTurretCrossbowAdvanced extends EntityTurretCrossbow
         
         public class Sorter implements Comparator
         {
-            private final Entity theEntity;
-            private static final String __OBFID = "CL_00001622";
+            private Entity theEntity;
             
-            public Sorter(final Entity p_i1662_1_) {
+            public Sorter(Entity p_i1662_1_) {
                 theEntity = p_i1662_1_;
             }
             
-            public int compare(final Entity p_compare_1_, final Entity p_compare_2_) {
-                final double d0 = theEntity.getDistanceSq(p_compare_1_);
-                final double d2 = theEntity.getDistanceSq(p_compare_2_);
+            public int compare(Entity p_compare_1_, Entity p_compare_2_) {
+                double d0 = theEntity.getDistanceSq(p_compare_1_);
+                double d2 = theEntity.getDistanceSq(p_compare_2_);
                 return (d0 < d2) ? -1 : ((d0 > d2) ? 1 : 0);
             }
             
             @Override
-            public int compare(final Object p_compare_1_, final Object p_compare_2_) {
+            public int compare(Object p_compare_1_, Object p_compare_2_) {
                 return compare((Entity)p_compare_1_, (Entity)p_compare_2_);
             }
         }

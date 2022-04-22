@@ -20,23 +20,23 @@ public class RenderFocusMine extends Render
     ResourceLocation beam;
     private ModelGrappler model;
     
-    public RenderFocusMine(final RenderManager rm) {
+    public RenderFocusMine(RenderManager rm) {
         super(rm);
         beam = new ResourceLocation("thaumcraft", "textures/entity/mine.png");
         shadowSize = 0.0f;
         model = new ModelGrappler();
     }
     
-    public void renderEntityAt(final Entity entity, final double x, final double y, final double z, final float fq, final float pticks) {
+    public void renderEntityAt(Entity entity, double x, double y, double z, float fq, float pticks) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         GL11.glTranslated(x, y, z);
-        final EntityFocusMine mine = (EntityFocusMine)entity;
-        final float f = (mine.counter + pticks) % 8.0f / 8.0f;
-        final int i = 61680;
-        final int j = i % 65536;
-        final int k = i / 65536;
+        EntityFocusMine mine = (EntityFocusMine)entity;
+        float f = (mine.counter + pticks) % 8.0f / 8.0f;
+        int i = 61680;
+        int j = i % 65536;
+        int k = i / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
         GL11.glColor4f(1.0f, 1.0f - f, 1.0f - f, 1.0f);
         bindTexture(beam);
@@ -48,11 +48,11 @@ public class RenderFocusMine extends Render
         GL11.glPopMatrix();
     }
     
-    public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
+    public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
         renderEntityAt(entity, d, d1, d2, f, f1);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 }

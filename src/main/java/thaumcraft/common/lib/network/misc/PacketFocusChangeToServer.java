@@ -23,28 +23,28 @@ public class PacketFocusChangeToServer implements IMessage, IMessageHandler<Pack
     public PacketFocusChangeToServer() {
     }
     
-    public PacketFocusChangeToServer(final String focus) {
+    public PacketFocusChangeToServer(String focus) {
         this.focus = focus;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         ByteBufUtils.writeUTF8String(buffer, focus);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         focus = ByteBufUtils.readUTF8String(buffer);
     }
     
-    public IMessage onMessage(final PacketFocusChangeToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketFocusChangeToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final World world = ctx.getServerHandler().player.getServerWorld();
+                World world = ctx.getServerHandler().player.getServerWorld();
                 if (world == null) {
                     return;
                 }
-                final Entity player = ctx.getServerHandler().player;
+                Entity player = ctx.getServerHandler().player;
                 if (player != null && player instanceof EntityPlayer && ((EntityPlayer)player).getHeldItemMainhand().getItem() instanceof ICaster) {
                     CasterManager.changeFocus(((EntityPlayer)player).getHeldItemMainhand(), world, (EntityPlayer)player, message.focus);
                 }

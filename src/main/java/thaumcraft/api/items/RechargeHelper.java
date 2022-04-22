@@ -17,7 +17,7 @@ import thaumcraft.api.aura.AuraHelper;
  */
 public class RechargeHelper {
 	
-	public static final String NBT_TAG = "tc.charge";
+	public static String NBT_TAG = "tc.charge";
 
 	/**
 	 * This method is called to recharge an item from the aura. 

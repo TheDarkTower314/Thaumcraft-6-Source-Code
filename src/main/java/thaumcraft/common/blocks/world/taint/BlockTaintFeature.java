@@ -34,7 +34,7 @@ public class BlockTaintFeature extends BlockTC implements ITaintBlock
         super(ThaumcraftMaterials.MATERIAL_TAINT, "taint_feature");
         setHardness(0.1f);
         setLightLevel(0.625f);
-        final IBlockState bs = blockState.getBaseState();
+        IBlockState bs = blockState.getBaseState();
         bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)EnumFacing.UP);
         setDefaultState(bs);
         setTickRandomly(true);
@@ -44,10 +44,10 @@ public class BlockTaintFeature extends BlockTC implements ITaintBlock
         return false;
     }
     
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
             if (worldIn.rand.nextFloat() < 0.333f) {
-                final Entity e = new EntityTaintCrawler(worldIn);
+                Entity e = new EntityTaintCrawler(worldIn);
                 e.setLocationAndAngles(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, (float)worldIn.rand.nextInt(360), 0.0f);
                 worldIn.spawnEntity(e);
             }
@@ -58,16 +58,16 @@ public class BlockTaintFeature extends BlockTC implements ITaintBlock
         super.breakBlock(worldIn, pos, state);
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
     @Override
-    public void die(final World world, final BlockPos pos, final IBlockState blockState) {
+    public void die(World world, BlockPos pos, IBlockState blockState) {
         world.setBlockState(pos, BlocksTC.fluxGoo.getDefaultState());
     }
     
-    public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random random) {
+    public void updateTick(World world, BlockPos pos, IBlockState state, Random random) {
         if (!world.isRemote) {
             if (!TaintHelper.isNearTaintSeed(world, pos) && random.nextInt(10) == 0) {
                 die(world, pos, state);
@@ -81,62 +81,62 @@ public class BlockTaintFeature extends BlockTC implements ITaintBlock
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemById(0);
     }
     
-    public boolean canSilkHarvest(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player) {
+    public boolean canSilkHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
         return true;
     }
     
-    public int getPackedLightmapCoords(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
         return 200;
     }
     
-    public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos pos2) {
         if (!worldIn.isRemote && !worldIn.getBlockState(pos.offset(BlockStateUtils.getFacing(state).getOpposite())).isSideSolid(worldIn, pos.offset(BlockStateUtils.getFacing(state).getOpposite()), BlockStateUtils.getFacing(state))) {
             worldIn.setBlockToAir(pos);
         }
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)facing);
         return bs;
     }
     
-    public IBlockState getStateFromMeta(final int meta) {
+    public IBlockState getStateFromMeta(int meta) {
         IBlockState bs = getDefaultState();
         bs = bs.withProperty((IProperty)IBlockFacing.FACING, (Comparable)BlockStateUtils.getFacing(meta));
         return bs;
     }
     
-    public int getMetaFromState(final IBlockState state) {
-        final byte b0 = 0;
-        final int i = b0 | ((EnumFacing)state.getValue((IProperty)IBlockFacing.FACING)).getIndex();
+    public int getMetaFromState(IBlockState state) {
+        byte b0 = 0;
+        int i = b0 | ((EnumFacing)state.getValue((IProperty)IBlockFacing.FACING)).getIndex();
         return i;
     }
     
     protected BlockStateContainer createBlockState() {
-        final ArrayList<IProperty> ip = new ArrayList<IProperty>();
+        ArrayList<IProperty> ip = new ArrayList<IProperty>();
         ip.add(IBlockFacing.FACING);
         return new BlockStateContainer(this, ip.toArray(new IProperty[ip.size()]));
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
-        final EnumFacing facing = BlockStateUtils.getFacing(getMetaFromState(state));
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        EnumFacing facing = BlockStateUtils.getFacing(getMetaFromState(state));
         switch (facing.ordinal()) {
             case 0: {
                 return new AxisAlignedBB(0.125, 0.625, 0.125, 0.875, 1.0, 0.875);

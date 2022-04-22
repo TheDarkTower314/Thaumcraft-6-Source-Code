@@ -34,10 +34,10 @@ import thaumcraft.common.entities.monster.tainted.EntityTaintacle;
 
 public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob, IEldritchMob
 {
-    protected final BossInfoServer bossInfo;
-    private static final DataParameter<Integer> AGGRO;
+    protected BossInfoServer bossInfo;
+    private static DataParameter<Integer> AGGRO;
     
-    public EntityTaintacleGiant(final World par1World) {
+    public EntityTaintacleGiant(World par1World) {
         super(par1World);
         bossInfo = (BossInfoServer)new BossInfoServer(getDisplayName(), BossInfo.Color.PURPLE, BossInfo.Overlay.PROGRESS).setDarkenSky(true);
         setSize(1.1f, 6.0f);
@@ -51,7 +51,7 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
         getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(9.0);
     }
     
-    public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, final IEntityLivingData data) {
+    public IEntityLivingData onInitialSpawn(DifficultyInstance diff, IEntityLivingData data) {
         EntityUtils.makeChampion(this, true);
         return data;
     }
@@ -63,9 +63,9 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
             setAnger(getAnger() - 1);
         }
         if (world.isRemote && rand.nextInt(15) == 0 && getAnger() > 0) {
-            final double d0 = rand.nextGaussian() * 0.02;
-            final double d2 = rand.nextGaussian() * 0.02;
-            final double d3 = rand.nextGaussian() * 0.02;
+            double d0 = rand.nextGaussian() * 0.02;
+            double d2 = rand.nextGaussian() * 0.02;
+            double d3 = rand.nextGaussian() * 0.02;
             world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, posX + rand.nextFloat() * width - width / 2.0, getEntityBoundingBox().minY + height + rand.nextFloat() * 0.5, posZ + rand.nextFloat() * width - width / 2.0, d0, d2, d3);
         }
         if (!world.isRemote && ticksExisted % 30 == 0) {
@@ -82,7 +82,7 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
         return (int) getDataManager().get((DataParameter)EntityTaintacleGiant.AGGRO);
     }
     
-    public void setAnger(final int par1) {
+    public void setAnger(int par1) {
         getDataManager().set(EntityTaintacleGiant.AGGRO, par1);
     }
     
@@ -92,8 +92,8 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
     }
     
     @Override
-    protected void dropFewItems(final boolean flag, final int i) {
-        final List<EntityTaintacleGiant> ents = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityTaintacleGiant.class, 48.0);
+    protected void dropFewItems(boolean flag, int i) {
+        List<EntityTaintacleGiant> ents = EntityUtils.getEntitiesInRange(world, posX, posY, posZ, this, EntityTaintacleGiant.class, 48.0);
         if (ents == null || ents.size() <= 0) {
             EntityUtils.entityDropSpecialItem(this, new ItemStack(ItemsTC.primordialPearl), height / 2.0f);
         }
@@ -107,11 +107,11 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
         return true;
     }
     
-    protected int decreaseAirSupply(final int air) {
+    protected int decreaseAirSupply(int air) {
         return air;
     }
     
-    public boolean attackEntityFrom(final DamageSource source, float damage) {
+    public boolean attackEntityFrom(DamageSource source, float damage) {
         if (!world.isRemote && damage > 35.0f) {
             if (getAnger() == 0) {
                 try {
@@ -120,7 +120,7 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
                     addPotionEffect(new PotionEffect(MobEffects.HASTE, 200, (int)(damage / 40.0f)));
                     setAnger(200);
                 }
-                catch (final Exception ex) {}
+                catch (Exception ex) {}
                 if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityPlayer) {
                     ((EntityPlayer)source.getTrueSource()).sendStatusMessage(new TextComponentTranslation(getName() + " " + I18n.translateToLocal("tc.boss.enrage")), true);
                 }
@@ -135,12 +135,12 @@ public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob
         bossInfo.setPercent(getHealth() / getMaxHealth());
     }
     
-    public void removeTrackingPlayer(final EntityPlayerMP player) {
+    public void removeTrackingPlayer(EntityPlayerMP player) {
         super.removeTrackingPlayer(player);
         bossInfo.removePlayer(player);
     }
     
-    public void addTrackingPlayer(final EntityPlayerMP player) {
+    public void addTrackingPlayer(EntityPlayerMP player) {
         super.addTrackingPlayer(player);
         bossInfo.addPlayer(player);
     }

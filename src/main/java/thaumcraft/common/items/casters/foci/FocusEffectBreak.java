@@ -48,12 +48,12 @@ public class FocusEffectBreak extends FocusEffect
     }
     
     @Override
-    public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
+    public boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num) {
         if (target.typeOfHit == RayTraceResult.Type.BLOCK) {
             PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.getBlockPos().getX() + 0.5, target.getBlockPos().getY() + 0.5, target.getBlockPos().getZ() + 0.5, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
-            final boolean silk = getSettingValue("silk") > 0;
-            final int fortune = getSettingValue("fortune");
-            final float strength = getSettingValue("power") * finalPower;
+            boolean silk = getSettingValue("silk") > 0;
+            int fortune = getSettingValue("fortune");
+            float strength = getSettingValue("power") * finalPower;
             float dur = getPackage().world.getBlockState(target.getBlockPos()).getBlockHardness(getPackage().world, target.getBlockPos()) * 100.0f;
             dur = (float)Math.sqrt(dur);
             if (getPackage().getCaster() instanceof EntityPlayer) {
@@ -66,19 +66,19 @@ public class FocusEffectBreak extends FocusEffect
     
     @Override
     public NodeSetting[] createSettings() {
-        final int[] silk = { 0, 1 };
-        final String[] silkDesc = { "focus.common.no", "focus.common.yes" };
-        final int[] fortune = { 0, 1, 2, 3, 4 };
-        final String[] fortuneDesc = { "focus.common.no", "I", "II", "III", "IV" };
+        int[] silk = { 0, 1 };
+        String[] silkDesc = { "focus.common.no", "focus.common.yes" };
+        int[] fortune = { 0, 1, 2, 3, 4 };
+        String[] fortuneDesc = { "focus.common.no", "I", "II", "III", "IV" };
         return new NodeSetting[] { new NodeSetting("power", "focus.break.power", new NodeSetting.NodeSettingIntRange(1, 5)), new NodeSetting("fortune", "focus.common.fortune", new NodeSetting.NodeSettingIntList(fortune, fortuneDesc)), new NodeSetting("silk", "focus.common.silk", new NodeSetting.NodeSettingIntList(silk, silkDesc)) };
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void renderParticleFX(final World world, final double posX, final double posY, final double posZ, final double motionX, final double motionY, final double motionZ) {
-        final FXGeneric fb = new FXGeneric(world, posX, posY, posZ, motionX, motionY, motionZ);
+    public void renderParticleFX(World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
+        FXGeneric fb = new FXGeneric(world, posX, posY, posZ, motionX, motionY, motionZ);
         fb.setMaxAge(6 + world.rand.nextInt(6));
-        final int q = world.rand.nextInt(4);
+        int q = world.rand.nextInt(4);
         fb.setParticles(704 + q * 3, 3, 1);
         fb.setSlowDown(0.8);
         fb.setScale((float)(1.7000000476837158 + world.rand.nextGaussian() * 0.30000001192092896));
@@ -86,7 +86,7 @@ public class FocusEffectBreak extends FocusEffect
     }
     
     @Override
-    public void onCast(final Entity caster) {
+    public void onCast(Entity caster) {
         caster.world.playSound(null, caster.getPosition().up(), SoundEvents.BLOCK_END_GATEWAY_SPAWN, SoundCategory.PLAYERS, 0.1f, 2.0f + (float)(caster.world.rand.nextGaussian() * 0.05000000074505806));
     }
 }

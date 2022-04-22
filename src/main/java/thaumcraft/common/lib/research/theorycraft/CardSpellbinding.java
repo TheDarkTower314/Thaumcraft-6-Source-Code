@@ -32,16 +32,16 @@ public class CardSpellbinding extends TheorycraftCard
     }
     
     @Override
-    public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
+    public boolean initialize(EntityPlayer player, ResearchTableData data) {
         return player.experienceLevel > 0;
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
         if (player.experienceLevel <= 0) {
             return false;
         }
-        final int l = Math.min(5, player.experienceLevel);
+        int l = Math.min(5, player.experienceLevel);
         data.addTotal(getResearchCategory(), l * 5);
         player.addExperienceLevel(-l);
         return true;

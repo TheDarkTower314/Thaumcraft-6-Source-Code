@@ -13,7 +13,7 @@ public class AidPortal implements ITheorycraftAid
 {
     Object portal;
     
-    public AidPortal(final Object o) {
+    public AidPortal(Object o) {
         portal = o;
     }
     

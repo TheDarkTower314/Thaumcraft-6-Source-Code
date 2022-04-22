@@ -11,15 +11,15 @@ import net.minecraft.entity.EntityLivingBase;
 public class ChampionModDummy implements IChampionModifierEffect
 {
     @Override
-    public float performEffect(final EntityLivingBase boss, final EntityLivingBase target, final DamageSource source, final float amount) {
+    public float performEffect(EntityLivingBase boss, EntityLivingBase target, DamageSource source, float amount) {
         return amount;
     }
     
     @Override
-    public void showFX(final EntityLivingBase boss) {
+    public void showFX(EntityLivingBase boss) {
     }
     
     @Override
-    public void preRender(final EntityLivingBase boss, final RenderLivingBase renderLivingBase) {
+    public void preRender(EntityLivingBase boss, RenderLivingBase renderLivingBase) {
     }
 }

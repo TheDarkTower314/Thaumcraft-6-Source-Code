@@ -18,17 +18,17 @@ import net.minecraft.client.renderer.entity.RenderZombie;
 @SideOnly(Side.CLIENT)
 public class RenderInhabitedZombie extends RenderZombie
 {
-    private static final ResourceLocation t1;
+    private static ResourceLocation t1;
     private ModelBiped field_82434_o;
     private ModelZombieVillager field_82432_p;
     private int field_82431_q;
     
-    public RenderInhabitedZombie(final RenderManager p_i46127_1_) {
+    public RenderInhabitedZombie(RenderManager p_i46127_1_) {
         super(p_i46127_1_);
         field_82431_q = 1;
     }
     
-    protected ResourceLocation getEntityTexture(final EntityZombie entity) {
+    protected ResourceLocation getEntityTexture(EntityZombie entity) {
         return RenderInhabitedZombie.t1;
     }
     

@@ -22,14 +22,14 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 public class TileBannerRenderer extends TileEntitySpecialRenderer
 {
     private ModelBanner model;
-    private static final ResourceLocation TEX_CULT;
-    private static final ResourceLocation TEX_BLANK;
+    private static ResourceLocation TEX_CULT;
+    private static ResourceLocation TEX_BLANK;
     
     public TileBannerRenderer() {
         model = new ModelBanner();
     }
     
-    public void renderTileEntityAt(final TileBanner banner, final double par2, final double par4, final double par6, final float par8) {
+    public void renderTileEntityAt(TileBanner banner, double par2, double par4, double par6, float par8) {
         GL11.glPushMatrix();
         if (banner.getAspect() == null && banner.getColor() == -1) {
             bindTexture(TileBannerRenderer.TEX_CULT);
@@ -42,7 +42,7 @@ public class TileBannerRenderer extends TileEntitySpecialRenderer
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         if (banner.getWorld() != null) {
             GL11.glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
-            final float f2 = banner.getBannerFacing() * 360 / 16.0f;
+            float f2 = banner.getBannerFacing() * 360 / 16.0f;
             GL11.glRotatef(f2, 0.0f, 1.0f, 0.0f);
         }
         if (!banner.getWall()) {
@@ -53,13 +53,13 @@ public class TileBannerRenderer extends TileEntitySpecialRenderer
         }
         model.renderBeam();
         if (banner.getColor() != -1) {
-            final Color c = new Color(banner.getColor());
+            Color c = new Color(banner.getColor());
             GL11.glColor4f(c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f, 1.0f);
         }
         model.renderTabs();
-        final EntityPlayer p = Minecraft.getMinecraft().player;
-        final float f3 = banner.getPos().getX() * 7 + banner.getPos().getY() * 9 + banner.getPos().getZ() * 13 + (float)p.ticksExisted + par8;
-        final float rx = 0.02f - MathHelper.sin(f3 / 11.0f) * 0.02f;
+        EntityPlayer p = Minecraft.getMinecraft().player;
+        float f3 = banner.getPos().getX() * 7 + banner.getPos().getY() * 9 + banner.getPos().getZ() * 13 + (float)p.ticksExisted + par8;
+        float rx = 0.02f - MathHelper.sin(f3 / 11.0f) * 0.02f;
         model.Banner.rotateAngleX = rx;
         model.renderBanner();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -75,7 +75,7 @@ public class TileBannerRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderTileEntityAt((TileBanner)te, x, y, z, partialTicks);
     }

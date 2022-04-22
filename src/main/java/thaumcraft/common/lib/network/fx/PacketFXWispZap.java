@@ -27,32 +27,32 @@ public class PacketFXWispZap implements IMessage, IMessageHandler<PacketFXWispZa
     public PacketFXWispZap() {
     }
     
-    public PacketFXWispZap(final int source, final int target) {
+    public PacketFXWispZap(int source, int target) {
         this.source = source;
         this.target = target;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(source);
         buffer.writeInt(target);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         source = buffer.readInt();
         target = buffer.readInt();
     }
     
-    public IMessage onMessage(final PacketFXWispZap message, final MessageContext ctx) {
-        final Minecraft mc = FMLClientHandler.instance().getClient();
-        final WorldClient world = mc.world;
-        final Entity var2 = getEntityByID(message.source, mc, world);
-        final Entity var3 = getEntityByID(message.target, mc, world);
+    public IMessage onMessage(PacketFXWispZap message, MessageContext ctx) {
+        Minecraft mc = FMLClientHandler.instance().getClient();
+        WorldClient world = mc.world;
+        Entity var2 = getEntityByID(message.source, mc, world);
+        Entity var3 = getEntityByID(message.target, mc, world);
         if (var2 != null && var3 != null) {
             float r = 1.0f;
             float g = 1.0f;
             float b = 1.0f;
             if (var2 instanceof EntityWisp) {
-                final Color c = new Color(Aspect.getAspect(((EntityWisp)var2).getType()).getColor());
+                Color c = new Color(Aspect.getAspect(((EntityWisp)var2).getType()).getColor());
                 r = c.getRed() / 255.0f;
                 g = c.getGreen() / 255.0f;
                 b = c.getBlue() / 255.0f;
@@ -63,7 +63,7 @@ public class PacketFXWispZap implements IMessage, IMessageHandler<PacketFXWispZa
     }
     
     @SideOnly(Side.CLIENT)
-    private Entity getEntityByID(final int par1, final Minecraft mc, final WorldClient world) {
+    private Entity getEntityByID(int par1, Minecraft mc, WorldClient world) {
         return (par1 == mc.player.getEntityId()) ? mc.player : world.getEntityByID(par1);
     }
 }

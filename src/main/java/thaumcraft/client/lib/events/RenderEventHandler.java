@@ -100,8 +100,8 @@ public class RenderEventHandler
     private static int oldDisplayWidth;
     private static int oldDisplayHeight;
     public static Entity thaumTarget;
-    static final ResourceLocation CFRAME;
-    static final ResourceLocation MIDDLE;
+    static ResourceLocation CFRAME;
+    static ResourceLocation MIDDLE;
     static EnumFacing[][] rotfaces;
     static int[][] rotmat;
     public static HashMap<Integer, ShaderGroup> shaderGroups;
@@ -110,7 +110,7 @@ public class RenderEventHandler
     public static int fogDuration;
     public static float prevVignetteBrightness;
     public static float targetBrightness;
-    protected static final ResourceLocation vignetteTexPath;
+    protected static ResourceLocation vignetteTexPath;
     
     public RenderEventHandler() {
         random = new Random();
@@ -118,8 +118,8 @@ public class RenderEventHandler
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void playerTick(final TickEvent.PlayerTickEvent event) {
-        final Minecraft mc = Minecraft.getMinecraft();
+    public static void playerTick(TickEvent.PlayerTickEvent event) {
+        Minecraft mc = Minecraft.getMinecraft();
         if (event.side == Side.SERVER || event.player.getEntityId() != mc.player.getEntityId()) {
             return;
         }
@@ -146,25 +146,25 @@ public class RenderEventHandler
                     }
                 }
             }
-            catch (final Exception ex) {}
+            catch (Exception ex) {}
         }
     }
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void clientWorldTick(final TickEvent.ClientTickEvent event) {
+    public static void clientWorldTick(TickEvent.ClientTickEvent event) {
         if (event.side == Side.SERVER) {
             return;
         }
-        final Minecraft mc = FMLClientHandler.instance().getClient();
-        final World world = mc.world;
+        Minecraft mc = FMLClientHandler.instance().getClient();
+        World world = mc.world;
         if (event.phase == TickEvent.Phase.START) {
             ++RenderEventHandler.tickCount;
-            for (final String fxk : EssentiaHandler.sourceFX.keySet().toArray(new String[0])) {
-                final EssentiaHandler.EssentiaSourceFX fx = EssentiaHandler.sourceFX.get(fxk);
+            for (String fxk : EssentiaHandler.sourceFX.keySet().toArray(new String[0])) {
+                EssentiaHandler.EssentiaSourceFX fx = EssentiaHandler.sourceFX.get(fxk);
                 if (world != null) {
                     int mod = 0;
-                    final TileEntity tile = world.getTileEntity(fx.start);
+                    TileEntity tile = world.getTileEntity(fx.start);
                     if (tile != null && tile instanceof TileInfusionMatrix) {
                         mod = -1;
                     }
@@ -174,23 +174,23 @@ public class RenderEventHandler
             }
         }
         else {
-            final LinkedBlockingQueue<HudHandler.KnowledgeGainTracker> temp = new LinkedBlockingQueue<HudHandler.KnowledgeGainTracker>();
+            LinkedBlockingQueue<HudHandler.KnowledgeGainTracker> temp = new LinkedBlockingQueue<HudHandler.KnowledgeGainTracker>();
             if (RenderEventHandler.hudHandler.knowledgeGainTrackers.isEmpty()) {
                 if (RenderEventHandler.hudHandler.kgFade > 0.0f) {
-                    final HudHandler hudHandler = RenderEventHandler.hudHandler;
+                    HudHandler hudHandler = RenderEventHandler.hudHandler;
                     --hudHandler.kgFade;
                 }
             }
             else {
-                final HudHandler hudHandler2 = RenderEventHandler.hudHandler;
+                HudHandler hudHandler2 = RenderEventHandler.hudHandler;
                 hudHandler2.kgFade += 10.0f;
                 if (RenderEventHandler.hudHandler.kgFade > 40.0f) {
                     RenderEventHandler.hudHandler.kgFade = 40.0f;
                 }
                 while (!RenderEventHandler.hudHandler.knowledgeGainTrackers.isEmpty()) {
-                    final HudHandler.KnowledgeGainTracker current = RenderEventHandler.hudHandler.knowledgeGainTrackers.poll();
+                    HudHandler.KnowledgeGainTracker current = RenderEventHandler.hudHandler.knowledgeGainTrackers.poll();
                     if (current != null && current.progress > 0) {
-                        final HudHandler.KnowledgeGainTracker knowledgeGainTracker = current;
+                        HudHandler.KnowledgeGainTracker knowledgeGainTracker = current;
                         --knowledgeGainTracker.progress;
                         temp.offer(current);
                     }
@@ -201,7 +201,7 @@ public class RenderEventHandler
             }
             if (mc.world != null && !RenderEventHandler.checkedDate) {
                 RenderEventHandler.checkedDate = true;
-                final Calendar calendar = mc.world.getCurrentDate();
+                Calendar calendar = mc.world.getCurrentDate();
                 if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31) {
                     ModConfig.isHalloween = true;
                 }
@@ -211,22 +211,22 @@ public class RenderEventHandler
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void renderTick(final TickEvent.RenderTickEvent event) {
+    public static void renderTick(TickEvent.RenderTickEvent event) {
         if (event.phase == TickEvent.Phase.START) {
             UtilsFX.sysPartialTicks = event.renderTickTime;
         }
         else {
-            final Minecraft mc = FMLClientHandler.instance().getClient();
+            Minecraft mc = FMLClientHandler.instance().getClient();
             if (Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer) {
-                final EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().getRenderViewEntity();
-                final long time = System.currentTimeMillis();
+                EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().getRenderViewEntity();
+                long time = System.currentTimeMillis();
                 if (player != null) {
                     RenderEventHandler.hudHandler.renderHuds(mc, event.renderTickTime, player, time);
                 }
                 if ((player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IArchitect) || (player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() instanceof IArchitect)) {
-                    final ItemStack stack = (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IArchitect) ? player.getHeldItemMainhand() : player.getHeldItemOffhand();
+                    ItemStack stack = (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IArchitect) ? player.getHeldItemMainhand() : player.getHeldItemOffhand();
                     if (!((IArchitect)stack.getItem()).useBlockHighlight(stack)) {
-                        final RayTraceResult target2 = ((IArchitect)stack.getItem()).getArchitectMOP(stack, player.world, player);
+                        RayTraceResult target2 = ((IArchitect)stack.getItem()).getArchitectMOP(stack, player.world, player);
                         if (target2 != null) {
                             RenderEventHandler.wandHandler.handleArchitectOverlay(stack, player, event.renderTickTime, player.ticksExisted, target2);
                         }
@@ -238,23 +238,23 @@ public class RenderEventHandler
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void tooltipEvent(final ItemTooltipEvent event) {
-        final Minecraft mc = FMLClientHandler.instance().getClient();
-        final GuiScreen gui = mc.currentScreen;
+    public static void tooltipEvent(ItemTooltipEvent event) {
+        Minecraft mc = FMLClientHandler.instance().getClient();
+        GuiScreen gui = mc.currentScreen;
         if (gui instanceof GuiContainer && GuiScreen.isShiftKeyDown() != ModConfig.CONFIG_GRAPHICS.showTags && !Mouse.isGrabbed() && event.getItemStack() != null) {
-            final AspectList tags = ThaumcraftCraftingManager.getObjectTags(event.getItemStack());
+            AspectList tags = ThaumcraftCraftingManager.getObjectTags(event.getItemStack());
             int index = 0;
             if (tags != null && tags.size() > 0) {
-                for (final Aspect tag : tags.getAspects()) {
+                for (Aspect tag : tags.getAspects()) {
                     if (tag != null) {
                         ++index;
                     }
                 }
             }
-            final int width = index * 18;
+            int width = index * 18;
             if (width > 0) {
-                final double sw = mc.fontRenderer.getStringWidth(" ");
-                final int t = MathHelper.ceil(width / sw);
+                double sw = mc.fontRenderer.getStringWidth(" ");
+                int t = MathHelper.ceil(width / sw);
                 for (int l = MathHelper.ceil(18.0 / mc.fontRenderer.FONT_HEIGHT), a = 0; a < l; ++a) {
                     event.getToolTip().add("                                                                                                                                            ".substring(0, Math.min(120, t)));
                 }
@@ -264,9 +264,9 @@ public class RenderEventHandler
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void tooltipEvent(final RenderTooltipEvent.PostBackground event) {
-        final Minecraft mc = FMLClientHandler.instance().getClient();
-        final GuiScreen gui = mc.currentScreen;
+    public static void tooltipEvent(RenderTooltipEvent.PostBackground event) {
+        Minecraft mc = FMLClientHandler.instance().getClient();
+        GuiScreen gui = mc.currentScreen;
         if (gui instanceof GuiContainer && GuiScreen.isShiftKeyDown() != ModConfig.CONFIG_GRAPHICS.showTags && !Mouse.isGrabbed()) {
             int bot = event.getHeight();
             if (!event.getLines().isEmpty()) {
@@ -285,9 +285,9 @@ public class RenderEventHandler
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void renderOverlay(final RenderGameOverlayEvent event) {
-        final Minecraft mc = Minecraft.getMinecraft();
-        final long time = System.nanoTime() / 1000000L;
+    public static void renderOverlay(RenderGameOverlayEvent event) {
+        Minecraft mc = Minecraft.getMinecraft();
+        long time = System.nanoTime() / 1000000L;
         if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
             RenderEventHandler.wandHandler.handleFociRadial(mc, time, event);
         }
@@ -298,19 +298,19 @@ public class RenderEventHandler
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void renderShaders(final RenderGameOverlayEvent.Pre event) {
+    public static void renderShaders(RenderGameOverlayEvent.Pre event) {
         if (!ModConfig.CONFIG_GRAPHICS.disableShaders && event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-            final Minecraft mc = Minecraft.getMinecraft();
+            Minecraft mc = Minecraft.getMinecraft();
             if (OpenGlHelper.shadersSupported && RenderEventHandler.shaderGroups.size() > 0) {
                 updateShaderFrameBuffers(mc);
                 GL11.glMatrixMode(5890);
                 GL11.glLoadIdentity();
-                for (final ShaderGroup sg : RenderEventHandler.shaderGroups.values()) {
+                for (ShaderGroup sg : RenderEventHandler.shaderGroups.values()) {
                     GL11.glPushMatrix();
                     try {
                         sg.render(event.getPartialTicks());
                     }
-                    catch (final Exception ex) {}
+                    catch (Exception ex) {}
                     GL11.glPopMatrix();
                 }
                 mc.getFramebuffer().bindFramebuffer(true);
@@ -318,9 +318,9 @@ public class RenderEventHandler
         }
     }
     
-    private static void updateShaderFrameBuffers(final Minecraft mc) {
+    private static void updateShaderFrameBuffers(Minecraft mc) {
         if (RenderEventHandler.resetShaders || mc.displayWidth != RenderEventHandler.oldDisplayWidth || RenderEventHandler.oldDisplayHeight != mc.displayHeight) {
-            for (final ShaderGroup sg : RenderEventHandler.shaderGroups.values()) {
+            for (ShaderGroup sg : RenderEventHandler.shaderGroups.values()) {
                 sg.createBindFramebuffers(mc.displayWidth, mc.displayHeight);
             }
             RenderEventHandler.oldDisplayWidth = mc.displayWidth;
@@ -331,15 +331,15 @@ public class RenderEventHandler
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void blockHighlight(final DrawBlockHighlightEvent event) {
-        final int ticks = event.getPlayer().ticksExisted;
-        final RayTraceResult target = event.getTarget();
+    public static void blockHighlight(DrawBlockHighlightEvent event) {
+        int ticks = event.getPlayer().ticksExisted;
+        RayTraceResult target = event.getTarget();
         if (RenderEventHandler.blockTags.size() > 0) {
-            final int x = (int) RenderEventHandler.blockTags.get(0);
-            final int y = (int) RenderEventHandler.blockTags.get(1);
-            final int z = (int) RenderEventHandler.blockTags.get(2);
-            final AspectList ot = (AspectList) RenderEventHandler.blockTags.get(3);
-            final EnumFacing dir = EnumFacing.VALUES[(int) RenderEventHandler.blockTags.get(4)];
+            int x = (int) RenderEventHandler.blockTags.get(0);
+            int y = (int) RenderEventHandler.blockTags.get(1);
+            int z = (int) RenderEventHandler.blockTags.get(2);
+            AspectList ot = (AspectList) RenderEventHandler.blockTags.get(3);
+            EnumFacing dir = EnumFacing.VALUES[(int) RenderEventHandler.blockTags.get(4)];
             if (x == target.getBlockPos().getX() && y == target.getBlockPos().getY() && z == target.getBlockPos().getZ()) {
                 if (RenderEventHandler.tagscale < 0.5f) {
                     RenderEventHandler.tagscale += 0.031f - RenderEventHandler.tagscale / 10.0f;
@@ -348,9 +348,9 @@ public class RenderEventHandler
             }
         }
         if (target != null && target.getBlockPos() != null) {
-            final TileEntity te = event.getPlayer().world.getTileEntity(target.getBlockPos());
+            TileEntity te = event.getPlayer().world.getTileEntity(target.getBlockPos());
             if (te != null && te instanceof TileRedstoneRelay) {
-                final RayTraceResult hit = RayTracer.retraceBlock(event.getPlayer().world, event.getPlayer(), target.getBlockPos());
+                RayTraceResult hit = RayTracer.retraceBlock(event.getPlayer().world, event.getPlayer(), target.getBlockPos());
                 if (hit != null) {
                     if (hit.subHit == 0) {
                         drawTextInAir(target.getBlockPos().getX(), target.getBlockPos().getY() + 0.3, target.getBlockPos().getZ(), event.getPartialTicks(), "Out: " + ((TileRedstoneRelay)te).getOut());
@@ -364,30 +364,30 @@ public class RenderEventHandler
                 float to = 0.0f;
                 if (te instanceof IGogglesDisplayExtended) {
                     GL11.glDisable(2929);
-                    final Vec3d v = ((IGogglesDisplayExtended)te).getIGogglesTextOffset();
-                    final String[] iGogglesText;
-                    final String[] sa = iGogglesText = ((IGogglesDisplayExtended)te).getIGogglesText();
-                    for (final String s : iGogglesText) {
+                    Vec3d v = ((IGogglesDisplayExtended)te).getIGogglesTextOffset();
+                    String[] iGogglesText;
+                    String[] sa = iGogglesText = ((IGogglesDisplayExtended)te).getIGogglesText();
+                    for (String s : iGogglesText) {
                         drawTextInAir(target.getBlockPos().getX() + v.x, target.getBlockPos().getY() + v.y - (to - sa.length / 2.0f) / 5.5f, target.getBlockPos().getZ() + v.z, event.getPartialTicks(), s);
                         ++to;
                     }
                     GL11.glEnable(2929);
                 }
                 else {
-                    final Block b = event.getPlayer().world.getBlockState(target.getBlockPos()).getBlock();
+                    Block b = event.getPlayer().world.getBlockState(target.getBlockPos()).getBlock();
                     if (b instanceof IGogglesDisplayExtended) {
                         GL11.glDisable(2929);
-                        final Vec3d v2 = ((IGogglesDisplayExtended)b).getIGogglesTextOffset();
-                        final String[] iGogglesText2;
-                        final String[] sa2 = iGogglesText2 = ((IGogglesDisplayExtended)b).getIGogglesText();
-                        for (final String s2 : iGogglesText2) {
+                        Vec3d v2 = ((IGogglesDisplayExtended)b).getIGogglesTextOffset();
+                        String[] iGogglesText2;
+                        String[] sa2 = iGogglesText2 = ((IGogglesDisplayExtended)b).getIGogglesText();
+                        for (String s2 : iGogglesText2) {
                             drawTextInAir(target.getBlockPos().getX() + v2.x, target.getBlockPos().getY() + v2.y + (to - sa2.length / 2.0f) / 5.5f, target.getBlockPos().getZ() + v2.z, event.getPartialTicks(), s2);
                             ++to;
                         }
                         GL11.glEnable(2929);
                     }
                 }
-                final boolean spaceAbove = event.getPlayer().world.isAirBlock(target.getBlockPos().up());
+                boolean spaceAbove = event.getPlayer().world.isAirBlock(target.getBlockPos().up());
                 if (te != null) {
                     int note = -1;
                     if (te instanceof TileEntityNote) {
@@ -397,7 +397,7 @@ public class RenderEventHandler
                         note = ((TileArcaneEar)te).note;
                     }
                     else if (te instanceof IAspectContainer && ((IAspectContainer)te).getAspects() != null && ((IAspectContainer)te).getAspects().size() > 0) {
-                        final float shift = 0.0f;
+                        float shift = 0.0f;
                         if (RenderEventHandler.tagscale < 0.3f) {
                             RenderEventHandler.tagscale += 0.031f - RenderEventHandler.tagscale / 10.0f;
                         }
@@ -413,9 +413,9 @@ public class RenderEventHandler
             }
         }
         if (target.typeOfHit == RayTraceResult.Type.BLOCK && ((event.getPlayer().getHeldItemMainhand() != null && event.getPlayer().getHeldItemMainhand().getItem() instanceof IArchitect) || (event.getPlayer().getHeldItemOffhand() != null && event.getPlayer().getHeldItemOffhand().getItem() instanceof IArchitect))) {
-            final ItemStack stack = (event.getPlayer().getHeldItemMainhand() != null && event.getPlayer().getHeldItemMainhand().getItem() instanceof IArchitect) ? event.getPlayer().getHeldItemMainhand() : event.getPlayer().getHeldItemOffhand();
+            ItemStack stack = (event.getPlayer().getHeldItemMainhand() != null && event.getPlayer().getHeldItemMainhand().getItem() instanceof IArchitect) ? event.getPlayer().getHeldItemMainhand() : event.getPlayer().getHeldItemOffhand();
             if (((IArchitect)stack.getItem()).useBlockHighlight(stack)) {
-                final RayTraceResult target2 = ((IArchitect)stack.getItem()).getArchitectMOP(stack, event.getPlayer().world, event.getPlayer());
+                RayTraceResult target2 = ((IArchitect)stack.getItem()).getArchitectMOP(stack, event.getPlayer().world, event.getPlayer());
                 if (target2 != null && RenderEventHandler.wandHandler.handleArchitectOverlay(stack, event.getPlayer(), event.getPartialTicks(), event.getPlayer().ticksExisted, target2)) {
                     event.setCanceled(true);
                 }
@@ -425,14 +425,14 @@ public class RenderEventHandler
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void renderLast(final RenderWorldLastEvent event) {
+    public static void renderLast(RenderWorldLastEvent event) {
         if (RenderEventHandler.tagscale > 0.0f) {
             RenderEventHandler.tagscale -= 0.005f;
         }
-        final float partialTicks = event.getPartialTicks();
-        final Minecraft mc = Minecraft.getMinecraft();
+        float partialTicks = event.getPartialTicks();
+        Minecraft mc = Minecraft.getMinecraft();
         if (Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer) {
-            final EntityPlayer player = (EntityPlayer)mc.getRenderViewEntity();
+            EntityPlayer player = (EntityPlayer)mc.getRenderViewEntity();
             if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ISealDisplayer) {
                 drawSeals(partialTicks, player);
             }
@@ -440,30 +440,30 @@ public class RenderEventHandler
                 drawSeals(partialTicks, player);
             }
             if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IArchitect) {
-                final RayTraceResult target = ((IArchitect)player.getHeldItemMainhand().getItem()).getArchitectMOP(player.getHeldItemMainhand(), player.world, player);
+                RayTraceResult target = ((IArchitect)player.getHeldItemMainhand().getItem()).getArchitectMOP(player.getHeldItemMainhand(), player.world, player);
                 RenderEventHandler.wandHandler.handleArchitectOverlay(player.getHeldItemMainhand(), player, partialTicks, player.ticksExisted, target);
             }
             else if (player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() instanceof IArchitect) {
-                final RayTraceResult target = ((IArchitect)player.getHeldItemOffhand().getItem()).getArchitectMOP(player.getHeldItemOffhand(), player.world, player);
+                RayTraceResult target = ((IArchitect)player.getHeldItemOffhand().getItem()).getArchitectMOP(player.getHeldItemOffhand(), player.world, player);
                 RenderEventHandler.wandHandler.handleArchitectOverlay(player.getHeldItemOffhand(), player, partialTicks, player.ticksExisted, target);
             }
             if (RenderEventHandler.thaumTarget != null) {
-                final AspectList ot = AspectHelper.getEntityAspects(RenderEventHandler.thaumTarget);
+                AspectList ot = AspectHelper.getEntityAspects(RenderEventHandler.thaumTarget);
                 if (ot != null && !ot.aspects.isEmpty()) {
                     if (RenderEventHandler.tagscale < 0.5f) {
                         RenderEventHandler.tagscale += 0.031f - RenderEventHandler.tagscale / 10.0f;
                     }
-                    final double iPX = RenderEventHandler.thaumTarget.prevPosX + (RenderEventHandler.thaumTarget.posX - RenderEventHandler.thaumTarget.prevPosX) * partialTicks;
-                    final double iPY = RenderEventHandler.thaumTarget.prevPosY + (RenderEventHandler.thaumTarget.posY - RenderEventHandler.thaumTarget.prevPosY) * partialTicks;
-                    final double iPZ = RenderEventHandler.thaumTarget.prevPosZ + (RenderEventHandler.thaumTarget.posZ - RenderEventHandler.thaumTarget.prevPosZ) * partialTicks;
+                    double iPX = RenderEventHandler.thaumTarget.prevPosX + (RenderEventHandler.thaumTarget.posX - RenderEventHandler.thaumTarget.prevPosX) * partialTicks;
+                    double iPY = RenderEventHandler.thaumTarget.prevPosY + (RenderEventHandler.thaumTarget.posY - RenderEventHandler.thaumTarget.prevPosY) * partialTicks;
+                    double iPZ = RenderEventHandler.thaumTarget.prevPosZ + (RenderEventHandler.thaumTarget.posZ - RenderEventHandler.thaumTarget.prevPosZ) * partialTicks;
                     drawTagsOnContainer(iPX, iPY + RenderEventHandler.thaumTarget.height, iPZ, ot, 220, null, event.getPartialTicks());
                 }
             }
         }
     }
     
-    private static void drawSeals(final float partialTicks, final EntityPlayer player) {
-        final ConcurrentHashMap<SealPos, SealEntity> seals = SealHandler.sealEntities.get(player.world.provider.getDimension());
+    private static void drawSeals(float partialTicks, EntityPlayer player) {
+        ConcurrentHashMap<SealPos, SealEntity> seals = SealHandler.sealEntities.get(player.world.provider.getDimension());
         if (seals != null && seals.size() > 0) {
             GL11.glPushMatrix();
             if (player.isSneaking()) {
@@ -472,14 +472,14 @@ public class RenderEventHandler
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);
             GL11.glDisable(2884);
-            final double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
-            final double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
-            final double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
+            double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
+            double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
+            double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
             GL11.glTranslated(-iPX, -iPY, -iPZ);
-            for (final ISealEntity seal : seals.values()) {
-                final double dis = player.getDistanceSqToCenter(seal.getSealPos().pos);
+            for (ISealEntity seal : seals.values()) {
+                double dis = player.getDistanceSqToCenter(seal.getSealPos().pos);
                 if (dis <= 256.0) {
-                    final float alpha = 1.0f - (float)(dis / 256.0);
+                    float alpha = 1.0f - (float)(dis / 256.0);
                     boolean ia = false;
                     if (seal.isStoppedByRedstone(player.world)) {
                         ia = true;
@@ -501,13 +501,13 @@ public class RenderEventHandler
         }
     }
     
-    private static void drawSealArea(final EntityPlayer player, final ISealEntity seal, final float alpha, final float partialTicks) {
+    private static void drawSealArea(EntityPlayer player, ISealEntity seal, float alpha, float partialTicks) {
         GL11.glPushMatrix();
         float r = 0.0f;
         float g = 0.0f;
         float b = 0.0f;
         if (seal.getColor() > 0) {
-            final Color c = new Color(EnumDyeColor.byMetadata(seal.getColor() - 1).getColorValue());
+            Color c = new Color(EnumDyeColor.byMetadata(seal.getColor() - 1).getColorValue());
             r = c.getRed() / 255.0f;
             g = c.getGreen() / 255.0f;
             b = c.getBlue() / 255.0f;
@@ -531,14 +531,14 @@ public class RenderEventHandler
         GL11.glPopMatrix();
         if (seal.getSeal() instanceof ISealConfigArea) {
             GL11.glDepthMask(false);
-            final AxisAlignedBB area = new AxisAlignedBB(seal.getSealPos().pos.getX(), seal.getSealPos().pos.getY(), seal.getSealPos().pos.getZ(), seal.getSealPos().pos.getX() + 1, seal.getSealPos().pos.getY() + 1, seal.getSealPos().pos.getZ() + 1).offset(seal.getSealPos().face.getFrontOffsetX(), seal.getSealPos().face.getFrontOffsetY(), seal.getSealPos().face.getFrontOffsetZ()).expand((seal.getSealPos().face.getFrontOffsetX() != 0) ? ((double)((seal.getArea().getX() - 1) * seal.getSealPos().face.getFrontOffsetX())) : 0.0, (seal.getSealPos().face.getFrontOffsetY() != 0) ? ((double)((seal.getArea().getY() - 1) * seal.getSealPos().face.getFrontOffsetY())) : 0.0, (seal.getSealPos().face.getFrontOffsetZ() != 0) ? ((double)((seal.getArea().getZ() - 1) * seal.getSealPos().face.getFrontOffsetZ())) : 0.0).grow((seal.getSealPos().face.getFrontOffsetX() == 0) ? ((double)(seal.getArea().getX() - 1)) : 0.0, (seal.getSealPos().face.getFrontOffsetY() == 0) ? ((double)(seal.getArea().getY() - 1)) : 0.0, (seal.getSealPos().face.getFrontOffsetZ() == 0) ? ((double)(seal.getArea().getZ() - 1)) : 0.0);
-            final double[][] locs = { { area.minX, area.minY, area.minZ }, { area.minX, area.maxY - 1.0, area.minZ }, { area.maxX - 1.0, area.minY, area.minZ }, { area.maxX - 1.0, area.maxY - 1.0, area.minZ }, { area.maxX - 1.0, area.minY, area.maxZ - 1.0 }, { area.maxX - 1.0, area.maxY - 1.0, area.maxZ - 1.0 }, { area.minX, area.minY, area.maxZ - 1.0 }, { area.minX, area.maxY - 1.0, area.maxZ - 1.0 } };
+            AxisAlignedBB area = new AxisAlignedBB(seal.getSealPos().pos.getX(), seal.getSealPos().pos.getY(), seal.getSealPos().pos.getZ(), seal.getSealPos().pos.getX() + 1, seal.getSealPos().pos.getY() + 1, seal.getSealPos().pos.getZ() + 1).offset(seal.getSealPos().face.getFrontOffsetX(), seal.getSealPos().face.getFrontOffsetY(), seal.getSealPos().face.getFrontOffsetZ()).expand((seal.getSealPos().face.getFrontOffsetX() != 0) ? ((double)((seal.getArea().getX() - 1) * seal.getSealPos().face.getFrontOffsetX())) : 0.0, (seal.getSealPos().face.getFrontOffsetY() != 0) ? ((double)((seal.getArea().getY() - 1) * seal.getSealPos().face.getFrontOffsetY())) : 0.0, (seal.getSealPos().face.getFrontOffsetZ() != 0) ? ((double)((seal.getArea().getZ() - 1) * seal.getSealPos().face.getFrontOffsetZ())) : 0.0).grow((seal.getSealPos().face.getFrontOffsetX() == 0) ? ((double)(seal.getArea().getX() - 1)) : 0.0, (seal.getSealPos().face.getFrontOffsetY() == 0) ? ((double)(seal.getArea().getY() - 1)) : 0.0, (seal.getSealPos().face.getFrontOffsetZ() == 0) ? ((double)(seal.getArea().getZ() - 1)) : 0.0);
+            double[][] locs = { { area.minX, area.minY, area.minZ }, { area.minX, area.maxY - 1.0, area.minZ }, { area.maxX - 1.0, area.minY, area.minZ }, { area.maxX - 1.0, area.maxY - 1.0, area.minZ }, { area.maxX - 1.0, area.minY, area.maxZ - 1.0 }, { area.maxX - 1.0, area.maxY - 1.0, area.maxZ - 1.0 }, { area.minX, area.minY, area.maxZ - 1.0 }, { area.minX, area.maxY - 1.0, area.maxZ - 1.0 } };
             int q = 0;
-            for (final double[] loc : locs) {
+            for (double[] loc : locs) {
                 GL11.glPushMatrix();
                 GL11.glTranslated(loc[0] + 0.5, loc[1] + 0.5, loc[2] + 0.5);
                 int w = 0;
-                for (final EnumFacing face : RenderEventHandler.rotfaces[q]) {
+                for (EnumFacing face : RenderEventHandler.rotfaces[q]) {
                     GL11.glPushMatrix();
                     GL11.glRotatef(90.0f, (float)(-face.getFrontOffsetY()), (float)face.getFrontOffsetX(), (float)(-face.getFrontOffsetZ()));
                     if (face.getFrontOffsetZ() < 0) {
@@ -561,7 +561,7 @@ public class RenderEventHandler
         GL11.glPopMatrix();
     }
     
-    static void renderSeal(final int x, final int y, final int z, final float alpha, final EnumFacing face, final ResourceLocation resourceLocation, final boolean ia) {
+    static void renderSeal(int x, int y, int z, float alpha, EnumFacing face, ResourceLocation resourceLocation, boolean ia) {
         GL11.glPushMatrix();
         GL11.glColor4f(ia ? 0.5f : 1.0f, ia ? 0.5f : 1.0f, ia ? 0.5f : 1.0f, alpha);
         translateSeal((float)x, (float)y, (float)z, face.ordinal(), -0.05f);
@@ -571,7 +571,7 @@ public class RenderEventHandler
         GL11.glPopMatrix();
     }
     
-    private static void translateSeal(final float x, final float y, final float z, final int orientation, final float off) {
+    private static void translateSeal(float x, float y, float z, int orientation, float off) {
         if (orientation == 1) {
             GL11.glTranslatef(x + 0.25f, y + 1.0f, z + 0.75f);
             GL11.glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
@@ -600,7 +600,7 @@ public class RenderEventHandler
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void fogDensityEvent(final EntityViewRenderEvent.RenderFogEvent event) {
+    public static void fogDensityEvent(EntityViewRenderEvent.RenderFogEvent event) {
         if (RenderEventHandler.fogFiddled && RenderEventHandler.fogTarget > 0.0f) {
             GL11.glFogi(2917, 2048);
             GL11.glFogf(2914, RenderEventHandler.fogTarget);
@@ -608,11 +608,11 @@ public class RenderEventHandler
     }
     
     @SubscribeEvent
-    public static void livingTick(final LivingEvent.LivingUpdateEvent event) {
+    public static void livingTick(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntity().world.isRemote && event.getEntity() instanceof EntityCreature && !event.getEntity().isDead) {
-            final EntityCreature mob = (EntityCreature)event.getEntity();
+            EntityCreature mob = (EntityCreature)event.getEntity();
             if (mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD) != null) {
-                final Integer t = (int)mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
+                Integer t = (int)mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
                 if (t != null && t >= 0 && t < ChampionModifier.mods.length) {
                     ChampionModifier.mods[t].effect.showFX(mob);
                 }
@@ -621,11 +621,11 @@ public class RenderEventHandler
     }
     
     @SubscribeEvent
-    public static void renderLivingPre(final RenderLivingEvent.Pre event) {
+    public static void renderLivingPre(RenderLivingEvent.Pre event) {
         if (event.getEntity().world.isRemote && event.getEntity() instanceof EntityCreature && !event.getEntity().isDead) {
-            final EntityCreature mob = (EntityCreature)event.getEntity();
+            EntityCreature mob = (EntityCreature)event.getEntity();
             if (mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD) != null) {
-                final Integer t = (int)mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
+                Integer t = (int)mob.getEntityAttribute(ThaumcraftApiHelper.CHAMPION_MOD).getAttributeValue();
                 if (t != null && t >= 0 && t < ChampionModifier.mods.length) {
                     ChampionModifier.mods[t].effect.preRender(mob, event.getRenderer());
                 }
@@ -633,7 +633,7 @@ public class RenderEventHandler
         }
     }
     
-    public static void drawTagsOnContainer(double x, final double y, double z, final AspectList tags, final int bright, final EnumFacing dir, final float partialTicks) {
+    public static void drawTagsOnContainer(double x, double y, double z, AspectList tags, int bright, EnumFacing dir, float partialTicks) {
         if (Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer && tags != null && tags.size() > 0) {
             int fox = 0;
             int foy = 0;
@@ -647,15 +647,15 @@ public class RenderEventHandler
                 x -= 0.5;
                 z -= 0.5;
             }
-            final EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().getRenderViewEntity();
-            final double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
-            final double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
-            final double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
-            final int rowsize = 5;
+            EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().getRenderViewEntity();
+            double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
+            double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
+            double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
+            int rowsize = 5;
             int current = 0;
             float shifty = 0.0f;
             int left = tags.size();
-            for (final Aspect tag : tags.getAspects()) {
+            for (Aspect tag : tags.getAspects()) {
                 int div = Math.min(left, rowsize);
                 if (current >= rowsize) {
                     current = 0;
@@ -667,13 +667,13 @@ public class RenderEventHandler
                 }
                 float shift = (current - div / 2.0f + 0.5f) * RenderEventHandler.tagscale * 4.0f;
                 shift *= RenderEventHandler.tagscale;
-                final Color color = new Color(tag.getColor());
+                Color color = new Color(tag.getColor());
                 GL11.glPushMatrix();
                 GL11.glDisable(2929);
                 GL11.glTranslated(-iPX + x + 0.5 + RenderEventHandler.tagscale * 2.0f * fox, -iPY + y - shifty + 0.5 + RenderEventHandler.tagscale * 2.0f * foy, -iPZ + z + 0.5 + RenderEventHandler.tagscale * 2.0f * foz);
-                final float xd = (float)(iPX - (x + 0.5));
-                final float zd = (float)(iPZ - (z + 0.5));
-                final float rotYaw = (float)(Math.atan2(xd, zd) * 180.0 / 3.141592653589793);
+                float xd = (float)(iPX - (x + 0.5));
+                float zd = (float)(iPZ - (z + 0.5));
+                float rotYaw = (float)(Math.atan2(xd, zd) * 180.0 / 3.141592653589793);
                 GL11.glRotatef(rotYaw + 180.0f, 0.0f, 1.0f, 0.0f);
                 GL11.glTranslated(shift, 0.0, 0.0);
                 GL11.glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
@@ -681,10 +681,10 @@ public class RenderEventHandler
                 UtilsFX.renderQuadCentered(tag.getImage(), 1.0f, color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, bright, 771, 0.75f);
                 if (tags.getAmount(tag) >= 0) {
                     GL11.glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
-                    final String am = "" + tags.getAmount(tag);
+                    String am = "" + tags.getAmount(tag);
                     GL11.glScalef(0.04f, 0.04f, 0.04f);
                     GL11.glTranslated(0.0, 6.0, -0.1);
-                    final int sw = Minecraft.getMinecraft().fontRenderer.getStringWidth(am);
+                    int sw = Minecraft.getMinecraft().fontRenderer.getStringWidth(am);
                     GL11.glEnable(3042);
                     GL11.glBlendFunc(770, 771);
                     Minecraft.getMinecraft().fontRenderer.drawString(am, 14 - sw, 1, 1118481);
@@ -698,21 +698,21 @@ public class RenderEventHandler
         }
     }
     
-    public static void drawTextInAir(final double x, final double y, final double z, final float partialTicks, final String text) {
+    public static void drawTextInAir(double x, double y, double z, float partialTicks, String text) {
         if (Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer) {
-            final EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().getRenderViewEntity();
-            final double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
-            final double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
-            final double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
+            EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().getRenderViewEntity();
+            double iPX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
+            double iPY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
+            double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
             GL11.glPushMatrix();
             GL11.glTranslated(-iPX + x + 0.5, -iPY + y + 0.5, -iPZ + z + 0.5);
-            final float xd = (float)(iPX - (x + 0.5));
-            final float zd = (float)(iPZ - (z + 0.5));
-            final float rotYaw = (float)(Math.atan2(xd, zd) * 180.0 / 3.141592653589793);
+            float xd = (float)(iPX - (x + 0.5));
+            float zd = (float)(iPZ - (z + 0.5));
+            float rotYaw = (float)(Math.atan2(xd, zd) * 180.0 / 3.141592653589793);
             GL11.glRotatef(rotYaw + 180.0f, 0.0f, 1.0f, 0.0f);
             GL11.glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
             GL11.glScalef(0.0125f, 0.0125f, 0.0125f);
-            final int sw = Minecraft.getMinecraft().fontRenderer.getStringWidth(text);
+            int sw = Minecraft.getMinecraft().fontRenderer.getStringWidth(text);
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);
             Minecraft.getMinecraft().fontRenderer.drawString(text, (float)(1 - sw / 2), 1.0f, 16777215, true);
@@ -720,13 +720,13 @@ public class RenderEventHandler
         }
     }
     
-    protected static void renderVignette(float brightness, final double sw, final double sh) {
-        final int k = (int)sw;
-        final int l = (int)sh;
+    protected static void renderVignette(float brightness, double sw, double sh) {
+        int k = (int)sw;
+        int l = (int)sh;
         brightness = 1.0f - brightness;
         RenderEventHandler.prevVignetteBrightness += (float)((brightness - RenderEventHandler.prevVignetteBrightness) * 0.01);
         if (RenderEventHandler.prevVignetteBrightness > 0.0f) {
-            final float b = RenderEventHandler.prevVignetteBrightness * (1.0f + MathHelper.sin(Minecraft.getMinecraft().player.ticksExisted / 2.0f) * 0.1f);
+            float b = RenderEventHandler.prevVignetteBrightness * (1.0f + MathHelper.sin(Minecraft.getMinecraft().player.ticksExisted / 2.0f) * 0.1f);
             GL11.glPushMatrix();
             GL11.glClear(256);
             GL11.glMatrixMode(5889);
@@ -740,7 +740,7 @@ public class RenderEventHandler
             GL11.glDepthMask(false);
             OpenGlHelper.glBlendFunc(0, 769, 1, 0);
             GL11.glColor4f(b, b, b, 1.0f);
-            final Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.getInstance();
             tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
             tessellator.getBuffer().pos(0.0, l, -90.0).tex(0.0, 1.0).endVertex();
             tessellator.getBuffer().pos(k, l, -90.0).tex(1.0, 1.0).endVertex();
@@ -757,7 +757,7 @@ public class RenderEventHandler
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void textureStitchEventPre(final TextureStitchEvent.Pre event) {
+    public static void textureStitchEventPre(TextureStitchEvent.Pre event) {
         event.getMap().registerSprite(new ResourceLocation("thaumcraft", "research/quill"));
         event.getMap().registerSprite(new ResourceLocation("thaumcraft", "blocks/crystal"));
         event.getMap().registerSprite(new ResourceLocation("thaumcraft", "blocks/taint_growth_1"));
@@ -800,7 +800,7 @@ public class RenderEventHandler
         float charge;
         byte diff;
         
-        public ChargeEntry(final long time, final ItemStack item, final float charge) {
+        public ChargeEntry(long time, ItemStack item, float charge) {
             this.charge = 0.0f;
             diff = 0;
             this.time = time;

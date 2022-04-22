@@ -10,12 +10,12 @@ import thaumcraft.api.golems.parts.PartModel;
 
 public class PartModelDarts extends PartModel
 {
-    public PartModelDarts(final ResourceLocation objModel, final ResourceLocation objTexture, final EnumAttachPoint attachPoint) {
+    public PartModelDarts(ResourceLocation objModel, ResourceLocation objTexture, EnumAttachPoint attachPoint) {
         super(objModel, objTexture, attachPoint);
     }
     
     @Override
-    public float preRenderArmRotationX(final IGolemAPI golem, final float partialTicks, final EnumLimbSide side, float inputRot) {
+    public float preRenderArmRotationX(IGolemAPI golem, float partialTicks, EnumLimbSide side, float inputRot) {
         if (golem.isInCombat()) {
             inputRot = 90.0f - golem.getGolemEntity().prevRotationPitch + inputRot / 10.0f;
         }
@@ -23,7 +23,7 @@ public class PartModelDarts extends PartModel
     }
     
     @Override
-    public float preRenderArmRotationY(final IGolemAPI golem, final float partialTicks, final EnumLimbSide side, float inputRot) {
+    public float preRenderArmRotationY(IGolemAPI golem, float partialTicks, EnumLimbSide side, float inputRot) {
         if (golem.isInCombat()) {
             inputRot /= 10.0f;
         }
@@ -31,7 +31,7 @@ public class PartModelDarts extends PartModel
     }
     
     @Override
-    public float preRenderArmRotationZ(final IGolemAPI golem, final float partialTicks, final EnumLimbSide side, float inputRot) {
+    public float preRenderArmRotationZ(IGolemAPI golem, float partialTicks, EnumLimbSide side, float inputRot) {
         if (golem.isInCombat()) {
             inputRot /= 10.0f;
         }

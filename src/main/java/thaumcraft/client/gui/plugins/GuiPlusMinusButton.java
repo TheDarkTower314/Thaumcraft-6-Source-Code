@@ -15,19 +15,19 @@ public class GuiPlusMinusButton extends GuiButton
     boolean minus;
     static ResourceLocation tex;
     
-    public GuiPlusMinusButton(final int buttonId, final int x, final int y, final int width, final int height, final boolean left) {
+    public GuiPlusMinusButton(int buttonId, int x, int y, int width, int height, boolean left) {
         super(buttonId, x, y, width, height, "");
         minus = false;
         minus = left;
     }
     
-    public void drawButton(final Minecraft mc, final int xx, final int yy, final float pt) {
+    public void drawButton(Minecraft mc, int xx, int yy, float pt) {
         if (visible) {
-            final FontRenderer fontrenderer = mc.fontRenderer;
+            FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiPlusMinusButton.tex);
             GlStateManager.color(0.9f, 0.9f, 0.9f, 0.9f);
             hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);
-            final int k = getHoverState(hovered);
+            int k = getHoverState(hovered);
             if (k == 2) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             }

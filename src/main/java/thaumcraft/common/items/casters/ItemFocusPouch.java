@@ -33,54 +33,54 @@ public class ItemFocusPouch extends ItemTCBase implements IBauble
         return true;
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.UNCOMMON;
     }
     
-    public boolean hasEffect(final ItemStack stack1) {
+    public boolean hasEffect(ItemStack stack1) {
         return false;
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World worldIn, final EntityPlayer playerIn, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (!worldIn.isRemote) {
             playerIn.openGui(Thaumcraft.instance, 5, worldIn, MathHelper.floor(playerIn.posX), MathHelper.floor(playerIn.posY), MathHelper.floor(playerIn.posZ));
         }
         return super.onItemRightClick(worldIn, playerIn, hand);
     }
     
-    public NonNullList<ItemStack> getInventory(final ItemStack item) {
-        final NonNullList<ItemStack> stackList = NonNullList.withSize(18, ItemStack.EMPTY);
+    public NonNullList<ItemStack> getInventory(ItemStack item) {
+        NonNullList<ItemStack> stackList = NonNullList.withSize(18, ItemStack.EMPTY);
         if (item.hasTagCompound()) {
             ItemStackHelper.loadAllItems(item.getTagCompound(), stackList);
         }
         return stackList;
     }
     
-    public void setInventory(final ItemStack item, final NonNullList<ItemStack> stackList) {
+    public void setInventory(ItemStack item, NonNullList<ItemStack> stackList) {
         if (item.getTagCompound() == null) {
             item.setTagCompound(new NBTTagCompound());
         }
         ItemStackHelper.saveAllItems(item.getTagCompound(), stackList);
     }
     
-    public BaubleType getBaubleType(final ItemStack itemstack) {
+    public BaubleType getBaubleType(ItemStack itemstack) {
         return BaubleType.BELT;
     }
     
-    public void onWornTick(final ItemStack itemstack, final EntityLivingBase player) {
+    public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
     }
     
-    public void onEquipped(final ItemStack itemstack, final EntityLivingBase player) {
+    public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
     }
     
-    public void onUnequipped(final ItemStack itemstack, final EntityLivingBase player) {
+    public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
     }
     
-    public boolean canEquip(final ItemStack itemstack, final EntityLivingBase player) {
+    public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
         return true;
     }
     
-    public boolean canUnequip(final ItemStack itemstack, final EntityLivingBase player) {
+    public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
         return true;
     }
 }

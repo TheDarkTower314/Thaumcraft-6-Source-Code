@@ -32,9 +32,9 @@ import thaumcraft.common.tiles.TileThaumcraftInventory;
 
 public class TileSmelter extends TileThaumcraftInventory
 {
-    private static final int[] slots_bottom;
-    private static final int[] slots_top;
-    private static final int[] slots_sides;
+    private static int[] slots_bottom;
+    private static int[] slots_top;
+    private static int[] slots_sides;
     public AspectList aspects;
     public int vis;
     private int maxVis;
@@ -57,18 +57,18 @@ public class TileSmelter extends TileThaumcraftInventory
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         furnaceBurnTime = nbttagcompound.getShort("BurnTime");
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound.setShort("BurnTime", (short) furnaceBurnTime);
         return nbttagcompound;
     }
     
     @Override
-    public void readFromNBT(final NBTTagCompound nbtCompound) {
+    public void readFromNBT(NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
         speedBoost = nbtCompound.getBoolean("speedBoost");
         furnaceCookTime = nbtCompound.getShort("CookTime");
@@ -89,7 +89,7 @@ public class TileSmelter extends TileThaumcraftInventory
     @Override
     public void update() {
         super.update();
-        final boolean flag = furnaceBurnTime > 0;
+        boolean flag = furnaceBurnTime > 0;
         boolean flag2 = false;
         ++count;
         if (furnaceBurnTime > 0) {
@@ -104,17 +104,17 @@ public class TileSmelter extends TileThaumcraftInventory
                 speed *= (int)0.8;
             }
             if (count % speed == 0 && aspects.size() > 0) {
-                for (final Aspect aspect : aspects.getAspects()) {
+                for (Aspect aspect : aspects.getAspects()) {
                     if (aspects.getAmount(aspect) > 0 && TileAlembic.processAlembics(getWorld(), getPos(), aspect)) {
                         takeFromContainer(aspect, 1);
                         break;
                     }
                 }
-                for (final EnumFacing face : EnumFacing.HORIZONTALS) {
+                for (EnumFacing face : EnumFacing.HORIZONTALS) {
                     if (BlockStateUtils.getFacing(getBlockMetadata()) != face) {
-                        final IBlockState aux = world.getBlockState(getPos().offset(face));
+                        IBlockState aux = world.getBlockState(getPos().offset(face));
                         if (aux.getBlock() == BlocksTC.smelterAux && BlockStateUtils.getFacing(aux) == face.getOpposite()) {
-                            for (final Aspect aspect2 : aspects.getAspects()) {
+                            for (Aspect aspect2 : aspects.getAspects()) {
                                 if (aspects.getAmount(aspect2) > 0 && TileAlembic.processAlembics(getWorld(), getPos().offset(face), aspect2)) {
                                     takeFromContainer(aspect2, 1);
                                     break;
@@ -126,22 +126,22 @@ public class TileSmelter extends TileThaumcraftInventory
             }
             if (furnaceBurnTime == 0) {
                 if (canSmelt()) {
-                    final int itemBurnTime = TileEntityFurnace.getItemBurnTime(getStackInSlot(1));
+                    int itemBurnTime = TileEntityFurnace.getItemBurnTime(getStackInSlot(1));
                     furnaceBurnTime = itemBurnTime;
                     currentItemBurnTime = itemBurnTime;
                     if (furnaceBurnTime > 0) {
                         BlockSmelter.setFurnaceState(world, getPos(), true);
                         flag2 = true;
                         speedBoost = false;
-                        final ItemStack itemstack = getStackInSlot(1);
+                        ItemStack itemstack = getStackInSlot(1);
                         if (!itemstack.isEmpty()) {
                             if (itemstack.isItemEqual(new ItemStack(ItemsTC.alumentum))) {
                                 speedBoost = true;
                             }
-                            final Item item = itemstack.getItem();
+                            Item item = itemstack.getItem();
                             itemstack.shrink(1);
                             if (itemstack.isEmpty()) {
-                                final ItemStack item2 = item.getContainerItem(itemstack);
+                                ItemStack item2 = item.getContainerItem(itemstack);
                                 setInventorySlotContents(1, item2);
                             }
                         }
@@ -178,11 +178,11 @@ public class TileSmelter extends TileThaumcraftInventory
         if (getStackInSlot(0).isEmpty()) {
             return false;
         }
-        final AspectList al = ThaumcraftCraftingManager.getObjectTags(getStackInSlot(0));
+        AspectList al = ThaumcraftCraftingManager.getObjectTags(getStackInSlot(0));
         if (al == null || al.size() == 0) {
             return false;
         }
-        final int vs = al.visSize();
+        int vs = al.visSize();
         if (vs > maxVis - vis) {
             return false;
         }
@@ -206,7 +206,7 @@ public class TileSmelter extends TileThaumcraftInventory
                 faces = new EnumFacing[] { EnumFacing.SOUTH, EnumFacing.EAST, EnumFacing.NORTH };
             }
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         bellows = TileBellows.getBellows(world, pos, faces);
     }
     
@@ -226,15 +226,15 @@ public class TileSmelter extends TileThaumcraftInventory
     }
     
     private int getSpeed() {
-        final int speed = 20 - ((getType() == 1) ? 10 : 5);
+        int speed = 20 - ((getType() == 1) ? 10 : 5);
         return speed;
     }
     
     public void smeltItem() {
         if (canSmelt()) {
             int flux = 0;
-            final AspectList al = ThaumcraftCraftingManager.getObjectTags(getStackInSlot(0));
-            for (final Aspect a : al.getAspects()) {
+            AspectList al = ThaumcraftCraftingManager.getObjectTags(getStackInSlot(0));
+            for (Aspect a : al.getAspects()) {
                 if (getEfficiency() < 1.0f) {
                     for (int qq = al.getAmount(a), q = 0; q < qq; ++q) {
                         if (world.rand.nextFloat() > ((a == Aspect.FLUX) ? (getEfficiency() * 0.66f) : getEfficiency())) {
@@ -251,9 +251,9 @@ public class TileSmelter extends TileThaumcraftInventory
             Label_0155:
                 while (c < flux) {
                     while (true) {
-                        for (final EnumFacing face : EnumFacing.HORIZONTALS) {
+                        for (EnumFacing face : EnumFacing.HORIZONTALS) {
                             if (BlockStateUtils.getFacing(getBlockMetadata()) != face) {
-                                final IBlockState vent = world.getBlockState(getPos().offset(face));
+                                IBlockState vent = world.getBlockState(getPos().offset(face));
                                 if (vent.getBlock() == BlocksTC.smelterVent && BlockStateUtils.getFacing(vent) == face.getOpposite() && world.rand.nextFloat() < 0.333) {
                                     world.addBlockEvent(getPos(), getBlockType(), 1, face.getOpposite().ordinal());
                                     ++c;
@@ -275,14 +275,14 @@ public class TileSmelter extends TileThaumcraftInventory
         }
     }
     
-    public static boolean isItemFuel(final ItemStack par0ItemStack) {
+    public static boolean isItemFuel(ItemStack par0ItemStack) {
         return TileEntityFurnace.getItemBurnTime(par0ItemStack) > 0;
     }
     
     @Override
-    public boolean isItemValidForSlot(final int par1, final ItemStack stack2) {
+    public boolean isItemValidForSlot(int par1, ItemStack stack2) {
         if (par1 == 0) {
-            final AspectList al = ThaumcraftCraftingManager.getObjectTags(stack2);
+            AspectList al = ThaumcraftCraftingManager.getObjectTags(stack2);
             if (al != null && al.size() > 0) {
                 return true;
             }
@@ -291,21 +291,21 @@ public class TileSmelter extends TileThaumcraftInventory
     }
     
     @Override
-    public int[] getSlotsForFace(final EnumFacing par1) {
+    public int[] getSlotsForFace(EnumFacing par1) {
         return (par1 == EnumFacing.DOWN) ? TileSmelter.slots_bottom : ((par1 == EnumFacing.UP) ? TileSmelter.slots_top : TileSmelter.slots_sides);
     }
     
     @Override
-    public boolean canInsertItem(final int par1, final ItemStack stack2, final EnumFacing par3) {
+    public boolean canInsertItem(int par1, ItemStack stack2, EnumFacing par3) {
         return par3 != EnumFacing.UP && isItemValidForSlot(par1, stack2);
     }
     
     @Override
-    public boolean canExtractItem(final int par1, final ItemStack stack2, final EnumFacing par3) {
+    public boolean canExtractItem(int par1, ItemStack stack2, EnumFacing par3) {
         return par3 != EnumFacing.UP || par1 != 1 || stack2.getItem() == Items.BUCKET;
     }
     
-    public boolean takeFromContainer(final Aspect tag, final int amount) {
+    public boolean takeFromContainer(Aspect tag, int amount) {
         if (aspects != null && aspects.getAmount(tag) >= amount) {
             aspects.remove(tag, amount);
             vis = aspects.visSize();
@@ -316,7 +316,7 @@ public class TileSmelter extends TileThaumcraftInventory
     }
     
     @SideOnly(Side.CLIENT)
-    public int getCookProgressScaled(final int par1) {
+    public int getCookProgressScaled(int par1) {
         if (smeltTime <= 0) {
             smeltTime = 1;
         }
@@ -324,12 +324,12 @@ public class TileSmelter extends TileThaumcraftInventory
     }
     
     @SideOnly(Side.CLIENT)
-    public int getVisScaled(final int par1) {
+    public int getVisScaled(int par1) {
         return vis * par1 / maxVis;
     }
     
     @SideOnly(Side.CLIENT)
-    public int getBurnTimeRemainingScaled(final int par1) {
+    public int getBurnTimeRemainingScaled(int par1) {
         if (currentItemBurnTime == 0) {
             currentItemBurnTime = 200;
         }
@@ -337,26 +337,26 @@ public class TileSmelter extends TileThaumcraftInventory
     }
     
     @Override
-    public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         if (world != null) {
             world.checkLightFor(EnumSkyBlock.BLOCK, pos);
         }
     }
     
-    public boolean receiveClientEvent(final int i, final int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i == 1) {
             if (world.isRemote) {
-                final EnumFacing d = EnumFacing.VALUES[j];
+                EnumFacing d = EnumFacing.VALUES[j];
                 world.playSound(getPos().getX() + 0.5 + d.getOpposite().getFrontOffsetX(), getPos().getY() + 0.5, getPos().getZ() + 0.5 + d.getOpposite().getFrontOffsetZ(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.25f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f, true);
                 for (int a = 0; a < 4; ++a) {
-                    final float fx = 0.1f - world.rand.nextFloat() * 0.2f;
-                    final float fz = 0.1f - world.rand.nextFloat() * 0.2f;
-                    final float fy = 0.1f - world.rand.nextFloat() * 0.2f;
-                    final float fx2 = 0.1f - world.rand.nextFloat() * 0.2f;
-                    final float fz2 = 0.1f - world.rand.nextFloat() * 0.2f;
-                    final float fy2 = 0.1f - world.rand.nextFloat() * 0.2f;
-                    final int color = 11184810;
+                    float fx = 0.1f - world.rand.nextFloat() * 0.2f;
+                    float fz = 0.1f - world.rand.nextFloat() * 0.2f;
+                    float fy = 0.1f - world.rand.nextFloat() * 0.2f;
+                    float fx2 = 0.1f - world.rand.nextFloat() * 0.2f;
+                    float fz2 = 0.1f - world.rand.nextFloat() * 0.2f;
+                    float fy2 = 0.1f - world.rand.nextFloat() * 0.2f;
+                    int color = 11184810;
                     FXDispatcher.INSTANCE.drawVentParticles(getPos().getX() + 0.5f + fx + d.getOpposite().getFrontOffsetX(), getPos().getY() + 0.5f + fy, getPos().getZ() + 0.5f + fz + d.getOpposite().getFrontOffsetZ(), d.getOpposite().getFrontOffsetX() / 4.0f + fx2, d.getOpposite().getFrontOffsetY() / 4.0f + fy2, d.getOpposite().getFrontOffsetZ() / 4.0f + fz2, color);
                 }
             }

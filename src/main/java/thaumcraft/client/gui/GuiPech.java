@@ -23,7 +23,7 @@ public class GuiPech extends GuiContainer
     EntityPech pech;
     ResourceLocation tex;
     
-    public GuiPech(final InventoryPlayer par1InventoryPlayer, final World world, final EntityPech pech) {
+    public GuiPech(InventoryPlayer par1InventoryPlayer, World world, EntityPech pech) {
         super(new ContainerPech(par1InventoryPlayer, world, pech));
         tex = new ResourceLocation("thaumcraft", "textures/gui/gui_pech.png");
         xSize = 175;
@@ -31,20 +31,20 @@ public class GuiPech extends GuiContainer
         this.pech = pech;
     }
     
-    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         renderHoveredToolTip(mouseX, mouseY);
     }
     
-    protected void drawGuiContainerForegroundLayer(final int par1, final int par2) {
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
     }
     
-    protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         mc.renderEngine.bindTexture(tex);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        final int var5 = (width - xSize) / 2;
-        final int var6 = (height - ySize) / 2;
+        int var5 = (width - xSize) / 2;
+        int var6 = (height - ySize) / 2;
         GL11.glEnable(3042);
         drawTexturedModalRect(var5, var6, 0, 0, xSize, ySize);
         if (pech.isValued(inventorySlots.getSlot(0).getStack()) && !inventorySlots.getSlot(0).getStack().isEmpty() && inventorySlots.getSlot(1).getStack().isEmpty() && inventorySlots.getSlot(2).getStack().isEmpty() && inventorySlots.getSlot(3).getStack().isEmpty() && inventorySlots.getSlot(4).getStack().isEmpty()) {
@@ -53,12 +53,12 @@ public class GuiPech extends GuiContainer
         GL11.glDisable(3042);
     }
     
-    protected void mouseClicked(final int mx, final int my, final int par3) throws IOException {
+    protected void mouseClicked(int mx, int my, int par3) throws IOException {
         super.mouseClicked(mx, my, par3);
-        final int gx = (width - xSize) / 2;
-        final int gy = (height - ySize) / 2;
-        final int var7 = mx - (gx + 67);
-        final int var8 = my - (gy + 24);
+        int gx = (width - xSize) / 2;
+        int gy = (height - ySize) / 2;
+        int var7 = mx - (gx + 67);
+        int var8 = my - (gy + 24);
         if (var7 >= 0 && var8 >= 0 && var7 < 25 && var8 < 25 && pech.isValued(inventorySlots.getSlot(0).getStack()) && !inventorySlots.getSlot(0).getStack().isEmpty() && inventorySlots.getSlot(1).getStack().isEmpty() && inventorySlots.getSlot(2).getStack().isEmpty() && inventorySlots.getSlot(3).getStack().isEmpty() && inventorySlots.getSlot(4).getStack().isEmpty()) {
             mc.playerController.sendEnchantPacket(inventorySlots.windowId, 0);
             playButton();

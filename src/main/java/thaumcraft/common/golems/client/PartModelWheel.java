@@ -12,12 +12,12 @@ import thaumcraft.api.golems.parts.PartModel;
 
 public class PartModelWheel extends PartModel
 {
-    public PartModelWheel(final ResourceLocation objModel, final ResourceLocation objTexture, final EnumAttachPoint attachPoint) {
+    public PartModelWheel(ResourceLocation objModel, ResourceLocation objTexture, EnumAttachPoint attachPoint) {
         super(objModel, objTexture, attachPoint);
     }
     
     @Override
-    public void preRenderObjectPart(final String partName, final IGolemAPI golem, final float partialTicks, final EnumLimbSide side) {
+    public void preRenderObjectPart(String partName, IGolemAPI golem, float partialTicks, EnumLimbSide side) {
         if (partName.equals("wheel")) {
             float lastRot = 0.0f;
             if (GolemLegWheels.ani.containsKey(golem.getGolemEntity().getEntityId())) {

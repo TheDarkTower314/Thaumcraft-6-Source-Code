@@ -25,7 +25,7 @@ public class GolemMaterial
     public EnumGolemTrait[] traits;
     private static byte lastID;
     
-    public GolemMaterial(final String key, final String[] research, final ResourceLocation texture, final int itemColor, final int hp, final int armor, final int damage, final ItemStack compb, final ItemStack compm, final EnumGolemTrait[] tags) {
+    public GolemMaterial(String key, String[] research, ResourceLocation texture, int itemColor, int hp, int armor, int damage, ItemStack compb, ItemStack compm, EnumGolemTrait[] tags) {
         this.key = key;
         this.research = research;
         this.texture = texture;
@@ -38,11 +38,11 @@ public class GolemMaterial
         this.damage = damage;
     }
     
-    public static void register(final GolemMaterial thing) {
+    public static void register(GolemMaterial thing) {
         thing.id = GolemMaterial.lastID;
         ++GolemMaterial.lastID;
         if (thing.id >= GolemMaterial.materials.length) {
-            final GolemMaterial[] temp = new GolemMaterial[thing.id + 1];
+            GolemMaterial[] temp = new GolemMaterial[thing.id + 1];
             System.arraycopy(GolemMaterial.materials, 0, temp, 0, GolemMaterial.materials.length);
             GolemMaterial.materials = temp;
         }

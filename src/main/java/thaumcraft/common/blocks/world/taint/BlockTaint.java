@@ -50,7 +50,7 @@ public class BlockTaint extends BlockTC implements ITaintBlock
     static Random r;
     static ArrayList<WeightedRandomLoot> pdrops;
     
-    public BlockTaint(final String name) {
+    public BlockTaint(String name) {
         super(ThaumcraftMaterials.MATERIAL_TAINT, name);
         setHardness(10.0f);
         setResistance(100.0f);
@@ -62,11 +62,11 @@ public class BlockTaint extends BlockTC implements ITaintBlock
         return SoundsTC.GORE;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public MapColor getMapColor(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return MapColor.PURPLE;
     }
     
@@ -76,7 +76,7 @@ public class BlockTaint extends BlockTC implements ITaintBlock
     }
     
     @Override
-    public void die(final World world, final BlockPos pos, final IBlockState state) {
+    public void die(World world, BlockPos pos, IBlockState state) {
         if (state.getBlock() == BlocksTC.taintRock) {
             world.setBlockState(pos, BlocksTC.stonePorous.getDefaultState());
         }
@@ -94,7 +94,7 @@ public class BlockTaint extends BlockTC implements ITaintBlock
         }
     }
     
-    public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random random) {
+    public void updateTick(World world, BlockPos pos, IBlockState state, Random random) {
         if (!world.isRemote) {
             if (!TaintHelper.isNearTaintSeed(world, pos) && random.nextInt(10) == 0) {
                 die(world, pos, state);
@@ -104,13 +104,13 @@ public class BlockTaint extends BlockTC implements ITaintBlock
                 TaintHelper.spreadFibres(world, pos);
             }
             if (state.getBlock() == BlocksTC.taintCrust) {
-                final Random r = new Random(pos.toLong());
+                Random r = new Random(pos.toLong());
                 if (tryToFall(world, pos, pos)) {
                     return;
                 }
                 if (world.isAirBlock(pos.up())) {
                     boolean doIt = true;
-                    final EnumFacing dir = EnumFacing.HORIZONTALS[random.nextInt(4)];
+                    EnumFacing dir = EnumFacing.HORIZONTALS[random.nextInt(4)];
                     for (int a = 1; a < 4; ++a) {
                         if (!world.isAirBlock(pos.offset(dir).down(a))) {
                             doIt = false;
@@ -128,7 +128,7 @@ public class BlockTaint extends BlockTC implements ITaintBlock
             }
             else if (state.getBlock() == BlocksTC.taintGeyser) {
                 if (world.rand.nextFloat() < 0.2 && world.isAnyPlayerWithinRangeAt(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, 32.0) && EntityUtils.getEntitiesInRange(world, pos, null, (Class<? extends Entity>)EntityTaintSwarm.class, 32.0).isEmpty()) {
-                    final Entity e = new EntityTaintSwarm(world);
+                    Entity e = new EntityTaintSwarm(world);
                     e.setLocationAndAngles(pos.getX() + 0.5f, pos.getY() + 1.25f, pos.getZ() + 0.5f, (float)world.rand.nextInt(360), 0.0f);
                     world.spawnEntity(e);
                 }
@@ -139,17 +139,17 @@ public class BlockTaint extends BlockTC implements ITaintBlock
         }
     }
     
-    public boolean canSilkHarvest(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player) {
+    public boolean canSilkHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
         return true;
     }
     
-    public void onEntityWalk(final World world, final BlockPos pos, final Entity entity) {
+    public void onEntityWalk(World world, BlockPos pos, Entity entity) {
         if (!world.isRemote && entity instanceof EntityLivingBase && !((EntityLivingBase)entity).isEntityUndead() && world.rand.nextInt(250) == 0) {
             ((EntityLivingBase)entity).addPotionEffect(new PotionEffect(PotionFluxTaint.instance, 200, 0, false, true));
         }
     }
     
-    public boolean eventReceived(final IBlockState state, final World worldIn, final BlockPos pos, final int eventID, final int eventParam) {
+    public boolean eventReceived(IBlockState state, World worldIn, BlockPos pos, int eventID, int eventParam) {
         if (eventID == 1) {
             if (worldIn.isRemote) {
                 worldIn.playSound(null, pos, SoundEvents.BLOCK_CHORUS_FLOWER_DEATH, SoundCategory.BLOCKS, 0.1f, 0.9f + worldIn.rand.nextFloat() * 0.2f);
@@ -159,9 +159,9 @@ public class BlockTaint extends BlockTC implements ITaintBlock
         return super.eventReceived(state, worldIn, pos, eventID, eventParam);
     }
     
-    public static boolean canFallBelow(final World world, final BlockPos pos) {
-        final IBlockState bs = world.getBlockState(pos);
-        final Block l = bs.getBlock();
+    public static boolean canFallBelow(World world, BlockPos pos) {
+        IBlockState bs = world.getBlockState(pos);
+        Block l = bs.getBlock();
         for (int xx = -1; xx <= 1; ++xx) {
             for (int zz = -1; zz <= 1; ++zz) {
                 for (int yy = -1; yy <= 1; ++yy) {
@@ -174,15 +174,15 @@ public class BlockTaint extends BlockTC implements ITaintBlock
         return l.isAir(bs, world, pos) || ((l != BlocksTC.fluxGoo || (int)bs.getValue((IProperty)BlockFluidFinite.LEVEL) < 4) && (l == Blocks.FIRE || l == BlocksTC.taintFibre || l.isReplaceable(world, pos) || bs.getMaterial() == Material.WATER || bs.getMaterial() == Material.LAVA));
     }
     
-    private boolean tryToFall(final World world, final BlockPos pos, final BlockPos pos2) {
+    private boolean tryToFall(World world, BlockPos pos, BlockPos pos2) {
         if (!BlockTaintFibre.isOnlyAdjacentToTaint(world, pos)) {
             return false;
         }
         if (canFallBelow(world, pos2.down()) && pos2.getY() >= 0) {
-            final byte b0 = 32;
+            byte b0 = 32;
             if (world.isAreaLoaded(pos2.add(-b0, -b0, -b0), pos2.add(b0, b0, b0))) {
                 if (!world.isRemote) {
-                    final EntityFallingTaint entityfalling = new EntityFallingTaint(world, pos2.getX() + 0.5f, pos2.getY() + 0.5f, pos2.getZ() + 0.5f, world.getBlockState(pos), pos);
+                    EntityFallingTaint entityfalling = new EntityFallingTaint(world, pos2.getX() + 0.5f, pos2.getY() + 0.5f, pos2.getZ() + 0.5f, world.getBlockState(pos), pos);
                     world.spawnEntity(entityfalling);
                     return true;
                 }
@@ -199,11 +199,11 @@ public class BlockTaint extends BlockTC implements ITaintBlock
         return false;
     }
     
-    public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         if (state.getBlock() == this && state.getBlock() == BlocksTC.taintRock) {
-            final int rr = BlockTaint.r.nextInt(15) + fortune;
+            int rr = BlockTaint.r.nextInt(15) + fortune;
             if (rr > 13) {
-                final List<ItemStack> ret = new ArrayList<ItemStack>();
+                List<ItemStack> ret = new ArrayList<ItemStack>();
                 ret.add(ConfigItems.FLUX_CRYSTAL.copy());
                 return ret;
             }
@@ -215,7 +215,7 @@ public class BlockTaint extends BlockTC implements ITaintBlock
         return false;
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemById(0);
     }
     

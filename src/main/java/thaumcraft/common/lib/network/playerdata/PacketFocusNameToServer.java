@@ -22,31 +22,31 @@ public class PacketFocusNameToServer implements IMessage, IMessageHandler<Packet
     public PacketFocusNameToServer() {
     }
     
-    public PacketFocusNameToServer(final BlockPos pos, final String name) {
+    public PacketFocusNameToServer(BlockPos pos, String name) {
         loc = pos.toLong();
         this.name = name;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeLong(loc);
         ByteBufUtils.writeUTF8String(buffer, name);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         loc = buffer.readLong();
         name = ByteBufUtils.readUTF8String(buffer);
     }
     
-    public IMessage onMessage(final PacketFocusNameToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketFocusNameToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
                 if (ctx.getServerHandler().player == null) {
                     return;
                 }
-                final BlockPos pos = BlockPos.fromLong(message.loc);
-                final TileEntity rt = ctx.getServerHandler().player.world.getTileEntity(pos);
+                BlockPos pos = BlockPos.fromLong(message.loc);
+                TileEntity rt = ctx.getServerHandler().player.world.getTileEntity(pos);
                 if (rt != null && rt instanceof TileFocalManipulator) {
                     ((TileFocalManipulator)rt).focusName = message.name;
                     rt.markDirty();

@@ -21,21 +21,21 @@ public class CardChannel extends TheorycraftCard
     
     @Override
     public NBTTagCompound serialize() {
-        final NBTTagCompound nbt = super.serialize();
+        NBTTagCompound nbt = super.serialize();
         nbt.setString("aspect", aspect.getTag());
         return nbt;
     }
     
     @Override
-    public void deserialize(final NBTTagCompound nbt) {
+    public void deserialize(NBTTagCompound nbt) {
         super.deserialize(nbt);
         aspect = Aspect.getAspect(nbt.getString("aspect"));
     }
     
     @Override
-    public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(getSeed());
-        final int num = r.nextInt(Aspect.getCompoundAspects().size());
+    public boolean initialize(EntityPlayer player, ResearchTableData data) {
+        Random r = new Random(getSeed());
+        int num = r.nextInt(Aspect.getCompoundAspects().size());
         aspect = Aspect.getCompoundAspects().get(num);
         return true;
     }
@@ -66,7 +66,7 @@ public class CardChannel extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
         data.addTotal(getResearchCategory(), 25);
         return true;
     }

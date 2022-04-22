@@ -18,28 +18,28 @@ import thaumcraft.api.golems.parts.GolemArm;
 public class GolemArmDart implements GolemArm.IArmFunction
 {
     @Override
-    public void onMeleeAttack(final IGolemAPI golem, final Entity target) {
+    public void onMeleeAttack(IGolemAPI golem, Entity target) {
     }
     
     @Override
-    public void onRangedAttack(final IGolemAPI golem, final EntityLivingBase target, final float range) {
-        final EntityGolemDart entityarrow = new EntityGolemDart(golem.getGolemWorld(), golem.getGolemEntity());
-        final float dmg = (float)golem.getGolemEntity().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() / 3.0f;
+    public void onRangedAttack(IGolemAPI golem, EntityLivingBase target, float range) {
+        EntityGolemDart entityarrow = new EntityGolemDart(golem.getGolemWorld(), golem.getGolemEntity());
+        float dmg = (float)golem.getGolemEntity().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() / 3.0f;
         entityarrow.setDamage(dmg + range + golem.getGolemWorld().rand.nextGaussian() * 0.25);
-        final double d0 = target.posX - golem.getGolemEntity().posX;
-        final double d2 = target.getEntityBoundingBox().minY + target.getEyeHeight() + range * range - entityarrow.posY;
-        final double d3 = target.posZ - golem.getGolemEntity().posZ;
+        double d0 = target.posX - golem.getGolemEntity().posX;
+        double d2 = target.getEntityBoundingBox().minY + target.getEyeHeight() + range * range - entityarrow.posY;
+        double d3 = target.posZ - golem.getGolemEntity().posZ;
         entityarrow.shoot(d0, d2, d3, 1.6f, 3.0f);
         golem.getGolemWorld().spawnEntity(entityarrow);
         golem.getGolemEntity().playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0f, 1.0f / (golem.getGolemWorld().rand.nextFloat() * 0.4f + 0.8f));
     }
     
     @Override
-    public EntityAIAttackRanged getRangedAttackAI(final IRangedAttackMob golem) {
+    public EntityAIAttackRanged getRangedAttackAI(IRangedAttackMob golem) {
         return new AIArrowAttack(golem, 1.0, 20, 25, 16.0f);
     }
     
     @Override
-    public void onUpdateTick(final IGolemAPI golem) {
+    public void onUpdateTick(IGolemAPI golem) {
     }
 }

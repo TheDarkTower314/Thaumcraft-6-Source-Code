@@ -39,7 +39,7 @@ public class ProxyBlock
     private static ModelResourceLocation fluidDeathLocation;
     private static ModelResourceLocation fluidPureLocation;
     
-    public static void setupBlocksClient(final IForgeRegistry<Block> iForgeRegistry) {
+    public static void setupBlocksClient(IForgeRegistry<Block> iForgeRegistry) {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlocksTC.slabAncient), 0, new ModelResourceLocation(new ResourceLocation("thaumcraft:slab_ancient"), "half=bottom,variant=default"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlocksTC.slabArcaneStone), 0, new ModelResourceLocation(new ResourceLocation("thaumcraft:slab_arcane_stone"), "half=bottom,variant=default"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlocksTC.slabArcaneBrick), 0, new ModelResourceLocation(new ResourceLocation("thaumcraft:slab_arcane_brick"), "half=bottom,variant=default"));
@@ -48,57 +48,57 @@ public class ProxyBlock
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlocksTC.slabSilverwood), 0, new ModelResourceLocation(new ResourceLocation("thaumcraft:slab_silverwood"), "half=bottom,variant=default"));
         for (int a = 0; a < ShardType.values().length; ++a) {
             ProxyBlock.crystals[a] = new ModelResourceLocation(iForgeRegistry.getKey(ShardType.values()[a].getOre()), "normal");
-            final ModelResourceLocation mrl = ProxyBlock.crystals[a];
+            ModelResourceLocation mrl = ProxyBlock.crystals[a];
             ModelLoader.setCustomStateMapper(ShardType.values()[a].getOre(), new StateMapperBase() {
-                protected ModelResourceLocation getModelResourceLocation(final IBlockState p_178132_1_) {
+                protected ModelResourceLocation getModelResourceLocation(IBlockState p_178132_1_) {
                     return mrl;
                 }
             });
         }
-        for (final Block b : BlocksTC.banners.values()) {
+        for (Block b : BlocksTC.banners.values()) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(b), 0, new ModelResourceLocation(new ResourceLocation("thaumcraft:banner"), "inventory"));
         }
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlocksTC.bannerCrimsonCult), 0, new ModelResourceLocation(new ResourceLocation("thaumcraft:banner_crimson_cult"), "inventory"));
-        for (final Block b : BlocksTC.nitor.values()) {
+        for (Block b : BlocksTC.nitor.values()) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(b), 0, new ModelResourceLocation(new ResourceLocation("thaumcraft:nitor"), "inventory"));
         }
         ModelBakery.registerItemVariants(Item.getItemFromBlock(BlocksTC.mirror), new ResourceLocation("thaumcraft:mirror"), new ResourceLocation("thaumcraft:mirror_on"));
         ModelBakery.registerItemVariants(Item.getItemFromBlock(BlocksTC.mirrorEssentia), new ResourceLocation("thaumcraft:mirror_essentia"), new ResourceLocation("thaumcraft:mirror_essentia_on"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlocksTC.mirror), 1, new ModelResourceLocation(new ResourceLocation("thaumcraft:mirror_on"), "inventory"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlocksTC.mirrorEssentia), 1, new ModelResourceLocation(new ResourceLocation("thaumcraft:mirror_essentia_on"), "inventory"));
-        final Item fluxGooItem = Item.getItemFromBlock(BlocksTC.fluxGoo);
+        Item fluxGooItem = Item.getItemFromBlock(BlocksTC.fluxGoo);
         ModelBakery.registerItemVariants(fluxGooItem);
         ModelLoader.setCustomMeshDefinition(fluxGooItem, new ItemMeshDefinition() {
-            public ModelResourceLocation getModelLocation(final ItemStack stack) {
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
                 return ProxyBlock.fluidGooLocation;
             }
         });
         ModelLoader.setCustomStateMapper(BlocksTC.fluxGoo, new StateMapperBase() {
-            protected ModelResourceLocation getModelResourceLocation(final IBlockState state) {
+            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 return ProxyBlock.fluidGooLocation;
             }
         });
-        final Item liquidDeathItem = Item.getItemFromBlock(BlocksTC.liquidDeath);
+        Item liquidDeathItem = Item.getItemFromBlock(BlocksTC.liquidDeath);
         ModelBakery.registerItemVariants(liquidDeathItem);
         ModelLoader.setCustomMeshDefinition(liquidDeathItem, new ItemMeshDefinition() {
-            public ModelResourceLocation getModelLocation(final ItemStack stack) {
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
                 return ProxyBlock.fluidDeathLocation;
             }
         });
         ModelLoader.setCustomStateMapper(BlocksTC.liquidDeath, new StateMapperBase() {
-            protected ModelResourceLocation getModelResourceLocation(final IBlockState state) {
+            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 return ProxyBlock.fluidDeathLocation;
             }
         });
-        final Item purifyingFluidItem = Item.getItemFromBlock(BlocksTC.purifyingFluid);
+        Item purifyingFluidItem = Item.getItemFromBlock(BlocksTC.purifyingFluid);
         ModelBakery.registerItemVariants(purifyingFluidItem);
         ModelLoader.setCustomMeshDefinition(purifyingFluidItem, new ItemMeshDefinition() {
-            public ModelResourceLocation getModelLocation(final ItemStack stack) {
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
                 return ProxyBlock.fluidPureLocation;
             }
         });
         ModelLoader.setCustomStateMapper(BlocksTC.purifyingFluid, new StateMapperBase() {
-            protected ModelResourceLocation getModelResourceLocation(final IBlockState state) {
+            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 return ProxyBlock.fluidPureLocation;
             }
         });
@@ -117,9 +117,9 @@ public class ProxyBlock
     public static class BakeBlockEventHandler
     {
         @SubscribeEvent
-        public static void onModelBakeEvent(final ModelBakeEvent event) {
-            final TextureAtlasSprite crystalTexture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("thaumcraft:blocks/crystal");
-            final IBakedModel customCrystalModel = new CrystalModel(crystalTexture);
+        public static void onModelBakeEvent(ModelBakeEvent event) {
+            TextureAtlasSprite crystalTexture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("thaumcraft:blocks/crystal");
+            IBakedModel customCrystalModel = new CrystalModel(crystalTexture);
             for (int a = 0; a < ShardType.values().length; ++a) {
                 event.getModelRegistry().putObject(ProxyBlock.crystals[a], customCrystalModel);
             }

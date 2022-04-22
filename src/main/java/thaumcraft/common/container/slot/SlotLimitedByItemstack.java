@@ -12,13 +12,13 @@ public class SlotLimitedByItemstack extends Slot
 {
     ItemStack limitItem;
     
-    public SlotLimitedByItemstack(final ItemStack item, final IInventory par2IInventory, final int par3, final int par4, final int par5) {
+    public SlotLimitedByItemstack(ItemStack item, IInventory par2IInventory, int par3, int par4, int par5) {
         super(par2IInventory, par3, par4, par5);
         limitItem = null;
         limitItem = item;
     }
     
-    public boolean isItemValid(final ItemStack stack1) {
+    public boolean isItemValid(ItemStack stack1) {
         return stack1.isItemEqual(limitItem);
     }
 }

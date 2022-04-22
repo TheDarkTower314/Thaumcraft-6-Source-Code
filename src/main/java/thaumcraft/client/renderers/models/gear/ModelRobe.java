@@ -71,7 +71,7 @@ public class ModelRobe extends ModelCustomArmor
     ModelRenderer LegpanelL6;
     ModelRenderer SidepanelL1;
     
-    public ModelRobe(final float f) {
+    public ModelRobe(float f) {
         super(f, 0, 128, 64);
         textureWidth = 128;
         textureHeight = 64;
@@ -352,37 +352,37 @@ public class ModelRobe extends ModelCustomArmor
         bipedLeftLeg.addChild(SideclothL3);
     }
     
-    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-        final float a = MathHelper.cos(f * 0.6662f) * 1.4f * f1;
-        final float b = MathHelper.cos(f * 0.6662f + 3.1415927f) * 1.4f * f1;
-        final float c = Math.min(a, b);
-        final ModelRenderer frontclothR1 = FrontclothR1;
-        final ModelRenderer frontclothL1 = FrontclothL1;
-        final float n = c - 0.1047198f;
+        float a = MathHelper.cos(f * 0.6662f) * 1.4f * f1;
+        float b = MathHelper.cos(f * 0.6662f + 3.1415927f) * 1.4f * f1;
+        float c = Math.min(a, b);
+        ModelRenderer frontclothR1 = FrontclothR1;
+        ModelRenderer frontclothL1 = FrontclothL1;
+        float n = c - 0.1047198f;
         frontclothL1.rotateAngleX = n;
         frontclothR1.rotateAngleX = n;
-        final ModelRenderer frontclothR2 = FrontclothR2;
-        final ModelRenderer frontclothL2 = FrontclothL2;
-        final float n2 = c - 0.3316126f;
+        ModelRenderer frontclothR2 = FrontclothR2;
+        ModelRenderer frontclothL2 = FrontclothL2;
+        float n2 = c - 0.3316126f;
         frontclothL2.rotateAngleX = n2;
         frontclothR2.rotateAngleX = n2;
-        final ModelRenderer clothBackR1 = ClothBackR1;
-        final ModelRenderer clothBackL1 = ClothBackL1;
-        final float n3 = -c + 0.1047198f;
+        ModelRenderer clothBackR1 = ClothBackR1;
+        ModelRenderer clothBackL1 = ClothBackL1;
+        float n3 = -c + 0.1047198f;
         clothBackL1.rotateAngleX = n3;
         clothBackR1.rotateAngleX = n3;
-        final ModelRenderer clothBackR2 = ClothBackR2;
-        final ModelRenderer clothBackL2 = ClothBackL2;
-        final ModelRenderer clothBackR3 = ClothBackR3;
-        final ModelRenderer clothBackL3 = ClothBackL3;
-        final float n4 = -c + 0.2268928f;
+        ModelRenderer clothBackR2 = ClothBackR2;
+        ModelRenderer clothBackL2 = ClothBackL2;
+        ModelRenderer clothBackR3 = ClothBackR3;
+        ModelRenderer clothBackL3 = ClothBackL3;
+        float n4 = -c + 0.2268928f;
         clothBackL3.rotateAngleX = n4;
         clothBackR3.rotateAngleX = n4;
         clothBackL2.rotateAngleX = n4;
         clothBackR2.rotateAngleX = n4;
         if (isChild) {
-            final float f6 = 2.0f;
+            float f6 = 2.0f;
             GL11.glPushMatrix();
             GL11.glScalef(1.5f / f6, 1.5f / f6, 1.5f / f6);
             GL11.glTranslatef(0.0f, 16.0f * f5, 0.0f);
@@ -413,7 +413,7 @@ public class ModelRobe extends ModelCustomArmor
         }
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;

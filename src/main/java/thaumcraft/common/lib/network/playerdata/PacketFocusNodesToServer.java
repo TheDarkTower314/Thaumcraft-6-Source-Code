@@ -28,42 +28,42 @@ public class PacketFocusNodesToServer implements IMessage, IMessageHandler<Packe
         data = new HashMap<Integer, FocusElementNode>();
     }
     
-    public PacketFocusNodesToServer(final BlockPos pos, final HashMap<Integer, FocusElementNode> data, final String name) {
+    public PacketFocusNodesToServer(BlockPos pos, HashMap<Integer, FocusElementNode> data, String name) {
         this.data = new HashMap<Integer, FocusElementNode>();
         loc = pos.toLong();
         this.data = data;
         this.name = name;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeLong(loc);
         buffer.writeByte(data.size());
-        for (final FocusElementNode node : data.values()) {
+        for (FocusElementNode node : data.values()) {
             Utils.writeNBTTagCompoundToBuffer(buffer, node.serialize());
         }
         ByteBufUtils.writeUTF8String(buffer, name);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         loc = buffer.readLong();
         for (int m = buffer.readByte(), a = 0; a < m; ++a) {
-            final FocusElementNode node = new FocusElementNode();
+            FocusElementNode node = new FocusElementNode();
             node.deserialize(Utils.readNBTTagCompoundFromBuffer(buffer));
             data.put(node.id, node);
         }
         name = ByteBufUtils.readUTF8String(buffer);
     }
     
-    public IMessage onMessage(final PacketFocusNodesToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketFocusNodesToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
                 if (ctx.getServerHandler().player == null) {
                     return;
                 }
-                final BlockPos pos = BlockPos.fromLong(message.loc);
-                final TileEntity rt = ctx.getServerHandler().player.world.getTileEntity(pos);
+                BlockPos pos = BlockPos.fromLong(message.loc);
+                TileEntity rt = ctx.getServerHandler().player.world.getTileEntity(pos);
                 if (rt != null && rt instanceof TileFocalManipulator) {
                     ((TileFocalManipulator)rt).data.clear();
                     ((TileFocalManipulator)rt).data = message.data;

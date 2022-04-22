@@ -30,9 +30,9 @@ public class TileArcaneWorkbench extends TileThaumcraft
     }
     
     @Override
-    public void readFromNBT(final NBTTagCompound nbtCompound) {
+    public void readFromNBT(NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
-        final NonNullList<ItemStack> stacks = NonNullList.withSize(inventoryCraft.getSizeInventory(), ItemStack.EMPTY);
+        NonNullList<ItemStack> stacks = NonNullList.withSize(inventoryCraft.getSizeInventory(), ItemStack.EMPTY);
         ItemStackHelper.loadAllItems(nbtCompound, stacks);
         for (int a = 0; a < stacks.size(); ++a) {
             inventoryCraft.setInventorySlotContents(a, stacks.get(a));
@@ -40,9 +40,9 @@ public class TileArcaneWorkbench extends TileThaumcraft
     }
     
     @Override
-    public NBTTagCompound writeToNBT(final NBTTagCompound nbtCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbtCompound) {
         super.writeToNBT(nbtCompound);
-        final NonNullList<ItemStack> stacks = NonNullList.withSize(inventoryCraft.getSizeInventory(), ItemStack.EMPTY);
+        NonNullList<ItemStack> stacks = NonNullList.withSize(inventoryCraft.getSizeInventory(), ItemStack.EMPTY);
         for (int a = 0; a < stacks.size(); ++a) {
             stacks.set(a, inventoryCraft.getStackInSlot(a));
         }
@@ -51,11 +51,11 @@ public class TileArcaneWorkbench extends TileThaumcraft
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbtCompound) {
+    public void readSyncNBT(NBTTagCompound nbtCompound) {
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbtCompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbtCompound) {
         return nbtCompound;
     }
     
@@ -63,11 +63,11 @@ public class TileArcaneWorkbench extends TileThaumcraft
         if (!getWorld().isRemote) {
             int t = 0;
             if (world.getBlockState(getPos().up()).getBlock() == BlocksTC.arcaneWorkbenchCharger) {
-                final int sx = pos.getX() >> 4;
-                final int sz = pos.getZ() >> 4;
+                int sx = pos.getX() >> 4;
+                int sz = pos.getZ() >> 4;
                 for (int xx = -1; xx <= 1; ++xx) {
                     for (int zz = -1; zz <= 1; ++zz) {
-                        final AuraChunk ac = AuraHandler.getAuraChunk(world.provider.getDimension(), sx + xx, sz + zz);
+                        AuraChunk ac = AuraHandler.getAuraChunk(world.provider.getDimension(), sx + xx, sz + zz);
                         if (ac != null) {
                             t += (int)ac.getVis();
                         }
@@ -81,7 +81,7 @@ public class TileArcaneWorkbench extends TileThaumcraft
         }
     }
     
-    public void spendAura(final int vis) {
+    public void spendAura(int vis) {
         if (!getWorld().isRemote) {
             if (world.getBlockState(getPos().up()).getBlock() == BlocksTC.arcaneWorkbenchCharger) {
                 int q = vis;

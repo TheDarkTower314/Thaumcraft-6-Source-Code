@@ -14,7 +14,7 @@ public class EntityTaintacleSmall extends EntityTaintacle implements ITaintedMob
 {
     int lifetime;
     
-    public EntityTaintacleSmall(final World par1World) {
+    public EntityTaintacleSmall(World par1World) {
         super(par1World);
         lifetime = 200;
         setSize(0.22f, 1.0f);
@@ -47,6 +47,6 @@ public class EntityTaintacleSmall extends EntityTaintacle implements ITaintedMob
     }
     
     @Override
-    protected void dropFewItems(final boolean flag, final int i) {
+    protected void dropFewItems(boolean flag, int i) {
     }
 }

@@ -31,7 +31,7 @@ import net.minecraft.block.Block;
 
 public class BlockBarrier extends Block
 {
-    public static final Material barrierMat;
+    public static Material barrierMat;
     
     public BlockBarrier() {
         super(BlockBarrier.barrierMat);
@@ -41,30 +41,30 @@ public class BlockBarrier extends Block
         setRegistryName("thaumcraft", "barrier");
     }
     
-    public EnumBlockRenderType getRenderType(final IBlockState state) {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.INVISIBLE;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public void getSubBlocks(final CreativeTabs tab, final NonNullList<ItemStack> list) {
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     }
     
-    public ItemStack getPickBlock(final IBlockState state, final RayTraceResult target, final World world, final BlockPos pos, final EntityPlayer player) {
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
         return ItemStack.EMPTY;
     }
     
-    public boolean isSideSolid(final IBlockState state, final IBlockAccess world, final BlockPos pos, final EnumFacing o) {
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing o) {
         return false;
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     }
     
-    public void addCollisionBoxToList(final IBlockState state, final World world, final BlockPos pos, final AxisAlignedBB mask, final List list, final Entity collidingEntity, final boolean isActualState) {
+    public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB mask, List list, Entity collidingEntity, boolean isActualState) {
         if (collidingEntity != null && collidingEntity instanceof EntityLivingBase && !(collidingEntity instanceof EntityPlayer) && collidingEntity.getRecursivePassengersByType(EntityPlayer.class).isEmpty()) {
             int a = 1;
             if (world.getBlockState(pos.down(a)).getBlock() != BlocksTC.pavingStoneBarrier) {
@@ -76,15 +76,15 @@ public class BlockBarrier extends Block
         }
     }
     
-    public void neighborChanged(final IBlockState state, final World world, final BlockPos pos, final Block neighborBlock, final BlockPos pos2) {
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos pos2) {
         if (world.getBlockState(pos.down(1)) != BlocksTC.pavingStoneBarrier.getDefaultState() && world.getBlockState(pos.down(1)) != getDefaultState()) {
             world.setBlockToAir(pos);
         }
     }
     
-    public boolean isPassable(final IBlockAccess worldIn, final BlockPos pos) {
+    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
         for (int a = 1; a < 3; ++a) {
-            final TileEntity te = worldIn.getTileEntity(pos.down(a));
+            TileEntity te = worldIn.getTileEntity(pos.down(a));
             if (te != null && te instanceof TileBarrierStone) {
                 return te.getWorld().isBlockIndirectlyGettingPowered(pos.down(a)) > 0;
             }
@@ -92,23 +92,23 @@ public class BlockBarrier extends Block
         return true;
     }
     
-    public boolean isReplaceable(final IBlockAccess worldIn, final BlockPos pos) {
+    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
         return true;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemById(0);
     }
     
-    public boolean isAir(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
+    public boolean isAir(IBlockState state, IBlockAccess world, BlockPos pos) {
         return false;
     }
     

@@ -61,7 +61,7 @@ public class GuiLogistics extends GuiContainer
     GuiImageButton requestbutton;
     GuiTextField searchField;
     
-    public GuiLogistics(final InventoryPlayer par1InventoryPlayer, final World world, final BlockPos pos, final EnumFacing side) {
+    public GuiLogistics(InventoryPlayer par1InventoryPlayer, World world, BlockPos pos, EnumFacing side) {
         super(new ContainerLogistics(par1InventoryPlayer, world));
         selectedSlot = -1;
         con = null;
@@ -81,14 +81,14 @@ public class GuiLogistics extends GuiContainer
         this.side = side;
     }
     
-    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         renderHoveredToolTip(mouseX, mouseY);
     }
     
-    protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-        final long ct = System.currentTimeMillis();
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        long ct = System.currentTimeMillis();
         if (ct > lu) {
             lu = ct + 1000L;
             mc.playerController.sendEnchantPacket(inventorySlots.windowId, 22);
@@ -99,7 +99,7 @@ public class GuiLogistics extends GuiContainer
             if (scrollbar.getMax() != con.end) {
                 scrollbar.setMax((float) con.end);
             }
-            final int sv = Math.round(scrollbar.getSliderValue());
+            int sv = Math.round(scrollbar.getSliderValue());
             if (sv != lastScrollPos) {
                 lastScrollPos = sv;
                 mc.playerController.sendEnchantPacket(inventorySlots.windowId, 100 + lastScrollPos);
@@ -115,7 +115,7 @@ public class GuiLogistics extends GuiContainer
         requestbutton.visible = (selectedSlot >= 0);
         if (selectedSlot >= 0 && selectedStack != null && !selectedStack.isEmpty() && (!selectedStack.isItemEqual(inventorySlots.getSlot(selectedSlot).getStack()) || !ItemStack.areItemStackTagsEqual(selectedStack, inventorySlots.getSlot(selectedSlot).getStack()))) {
             selectedSlot = -1;
-            for (final Slot slot : inventorySlots.inventorySlots) {
+            for (Slot slot : inventorySlots.inventorySlots) {
                 if (selectedStack.isItemEqual(slot.getStack()) && ItemStack.areItemStackTagsEqual(selectedStack, slot.getStack())) {
                     selectedSlot = slot.slotNumber;
                     break;
@@ -126,11 +126,11 @@ public class GuiLogistics extends GuiContainer
             selectedSlot = -1;
         }
         if (selectedSlot >= 0 && inventorySlots.getSlot(selectedSlot) != null && inventorySlots.getSlot(selectedSlot).getHasStack()) {
-            final ItemStack stack = inventorySlots.getSlot(selectedSlot).getStack();
+            ItemStack stack = inventorySlots.getSlot(selectedSlot).getStack();
             if (countbar.getMax() != stack.getCount()) {
                 countbar.setMax((float)stack.getCount());
             }
-            final int sv2 = Math.round(countbar.getSliderValue());
+            int sv2 = Math.round(countbar.getSliderValue());
             if (sv2 != lastStackSize) {
                 lastStackSize = sv2;
                 stackSize = lastStackSize;
@@ -139,17 +139,17 @@ public class GuiLogistics extends GuiContainer
                 countbar.setSliderValue((float) stackSize, false);
                 stacksizeUpdated = false;
             }
-            final String s = "" + stackSize;
+            String s = "" + stackSize;
             fontRenderer.drawString(s, 83 - fontRenderer.getStringWidth(s) / 2, 196, 3355443);
         }
         GL11.glDisable(3042);
     }
     
-    protected boolean checkHotbarKeys(final int par1) {
+    protected boolean checkHotbarKeys(int par1) {
         return false;
     }
     
-    protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         mc.renderEngine.bindTexture(tex);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(3042);
@@ -166,7 +166,7 @@ public class GuiLogistics extends GuiContainer
     
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
-        final int k = Mouse.getDWheel();
+        int k = Mouse.getDWheel();
         if (k < 0) {
             mc.playerController.sendEnchantPacket(inventorySlots.windowId, 0);
         }
@@ -175,7 +175,7 @@ public class GuiLogistics extends GuiContainer
         }
     }
     
-    protected void handleMouseClick(final Slot slotIn, final int slotId, final int mouseButton, final ClickType type) {
+    protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
         super.handleMouseClick(slotIn, slotId, mouseButton, type);
         if (slotIn != null && slotId < 81 && slotIn.getHasStack()) {
             Minecraft.getMinecraft().player.playSound(SoundsTC.clack, 0.66f, 1.0f);
@@ -184,12 +184,12 @@ public class GuiLogistics extends GuiContainer
         }
     }
     
-    protected void mouseClicked(final int mouseX, final int mouseY, final int mouseButton) throws IOException {
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         searchField.mouseClicked(mouseX, mouseY, mouseButton);
     }
     
-    protected void actionPerformed(final GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 1) {
             mc.playerController.sendEnchantPacket(inventorySlots.windowId, 0);
         }
@@ -197,7 +197,7 @@ public class GuiLogistics extends GuiContainer
             mc.playerController.sendEnchantPacket(inventorySlots.windowId, 1);
         }
         if (selectedSlot >= 0 && inventorySlots.getSlot(selectedSlot) != null && inventorySlots.getSlot(selectedSlot).getHasStack()) {
-            final ItemStack stack = inventorySlots.getSlot(selectedSlot).getStack();
+            ItemStack stack = inventorySlots.getSlot(selectedSlot).getStack();
             if (button.id == 2) {
                 --stackSize;
                 if (stackSize < 1) {
@@ -213,7 +213,7 @@ public class GuiLogistics extends GuiContainer
                 stacksizeUpdated = true;
             }
             if (button.id == 7) {
-                final ItemStack s2 = stack.copy();
+                ItemStack s2 = stack.copy();
                 s2.setCount(1);
                 PacketHandler.INSTANCE.sendToServer(new PacketLogisticsRequestToServer(target, side, s2, stackSize));
             }
@@ -250,7 +250,7 @@ public class GuiLogistics extends GuiContainer
         Keyboard.enableRepeatEvents(false);
     }
     
-    protected void keyTyped(final char typedChar, final int keyCode) throws IOException {
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (searchField.textboxKeyTyped(typedChar, keyCode)) {
             PacketHandler.INSTANCE.sendToServer(new PacketMiscStringToServer(0, searchField.getText()));
         }

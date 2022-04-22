@@ -35,7 +35,7 @@ import net.minecraft.item.ItemAxe;
 
 public class ItemElementalAxe extends ItemAxe implements IThaumcraftItems
 {
-    public ItemElementalAxe(final Item.ToolMaterial enumtoolmaterial) {
+    public ItemElementalAxe(Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial, 8.0f, -3.0f);
         setCreativeTab(ConfigItems.TABTC);
         setRegistryName("elemental_axe");
@@ -59,53 +59,53 @@ public class ItemElementalAxe extends ItemAxe implements IThaumcraftItems
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public Set<String> getToolClasses(final ItemStack stack) {
+    public Set<String> getToolClasses(ItemStack stack) {
         return ImmutableSet.of("axe");
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 0)) || super.getIsRepairable(stack1, stack2);
     }
     
-    public EnumAction getItemUseAction(final ItemStack itemstack) {
+    public EnumAction getItemUseAction(ItemStack itemstack) {
         return EnumAction.BOW;
     }
     
-    public int getMaxItemUseDuration(final ItemStack p_77626_1_) {
+    public int getMaxItemUseDuration(ItemStack p_77626_1_) {
         return 72000;
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World worldIn, final EntityPlayer playerIn, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
         playerIn.setActiveHand(hand);
         return (ActionResult<ItemStack>)new ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand));
     }
     
-    public void onUsingTick(final ItemStack stack, final EntityLivingBase player, final int count) {
-        final List<EntityItem> stuff = EntityUtils.getEntitiesInRange(player.world, player.posX, player.posY, player.posZ, player, EntityItem.class, 10.0);
+    public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
+        List<EntityItem> stuff = EntityUtils.getEntitiesInRange(player.world, player.posX, player.posY, player.posZ, player, EntityItem.class, 10.0);
         if (stuff != null && stuff.size() > 0) {
-            for (final EntityItem e : stuff) {
+            for (EntityItem e : stuff) {
                 if (!e.isDead) {
                     double d6 = e.posX - player.posX;
                     double d7 = e.posY - player.posY + player.height / 2.0f;
                     double d8 = e.posZ - player.posZ;
-                    final double d9 = MathHelper.sqrt(d6 * d6 + d7 * d7 + d8 * d8);
+                    double d9 = MathHelper.sqrt(d6 * d6 + d7 * d7 + d8 * d8);
                     d6 /= d9;
                     d7 /= d9;
                     d8 /= d9;
-                    final double d10 = 0.3;
-                    final EntityItem entityItem = e;
+                    double d10 = 0.3;
+                    EntityItem entityItem = e;
                     entityItem.motionX -= d6 * d10;
-                    final EntityItem entityItem2 = e;
+                    EntityItem entityItem2 = e;
                     entityItem2.motionY -= d7 * d10 - 0.1;
-                    final EntityItem entityItem3 = e;
+                    EntityItem entityItem3 = e;
                     entityItem3.motionZ -= d8 * d10;
                     if (e.motionX > 0.25) {
                         e.motionX = 0.25;
@@ -134,9 +134,9 @@ public class ItemElementalAxe extends ItemAxe implements IThaumcraftItems
         }
     }
     
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
-            final ItemStack w1 = new ItemStack(this);
+            ItemStack w1 = new ItemStack(this);
             EnumInfusionEnchantment.addInfusionEnchantment(w1, EnumInfusionEnchantment.BURROWING, 1);
             EnumInfusionEnchantment.addInfusionEnchantment(w1, EnumInfusionEnchantment.COLLECTOR, 1);
             items.add(w1);

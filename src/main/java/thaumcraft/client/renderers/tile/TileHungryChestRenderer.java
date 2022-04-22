@@ -18,13 +18,13 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 public class TileHungryChestRenderer extends TileEntitySpecialRenderer
 {
     private ModelChest chestModel;
-    private static final ResourceLocation textureNormal;
+    private static ResourceLocation textureNormal;
     
     public TileHungryChestRenderer() {
         chestModel = new ModelChest();
     }
     
-    public void renderTileEntityChestAt(final TileHungryChest chest, final double par2, final double par4, final double par6, final float par8, final int bp) {
+    public void renderTileEntityChestAt(TileHungryChest chest, double par2, double par4, double par6, float par8, int bp) {
         int var9 = 0;
         if (!chest.hasWorld()) {
             var9 = 0;
@@ -32,7 +32,7 @@ public class TileHungryChestRenderer extends TileEntitySpecialRenderer
         else {
             var9 = chest.getBlockMetadata();
         }
-        final ModelChest var10 = chestModel;
+        ModelChest var10 = chestModel;
         if (bp >= 0) {
             bindTexture(TileHungryChestRenderer.DESTROY_STAGES[bp]);
             GlStateManager.matrixMode(5890);
@@ -82,7 +82,7 @@ public class TileHungryChestRenderer extends TileEntitySpecialRenderer
         }
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         renderTileEntityChestAt((TileHungryChest)te, x, y, z, partialTicks, destroyStage);
     }
     

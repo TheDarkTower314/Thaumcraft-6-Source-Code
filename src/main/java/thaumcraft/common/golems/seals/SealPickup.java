@@ -53,19 +53,19 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
     }
     
     @Override
-    public void tickSeal(final World world, final ISealEntity seal) {
+    public void tickSeal(World world, ISealEntity seal) {
         if (delay++ % 5 != 0) {
             return;
         }
-        final AxisAlignedBB area = GolemHelper.getBoundsForArea(seal);
-        final List list = world.getEntitiesWithinAABB(EntityItem.class, area);
+        AxisAlignedBB area = GolemHelper.getBoundsForArea(seal);
+        List list = world.getEntitiesWithinAABB(EntityItem.class, area);
         if (list.size() > 0) {
-            for (final Object e : list) {
-                final EntityItem ent = (EntityItem)e;
+            for (Object e : list) {
+                EntityItem ent = (EntityItem)e;
                 if (ent != null && ent.onGround && !ent.cannotPickup() && ent.getItem() != null && !itemEntities.containsValue(ent.getEntityId())) {
-                    final ItemStack stack = InventoryUtils.findFirstMatchFromFilter(filter, filterSize, isBlacklist(), NonNullList.withSize(1, ent.getItem()), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
+                    ItemStack stack = InventoryUtils.findFirstMatchFromFilter(filter, filterSize, isBlacklist(), NonNullList.withSize(1, ent.getItem()), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
                     if (stack != null && !stack.isEmpty()) {
-                        final Task task = new Task(seal.getSealPos(), ent);
+                        Task task = new Task(seal.getSealPos(), ent);
                         task.setPriority(seal.getPriority());
                         itemEntities.put(task.getId(), ent.getEntityId());
                         TaskHandler.addTask(world.provider.getDimension(), task);
@@ -76,9 +76,9 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
             }
         }
         if (delay % 100 != 0) {
-            final Iterator<Integer> it = itemEntities.values().iterator();
+            Iterator<Integer> it = itemEntities.values().iterator();
             while (it.hasNext()) {
-                final Entity e2 = world.getEntityByID(it.next());
+                Entity e2 = world.getEntityByID(it.next());
                 if (e2 != null) {
                     if (!e2.isDead) {
                         continue;
@@ -87,18 +87,18 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
                 try {
                     it.remove();
                 }
-                catch (final Exception ex) {}
+                catch (Exception ex) {}
             }
         }
     }
     
     @Override
-    public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
-        final EntityItem ei = getItemEntity(world, task);
+    public boolean onTaskCompletion(World world, IGolemAPI golem, Task task) {
+        EntityItem ei = getItemEntity(world, task);
         if (ei != null && !ei.getItem().isEmpty()) {
-            final ItemStack stack = InventoryUtils.findFirstMatchFromFilter(filter, filterSize, isBlacklist(), NonNullList.withSize(1, ei.getItem()), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
+            ItemStack stack = InventoryUtils.findFirstMatchFromFilter(filter, filterSize, isBlacklist(), NonNullList.withSize(1, ei.getItem()), new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
             if (stack != null && !stack.isEmpty()) {
-                final ItemStack is = golem.holdItem(ei.getItem());
+                ItemStack is = golem.holdItem(ei.getItem());
                 if (is != null && !is.isEmpty() && is.getCount() > 0) {
                     ei.setItem(is);
                 }
@@ -111,8 +111,8 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
         }
         task.setSuspended(true);
         itemEntities.remove(task.getId());
-        final ArrayList<Task> localTasks = TaskHandler.getEntityTasksSorted(world.provider.getDimension(), null, (Entity)golem);
-        for (final Task ticket : localTasks) {
+        ArrayList<Task> localTasks = TaskHandler.getEntityTasksSorted(world.provider.getDimension(), null, (Entity)golem);
+        for (Task ticket : localTasks) {
             if (itemEntities.containsKey(ticket.getId()) && ticket.canGolemPerformTask(golem) && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(ticket.getEntity().getPosition())) {
                 ((EntityThaumcraftGolem)golem).setTask(ticket);
                 ((EntityThaumcraftGolem)golem).getTask().setReserved(true);
@@ -126,10 +126,10 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
         return true;
     }
     
-    protected EntityItem getItemEntity(final World world, final Task task) {
-        final Integer ei = itemEntities.get(task.getId());
+    protected EntityItem getItemEntity(World world, Task task) {
+        Integer ei = itemEntities.get(task.getId());
         if (ei != null) {
-            final Entity ent = world.getEntityByID(ei);
+            Entity ent = world.getEntityByID(ei);
             if (ent != null && ent instanceof EntityItem) {
                 return (EntityItem)ent;
             }
@@ -138,8 +138,8 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
     }
     
     @Override
-    public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
-        final EntityItem ei = getItemEntity(golem.getGolemWorld(), task);
+    public boolean canGolemPerformTask(IGolemAPI golem, Task task) {
+        EntityItem ei = getItemEntity(golem.getGolemWorld(), task);
         if (ei == null || ei.getItem() == null) {
             return false;
         }
@@ -151,7 +151,7 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
     }
     
     @Override
-    public boolean canPlaceAt(final World world, final BlockPos pos, final EnumFacing side) {
+    public boolean canPlaceAt(World world, BlockPos pos, EnumFacing side) {
         return !world.isAirBlock(pos);
     }
     
@@ -176,14 +176,14 @@ public class SealPickup extends SealFiltered implements ISealConfigArea
     }
     
     @Override
-    public void onTaskStarted(final World world, final IGolemAPI golem, final Task task) {
+    public void onTaskStarted(World world, IGolemAPI golem, Task task) {
     }
     
     @Override
-    public void onTaskSuspension(final World world, final Task task) {
+    public void onTaskSuspension(World world, Task task) {
     }
     
     @Override
-    public void onRemoval(final World world, final BlockPos pos, final EnumFacing side) {
+    public void onRemoval(World world, BlockPos pos, EnumFacing side) {
     }
 }

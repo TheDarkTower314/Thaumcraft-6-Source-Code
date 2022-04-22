@@ -22,25 +22,25 @@ public class PacketAuraToClient implements IMessage, IMessageHandler<PacketAuraT
     public PacketAuraToClient() {
     }
     
-    public PacketAuraToClient(final AuraChunk ac) {
+    public PacketAuraToClient(AuraChunk ac) {
         base = ac.getBase();
         vis = ac.getVis();
         flux = ac.getFlux();
     }
     
-    public void toBytes(final ByteBuf dos) {
+    public void toBytes(ByteBuf dos) {
         dos.writeShort(base);
         dos.writeFloat(vis);
         dos.writeFloat(flux);
     }
     
-    public void fromBytes(final ByteBuf dat) {
+    public void fromBytes(ByteBuf dat) {
         base = dat.readShort();
         vis = dat.readFloat();
         flux = dat.readFloat();
     }
     
-    public IMessage onMessage(final PacketAuraToClient message, final MessageContext ctx) {
+    public IMessage onMessage(PacketAuraToClient message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {

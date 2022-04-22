@@ -23,7 +23,7 @@ public class TileHungryChest extends TileEntityChest
         return true;
     }
     
-    public void closeInventory(final EntityPlayer player) {
+    public void closeInventory(EntityPlayer player) {
         if (!player.isSpectator() && getBlockType() instanceof BlockHungryChest) {
             --numPlayersUsing;
             world.addBlockEvent(pos, getBlockType(), 1, numPlayersUsing);
@@ -32,7 +32,7 @@ public class TileHungryChest extends TileEntityChest
         }
     }
     
-    public boolean shouldRefresh(final World world, final BlockPos pos, final IBlockState oldState, final IBlockState newState) {
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
         return oldState.getBlock() != newState.getBlock();
     }
 }

@@ -28,7 +28,7 @@ public class PacketFXBlockBamf implements IMessage, IMessageHandler<PacketFXBloc
     public PacketFXBlockBamf() {
     }
     
-    public PacketFXBlockBamf(final double x, final double y, final double z, final int color, final boolean sound, final boolean flair, final EnumFacing side) {
+    public PacketFXBlockBamf(double x, double y, double z, int color, boolean sound, boolean flair, EnumFacing side) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -49,7 +49,7 @@ public class PacketFXBlockBamf implements IMessage, IMessageHandler<PacketFXBloc
         flags = (byte)f;
     }
     
-    public PacketFXBlockBamf(final BlockPos pos, final int color, final boolean sound, final boolean flair, final EnumFacing side) {
+    public PacketFXBlockBamf(BlockPos pos, int color, boolean sound, boolean flair, EnumFacing side) {
         x = pos.getX() + 0.5;
         y = pos.getY() + 0.5;
         z = pos.getZ() + 0.5;
@@ -70,7 +70,7 @@ public class PacketFXBlockBamf implements IMessage, IMessageHandler<PacketFXBloc
         flags = (byte)f;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeDouble(x);
         buffer.writeDouble(y);
         buffer.writeDouble(z);
@@ -79,7 +79,7 @@ public class PacketFXBlockBamf implements IMessage, IMessageHandler<PacketFXBloc
         buffer.writeByte(face);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         x = buffer.readDouble();
         y = buffer.readDouble();
         z = buffer.readDouble();
@@ -88,7 +88,7 @@ public class PacketFXBlockBamf implements IMessage, IMessageHandler<PacketFXBloc
         face = buffer.readByte();
     }
     
-    public IMessage onMessage(final PacketFXBlockBamf message, final MessageContext ctx) {
+    public IMessage onMessage(PacketFXBlockBamf message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
@@ -99,7 +99,7 @@ public class PacketFXBlockBamf implements IMessage, IMessageHandler<PacketFXBloc
     }
     
     @SideOnly(Side.CLIENT)
-    void processMessage(final PacketFXBlockBamf message) {
+    void processMessage(PacketFXBlockBamf message) {
         EnumFacing side = null;
         if (message.face >= 0) {
             side = EnumFacing.getFront(message.face);

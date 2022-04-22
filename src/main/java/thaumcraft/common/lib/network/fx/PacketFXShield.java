@@ -25,45 +25,45 @@ public class PacketFXShield implements IMessage, IMessageHandler<PacketFXShield,
     public PacketFXShield() {
     }
     
-    public PacketFXShield(final int source, final int target) {
+    public PacketFXShield(int source, int target) {
         this.source = source;
         this.target = target;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(source);
         buffer.writeInt(target);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         source = buffer.readInt();
         target = buffer.readInt();
     }
     
     @SideOnly(Side.CLIENT)
-    public IMessage onMessage(final PacketFXShield message, final MessageContext ctx) {
-        final Entity p = Thaumcraft.proxy.getClientWorld().getEntityByID(message.source);
+    public IMessage onMessage(PacketFXShield message, MessageContext ctx) {
+        Entity p = Thaumcraft.proxy.getClientWorld().getEntityByID(message.source);
         if (p == null) {
             return null;
         }
         float pitch = 0.0f;
         float yaw = 0.0f;
         if (message.target >= 0) {
-            final Entity t = Thaumcraft.proxy.getClientWorld().getEntityByID(message.target);
+            Entity t = Thaumcraft.proxy.getClientWorld().getEntityByID(message.target);
             if (t != null) {
-                final double d0 = p.posX - t.posX;
-                final double d2 = (p.getEntityBoundingBox().minY + p.getEntityBoundingBox().maxY) / 2.0 - (t.getEntityBoundingBox().minY + t.getEntityBoundingBox().maxY) / 2.0;
-                final double d3 = p.posZ - t.posZ;
-                final double d4 = MathHelper.sqrt(d0 * d0 + d3 * d3);
-                final float f = (float)(Math.atan2(d3, d0) * 180.0 / 3.141592653589793) - 90.0f;
-                final float f2 = pitch = (float)(-(Math.atan2(d2, d4) * 180.0 / 3.141592653589793));
+                double d0 = p.posX - t.posX;
+                double d2 = (p.getEntityBoundingBox().minY + p.getEntityBoundingBox().maxY) / 2.0 - (t.getEntityBoundingBox().minY + t.getEntityBoundingBox().maxY) / 2.0;
+                double d3 = p.posZ - t.posZ;
+                double d4 = MathHelper.sqrt(d0 * d0 + d3 * d3);
+                float f = (float)(Math.atan2(d3, d0) * 180.0 / 3.141592653589793) - 90.0f;
+                float f2 = pitch = (float)(-(Math.atan2(d2, d4) * 180.0 / 3.141592653589793));
                 yaw = f;
             }
             else {
                 pitch = 90.0f;
                 yaw = 0.0f;
             }
-            final FXShieldRunes fb = new FXShieldRunes(Thaumcraft.proxy.getClientWorld(), p.posX, p.posY, p.posZ, p, 8, yaw, pitch);
+            FXShieldRunes fb = new FXShieldRunes(Thaumcraft.proxy.getClientWorld(), p.posX, p.posY, p.posZ, p, 8, yaw, pitch);
             FMLClientHandler.instance().getClient().effectRenderer.addEffect(fb);
         }
         else if (message.target == -1) {
@@ -73,11 +73,11 @@ public class PacketFXShield implements IMessage, IMessageHandler<PacketFXShield,
             FMLClientHandler.instance().getClient().effectRenderer.addEffect(fb2);
         }
         else if (message.target == -2) {
-            final FXShieldRunes fb2 = new FXShieldRunes(Thaumcraft.proxy.getClientWorld(), p.posX, p.posY, p.posZ, p, 8, 0.0f, 270.0f);
+            FXShieldRunes fb2 = new FXShieldRunes(Thaumcraft.proxy.getClientWorld(), p.posX, p.posY, p.posZ, p, 8, 0.0f, 270.0f);
             FMLClientHandler.instance().getClient().effectRenderer.addEffect(fb2);
         }
         else if (message.target == -3) {
-            final FXShieldRunes fb2 = new FXShieldRunes(Thaumcraft.proxy.getClientWorld(), p.posX, p.posY, p.posZ, p, 8, 0.0f, 90.0f);
+            FXShieldRunes fb2 = new FXShieldRunes(Thaumcraft.proxy.getClientWorld(), p.posX, p.posY, p.posZ, p, 8, 0.0f, 90.0f);
             FMLClientHandler.instance().getClient().effectRenderer.addEffect(fb2);
         }
         return null;

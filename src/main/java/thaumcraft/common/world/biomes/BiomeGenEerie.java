@@ -19,7 +19,7 @@ import net.minecraft.world.biome.Biome;
 
 public class BiomeGenEerie extends Biome
 {
-    public BiomeGenEerie(final Biome.BiomeProperties par1) {
+    public BiomeGenEerie(Biome.BiomeProperties par1) {
         super(par1);
         setRegistryName("thaumcraft", "eerie");
         spawnableCreatureList.clear();
@@ -42,16 +42,16 @@ public class BiomeGenEerie extends Biome
     }
     
     @SideOnly(Side.CLIENT)
-    public int getGrassColorAtPos(final BlockPos p_180627_1_) {
+    public int getGrassColorAtPos(BlockPos p_180627_1_) {
         return 4212800;
     }
     
     @SideOnly(Side.CLIENT)
-    public int getFoliageColorAtPos(final BlockPos p_180625_1_) {
+    public int getFoliageColorAtPos(BlockPos p_180625_1_) {
         return 4212800;
     }
     
-    public int getSkyColorByTemp(final float par1) {
+    public int getSkyColorByTemp(float par1) {
         return 2237081;
     }
     

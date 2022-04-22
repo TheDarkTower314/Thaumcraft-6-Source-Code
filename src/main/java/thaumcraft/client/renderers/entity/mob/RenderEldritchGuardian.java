@@ -23,18 +23,18 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 public class RenderEldritchGuardian extends RenderLiving
 {
     protected ModelEldritchGuardian modelMain;
-    private static final ResourceLocation[] skin;
+    private static ResourceLocation[] skin;
     
-    public RenderEldritchGuardian(final RenderManager rm, final ModelEldritchGuardian par1ModelBiped, final float par2) {
+    public RenderEldritchGuardian(RenderManager rm, ModelEldritchGuardian par1ModelBiped, float par2) {
         super(rm, par1ModelBiped, par2);
         modelMain = par1ModelBiped;
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return (entity instanceof EntityEldritchWarden) ? RenderEldritchGuardian.skin[1] : RenderEldritchGuardian.skin[0];
     }
     
-    public void doRenderLiving(final EntityLiving guardian, final double par2, final double par4, final double par6, final float par8, final float par9) {
+    public void doRenderLiving(EntityLiving guardian, double par2, double par4, double par6, float par8, float par9) {
         GL11.glEnable(3042);
         GL11.glAlphaFunc(516, 0.003921569f);
         GL11.glBlendFunc(770, 771);
@@ -44,14 +44,14 @@ public class RenderEldritchGuardian extends RenderLiving
             d3 -= guardian.height * (((EntityEldritchWarden)guardian).getSpawnTimer() / 150.0f);
         }
         else {
-            final Entity e = Minecraft.getMinecraft().getRenderViewEntity();
-            final float d4 = (e.world.getDifficulty() == EnumDifficulty.HARD) ? 576.0f : 1024.0f;
-            final float d5 = 256.0f;
+            Entity e = Minecraft.getMinecraft().getRenderViewEntity();
+            float d4 = (e.world.getDifficulty() == EnumDifficulty.HARD) ? 576.0f : 1024.0f;
+            float d5 = 256.0f;
             if (guardian.world != null && guardian.world.provider.getDimension() == ModConfig.CONFIG_WORLD.dimensionOuterId) {
                 base = 1.0f;
             }
             else {
-                final double d6 = guardian.getDistanceSq(e.posX, e.posY, e.posZ);
+                double d6 = guardian.getDistanceSq(e.posX, e.posY, e.posZ);
                 if (d6 < 256.0) {
                     base = 0.6f;
                 }
@@ -66,7 +66,7 @@ public class RenderEldritchGuardian extends RenderLiving
         GL11.glAlphaFunc(516, 0.1f);
     }
     
-    public void doRender(final EntityLiving par1Entity, final double par2, final double par4, final double par6, final float par8, final float par9) {
+    public void doRender(EntityLiving par1Entity, double par2, double par4, double par6, float par8, float par9) {
         doRenderLiving(par1Entity, par2, par4, par6, par8, par9);
     }
     

@@ -15,7 +15,7 @@ public class AIAltarFocus extends EntityAIBase
     private World world;
     int field_48399_a;
     
-    public AIAltarFocus(final EntityCultistCleric par1EntityLiving) {
+    public AIAltarFocus(EntityCultistCleric par1EntityLiving) {
         field_48399_a = 0;
         entity = par1EntityLiving;
         world = par1EntityLiving.world;

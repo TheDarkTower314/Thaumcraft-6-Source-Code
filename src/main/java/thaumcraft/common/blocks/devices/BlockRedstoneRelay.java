@@ -65,47 +65,47 @@ public class BlockRedstoneRelay extends BlockTCDevice implements IBlockFacingHor
         disableStats();
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.125, 1.0);
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public boolean canPlaceBlockAt(final World worldIn, final BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos.down()).isTopSolid() && super.canPlaceBlockAt(worldIn, pos);
     }
     
-    public boolean canBlockStay(final World worldIn, final BlockPos pos) {
+    public boolean canBlockStay(World worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos.down()).isTopSolid();
     }
     
-    public void randomTick(final World worldIn, final BlockPos pos, final IBlockState state, final Random random) {
+    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!player.capabilities.allowEdit) {
             return false;
         }
-        final RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
+        RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
         if (hit == null) {
             return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
         }
-        final TileEntity tile = world.getTileEntity(pos);
+        TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof TileRedstoneRelay) {
             if (hit.subHit == 0) {
                 ((TileRedstoneRelay)tile).increaseOut();
@@ -124,8 +124,8 @@ public class BlockRedstoneRelay extends BlockTCDevice implements IBlockFacingHor
         return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
     }
     
-    public void updateTick(final World worldIn, final BlockPos pos, final IBlockState state, final Random rand) {
-        final boolean flag = shouldBePowered(worldIn, pos, state);
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+        boolean flag = shouldBePowered(worldIn, pos, state);
         if (isPowered(state) && !flag) {
             worldIn.setBlockState(pos, getUnpoweredState(state), 2);
             notifyNeighbors(worldIn, pos, state);
@@ -140,45 +140,45 @@ public class BlockRedstoneRelay extends BlockTCDevice implements IBlockFacingHor
     }
     
     @Override
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         super.breakBlock(worldIn, pos, state);
         notifyNeighbors(worldIn, pos, state);
     }
     
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos, final EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
         return side.getAxis() != EnumFacing.Axis.Y;
     }
     
-    protected boolean isPowered(final IBlockState state) {
+    protected boolean isPowered(IBlockState state) {
         return BlockStateUtils.isEnabled(state);
     }
     
-    public int getStrongPower(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos, final EnumFacing side) {
+    public int getStrongPower(IBlockState state, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
         return getWeakPower(state, worldIn, pos, side);
     }
     
-    public int getWeakPower(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos, final EnumFacing side) {
+    public int getWeakPower(IBlockState state, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
         return isPowered(state) ? ((state.getValue(BlockRedstoneRelay.FACING) == side) ? getActiveSignal(worldIn, pos, state) : 0) : 0;
     }
     
     @Override
-    public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn, final BlockPos pos2) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos pos2) {
         if (canBlockStay(worldIn, pos)) {
             updateState(worldIn, pos, state);
         }
         else {
             dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
-            for (final EnumFacing enumfacing : EnumFacing.values()) {
+            for (EnumFacing enumfacing : EnumFacing.values()) {
                 worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
             }
         }
     }
     
     @Override
-    protected void updateState(final World worldIn, final BlockPos pos, final IBlockState state) {
-        final boolean flag = shouldBePowered(worldIn, pos, state);
+    protected void updateState(World worldIn, BlockPos pos, IBlockState state) {
+        boolean flag = shouldBePowered(worldIn, pos, state);
         if (((isPowered(state) && !flag) || (!isPowered(state) && flag)) && !worldIn.isBlockTickPending(pos, this)) {
             byte b0 = -1;
             if (isFacingTowardsRepeater(worldIn, pos, state)) {
@@ -191,51 +191,51 @@ public class BlockRedstoneRelay extends BlockTCDevice implements IBlockFacingHor
         }
     }
     
-    protected boolean shouldBePowered(final World worldIn, final BlockPos pos, final IBlockState state) {
+    protected boolean shouldBePowered(World worldIn, BlockPos pos, IBlockState state) {
         int pr = 1;
-        final TileEntity tile = worldIn.getTileEntity(pos);
+        TileEntity tile = worldIn.getTileEntity(pos);
         if (tile != null && tile instanceof TileRedstoneRelay) {
             pr = ((TileRedstoneRelay)tile).getIn();
         }
         return calculateInputStrength(worldIn, pos, state) >= pr;
     }
     
-    protected int calculateInputStrength(final World worldIn, final BlockPos pos, final IBlockState state) {
-        final EnumFacing enumfacing = state.getValue(BlockRedstoneRelay.FACING);
-        final BlockPos blockpos1 = pos.offset(enumfacing);
-        final int i = worldIn.getRedstonePower(blockpos1, enumfacing);
+    protected int calculateInputStrength(World worldIn, BlockPos pos, IBlockState state) {
+        EnumFacing enumfacing = state.getValue(BlockRedstoneRelay.FACING);
+        BlockPos blockpos1 = pos.offset(enumfacing);
+        int i = worldIn.getRedstonePower(blockpos1, enumfacing);
         if (i >= 15) {
             return i;
         }
-        final IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);
+        IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);
         return Math.max(i, (iblockstate1.getBlock() == Blocks.REDSTONE_WIRE) ? ((int)iblockstate1.getValue(BlockRedstoneWire.POWER)) : 0);
     }
     
-    protected int getPowerOnSides(final IBlockAccess worldIn, final BlockPos pos, final IBlockState state) {
-        final EnumFacing enumfacing = state.getValue(BlockRedstoneRelay.FACING);
-        final EnumFacing enumfacing2 = enumfacing.rotateY();
-        final EnumFacing enumfacing3 = enumfacing.rotateYCCW();
+    protected int getPowerOnSides(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
+        EnumFacing enumfacing = state.getValue(BlockRedstoneRelay.FACING);
+        EnumFacing enumfacing2 = enumfacing.rotateY();
+        EnumFacing enumfacing3 = enumfacing.rotateYCCW();
         return Math.max(getPowerOnSide(worldIn, pos.offset(enumfacing2), enumfacing2), getPowerOnSide(worldIn, pos.offset(enumfacing3), enumfacing3));
     }
     
-    protected int getPowerOnSide(final IBlockAccess worldIn, final BlockPos pos, final EnumFacing side) {
-        final IBlockState iblockstate = worldIn.getBlockState(pos);
-        final Block block = iblockstate.getBlock();
+    protected int getPowerOnSide(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+        IBlockState iblockstate = worldIn.getBlockState(pos);
+        Block block = iblockstate.getBlock();
         return canPowerSide(block, iblockstate) ? ((block == Blocks.REDSTONE_WIRE) ? iblockstate.getValue(BlockRedstoneWire.POWER) : worldIn.getStrongPower(pos, side)) : 0;
     }
     
-    public boolean canProvidePower(final IBlockState state) {
+    public boolean canProvidePower(IBlockState state) {
         return true;
     }
     
-    public void onBlockPlacedBy(final World worldIn, final BlockPos pos, final IBlockState state, final EntityLivingBase placer, final ItemStack stack) {
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         if (shouldBePowered(worldIn, pos, state)) {
             worldIn.scheduleUpdate(pos, this, 1);
         }
     }
     
     @Override
-    public IBlockState getStateForPlacement(final World worldIn, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState bs = getDefaultState();
         bs = bs.withProperty(BlockRedstoneRelay.FACING, (placer.isSneaking() ? placer.getHorizontalFacing() : placer.getHorizontalFacing().getOpposite()));
         bs = bs.withProperty(BlockRedstoneRelay.ENABLED, false);
@@ -243,13 +243,13 @@ public class BlockRedstoneRelay extends BlockTCDevice implements IBlockFacingHor
     }
     
     @Override
-    public void onBlockAdded(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         notifyNeighbors(worldIn, pos, state);
     }
     
-    protected void notifyNeighbors(final World worldIn, final BlockPos pos, final IBlockState state) {
-        final EnumFacing enumfacing = state.getValue(BlockRedstoneRelay.FACING);
-        final BlockPos blockpos1 = pos.offset(enumfacing.getOpposite());
+    protected void notifyNeighbors(World worldIn, BlockPos pos, IBlockState state) {
+        EnumFacing enumfacing = state.getValue(BlockRedstoneRelay.FACING);
+        BlockPos blockpos1 = pos.offset(enumfacing.getOpposite());
         if (ForgeEventFactory.onNeighborNotify(worldIn, pos, worldIn.getBlockState(pos), EnumSet.of(enumfacing.getOpposite()), false).isCanceled()) {
             return;
         }
@@ -257,56 +257,56 @@ public class BlockRedstoneRelay extends BlockTCDevice implements IBlockFacingHor
         worldIn.notifyNeighborsOfStateExcept(blockpos1, this, enumfacing);
     }
     
-    public void onBlockDestroyedByPlayer(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         if (isPowered(state)) {
-            for (final EnumFacing enumfacing : EnumFacing.values()) {
+            for (EnumFacing enumfacing : EnumFacing.values()) {
                 worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
             }
         }
         super.onBlockDestroyedByPlayer(worldIn, pos, state);
     }
     
-    protected boolean canPowerSide(final Block blockIn, final IBlockState iblockstate) {
+    protected boolean canPowerSide(Block blockIn, IBlockState iblockstate) {
         return blockIn.canProvidePower(iblockstate);
     }
     
-    protected int getActiveSignal(final IBlockAccess worldIn, final BlockPos pos, final IBlockState state) {
-        final TileEntity tile = worldIn.getTileEntity(pos);
+    protected int getActiveSignal(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tile = worldIn.getTileEntity(pos);
         if (tile != null && tile instanceof TileRedstoneRelay) {
             return ((TileRedstoneRelay)tile).getOut();
         }
         return 0;
     }
     
-    public static boolean isRedstoneRepeaterBlockID(final Block blockIn) {
+    public static boolean isRedstoneRepeaterBlockID(Block blockIn) {
         return Blocks.UNPOWERED_REPEATER.isAssociatedBlock(blockIn) || Blocks.UNPOWERED_COMPARATOR.isAssociatedBlock(blockIn);
     }
     
-    public boolean isAssociated(final Block other) {
+    public boolean isAssociated(Block other) {
         return other == getPoweredState(getDefaultState()).getBlock() || other == getUnpoweredState(getDefaultState()).getBlock();
     }
     
-    public boolean isFacingTowardsRepeater(final World worldIn, final BlockPos pos, final IBlockState state) {
-        final EnumFacing enumfacing = (state.getValue(BlockRedstoneRelay.FACING)).getOpposite();
-        final BlockPos blockpos1 = pos.offset(enumfacing);
+    public boolean isFacingTowardsRepeater(World worldIn, BlockPos pos, IBlockState state) {
+        EnumFacing enumfacing = (state.getValue(BlockRedstoneRelay.FACING)).getOpposite();
+        BlockPos blockpos1 = pos.offset(enumfacing);
         return isRedstoneRepeaterBlockID(worldIn.getBlockState(blockpos1).getBlock()) && worldIn.getBlockState(blockpos1).getValue(BlockRedstoneRelay.FACING) != enumfacing;
     }
     
-    protected int getTickDelay(final IBlockState state) {
+    protected int getTickDelay(IBlockState state) {
         return 2;
     }
     
-    protected IBlockState getPoweredState(final IBlockState unpoweredState) {
-        final EnumFacing enumfacing = unpoweredState.getValue(BlockRedstoneRelay.FACING);
+    protected IBlockState getPoweredState(IBlockState unpoweredState) {
+        EnumFacing enumfacing = unpoweredState.getValue(BlockRedstoneRelay.FACING);
         return getDefaultState().withProperty(BlockRedstoneRelay.FACING, enumfacing).withProperty(BlockRedstoneRelay.ENABLED, true);
     }
     
-    protected IBlockState getUnpoweredState(final IBlockState poweredState) {
-        final EnumFacing enumfacing = poweredState.getValue(BlockRedstoneRelay.FACING);
+    protected IBlockState getUnpoweredState(IBlockState poweredState) {
+        EnumFacing enumfacing = poweredState.getValue(BlockRedstoneRelay.FACING);
         return getDefaultState().withProperty(BlockRedstoneRelay.FACING, enumfacing).withProperty(BlockRedstoneRelay.ENABLED, false);
     }
     
-    public boolean isAssociatedBlock(final Block other) {
+    public boolean isAssociatedBlock(Block other) {
         return isAssociated(other);
     }
     
@@ -316,20 +316,20 @@ public class BlockRedstoneRelay extends BlockTCDevice implements IBlockFacingHor
     }
     
     @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBox(final IBlockState state, final World world, final BlockPos pos) {
-        final TileEntity tile = world.getTileEntity(pos);
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof TileRedstoneRelay) {
-            final RayTraceResult hit = RayTracer.retraceBlock(world, Minecraft.getMinecraft().player, pos);
+            RayTraceResult hit = RayTracer.retraceBlock(world, Minecraft.getMinecraft().player, pos);
             if (hit != null && hit.subHit == 0) {
-                final Cuboid6 cubeoid = ((TileRedstoneRelay)tile).getCuboid0(BlockStateUtils.getFacing(tile.getBlockMetadata()));
-                final Vector3 v = new Vector3(pos);
-                final Cuboid6 c = cubeoid.sub(v);
+                Cuboid6 cubeoid = ((TileRedstoneRelay)tile).getCuboid0(BlockStateUtils.getFacing(tile.getBlockMetadata()));
+                Vector3 v = new Vector3(pos);
+                Cuboid6 c = cubeoid.sub(v);
                 return new AxisAlignedBB((float)c.min.x, (float)c.min.y, (float)c.min.z, (float)c.max.x, (float)c.max.y, (float)c.max.z).offset(pos);
             }
             if (hit != null && hit.subHit == 1) {
-                final Cuboid6 cubeoid = ((TileRedstoneRelay)tile).getCuboid1(BlockStateUtils.getFacing(tile.getBlockMetadata()));
-                final Vector3 v = new Vector3(pos);
-                final Cuboid6 c = cubeoid.sub(v);
+                Cuboid6 cubeoid = ((TileRedstoneRelay)tile).getCuboid1(BlockStateUtils.getFacing(tile.getBlockMetadata()));
+                Vector3 v = new Vector3(pos);
+                Cuboid6 c = cubeoid.sub(v);
                 return new AxisAlignedBB((float)c.min.x, (float)c.min.y, (float)c.min.z, (float)c.max.x, (float)c.max.y, (float)c.max.z).offset(pos);
             }
         }
@@ -338,22 +338,22 @@ public class BlockRedstoneRelay extends BlockTCDevice implements IBlockFacingHor
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onBlockHighlight(final DrawBlockHighlightEvent event) {
+    public void onBlockHighlight(DrawBlockHighlightEvent event) {
         if (event.getTarget().typeOfHit == RayTraceResult.Type.BLOCK && event.getPlayer().world.getBlockState(event.getTarget().getBlockPos()).getBlock() == this) {
             RayTracer.retraceBlock(event.getPlayer().world, event.getPlayer(), event.getTarget().getBlockPos());
         }
     }
     
-    public RayTraceResult collisionRayTrace(final IBlockState state, final World world, final BlockPos pos, final Vec3d start, final Vec3d end) {
-        final TileEntity tile = world.getTileEntity(pos);
+    public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d start, Vec3d end) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile == null || !(tile instanceof TileRedstoneRelay)) {
             return super.collisionRayTrace(state, world, pos, start, end);
         }
-        final List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
+        List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
         if (tile instanceof TileRedstoneRelay) {
             ((TileRedstoneRelay)tile).addTraceableCuboids(cuboids);
         }
-        final ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
+        ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
         rayTracer.rayTraceCuboids(new Vector3(start), new Vector3(end), cuboids, new BlockCoord(pos), this, list);
         return (list.size() > 0) ? list.get(0) : super.collisionRayTrace(state, world, pos, start, end);
     }

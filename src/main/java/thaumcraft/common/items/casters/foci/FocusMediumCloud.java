@@ -40,8 +40,8 @@ public class FocusMediumCloud extends FocusMedium
     }
     
     @Override
-    public boolean execute(final Trajectory trajectory) {
-        final EntityFocusCloud cloud = new EntityFocusCloud(getRemainingPackage(), trajectory, (float) getSettingValue("radius"), getSettingValue("duration"));
+    public boolean execute(Trajectory trajectory) {
+        EntityFocusCloud cloud = new EntityFocusCloud(getRemainingPackage(), trajectory, (float) getSettingValue("radius"), getSettingValue("duration"));
         return getPackage().getCaster().world.spawnEntity(cloud);
     }
     

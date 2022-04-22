@@ -18,5 +18,5 @@ public interface IThaumcraftItems
     
     ItemMeshDefinition getCustomMesh();
     
-    ModelResourceLocation getCustomModelResourceLocation(final String p0);
+    ModelResourceLocation getCustomModelResourceLocation(String p0);
 }

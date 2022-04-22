@@ -62,42 +62,42 @@ public class ItemGoggles extends ItemArmor implements IVisDiscountGear, IReveale
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public String getArmorTexture(final ItemStack stack, final Entity entity, final EntityEquipmentSlot slot, final String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         return "thaumcraft:textures/entity/armor/goggles.png";
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 2)) || super.getIsRepairable(stack1, stack2);
     }
     
-    public int getVisDiscount(final ItemStack stack, final EntityPlayer player) {
+    public int getVisDiscount(ItemStack stack, EntityPlayer player) {
         return 5;
     }
     
-    public boolean showNodes(final ItemStack itemstack, final EntityLivingBase player) {
+    public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
         return true;
     }
     
-    public boolean showIngamePopups(final ItemStack itemstack, final EntityLivingBase player) {
+    public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player) {
         return true;
     }
     
-    public BaubleType getBaubleType(final ItemStack arg0) {
+    public BaubleType getBaubleType(ItemStack arg0) {
         return BaubleType.HEAD;
     }
     
     @SideOnly(Side.CLIENT)
-    public void onPlayerBaubleRender(final ItemStack stack, final EntityPlayer player, final IRenderBauble.RenderType type, final float ticks) {
+    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, IRenderBauble.RenderType type, float ticks) {
         if (type == IRenderBauble.RenderType.HEAD) {
-            final boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
+            boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
             Minecraft.getMinecraft().renderEngine.bindTexture(tex);
             IRenderBauble.Helper.translateToHeadLevel(player);
             IRenderBauble.Helper.translateToFace();

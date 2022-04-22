@@ -21,33 +21,33 @@ public class PacketMiscEvent implements IMessage, IMessageHandler<PacketMiscEven
 {
     private byte type;
     private int value;
-    public static final byte WARP_EVENT = 0;
-    public static final byte MIST_EVENT = 1;
-    public static final byte MIST_EVENT_SHORT = 2;
+    public static byte WARP_EVENT = 0;
+    public static byte MIST_EVENT = 1;
+    public static byte MIST_EVENT_SHORT = 2;
     
     public PacketMiscEvent() {
         value = 0;
     }
     
-    public PacketMiscEvent(final byte type) {
+    public PacketMiscEvent(byte type) {
         value = 0;
         this.type = type;
     }
     
-    public PacketMiscEvent(final byte type, final int value) {
+    public PacketMiscEvent(byte type, int value) {
         this.value = 0;
         this.type = type;
         this.value = value;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeByte(type);
         if (value != 0) {
             buffer.writeInt(value);
         }
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         type = buffer.readByte();
         if (buffer.isReadable()) {
             value = buffer.readInt();
@@ -55,7 +55,7 @@ public class PacketMiscEvent implements IMessage, IMessageHandler<PacketMiscEven
     }
     
     @SideOnly(Side.CLIENT)
-    public IMessage onMessage(final PacketMiscEvent message, final MessageContext ctx) {
+    public IMessage onMessage(PacketMiscEvent message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
@@ -66,8 +66,8 @@ public class PacketMiscEvent implements IMessage, IMessageHandler<PacketMiscEven
     }
     
     @SideOnly(Side.CLIENT)
-    void processMessage(final PacketMiscEvent message) {
-        final EntityPlayer p = Minecraft.getMinecraft().player;
+    void processMessage(PacketMiscEvent message) {
+        EntityPlayer p = Minecraft.getMinecraft().player;
         switch (message.type) {
             case 0: {
                 if (!ModConfig.CONFIG_GRAPHICS.nostress) {

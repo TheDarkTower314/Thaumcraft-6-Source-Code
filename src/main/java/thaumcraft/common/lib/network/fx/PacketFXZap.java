@@ -24,14 +24,14 @@ public class PacketFXZap implements IMessage, IMessageHandler<PacketFXZap, IMess
     public PacketFXZap() {
     }
     
-    public PacketFXZap(final Vec3d source, final Vec3d target, final int color, final float width) {
+    public PacketFXZap(Vec3d source, Vec3d target, int color, float width) {
         this.source = source;
         this.target = target;
         this.color = color;
         this.width = width;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeDouble(source.x);
         buffer.writeDouble(source.y);
         buffer.writeDouble(source.z);
@@ -42,7 +42,7 @@ public class PacketFXZap implements IMessage, IMessageHandler<PacketFXZap, IMess
         buffer.writeFloat(width);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         source = new Vec3d(buffer.readDouble(), buffer.readDouble(), buffer.readDouble());
         target = new Vec3d(buffer.readDouble(), buffer.readDouble(), buffer.readDouble());
         color = buffer.readInt();
@@ -50,8 +50,8 @@ public class PacketFXZap implements IMessage, IMessageHandler<PacketFXZap, IMess
     }
     
     @SideOnly(Side.CLIENT)
-    public IMessage onMessage(final PacketFXZap message, final MessageContext ctx) {
-        final Color c = new Color(message.color);
+    public IMessage onMessage(PacketFXZap message, MessageContext ctx) {
+        Color c = new Color(message.color);
         FXDispatcher.INSTANCE.arcBolt(message.source.x, message.source.y, message.source.z, message.target.x, message.target.y, message.target.z, c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f, message.width);
         return null;
     }

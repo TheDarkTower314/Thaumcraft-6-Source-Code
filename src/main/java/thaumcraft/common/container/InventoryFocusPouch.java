@@ -11,7 +11,7 @@ import net.minecraft.inventory.InventoryBasic;
 
 public class InventoryFocusPouch extends InventoryBasic
 {
-    public InventoryFocusPouch(final IInventoryChangedListener listener) {
+    public InventoryFocusPouch(IInventoryChangedListener listener) {
         super("container.focuspouch", false, 18);
         addInventoryChangeListener(listener);
     }
@@ -20,7 +20,7 @@ public class InventoryFocusPouch extends InventoryBasic
         return 1;
     }
     
-    public boolean isItemValidForSlot(final int i, final ItemStack itemstack) {
+    public boolean isItemValidForSlot(int i, ItemStack itemstack) {
         return !itemstack.isEmpty() && itemstack.getItem() instanceof ItemFocus;
     }
 }

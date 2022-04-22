@@ -23,37 +23,37 @@ public class PacketFXInfusionSource implements IMessage, IMessageHandler<PacketF
     public PacketFXInfusionSource() {
     }
     
-    public PacketFXInfusionSource(final BlockPos pos, final BlockPos pos2, final int color) {
+    public PacketFXInfusionSource(BlockPos pos, BlockPos pos2, int color) {
         p1 = pos.toLong();
         p2 = pos2.toLong();
         this.color = color;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeLong(p1);
         buffer.writeLong(p2);
         buffer.writeInt(color);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         p1 = buffer.readLong();
         p2 = buffer.readLong();
         color = buffer.readInt();
     }
     
-    public IMessage onMessage(final PacketFXInfusionSource message, final MessageContext ctx) {
-        final BlockPos p1 = BlockPos.fromLong(message.p1);
-        final BlockPos p2 = BlockPos.fromLong(message.p2);
-        final String key = p2.getX() + ":" + p2.getY() + ":" + p2.getZ() + ":" + message.color;
-        final TileEntity tile = Thaumcraft.proxy.getClientWorld().getTileEntity(p1);
+    public IMessage onMessage(PacketFXInfusionSource message, MessageContext ctx) {
+        BlockPos p1 = BlockPos.fromLong(message.p1);
+        BlockPos p2 = BlockPos.fromLong(message.p2);
+        String key = p2.getX() + ":" + p2.getY() + ":" + p2.getZ() + ":" + message.color;
+        TileEntity tile = Thaumcraft.proxy.getClientWorld().getTileEntity(p1);
         if (tile != null && tile instanceof TileInfusionMatrix) {
             int count = 15;
             if (Thaumcraft.proxy.getClientWorld().getTileEntity(p2) != null && Thaumcraft.proxy.getClientWorld().getTileEntity(p2) instanceof TilePedestal) {
                 count = 60;
             }
-            final TileInfusionMatrix is = (TileInfusionMatrix)tile;
+            TileInfusionMatrix is = (TileInfusionMatrix)tile;
             if (is.sourceFX.containsKey(key)) {
-                final TileInfusionMatrix.SourceFX sf = is.sourceFX.get(key);
+                TileInfusionMatrix.SourceFX sf = is.sourceFX.get(key);
                 sf.ticks = count;
                 is.sourceFX.put(key, sf);
             }

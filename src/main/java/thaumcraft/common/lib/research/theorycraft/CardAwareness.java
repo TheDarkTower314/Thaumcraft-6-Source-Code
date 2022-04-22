@@ -35,7 +35,7 @@ public class CardAwareness extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
         data.addTotal(getResearchCategory(), 20);
         if (player.getRNG().nextFloat() < 0.33) {
             data.addTotal("ELDRITCH", MathHelper.getInt(player.getRNG(), 1, 5));

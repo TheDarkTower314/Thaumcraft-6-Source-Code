@@ -6,7 +6,7 @@ package com.sasmaster.glelwjgl.java;
 
 public class GLEContext
 {
-    public static final String VERSION;
+    public static String VERSION;
     private int joinStyle;
     protected int ncp;
     protected double[][] contour;
@@ -29,11 +29,11 @@ public class GLEContext
         xformArray = null;
     }
     
-    protected final int getJoinStyle() {
+    protected int getJoinStyle() {
         return joinStyle;
     }
     
-    protected final void setJoinStyle(final int style) {
+    protected void setJoinStyle(int style) {
         joinStyle = style;
     }
     

@@ -63,26 +63,26 @@ public class ToolEvents
     static boolean blockDestructiveRecursion;
     
     @SubscribeEvent
-    public static void playerAttack(final AttackEntityEvent event) {
+    public static void playerAttack(AttackEntityEvent event) {
         if (event.getEntityPlayer().getActiveHand() == null) {
             return;
         }
-        final ItemStack heldItem = event.getEntityPlayer().getHeldItem(event.getEntityPlayer().getActiveHand());
+        ItemStack heldItem = event.getEntityPlayer().getHeldItem(event.getEntityPlayer().getActiveHand());
         if (heldItem != null && !heldItem.isEmpty()) {
-            final List<EnumInfusionEnchantment> list = EnumInfusionEnchantment.getInfusionEnchantments(heldItem);
+            List<EnumInfusionEnchantment> list = EnumInfusionEnchantment.getInfusionEnchantments(heldItem);
             if (list.contains(EnumInfusionEnchantment.ARCING) && event.getTarget().isEntityAlive()) {
-                final int rank = EnumInfusionEnchantment.getInfusionEnchantmentLevel(heldItem, EnumInfusionEnchantment.ARCING);
-                final List<Entity> targets = event.getEntityPlayer().world.getEntitiesWithinAABBExcludingEntity(event.getEntityPlayer(), event.getTarget().getEntityBoundingBox().grow(1.5 + rank, 1.0f + rank / 2.0f, 1.5 + rank));
+                int rank = EnumInfusionEnchantment.getInfusionEnchantmentLevel(heldItem, EnumInfusionEnchantment.ARCING);
+                List<Entity> targets = event.getEntityPlayer().world.getEntitiesWithinAABBExcludingEntity(event.getEntityPlayer(), event.getTarget().getEntityBoundingBox().grow(1.5 + rank, 1.0f + rank / 2.0f, 1.5 + rank));
                 int count = 0;
                 if (targets.size() > 1) {
                     for (int var9 = 0; var9 < targets.size(); ++var9) {
-                        final Entity var10 = targets.get(var9);
+                        Entity var10 = targets.get(var9);
                         if (!var10.isDead) {
                             if (!EntityUtils.isFriendly(event.getEntity(), var10)) {
                                 if (var10 instanceof EntityLiving && var10.getEntityId() != event.getTarget().getEntityId()) {
                                     if (!(var10 instanceof EntityPlayer) || var10.getName() != event.getEntityPlayer().getName()) {
                                         if (var10.isEntityAlive()) {
-                                            final float f = (float)event.getEntityPlayer().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+                                            float f = (float)event.getEntityPlayer().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
                                             event.getEntityPlayer().attackEntityAsMob(var10);
                                             if (var10.attackEntityFrom(DamageSource.causePlayerDamage(event.getEntityPlayer()), f * 0.5f)) {
                                                 try {
@@ -90,7 +90,7 @@ public class ToolEvents
                                                         EnchantmentHelper.applyThornEnchantments((EntityLivingBase)var10, event.getEntityPlayer());
                                                     }
                                                 }
-                                                catch (final Exception ex) {}
+                                                catch (Exception ex) {}
                                                 var10.addVelocity(-MathHelper.sin(event.getEntityPlayer().rotationYaw * 3.1415927f / 180.0f) * 0.5f, 0.1, MathHelper.cos(event.getEntityPlayer().rotationYaw * 3.1415927f / 180.0f) * 0.5f);
                                                 ++count;
                                                 if (!event.getEntityPlayer().world.isRemote) {
@@ -116,11 +116,11 @@ public class ToolEvents
     }
     
     @SubscribeEvent
-    public static void playerRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
+    public static void playerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         if (!event.getWorld().isRemote && event.getEntityPlayer() != null) {
-            final ItemStack heldItem = event.getEntityPlayer().getHeldItem((event.getEntityPlayer().getActiveHand() == null) ? EnumHand.MAIN_HAND : event.getEntityPlayer().getActiveHand());
+            ItemStack heldItem = event.getEntityPlayer().getHeldItem((event.getEntityPlayer().getActiveHand() == null) ? EnumHand.MAIN_HAND : event.getEntityPlayer().getActiveHand());
             if (heldItem != null && !heldItem.isEmpty()) {
-                final List<EnumInfusionEnchantment> list = EnumInfusionEnchantment.getInfusionEnchantments(heldItem);
+                List<EnumInfusionEnchantment> list = EnumInfusionEnchantment.getInfusionEnchantments(heldItem);
                 if (list.contains(EnumInfusionEnchantment.SOUNDING) && event.getEntityPlayer().isSneaking()) {
                     heldItem.damageItem(5, event.getEntityPlayer());
                     event.getWorld().playSound(null, event.getPos().getX() + 0.5, event.getPos().getY() + 0.5, event.getPos().getZ() + 0.5, SoundsTC.wandfail, SoundCategory.BLOCKS, 0.2f, 0.2f + event.getWorld().rand.nextFloat() * 0.2f);
@@ -131,33 +131,33 @@ public class ToolEvents
     }
     
     @SubscribeEvent
-    public static void playerInteract(final PlayerInteractEvent.LeftClickBlock event) {
+    public static void playerInteract(PlayerInteractEvent.LeftClickBlock event) {
         if (event.getEntityPlayer() != null) {
             ToolEvents.lastFaceClicked.put(event.getEntityPlayer().getEntityId(), event.getFace());
         }
     }
     
-    public static void addBlockedBlock(final World world, final BlockPos pos) {
+    public static void addBlockedBlock(World world, BlockPos pos) {
         if (!ToolEvents.blockedBlocks.containsKey(world.provider.getDimension())) {
             ToolEvents.blockedBlocks.put(world.provider.getDimension(), new ArrayList<BlockPos>());
         }
-        final ArrayList<BlockPos> list = ToolEvents.blockedBlocks.get(world.provider.getDimension());
+        ArrayList<BlockPos> list = ToolEvents.blockedBlocks.get(world.provider.getDimension());
         if (!list.contains(pos)) {
             list.add(pos);
         }
     }
     
-    public static void clearBlockedBlock(final World world, final BlockPos pos) {
+    public static void clearBlockedBlock(World world, BlockPos pos) {
         if (!ToolEvents.blockedBlocks.containsKey(world.provider.getDimension())) {
             ToolEvents.blockedBlocks.put(world.provider.getDimension(), new ArrayList<BlockPos>());
             return;
         }
-        final ArrayList<BlockPos> list = ToolEvents.blockedBlocks.get(world.provider.getDimension());
+        ArrayList<BlockPos> list = ToolEvents.blockedBlocks.get(world.provider.getDimension());
         list.remove(pos);
     }
     
     @SubscribeEvent
-    public static void breakBlockEvent(final BlockEvent.BreakEvent event) {
+    public static void breakBlockEvent(BlockEvent.BreakEvent event) {
         if (ToolEvents.blockedBlocks.containsKey(event.getWorld().provider.getDimension())) {
             ArrayList<BlockPos> list = ToolEvents.blockedBlocks.get(event.getWorld().provider.getDimension());
             if (list == null) {
@@ -169,9 +169,9 @@ public class ToolEvents
             }
         }
         if (!event.getWorld().isRemote && event.getPlayer() != null) {
-            final ItemStack heldItem = event.getPlayer().getHeldItem(event.getPlayer().getActiveHand());
+            ItemStack heldItem = event.getPlayer().getHeldItem(event.getPlayer().getActiveHand());
             if (heldItem != null && !heldItem.isEmpty()) {
-                final List<EnumInfusionEnchantment> list2 = EnumInfusionEnchantment.getInfusionEnchantments(heldItem);
+                List<EnumInfusionEnchantment> list2 = EnumInfusionEnchantment.getInfusionEnchantments(heldItem);
                 if (ForgeHooks.isToolEffective(event.getWorld(), event.getPos(), heldItem) && list2.contains(EnumInfusionEnchantment.BURROWING) && !event.getPlayer().isSneaking() && isValidBurrowBlock(event.getWorld(), event.getPos())) {
                     event.setCanceled(true);
                     if (!event.getPlayer().getName().equals("FakeThaumcraftBore")) {
@@ -183,27 +183,27 @@ public class ToolEvents
         }
     }
     
-    private static boolean isValidBurrowBlock(final World world, final BlockPos pos) {
+    private static boolean isValidBurrowBlock(World world, BlockPos pos) {
         return Utils.isWoodLog(world, pos) || Utils.isOreBlock(world, pos);
     }
     
     @SubscribeEvent
-    public static void harvestBlockEvent(final BlockEvent.HarvestDropsEvent event) {
+    public static void harvestBlockEvent(BlockEvent.HarvestDropsEvent event) {
         if (!event.getWorld().isRemote && !event.isSilkTouching() && event.getState().getBlock() != null && ((event.getState().getBlock() == Blocks.DIAMOND_ORE && event.getWorld().rand.nextFloat() < 0.05) || (event.getState().getBlock() == Blocks.EMERALD_ORE && event.getWorld().rand.nextFloat() < 0.075) || (event.getState().getBlock() == Blocks.LAPIS_ORE && event.getWorld().rand.nextFloat() < 0.01) || (event.getState().getBlock() == Blocks.COAL_ORE && event.getWorld().rand.nextFloat() < 0.001) || (event.getState().getBlock() == Blocks.LIT_REDSTONE_ORE && event.getWorld().rand.nextFloat() < 0.01) || (event.getState().getBlock() == Blocks.REDSTONE_ORE && event.getWorld().rand.nextFloat() < 0.01) || (event.getState().getBlock() == Blocks.QUARTZ_ORE && event.getWorld().rand.nextFloat() < 0.01) || (event.getState().getBlock() == BlocksTC.oreAmber && event.getWorld().rand.nextFloat() < 0.05) || (event.getState().getBlock() == BlocksTC.oreQuartz && event.getWorld().rand.nextFloat() < 0.05))) {
             event.getDrops().add(new ItemStack(ItemsTC.nuggets, 1, 10));
         }
         if (!event.getWorld().isRemote && event.getHarvester() != null) {
-            final ItemStack heldItem = event.getHarvester().getHeldItem(event.getHarvester().getActiveHand());
+            ItemStack heldItem = event.getHarvester().getHeldItem(event.getHarvester().getActiveHand());
             if (heldItem != null && !heldItem.isEmpty()) {
-                final List<EnumInfusionEnchantment> list = EnumInfusionEnchantment.getInfusionEnchantments(heldItem);
+                List<EnumInfusionEnchantment> list = EnumInfusionEnchantment.getInfusionEnchantments(heldItem);
                 if (event.isSilkTouching() || ForgeHooks.isToolEffective(event.getWorld(), event.getPos(), heldItem) || (heldItem.getItem() instanceof ItemTool && heldItem.getItem().getDestroySpeed(heldItem, event.getState()) > 1.0f)) {
                     if (list.contains(EnumInfusionEnchantment.REFINING)) {
-                        final int fortune = 1 + EnumInfusionEnchantment.getInfusionEnchantmentLevel(heldItem, EnumInfusionEnchantment.REFINING);
-                        final float chance = fortune * 0.125f;
+                        int fortune = 1 + EnumInfusionEnchantment.getInfusionEnchantmentLevel(heldItem, EnumInfusionEnchantment.REFINING);
+                        float chance = fortune * 0.125f;
                         boolean b = false;
                         for (int a = 0; a < event.getDrops().size(); ++a) {
-                            final ItemStack is = event.getDrops().get(a);
-                            final ItemStack smr = Utils.findSpecialMiningResult(is, chance, event.getWorld().rand);
+                            ItemStack is = event.getDrops().get(a);
+                            ItemStack smr = Utils.findSpecialMiningResult(is, chance, event.getWorld().rand);
                             if (!is.isItemEqual(smr)) {
                                 event.getDrops().set(a, smr);
                                 b = true;
@@ -237,10 +237,10 @@ public class ToolEvents
                                         zz = aa;
                                         yy = bb;
                                     }
-                                    final IBlockState bl = event.getWorld().getBlockState(event.getPos().add(xx, yy, zz));
+                                    IBlockState bl = event.getWorld().getBlockState(event.getPos().add(xx, yy, zz));
                                     if (bl.getBlockHardness(event.getWorld(), event.getPos().add(xx, yy, zz)) >= 0.0f && (ForgeHooks.isToolEffective(event.getWorld(), event.getPos().add(xx, yy, zz), heldItem) || (heldItem.getItem() instanceof ItemTool && heldItem.getItem().getDestroySpeed(heldItem, bl) > 1.0f))) {
                                         if (event.getHarvester().getName().equals("FakeThaumcraftBore")) {
-                                            final EntityPlayer harvester = event.getHarvester();
+                                            EntityPlayer harvester = event.getHarvester();
                                             ++harvester.xpCooldown;
                                         }
                                         else {
@@ -258,7 +258,7 @@ public class ToolEvents
                         event.getDrops().clear();
                     }
                     if (list.contains(EnumInfusionEnchantment.LAMPLIGHT) && !event.getHarvester().isSneaking() && event.getHarvester() instanceof EntityPlayerMP) {
-                        final IThreadListener mainThread = ((EntityPlayerMP)event.getHarvester()).getServerWorld();
+                        IThreadListener mainThread = ((EntityPlayerMP)event.getHarvester()).getServerWorld();
                         mainThread.addScheduledTask(new Runnable() {
                             @Override
                             public void run() {
@@ -274,16 +274,16 @@ public class ToolEvents
     }
     
     @SubscribeEvent
-    public static void livingDrops(final LivingDropsEvent event) {
+    public static void livingDrops(LivingDropsEvent event) {
         if (event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof EntityPlayer) {
-            final ItemStack heldItem = ((EntityPlayer)event.getSource().getTrueSource()).getHeldItem(((EntityPlayer)event.getSource().getTrueSource()).getActiveHand());
+            ItemStack heldItem = ((EntityPlayer)event.getSource().getTrueSource()).getHeldItem(((EntityPlayer)event.getSource().getTrueSource()).getActiveHand());
             if (heldItem != null && !heldItem.isEmpty()) {
-                final List<EnumInfusionEnchantment> list = EnumInfusionEnchantment.getInfusionEnchantments(heldItem);
+                List<EnumInfusionEnchantment> list = EnumInfusionEnchantment.getInfusionEnchantments(heldItem);
                 if (list.contains(EnumInfusionEnchantment.COLLECTOR)) {
                     for (int a = 0; a < event.getDrops().size(); ++a) {
-                        final EntityItem ei = event.getDrops().get(a);
-                        final ItemStack is = ei.getItem().copy();
-                        final EntityItem nei = new EntityFollowingItem(event.getEntity().world, ei.posX, ei.posY, ei.posZ, is, event.getSource().getTrueSource(), 10);
+                        EntityItem ei = event.getDrops().get(a);
+                        ItemStack is = ei.getItem().copy();
+                        EntityItem nei = new EntityFollowingItem(event.getEntity().world, ei.posX, ei.posY, ei.posZ, is, event.getSource().getTrueSource(), 10);
                         nei.motionX = ei.motionX;
                         nei.motionY = ei.motionY;
                         nei.motionZ = ei.motionZ;
@@ -293,16 +293,16 @@ public class ToolEvents
                     }
                 }
                 if (list.contains(EnumInfusionEnchantment.ESSENCE)) {
-                    final AspectList as = AspectHelper.getEntityAspects(event.getEntityLiving());
+                    AspectList as = AspectHelper.getEntityAspects(event.getEntityLiving());
                     if (as != null && as.size() > 0) {
-                        final AspectList aspects = as.copy();
-                        final int q = EnumInfusionEnchantment.getInfusionEnchantmentLevel(heldItem, EnumInfusionEnchantment.ESSENCE);
+                        AspectList aspects = as.copy();
+                        int q = EnumInfusionEnchantment.getInfusionEnchantmentLevel(heldItem, EnumInfusionEnchantment.ESSENCE);
                         Aspect[] al = aspects.getAspects();
                         for (int b = (event.getEntity().world.rand.nextInt(5) < q) ? 0 : 99; b < q && al != null && al.length > 0; b += 1 + event.getEntity().world.rand.nextInt(2)) {
-                            final Aspect aspect = al[event.getEntity().world.rand.nextInt(al.length)];
+                            Aspect aspect = al[event.getEntity().world.rand.nextInt(al.length)];
                             if (aspects.getAmount(aspect) > 0) {
                                 aspects.remove(aspect, 1);
-                                final ItemStack stack = ThaumcraftApiHelper.makeCrystal(aspect);
+                                ItemStack stack = ThaumcraftApiHelper.makeCrystal(aspect);
                                 if (list.contains(EnumInfusionEnchantment.COLLECTOR)) {
                                     event.getDrops().add(new EntityFollowingItem(event.getEntity().world, event.getEntityLiving().posX, event.getEntityLiving().posY + event.getEntityLiving().getEyeHeight(), event.getEntityLiving().posZ, stack, event.getSource().getTrueSource(), 10));
                                 }

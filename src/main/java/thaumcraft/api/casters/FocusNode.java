@@ -50,15 +50,15 @@ public abstract class FocusNode implements IFocusElement {
 	
 	FocusPackage pack;
 	
-	public final void setPackage(FocusPackage pack) {
+	public void setPackage(FocusPackage pack) {
 		this.pack = pack;
 	}
 	
-	public final FocusPackage getPackage() {
+	public FocusPackage getPackage() {
 		return pack;
 	}
 	
-	public final FocusPackage getRemainingPackage() {
+	public FocusPackage getRemainingPackage() {
 		FocusPackage p = getPackage();
 		List<IFocusElement> l = p.nodes.subList(p.index+1, p.nodes.size());
 		List<IFocusElement> l2 = Collections.synchronizedList(new ArrayList<>());	
@@ -74,21 +74,21 @@ public abstract class FocusNode implements IFocusElement {
 	
 	private FocusNode parent;
 	
-	public final FocusNode getParent() {
+	public FocusNode getParent() {
 		return parent;
 	}
 
-	final HashMap<String, NodeSetting> settings = new HashMap<>();
+	HashMap<String, NodeSetting> settings = new HashMap<>();
 	
-	public final Set<String> getSettingList() {
+	public Set<String> getSettingList() {
 		return settings.keySet();
 	}	 	
 	
-	public final NodeSetting getSetting(String key) {
+	public NodeSetting getSetting(String key) {
 		return settings.get(key);
 	}
 	
-	public final int getSettingValue(String key) {
+	public int getSettingValue(String key) {
 		return settings.containsKey(key) ? settings.get(key).getValue() : 0;
 	}
 	
@@ -96,7 +96,7 @@ public abstract class FocusNode implements IFocusElement {
 		return null;
 	}
 	
-	public final void initialize() {
+	public void initialize() {
 		NodeSetting[] set = createSettings();
 		if (set!=null) {
 			for (NodeSetting setting : set) {

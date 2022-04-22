@@ -24,9 +24,9 @@ public class FXSonic extends Particle
     float yaw;
     float pitch;
     private IModelCustom model;
-    private static final ResourceLocation MODEL;
+    private static ResourceLocation MODEL;
     
-    public FXSonic(final World world, final double d, final double d1, final double d2, final Entity target, final int age) {
+    public FXSonic(World world, double d, double d1, double d2, Entity target, int age) {
         super(world, d, d1, d2, 0.0, 0.0, 0.0);
         this.target = null;
         yaw = 0.0f;
@@ -35,7 +35,7 @@ public class FXSonic extends Particle
         particleGreen = 1.0f;
         particleBlue = 1.0f;
         particleGravity = 0.0f;
-        final double motionX = 0.0;
+        double motionX = 0.0;
         motionZ = motionX;
         motionY = motionX;
         this.motionX = motionX;
@@ -45,18 +45,18 @@ public class FXSonic extends Particle
         this.target = target;
         yaw = target.getRotationYawHead();
         pitch = target.rotationPitch;
-        final double posX = target.posX;
+        double posX = target.posX;
         this.posX = posX;
         prevPosX = posX;
-        final double n = target.posY + target.getEyeHeight();
+        double n = target.posY + target.getEyeHeight();
         posY = n;
         prevPosY = n;
-        final double posZ = target.posZ;
+        double posZ = target.posZ;
         this.posZ = posZ;
         prevPosZ = posZ;
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity p_180434_2_, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void renderParticle(BufferBuilder wr, Entity p_180434_2_, float f, float f1, float f2, float f3, float f4, float f5) {
         Tessellator.getInstance().draw();
         GL11.glPushMatrix();
         GL11.glDepthMask(false);
@@ -65,18 +65,18 @@ public class FXSonic extends Particle
         if (model == null) {
             model = AdvancedModelLoader.loadModel(FXSonic.MODEL);
         }
-        final float fade = (particleAge + f) / particleMaxAge;
-        final float xx = (float)(prevPosX + (posX - prevPosX) * f - FXSonic.interpPosX);
-        final float yy = (float)(prevPosY + (posY - prevPosY) * f - FXSonic.interpPosY);
-        final float zz = (float)(prevPosZ + (posZ - prevPosZ) * f - FXSonic.interpPosZ);
+        float fade = (particleAge + f) / particleMaxAge;
+        float xx = (float)(prevPosX + (posX - prevPosX) * f - FXSonic.interpPosX);
+        float yy = (float)(prevPosY + (posY - prevPosY) * f - FXSonic.interpPosY);
+        float zz = (float)(prevPosZ + (posZ - prevPosZ) * f - FXSonic.interpPosZ);
         GL11.glTranslated(xx, yy, zz);
         float b = 1.0f;
-        final int frame = Math.min(15, (int)(14.0f * fade) + 1);
+        int frame = Math.min(15, (int)(14.0f * fade) + 1);
         Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("thaumcraft", "textures/models/ripple" + frame + ".png"));
         b = 0.5f;
-        final int i = 220;
-        final int j = i % 65536;
-        final int k = i / 65536;
+        int i = 220;
+        int j = i % 65536;
+        int k = i / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0f, k / 1.0f);
         GL11.glRotatef(-yaw, 0.0f, 1.0f, 0.0f);
         GL11.glRotatef(pitch, 1.0f, 0.0f, 0.0f);

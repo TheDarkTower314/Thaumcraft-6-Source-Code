@@ -51,7 +51,7 @@ public class TileResearchTable extends TileThaumcraftInventory
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         super.readSyncNBT(nbttagcompound);
         if (nbttagcompound.hasKey("note")) {
             (data = new ResearchTableData(this)).deserialize(nbttagcompound.getCompoundTag("note"));
@@ -62,7 +62,7 @@ public class TileResearchTable extends TileThaumcraftInventory
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         if (data != null) {
             nbttagcompound.setTag("note", data.serialize());
         }
@@ -72,29 +72,29 @@ public class TileResearchTable extends TileThaumcraftInventory
         return super.writeSyncNBT(nbttagcompound);
     }
     
-    protected void setWorldCreate(final World worldIn) {
+    protected void setWorldCreate(World worldIn) {
         super.setWorldCreate(worldIn);
         if (!hasWorld()) {
             setWorld(worldIn);
         }
     }
     
-    public void startNewTheory(final EntityPlayer player, final Set<String> mutators) {
+    public void startNewTheory(EntityPlayer player, Set<String> mutators) {
         (data = new ResearchTableData(player, this)).initialize(player, mutators);
         syncTile(false);
         markDirty();
     }
     
-    public void finishTheory(final EntityPlayer player) {
-        final Comparator<Map.Entry<String, Integer>> valueComparator = (e1, e2) -> e2.getValue().compareTo(e1.getValue());
-        final Map<String, Integer> sortedMap = data.categoryTotals.entrySet().stream().sorted(valueComparator).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+    public void finishTheory(EntityPlayer player) {
+        Comparator<Map.Entry<String, Integer>> valueComparator = (e1, e2) -> e2.getValue().compareTo(e1.getValue());
+        Map<String, Integer> sortedMap = data.categoryTotals.entrySet().stream().sorted(valueComparator).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         int i = 0;
-        for (final String cat : sortedMap.keySet()) {
+        for (String cat : sortedMap.keySet()) {
             int tot = Math.round(sortedMap.get(cat) / 100.0f * IPlayerKnowledge.EnumKnowledgeType.THEORY.getProgression());
             if (i > data.penaltyStart) {
                 tot = (int)Math.max(1.0, tot * 0.666666667);
             }
-            final ResearchCategory rc = ResearchCategories.getResearchCategory(cat);
+            ResearchCategory rc = ResearchCategories.getResearchCategory(cat);
             ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.THEORY, rc, tot);
             ++i;
         }
@@ -102,13 +102,13 @@ public class TileResearchTable extends TileThaumcraftInventory
     }
     
     public Set<String> checkSurroundingAids() {
-        final HashMap<String, ITheorycraftAid> mutators = new HashMap<String, ITheorycraftAid>();
+        HashMap<String, ITheorycraftAid> mutators = new HashMap<String, ITheorycraftAid>();
         for (int y = -1; y <= 1; ++y) {
             for (int x = -4; x <= 4; ++x) {
                 for (int z = -4; z <= 4; ++z) {
-                    for (final String muk : TheorycraftManager.aids.keySet()) {
-                        final ITheorycraftAid mu = TheorycraftManager.aids.get(muk);
-                        final IBlockState state = world.getBlockState(getPos().add(x, y, z));
+                    for (String muk : TheorycraftManager.aids.keySet()) {
+                        ITheorycraftAid mu = TheorycraftManager.aids.get(muk);
+                        IBlockState state = world.getBlockState(getPos().add(x, y, z));
                         if (mu.getAidObject() instanceof Block) {
                             if (state.getBlock() != mu.getAidObject()) {
                                 continue;
@@ -119,7 +119,7 @@ public class TileResearchTable extends TileThaumcraftInventory
                             if (!(mu.getAidObject() instanceof ItemStack)) {
                                 continue;
                             }
-                            final ItemStack is = state.getBlock().getItem(getWorld(), getPos().add(x, y, z), state);
+                            ItemStack is = state.getBlock().getItem(getWorld(), getPos().add(x, y, z), state);
                             if (is == null || is.isEmpty() || !is.isItemEqualIgnoreDurability((ItemStack)mu.getAidObject())) {
                                 continue;
                             }
@@ -129,11 +129,11 @@ public class TileResearchTable extends TileThaumcraftInventory
                 }
             }
         }
-        final List<Entity> l = EntityUtils.getEntitiesInRange(getWorld(), getPos(), null, Entity.class, 5.0);
+        List<Entity> l = EntityUtils.getEntitiesInRange(getWorld(), getPos(), null, Entity.class, 5.0);
         if (l != null && !l.isEmpty()) {
-            for (final Entity e : l) {
-                for (final String muk : TheorycraftManager.aids.keySet()) {
-                    final ITheorycraftAid mu = TheorycraftManager.aids.get(muk);
+            for (Entity e : l) {
+                for (String muk : TheorycraftManager.aids.keySet()) {
+                    ITheorycraftAid mu = TheorycraftManager.aids.get(muk);
                     if (mu.getAidObject() instanceof Class && e.getClass().isAssignableFrom((Class<?>)mu.getAidObject())) {
                         mutators.put(muk, mu);
                     }
@@ -169,7 +169,7 @@ public class TileResearchTable extends TileThaumcraftInventory
     }
     
     @Override
-    public boolean isItemValidForSlot(final int i, final ItemStack itemstack) {
+    public boolean isItemValidForSlot(int i, ItemStack itemstack) {
         switch (i) {
             case 0: {
                 if (itemstack.getItem() instanceof IScribeTools) {
@@ -188,14 +188,14 @@ public class TileResearchTable extends TileThaumcraftInventory
     }
     
     @Override
-    public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         if (world != null && world.isRemote) {
             syncTile(false);
         }
     }
     
-    public boolean receiveClientEvent(final int i, final int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i == 1) {
             if (world.isRemote) {
                 world.playSound(getPos().getX(), getPos().getY(), getPos().getZ(), SoundsTC.learn, SoundCategory.BLOCKS, 1.0f, 1.0f, false);

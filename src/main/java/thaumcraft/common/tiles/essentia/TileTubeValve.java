@@ -33,7 +33,7 @@ public class TileTubeValve extends TileTube
     @Override
     public void update() {
         if (!world.isRemote && count % 5 == 0) {
-            final boolean gettingPower = gettingPower();
+            boolean gettingPower = gettingPower();
             if (wasPoweredLastTick && !gettingPower && !allowFlow) {
                 allowFlow = true;
                 world.playSound(null, pos, SoundsTC.squeek, SoundCategory.BLOCKS, 0.7f, 0.9f + world.rand.nextFloat() * 0.2f);
@@ -60,8 +60,8 @@ public class TileTubeValve extends TileTube
     }
     
     @Override
-    public boolean onCasterRightClick(final World world, final ItemStack wandstack, final EntityPlayer player, final BlockPos bp, final EnumFacing side, final EnumHand hand) {
-        final RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
+    public boolean onCasterRightClick(World world, ItemStack wandstack, EntityPlayer player, BlockPos bp, EnumFacing side, EnumHand hand) {
+        RayTraceResult hit = RayTracer.retraceBlock(world, player, pos);
         if (hit == null) {
             return false;
         }
@@ -71,8 +71,8 @@ public class TileTubeValve extends TileTube
             markDirty();
             syncTile(true);
             openSides[hit.subHit] = !openSides[hit.subHit];
-            final EnumFacing dir = EnumFacing.VALUES[hit.subHit];
-            final TileEntity tile = world.getTileEntity(pos.offset(dir));
+            EnumFacing dir = EnumFacing.VALUES[hit.subHit];
+            TileEntity tile = world.getTileEntity(pos.offset(dir));
             if (tile != null && tile instanceof TileTube) {
                 ((TileTube)tile).openSides[dir.getOpposite().ordinal()] = openSides[hit.subHit];
                 syncTile(true);
@@ -100,7 +100,7 @@ public class TileTubeValve extends TileTube
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         super.readSyncNBT(nbttagcompound);
         allowFlow = nbttagcompound.getBoolean("flow");
         wasPoweredLastTick = nbttagcompound.getBoolean("hadpower");
@@ -115,12 +115,12 @@ public class TileTubeValve extends TileTube
     }
     
     @Override
-    public boolean isConnectable(final EnumFacing face) {
+    public boolean isConnectable(EnumFacing face) {
         return face != facing && super.isConnectable(face);
     }
     
     @Override
-    public void setSuction(final Aspect aspect, final int amount) {
+    public void setSuction(Aspect aspect, int amount) {
         if (allowFlow) {
             super.setSuction(aspect, amount);
         }

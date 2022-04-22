@@ -10,5 +10,5 @@ import net.minecraft.world.World;
 
 public interface ITaintBlock
 {
-    void die(final World p0, final BlockPos p1, final IBlockState p2);
+    void die(World p0, BlockPos p1, IBlockState p2);
 }

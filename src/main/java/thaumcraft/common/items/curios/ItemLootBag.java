@@ -29,7 +29,7 @@ public class ItemLootBag extends ItemTCBase
         setMaxStackSize(16);
     }
     
-    public EnumRarity getRarity(final ItemStack stack) {
+    public EnumRarity getRarity(ItemStack stack) {
         switch (stack.getItemDamage()) {
             case 1: {
                 return EnumRarity.UNCOMMON;
@@ -44,15 +44,15 @@ public class ItemLootBag extends ItemTCBase
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(I18n.translateToLocal("tc.lootbag"));
     }
     
-    public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         if (!world.isRemote) {
             for (int q = 8 + world.rand.nextInt(5), a = 0; a < q; ++a) {
-                final ItemStack is = Utils.generateLoot(player.getHeldItem(hand).getItemDamage(), world.rand);
+                ItemStack is = Utils.generateLoot(player.getHeldItem(hand).getItemDamage(), world.rand);
                 if (is != null && !is.isEmpty()) {
                     world.spawnEntity(new EntityItem(world, player.posX, player.posY, player.posZ, is.copy()));
                 }

@@ -19,15 +19,15 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 public class TilePatternCrafterRenderer extends TileEntitySpecialRenderer
 {
     private ModelBoreBase model;
-    private static final ResourceLocation TEX;
-    private static final ResourceLocation ICON;
+    private static ResourceLocation TEX;
+    private static ResourceLocation ICON;
     
     public TilePatternCrafterRenderer() {
         model = new ModelBoreBase();
     }
     
-    public void renderTileEntityAt(final TilePatternCrafter pc, final double x, final double y, final double z, final float fq) {
-        final Minecraft mc = FMLClientHandler.instance().getClient();
+    public void renderTileEntityAt(TilePatternCrafter pc, double x, double y, double z, float fq) {
+        Minecraft mc = FMLClientHandler.instance().getClient();
         int f = 3;
         if (pc.getWorld() != null) {
             f = BlockStateUtils.getFacing(pc.getBlockMetadata()).ordinal();
@@ -71,7 +71,7 @@ public class TilePatternCrafterRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderTileEntityAt((TilePatternCrafter)te, x, y, z, partialTicks);
     }

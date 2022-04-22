@@ -24,7 +24,7 @@ public class CardSynthesis extends TheorycraftCard
     
     @Override
     public NBTTagCompound serialize() {
-        final NBTTagCompound nbt = super.serialize();
+        NBTTagCompound nbt = super.serialize();
         nbt.setString("aspect1", aspect1.getTag());
         nbt.setString("aspect2", aspect2.getTag());
         nbt.setString("aspect3", aspect3.getTag());
@@ -32,7 +32,7 @@ public class CardSynthesis extends TheorycraftCard
     }
     
     @Override
-    public void deserialize(final NBTTagCompound nbt) {
+    public void deserialize(NBTTagCompound nbt) {
         super.deserialize(nbt);
         aspect1 = Aspect.getAspect(nbt.getString("aspect1"));
         aspect2 = Aspect.getAspect(nbt.getString("aspect2"));
@@ -40,9 +40,9 @@ public class CardSynthesis extends TheorycraftCard
     }
     
     @Override
-    public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(getSeed());
-        final int num = MathHelper.getInt(r, 0, Aspect.getCompoundAspects().size() - 1);
+    public boolean initialize(EntityPlayer player, ResearchTableData data) {
+        Random r = new Random(getSeed());
+        int num = MathHelper.getInt(r, 0, Aspect.getCompoundAspects().size() - 1);
         aspect3 = Aspect.getCompoundAspects().get(num);
         aspect1 = aspect3.getComponents()[0];
         aspect2 = aspect3.getComponents()[1];
@@ -80,8 +80,8 @@ public class CardSynthesis extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
-        final ItemStack res = ThaumcraftApiHelper.makeCrystal(aspect3);
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
+        ItemStack res = ThaumcraftApiHelper.makeCrystal(aspect3);
         data.addTotal(getResearchCategory(), 40);
         if (player.getRNG().nextFloat() < 0.33) {
             data.addInspiration(1);

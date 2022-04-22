@@ -11,11 +11,11 @@ import thaumcraft.common.entities.construct.EntityTurretCrossbow;
 
 public class SlotTurretBasic extends SlotMobEquipment
 {
-    public SlotTurretBasic(final EntityTurretCrossbow turret, final int par3, final int par4, final int par5) {
+    public SlotTurretBasic(EntityTurretCrossbow turret, int par3, int par4, int par5) {
         super(turret, par3, par4, par5);
     }
     
-    public boolean isItemValid(final ItemStack stack) {
+    public boolean isItemValid(ItemStack stack) {
         return stack != null && !stack.isEmpty() && stack.getItem() != null && stack.getItem() instanceof ItemArrow;
     }
     

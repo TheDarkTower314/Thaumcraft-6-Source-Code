@@ -15,9 +15,9 @@ public class PotionWarpWard extends Potion
 {
     public static Potion instance;
     private int statusIconIndex;
-    static final ResourceLocation rl;
+    static ResourceLocation rl;
     
-    public PotionWarpWard(final boolean par2, final int par3) {
+    public PotionWarpWard(boolean par2, int par3) {
         super(par2, par3);
         statusIconIndex = -1;
         setIconIndex(0, 0);
@@ -36,7 +36,7 @@ public class PotionWarpWard extends Potion
         return super.getStatusIconIndex();
     }
     
-    public void performEffect(final EntityLivingBase target, final int par2) {
+    public void performEffect(EntityLivingBase target, int par2) {
     }
     
     static {

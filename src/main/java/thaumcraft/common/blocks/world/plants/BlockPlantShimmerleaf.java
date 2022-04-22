@@ -31,20 +31,20 @@ public class BlockPlantShimmerleaf extends BlockBush
         setLightLevel(0.4f);
     }
     
-    protected boolean canSustainBush(final IBlockState state) {
+    protected boolean canSustainBush(IBlockState state) {
         return state.getBlock() == Blocks.GRASS || state.getBlock() == Blocks.DIRT;
     }
     
-    public EnumPlantType getPlantType(final IBlockAccess world, final BlockPos pos) {
+    public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
         return EnumPlantType.Plains;
     }
     
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(final IBlockState state, final World world, final BlockPos pos, final Random rand) {
+    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
         if (rand.nextInt(3) == 0) {
-            final float xr = (float)(pos.getX() + 0.5f + rand.nextGaussian() * 0.1);
-            final float yr = (float)(pos.getY() + 0.4f + rand.nextGaussian() * 0.1);
-            final float zr = (float)(pos.getZ() + 0.5f + rand.nextGaussian() * 0.1);
+            float xr = (float)(pos.getX() + 0.5f + rand.nextGaussian() * 0.1);
+            float yr = (float)(pos.getY() + 0.4f + rand.nextGaussian() * 0.1);
+            float zr = (float)(pos.getZ() + 0.5f + rand.nextGaussian() * 0.1);
             FXDispatcher.INSTANCE.drawWispyMotes(xr, yr, zr, rand.nextGaussian() * 0.01, rand.nextGaussian() * 0.01, rand.nextGaussian() * 0.01, 10, 0.3f + world.rand.nextFloat() * 0.3f, 0.7f + world.rand.nextFloat() * 0.3f, 0.7f + world.rand.nextFloat() * 0.3f, 0.0f);
         }
     }

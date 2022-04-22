@@ -15,13 +15,13 @@ public class GuiSliderTC extends GuiButton
 {
     private float sliderPosition;
     public boolean isMouseDown;
-    private final String name;
-    private final float min;
+    private String name;
+    private float min;
     private float max;
-    private final boolean vertical;
+    private boolean vertical;
     static ResourceLocation tex;
     
-    public GuiSliderTC(final int idIn, final int x, final int y, final int w, final int h, final String name, final float min, final float max, final float defaultValue, final boolean vertical) {
+    public GuiSliderTC(int idIn, int x, int y, int w, int h, String name, float min, float max, float defaultValue, boolean vertical) {
         super(idIn, x, y, w, h, "");
         sliderPosition = 1.0f;
         this.name = name;
@@ -39,7 +39,7 @@ public class GuiSliderTC extends GuiButton
         return min;
     }
     
-    public void setMax(final float max) {
+    public void setMax(float max) {
         this.max = max;
         sliderPosition = 0.0f;
     }
@@ -48,7 +48,7 @@ public class GuiSliderTC extends GuiButton
         return min + (max - min) * sliderPosition;
     }
     
-    public void setSliderValue(final float p_175218_1_, final boolean p_175218_2_) {
+    public void setSliderValue(float p_175218_1_, boolean p_175218_2_) {
         sliderPosition = (p_175218_1_ - min) / (max - min);
     }
     
@@ -56,11 +56,11 @@ public class GuiSliderTC extends GuiButton
         return sliderPosition;
     }
     
-    protected int getHoverState(final boolean mouseOver) {
+    protected int getHoverState(boolean mouseOver) {
         return 0;
     }
     
-    protected void mouseDragged(final Minecraft mc, final int mouseX, final int mouseY) {
+    protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
         if (visible) {
             if (isMouseDown) {
                 if (vertical) {
@@ -87,11 +87,11 @@ public class GuiSliderTC extends GuiButton
         }
     }
     
-    public void setSliderPosition(final float p_175219_1_) {
+    public void setSliderPosition(float p_175219_1_) {
         sliderPosition = p_175219_1_;
     }
     
-    public boolean mousePressed(final Minecraft mc, final int mouseX, final int mouseY) {
+    public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         if (super.mousePressed(mc, mouseX, mouseY)) {
             if (vertical) {
                 sliderPosition = (mouseY - (y + 4)) / (float)(height - 8);
@@ -110,16 +110,16 @@ public class GuiSliderTC extends GuiButton
         return false;
     }
     
-    public void mouseReleased(final int mouseX, final int mouseY) {
+    public void mouseReleased(int mouseX, int mouseY) {
         isMouseDown = false;
     }
     
-    public void drawButton(final Minecraft mc, final int mouseX, final int mouseY, final float pt) {
+    public void drawButton(Minecraft mc, int mouseX, int mouseY, float pt) {
         if (visible) {
             mc.getTextureManager().bindTexture(GuiSliderTC.tex);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             hovered = (mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height);
-            final int i = getHoverState(hovered);
+            int i = getHoverState(hovered);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -146,6 +146,6 @@ public class GuiSliderTC extends GuiButton
     @SideOnly(Side.CLIENT)
     public interface FormatHelper
     {
-        String getText(final int p0, final String p1, final float p2);
+        String getText(int p0, String p1, float p2);
     }
 }

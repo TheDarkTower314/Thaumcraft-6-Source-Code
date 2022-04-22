@@ -31,7 +31,7 @@ import thaumcraft.api.items.ItemsTC;
 
 public class ThaumcraftApiHelper {
 	
-	public static final IAttribute CHAMPION_MOD = (new RangedAttribute(null, "tc.mobmod", -2D, -2D, 100D)).setDescription("Champion modifier").setShouldWatch(true);
+	public static IAttribute CHAMPION_MOD = (new RangedAttribute(null, "tc.mobmod", -2D, -2D, 100D)).setDescription("Champion modifier").setShouldWatch(true);
 	
 	/**
 	 * @deprecated Use {@link ThaumcraftInvHelper#areItemsEqual(ItemStack,ItemStack)} instead

@@ -28,10 +28,10 @@ import net.minecraft.block.BlockBush;
 
 public class BlockSaplingTC extends BlockBush implements IGrowable
 {
-    public static final PropertyInteger STAGE;
-    protected static final AxisAlignedBB SAPLING_AABB;
+    public static PropertyInteger STAGE;
+    protected static AxisAlignedBB SAPLING_AABB;
     
-    public BlockSaplingTC(final String name) {
+    public BlockSaplingTC(String name) {
         setUnlocalizedName(name);
         setRegistryName("thaumcraft", name);
         setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockSaplingTC.STAGE, (Comparable)0));
@@ -39,19 +39,19 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
         setSoundType(SoundType.PLANT);
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return BlockSaplingTC.SAPLING_AABB;
     }
     
-    public int getFlammability(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return 60;
     }
     
-    public int getFireSpreadSpeed(final IBlockAccess world, final BlockPos pos, final EnumFacing face) {
+    public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return 30;
     }
     
-    public void updateTick(final World worldIn, final BlockPos pos, final IBlockState state, final Random rand) {
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
             super.updateTick(worldIn, pos, state, rand);
             if (worldIn.getLightFromNeighbors(pos.up()) >= 9 && rand.nextInt(7) == 0) {
@@ -60,7 +60,7 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
         }
     }
     
-    public void grow(final World worldIn, final BlockPos pos, final IBlockState state, final Random rand) {
+    public void grow(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if ((int)state.getValue((IProperty)BlockSaplingTC.STAGE) == 0) {
             worldIn.setBlockState(pos, state.cycleProperty((IProperty)BlockSaplingTC.STAGE), 4);
         }
@@ -69,7 +69,7 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
         }
     }
     
-    public void generateTree(final World worldIn, final BlockPos pos, final IBlockState state, final Random rand) {
+    public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!TerrainGen.saplingGrowTree(worldIn, rand, pos)) {
             return;
         }
@@ -96,7 +96,7 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
         if (object == null) {
             return;
         }
-        final IBlockState iblockstate1 = Blocks.AIR.getDefaultState();
+        IBlockState iblockstate1 = Blocks.AIR.getDefaultState();
         if (flag) {
             worldIn.setBlockState(pos.add(i, 0, j), iblockstate1, 4);
             worldIn.setBlockState(pos.add(i + 1, 0, j), iblockstate1, 4);
@@ -119,36 +119,36 @@ public class BlockSaplingTC extends BlockBush implements IGrowable
         }
     }
     
-    private boolean isTwoByTwoOfType(final World worldIn, final BlockPos pos, final int p_181624_3_, final int p_181624_4_, final Block type) {
+    private boolean isTwoByTwoOfType(World worldIn, BlockPos pos, int p_181624_3_, int p_181624_4_, Block type) {
         return isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_), type) && isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_), type) && isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_ + 1), type) && isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_ + 1), type);
     }
     
-    public boolean isTypeAt(final World worldIn, final BlockPos pos, final Block type) {
-        final IBlockState iblockstate = worldIn.getBlockState(pos);
+    public boolean isTypeAt(World worldIn, BlockPos pos, Block type) {
+        IBlockState iblockstate = worldIn.getBlockState(pos);
         return iblockstate.getBlock() == type;
     }
     
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
-    public boolean canGrow(final World worldIn, final BlockPos pos, final IBlockState state, final boolean isClient) {
+    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
         return true;
     }
     
-    public boolean canUseBonemeal(final World worldIn, final Random rand, final BlockPos pos, final IBlockState state) {
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         return worldIn.rand.nextFloat() < 0.25;
     }
     
-    public void grow(final World worldIn, final Random rand, final BlockPos pos, final IBlockState state) {
+    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         grow(worldIn, pos, state, rand);
     }
     
-    public IBlockState getStateFromMeta(final int meta) {
+    public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty((IProperty)BlockSaplingTC.STAGE, (Comparable)((meta & 0x8) >> 3));
     }
     
-    public int getMetaFromState(final IBlockState state) {
+    public int getMetaFromState(IBlockState state) {
         int i = 0;
         i |= (int)state.getValue((IProperty)BlockSaplingTC.STAGE) << 3;
         return i;

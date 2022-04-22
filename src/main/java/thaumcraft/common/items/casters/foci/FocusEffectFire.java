@@ -48,12 +48,12 @@ public class FocusEffectFire extends FocusEffect
     }
     
     @Override
-    public float getDamageForDisplay(final float finalPower) {
+    public float getDamageForDisplay(float finalPower) {
         return (3 + getSettingValue("power")) * finalPower;
     }
     
     @Override
-    public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
+    public boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num) {
         PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
         if (target.typeOfHit != RayTraceResult.Type.ENTITY || target.entityHit == null) {
             if (target.typeOfHit == RayTraceResult.Type.BLOCK && getSettingValue("duration") > 0) {
@@ -71,7 +71,7 @@ public class FocusEffectFire extends FocusEffect
             return false;
         }
         float fire = (float)(1 + getSettingValue("duration") * getSettingValue("duration"));
-        final float damage = getDamageForDisplay(finalPower);
+        float damage = getDamageForDisplay(finalPower);
         fire *= finalPower;
         target.entityHit.attackEntityFrom(new EntityDamageSourceIndirect("fireball", (target.entityHit != null) ? target.entityHit : getPackage().getCaster(), getPackage().getCaster()).setFireDamage(), damage);
         if (fire > 0.0f) {
@@ -87,8 +87,8 @@ public class FocusEffectFire extends FocusEffect
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void renderParticleFX(final World world, final double posX, final double posY, final double posZ, final double motionX, final double motionY, final double motionZ) {
-        final FXDispatcher.GenPart pp = new FXDispatcher.GenPart();
+    public void renderParticleFX(World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
+        FXDispatcher.GenPart pp = new FXDispatcher.GenPart();
         pp.grav = -0.2f;
         pp.age = 10;
         pp.alpha = new float[] { 0.7f };
@@ -101,7 +101,7 @@ public class FocusEffectFire extends FocusEffect
     }
     
     @Override
-    public void onCast(final Entity caster) {
+    public void onCast(Entity caster) {
         caster.world.playSound(null, caster.getPosition().up(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.PLAYERS, 1.0f, 1.0f + (float)(caster.world.rand.nextGaussian() * 0.05000000074505806));
     }
 }

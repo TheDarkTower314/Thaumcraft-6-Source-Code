@@ -37,7 +37,7 @@ public class PotionFluxTaint extends Potion
 		return super.getStatusIconIndex();
 	}
 	
-	static final ResourceLocation rl = new ResourceLocation("thaumcraft","textures/misc/potions.png");
+	static ResourceLocation rl = new ResourceLocation("thaumcraft","textures/misc/potions.png");
 	
 	@Override
 	public void performEffect(EntityLivingBase target, int strength) {

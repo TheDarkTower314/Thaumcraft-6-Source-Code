@@ -29,25 +29,25 @@ public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileIn
 {
     private ModelCube model;
     private ModelCube model_over;
-    private static final ResourceLocation tex1;
-    private static final ResourceLocation tex2;
-    private static final ResourceLocation tex3;
+    private static ResourceLocation tex1;
+    private static ResourceLocation tex2;
+    private static ResourceLocation tex3;
     
     public TileInfusionMatrixRenderer() {
         model = new ModelCube(0);
         model_over = new ModelCube(32);
     }
     
-    private void drawHalo(final TileEntity is, final double x, final double y, final double z, final float par8, final int count) {
+    private void drawHalo(TileEntity is, double x, double y, double z, float par8, int count) {
         GL11.glPushMatrix();
         GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
-        final int q = FMLClientHandler.instance().getClient().gameSettings.fancyGraphics ? 20 : 10;
-        final Tessellator tessellator = Tessellator.getInstance();
+        int q = FMLClientHandler.instance().getClient().gameSettings.fancyGraphics ? 20 : 10;
+        Tessellator tessellator = Tessellator.getInstance();
         RenderHelper.disableStandardItemLighting();
-        final float f1 = count / 500.0f;
-        final float f2 = 0.9f;
-        final float f3 = 0.0f;
-        final Random random = new Random(245L);
+        float f1 = count / 500.0f;
+        float f2 = 0.9f;
+        float f3 = 0.0f;
+        Random random = new Random(245L);
         GL11.glDisable(3553);
         GL11.glShadeModel(7425);
         GL11.glEnable(3042);
@@ -88,11 +88,11 @@ public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileIn
         GL11.glPopMatrix();
     }
     
-    public void renderInfusionMatrix(final TileInfusionMatrix is, final double par2, final double par4, final double par6, final float par8, final int destroyStage) {
+    public void renderInfusionMatrix(TileInfusionMatrix is, double par2, double par4, double par6, float par8, int destroyStage) {
         GL11.glPushMatrix();
         ResourceLocation t = TileInfusionMatrixRenderer.tex1;
         GL11.glTranslatef((float)par2 + 0.5f, (float)par4 + 0.5f, (float)par6 + 0.5f);
-        final float ticks = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted + par8;
+        float ticks = Minecraft.getMinecraft().getRenderViewEntity().ticksExisted + par8;
         float inst = 0.0f;
         int craftcount = 0;
         float startup = 0.0f;
@@ -102,7 +102,7 @@ public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileIn
             GL11.glRotatef(ticks % 360.0f * is.startUp, 0.0f, 1.0f, 0.0f);
             GL11.glRotatef(35.0f * is.startUp, 1.0f, 0.0f, 0.0f);
             GL11.glRotatef(45.0f * is.startUp, 0.0f, 0.0f, 1.0f);
-            final IBlockState bs = is.getWorld().getBlockState(is.getPos().add(-1, -2, -1));
+            IBlockState bs = is.getWorld().getBlockState(is.getPos().add(-1, -2, -1));
             if (bs.getBlock() == BlocksTC.pillarAncient) {
                 t = TileInfusionMatrixRenderer.tex2;
             }
@@ -124,7 +124,7 @@ public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileIn
             GlStateManager.translate(0.0625f, 0.0625f, 0.0625f);
             GlStateManager.matrixMode(5888);
         }
-        final float instability = Math.min(6.0f, 1.0f + ((inst < 0.0f) ? (-inst * 0.66f) : 1.0f) * (Math.min(craftcount, 50) / 50.0f));
+        float instability = Math.min(6.0f, 1.0f + ((inst < 0.0f) ? (-inst * 0.66f) : 1.0f) * (Math.min(craftcount, 50) / 50.0f));
         float b1 = 0.0f;
         float b2 = 0.0f;
         float b3 = 0.0f;
@@ -185,9 +185,9 @@ public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileIn
                             GL11.glRotatef(90.0f, 0.0f, 0.0f, (float)c);
                         }
                         GL11.glScaled(0.45, 0.45, 0.45);
-                        final int j = 15728880;
-                        final int k = j % 65536;
-                        final int l = j / 65536;
+                        int j = 15728880;
+                        int k = j % 65536;
+                        int l = j / 65536;
                         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0f, l / 1.0f);
                         GL11.glColor4f(0.8f, 0.1f, 1.0f, (MathHelper.sin((ticks + a * 2 + b4 * 3 + c * 4) / 4.0f) * 0.1f + 0.2f) * startup);
                         model_over.render();
@@ -213,7 +213,7 @@ public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileIn
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
     
-    public void render(final TileInfusionMatrix te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileInfusionMatrix te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderInfusionMatrix(te, x, y, z, partialTicks, destroyStage);
     }

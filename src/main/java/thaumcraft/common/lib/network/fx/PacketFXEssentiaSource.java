@@ -25,7 +25,7 @@ public class PacketFXEssentiaSource implements IMessage, IMessageHandler<PacketF
     public PacketFXEssentiaSource() {
     }
     
-    public PacketFXEssentiaSource(final BlockPos p1, final byte dx, final byte dy, final byte dz, final int color, final int e) {
+    public PacketFXEssentiaSource(BlockPos p1, byte dx, byte dy, byte dz, int color, int e) {
         x = p1.getX();
         y = p1.getY();
         z = p1.getZ();
@@ -36,7 +36,7 @@ public class PacketFXEssentiaSource implements IMessage, IMessageHandler<PacketF
         ext = e;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(x);
         buffer.writeInt(y);
         buffer.writeInt(z);
@@ -47,7 +47,7 @@ public class PacketFXEssentiaSource implements IMessage, IMessageHandler<PacketF
         buffer.writeShort(ext);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         x = buffer.readInt();
         y = buffer.readInt();
         z = buffer.readInt();
@@ -58,13 +58,13 @@ public class PacketFXEssentiaSource implements IMessage, IMessageHandler<PacketF
         ext = buffer.readShort();
     }
     
-    public IMessage onMessage(final PacketFXEssentiaSource message, final MessageContext ctx) {
-        final int tx = message.x - message.dx;
-        final int ty = message.y - message.dy;
-        final int tz = message.z - message.dz;
-        final String key = message.x + ":" + message.y + ":" + message.z + ":" + tx + ":" + ty + ":" + tz + ":" + message.color;
+    public IMessage onMessage(PacketFXEssentiaSource message, MessageContext ctx) {
+        int tx = message.x - message.dx;
+        int ty = message.y - message.dy;
+        int tz = message.z - message.dz;
+        String key = message.x + ":" + message.y + ":" + message.z + ":" + tx + ":" + ty + ":" + tz + ":" + message.color;
         if (EssentiaHandler.sourceFX.containsKey(key)) {
-            final EssentiaHandler.EssentiaSourceFX sf = EssentiaHandler.sourceFX.get(key);
+            EssentiaHandler.EssentiaSourceFX sf = EssentiaHandler.sourceFX.get(key);
             EssentiaHandler.sourceFX.remove(key);
             EssentiaHandler.sourceFX.put(key, sf);
         }

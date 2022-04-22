@@ -15,7 +15,7 @@ public class ItemBathSalts extends ItemTCBase
         setHasSubtypes(false);
     }
     
-    public int getEntityLifespan(final ItemStack itemStack, final World world) {
+    public int getEntityLifespan(ItemStack itemStack, World world) {
         return 200;
     }
 }

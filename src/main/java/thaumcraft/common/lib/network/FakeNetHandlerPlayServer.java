@@ -26,55 +26,55 @@ import net.minecraft.network.NetHandlerPlayServer;
 
 public class FakeNetHandlerPlayServer extends NetHandlerPlayServer
 {
-    public FakeNetHandlerPlayServer(final MinecraftServer server, final NetworkManager networkManagerIn, final EntityPlayerMP playerIn) {
+    public FakeNetHandlerPlayServer(MinecraftServer server, NetworkManager networkManagerIn, EntityPlayerMP playerIn) {
         super(server, networkManagerIn, playerIn);
     }
     
     public void update() {
     }
     
-    public void processInput(final CPacketInput packetIn) {
+    public void processInput(CPacketInput packetIn) {
     }
     
-    public void processPlayer(final CPacketPlayer packetIn) {
+    public void processPlayer(CPacketPlayer packetIn) {
     }
     
-    public void sendPacket(final Packet packetIn) {
+    public void sendPacket(Packet packetIn) {
     }
     
-    public void processUseEntity(final CPacketUseEntity packetIn) {
+    public void processUseEntity(CPacketUseEntity packetIn) {
     }
     
-    public void processClientStatus(final CPacketClientStatus packetIn) {
+    public void processClientStatus(CPacketClientStatus packetIn) {
     }
     
-    public void processCloseWindow(final CPacketCloseWindow packetIn) {
+    public void processCloseWindow(CPacketCloseWindow packetIn) {
     }
     
-    public void processClickWindow(final CPacketClickWindow packetIn) {
+    public void processClickWindow(CPacketClickWindow packetIn) {
     }
     
-    public void processEnchantItem(final CPacketEnchantItem packetIn) {
+    public void processEnchantItem(CPacketEnchantItem packetIn) {
     }
     
-    public void processCreativeInventoryAction(final CPacketCreativeInventoryAction packetIn) {
+    public void processCreativeInventoryAction(CPacketCreativeInventoryAction packetIn) {
     }
     
-    public void processConfirmTransaction(final CPacketConfirmTransaction packetIn) {
+    public void processConfirmTransaction(CPacketConfirmTransaction packetIn) {
     }
     
-    public void processUpdateSign(final CPacketUpdateSign packetIn) {
+    public void processUpdateSign(CPacketUpdateSign packetIn) {
     }
     
-    public void processKeepAlive(final CPacketKeepAlive packetIn) {
+    public void processKeepAlive(CPacketKeepAlive packetIn) {
     }
     
-    public void processTabComplete(final CPacketTabComplete packetIn) {
+    public void processTabComplete(CPacketTabComplete packetIn) {
     }
     
-    public void processClientSettings(final CPacketClientSettings packetIn) {
+    public void processClientSettings(CPacketClientSettings packetIn) {
     }
     
-    public void processCustomPayload(final CPacketCustomPayload packetIn) {
+    public void processCustomPayload(CPacketCustomPayload packetIn) {
     }
 }

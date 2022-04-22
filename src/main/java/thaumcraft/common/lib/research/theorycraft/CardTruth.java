@@ -35,7 +35,7 @@ public class CardTruth extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
         data.addTotal("ELDRITCH", MathHelper.getInt(player.getRNG(), 10, 25));
         ++data.bonusDraws;
         ThaumcraftApi.internalMethods.addWarpToPlayer(player, 3, IPlayerWarp.EnumWarpType.TEMPORARY);

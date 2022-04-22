@@ -20,9 +20,9 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 public class TileDioptraRenderer extends TileEntitySpecialRenderer
 {
-    private final ResourceLocation gridTexture;
-    private final ResourceLocation sideTexture;
-    private final float[] alphas;
+    private ResourceLocation gridTexture;
+    private ResourceLocation sideTexture;
+    private float[] alphas;
     
     public TileDioptraRenderer() {
         gridTexture = new ResourceLocation("thaumcraft", "textures/misc/gridblock.png");
@@ -30,15 +30,15 @@ public class TileDioptraRenderer extends TileEntitySpecialRenderer
         alphas = new float[] { 0.9f, 0.9f, 0.9f, 0.9f };
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-        final TileDioptra tco = (TileDioptra)te;
-        final Tessellator tessellator = Tessellator.getInstance();
+        TileDioptra tco = (TileDioptra)te;
+        Tessellator tessellator = Tessellator.getInstance();
         GL11.glPushMatrix();
         GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
-        final float t = (rendererDispatcher.entity != null) ? (rendererDispatcher.entity.ticksExisted + partialTicks) : 0.0f;
+        float t = (rendererDispatcher.entity != null) ? (rendererDispatcher.entity.ticksExisted + partialTicks) : 0.0f;
         float rc = 1.0f;
         float gc = 1.0f;
         float bc = 1.0f;
@@ -61,11 +61,11 @@ public class TileDioptraRenderer extends TileEntitySpecialRenderer
         GL11.glScaled(0.99, 1.0, 0.99);
         for (int a = 0; a < 12; ++a) {
             for (int b = 0; b < 12; ++b) {
-                final int[] colors = calcColorMap(new float[] { 0.0f, 0.0f, 0.0f, 0.0f }, rc, gc, bc);
-                final double d3 = a - 6;
-                final double d4 = b - 6;
-                final double dis = Math.sqrt(d3 * d3 + d4 * d4);
-                final float s = MathHelper.sin((float)((tco.counter - dis * 10.0) / 8.0));
+                int[] colors = calcColorMap(new float[] { 0.0f, 0.0f, 0.0f, 0.0f }, rc, gc, bc);
+                double d3 = a - 6;
+                double d4 = b - 6;
+                double dis = Math.sqrt(d3 * d3 + d4 * d4);
+                float s = MathHelper.sin((float)((tco.counter - dis * 10.0) / 8.0));
                 TexturedQuadTC quad = new TexturedQuadTC(new PositionTextureVertex[] { new PositionTextureVertex(a / 12.0f, tco.grid_amt[a + b * 13] / 96.0f, b / 12.0f, 0.0f, 1.0f), new PositionTextureVertex((a + 1) / 12.0f, tco.grid_amt[a + 1 + b * 13] / 96.0f, b / 12.0f, 1.0f, 1.0f), new PositionTextureVertex((a + 1) / 12.0f, tco.grid_amt[a + 1 + (b + 1) * 13] / 96.0f, (b + 1) / 12.0f, 1.0f, 0.0f), new PositionTextureVertex(a / 12.0f, tco.grid_amt[a + (b + 1) * 13] / 96.0f, (b + 1) / 12.0f, 0.0f, 0.0f) });
                 quad.flipFace();
                 quad.draw(tessellator.getBuffer(), 1.0f, (int)(200.0f + s * 15.0f), colors, alphas);
@@ -108,16 +108,16 @@ public class TileDioptraRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
     
-    int[] calcColorMap(final float[] fs, final float r, final float g, final float b) {
-        final int[] colors = { 0, 0, 0, 0 };
+    int[] calcColorMap(float[] fs, float r, float g, float b) {
+        int[] colors = { 0, 0, 0, 0 };
         for (int a = 0; a < 4; ++a) {
             float g2 = g;
             if (fs[a] > 0.0f) {
-                final float ll = 1.0f - fs[a];
+                float ll = 1.0f - fs[a];
                 g2 *= ll;
             }
             g2 = MathHelper.clamp(g2, 0.0f, 1.0f);
-            final Color color1 = new Color(r * 0.8f, g2, b);
+            Color color1 = new Color(r * 0.8f, g2, b);
             colors[a] = color1.getRGB();
         }
         return colors;

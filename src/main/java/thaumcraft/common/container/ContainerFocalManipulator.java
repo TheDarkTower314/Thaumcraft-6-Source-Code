@@ -21,7 +21,7 @@ public class ContainerFocalManipulator extends Container
     private TileFocalManipulator table;
     private int lastBreakTime;
     
-    public ContainerFocalManipulator(final InventoryPlayer inventoryPlayer, final TileFocalManipulator tileEntity) {
+    public ContainerFocalManipulator(InventoryPlayer inventoryPlayer, TileFocalManipulator tileEntity) {
         table = tileEntity;
         addSlotToContainer(new SlotFocus(tileEntity, 0, 31, 191));
         for (int i = 0; i < 3; ++i) {
@@ -36,22 +36,22 @@ public class ContainerFocalManipulator extends Container
         }
     }
     
-    public boolean enchantItem(final EntityPlayer p, final int button) {
+    public boolean enchantItem(EntityPlayer p, int button) {
         if (button == 0 && !table.startCraft(button, p)) {
             table.getWorld().playSound(p, table.getPos(), SoundsTC.craftfail, SoundCategory.BLOCKS, 0.33f, 1.0f);
         }
         return false;
     }
     
-    public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
+    public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
         return table.isUsableByPlayer(par1EntityPlayer);
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int par2) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
         ItemStack itemstack = ItemStack.EMPTY;
-        final Slot slot = inventorySlots.get(par2);
+        Slot slot = inventorySlots.get(par2);
         if (slot != null && slot.getHasStack()) {
-            final ItemStack itemstack2 = slot.getStack();
+            ItemStack itemstack2 = slot.getStack();
             itemstack = itemstack2.copy();
             if (par2 != 0) {
                 if (itemstack2.getItem() instanceof ItemFocus) {

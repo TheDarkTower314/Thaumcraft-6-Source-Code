@@ -10,7 +10,7 @@ public class IndexedCuboid6 extends Cuboid6
 {
     public Object data;
     
-    public IndexedCuboid6(final Object data, final Cuboid6 cuboid) {
+    public IndexedCuboid6(Object data, Cuboid6 cuboid) {
         super(cuboid);
         this.data = data;
     }

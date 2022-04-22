@@ -48,15 +48,15 @@ public class FocusEffectFlux extends FocusEffect
     }
     
     @Override
-    public float getDamageForDisplay(final float finalPower) {
+    public float getDamageForDisplay(float finalPower) {
         return (3 + getSettingValue("power")) * finalPower;
     }
     
     @Override
-    public boolean execute(final RayTraceResult target, final Trajectory trajectory, final float finalPower, final int num) {
+    public boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num) {
         PacketHandler.INSTANCE.sendToAllAround(new PacketFXFocusPartImpact(target.hitVec.x, target.hitVec.y, target.hitVec.z, new String[] { getKey() }), new NetworkRegistry.TargetPoint(getPackage().world.provider.getDimension(), target.hitVec.x, target.hitVec.y, target.hitVec.z, 64.0));
         if (target.typeOfHit == RayTraceResult.Type.ENTITY && target.entityHit != null) {
-            final float damage = getDamageForDisplay(finalPower);
+            float damage = getDamageForDisplay(finalPower);
             target.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage((target.entityHit != null) ? target.entityHit : getPackage().getCaster(), getPackage().getCaster()), damage);
         }
         return false;
@@ -68,14 +68,14 @@ public class FocusEffectFlux extends FocusEffect
     }
     
     @Override
-    public void onCast(final Entity caster) {
+    public void onCast(Entity caster) {
         caster.world.playSound(null, caster.getPosition().up(), SoundEvents.BLOCK_CHORUS_FLOWER_GROW, SoundCategory.PLAYERS, 2.0f, 2.0f + (float)(caster.world.rand.nextGaussian() * 0.10000000149011612));
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void renderParticleFX(final World world, final double x, final double y, final double z, final double vx, final double vy, final double vz) {
-        final FXGeneric fb = new FXGeneric(world, x, y, z, vx + world.rand.nextGaussian() * 0.01, vy + world.rand.nextGaussian() * 0.01, vz + world.rand.nextGaussian() * 0.01);
+    public void renderParticleFX(World world, double x, double y, double z, double vx, double vy, double vz) {
+        FXGeneric fb = new FXGeneric(world, x, y, z, vx + world.rand.nextGaussian() * 0.01, vy + world.rand.nextGaussian() * 0.01, vz + world.rand.nextGaussian() * 0.01);
         fb.setMaxAge((int)(15.0f + 10.0f * world.rand.nextFloat()));
         fb.setRBGColorF(0.25f + world.rand.nextFloat() * 0.25f, 0.0f, 0.25f + world.rand.nextFloat() * 0.25f);
         fb.setAlphaF(0.0f, 1.0f, 1.0f, 0.0f);

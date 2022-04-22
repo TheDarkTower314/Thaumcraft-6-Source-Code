@@ -12,5 +12,5 @@ public interface IModelCustomLoader
     
     String[] getSuffixes();
     
-    IModelCustom loadInstance(final ResourceLocation p0) throws WavefrontObject.ModelFormatException;
+    IModelCustom loadInstance(ResourceLocation p0) throws WavefrontObject.ModelFormatException;
 }

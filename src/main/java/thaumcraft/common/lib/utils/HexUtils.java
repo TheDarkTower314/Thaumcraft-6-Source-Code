@@ -10,23 +10,23 @@ import java.util.ArrayList;
 
 public class HexUtils
 {
-    static final int[][] NEIGHBOURS;
+    static int[][] NEIGHBOURS;
     
-    public static int getDistance(final Hex a1, final Hex a2) {
+    public static int getDistance(Hex a1, Hex a2) {
         return (Math.abs(a1.q - a2.q) + Math.abs(a1.r - a2.r) + Math.abs(a1.q + a1.r - a2.q - a2.r)) / 2;
     }
     
-    public static Hex getRoundedHex(final double qq, final double rr) {
+    public static Hex getRoundedHex(double qq, double rr) {
         return getRoundedCubicHex(qq, rr, -qq - rr).toHex();
     }
     
-    public static CubicHex getRoundedCubicHex(final double xx, final double yy, final double zz) {
+    public static CubicHex getRoundedCubicHex(double xx, double yy, double zz) {
         int rx = (int)Math.round(xx);
         int ry = (int)Math.round(yy);
         int rz = (int)Math.round(zz);
-        final double x_diff = Math.abs(rx - xx);
-        final double y_diff = Math.abs(ry - yy);
-        final double z_diff = Math.abs(rz - zz);
+        double x_diff = Math.abs(rx - xx);
+        double y_diff = Math.abs(ry - yy);
+        double z_diff = Math.abs(rz - zz);
         if (x_diff > y_diff && x_diff > z_diff) {
             rx = -ry - rz;
         }
@@ -39,12 +39,12 @@ public class HexUtils
         return new CubicHex(rx, ry, rz);
     }
     
-    public static ArrayList<Hex> getRing(final int radius) {
+    public static ArrayList<Hex> getRing(int radius) {
         Hex h = new Hex(0, 0);
         for (int k = 0; k < radius; ++k) {
             h = h.getNeighbour(4);
         }
-        final ArrayList<Hex> ring = new ArrayList<Hex>();
+        ArrayList<Hex> ring = new ArrayList<Hex>();
         for (int i = 0; i < 6; ++i) {
             for (int j = 0; j < radius; ++j) {
                 ring.add(h);
@@ -54,10 +54,10 @@ public class HexUtils
         return ring;
     }
     
-    public static ArrayList<Hex> distributeRingRandomly(final int radius, final int entries, final Random random) {
-        final ArrayList<Hex> ring = getRing(radius);
-        final ArrayList<Hex> results = new ArrayList<Hex>();
-        final float spacing = ring.size() / (float)entries;
+    public static ArrayList<Hex> distributeRingRandomly(int radius, int entries, Random random) {
+        ArrayList<Hex> ring = getRing(radius);
+        ArrayList<Hex> results = new ArrayList<Hex>();
+        float spacing = ring.size() / (float)entries;
         float pos = (float)random.nextInt(ring.size());
         for (int i = 0; i < entries; ++i) {
             results.add(ring.get(Math.round(pos)));
@@ -69,8 +69,8 @@ public class HexUtils
         return results;
     }
     
-    public static HashMap<String, Hex> generateHexes(final int radius) {
-        final HashMap<String, Hex> results = new HashMap<String, Hex>();
+    public static HashMap<String, Hex> generateHexes(int radius) {
+        HashMap<String, Hex> results = new HashMap<String, Hex>();
         Hex h = new Hex(0, 0);
         results.put(h.toString(), h);
         for (int k = 0; k < radius; ++k) {
@@ -95,7 +95,7 @@ public class HexUtils
         public int q;
         public int r;
         
-        public Hex(final int q, final int r) {
+        public Hex(int q, int r) {
             this.q = 0;
             this.r = 0;
             this.q = q;
@@ -106,16 +106,16 @@ public class HexUtils
             return new CubicHex(q, r, -q - r);
         }
         
-        public Pixel toPixel(final int size) {
+        public Pixel toPixel(int size) {
             return new Pixel(size * 1.5 * q, size * Math.sqrt(3.0) * (r + q / 2.0));
         }
         
-        public Hex getNeighbour(final int direction) {
-            final int[] d = HexUtils.NEIGHBOURS[direction];
+        public Hex getNeighbour(int direction) {
+            int[] d = HexUtils.NEIGHBOURS[direction];
             return new Hex(q + d[0], r + d[1]);
         }
         
-        public boolean equals(final Hex h) {
+        public boolean equals(Hex h) {
             return h.q == q && h.r == r;
         }
         
@@ -124,15 +124,15 @@ public class HexUtils
             return q + ":" + r;
         }
         
-        public static Hex fromString(final String hs) {
-            final String[] ss = hs.split(":");
+        public static Hex fromString(String hs) {
+            String[] ss = hs.split(":");
             if (ss.length == 2) {
                 try {
-                    final int q = Integer.parseInt(ss[0]);
-                    final int r = Integer.parseInt(ss[1]);
+                    int q = Integer.parseInt(ss[0]);
+                    int r = Integer.parseInt(ss[1]);
                     return new Hex(q, r);
                 }
-                catch (final Exception e) {
+                catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -146,7 +146,7 @@ public class HexUtils
         public int y;
         public int z;
         
-        public CubicHex(final int x, final int y, final int z) {
+        public CubicHex(int x, int y, int z) {
             this.x = 0;
             this.y = 0;
             this.z = 0;
@@ -165,16 +165,16 @@ public class HexUtils
         public double x;
         public double y;
         
-        public Pixel(final double x, final double y) {
+        public Pixel(double x, double y) {
             this.x = 0.0;
             this.y = 0.0;
             this.x = x;
             this.y = y;
         }
         
-        public Hex toHex(final int size) {
-            final double qq = 0.6666666666666666 * x / size;
-            final double rr = (0.3333333333333333 * Math.sqrt(3.0) * -y - 0.3333333333333333 * x) / size;
+        public Hex toHex(int size) {
+            double qq = 0.6666666666666666 * x / size;
+            double rr = (0.3333333333333333 * Math.sqrt(3.0) * -y - 0.3333333333333333 * x) / size;
             return HexUtils.getRoundedHex(qq, rr);
         }
     }

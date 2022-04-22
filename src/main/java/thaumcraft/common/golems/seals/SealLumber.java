@@ -54,20 +54,20 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
     }
     
     @Override
-    public void tickSeal(final World world, final ISealEntity seal) {
+    public void tickSeal(World world, ISealEntity seal) {
         if (delay % 100 == 0) {
-            final Iterator<Integer> it = cache.keySet().iterator();
+            Iterator<Integer> it = cache.keySet().iterator();
             while (it.hasNext()) {
-                final Task t = TaskHandler.getTask(world.provider.getDimension(), it.next());
+                Task t = TaskHandler.getTask(world.provider.getDimension(), it.next());
                 if (t == null) {
                     it.remove();
                 }
             }
         }
         ++delay;
-        final BlockPos p = GolemHelper.getPosInArea(seal, delay);
+        BlockPos p = GolemHelper.getPosInArea(seal, delay);
         if (!cache.containsValue(p.toLong()) && Utils.isWoodLog(world, p)) {
-            final Task task = new Task(seal.getSealPos(), p);
+            Task task = new Task(seal.getSealPos(), p);
             task.setPriority(seal.getPriority());
             TaskHandler.addTask(world.provider.getDimension(), task);
             cache.put(task.getId(), p.toLong());
@@ -75,11 +75,11 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
     }
     
     @Override
-    public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
+    public boolean onTaskCompletion(World world, IGolemAPI golem, Task task) {
         if (cache.containsKey(task.getId()) && Utils.isWoodLog(world, task.getPos())) {
-            final FakePlayer fp = FakePlayerFactory.get((WorldServer)world, new GameProfile(null, "FakeThaumcraftGolem"));
+            FakePlayer fp = FakePlayerFactory.get((WorldServer)world, new GameProfile(null, "FakeThaumcraftGolem"));
             fp.setPosition(golem.getGolemEntity().posX, golem.getGolemEntity().posY, golem.getGolemEntity().posZ);
-            final IBlockState bs = world.getBlockState(task.getPos());
+            IBlockState bs = world.getBlockState(task.getPos());
             golem.swingArm();
             if (BlockUtils.breakFurthestBlock(world, task.getPos(), bs, fp)) {
                 task.setLifespan((short)Math.max(task.getLifespan(), 10L));
@@ -93,7 +93,7 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
     }
     
     @Override
-    public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
+    public boolean canGolemPerformTask(IGolemAPI golem, Task task) {
         if (cache.containsKey(task.getId()) && Utils.isWoodLog(golem.getGolemWorld(), task.getPos())) {
             return true;
         }
@@ -102,20 +102,20 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
     }
     
     @Override
-    public void onTaskSuspension(final World world, final Task task) {
+    public void onTaskSuspension(World world, Task task) {
         cache.remove(task.getId());
     }
     
     @Override
-    public void readCustomNBT(final NBTTagCompound nbt) {
+    public void readCustomNBT(NBTTagCompound nbt) {
     }
     
     @Override
-    public void writeCustomNBT(final NBTTagCompound nbt) {
+    public void writeCustomNBT(NBTTagCompound nbt) {
     }
     
     @Override
-    public boolean canPlaceAt(final World world, final BlockPos pos, final EnumFacing side) {
+    public boolean canPlaceAt(World world, BlockPos pos, EnumFacing side) {
         return !world.isAirBlock(pos);
     }
     
@@ -125,17 +125,17 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
     }
     
     @Override
-    public void onRemoval(final World world, final BlockPos pos, final EnumFacing side) {
+    public void onRemoval(World world, BlockPos pos, EnumFacing side) {
     }
     
     @Override
-    public Object returnContainer(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing side, final ISealEntity seal) {
+    public Object returnContainer(World world, EntityPlayer player, BlockPos pos, EnumFacing side, ISealEntity seal) {
         return new SealBaseContainer(player.inventory, world, seal);
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public Object returnGui(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing side, final ISealEntity seal) {
+    public Object returnGui(World world, EntityPlayer player, BlockPos pos, EnumFacing side, ISealEntity seal) {
         return new SealBaseGUI(player.inventory, world, seal);
     }
     
@@ -155,6 +155,6 @@ public class SealLumber implements ISeal, ISealGui, ISealConfigArea
     }
     
     @Override
-    public void onTaskStarted(final World world, final IGolemAPI golem, final Task task) {
+    public void onTaskStarted(World world, IGolemAPI golem, Task task) {
     }
 }

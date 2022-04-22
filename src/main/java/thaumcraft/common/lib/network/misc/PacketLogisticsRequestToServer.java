@@ -27,14 +27,14 @@ public class PacketLogisticsRequestToServer implements IMessage, IMessageHandler
     public PacketLogisticsRequestToServer() {
     }
     
-    public PacketLogisticsRequestToServer(final BlockPos pos, final EnumFacing side, final ItemStack stack, final int size) {
+    public PacketLogisticsRequestToServer(BlockPos pos, EnumFacing side, ItemStack stack, int size) {
         this.pos = pos;
         this.stack = stack;
         this.side = side;
         stacksize = size;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         if (pos == null || side == null) {
             buffer.writeBoolean(false);
         }
@@ -47,7 +47,7 @@ public class PacketLogisticsRequestToServer implements IMessage, IMessageHandler
         buffer.writeInt(stacksize);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         if (buffer.readBoolean()) {
             pos = BlockPos.fromLong(buffer.readLong());
             side = EnumFacing.values()[buffer.readByte()];
@@ -56,18 +56,18 @@ public class PacketLogisticsRequestToServer implements IMessage, IMessageHandler
         stacksize = buffer.readInt();
     }
     
-    public IMessage onMessage(final PacketLogisticsRequestToServer message, final MessageContext ctx) {
-        final IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
+    public IMessage onMessage(PacketLogisticsRequestToServer message, MessageContext ctx) {
+        IThreadListener mainThread = ctx.getServerHandler().player.getServerWorld();
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final World world = ctx.getServerHandler().player.getServerWorld();
-                final Entity player = ctx.getServerHandler().player;
+                World world = ctx.getServerHandler().player.getServerWorld();
+                Entity player = ctx.getServerHandler().player;
                 int ui = 0;
                 while (message.stacksize > 0) {
-                    final ItemStack s = message.stack.copy();
+                    ItemStack s = message.stack.copy();
                     s.setCount(Math.min(message.stacksize, s.getMaxStackSize()));
-                    final PacketLogisticsRequestToServer val$message = message;
+                    PacketLogisticsRequestToServer val$message = message;
                     val$message.stacksize -= s.getCount();
                     if (message.pos != null) {
                         GolemHelper.requestProvisioning(world, message.pos, message.side, s, ui);

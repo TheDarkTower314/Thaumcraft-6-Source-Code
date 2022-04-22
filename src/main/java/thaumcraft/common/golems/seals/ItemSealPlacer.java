@@ -31,9 +31,9 @@ public class ItemSealPlacer extends ItemTCBase implements ISealDisplayer
     }
     
     @Override
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
-            final String[] vn = getVariantNames();
+            String[] vn = getVariantNames();
             for (int a = 0; a < vn.length; ++a) {
                 items.add(new ItemStack(this, 1, a));
             }
@@ -43,12 +43,12 @@ public class ItemSealPlacer extends ItemTCBase implements ISealDisplayer
     @Override
     public String[] getVariantNames() {
         if (SealHandler.types.size() + 1 != VARIANTS.length) {
-            final String[] rs = SealHandler.getRegisteredSeals();
-            final String[] out = new String[rs.length + 1];
+            String[] rs = SealHandler.getRegisteredSeals();
+            String[] out = new String[rs.length + 1];
             out[0] = "blank";
             int indx = 1;
-            for (final String s : rs) {
-                final String[] sp = s.split(":");
+            for (String s : rs) {
+                String[] sp = s.split(":");
                 out[indx] = ((sp.length > 1) ? sp[1] : sp[0]);
                 ++indx;
             }
@@ -61,10 +61,10 @@ public class ItemSealPlacer extends ItemTCBase implements ISealDisplayer
         return VARIANTS;
     }
     
-    public static ItemStack getSealStack(final String sealKey) {
-        final String[] rs = SealHandler.getRegisteredSeals();
+    public static ItemStack getSealStack(String sealKey) {
+        String[] rs = SealHandler.getRegisteredSeals();
         int indx = 1;
-        for (final String s : rs) {
+        for (String s : rs) {
             if (s.equals(sealKey)) {
                 return new ItemStack(ItemsTC.seals, 1, indx);
             }
@@ -73,19 +73,19 @@ public class ItemSealPlacer extends ItemTCBase implements ISealDisplayer
         return null;
     }
     
-    public EnumActionResult onItemUseFirst(final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         if (world.isRemote || player.getHeldItem(hand).getItemDamage() == 0 || player.isSneaking()) {
             return EnumActionResult.PASS;
         }
         if (!player.canPlayerEdit(pos, side, player.getHeldItem(hand))) {
             return EnumActionResult.FAIL;
         }
-        final String[] rs = SealHandler.getRegisteredSeals();
+        String[] rs = SealHandler.getRegisteredSeals();
         ISeal seal = null;
         try {
             seal = SealHandler.getSeal(rs[player.getHeldItem(hand).getItemDamage() - 1]).getClass().newInstance();
         }
-        catch (final Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
         if (seal == null || !seal.canPlaceAt(world, pos, side)) {
@@ -97,7 +97,7 @@ public class ItemSealPlacer extends ItemTCBase implements ISealDisplayer
         return EnumActionResult.SUCCESS;
     }
     
-    public boolean doesSneakBypassUse(final ItemStack stack, final IBlockAccess world, final BlockPos pos, final EntityPlayer player) {
+    public boolean doesSneakBypassUse(ItemStack stack, IBlockAccess world, BlockPos pos, EntityPlayer player) {
         return true;
     }
 }

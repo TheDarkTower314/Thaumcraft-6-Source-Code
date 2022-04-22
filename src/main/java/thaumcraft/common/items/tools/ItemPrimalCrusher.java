@@ -34,7 +34,7 @@ import net.minecraft.item.ItemTool;
 public class ItemPrimalCrusher extends ItemTool implements IWarpingGear, IThaumcraftItems
 {
     public static Item.ToolMaterial material;
-    private static final Set isEffective;
+    private static Set isEffective;
     
     public ItemPrimalCrusher() {
         super(3.5f, -2.8f, ItemPrimalCrusher.material, ItemPrimalCrusher.isEffective);
@@ -60,24 +60,24 @@ public class ItemPrimalCrusher extends ItemTool implements IWarpingGear, IThaumc
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public boolean canHarvestBlock(final IBlockState p_150897_1_) {
+    public boolean canHarvestBlock(IBlockState p_150897_1_) {
         return p_150897_1_.getMaterial() != Material.WOOD && p_150897_1_.getMaterial() != Material.LEAVES && p_150897_1_.getMaterial() != Material.PLANTS;
     }
     
-    public float getDestroySpeed(final ItemStack stack, final IBlockState state) {
+    public float getDestroySpeed(ItemStack stack, IBlockState state) {
         return (state.getMaterial() != Material.IRON && state.getMaterial() != Material.ANVIL && state.getMaterial() != Material.ROCK) ? super.getDestroySpeed(stack, state) : efficiency;
     }
     
-    public Set<String> getToolClasses(final ItemStack stack) {
+    public Set<String> getToolClasses(ItemStack stack) {
         return ImmutableSet.of("shovel", "pickaxe");
     }
     
-    private boolean isEffectiveAgainst(final Block block) {
-        for (final Object b : ItemPrimalCrusher.isEffective) {
+    private boolean isEffectiveAgainst(Block block) {
+        for (Object b : ItemPrimalCrusher.isEffective) {
             if (b == block) {
                 return true;
             }
@@ -89,20 +89,20 @@ public class ItemPrimalCrusher extends ItemTool implements IWarpingGear, IThaumc
         return 20;
     }
     
-    public int getWarp(final ItemStack itemstack, final EntityPlayer player) {
+    public int getWarp(ItemStack itemstack, EntityPlayer player) {
         return 2;
     }
     
-    public void onUpdate(final ItemStack stack, final World world, final Entity entity, final int p_77663_4_, final boolean p_77663_5_) {
+    public void onUpdate(ItemStack stack, World world, Entity entity, int p_77663_4_, boolean p_77663_5_) {
         super.onUpdate(stack, world, entity, p_77663_4_, p_77663_5_);
         if (stack.isItemDamaged() && entity != null && entity.ticksExisted % 20 == 0 && entity instanceof EntityLivingBase) {
             stack.damageItem(-1, (EntityLivingBase)entity);
         }
     }
     
-    public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (tab == ConfigItems.TABTC || tab == CreativeTabs.SEARCH) {
-            final ItemStack w1 = new ItemStack(this);
+            ItemStack w1 = new ItemStack(this);
             EnumInfusionEnchantment.addInfusionEnchantment(w1, EnumInfusionEnchantment.DESTRUCTIVE, 1);
             EnumInfusionEnchantment.addInfusionEnchantment(w1, EnumInfusionEnchantment.REFINING, 1);
             items.add(w1);

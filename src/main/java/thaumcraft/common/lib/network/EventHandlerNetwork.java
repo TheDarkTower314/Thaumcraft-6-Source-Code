@@ -19,10 +19,10 @@ import net.minecraftforge.fml.common.Mod;
 public class EventHandlerNetwork
 {
     @SubscribeEvent
-    public void playerLoggedInEvent(final PlayerEvent.PlayerLoggedInEvent event) {
-        final Side side = FMLCommonHandler.instance().getEffectiveSide();
+    public void playerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event) {
+        Side side = FMLCommonHandler.instance().getEffectiveSide();
         if (side == Side.SERVER) {
-            final EntityPlayer p = event.player;
+            EntityPlayer p = event.player;
             PacketHandler.INSTANCE.sendTo(new PacketSyncWarp(p), (EntityPlayerMP)p);
             PacketHandler.INSTANCE.sendTo(new PacketSyncKnowledge(p), (EntityPlayerMP)p);
         }

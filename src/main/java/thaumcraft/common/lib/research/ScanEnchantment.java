@@ -17,23 +17,23 @@ public class ScanEnchantment implements IScanThing
 {
     Enchantment enchantment;
     
-    public ScanEnchantment(final Enchantment ench) {
+    public ScanEnchantment(Enchantment ench) {
         enchantment = ench;
     }
     
     @Override
-    public boolean checkThing(final EntityPlayer player, final Object obj) {
+    public boolean checkThing(EntityPlayer player, Object obj) {
         return getEnchantment(player, obj) != null;
     }
     
-    private Enchantment getEnchantment(final EntityPlayer player, final Object obj) {
+    private Enchantment getEnchantment(EntityPlayer player, Object obj) {
         if (obj == null) {
             return null;
         }
-        final ItemStack is = ScanningManager.getItemFromParms(player, obj);
+        ItemStack is = ScanningManager.getItemFromParms(player, obj);
         if (is != null && !is.isEmpty()) {
-            final Map<Enchantment, Integer> e = EnchantmentHelper.getEnchantments(is);
-            for (final Enchantment ench : e.keySet()) {
+            Map<Enchantment, Integer> e = EnchantmentHelper.getEnchantments(is);
+            for (Enchantment ench : e.keySet()) {
                 if (ench == enchantment) {
                     return ench;
                 }
@@ -43,7 +43,7 @@ public class ScanEnchantment implements IScanThing
     }
     
     @Override
-    public String getResearchKey(final EntityPlayer player, final Object obj) {
+    public String getResearchKey(EntityPlayer player, Object obj) {
         return "!" + enchantment.getName();
     }
 }

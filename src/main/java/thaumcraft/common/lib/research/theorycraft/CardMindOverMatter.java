@@ -30,20 +30,20 @@ public class CardMindOverMatter extends TheorycraftCard
     
     @Override
     public NBTTagCompound serialize() {
-        final NBTTagCompound nbt = super.serialize();
+        NBTTagCompound nbt = super.serialize();
         nbt.setTag("stack", stack.serializeNBT());
         return nbt;
     }
     
     @Override
-    public void deserialize(final NBTTagCompound nbt) {
+    public void deserialize(NBTTagCompound nbt) {
         super.deserialize(nbt);
         stack = new ItemStack(nbt.getCompoundTag("stack"));
     }
     
     @Override
-    public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(getSeed());
+    public boolean initialize(EntityPlayer player, ResearchTableData data) {
+        Random r = new Random(getSeed());
         stack = CardMindOverMatter.options[r.nextInt(CardMindOverMatter.options.length)].copy();
         return stack != null;
     }
@@ -73,7 +73,7 @@ public class CardMindOverMatter extends TheorycraftCard
         try {
             q += (int)Math.sqrt(ThaumcraftCraftingManager.getObjectTags(stack).visSize());
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
         return q;
     }
     
@@ -88,7 +88,7 @@ public class CardMindOverMatter extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
         data.addTotal(getResearchCategory(), getVal());
         return true;
     }

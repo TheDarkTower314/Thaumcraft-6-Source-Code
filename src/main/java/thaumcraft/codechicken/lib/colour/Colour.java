@@ -17,14 +17,14 @@ public abstract class Colour implements Copyable<Colour>
     public byte b;
     public byte a;
     
-    public Colour(final int r, final int g, final int b, final int a) {
+    public Colour(int r, int g, int b, int a) {
         this.r = (byte)r;
         this.g = (byte)g;
         this.b = (byte)b;
         this.a = (byte)a;
     }
     
-    public Colour(final Colour colour) {
+    public Colour(Colour colour) {
         r = colour.r;
         g = colour.g;
         b = colour.b;
@@ -37,7 +37,7 @@ public abstract class Colour implements Copyable<Colour>
     }
     
     @SideOnly(Side.CLIENT)
-    public void glColour(final int a) {
+    public void glColour(int a) {
         GL11.glColor4ub(r, g, b, (byte)a);
     }
     
@@ -48,7 +48,7 @@ public abstract class Colour implements Copyable<Colour>
         return getClass().getSimpleName() + "[0x" + Integer.toHexString(pack()).toUpperCase() + "]";
     }
     
-    public Colour add(final Colour colour2) {
+    public Colour add(Colour colour2) {
         a += colour2.a;
         r += colour2.r;
         g += colour2.g;
@@ -56,11 +56,11 @@ public abstract class Colour implements Copyable<Colour>
         return this;
     }
     
-    public Colour sub(final Colour colour2) {
-        final int ia = (a & 0xFF) - (colour2.a & 0xFF);
-        final int ir = (r & 0xFF) - (colour2.r & 0xFF);
-        final int ig = (g & 0xFF) - (colour2.g & 0xFF);
-        final int ib = (b & 0xFF) - (colour2.b & 0xFF);
+    public Colour sub(Colour colour2) {
+        int ia = (a & 0xFF) - (colour2.a & 0xFF);
+        int ir = (r & 0xFF) - (colour2.r & 0xFF);
+        int ig = (g & 0xFF) - (colour2.g & 0xFF);
+        int ib = (b & 0xFF) - (colour2.b & 0xFF);
         a = (byte)((ia < 0) ? 0 : ia);
         r = (byte)((ir < 0) ? 0 : ir);
         g = (byte)((ig < 0) ? 0 : ig);
@@ -76,7 +76,7 @@ public abstract class Colour implements Copyable<Colour>
         return this;
     }
     
-    public Colour multiply(final Colour colour2) {
+    public Colour multiply(Colour colour2) {
         a = (byte)((a & 0xFF) * ((colour2.a & 0xFF) / 255.0));
         r = (byte)((r & 0xFF) * ((colour2.r & 0xFF) / 255.0));
         g = (byte)((g & 0xFF) * ((colour2.g & 0xFF) / 255.0));
@@ -84,7 +84,7 @@ public abstract class Colour implements Copyable<Colour>
         return this;
     }
     
-    public Colour scale(final double d) {
+    public Colour scale(double d) {
         a = (byte)((a & 0xFF) * d);
         r = (byte)((r & 0xFF) * d);
         g = (byte)((g & 0xFF) * d);
@@ -92,11 +92,11 @@ public abstract class Colour implements Copyable<Colour>
         return this;
     }
     
-    public Colour interpolate(final Colour colour2, final double d) {
+    public Colour interpolate(Colour colour2, double d) {
         return add(colour2.copy().sub(this).scale(d));
     }
     
-    public Colour multiplyC(final double d) {
+    public Colour multiplyC(double d) {
         r = (byte)MathHelper.clip((r & 0xFF) * d, 0.0, 255.0);
         g = (byte)MathHelper.clip((g & 0xFF) * d, 0.0, 255.0);
         b = (byte)MathHelper.clip((b & 0xFF) * d, 0.0, 255.0);
@@ -118,7 +118,7 @@ public abstract class Colour implements Copyable<Colour>
         return (r & 0xFF) << 24 | (g & 0xFF) << 16 | (b & 0xFF) << 8 | (a & 0xFF);
     }
     
-    public Colour set(final Colour colour) {
+    public Colour set(Colour colour) {
         r = colour.r;
         g = colour.g;
         b = colour.b;
@@ -126,7 +126,7 @@ public abstract class Colour implements Copyable<Colour>
         return this;
     }
     
-    public boolean equals(final Colour colour) {
+    public boolean equals(Colour colour) {
         return colour != null && rgba() == colour.rgba();
     }
 }

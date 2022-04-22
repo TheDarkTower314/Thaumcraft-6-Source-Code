@@ -20,30 +20,30 @@ public class GuiSmelter extends GuiContainer
     private TileSmelter furnaceInventory;
     ResourceLocation tex;
     
-    public GuiSmelter(final InventoryPlayer par1InventoryPlayer, final TileSmelter par2TileEntityFurnace) {
+    public GuiSmelter(InventoryPlayer par1InventoryPlayer, TileSmelter par2TileEntityFurnace) {
         super(new ContainerSmelter(par1InventoryPlayer, par2TileEntityFurnace));
         tex = new ResourceLocation("thaumcraft", "textures/gui/gui_smelter.png");
         furnaceInventory = par2TileEntityFurnace;
     }
     
-    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         renderHoveredToolTip(mouseX, mouseY);
     }
     
-    protected void drawGuiContainerForegroundLayer(final int par1, final int par2) {
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
     }
     
-    protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         mc.renderEngine.bindTexture(tex);
-        final int k = (width - xSize) / 2;
-        final int l = (height - ySize) / 2;
+        int k = (width - xSize) / 2;
+        int l = (height - ySize) / 2;
         GL11.glEnable(3042);
         drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
         if (furnaceInventory.getBurnTimeRemainingScaled(20) > 0) {
-            final int i1 = furnaceInventory.getBurnTimeRemainingScaled(20);
+            int i1 = furnaceInventory.getBurnTimeRemainingScaled(20);
             drawTexturedModalRect(k + 80, l + 26 + 20 - i1, 176, 20 - i1, 16, i1);
         }
         int i1 = furnaceInventory.getCookProgressScaled(46);

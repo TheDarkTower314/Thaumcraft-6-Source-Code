@@ -37,38 +37,38 @@ public class BlockGolemBuilder extends BlockTCDevice implements IBlockFacingHori
     }
     
     @Override
-    public boolean rotateBlock(final World world, final BlockPos pos, final EnumFacing axis) {
+    public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
         return false;
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
-    public EnumBlockRenderType getRenderType(final IBlockState state) {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.INVISIBLE;
     }
     
-    public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(Blocks.PISTON);
     }
     
     @Override
-    public int damageDropped(final IBlockState state) {
+    public int damageDropped(IBlockState state) {
         return 0;
     }
     
     @Override
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         destroy(worldIn, pos, state, pos);
         super.breakBlock(worldIn, pos, state);
     }
     
-    public static void destroy(final World worldIn, final BlockPos pos, final IBlockState state, final BlockPos startpos) {
+    public static void destroy(World worldIn, BlockPos pos, IBlockState state, BlockPos startpos) {
         if (BlockGolemBuilder.ignore || worldIn.isRemote) {
             return;
         }
@@ -77,7 +77,7 @@ public class BlockGolemBuilder extends BlockTCDevice implements IBlockFacingHori
             for (int b = 0; b <= 1; ++b) {
                 for (int c = -1; c <= 1; ++c) {
                     if (pos.add(a, b, c) != startpos) {
-                        final IBlockState bs = worldIn.getBlockState(pos.add(a, b, c));
+                        IBlockState bs = worldIn.getBlockState(pos.add(a, b, c));
                         if (bs.getBlock() == BlocksTC.placeholderBars) {
                             worldIn.setBlockState(pos.add(a, b, c), Blocks.IRON_BARS.getDefaultState());
                         }
@@ -100,7 +100,7 @@ public class BlockGolemBuilder extends BlockTCDevice implements IBlockFacingHori
         BlockGolemBuilder.ignore = false;
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         }

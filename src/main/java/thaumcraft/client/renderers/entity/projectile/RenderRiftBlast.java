@@ -21,33 +21,33 @@ import net.minecraft.client.renderer.entity.Render;
 
 public class RenderRiftBlast extends Render
 {
-    private final ShaderCallback shaderCallback;
-    private static final ResourceLocation starsTexture;
+    private ShaderCallback shaderCallback;
+    private static ResourceLocation starsTexture;
     CoreGLE gle;
     
-    public RenderRiftBlast(final RenderManager rm) {
+    public RenderRiftBlast(RenderManager rm) {
         super(rm);
         gle = new CoreGLE();
         shadowSize = 0.0f;
         shaderCallback = new ShaderCallback() {
             @Override
-            public void call(final int shader) {
-                final Minecraft mc = Minecraft.getMinecraft();
-                final int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
+            public void call(int shader) {
+                Minecraft mc = Minecraft.getMinecraft();
+                int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
                 ARBShaderObjects.glUniform1fARB(x, (float)(mc.player.rotationYaw * 2.0f * 3.141592653589793 / 360.0));
-                final int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
+                int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
                 ARBShaderObjects.glUniform1fARB(z, -(float)(mc.player.rotationPitch * 2.0f * 3.141592653589793 / 360.0));
             }
         };
     }
     
-    public void renderEntityAt(final EntityRiftBlast entity, final double x, final double y, final double z, final float fq, final float pticks) {
-        final Tessellator tessellator = Tessellator.getInstance();
+    public void renderEntityAt(EntityRiftBlast entity, double x, double y, double z, float fq, float pticks) {
+        Tessellator tessellator = Tessellator.getInstance();
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, z);
-        final float xx = (float)(entity.prevPosX + (entity.posX - entity.prevPosX) * pticks);
-        final float yy = (float)(entity.prevPosY + (entity.posY - entity.prevPosY) * pticks);
-        final float zz = (float)(entity.prevPosZ + (entity.posZ - entity.prevPosZ) * pticks);
+        float xx = (float)(entity.prevPosX + (entity.posX - entity.prevPosX) * pticks);
+        float yy = (float)(entity.prevPosY + (entity.posY - entity.prevPosY) * pticks);
+        float zz = (float)(entity.prevPosZ + (entity.posZ - entity.prevPosZ) * pticks);
         GL11.glTranslated(-xx, -yy, -zz);
         GL11.glEnable(3042);
         for (int q = 0; q <= 1; ++q) {
@@ -58,10 +58,10 @@ public class RenderRiftBlast extends Render
             if (entity.points != null && entity.points.length > 2) {
                 Minecraft.getMinecraft().renderEngine.bindTexture(RenderRiftBlast.starsTexture);
                 ShaderHelper.useShader(ShaderHelper.endShader, shaderCallback);
-                final double[] r2 = new double[entity.radii.length];
+                double[] r2 = new double[entity.radii.length];
                 int ri = 0;
-                final float m = (1.5f - q) / 1.0f;
-                for (final double d : entity.radii) {
+                float m = (1.5f - q) / 1.0f;
+                for (double d : entity.radii) {
                     r2[ri] = entity.radii[ri] * m;
                     ++ri;
                 }
@@ -81,11 +81,11 @@ public class RenderRiftBlast extends Render
         GL11.glPopMatrix();
     }
     
-    public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
+    public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
         renderEntityAt((EntityRiftBlast)entity, d, d1, d2, f, f1);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
     

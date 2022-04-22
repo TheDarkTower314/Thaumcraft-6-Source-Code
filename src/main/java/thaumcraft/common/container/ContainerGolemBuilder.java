@@ -24,7 +24,7 @@ public class ContainerGolemBuilder extends Container
     private int lastCost;
     private int lastMaxCost;
     
-    public ContainerGolemBuilder(final InventoryPlayer par1InventoryPlayer, final TileGolemBuilder tileEntity) {
+    public ContainerGolemBuilder(InventoryPlayer par1InventoryPlayer, TileGolemBuilder tileEntity) {
         builder = tileEntity;
         addSlotToContainer(new SlotOutput(tileEntity, 0, 160, 104));
         for (int i = 0; i < 3; ++i) {
@@ -37,24 +37,24 @@ public class ContainerGolemBuilder extends Container
         }
     }
     
-    public ItemStack slotClick(final int slotId, final int clickedButton, final ClickType mode, final EntityPlayer playerIn) {
+    public ItemStack slotClick(int slotId, int clickedButton, ClickType mode, EntityPlayer playerIn) {
         ContainerGolemBuilder.redo = true;
         return super.slotClick(slotId, clickedButton, mode, playerIn);
     }
     
-    public void putStackInSlot(final int p_75141_1_, final ItemStack p_75141_2_) {
+    public void putStackInSlot(int p_75141_1_, ItemStack p_75141_2_) {
         ContainerGolemBuilder.redo = true;
         super.putStackInSlot(p_75141_1_, p_75141_2_);
     }
     
-    public boolean enchantItem(final EntityPlayer p, final int button) {
+    public boolean enchantItem(EntityPlayer p, int button) {
         if (button == 99) {
             ContainerGolemBuilder.redo = true;
         }
         return false;
     }
     
-    public void addListener(final IContainerListener par1ICrafting) {
+    public void addListener(IContainerListener par1ICrafting) {
         super.addListener(par1ICrafting);
         par1ICrafting.sendWindowProperty(this, 0, builder.cost);
     }
@@ -62,7 +62,7 @@ public class ContainerGolemBuilder extends Container
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         for (int i = 0; i < listeners.size(); ++i) {
-            final IContainerListener icrafting = listeners.get(i);
+            IContainerListener icrafting = listeners.get(i);
             if (lastCost != builder.cost) {
                 icrafting.sendWindowProperty(this, 0, builder.cost);
             }
@@ -75,7 +75,7 @@ public class ContainerGolemBuilder extends Container
     }
     
     @SideOnly(Side.CLIENT)
-    public void updateProgressBar(final int par1, final int par2) {
+    public void updateProgressBar(int par1, int par2) {
         if (par1 == 0) {
             builder.cost = par2;
         }
@@ -84,15 +84,15 @@ public class ContainerGolemBuilder extends Container
         }
     }
     
-    public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
+    public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
         return builder.isUsableByPlayer(par1EntityPlayer);
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = inventorySlots.get(slot);
+        Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
-            final ItemStack stackInSlot = slotObject.getStack();
+            ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot == 0) {
                 if (!builder.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {

@@ -23,7 +23,7 @@ public class TileStabilizer extends TileThaumcraft implements ITickable
     private int delay;
     int lastEnergy;
     protected int energy;
-    protected final int capacity = 15;
+    protected int capacity = 15;
     
     public TileStabilizer() {
         ticks = 0;
@@ -40,7 +40,7 @@ public class TileStabilizer extends TileThaumcraft implements ITickable
     public void update() {
         if (!world.isRemote) {
             ++ticks;
-            final int energy = this.energy;
+            int energy = this.energy;
             getClass();
             if (energy < 15 && ticks % 20 == 0) {
                 ++this.energy;
@@ -50,7 +50,7 @@ public class TileStabilizer extends TileThaumcraft implements ITickable
                 world.notifyNeighborsOfStateChange(getPos(), world.getBlockState(pos).getBlock(), false);
             }
             if (this.energy > 0 && delay <= 0 && ticks % 5 == 0) {
-                final int q = this.energy;
+                int q = this.energy;
                 tryAddStability();
                 if (q != this.energy) {
                     markDirty();
@@ -68,10 +68,10 @@ public class TileStabilizer extends TileThaumcraft implements ITickable
     }
     
     private void tryAddStability() {
-        final EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
-        final List<EntityFluxRift> targets = world.getEntitiesWithinAABB(EntityFluxRift.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1).grow(8.0));
+        EnumFacing facing = BlockStateUtils.getFacing(getBlockMetadata());
+        List<EntityFluxRift> targets = world.getEntitiesWithinAABB(EntityFluxRift.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1).grow(8.0));
         if (targets.size() > 0) {
-            for (final EntityFluxRift e : targets) {
+            for (EntityFluxRift e : targets) {
                 if (e.isDead) {
                     continue;
                 }
@@ -88,12 +88,12 @@ public class TileStabilizer extends TileThaumcraft implements ITickable
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbt) {
+    public void readSyncNBT(NBTTagCompound nbt) {
         energy = Math.min(nbt.getInteger("energy"), 15);
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbt) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbt) {
         nbt.setInteger("energy", energy);
         return nbt;
     }
@@ -102,7 +102,7 @@ public class TileStabilizer extends TileThaumcraft implements ITickable
         return energy;
     }
     
-    public boolean mitigate(final int e) {
+    public boolean mitigate(int e) {
         if (energy >= e) {
             energy -= e;
             world.notifyNeighborsOfStateChange(getPos(), world.getBlockState(pos).getBlock(), false);

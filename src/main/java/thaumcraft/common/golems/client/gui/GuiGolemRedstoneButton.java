@@ -17,18 +17,18 @@ public class GuiGolemRedstoneButton extends GuiButton
     ISealEntity seal;
     static ResourceLocation tex;
     
-    public GuiGolemRedstoneButton(final int buttonId, final int x, final int y, final int width, final int height, final ISealEntity seal) {
+    public GuiGolemRedstoneButton(int buttonId, int x, int y, int width, int height, ISealEntity seal) {
         super(buttonId, x, y, width, height, "");
         this.seal = seal;
     }
     
-    public void drawButton(final Minecraft mc, final int xx, final int yy, final float partialTicks) {
+    public void drawButton(Minecraft mc, int xx, int yy, float partialTicks) {
         if (visible) {
-            final FontRenderer fontrenderer = mc.fontRenderer;
+            FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(GuiGolemRedstoneButton.tex);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             hovered = (xx >= x && yy >= y && xx < x + width && yy < y + height);
-            final int k = getHoverState(hovered);
+            int k = getHoverState(hovered);
             if (k == 2) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             }
@@ -46,7 +46,7 @@ public class GuiGolemRedstoneButton extends GuiButton
             }
             if (k == 2) {
                 zLevel += 90.0f;
-                final String s = seal.isRedstoneSensitive() ? I18n.translateToLocal("golem.prop.redon") : I18n.translateToLocal("golem.prop.redoff");
+                String s = seal.isRedstoneSensitive() ? I18n.translateToLocal("golem.prop.redon") : I18n.translateToLocal("golem.prop.redoff");
                 drawString(fontrenderer, s, x - 2 - fontrenderer.getStringWidth(s), y + 4, 16777215);
                 zLevel -= 90.0f;
             }

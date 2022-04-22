@@ -17,19 +17,19 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 public class TileCrucibleRenderer extends TileEntitySpecialRenderer
 {
-    public void renderEntityAt(final TileCrucible cr, final double x, final double y, final double z, final float fq) {
+    public void renderEntityAt(TileCrucible cr, double x, double y, double z, float fq) {
         if (cr.tank.getFluidAmount() > 0) {
             renderFluid(cr, x, y, z);
         }
     }
     
-    public void renderFluid(final TileCrucible cr, final double x, final double y, final double z) {
+    public void renderFluid(TileCrucible cr, double x, double y, double z) {
         GL11.glPushMatrix();
         GL11.glTranslated(x, y + cr.getFluidHeight(), z + 1.0);
         GL11.glRotatef(90.0f, -1.0f, 0.0f, 0.0f);
         if (cr.tank.getFluidAmount() > 0) {
-            final TextureAtlasSprite icon = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(Blocks.WATER.getDefaultState());
-            final float n = (float)cr.aspects.visSize();
+            TextureAtlasSprite icon = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(Blocks.WATER.getDefaultState());
+            float n = (float)cr.aspects.visSize();
             cr.getClass();
             float recolor = n / 500.0f;
             if (recolor > 0.0f) {
@@ -43,7 +43,7 @@ public class TileCrucibleRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderEntityAt((TileCrucible)te, x, y, z, partialTicks);
     }

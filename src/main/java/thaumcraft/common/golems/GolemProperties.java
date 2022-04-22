@@ -48,26 +48,26 @@ public class GolemProperties implements IGolemProperties
     public Set<EnumGolemTrait> getTraits() {
         if (traitCache == null) {
             traitCache = new HashSet<EnumGolemTrait>();
-            for (final EnumGolemTrait trait : getMaterial().traits) {
+            for (EnumGolemTrait trait : getMaterial().traits) {
                 addTraitSmart(trait);
             }
-            for (final EnumGolemTrait trait : getHead().traits) {
+            for (EnumGolemTrait trait : getHead().traits) {
                 addTraitSmart(trait);
             }
-            for (final EnumGolemTrait trait : getArms().traits) {
+            for (EnumGolemTrait trait : getArms().traits) {
                 addTraitSmart(trait);
             }
-            for (final EnumGolemTrait trait : getLegs().traits) {
+            for (EnumGolemTrait trait : getLegs().traits) {
                 addTraitSmart(trait);
             }
-            for (final EnumGolemTrait trait : getAddon().traits) {
+            for (EnumGolemTrait trait : getAddon().traits) {
                 addTraitSmart(trait);
             }
         }
         return traitCache;
     }
     
-    private void addTraitSmart(final EnumGolemTrait trait) {
+    private void addTraitSmart(EnumGolemTrait trait) {
         if (trait.opposite != null && traitCache.contains(trait.opposite)) {
             traitCache.remove(trait.opposite);
         }
@@ -77,12 +77,12 @@ public class GolemProperties implements IGolemProperties
     }
     
     @Override
-    public boolean hasTrait(final EnumGolemTrait trait) {
+    public boolean hasTrait(EnumGolemTrait trait) {
         return getTraits().contains(trait);
     }
     
     @Override
-    public void setMaterial(final GolemMaterial mat) {
+    public void setMaterial(GolemMaterial mat) {
         data = ThaumcraftApiHelper.setByteInLong(data, mat.id, 0);
         traitCache = null;
     }
@@ -93,7 +93,7 @@ public class GolemProperties implements IGolemProperties
     }
     
     @Override
-    public void setHead(final GolemHead mat) {
+    public void setHead(GolemHead mat) {
         data = ThaumcraftApiHelper.setByteInLong(data, mat.id, 1);
         traitCache = null;
     }
@@ -104,7 +104,7 @@ public class GolemProperties implements IGolemProperties
     }
     
     @Override
-    public void setArms(final GolemArm mat) {
+    public void setArms(GolemArm mat) {
         data = ThaumcraftApiHelper.setByteInLong(data, mat.id, 2);
         traitCache = null;
     }
@@ -115,7 +115,7 @@ public class GolemProperties implements IGolemProperties
     }
     
     @Override
-    public void setLegs(final GolemLeg mat) {
+    public void setLegs(GolemLeg mat) {
         data = ThaumcraftApiHelper.setByteInLong(data, mat.id, 3);
         traitCache = null;
     }
@@ -126,7 +126,7 @@ public class GolemProperties implements IGolemProperties
     }
     
     @Override
-    public void setAddon(final GolemAddon mat) {
+    public void setAddon(GolemAddon mat) {
         data = ThaumcraftApiHelper.setByteInLong(data, mat.id, 4);
         traitCache = null;
     }
@@ -137,7 +137,7 @@ public class GolemProperties implements IGolemProperties
     }
     
     @Override
-    public void setRank(final int rank) {
+    public void setRank(int rank) {
         data = ThaumcraftApiHelper.setByteInLong(data, (byte)rank, 5);
     }
     
@@ -146,8 +146,8 @@ public class GolemProperties implements IGolemProperties
         return ThaumcraftApiHelper.getByteInLong(data, 5);
     }
     
-    public static IGolemProperties fromLong(final long d) {
-        final GolemProperties out = new GolemProperties();
+    public static IGolemProperties fromLong(long d) {
+        GolemProperties out = new GolemProperties();
         out.data = d;
         return out;
     }
@@ -159,9 +159,9 @@ public class GolemProperties implements IGolemProperties
     
     @Override
     public ItemStack[] generateComponents() {
-        final ArrayList<ItemStack> comps = new ArrayList<ItemStack>();
-        final ItemStack base = getMaterial().componentBase;
-        final ItemStack mech = getMaterial().componentMechanism;
+        ArrayList<ItemStack> comps = new ArrayList<ItemStack>();
+        ItemStack base = getMaterial().componentBase;
+        ItemStack mech = getMaterial().componentMechanism;
         addToList(comps, base, 2);
         addToList(comps, mech, 1);
         addToListFromComps(comps, getArms().components, getMaterial());
@@ -171,13 +171,13 @@ public class GolemProperties implements IGolemProperties
         return comps.toArray(new ItemStack[0]);
     }
     
-    private static void addToListFromComps(final ArrayList<ItemStack> comps, final Object[] objs, final GolemMaterial mat) {
-        for (final Object o : objs) {
+    private static void addToListFromComps(ArrayList<ItemStack> comps, Object[] objs, GolemMaterial mat) {
+        for (Object o : objs) {
             if (o instanceof ItemStack) {
                 addToList(comps, (ItemStack)o, 1);
             }
             else if (o instanceof String) {
-                final String s = (String)o;
+                String s = (String)o;
                 if (s.equalsIgnoreCase("base")) {
                     addToList(comps, mat.componentBase, 1);
                 }
@@ -188,14 +188,14 @@ public class GolemProperties implements IGolemProperties
         }
     }
     
-    private static void addToList(final ArrayList<ItemStack> comps, final ItemStack newItem, final int mult) {
-        for (final ItemStack stack : comps) {
+    private static void addToList(ArrayList<ItemStack> comps, ItemStack newItem, int mult) {
+        for (ItemStack stack : comps) {
             if (stack.isItemEqual(newItem) && ItemStack.areItemStackTagsEqual(stack, newItem)) {
                 stack.grow(newItem.getCount() * mult);
                 return;
             }
         }
-        final ItemStack stack2 = newItem.copy();
+        ItemStack stack2 = newItem.copy();
         stack2.setCount(stack2.getCount() * mult);
         comps.add(stack2);
     }

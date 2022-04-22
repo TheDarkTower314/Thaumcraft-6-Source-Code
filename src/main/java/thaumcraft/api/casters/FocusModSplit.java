@@ -9,7 +9,7 @@ public abstract class FocusModSplit extends FocusMod {
 	
 	private ArrayList<FocusPackage> packages = new ArrayList<>(); 
 
-	public final ArrayList<FocusPackage> getSplitPackages() {
+	public ArrayList<FocusPackage> getSplitPackages() {
 		return packages;
 	}
 	

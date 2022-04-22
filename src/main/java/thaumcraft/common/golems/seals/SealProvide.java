@@ -56,11 +56,11 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void tickSeal(final World world, final ISealEntity seal) {
+    public void tickSeal(World world, ISealEntity seal) {
         if (delay % 100 == 0 && GolemHelper.provisionRequests.containsKey(world.provider.getDimension())) {
-            final Iterator<ProvisionRequest> it = GolemHelper.provisionRequests.get(world.provider.getDimension()).iterator();
+            Iterator<ProvisionRequest> it = GolemHelper.provisionRequests.get(world.provider.getDimension()).iterator();
             while (it.hasNext()) {
-                final ProvisionRequest pr = it.next();
+                ProvisionRequest pr = it.next();
                 if (pr.isInvalid() || pr.getLinkedTask() == null || pr.getLinkedTask().isSuspended() || pr.getLinkedTask().isCompleted() || pr.getTimeout() < System.currentTimeMillis()) {
                     it.remove();
                 }
@@ -69,11 +69,11 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
         if (delay++ % 20 != 0) {
             return;
         }
-        final IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, seal.getSealPos().pos, seal.getSealPos().face);
+        IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, seal.getSealPos().pos, seal.getSealPos().face);
         if (inv != null && GolemHelper.provisionRequests.containsKey(world.provider.getDimension())) {
-            final ListIterator<ProvisionRequest> it2 = GolemHelper.provisionRequests.get(world.provider.getDimension()).listIterator();
+            ListIterator<ProvisionRequest> it2 = GolemHelper.provisionRequests.get(world.provider.getDimension()).listIterator();
             while (it2.hasNext()) {
-                final ProvisionRequest pr2 = it2.next();
+                ProvisionRequest pr2 = it2.next();
                 if (pr2.isInvalid()) {
                     it2.remove();
                 }
@@ -84,9 +84,9 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
                     if ((pr2.getSeal() == null || pr2.getSeal().getSealPos().pos.distanceSq(seal.getSealPos().pos) >= 4096.0) && (pr2.getEntity() == null || seal.getSealPos().pos.distanceSq(pr2.getEntity().posX, pr2.getEntity().posY, pr2.getEntity().posZ) >= 4096.0) && (pr2.getPos() == null || seal.getSealPos().pos.distanceSq(pr2.getPos()) >= 4096.0)) {
                         continue;
                     }
-                    final NonNullList<ItemStack> stacks = NonNullList.withSize(1, pr2.getStack());
+                    NonNullList<ItemStack> stacks = NonNullList.withSize(1, pr2.getStack());
                     if (!InventoryUtils.findFirstMatchFromFilter(getInv(), getSizes(), blacklist, stacks, new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value)).isEmpty() && ThaumcraftInvHelper.countTotalItemsIn(inv, pr2.getStack(), ThaumcraftInvHelper.InvFilter.STRICT) > (props[5].value ? 1 : 0)) {
-                        final Task task = new Task(seal.getSealPos(), seal.getSealPos().pos);
+                        Task task = new Task(seal.getSealPos(), seal.getSealPos().pos);
                         task.setPriority((pr2.getSeal() != null) ? pr2.getSeal().getPriority() : 5);
                         task.setLifespan((short)((pr2.getSeal() != null) ? 10 : 31000));
                         TaskHandler.addTask(world.provider.getDimension(), task);
@@ -100,21 +100,21 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
         }
     }
     
-    public boolean matchesFilters(final ItemStack stack) {
+    public boolean matchesFilters(ItemStack stack) {
         return InventoryUtils.matchesFilters(getInv(), blacklist, stack, new ThaumcraftInvHelper.InvFilter(!props[0].value, !props[1].value, props[2].value, props[3].value));
     }
     
     @Override
-    public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
+    public boolean onTaskCompletion(World world, IGolemAPI golem, Task task) {
         if (task.getLinkedProvision() != null) {
             if (task.getData() == 0) {
-                final IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, task.getSealPos().pos, task.getSealPos().face);
+                IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, task.getSealPos().pos, task.getSealPos().face);
                 if (inv != null) {
                     ItemStack stack = ItemStack.EMPTY;
                     try {
                         stack = task.getLinkedProvision().getStack().copy();
                     }
-                    catch (final Exception ex) {}
+                    catch (Exception ex) {}
                     if (stack != null && props[4].value) {
                         stack.setCount(1);
                     }
@@ -123,16 +123,16 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
                         stack.setCount(sa - 1);
                     }
                     if (stack != null && !stack.isEmpty()) {
-                        final int limit = golem.canCarryAmount(stack);
+                        int limit = golem.canCarryAmount(stack);
                         if (limit > 0) {
-                            final ItemStack s = golem.holdItem(InventoryUtils.removeStackFrom(inv, InventoryUtils.copyLimitedStack(stack, limit), ThaumcraftInvHelper.InvFilter.STRICT, false));
+                            ItemStack s = golem.holdItem(InventoryUtils.removeStackFrom(inv, InventoryUtils.copyLimitedStack(stack, limit), ThaumcraftInvHelper.InvFilter.STRICT, false));
                             if (s != null && !s.isEmpty()) {
                                 InventoryUtils.ejectStackAt(world, task.getSealPos().pos.offset(task.getSealPos().face), task.getSealPos().face.getOpposite(), s);
                             }
                             ((Entity)golem).playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.125f, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7f + 1.0f) * 2.0f);
                             golem.addRankXp(1);
                             golem.swingArm();
-                            final ProvisionRequest pr2 = task.getLinkedProvision();
+                            ProvisionRequest pr2 = task.getLinkedProvision();
                             if (pr2.getEntity() != null || pr2.getPos() != null) {
                                 Task task2 = null;
                                 if (pr2.getEntity() != null) {
@@ -153,11 +153,11 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
                 }
             }
             else if (task.getLinkedProvision() != null) {
-                final ProvisionRequest pr3 = task.getLinkedProvision();
-                final ItemStack cs = pr3.getStack();
-                final ItemStack s2 = golem.dropItem(cs);
+                ProvisionRequest pr3 = task.getLinkedProvision();
+                ItemStack cs = pr3.getStack();
+                ItemStack s2 = golem.dropItem(cs);
                 if (s2.getCount() < cs.getCount()) {
-                    final ItemStack ps = cs.copy();
+                    ItemStack ps = cs.copy();
                     ps.setCount(cs.getCount() - s2.getCount());
                     if (task.getData() == 1) {
                         GolemHelper.requestProvisioning(world, pr3.getEntity(), ps);
@@ -170,7 +170,7 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
                     InventoryUtils.dropItemAtEntity(world, s2, pr3.getEntity());
                 }
                 else {
-                    final ItemStack back = InventoryUtils.ejectStackAt(world, pr3.getPos().offset(pr3.getSide()), pr3.getSide().getOpposite(), s2, true);
+                    ItemStack back = InventoryUtils.ejectStackAt(world, pr3.getPos().offset(pr3.getSide()), pr3.getSide().getOpposite(), s2, true);
                     if (!back.isEmpty()) {
                         golem.holdItem(back);
                     }
@@ -185,16 +185,16 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
-        final ProvisionRequest pr = task.getLinkedProvision();
-        final boolean b = pr != null && ((pr.getSeal() != null && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(pr.getSeal().getSealPos().pos)) || (pr.getEntity() != null && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(pr.getEntity().getPosition())) || (pr.getPos() != null && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(pr.getPos())));
+    public boolean canGolemPerformTask(IGolemAPI golem, Task task) {
+        ProvisionRequest pr = task.getLinkedProvision();
+        boolean b = pr != null && ((pr.getSeal() != null && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(pr.getSeal().getSealPos().pos)) || (pr.getEntity() != null && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(pr.getEntity().getPosition())) || (pr.getPos() != null && ((EntityThaumcraftGolem)golem).isWithinHomeDistanceFromPosition(pr.getPos())));
         if (task.getData() == 0) {
             return b && areGolemTagsValidForTask(pr.getSeal(), golem) && pr.getStack() != null && !golem.isCarrying(pr.getStack()) && golem.canCarry(pr.getStack(), true);
         }
         return b && areGolemTagsValidForTask(pr.getSeal(), golem) && pr.getStack() != null && golem.isCarrying(pr.getStack());
     }
     
-    private boolean areGolemTagsValidForTask(final ISealEntity se, final IGolemAPI golem) {
+    private boolean areGolemTagsValidForTask(ISealEntity se, IGolemAPI golem) {
         if (se == null) {
             return true;
         }
@@ -205,7 +205,7 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
             return false;
         }
         if (se.getSeal().getForbiddenTags() != null) {
-            for (final EnumGolemTrait tag : se.getSeal().getForbiddenTags()) {
+            for (EnumGolemTrait tag : se.getSeal().getForbiddenTags()) {
                 if (golem.getProperties().getTraits().contains(tag)) {
                     return false;
                 }
@@ -215,7 +215,7 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void onTaskSuspension(final World world, final Task task) {
+    public void onTaskSuspension(World world, Task task) {
         if (task.getLinkedProvision() != null) {
             task.getLinkedProvision().setLinkedTask(null);
         }
@@ -223,8 +223,8 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public boolean canPlaceAt(final World world, final BlockPos pos, final EnumFacing side) {
-        final IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, pos, side);
+    public boolean canPlaceAt(World world, BlockPos pos, EnumFacing side) {
+        IItemHandler inv = ThaumcraftInvHelper.getItemHandlerAt(world, pos, side);
         return inv != null;
     }
     
@@ -249,11 +249,11 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void onTaskStarted(final World world, final IGolemAPI golem, final Task task) {
+    public void onTaskStarted(World world, IGolemAPI golem, Task task) {
     }
     
     @Override
-    public void onRemoval(final World world, final BlockPos pos, final EnumFacing side) {
+    public void onRemoval(World world, BlockPos pos, EnumFacing side) {
     }
     
     @Override
@@ -262,7 +262,7 @@ public class SealProvide extends SealFiltered implements ISealConfigToggles
     }
     
     @Override
-    public void setToggle(final int indx, final boolean value) {
+    public void setToggle(int indx, boolean value) {
         props[indx].setValue(value);
     }
 }

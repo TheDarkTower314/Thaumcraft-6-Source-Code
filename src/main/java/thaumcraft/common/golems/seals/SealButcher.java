@@ -54,17 +54,17 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
     }
     
     @Override
-    public void tickSeal(final World world, final ISealEntity seal) {
+    public void tickSeal(World world, ISealEntity seal) {
         if (delay++ % 200 != 0 || wait) {
             return;
         }
-        final AxisAlignedBB area = GolemHelper.getBoundsForArea(seal);
-        final List list = world.getEntitiesWithinAABB(EntityLivingBase.class, area);
+        AxisAlignedBB area = GolemHelper.getBoundsForArea(seal);
+        List list = world.getEntitiesWithinAABB(EntityLivingBase.class, area);
         if (list.size() > 0) {
-            for (final Object e : list) {
-                final EntityLivingBase target = (EntityLivingBase)e;
+            for (Object e : list) {
+                EntityLivingBase target = (EntityLivingBase)e;
                 if (isValidTarget(target)) {
-                    final List<EntityLivingBase> var55 = world.getEntitiesWithinAABB(target.getClass(), area);
+                    List<EntityLivingBase> var55 = world.getEntitiesWithinAABB(target.getClass(), area);
                     Iterator<EntityLivingBase> var56;
                     int count;
                     EntityLivingBase var57;
@@ -73,7 +73,7 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
                         if (isValidTarget(var57)) {}
                     }
                     if (count > 2) {
-                        final Task task = new Task(seal.getSealPos(), target);
+                        Task task = new Task(seal.getSealPos(), target);
                         task.setPriority(seal.getPriority());
                         task.setLifespan((short)10);
                         TaskHandler.addTask(world.provider.getDimension(), task);
@@ -86,12 +86,12 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
         }
     }
     
-    private boolean isValidTarget(final EntityLivingBase target) {
+    private boolean isValidTarget(EntityLivingBase target) {
         return (target instanceof EntityAnimal || target instanceof IAnimals) && !(target instanceof IMob) && (!(target instanceof EntityTameable) || !((EntityTameable)target).isTamed()) && !(target instanceof EntityGolem) && (!(target instanceof EntityAnimal) || !target.isChild());
     }
     
     @Override
-    public void onTaskStarted(final World world, final IGolemAPI golem, final Task task) {
+    public void onTaskStarted(World world, IGolemAPI golem, Task task) {
         if (task.getEntity() != null && task.getEntity() instanceof EntityLivingBase && isValidTarget((EntityLivingBase)task.getEntity())) {
             ((EntityLiving)golem).setAttackTarget((EntityLivingBase)task.getEntity());
             golem.addRankXp(1);
@@ -101,19 +101,19 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
     }
     
     @Override
-    public boolean onTaskCompletion(final World world, final IGolemAPI golem, final Task task) {
+    public boolean onTaskCompletion(World world, IGolemAPI golem, Task task) {
         task.setSuspended(true);
         wait = false;
         return true;
     }
     
     @Override
-    public boolean canGolemPerformTask(final IGolemAPI golem, final Task task) {
+    public boolean canGolemPerformTask(IGolemAPI golem, Task task) {
         return true;
     }
     
     @Override
-    public boolean canPlaceAt(final World world, final BlockPos pos, final EnumFacing side) {
+    public boolean canPlaceAt(World world, BlockPos pos, EnumFacing side) {
         return !world.isAirBlock(pos);
     }
     
@@ -138,31 +138,31 @@ public class SealButcher implements ISeal, ISealGui, ISealConfigArea
     }
     
     @Override
-    public void onTaskSuspension(final World world, final Task task) {
+    public void onTaskSuspension(World world, Task task) {
         wait = false;
     }
     
     @Override
-    public void readCustomNBT(final NBTTagCompound nbt) {
+    public void readCustomNBT(NBTTagCompound nbt) {
     }
     
     @Override
-    public void writeCustomNBT(final NBTTagCompound nbt) {
+    public void writeCustomNBT(NBTTagCompound nbt) {
     }
     
     @Override
-    public void onRemoval(final World world, final BlockPos pos, final EnumFacing side) {
+    public void onRemoval(World world, BlockPos pos, EnumFacing side) {
         wait = false;
     }
     
     @Override
-    public Object returnContainer(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing side, final ISealEntity seal) {
+    public Object returnContainer(World world, EntityPlayer player, BlockPos pos, EnumFacing side, ISealEntity seal) {
         return new SealBaseContainer(player.inventory, world, seal);
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public Object returnGui(final World world, final EntityPlayer player, final BlockPos pos, final EnumFacing side, final ISealEntity seal) {
+    public Object returnGui(World world, EntityPlayer player, BlockPos pos, EnumFacing side, ISealEntity seal) {
         return new SealBaseGUI(player.inventory, world, seal);
     }
 }

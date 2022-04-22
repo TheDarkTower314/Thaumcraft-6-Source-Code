@@ -55,24 +55,24 @@ public class ItemBootsTraveller extends ItemArmor implements IThaumcraftItems, I
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public String getArmorTexture(final ItemStack stack, final Entity entity, final EntityEquipmentSlot slot, final String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         return "thaumcraft:textures/entity/armor/bootstraveler.png";
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(Items.LEATHER)) || super.getIsRepairable(stack1, stack2);
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public void onArmorTick(final World world, final EntityPlayer player, final ItemStack itemStack) {
-        final boolean hasCharge = RechargeHelper.getCharge(itemStack) > 0;
+    public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
+        boolean hasCharge = RechargeHelper.getCharge(itemStack) > 0;
         if (!world.isRemote && player.ticksExisted % 20 == 0) {
             int e = 0;
             if (itemStack.hasTagCompound()) {
@@ -109,11 +109,11 @@ public class ItemBootsTraveller extends ItemArmor implements IThaumcraftItems, I
         }
     }
     
-    public int getMaxCharge(final ItemStack stack, final EntityLivingBase player) {
+    public int getMaxCharge(ItemStack stack, EntityLivingBase player) {
         return 240;
     }
     
-    public EnumChargeDisplay showInHud(final ItemStack stack, final EntityLivingBase player) {
+    public EnumChargeDisplay showInHud(ItemStack stack, EntityLivingBase player) {
         return EnumChargeDisplay.PERIODIC;
     }
 }

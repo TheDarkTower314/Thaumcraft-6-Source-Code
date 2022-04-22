@@ -20,22 +20,22 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 public class RenderEldritchGolem extends RenderLiving
 {
     protected ModelEldritchGolem modelMain;
-    private static final ResourceLocation skin;
+    private static ResourceLocation skin;
     
-    public RenderEldritchGolem(final RenderManager rm, final ModelEldritchGolem par1ModelBiped, final float par2) {
+    public RenderEldritchGolem(RenderManager rm, ModelEldritchGolem par1ModelBiped, float par2) {
         super(rm, par1ModelBiped, par2);
         modelMain = par1ModelBiped;
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return RenderEldritchGolem.skin;
     }
     
-    protected void preRenderCallback(final EntityLivingBase par1EntityLiving, final float par2) {
+    protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2) {
         GL11.glScalef(1.7f, 1.7f, 1.7f);
     }
     
-    public void doRenderLiving(final EntityLiving golem, final double par2, final double par4, final double par6, final float par8, final float par9) {
+    public void doRenderLiving(EntityLiving golem, double par2, double par4, double par6, float par8, float par9) {
         GL11.glEnable(3042);
         GL11.glAlphaFunc(516, 0.003921569f);
         GL11.glBlendFunc(770, 771);
@@ -44,7 +44,7 @@ public class RenderEldritchGolem extends RenderLiving
         GL11.glAlphaFunc(516, 0.1f);
     }
     
-    public void doRender(final EntityLiving par1Entity, final double par2, final double par4, final double par6, final float par8, final float par9) {
+    public void doRender(EntityLiving par1Entity, double par2, double par4, double par6, float par8, float par9) {
         doRenderLiving(par1Entity, par2, par4, par6, par8, par9);
     }
     

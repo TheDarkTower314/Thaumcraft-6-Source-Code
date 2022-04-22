@@ -10,19 +10,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RedundantTransformation extends Transformation
 {
     @Override
-    public void apply(final Vector3 vec) {
+    public void apply(Vector3 vec) {
     }
     
     @Override
-    public void apply(final Matrix4 mat) {
+    public void apply(Matrix4 mat) {
     }
     
     @Override
-    public void applyN(final Vector3 normal) {
+    public void applyN(Vector3 normal) {
     }
     
     @Override
-    public Transformation at(final Vector3 point) {
+    public Transformation at(Vector3 point) {
         return this;
     }
     
@@ -37,7 +37,7 @@ public class RedundantTransformation extends Transformation
     }
     
     @Override
-    public Transformation merge(final Transformation next) {
+    public Transformation merge(Transformation next) {
         return next;
     }
     

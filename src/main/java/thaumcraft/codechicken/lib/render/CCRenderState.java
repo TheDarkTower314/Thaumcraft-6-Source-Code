@@ -55,20 +55,20 @@ public class CCRenderState
         return CCRenderState.nextOperationIndex;
     }
     
-    private static int registerVertexAttribute(final VertexAttribute<?> attr) {
+    private static int registerVertexAttribute(VertexAttribute<?> attr) {
         CCRenderState.vertexAttributes.add(attr);
         return CCRenderState.vertexAttributes.size() - 1;
     }
     
-    public static VertexAttribute<?> getAttribute(final int index) {
+    public static VertexAttribute<?> getAttribute(int index) {
         return CCRenderState.vertexAttributes.get(index);
     }
     
-    public static void arrayCopy(final Object src, final int srcPos, final Object dst, final int destPos, final int length) {
+    public static void arrayCopy(Object src, int srcPos, Object dst, int destPos, int length) {
         System.arraycopy(src, srcPos, dst, destPos, length);
         if (dst instanceof Copyable[]) {
-            final Object[] oa = (Object[])dst;
-            final Copyable<Object>[] c = (Copyable<Object>[])dst;
+            Object[] oa = (Object[])dst;
+            Copyable<Object>[] c = (Copyable<Object>[])dst;
             for (int i = destPos; i < destPos + length; ++i) {
                 if (c[i] != null) {
                     oa[i] = c[i].copy();
@@ -77,8 +77,8 @@ public class CCRenderState
         }
     }
     
-    public static <T> T copyOf(final VertexAttribute<T> attr, final T src, final int length) {
-        final T dst = attr.newArray(length);
+    public static <T> T copyOf(VertexAttribute<T> attr, T src, int length) {
+        T dst = attr.newArray(length);
         arrayCopy(src, 0, dst, 0, ((Object[]) src).length);
         return dst;
     }
@@ -91,53 +91,53 @@ public class CCRenderState
         CCRenderState.baseColour = (CCRenderState.alphaOverride = -1);
     }
     
-    public static void setPipeline(final IVertexOperation... ops) {
+    public static void setPipeline(IVertexOperation... ops) {
         CCRenderState.pipeline.setPipeline(ops);
     }
     
-    public static void setPipeline(final IVertexSource model, final int start, final int end, final IVertexOperation... ops) {
+    public static void setPipeline(IVertexSource model, int start, int end, IVertexOperation... ops) {
         CCRenderState.pipeline.reset();
         setModel(model, start, end);
         CCRenderState.pipeline.setPipeline(ops);
     }
     
-    public static void bindModel(final IVertexSource model) {
+    public static void bindModel(IVertexSource model) {
         if (CCRenderState.model != model) {
             CCRenderState.model = model;
             CCRenderState.pipeline.rebuild();
         }
     }
     
-    public static void setModel(final IVertexSource source) {
+    public static void setModel(IVertexSource source) {
         setModel(source, 0, source.getVertices().length);
     }
     
-    public static void setModel(final IVertexSource source, final int start, final int end) {
+    public static void setModel(IVertexSource source, int start, int end) {
         bindModel(source);
         setVertexRange(start, end);
     }
     
-    public static void setVertexRange(final int start, final int end) {
+    public static void setVertexRange(int start, int end) {
         CCRenderState.firstVertexIndex = start;
         CCRenderState.lastVertexIndex = end;
     }
     
-    public static void setNormal(final double x, final double y, final double z) {
+    public static void setNormal(double x, double y, double z) {
         CCRenderState.hasNormal = true;
         CCRenderState.normal.set(x, y, z);
     }
     
-    public static void setNormal(final Vector3 n) {
+    public static void setNormal(Vector3 n) {
         CCRenderState.hasNormal = true;
         CCRenderState.normal.set(n);
     }
     
-    public static void setColour(final int c) {
+    public static void setColour(int c) {
         CCRenderState.hasColour = true;
         CCRenderState.colour = c;
     }
     
-    public static void setBrightness(final int b) {
+    public static void setBrightness(int b) {
         CCRenderState.hasBrightness = true;
         CCRenderState.brightness = b;
     }
@@ -155,11 +155,11 @@ public class CCRenderState
         CCRenderState.computeLighting = false;
     }
     
-    public static void changeTexture(final String texture) {
+    public static void changeTexture(String texture) {
         changeTexture(new ResourceLocation(texture));
     }
     
-    public static void changeTexture(final ResourceLocation texture) {
+    public static void changeTexture(ResourceLocation texture) {
         Minecraft.getMinecraft().renderEngine.bindTexture(texture);
     }
     
@@ -173,7 +173,7 @@ public class CCRenderState
             private Vector3[] normalRef;
             
             @Override
-            public Vector3[] newArray(final int length) {
+            public Vector3[] newArray(int length) {
                 return new Vector3[length];
             }
             
@@ -204,7 +204,7 @@ public class CCRenderState
             private int[] colourRef;
             
             @Override
-            public int[] newArray(final int length) {
+            public int[] newArray(int length) {
                 return new int[length];
             }
             
@@ -228,7 +228,7 @@ public class CCRenderState
             private int[] colourRef;
             
             @Override
-            public int[] newArray(final int length) {
+            public int[] newArray(int length) {
                 return new int[length];
             }
             
@@ -254,7 +254,7 @@ public class CCRenderState
             private int[] sideRef;
             
             @Override
-            public int[] newArray(final int length) {
+            public int[] newArray(int length) {
                 return new int[length];
             }
             
@@ -284,7 +284,7 @@ public class CCRenderState
             private Vector3 pos = new Vector3();
             
             @Override
-            public LC[] newArray(final int length) {
+            public LC[] newArray(int length) {
                 return new LC[length];
             }
             
@@ -319,8 +319,8 @@ public class CCRenderState
     
     public abstract static class VertexAttribute<T> implements IVertexOperation
     {
-        public final int attributeIndex;
-        private final int operationIndex;
+        public int attributeIndex;
+        private int operationIndex;
         public boolean active;
         
         public VertexAttribute() {
@@ -329,7 +329,7 @@ public class CCRenderState
             active = false;
         }
         
-        public abstract T newArray(final int p0);
+        public abstract T newArray(int p0);
         
         @Override
         public int operationID() {
@@ -341,9 +341,9 @@ public class CCRenderState
     {
         Vertex5[] getVertices();
         
-         <T> T getAttributes(final VertexAttribute<T> p0);
+         <T> T getAttributes(VertexAttribute<T> p0);
         
-        boolean hasAttribute(final VertexAttribute<?> p0);
+        boolean hasAttribute(VertexAttribute<?> p0);
         
         void prepareVertex();
     }

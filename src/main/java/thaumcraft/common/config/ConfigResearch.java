@@ -121,14 +121,14 @@ import net.minecraft.util.ResourceLocation;
 public class ConfigResearch
 {
     public static String[] TCCategories;
-    private static final ResourceLocation BACK_OVER;
+    private static ResourceLocation BACK_OVER;
     
     public static void init() {
         initCategories();
         initScannables();
         initTheorycraft();
         initWarp();
-        for (final String cat : ConfigResearch.TCCategories) {
+        for (String cat : ConfigResearch.TCCategories) {
             ThaumcraftApi.registerResearchLocation(new ResourceLocation("thaumcraft", "research/" + cat.toLowerCase()));
         }
         ThaumcraftApi.registerResearchLocation(new ResourceLocation("thaumcraft", "research/scans"));
@@ -150,12 +150,12 @@ public class ConfigResearch
     
     private static void initScannables() {
         ScanningManager.addScannableThing(new ScanGeneric());
-        for (final ResourceLocation loc : Enchantment.REGISTRY.getKeys()) {
-            final Enchantment ench = Enchantment.REGISTRY.getObject(loc);
+        for (ResourceLocation loc : Enchantment.REGISTRY.getKeys()) {
+            Enchantment ench = Enchantment.REGISTRY.getObject(loc);
             ScanningManager.addScannableThing(new ScanEnchantment(ench));
         }
-        for (final ResourceLocation loc : Potion.REGISTRY.getKeys()) {
-            final Potion pot = Potion.REGISTRY.getObject(loc);
+        for (ResourceLocation loc : Potion.REGISTRY.getKeys()) {
+            Potion pot = Potion.REGISTRY.getObject(loc);
             ScanningManager.addScannableThing(new ScanPotion(pot));
         }
         ScanningManager.addScannableThing(new ScanEntity("!Wisp", EntityWisp.class, true));
@@ -288,9 +288,9 @@ public class ConfigResearch
     private static void initEldritchResearch() {
     }
     
-    public static void checkPeriodicStuff(final EntityPlayer player) {
-        final IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
-        final Biome biome = player.world.getBiome(player.getPosition());
+    public static void checkPeriodicStuff(EntityPlayer player) {
+        IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+        Biome biome = player.world.getBiome(player.getPosition());
         if (!knowledge.isResearchKnown("m_hellandback") && BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)) {
             knowledge.addResearch("m_hellandback");
             knowledge.sync((EntityPlayerMP)player);
@@ -313,7 +313,7 @@ public class ConfigResearch
                 player.sendStatusMessage(new TextComponentString(TextFormatting.DARK_PURPLE + I18n.translateToLocal("got.uphigh")), true);
             }
         }
-        final StatisticsManagerServer sms = player.getServer().getPlayerList().getPlayerStatsFile(player);
+        StatisticsManagerServer sms = player.getServer().getPlayerList().getPlayerStatsFile(player);
         if (sms != null) {
             if (!knowledge.isResearchKnown("m_walker") && sms.readStat(StatList.WALK_ONE_CM) > 160000) {
                 knowledge.addResearch("m_walker");

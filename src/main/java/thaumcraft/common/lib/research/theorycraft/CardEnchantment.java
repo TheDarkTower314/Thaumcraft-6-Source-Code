@@ -33,7 +33,7 @@ public class CardEnchantment extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
         if (player.experienceLevel >= 5) {
             player.addExperienceLevel(-5);
             data.addTotal("INFUSION", MathHelper.getInt(player.getRNG(), 15, 20));

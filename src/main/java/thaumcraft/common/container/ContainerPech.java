@@ -27,9 +27,9 @@ public class ContainerPech extends Container implements IInventoryChangedListene
     private EntityPech pech;
     private InventoryPech inventory;
     private EntityPlayer player;
-    private final World theWorld;
+    private World theWorld;
     
-    public ContainerPech(final InventoryPlayer par1InventoryPlayer, final World par3World, final EntityPech par2IMerchant) {
+    public ContainerPech(InventoryPlayer par1InventoryPlayer, World par3World, EntityPech par2IMerchant) {
         pech = par2IMerchant;
         theWorld = par3World;
         player = par1InventoryPlayer.player;
@@ -55,10 +55,10 @@ public class ContainerPech extends Container implements IInventoryChangedListene
         return inventory;
     }
     
-    public void onInventoryChanged(final IInventory invBasic) {
+    public void onInventoryChanged(IInventory invBasic) {
     }
     
-    public boolean enchantItem(final EntityPlayer par1EntityPlayer, final int par2) {
+    public boolean enchantItem(EntityPlayer par1EntityPlayer, int par2) {
         if (par2 == 0) {
             generateContents();
             return true;
@@ -67,7 +67,7 @@ public class ContainerPech extends Container implements IInventoryChangedListene
     }
     
     private boolean hasStuffInPack() {
-        for (final ItemStack stack : pech.loot) {
+        for (ItemStack stack : pech.loot) {
             if (stack != null && !stack.isEmpty() && stack.getCount() > 0) {
                 return true;
             }
@@ -88,20 +88,20 @@ public class ContainerPech extends Container implements IInventoryChangedListene
             else if (theWorld.rand.nextBoolean()) {
                 value -= theWorld.rand.nextInt(3);
             }
-            final EntityPech pech = this.pech;
-            final ArrayList<List> pos = EntityPech.tradeInventory.get(this.pech.getPechType());
+            EntityPech pech = this.pech;
+            ArrayList<List> pos = EntityPech.tradeInventory.get(this.pech.getPechType());
             while (value > 0) {
-                final int am = Math.min(5, Math.max((value + 1) / 2, theWorld.rand.nextInt(value) + 1));
+                int am = Math.min(5, Math.max((value + 1) / 2, theWorld.rand.nextInt(value) + 1));
                 value -= am;
                 if (am == 1 && theWorld.rand.nextBoolean() && hasStuffInPack()) {
-                    final ArrayList<Integer> loot = new ArrayList<Integer>();
+                    ArrayList<Integer> loot = new ArrayList<Integer>();
                     for (int a = 0; a < this.pech.loot.size(); ++a) {
                         if (this.pech.loot.get(a) != null && !this.pech.loot.get(a).isEmpty() && this.pech.loot.get(a).getCount() > 0) {
                             loot.add(a);
                         }
                     }
-                    final int r = loot.get(theWorld.rand.nextInt(loot.size()));
-                    final ItemStack is = this.pech.loot.get(r).copy();
+                    int r = loot.get(theWorld.rand.nextInt(loot.size()));
+                    ItemStack is = this.pech.loot.get(r).copy();
                     is.setCount(1);
                     addStack(is);
                     this.pech.loot.get(r).shrink(1);
@@ -118,7 +118,7 @@ public class ContainerPech extends Container implements IInventoryChangedListene
                     do {
                         it = pos.get(theWorld.rand.nextInt(pos.size()));
                     } while ((int)it.get(0) != am);
-                    final ItemStack is2 = ((ItemStack)it.get(1)).copy();
+                    ItemStack is2 = ((ItemStack)it.get(1)).copy();
                     is2.onCrafting(theWorld, player, 0);
                     addStack(is2);
                 }
@@ -127,7 +127,7 @@ public class ContainerPech extends Container implements IInventoryChangedListene
         }
     }
     
-    private void addStack(final ItemStack s) {
+    private void addStack(ItemStack s) {
         for (int a = 1; a < 5; ++a) {
             if (inventory.getStackInSlot(a).isEmpty()) {
                 inventory.setInventorySlotContents(a, s);
@@ -140,18 +140,18 @@ public class ContainerPech extends Container implements IInventoryChangedListene
     }
     
     @SideOnly(Side.CLIENT)
-    public void updateProgressBar(final int par1, final int par2) {
+    public void updateProgressBar(int par1, int par2) {
     }
     
-    public boolean canInteractWith(final EntityPlayer par1EntityPlayer) {
+    public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
         return pech.isTamed();
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int par2) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
         ItemStack itemstack = ItemStack.EMPTY;
-        final Slot slot = inventorySlots.get(par2);
+        Slot slot = inventorySlots.get(par2);
         if (slot != null && slot.getHasStack()) {
-            final ItemStack itemstack2 = slot.getStack();
+            ItemStack itemstack2 = slot.getStack();
             itemstack = itemstack2.copy();
             if (par2 == 0) {
                 if (!mergeItemStack(itemstack2, 5, 41, true)) {
@@ -180,14 +180,14 @@ public class ContainerPech extends Container implements IInventoryChangedListene
         return itemstack;
     }
     
-    public void onContainerClosed(final EntityPlayer par1EntityPlayer) {
+    public void onContainerClosed(EntityPlayer par1EntityPlayer) {
         super.onContainerClosed(par1EntityPlayer);
         pech.trading = false;
         if (!theWorld.isRemote) {
             for (int a = 0; a < 5; ++a) {
-                final ItemStack itemstack = inventory.removeStackFromSlot(a);
+                ItemStack itemstack = inventory.removeStackFromSlot(a);
                 if (itemstack != null) {
-                    final EntityItem ei = par1EntityPlayer.dropItem(itemstack, false);
+                    EntityItem ei = par1EntityPlayer.dropItem(itemstack, false);
                     if (ei != null) {
                         ei.setThrower("PechDrop");
                     }

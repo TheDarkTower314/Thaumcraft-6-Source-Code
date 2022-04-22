@@ -30,33 +30,33 @@ public class PacketSyncKnowledge implements IMessage, IMessageHandler<PacketSync
     public PacketSyncKnowledge() {
     }
     
-    public PacketSyncKnowledge(final EntityPlayer player) {
-        final IPlayerKnowledge pk = ThaumcraftCapabilities.getKnowledge(player);
+    public PacketSyncKnowledge(EntityPlayer player) {
+        IPlayerKnowledge pk = ThaumcraftCapabilities.getKnowledge(player);
         data = pk.serializeNBT();
-        for (final String key : pk.getResearchList()) {
+        for (String key : pk.getResearchList()) {
             pk.clearResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.POPUP);
         }
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         Utils.writeNBTTagCompoundToBuffer(buffer, data);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         data = Utils.readNBTTagCompoundFromBuffer(buffer);
     }
     
     @SideOnly(Side.CLIENT)
-    public IMessage onMessage(final PacketSyncKnowledge message, final MessageContext ctx) {
+    public IMessage onMessage(PacketSyncKnowledge message, MessageContext ctx) {
         Minecraft.getMinecraft().addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                final EntityPlayer player = Minecraft.getMinecraft().player;
-                final IPlayerKnowledge pk = ThaumcraftCapabilities.getKnowledge(player);
+                EntityPlayer player = Minecraft.getMinecraft().player;
+                IPlayerKnowledge pk = ThaumcraftCapabilities.getKnowledge(player);
                 pk.deserializeNBT(message.data);
-                for (final String key : pk.getResearchList()) {
+                for (String key : pk.getResearchList()) {
                     if (pk.hasResearchFlag(key, IPlayerKnowledge.EnumResearchFlag.POPUP)) {
-                        final ResearchEntry ri = ResearchCategories.getResearch(key);
+                        ResearchEntry ri = ResearchCategories.getResearch(key);
                         if (ri != null) {
                             Minecraft.getMinecraft().getToastGui().add(new ResearchToast(ri));
                         }

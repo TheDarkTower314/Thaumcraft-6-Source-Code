@@ -43,14 +43,14 @@ public class KeyHandler
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void playerTick(final TickEvent.PlayerTickEvent event) {
+    public static void playerTick(TickEvent.PlayerTickEvent event) {
         if (event.side == Side.SERVER) {
             return;
         }
         if (event.phase == TickEvent.Phase.START) {
             if (KeyHandler.keyF.isKeyDown()) {
                 if (FMLClientHandler.instance().getClient().inGameHasFocus) {
-                    final EntityPlayer player = event.player;
+                    EntityPlayer player = event.player;
                     if (player != null) {
                         if (!KeyHandler.keyPressedF) {
                             KeyHandler.lastPressF = System.currentTimeMillis();
@@ -80,7 +80,7 @@ public class KeyHandler
             }
             if (KeyHandler.keyG.isKeyDown()) {
                 if (FMLClientHandler.instance().getClient().inGameHasFocus) {
-                    final EntityPlayer player = event.player;
+                    EntityPlayer player = event.player;
                     if (player != null && !KeyHandler.keyPressedG) {
                         KeyHandler.lastPressG = System.currentTimeMillis();
                         PacketHandler.INSTANCE.sendToServer(new PacketItemKeyToServer(1, Keyboard.isKeyDown(29) ? 1 : (Keyboard.isKeyDown(42) ? 2 : 0)));

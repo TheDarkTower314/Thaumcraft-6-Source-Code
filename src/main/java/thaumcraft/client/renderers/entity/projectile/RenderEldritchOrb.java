@@ -19,18 +19,18 @@ public class RenderEldritchOrb extends Render
 {
     private Random random;
     
-    public RenderEldritchOrb(final RenderManager renderManager) {
+    public RenderEldritchOrb(RenderManager renderManager) {
         super(renderManager);
         random = new Random();
         shadowSize = 0.0f;
     }
     
-    public void renderEntityAt(final Entity entity, final double x, final double y, final double z, final float fq, final float pticks) {
-        final Tessellator tessellator = Tessellator.getInstance();
+    public void renderEntityAt(Entity entity, double x, double y, double z, float fq, float pticks) {
+        Tessellator tessellator = Tessellator.getInstance();
         random.setSeed(187L);
         GL11.glPushMatrix();
         RenderHelper.disableStandardItemLighting();
-        final float f1 = entity.ticksExisted / 80.0f;
+        float f1 = entity.ticksExisted / 80.0f;
         float f2 = 0.9f;
         float f3 = 0.0f;
         GL11.glTranslatef((float)x, (float)y, (float)z);
@@ -79,11 +79,11 @@ public class RenderEldritchOrb extends Render
         bindTexture(ParticleEngine.particleTexture);
         f3 = entity.ticksExisted % 13 / 64.0f;
         f2 = f3 + 0.015625f;
-        final float f5 = 0.046875f;
-        final float f6 = f5 + 0.015625f;
-        final float f7 = 1.0f;
-        final float f8 = 0.5f;
-        final float f9 = 0.5f;
+        float f5 = 0.046875f;
+        float f6 = f5 + 0.015625f;
+        float f7 = 1.0f;
+        float f8 = 0.5f;
+        float f9 = 0.5f;
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glRotatef(180.0f - renderManager.playerViewY, 0.0f, 1.0f, 0.0f);
         GL11.glRotatef(-renderManager.playerViewX, 1.0f, 0.0f, 0.0f);
@@ -102,11 +102,11 @@ public class RenderEldritchOrb extends Render
         GL11.glPopMatrix();
     }
     
-    public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
+    public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
         renderEntityAt(entity, d, d1, d2, f, f1);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return ParticleEngine.particleTexture;
     }
 }

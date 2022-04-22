@@ -23,23 +23,23 @@ public class CardReactions extends TheorycraftCard
     
     @Override
     public NBTTagCompound serialize() {
-        final NBTTagCompound nbt = super.serialize();
+        NBTTagCompound nbt = super.serialize();
         nbt.setString("aspect1", aspect1.getTag());
         nbt.setString("aspect2", aspect2.getTag());
         return nbt;
     }
     
     @Override
-    public void deserialize(final NBTTagCompound nbt) {
+    public void deserialize(NBTTagCompound nbt) {
         super.deserialize(nbt);
         aspect1 = Aspect.getAspect(nbt.getString("aspect1"));
         aspect2 = Aspect.getAspect(nbt.getString("aspect2"));
     }
     
     @Override
-    public boolean initialize(final EntityPlayer player, final ResearchTableData data) {
-        final Random r = new Random(getSeed());
-        final int num = MathHelper.getInt(r, 0, Aspect.getCompoundAspects().size() - 1);
+    public boolean initialize(EntityPlayer player, ResearchTableData data) {
+        Random r = new Random(getSeed());
+        int num = MathHelper.getInt(r, 0, Aspect.getCompoundAspects().size() - 1);
         aspect1 = Aspect.getCompoundAspects().get(num);
         int num2;
         for (num2 = num; num2 == num; num2 = MathHelper.getInt(r, 0, Aspect.getCompoundAspects().size() - 1)) {}
@@ -73,7 +73,7 @@ public class CardReactions extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
         data.addTotal(getResearchCategory(), 25);
         if (player.getRNG().nextFloat() < 0.33) {
             data.addInspiration(1);

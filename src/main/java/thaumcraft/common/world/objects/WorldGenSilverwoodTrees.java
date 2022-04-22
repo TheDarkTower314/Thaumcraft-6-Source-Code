@@ -21,11 +21,11 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 public class WorldGenSilverwoodTrees extends WorldGenAbstractTree
 {
-    private final int minTreeHeight;
-    private final int randomTreeHeight;
+    private int minTreeHeight;
+    private int randomTreeHeight;
     boolean worldgen;
     
-    public WorldGenSilverwoodTrees(final boolean doBlockNotify, final int minTreeHeight, final int randomTreeHeight) {
+    public WorldGenSilverwoodTrees(boolean doBlockNotify, int minTreeHeight, int randomTreeHeight) {
         super(doBlockNotify);
         worldgen = false;
         worldgen = !doBlockNotify;
@@ -33,12 +33,12 @@ public class WorldGenSilverwoodTrees extends WorldGenAbstractTree
         this.randomTreeHeight = randomTreeHeight;
     }
     
-    public boolean generate(final World world, final Random random, final BlockPos pos) {
-        final int height = random.nextInt(randomTreeHeight) + minTreeHeight;
+    public boolean generate(World world, Random random, BlockPos pos) {
+        int height = random.nextInt(randomTreeHeight) + minTreeHeight;
         boolean flag = true;
-        final int x = pos.getX();
-        final int y = pos.getY();
-        final int z = pos.getZ();
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
         if (y < 1 || y + height + 1 > 256) {
             return false;
         }
@@ -53,8 +53,8 @@ public class WorldGenSilverwoodTrees extends WorldGenAbstractTree
             for (int j1 = x - spread; j1 <= x + spread && flag; ++j1) {
                 for (int k1 = z - spread; k1 <= z + spread && flag; ++k1) {
                     if (i1 >= 0 && i1 < 256) {
-                        final IBlockState state = world.getBlockState(new BlockPos(j1, i1, k1));
-                        final Block block = state.getBlock();
+                        IBlockState state = world.getBlockState(new BlockPos(j1, i1, k1));
+                        Block block = state.getBlock();
                         if (!block.isAir(state, world, new BlockPos(j1, i1, k1)) && !block.isLeaves(state, world, new BlockPos(j1, i1, k1)) && !block.isReplaceable(world, new BlockPos(j1, i1, k1)) && i1 > y) {
                             flag = false;
                         }
@@ -68,21 +68,21 @@ public class WorldGenSilverwoodTrees extends WorldGenAbstractTree
         if (!flag) {
             return false;
         }
-        final IBlockState state2 = world.getBlockState(new BlockPos(x, y - 1, z));
-        final Block block2 = state2.getBlock();
-        final boolean isSoil = block2.canSustainPlant(state2, world, new BlockPos(x, y - 1, z), EnumFacing.UP, (IPlantable)Blocks.SAPLING);
+        IBlockState state2 = world.getBlockState(new BlockPos(x, y - 1, z));
+        Block block2 = state2.getBlock();
+        boolean isSoil = block2.canSustainPlant(state2, world, new BlockPos(x, y - 1, z), EnumFacing.UP, (IPlantable)Blocks.SAPLING);
         if (isSoil && y < 256 - height - 1) {
             block2.onPlantGrow(state2, world, new BlockPos(x, y - 1, z), new BlockPos(x, y, z));
-            final int start = y + height - 5;
+            int start = y + height - 5;
             for (int end = y + height + 3 + random.nextInt(3), k2 = start; k2 <= end; ++k2) {
-                final int cty = MathHelper.clamp(k2, y + height - 3, y + height);
+                int cty = MathHelper.clamp(k2, y + height - 3, y + height);
                 for (int xx = x - 5; xx <= x + 5; ++xx) {
                     for (int zz = z - 5; zz <= z + 5; ++zz) {
-                        final double d3 = xx - x;
-                        final double d4 = k2 - cty;
-                        final double d5 = zz - z;
-                        final double dist = d3 * d3 + d4 * d4 + d5 * d5;
-                        final IBlockState s2 = world.getBlockState(new BlockPos(xx, k2, zz));
+                        double d3 = xx - x;
+                        double d4 = k2 - cty;
+                        double d5 = zz - z;
+                        double dist = d3 * d3 + d4 * d4 + d5 * d5;
+                        IBlockState s2 = world.getBlockState(new BlockPos(xx, k2, zz));
                         if (dist < 10 + random.nextInt(8) && s2.getBlock().canBeReplacedByLeaves(s2, world, new BlockPos(xx, k2, zz))) {
                             setBlockAndNotifyAdequately(world, new BlockPos(xx, k2, zz), BlocksTC.leafSilverwood.getStateFromMeta(1));
                         }
@@ -91,8 +91,8 @@ public class WorldGenSilverwoodTrees extends WorldGenAbstractTree
             }
             int k2;
             for (k2 = 0; k2 < height; ++k2) {
-                final IBlockState s3 = world.getBlockState(new BlockPos(x, y + k2, z));
-                final Block block3 = s3.getBlock();
+                IBlockState s3 = world.getBlockState(new BlockPos(x, y + k2, z));
+                Block block3 = s3.getBlock();
                 if (block3.isAir(s3, world, new BlockPos(x, y + k2, z)) || block3.isLeaves(s3, world, new BlockPos(x, y + k2, z)) || block3.isReplaceable(world, new BlockPos(x, y + k2, z))) {
                     setBlockAndNotifyAdequately(world, new BlockPos(x, y + k2, z), BlocksTC.logSilverwood.getStateFromMeta(1));
                     setBlockAndNotifyAdequately(world, new BlockPos(x - 1, y + k2, z), BlocksTC.logSilverwood.getStateFromMeta(1));
@@ -147,7 +147,7 @@ public class WorldGenSilverwoodTrees extends WorldGenAbstractTree
             setBlockAndNotifyAdequately(world, new BlockPos(x, y + (height - 4), z - 2), BlocksTC.logSilverwood.getStateFromMeta(2));
             setBlockAndNotifyAdequately(world, new BlockPos(x, y + (height - 4), z + 2), BlocksTC.logSilverwood.getStateFromMeta(2));
             if (worldgen) {
-                final WorldGenerator flowers = new WorldGenCustomFlowers(BlocksTC.shimmerleaf, 0);
+                WorldGenerator flowers = new WorldGenCustomFlowers(BlocksTC.shimmerleaf, 0);
                 flowers.generate(world, random, new BlockPos(x, y, z));
             }
             return true;
@@ -155,8 +155,8 @@ public class WorldGenSilverwoodTrees extends WorldGenAbstractTree
         return false;
     }
     
-    protected void setBlockAndNotifyAdequately(final World worldIn, final BlockPos pos, final IBlockState state) {
-        final IBlockState bs = worldIn.getBlockState(pos);
+    protected void setBlockAndNotifyAdequately(World worldIn, BlockPos pos, IBlockState state) {
+        IBlockState bs = worldIn.getBlockState(pos);
         if (worldIn.isAirBlock(pos) || bs.getBlock().isLeaves(bs, worldIn, pos) || bs.getBlock().isReplaceable(worldIn, pos)) {
             super.setBlockAndNotifyAdequately(worldIn, pos, state);
         }

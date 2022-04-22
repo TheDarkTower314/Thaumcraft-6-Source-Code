@@ -46,7 +46,7 @@ public class SealBaseGUI extends GuiContainer
     int[] categories;
     ResourceLocation tex;
     
-    public SealBaseGUI(final InventoryPlayer player, final World world, final ISealEntity seal) {
+    public SealBaseGUI(InventoryPlayer player, World world, ISealEntity seal) {
         super(new SealBaseContainer(player, world, seal));
         category = -1;
         tex = new ResourceLocation("thaumcraft", "textures/gui/gui_base.png");
@@ -77,26 +77,26 @@ public class SealBaseGUI extends GuiContainer
         buttonList.clear();
         int c = 0;
         float slice = 60.0f / categories.length;
-        final float start = -180.0f + (categories.length - 1) * slice / 2.0f;
+        float start = -180.0f + (categories.length - 1) * slice / 2.0f;
         if (slice > 24.0f) {
             slice = 24.0f;
         }
         if (slice < 12.0f) {
             slice = 12.0f;
         }
-        for (final int cat : categories) {
+        for (int cat : categories) {
             if (category < 0) {
                 category = cat;
             }
             if (categories.length > 1) {
-                final int xx = (int)(MathHelper.cos((start - c * slice) / 180.0f * 3.1415927f) * 86.0f);
-                final int yy = (int)(MathHelper.sin((start - c * slice) / 180.0f * 3.1415927f) * 86.0f);
+                int xx = (int)(MathHelper.cos((start - c * slice) / 180.0f * 3.1415927f) * 86.0f);
+                int yy = (int)(MathHelper.sin((start - c * slice) / 180.0f * 3.1415927f) * 86.0f);
                 buttonList.add(new GuiGolemCategoryButton(c, guiLeft + middleX + xx, guiTop + middleY + yy, 16, 16, "button.category." + cat, cat, category == cat));
             }
             ++c;
         }
-        final int xx2 = (int)(MathHelper.cos((start - c * slice) / 180.0f * 3.1415927f) * 86.0f);
-        final int yy2 = (int)(MathHelper.sin((start - c * slice) / 180.0f * 3.1415927f) * 86.0f);
+        int xx2 = (int)(MathHelper.cos((start - c * slice) / 180.0f * 3.1415927f) * 86.0f);
+        int yy2 = (int)(MathHelper.sin((start - c * slice) / 180.0f * 3.1415927f) * 86.0f);
         buttonList.add(new GuiGolemRedstoneButton(27, guiLeft + middleX + xx2 - 8, guiTop + middleY + yy2 - 8, 16, 16, seal));
         switch (category) {
             case 0: {
@@ -109,8 +109,8 @@ public class SealBaseGUI extends GuiContainer
             }
             case 1: {
                 if (seal.getSeal() instanceof ISealConfigFilter) {
-                    final int s = ((ISealConfigFilter) seal.getSeal()).getFilterSize();
-                    final int sy = 16 + (s - 1) / 3 * 12;
+                    int s = ((ISealConfigFilter) seal.getSeal()).getFilterSize();
+                    int sy = 16 + (s - 1) / 3 * 12;
                     buttonList.add(new GuiGolemBWListButton(20, guiLeft + middleX - 8, guiTop + middleY + (s - 1) / 3 * 24 - sy + 27, 16, 16, (ISealConfigFilter) seal.getSeal()));
                     break;
                 }
@@ -127,11 +127,11 @@ public class SealBaseGUI extends GuiContainer
             }
             case 3: {
                 if (seal.getSeal() instanceof ISealConfigToggles) {
-                    final ISealConfigToggles cp = (ISealConfigToggles) seal.getSeal();
-                    final int s2 = (cp.getToggles().length < 4) ? 8 : ((cp.getToggles().length < 6) ? 7 : ((cp.getToggles().length < 9) ? 6 : 5));
-                    final int h = (cp.getToggles().length - 1) * s2;
+                    ISealConfigToggles cp = (ISealConfigToggles) seal.getSeal();
+                    int s2 = (cp.getToggles().length < 4) ? 8 : ((cp.getToggles().length < 6) ? 7 : ((cp.getToggles().length < 9) ? 6 : 5));
+                    int h = (cp.getToggles().length - 1) * s2;
                     int w = 12;
-                    for (final ISealConfigToggles.SealToggle prop : cp.getToggles()) {
+                    for (ISealConfigToggles.SealToggle prop : cp.getToggles()) {
                         int ww = 12 + Math.min(100, fontRenderer.getStringWidth(I18n.translateToLocal(prop.getName())));
                         ww /= 2;
                         if (ww > w) {
@@ -139,7 +139,7 @@ public class SealBaseGUI extends GuiContainer
                         }
                     }
                     int p = 0;
-                    for (final ISealConfigToggles.SealToggle prop2 : cp.getToggles()) {
+                    for (ISealConfigToggles.SealToggle prop2 : cp.getToggles()) {
                         buttonList.add(new GuiGolemPropButton(30 + p, guiLeft + middleX - w, guiTop + middleY - 5 - h + p * (s2 * 2), 8, 8, prop2.getName(), prop2));
                         ++p;
                     }
@@ -151,7 +151,7 @@ public class SealBaseGUI extends GuiContainer
                 EnumGolemTrait[] tags = seal.getSeal().getRequiredTags();
                 if (tags != null && tags.length > 0) {
                     int p2 = 0;
-                    for (final EnumGolemTrait tag : tags) {
+                    for (EnumGolemTrait tag : tags) {
                         buttonList.add(new GuiHoverButton(this, 500 + p2, guiLeft + middleX + p2 * 18 - (tags.length - 1) * 9, guiTop + middleY - 8, 16, 16, tag.getLocalizedName(), tag.getLocalizedDescription(), tag.icon));
                         ++p2;
                     }
@@ -159,7 +159,7 @@ public class SealBaseGUI extends GuiContainer
                 tags = seal.getSeal().getForbiddenTags();
                 if (tags != null && tags.length > 0) {
                     int p2 = 0;
-                    for (final EnumGolemTrait tag : tags) {
+                    for (EnumGolemTrait tag : tags) {
                         buttonList.add(new GuiHoverButton(this, 600 + p2, guiLeft + middleX + p2 * 18 - (tags.length - 1) * 9, guiTop + middleY + 24, 16, 16, tag.getLocalizedName(), tag.getLocalizedDescription(), tag.icon));
                         ++p2;
                     }
@@ -170,11 +170,11 @@ public class SealBaseGUI extends GuiContainer
         }
     }
     
-    protected boolean checkHotbarKeys(final int par1) {
+    protected boolean checkHotbarKeys(int par1) {
         return false;
     }
     
-    protected void drawGuiContainerBackgroundLayer(final float par1, final int mouseX, final int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(float par1, int mouseX, int mouseY) {
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         mc.renderEngine.bindTexture(tex);
@@ -190,16 +190,16 @@ public class SealBaseGUI extends GuiContainer
             case 0: {
                 drawTexturedModalRect(guiLeft + middleX + 17, guiTop + middleY + 3, 2, 18, 12, 12);
                 if (seal.getColor() >= 1 && seal.getColor() <= 16) {
-                    final Color c = new Color(EnumDyeColor.byMetadata(seal.getColor() - 1).getColorValue());
+                    Color c = new Color(EnumDyeColor.byMetadata(seal.getColor() - 1).getColorValue());
                     GL11.glColor4f(c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f, 1.0f);
                     drawTexturedModalRect(guiLeft + middleX + 20, guiTop + middleY + 6, 74, 31, 6, 6);
                     GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                 }
-                final int mx = mouseX - guiLeft;
-                final int my = mouseY - guiTop;
+                int mx = mouseX - guiLeft;
+                int my = mouseY - guiTop;
                 if (mx >= middleX + 5 && mx <= middleX + 41 && my >= middleY + 3 && my <= middleY + 15) {
                     if (seal.getColor() >= 1 && seal.getColor() <= 16) {
-                        final String s = "color." + EnumDyeColor.byMetadata(seal.getColor() - 1).getName();
+                        String s = "color." + EnumDyeColor.byMetadata(seal.getColor() - 1).getName();
                         String s2 = I18n.translateToLocal("golem.prop.color");
                         s2 = s2.replace("%s", I18n.translateToLocal(s));
                         drawCenteredString(fontRenderer, s2, guiLeft + middleX + 23, guiTop + middleY + 17, 16777215);
@@ -218,12 +218,12 @@ public class SealBaseGUI extends GuiContainer
             }
             case 1: {
                 if (seal.getSeal() instanceof ISealConfigFilter) {
-                    final int s3 = ((ISealConfigFilter) seal.getSeal()).getFilterSize();
-                    final int sx = 16 + (s3 - 1) % 3 * 12;
-                    final int sy = 16 + (s3 - 1) / 3 * 12;
+                    int s3 = ((ISealConfigFilter) seal.getSeal()).getFilterSize();
+                    int sx = 16 + (s3 - 1) % 3 * 12;
+                    int sy = 16 + (s3 - 1) / 3 * 12;
                     for (int a = 0; a < s3; ++a) {
-                        final int x = a % 3;
-                        final int y = a / 3;
+                        int x = a % 3;
+                        int y = a / 3;
                         drawTexturedModalRect(guiLeft + middleX + x * 24 - sx, guiTop + middleY + y * 24 - sy, 0, 56, 32, 32);
                     }
                     break;
@@ -247,9 +247,9 @@ public class SealBaseGUI extends GuiContainer
         }
     }
     
-    protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         RenderHelper.disableStandardItemLighting();
-        for (final GuiButton guibutton : buttonList) {
+        for (GuiButton guibutton : buttonList) {
             if (guibutton.isMouseOver()) {
                 guibutton.drawButtonForegroundLayer(mouseX - guiLeft, mouseY - guiTop);
                 break;
@@ -258,7 +258,7 @@ public class SealBaseGUI extends GuiContainer
         RenderHelper.enableGUIStandardItemLighting();
     }
     
-    protected void actionPerformed(final GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id < categories.length && categories[button.id] != category) {
             category = categories[button.id];
             ((SealBaseContainer) inventorySlots).category = category;
@@ -271,12 +271,12 @@ public class SealBaseGUI extends GuiContainer
             mc.playerController.sendEnchantPacket(inventorySlots.windowId, seal.isLocked() ? 25 : 26);
         }
         else if (category == 1 && seal.getSeal() instanceof ISealConfigFilter && button.id == 20) {
-            final ISealConfigFilter cp = (ISealConfigFilter) seal.getSeal();
+            ISealConfigFilter cp = (ISealConfigFilter) seal.getSeal();
             cp.setBlacklist(!cp.isBlacklist());
             mc.playerController.sendEnchantPacket(inventorySlots.windowId, cp.isBlacklist() ? 20 : 21);
         }
         else if (category == 3 && seal.getSeal() instanceof ISealConfigToggles && button.id >= 30 && button.id < 30 + ((ISealConfigToggles) seal.getSeal()).getToggles().length) {
-            final ISealConfigToggles cp2 = (ISealConfigToggles) seal.getSeal();
+            ISealConfigToggles cp2 = (ISealConfigToggles) seal.getSeal();
             cp2.setToggle(button.id - 30, !cp2.getToggles()[button.id - 30].getValue());
             mc.playerController.sendEnchantPacket(inventorySlots.windowId, cp2.getToggles()[button.id - 30].getValue() ? button.id : (button.id + 30));
         }
@@ -289,23 +289,23 @@ public class SealBaseGUI extends GuiContainer
         }
     }
     
-    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
         if (category == 1 && seal.getSeal() instanceof ISealConfigFilter && !((ISealConfigFilter) seal.getSeal()).isBlacklist()) {
-            final int x = guiLeft;
-            final int y = guiTop;
-            final ISealConfigFilter cp = (ISealConfigFilter) seal.getSeal();
-            final int k = 240;
-            final int l = 240;
+            int x = guiLeft;
+            int y = guiTop;
+            ISealConfigFilter cp = (ISealConfigFilter) seal.getSeal();
+            int k = 240;
+            int l = 240;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0f, 240.0f);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             zLevel = 100.0f;
             for (int i1 = 0; i1 < cp.getFilterSize(); ++i1) {
-                final Slot slot = inventorySlots.inventorySlots.get(i1);
+                Slot slot = inventorySlots.inventorySlots.get(i1);
                 if (slot.isEnabled() && !slot.getStack().isEmpty()) {
-                    final int j = slot.xPos;
-                    final int m = slot.yPos;
-                    final int sz = cp.getFilterSlotSize(i1);
+                    int j = slot.xPos;
+                    int m = slot.yPos;
+                    int sz = cp.getFilterSlotSize(i1);
                     String s = String.valueOf(cp.getFilterSlotSize(i1));
                     if (sz == 0) {
                         s = TextFormatting.GOLD.toString() + "*";

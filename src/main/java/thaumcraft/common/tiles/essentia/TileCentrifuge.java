@@ -36,13 +36,13 @@ public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, 
     }
     
     @Override
-    public void readSyncNBT(final NBTTagCompound nbttagcompound) {
+    public void readSyncNBT(NBTTagCompound nbttagcompound) {
         aspectIn = Aspect.getAspect(nbttagcompound.getString("aspectIn"));
         aspectOut = Aspect.getAspect(nbttagcompound.getString("aspectOut"));
     }
     
     @Override
-    public NBTTagCompound writeSyncNBT(final NBTTagCompound nbttagcompound) {
+    public NBTTagCompound writeSyncNBT(NBTTagCompound nbttagcompound) {
         if (aspectIn != null) {
             nbttagcompound.setString("aspectIn", aspectIn.getTag());
         }
@@ -54,7 +54,7 @@ public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, 
     
     @Override
     public AspectList getAspects() {
-        final AspectList al = new AspectList();
+        AspectList al = new AspectList();
         if (aspectOut != null) {
             al.add(aspectOut, 1);
         }
@@ -62,7 +62,7 @@ public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, 
     }
     
     @Override
-    public int addToContainer(final Aspect tt, int am) {
+    public int addToContainer(Aspect tt, int am) {
         if (am > 0 && aspectOut == null) {
             aspectOut = tt;
             markDirty();
@@ -73,7 +73,7 @@ public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, 
     }
     
     @Override
-    public boolean takeFromContainer(final Aspect tt, final int am) {
+    public boolean takeFromContainer(Aspect tt, int am) {
         if (aspectOut != null && tt == aspectOut) {
             aspectOut = null;
             markDirty();
@@ -84,18 +84,18 @@ public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, 
     }
     
     @Override
-    public boolean takeFromContainer(final AspectList ot) {
+    public boolean takeFromContainer(AspectList ot) {
         return false;
     }
     
     @Override
-    public boolean doesContainerContainAmount(final Aspect tag, final int amt) {
+    public boolean doesContainerContainAmount(Aspect tag, int amt) {
         return amt == 1 && tag == aspectOut;
     }
     
     @Override
-    public boolean doesContainerContain(final AspectList ot) {
-        for (final Aspect tt : ot.getAspects()) {
+    public boolean doesContainerContain(AspectList ot) {
+        for (Aspect tt : ot.getAspects()) {
             if (tt == aspectOut) {
                 return true;
             }
@@ -104,32 +104,32 @@ public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, 
     }
     
     @Override
-    public int containerContains(final Aspect tag) {
+    public int containerContains(Aspect tag) {
         return (tag == aspectOut) ? 1 : 0;
     }
     
     @Override
-    public boolean doesContainerAccept(final Aspect tag) {
+    public boolean doesContainerAccept(Aspect tag) {
         return true;
     }
     
     @Override
-    public boolean isConnectable(final EnumFacing face) {
+    public boolean isConnectable(EnumFacing face) {
         return face == EnumFacing.UP || face == EnumFacing.DOWN;
     }
     
     @Override
-    public boolean canInputFrom(final EnumFacing face) {
+    public boolean canInputFrom(EnumFacing face) {
         return face == EnumFacing.DOWN;
     }
     
     @Override
-    public boolean canOutputTo(final EnumFacing face) {
+    public boolean canOutputTo(EnumFacing face) {
         return face == EnumFacing.UP;
     }
     
     @Override
-    public void setSuction(final Aspect aspect, final int amount) {
+    public void setSuction(Aspect aspect, int amount) {
     }
     
     @Override
@@ -138,32 +138,32 @@ public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, 
     }
     
     @Override
-    public Aspect getSuctionType(final EnumFacing face) {
+    public Aspect getSuctionType(EnumFacing face) {
         return null;
     }
     
     @Override
-    public int getSuctionAmount(final EnumFacing face) {
+    public int getSuctionAmount(EnumFacing face) {
         return (face == EnumFacing.DOWN) ? (gettingPower() ? 0 : ((aspectIn == null) ? 128 : 64)) : 0;
     }
     
     @Override
-    public Aspect getEssentiaType(final EnumFacing loc) {
+    public Aspect getEssentiaType(EnumFacing loc) {
         return aspectOut;
     }
     
     @Override
-    public int getEssentiaAmount(final EnumFacing loc) {
+    public int getEssentiaAmount(EnumFacing loc) {
         return (aspectOut != null) ? 1 : 0;
     }
     
     @Override
-    public int takeEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
+    public int takeEssentia(Aspect aspect, int amount, EnumFacing face) {
         return (canOutputTo(face) && takeFromContainer(aspect, amount)) ? amount : 0;
     }
     
     @Override
-    public int addEssentia(final Aspect aspect, final int amount, final EnumFacing face) {
+    public int addEssentia(Aspect aspect, int amount, EnumFacing face) {
         if (aspectIn == null && !aspect.isPrimal()) {
             aspectIn = aspect;
             process = 39;
@@ -195,7 +195,7 @@ public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, 
             if ((aspectIn == null || gettingPower()) && rotationSpeed > 0.0f) {
                 rotationSpeed -= 0.5f;
             }
-            final int pr = (int) rotation;
+            int pr = (int) rotation;
             rotation += rotationSpeed;
             if (rotation % 180.0f <= 20.0f && pr % 180 >= 160 && rotationSpeed > 0.0f) {
                 world.playSound(getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, SoundsTC.pump, SoundCategory.BLOCKS, 1.0f, 1.0f, false);
@@ -204,7 +204,7 @@ public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, 
     }
     
     void processEssentia() {
-        final Aspect[] comps = aspectIn.getComponents();
+        Aspect[] comps = aspectIn.getComponents();
         aspectOut = comps[world.rand.nextInt(2)];
         aspectIn = null;
         markDirty();
@@ -212,9 +212,9 @@ public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, 
     }
     
     void drawEssentia() {
-        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), EnumFacing.DOWN);
+        TileEntity te = ThaumcraftApiHelper.getConnectableTile(world, getPos(), EnumFacing.DOWN);
         if (te != null) {
-            final IEssentiaTransport ic = (IEssentiaTransport)te;
+            IEssentiaTransport ic = (IEssentiaTransport)te;
             if (!ic.canOutputTo(EnumFacing.UP)) {
                 return;
             }
@@ -232,7 +232,7 @@ public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, 
     }
     
     @Override
-    public void setAspects(final AspectList aspects) {
+    public void setAspects(AspectList aspects) {
     }
     
     public boolean canRenderBreaking() {

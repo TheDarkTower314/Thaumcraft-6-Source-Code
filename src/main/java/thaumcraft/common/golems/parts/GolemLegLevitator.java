@@ -11,7 +11,7 @@ import thaumcraft.api.golems.parts.GolemLeg;
 public class GolemLegLevitator implements GolemLeg.ILegFunction
 {
     @Override
-    public void onUpdateTick(final IGolemAPI golem) {
+    public void onUpdateTick(IGolemAPI golem) {
         if (golem.getGolemWorld().isRemote && (!golem.getGolemEntity().onGround || golem.getGolemEntity().ticksExisted % 5 == 0)) {
             FXDispatcher.INSTANCE.drawGolemFlyParticles(golem.getGolemEntity().posX, golem.getGolemEntity().posY + 0.1, golem.getGolemEntity().posZ, golem.getGolemWorld().rand.nextGaussian() / 100.0, -0.1, golem.getGolemWorld().rand.nextGaussian() / 100.0);
         }

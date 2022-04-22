@@ -47,11 +47,11 @@ import net.minecraft.entity.monster.EntityMob;
 
 public class EntityEldritchCrab extends EntityMob implements IEldritchMob
 {
-    private static final DataParameter<Boolean> HELM;
-    private static final DataParameter<Integer> RIDING;
+    private static DataParameter<Boolean> HELM;
+    private static DataParameter<Integer> RIDING;
     private int attackTime;
     
-    public EntityEldritchCrab(final World par1World) {
+    public EntityEldritchCrab(World par1World) {
         super(par1World);
         attackTime = 0;
         setSize(0.8f, 0.6f);
@@ -91,7 +91,7 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
         return (int) getDataManager().get((DataParameter)EntityEldritchCrab.RIDING);
     }
     
-    public void setRiding(final int s) {
+    public void setRiding(int s) {
         getDataManager().set(EntityEldritchCrab.RIDING, s);
     }
     
@@ -103,7 +103,7 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
         return hasHelm() ? 5 : 0;
     }
     
-    public IEntityLivingData onInitialSpawn(final DifficultyInstance diff, IEntityLivingData data) {
+    public IEntityLivingData onInitialSpawn(DifficultyInstance diff, IEntityLivingData data) {
         if (world.getDifficulty() == EnumDifficulty.HARD) {
             setHelm(true);
         }
@@ -117,7 +117,7 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
             }
         }
         if (data instanceof EntitySpider.GroupData) {
-            final Potion potion = ((EntitySpider.GroupData)data).effect;
+            Potion potion = ((EntitySpider.GroupData)data).effect;
             if (potion != null) {
                 addPotionEffect(new PotionEffect(potion, Integer.MAX_VALUE));
             }
@@ -129,7 +129,7 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
         return (boolean) getDataManager().get((DataParameter)EntityEldritchCrab.HELM);
     }
     
-    public void setHelm(final boolean par1) {
+    public void setHelm(boolean par1) {
         getDataManager().set(EntityEldritchCrab.HELM, par1);
     }
     
@@ -157,7 +157,7 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
             }
         }
         else if (getRidingEntity() == null && getRiding() != -1) {
-            final Entity e = world.getEntityByID(getRiding());
+            Entity e = world.getEntityByID(getRiding());
             if (e != null) {
                 startRiding(e);
             }
@@ -171,14 +171,14 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
         return Item.getItemById(0);
     }
     
-    protected void dropFewItems(final boolean p_70628_1_, final int p_70628_2_) {
+    protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
         super.dropFewItems(p_70628_1_, p_70628_2_);
         if (p_70628_1_ && (rand.nextInt(3) == 0 || rand.nextInt(1 + p_70628_2_) > 0)) {
             dropItem(Items.ENDER_PEARL, 1);
         }
     }
     
-    public boolean attackEntityAsMob(final Entity p_70652_1_) {
+    public boolean attackEntityAsMob(Entity p_70652_1_) {
         if (super.attackEntityAsMob(p_70652_1_)) {
             playSound(SoundsTC.crabclaw, 1.0f, 0.9f + world.rand.nextFloat() * 0.2f);
             return true;
@@ -186,8 +186,8 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
         return false;
     }
     
-    public boolean attackEntityFrom(final DamageSource source, final float damage) {
-        final boolean b = super.attackEntityFrom(source, damage);
+    public boolean attackEntityFrom(DamageSource source, float damage) {
+        boolean b = super.attackEntityFrom(source, damage);
         if (hasHelm() && getHealth() / getMaxHealth() <= 0.5f) {
             setHelm(false);
             renderBrokenItemStack(new ItemStack(ItemsTC.crimsonPlateChest));
@@ -196,7 +196,7 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
         return b;
     }
     
-    public void readEntityFromNBT(final NBTTagCompound par1NBTTagCompound) {
+    public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
         super.readEntityFromNBT(par1NBTTagCompound);
         setHelm(par1NBTTagCompound.getBoolean("helm"));
         if (!hasHelm()) {
@@ -204,7 +204,7 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
         }
     }
     
-    public void writeEntityToNBT(final NBTTagCompound par1NBTTagCompound) {
+    public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
         super.writeEntityToNBT(par1NBTTagCompound);
         par1NBTTagCompound.setBoolean("helm", hasHelm());
     }
@@ -217,7 +217,7 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
         return SoundsTC.crabtalk;
     }
     
-    protected SoundEvent getHurtSound(final DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundEvents.ENTITY_GENERIC_HURT;
     }
     
@@ -225,7 +225,7 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
         return SoundsTC.crabdeath;
     }
     
-    protected void playStepSound(final BlockPos p_180429_1_, final Block p_180429_2_) {
+    protected void playStepSound(BlockPos p_180429_1_, Block p_180429_2_) {
         playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15f, 1.0f);
     }
     
@@ -233,11 +233,11 @@ public class EntityEldritchCrab extends EntityMob implements IEldritchMob
         return EnumCreatureAttribute.ARTHROPOD;
     }
     
-    public boolean isPotionApplicable(final PotionEffect p_70687_1_) {
+    public boolean isPotionApplicable(PotionEffect p_70687_1_) {
         return !p_70687_1_.getPotion().equals(MobEffects.POISON) && super.isPotionApplicable(p_70687_1_);
     }
     
-    public boolean isOnSameTeam(final Entity el) {
+    public boolean isOnSameTeam(Entity el) {
         return el instanceof EntityEldritchCrab;
     }
     

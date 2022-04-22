@@ -34,14 +34,14 @@ public class ClientProxy extends CommonProxy
     }
     
     @Override
-    public void preInit(final FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
         OBJLoader.INSTANCE.addDomain("thaumcraft".toLowerCase());
         ShaderHelper.initShaders();
     }
     
     @Override
-    public void init(final FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
         super.init(event);
         ColorHandler.registerColourHandlers();
         registerKeyBindings();
@@ -50,7 +50,7 @@ public class ClientProxy extends CommonProxy
     }
     
     @Override
-    public void postInit(final FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
     }
     
@@ -64,7 +64,7 @@ public class ClientProxy extends CommonProxy
     }
     
     @Override
-    public World getWorld(final int dim) {
+    public World getWorld(int dim) {
         return getClientWorld();
     }
     
@@ -82,7 +82,7 @@ public class ClientProxy extends CommonProxy
     }
     
     @Override
-    public void registerModel(final ItemBlock itemBlock) {
+    public void registerModel(ItemBlock itemBlock) {
         ModelLoader.setCustomModelResourceLocation(itemBlock, 0, new ModelResourceLocation(itemBlock.getRegistryName(), "inventory"));
     }
 }

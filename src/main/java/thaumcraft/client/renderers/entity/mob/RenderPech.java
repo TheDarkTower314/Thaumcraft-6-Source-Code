@@ -23,21 +23,21 @@ public class RenderPech extends RenderLiving
 {
     protected ModelPech modelMain;
     protected ModelPech modelOverlay;
-    private static final ResourceLocation[] skin;
+    private static ResourceLocation[] skin;
     
-    public RenderPech(final RenderManager rm, final ModelPech par1ModelBiped, final float par2) {
+    public RenderPech(RenderManager rm, ModelPech par1ModelBiped, float par2) {
         super(rm, par1ModelBiped, par2);
         modelMain = par1ModelBiped;
         modelOverlay = new ModelPech();
         addLayer(new LayerHeldItemPech(this));
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return RenderPech.skin[((EntityPech)entity).getPechType()];
     }
     
-    public void doRenderLiving(final EntityLiving par1EntityLiving, final double par2, final double par4, final double par6, final float par8, final float par9) {
-        final float f2 = 1.0f;
+    public void doRenderLiving(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9) {
+        float f2 = 1.0f;
         GL11.glColor3f(f2, f2, f2);
         double d3 = par4 - par1EntityLiving.getYOffset();
         if (par1EntityLiving.isSneaking()) {
@@ -46,7 +46,7 @@ public class RenderPech extends RenderLiving
         super.doRender(par1EntityLiving, par2, d3, par6, par8, par9);
     }
     
-    public void doRender(final EntityLiving par1Entity, final double par2, final double par4, final double par6, final float par8, final float par9) {
+    public void doRender(EntityLiving par1Entity, double par2, double par4, double par6, float par8, float par9) {
         doRenderLiving(par1Entity, par2, par4, par6, par8, par9);
     }
     

@@ -358,11 +358,11 @@ public class ModelEldritchGuardian extends ModelBase
         Cloak2.addChild(Cloak3);
     }
     
-    public void setLivingAnimations(final EntityLivingBase p_78086_1_, final float p_78086_2_, final float p_78086_3_, final float p_78086_4_) {
+    public void setLivingAnimations(EntityLivingBase p_78086_1_, float p_78086_2_, float p_78086_3_, float p_78086_4_) {
         partialTicks = p_78086_4_;
     }
     
-    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         BeltR.render(f5);
@@ -408,9 +408,9 @@ public class ModelEldritchGuardian extends ModelBase
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 1);
             GL11.glScaled(1.01, 1.01, 1.01);
-            final int j = (int)(195.0f + MathHelper.sin(entity.ticksExisted / 3.0f) * 15.0f + 15.0f);
-            final int k = j % 65536;
-            final int l = j / 65536;
+            int j = (int)(195.0f + MathHelper.sin(entity.ticksExisted / 3.0f) * 15.0f + 15.0f);
+            int k = j % 65536;
+            int l = j / 65536;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0f, l / 1.0f);
             HoodEye.render(f5);
             GL11.glDisable(3042);
@@ -418,7 +418,7 @@ public class ModelEldritchGuardian extends ModelBase
         }
     }
     
-    public void setRotationAngles(final float par1, final float par2, final float par3, final float par4, final float par5, final float par6, final Entity entity) {
+    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
         super.setRotationAngles(par1, par2, par3, par4, par5, par6, entity);
         Hood1.rotateAngleY = par4 / 57.295776f;
         Hood1.rotateAngleX = par5 / 57.295776f;
@@ -450,7 +450,7 @@ public class ModelEldritchGuardian extends ModelBase
         SidepanelR4.rotateAngleZ = MathHelper.sin((entity.ticksExisted + partialTicks - 15.0f) / 8.0f) * 0.14f;
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;

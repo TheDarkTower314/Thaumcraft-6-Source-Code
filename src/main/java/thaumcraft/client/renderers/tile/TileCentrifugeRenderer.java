@@ -15,13 +15,13 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 public class TileCentrifugeRenderer extends TileEntitySpecialRenderer
 {
     private ModelCentrifuge model;
-    private static final ResourceLocation TEX;
+    private static ResourceLocation TEX;
     
     public TileCentrifugeRenderer() {
         model = new ModelCentrifuge();
     }
     
-    public void renderEntityAt(final TileCentrifuge cf, final double x, final double y, final double z, final float fq, final int destroyStage) {
+    public void renderEntityAt(TileCentrifuge cf, double x, double y, double z, float fq, int destroyStage) {
         bindTexture(TileCentrifugeRenderer.TEX);
         GL11.glPushMatrix();
         if (destroyStage >= 0) {
@@ -44,7 +44,7 @@ public class TileCentrifugeRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         renderEntityAt((TileCentrifuge)te, x, y, z, partialTicks, destroyStage);
     }

@@ -33,7 +33,7 @@ public class CardScripting extends TheorycraftCard
     }
     
     @Override
-    public boolean activate(final EntityPlayer player, final ResearchTableData data) {
+    public boolean activate(EntityPlayer player, ResearchTableData data) {
         if (data.table != null && ((TileResearchTable)data.table).getStackInSlot(0) != null && ((TileResearchTable)data.table).getStackInSlot(0).getItemDamage() < ((TileResearchTable)data.table).getStackInSlot(0).getMaxDamage() && ((TileResearchTable)data.table).getStackInSlot(1) != null) {
             ((TileResearchTable)data.table).consumeInkFromTable();
             ((TileResearchTable)data.table).consumepaperFromTable();

@@ -23,23 +23,23 @@ public class PacketFXSonic implements IMessage, IMessageHandler<PacketFXSonic, I
     public PacketFXSonic() {
     }
     
-    public PacketFXSonic(final int source) {
+    public PacketFXSonic(int source) {
         this.source = source;
     }
     
-    public void toBytes(final ByteBuf buffer) {
+    public void toBytes(ByteBuf buffer) {
         buffer.writeInt(source);
     }
     
-    public void fromBytes(final ByteBuf buffer) {
+    public void fromBytes(ByteBuf buffer) {
         source = buffer.readInt();
     }
     
     @SideOnly(Side.CLIENT)
-    public IMessage onMessage(final PacketFXSonic message, final MessageContext ctx) {
-        final Entity p = Thaumcraft.proxy.getClientWorld().getEntityByID(message.source);
+    public IMessage onMessage(PacketFXSonic message, MessageContext ctx) {
+        Entity p = Thaumcraft.proxy.getClientWorld().getEntityByID(message.source);
         if (p != null) {
-            final FXSonic fb = new FXSonic(Thaumcraft.proxy.getClientWorld(), p.posX, p.posY, p.posZ, p, 10);
+            FXSonic fb = new FXSonic(Thaumcraft.proxy.getClientWorld(), p.posX, p.posY, p.posZ, p, 10);
             FMLClientHandler.instance().getClient().effectRenderer.addEffect(fb);
         }
         return null;

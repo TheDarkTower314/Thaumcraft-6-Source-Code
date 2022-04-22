@@ -30,55 +30,55 @@ import net.minecraft.inventory.Slot;
 
 public class SlotCraftingArcaneWorkbench extends Slot
 {
-    private final InventoryCrafting craftMatrix;
+    private InventoryCrafting craftMatrix;
     private EntityPlayer player;
     private int amountCrafted;
     private TileArcaneWorkbench tile;
     
-    public SlotCraftingArcaneWorkbench(final TileArcaneWorkbench te, final EntityPlayer par1EntityPlayer, final InventoryCrafting inventory, final IInventory par3IInventory, final int par4, final int par5, final int par6) {
+    public SlotCraftingArcaneWorkbench(TileArcaneWorkbench te, EntityPlayer par1EntityPlayer, InventoryCrafting inventory, IInventory par3IInventory, int par4, int par5, int par6) {
         super(par3IInventory, par4, par5, par6);
         player = par1EntityPlayer;
         craftMatrix = inventory;
         tile = te;
     }
     
-    public boolean isItemValid(final ItemStack stack) {
+    public boolean isItemValid(ItemStack stack) {
         return false;
     }
     
-    public ItemStack decrStackSize(final int amount) {
+    public ItemStack decrStackSize(int amount) {
         if (getHasStack()) {
             amountCrafted += Math.min(amount, getStack().getCount());
         }
         return super.decrStackSize(amount);
     }
     
-    protected void onCrafting(final ItemStack stack, final int amount) {
+    protected void onCrafting(ItemStack stack, int amount) {
         amountCrafted += amount;
         onCrafting(stack);
     }
     
-    protected void onSwapCraft(final int p_190900_1_) {
+    protected void onSwapCraft(int p_190900_1_) {
         amountCrafted += p_190900_1_;
     }
     
-    protected void onCrafting(final ItemStack stack) {
+    protected void onCrafting(ItemStack stack) {
         if (amountCrafted > 0) {
             stack.onCrafting(player.world, player, amountCrafted);
             FMLCommonHandler.instance().firePlayerCraftingEvent(player, stack, craftMatrix);
         }
         amountCrafted = 0;
-        final InventoryCraftResult inventorycraftresult = (InventoryCraftResult) inventory;
-        final IRecipe irecipe = inventorycraftresult.getRecipeUsed();
+        InventoryCraftResult inventorycraftresult = (InventoryCraftResult) inventory;
+        IRecipe irecipe = inventorycraftresult.getRecipeUsed();
         if (irecipe != null && !irecipe.isDynamic()) {
             player.unlockRecipes((List)Lists.newArrayList((Object[])new IRecipe[] { irecipe }));
             inventorycraftresult.setRecipeUsed(null);
         }
     }
     
-    public ItemStack onTake(final EntityPlayer thePlayer, final ItemStack stack) {
+    public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
         onCrafting(stack);
-        final IArcaneRecipe recipe = ThaumcraftCraftingManager.findMatchingArcaneRecipe(craftMatrix, thePlayer);
+        IArcaneRecipe recipe = ThaumcraftCraftingManager.findMatchingArcaneRecipe(craftMatrix, thePlayer);
         InventoryCrafting ic = craftMatrix;
         ForgeHooks.setCraftingPlayer(thePlayer);
         NonNullList<ItemStack> nonnulllist;
@@ -107,7 +107,7 @@ public class SlotCraftingArcaneWorkbench extends Slot
         }
         for (int i = 0; i < Math.min(9, nonnulllist.size()); ++i) {
             ItemStack itemstack = ic.getStackInSlot(i);
-            final ItemStack itemstack2 = nonnulllist.get(i);
+            ItemStack itemstack2 = nonnulllist.get(i);
             if (!itemstack.isEmpty()) {
                 craftMatrix.decrStackSize(i, 1);
                 itemstack = ic.getStackInSlot(i);
@@ -126,10 +126,10 @@ public class SlotCraftingArcaneWorkbench extends Slot
             }
         }
         if (crystals != null) {
-            for (final Aspect aspect : crystals.getAspects()) {
-                final ItemStack cs = ThaumcraftApiHelper.makeCrystal(aspect, crystals.getAmount(aspect));
+            for (Aspect aspect : crystals.getAspects()) {
+                ItemStack cs = ThaumcraftApiHelper.makeCrystal(aspect, crystals.getAmount(aspect));
                 for (int j = 0; j < 6; ++j) {
-                    final ItemStack itemstack3 = craftMatrix.getStackInSlot(9 + j);
+                    ItemStack itemstack3 = craftMatrix.getStackInSlot(9 + j);
                     if (itemstack3.getItem() == ItemsTC.crystalEssence && ItemStack.areItemStackTagsEqual(cs, itemstack3)) {
                         craftMatrix.decrStackSize(9 + j, cs.getCount());
                     }

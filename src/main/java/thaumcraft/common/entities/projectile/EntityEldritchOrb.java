@@ -18,11 +18,11 @@ import net.minecraft.entity.projectile.EntityThrowable;
 
 public class EntityEldritchOrb extends EntityThrowable
 {
-    public EntityEldritchOrb(final World par1World) {
+    public EntityEldritchOrb(World par1World) {
         super(par1World);
     }
     
-    public EntityEldritchOrb(final World par1World, final EntityLivingBase p) {
+    public EntityEldritchOrb(World par1World, EntityLivingBase p) {
         super(par1World, p);
         shoot(p, p.rotationPitch, p.rotationYaw, -5.0f, 0.75f, 0.0f);
     }
@@ -38,17 +38,17 @@ public class EntityEldritchOrb extends EntityThrowable
         }
     }
     
-    protected void onImpact(final RayTraceResult mop) {
+    protected void onImpact(RayTraceResult mop) {
         if (!world.isRemote && getThrower() != null) {
-            final List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(getThrower(), getEntityBoundingBox().grow(2.0, 2.0, 2.0));
+            List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(getThrower(), getEntityBoundingBox().grow(2.0, 2.0, 2.0));
             for (int i = 0; i < list.size(); ++i) {
-                final Entity entity1 = list.get(i);
+                Entity entity1 = list.get(i);
                 if (entity1 != null && entity1 instanceof EntityLivingBase && !((EntityLivingBase)entity1).isEntityUndead()) {
                     entity1.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, getThrower()), (float) getThrower().getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue() * 0.666f);
                     try {
                         ((EntityLivingBase)entity1).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 160, 0));
                     }
-                    catch (final Exception ex) {}
+                    catch (Exception ex) {}
                 }
             }
             playSound(SoundEvents.BLOCK_LAVA_EXTINGUISH, 0.5f, 2.6f + (rand.nextFloat() - rand.nextFloat()) * 0.8f);

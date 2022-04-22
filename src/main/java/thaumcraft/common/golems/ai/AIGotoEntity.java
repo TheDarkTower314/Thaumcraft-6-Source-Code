@@ -18,7 +18,7 @@ import thaumcraft.common.golems.EntityThaumcraftGolem;
 
 public class AIGotoEntity extends AIGoto
 {
-    public AIGotoEntity(final EntityThaumcraftGolem g) {
+    public AIGotoEntity(EntityThaumcraftGolem g) {
         super(g, (byte)1);
     }
     
@@ -39,8 +39,8 @@ public class AIGotoEntity extends AIGoto
     
     @Override
     protected boolean findDestination() {
-        final ArrayList<Task> list = TaskHandler.getEntityTasksSorted(golem.world.provider.getDimension(), golem.getUniqueID(), golem);
-        for (final Task ticket : list) {
+        ArrayList<Task> list = TaskHandler.getEntityTasksSorted(golem.world.provider.getDimension(), golem.getUniqueID(), golem);
+        for (Task ticket : list) {
             if (areGolemTagsValidForTask(ticket) && ticket.canGolemPerformTask(golem) && golem.isWithinHomeDistanceFromPosition(ticket.getEntity().getPosition()) && isValidDestination(golem.world, ticket.getEntity().getPosition()) && canEasilyReach(ticket.getEntity())) {
                 golem.setTask(ticket);
                 golem.getTask().setReserved(true);
@@ -54,20 +54,20 @@ public class AIGotoEntity extends AIGoto
         return false;
     }
     
-    private boolean canEasilyReach(final Entity e) {
+    private boolean canEasilyReach(Entity e) {
         if (golem.getDistanceSq(e) < minDist) {
             return true;
         }
-        final Path pathentity = golem.getNavigator().getPathToEntityLiving(e);
+        Path pathentity = golem.getNavigator().getPathToEntityLiving(e);
         if (pathentity == null) {
             return false;
         }
-        final PathPoint pathpoint = pathentity.getFinalPathPoint();
+        PathPoint pathpoint = pathentity.getFinalPathPoint();
         if (pathpoint == null) {
             return false;
         }
-        final int i = pathpoint.x - MathHelper.floor(e.posX);
-        final int j = pathpoint.z - MathHelper.floor(e.posZ);
+        int i = pathpoint.x - MathHelper.floor(e.posX);
+        int j = pathpoint.z - MathHelper.floor(e.posZ);
         return i * i + j * j < minDist;
     }
 }

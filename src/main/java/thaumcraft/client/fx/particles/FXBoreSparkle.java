@@ -20,10 +20,10 @@ public class FXBoreSparkle extends Particle
     private double targetZ;
     public int particle;
     
-    public FXBoreSparkle(final World par1World, final double par2, final double par4, final double par6, final double tx, final double ty, final double tz) {
+    public FXBoreSparkle(World par1World, double par2, double par4, double par6, double tx, double ty, double tz) {
         super(par1World, par2, par4, par6, 0.0, 0.0, 0.0);
         particle = 24;
-        final float particleRed = 0.6f;
+        float particleRed = 0.6f;
         particleBlue = particleRed;
         particleGreen = particleRed;
         this.particleRed = particleRed;
@@ -31,15 +31,15 @@ public class FXBoreSparkle extends Particle
         targetX = tx;
         targetY = ty;
         targetZ = tz;
-        final double dx = tx - posX;
-        final double dy = ty - posY;
-        final double dz = tz - posZ;
+        double dx = tx - posX;
+        double dy = ty - posY;
+        double dz = tz - posZ;
         int base = (int)(MathHelper.sqrt(dx * dx + dy * dy + dz * dz) * 10.0f);
         if (base < 1) {
             base = 1;
         }
         particleMaxAge = base / 2 + rand.nextInt(base);
-        final float f3 = 0.01f;
+        float f3 = 0.01f;
         motionX = (float) rand.nextGaussian() * f3;
         motionY = (float) rand.nextGaussian() * f3;
         motionZ = (float) rand.nextGaussian() * f3;
@@ -47,7 +47,7 @@ public class FXBoreSparkle extends Particle
         particleGreen = 0.6f + rand.nextFloat() * 0.3f;
         particleBlue = 0.2f;
         particleGravity = 0.2f;
-        final Entity renderentity = FMLClientHandler.instance().getClient().getRenderViewEntity();
+        Entity renderentity = FMLClientHandler.instance().getClient().getRenderViewEntity();
         int visibleDistance = 64;
         if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics) {
             visibleDistance = 32;
@@ -57,27 +57,27 @@ public class FXBoreSparkle extends Particle
         }
     }
     
-    public FXBoreSparkle(final World par1World, final double par2, final double par4, final double par6, final Entity t) {
+    public FXBoreSparkle(World par1World, double par2, double par4, double par6, Entity t) {
         this(par1World, par2, par4, par6, t.posX, t.posY + t.getEyeHeight(), t.posZ);
         target = t;
     }
     
-    public void renderParticle(final BufferBuilder wr, final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
-        final float bob = MathHelper.sin(particleAge / 3.0f) * 0.5f + 1.0f;
+    public void renderParticle(BufferBuilder wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        float bob = MathHelper.sin(particleAge / 3.0f) * 0.5f + 1.0f;
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.75f);
-        final int part = particleAge % 4;
-        final float var8 = part / 64.0f;
-        final float var9 = var8 + 0.015625f;
-        final float var10 = 0.0625f;
-        final float var11 = var10 + 0.015625f;
-        final float var12 = 0.1f * particleScale * bob;
-        final float var13 = (float)(prevPosX + (posX - prevPosX) * f - FXBoreSparkle.interpPosX);
-        final float var14 = (float)(prevPosY + (posY - prevPosY) * f - FXBoreSparkle.interpPosY);
-        final float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - FXBoreSparkle.interpPosZ);
-        final float var16 = 1.0f;
-        final int i = 240;
-        final int j = i >> 16 & 0xFFFF;
-        final int k = i & 0xFFFF;
+        int part = particleAge % 4;
+        float var8 = part / 64.0f;
+        float var9 = var8 + 0.015625f;
+        float var10 = 0.0625f;
+        float var11 = var10 + 0.015625f;
+        float var12 = 0.1f * particleScale * bob;
+        float var13 = (float)(prevPosX + (posX - prevPosX) * f - FXBoreSparkle.interpPosX);
+        float var14 = (float)(prevPosY + (posY - prevPosY) * f - FXBoreSparkle.interpPosY);
+        float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - FXBoreSparkle.interpPosZ);
+        float var16 = 1.0f;
+        int i = 240;
+        int j = i >> 16 & 0xFFFF;
+        int k = i & 0xFFFF;
         wr.pos(var13 - f1 * var12 - f4 * var12, var14 - f2 * var12, var15 - f3 * var12 - f5 * var12).tex(var9, var11).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1.0f).lightmap(j, k).endVertex();
         wr.pos(var13 - f1 * var12 + f4 * var12, var14 + f2 * var12, var15 - f3 * var12 + f5 * var12).tex(var9, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1.0f).lightmap(j, k).endVertex();
         wr.pos(var13 + f1 * var12 + f4 * var12, var14 + f2 * var12, var15 + f3 * var12 + f5 * var12).tex(var8, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1.0f).lightmap(j, k).endVertex();
@@ -104,8 +104,8 @@ public class FXBoreSparkle extends Particle
         double dx = targetX - posX;
         double dy = targetY - posY;
         double dz = targetZ - posZ;
-        final double d11 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
-        final double clamp = Math.min(0.25, d11 / 15.0);
+        double d11 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+        double clamp = Math.min(0.25, d11 / 15.0);
         if (d11 < 2.0) {
             particleScale *= 0.9f;
         }
@@ -123,7 +123,7 @@ public class FXBoreSparkle extends Particle
         motionZ += rand.nextGaussian() * 0.01;
     }
     
-    public void setGravity(final float value) {
+    public void setGravity(float value) {
         particleGravity = value;
     }
 }

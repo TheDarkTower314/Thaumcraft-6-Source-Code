@@ -21,16 +21,16 @@ import net.minecraft.item.ItemBlock;
 
 public class BlockJarBrainItem extends ItemBlock
 {
-    public BlockJarBrainItem(final Block block) {
+    public BlockJarBrainItem(Block block) {
         super(block);
     }
     
-    public boolean placeBlockAt(final ItemStack stack, final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final IBlockState newState) {
-        final boolean b = super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState);
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState) {
+        boolean b = super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState);
         if (b && !world.isRemote) {
-            final TileEntity te = world.getTileEntity(pos);
+            TileEntity te = world.getTileEntity(pos);
             if (te != null && te instanceof TileJarBrain) {
-                final TileJarBrain jar = (TileJarBrain)te;
+                TileJarBrain jar = (TileJarBrain)te;
                 if (stack.hasTagCompound()) {
                     jar.xp = stack.getTagCompound().getInteger("xp");
                 }
@@ -42,9 +42,9 @@ public class BlockJarBrainItem extends ItemBlock
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("xp")) {
-            final int tf = stack.getTagCompound().getInteger("xp");
+            int tf = stack.getTagCompound().getInteger("xp");
             tooltip.add("§a" + tf + " xp");
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);

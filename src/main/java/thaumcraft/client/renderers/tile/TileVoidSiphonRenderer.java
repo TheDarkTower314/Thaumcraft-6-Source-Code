@@ -19,23 +19,23 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 public class TileVoidSiphonRenderer extends TileEntitySpecialRenderer
 {
-    private final ShaderCallback shaderCallback;
-    private static final ResourceLocation starsTexture;
+    private ShaderCallback shaderCallback;
+    private static ResourceLocation starsTexture;
     
     public TileVoidSiphonRenderer() {
         shaderCallback = new ShaderCallback() {
             @Override
-            public void call(final int shader) {
-                final Minecraft mc = Minecraft.getMinecraft();
-                final int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
+            public void call(int shader) {
+                Minecraft mc = Minecraft.getMinecraft();
+                int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
                 ARBShaderObjects.glUniform1fARB(x, (float)(mc.player.rotationYaw * 2.0f * 3.141592653589793 / 360.0));
-                final int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
+                int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
                 ARBShaderObjects.glUniform1fARB(z, -(float)(mc.player.rotationPitch * 2.0f * 3.141592653589793 / 360.0));
             }
         };
     }
     
-    public void render(final TileEntity te, final double x, final double y, final double z, final float partialTicks, final int destroyStage, final float alpha) {
+    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         if (BlockStateUtils.isEnabled(te.getBlockMetadata())) {
             GL11.glPushMatrix();
@@ -44,7 +44,7 @@ public class TileVoidSiphonRenderer extends TileEntitySpecialRenderer
             GL11.glPushMatrix();
             GL11.glTranslated(x + 0.5, y + 0.875, z + 0.5);
             GlStateManager.depthMask(false);
-            for (final EnumFacing face : EnumFacing.values()) {
+            for (EnumFacing face : EnumFacing.values()) {
                 GL11.glPushMatrix();
                 GL11.glRotatef(90.0f, (float)(-face.getFrontOffsetY()), (float)face.getFrontOffsetX(), (float)(-face.getFrontOffsetZ()));
                 if (face.getFrontOffsetZ() < 0) {
@@ -63,7 +63,7 @@ public class TileVoidSiphonRenderer extends TileEntitySpecialRenderer
             GL11.glPushMatrix();
             GL11.glTranslated(x + 0.5, y + 0.3125, z + 0.5);
             GlStateManager.depthMask(false);
-            for (final EnumFacing face : EnumFacing.values()) {
+            for (EnumFacing face : EnumFacing.values()) {
                 GL11.glPushMatrix();
                 GL11.glRotatef(90.0f, (float)(-face.getFrontOffsetY()), (float)face.getFrontOffsetX(), (float)(-face.getFrontOffsetZ()));
                 if (face.getFrontOffsetZ() < 0) {

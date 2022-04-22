@@ -64,15 +64,15 @@ import thaumcraft.common.blocks.BlockTCDevice;
 @Mod.EventBusSubscriber({ Side.CLIENT })
 public class BlockTube extends BlockTCDevice
 {
-    public static final PropertyBool NORTH;
-    public static final PropertyBool EAST;
-    public static final PropertyBool SOUTH;
-    public static final PropertyBool WEST;
-    public static final PropertyBool UP;
-    public static final PropertyBool DOWN;
+    public static PropertyBool NORTH;
+    public static PropertyBool EAST;
+    public static PropertyBool SOUTH;
+    public static PropertyBool WEST;
+    public static PropertyBool UP;
+    public static PropertyBool DOWN;
     private RayTracer rayTracer;
     
-    public BlockTube(final Class tile, final String name) {
+    public BlockTube(Class tile, String name) {
         super(Material.IRON, tile, name);
         rayTracer = new RayTracer();
         setHardness(0.5f);
@@ -81,7 +81,7 @@ public class BlockTube extends BlockTCDevice
         setDefaultState(blockState.getBaseState().withProperty((IProperty)BlockTube.NORTH, (Comparable)false).withProperty((IProperty)BlockTube.EAST, (Comparable)false).withProperty((IProperty)BlockTube.SOUTH, (Comparable)false).withProperty((IProperty)BlockTube.WEST, (Comparable)false).withProperty((IProperty)BlockTube.UP, (Comparable)false).withProperty((IProperty)BlockTube.DOWN, (Comparable)false));
     }
     
-    public BlockFaceShape getBlockFaceShape(final IBlockAccess worldIn, final IBlockState state, final BlockPos pos, final EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
     
@@ -90,21 +90,21 @@ public class BlockTube extends BlockTCDevice
         return new BlockStateContainer(this, BlockTube.NORTH, BlockTube.EAST, BlockTube.SOUTH, BlockTube.WEST, BlockTube.UP, BlockTube.DOWN);
     }
     
-    public boolean isOpaqueCube(final IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
     
-    public boolean isFullCube(final IBlockState state) {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
     
     @Override
-    public int getMetaFromState(final IBlockState state) {
+    public int getMetaFromState(IBlockState state) {
         return 0;
     }
     
-    public void onBlockPlacedBy(final World worldIn, final BlockPos pos, final IBlockState state, final EntityLivingBase placer, final ItemStack stack) {
-        final TileEntity tile = worldIn.getTileEntity(pos);
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        TileEntity tile = worldIn.getTileEntity(pos);
         if (tile != null && tile instanceof TileTube) {
             ((TileTube)tile).facing = EnumFacing.getDirectionFromEntityLiving(pos, placer);
             tile.markDirty();
@@ -112,18 +112,18 @@ public class BlockTube extends BlockTCDevice
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
     
-    public IBlockState getActualState(final IBlockState state, final IBlockAccess worldIn, final BlockPos pos) {
-        final Boolean[] cons = makeConnections(state, worldIn, pos);
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        Boolean[] cons = makeConnections(state, worldIn, pos);
         return state.withProperty((IProperty)BlockTube.DOWN, (Comparable)cons[0]).withProperty((IProperty)BlockTube.UP, (Comparable)cons[1]).withProperty((IProperty)BlockTube.NORTH, (Comparable)cons[2]).withProperty((IProperty)BlockTube.SOUTH, (Comparable)cons[3]).withProperty((IProperty)BlockTube.WEST, (Comparable)cons[4]).withProperty((IProperty)BlockTube.EAST, (Comparable)cons[5]);
     }
     
-    private Boolean[] makeConnections(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
-        final Boolean[] cons = { false, false, false, false, false, false };
-        final TileEntity t = world.getTileEntity(pos);
+    private Boolean[] makeConnections(IBlockState state, IBlockAccess world, BlockPos pos) {
+        Boolean[] cons = { false, false, false, false, false, false };
+        TileEntity t = world.getTileEntity(pos);
         if (t != null && t instanceof IEssentiaTransport) {
-            final IEssentiaTransport tube = (IEssentiaTransport)t;
+            IEssentiaTransport tube = (IEssentiaTransport)t;
             int a = 0;
-            for (final EnumFacing face : EnumFacing.VALUES) {
+            for (EnumFacing face : EnumFacing.VALUES) {
                 if (tube.isConnectable(face) && ThaumcraftApiHelper.getConnectableTile(world, pos, face) != null) {
                     cons[a] = true;
                 }
@@ -134,18 +134,18 @@ public class BlockTube extends BlockTCDevice
     }
     
     @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBox(final IBlockState state, final World world, final BlockPos pos) {
-        final boolean noDoodads = InventoryUtils.isHoldingItem(Minecraft.getMinecraft().player, ICaster.class) == null && InventoryUtils.isHoldingItem(Minecraft.getMinecraft().player, ItemResonator.class) == null;
-        final TileEntity tile = world.getTileEntity(pos);
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {
+        boolean noDoodads = InventoryUtils.isHoldingItem(Minecraft.getMinecraft().player, ICaster.class) == null && InventoryUtils.isHoldingItem(Minecraft.getMinecraft().player, ItemResonator.class) == null;
+        TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof TileTube) {
-            final RayTraceResult hit = RayTracer.retraceBlock(world, Minecraft.getMinecraft().player, pos);
-            final List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
+            RayTraceResult hit = RayTracer.retraceBlock(world, Minecraft.getMinecraft().player, pos);
+            List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
             ((TileTube)tile).addTraceableCuboids(cuboids);
             if (hit != null && hit.subHit >= 0 && hit.subHit <= 6 && !noDoodads) {
-                for (final IndexedCuboid6 cc : cuboids) {
+                for (IndexedCuboid6 cc : cuboids) {
                     if ((int)cc.data == hit.subHit) {
-                        final Vector3 v = new Vector3(pos);
-                        final Cuboid6 c = cc.sub(v);
+                        Vector3 v = new Vector3(pos);
+                        Cuboid6 c = cc.sub(v);
                         return new AxisAlignedBB((float)c.min.x, (float)c.min.y, (float)c.min.z, (float)c.max.x, (float)c.max.y, (float)c.max.z).offset(pos);
                     }
                 }
@@ -154,7 +154,7 @@ public class BlockTube extends BlockTCDevice
         return super.getSelectedBoundingBox(state, world, pos);
     }
     
-    public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         float minx = 0.3125f;
         float maxx = 0.6875f;
         float miny = 0.3125f;
@@ -164,7 +164,7 @@ public class BlockTube extends BlockTCDevice
         EnumFacing fd = null;
         for (int side = 0; side < 6; ++side) {
             fd = EnumFacing.VALUES[side];
-            final TileEntity te = ThaumcraftApiHelper.getConnectableTile(source, pos, fd);
+            TileEntity te = ThaumcraftApiHelper.getConnectableTile(source, pos, fd);
             if (te != null) {
                 switch (side) {
                     case 0: {
@@ -197,24 +197,24 @@ public class BlockTube extends BlockTCDevice
         return new AxisAlignedBB(minx, miny, minz, maxx, maxy, maxz);
     }
     
-    public boolean hasComparatorInputOverride(final IBlockState state) {
+    public boolean hasComparatorInputOverride(IBlockState state) {
         return true;
     }
     
-    public int getComparatorInputOverride(final IBlockState state, final World world, final BlockPos pos) {
-        final TileEntity te = world.getTileEntity(pos);
+    public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+        TileEntity te = world.getTileEntity(pos);
         if (te != null && te instanceof TileTubeBuffer) {
-            final float n = (float)((TileTubeBuffer)te).aspects.visSize();
+            float n = (float)((TileTubeBuffer)te).aspects.visSize();
             te.getClass();
-            final float r = n / 10.0f;
+            float r = n / 10.0f;
             return MathHelper.floor(r * 14.0f) + ((((TileTubeBuffer)te).aspects.visSize() > 0) ? 1 : 0);
         }
         return 0;
     }
     
     @Override
-    public void breakBlock(final World worldIn, final BlockPos pos, final IBlockState state) {
-        final TileEntity te = worldIn.getTileEntity(pos);
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity te = worldIn.getTileEntity(pos);
         if (te != null && te instanceof TileTube && ((TileTube)te).getEssentiaAmount(EnumFacing.UP) > 0) {
             if (!worldIn.isRemote) {
                 AuraHelper.polluteAura(worldIn, pos, (float)((TileTube)te).getEssentiaAmount(EnumFacing.UP), true);
@@ -229,12 +229,12 @@ public class BlockTube extends BlockTCDevice
         super.breakBlock(worldIn, pos, state);
     }
     
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (state.getBlock() == BlocksTC.tubeValve) {
             if (player.getHeldItem(hand).getItem() instanceof ICaster || player.getHeldItem(hand).getItem() instanceof ItemResonator || player.getHeldItem(hand).getItem() == Item.getItemFromBlock(this)) {
                 return false;
             }
-            final TileEntity te = world.getTileEntity(pos);
+            TileEntity te = world.getTileEntity(pos);
             if (te instanceof TileTubeValve) {
                 ((TileTubeValve)te).allowFlow = !((TileTubeValve)te).allowFlow;
                 world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, state, 3);
@@ -246,7 +246,7 @@ public class BlockTube extends BlockTCDevice
             }
         }
         if (state.getBlock() == BlocksTC.tubeFilter) {
-            final TileEntity te = world.getTileEntity(pos);
+            TileEntity te = world.getTileEntity(pos);
             if (te != null && te instanceof TileTubeFilter && player.isSneaking() && ((TileTubeFilter)te).aspectFilter != null) {
                 ((TileTubeFilter)te).aspectFilter = null;
                 world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, state, 3);
@@ -273,25 +273,25 @@ public class BlockTube extends BlockTCDevice
     
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onBlockHighlight(final DrawBlockHighlightEvent event) {
+    public void onBlockHighlight(DrawBlockHighlightEvent event) {
         if (event.getTarget().typeOfHit == RayTraceResult.Type.BLOCK && event.getPlayer().world.getBlockState(event.getTarget().getBlockPos()).getBlock() == this && (InventoryUtils.isHoldingItem(event.getPlayer(), ICaster.class) != null || InventoryUtils.isHoldingItem(event.getPlayer(), ItemResonator.class) != null)) {
             RayTracer.retraceBlock(event.getPlayer().world, event.getPlayer(), event.getTarget().getBlockPos());
         }
     }
     
-    public RayTraceResult collisionRayTrace(final IBlockState state, final World world, final BlockPos pos, final Vec3d start, final Vec3d end) {
-        final TileEntity tile = world.getTileEntity(pos);
+    public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d start, Vec3d end) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile == null || (!(tile instanceof TileTube) && !(tile instanceof TileTubeBuffer))) {
             return super.collisionRayTrace(state, world, pos, start, end);
         }
-        final List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
+        List<IndexedCuboid6> cuboids = new LinkedList<IndexedCuboid6>();
         if (tile instanceof TileTube) {
             ((TileTube)tile).addTraceableCuboids(cuboids);
         }
         else if (tile instanceof TileTubeBuffer) {
             ((TileTubeBuffer)tile).addTraceableCuboids(cuboids);
         }
-        final ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
+        ArrayList<ExtendedMOP> list = new ArrayList<ExtendedMOP>();
         rayTracer.rayTraceCuboids(new Vector3(start), new Vector3(end), cuboids, new BlockCoord(pos), this, list);
         return (list.size() > 0) ? list.get(0) : super.collisionRayTrace(state, world, pos, start, end);
     }

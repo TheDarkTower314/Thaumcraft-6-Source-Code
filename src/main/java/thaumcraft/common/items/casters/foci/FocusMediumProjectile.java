@@ -48,11 +48,11 @@ public class FocusMediumProjectile extends FocusMedium
     }
     
     @Override
-    public boolean execute(final Trajectory trajectory) {
-        final float speed = getSettingValue("speed") / 3.0f;
-        final FocusPackage p = getRemainingPackage();
+    public boolean execute(Trajectory trajectory) {
+        float speed = getSettingValue("speed") / 3.0f;
+        FocusPackage p = getRemainingPackage();
         if (p.getCaster() != null) {
-            final EntityFocusProjectile projectile = new EntityFocusProjectile(p, speed, trajectory, getSettingValue("option"));
+            EntityFocusProjectile projectile = new EntityFocusProjectile(p, speed, trajectory, getSettingValue("option"));
             return getPackage().getCaster().world.spawnEntity(projectile);
         }
         return false;
@@ -65,8 +65,8 @@ public class FocusMediumProjectile extends FocusMedium
     
     @Override
     public NodeSetting[] createSettings() {
-        final int[] option = { 0, 1, 2, 3 };
-        final String[] optionDesc = { "focus.common.none", "focus.projectile.bouncy", "focus.projectile.seeking.hostile", "focus.projectile.seeking.friendly" };
+        int[] option = { 0, 1, 2, 3 };
+        String[] optionDesc = { "focus.common.none", "focus.projectile.bouncy", "focus.projectile.seeking.hostile", "focus.projectile.seeking.friendly" };
         return new NodeSetting[] { new NodeSetting("option", "focus.common.options", new NodeSetting.NodeSettingIntList(option, optionDesc), "FOCUSPROJECTILE"), new NodeSetting("speed", "focus.projectile.speed", new NodeSetting.NodeSettingIntRange(1, 5)) };
     }
     

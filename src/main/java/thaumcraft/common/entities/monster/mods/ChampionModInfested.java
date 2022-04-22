@@ -17,9 +17,9 @@ import net.minecraft.entity.EntityLivingBase;
 public class ChampionModInfested implements IChampionModifierEffect
 {
     @Override
-    public float performEffect(final EntityLivingBase boss, final EntityLivingBase target, final DamageSource source, final float amount) {
+    public float performEffect(EntityLivingBase boss, EntityLivingBase target, DamageSource source, float amount) {
         if (boss.world.rand.nextFloat() < 0.4f && !boss.world.isRemote) {
-            final EntityTaintCrawler spiderling = new EntityTaintCrawler(boss.world);
+            EntityTaintCrawler spiderling = new EntityTaintCrawler(boss.world);
             spiderling.setLocationAndAngles(boss.posX, boss.posY + boss.height / 2.0f, boss.posZ, boss.world.rand.nextFloat() * 360.0f, 0.0f);
             boss.world.spawnEntity(spiderling);
             boss.playSound(SoundsTC.gore, 0.5f, 1.0f);
@@ -29,13 +29,13 @@ public class ChampionModInfested implements IChampionModifierEffect
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void showFX(final EntityLivingBase boss) {
+    public void showFX(EntityLivingBase boss) {
         if (boss.world.rand.nextBoolean()) {
             FXDispatcher.INSTANCE.slimeJumpFX(boss, 0);
         }
     }
     
     @Override
-    public void preRender(final EntityLivingBase boss, final RenderLivingBase renderLivingBase) {
+    public void preRender(EntityLivingBase boss, RenderLivingBase renderLivingBase) {
     }
 }

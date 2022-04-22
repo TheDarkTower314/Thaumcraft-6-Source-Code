@@ -21,28 +21,28 @@ import net.minecraft.client.renderer.entity.RenderZombie;
 @SideOnly(Side.CLIENT)
 public class RenderBrainyZombie extends RenderZombie
 {
-    private static final ResourceLocation ZOMBIE_TEXTURES;
-    private static final ResourceLocation ZOMBIE_VILLAGER_TEXTURES;
+    private static ResourceLocation ZOMBIE_TEXTURES;
+    private static ResourceLocation ZOMBIE_VILLAGER_TEXTURES;
     private ModelBiped field_82434_o;
     private ModelZombieVillager field_82432_p;
     private int field_82431_q;
     
-    public RenderBrainyZombie(final RenderManager rm) {
+    public RenderBrainyZombie(RenderManager rm) {
         super(rm);
         field_82431_q = 1;
     }
     
-    protected ResourceLocation getEntityTexture(final EntityZombie entity) {
+    protected ResourceLocation getEntityTexture(EntityZombie entity) {
         return RenderBrainyZombie.ZOMBIE_TEXTURES;
     }
     
-    protected void preRenderScale(final EntityGiantBrainyZombie z, final float par2) {
+    protected void preRenderScale(EntityGiantBrainyZombie z, float par2) {
         GL11.glScalef(1.0f + z.getAnger(), 1.0f + z.getAnger(), 1.0f + z.getAnger());
-        final float q = Math.min(1.0f, z.getAnger()) / 2.0f;
+        float q = Math.min(1.0f, z.getAnger()) / 2.0f;
         GL11.glColor3f(1.0f, 1.0f - q, 1.0f - q);
     }
     
-    protected void preRenderCallback(final EntityZombie par1EntityLiving, final float par2) {
+    protected void preRenderCallback(EntityZombie par1EntityLiving, float par2) {
         if (par1EntityLiving instanceof EntityGiantBrainyZombie) {
             preRenderScale((EntityGiantBrainyZombie)par1EntityLiving, par2);
         }

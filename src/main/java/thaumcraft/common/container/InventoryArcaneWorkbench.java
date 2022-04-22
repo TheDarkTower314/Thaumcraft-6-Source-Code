@@ -13,7 +13,7 @@ public class InventoryArcaneWorkbench extends InventoryCrafting implements IArca
 {
     TileEntity workbench;
     
-    public InventoryArcaneWorkbench(final TileEntity tileEntity, final Container container) {
+    public InventoryArcaneWorkbench(TileEntity tileEntity, Container container) {
         super(container, 5, 3);
         workbench = tileEntity;
     }

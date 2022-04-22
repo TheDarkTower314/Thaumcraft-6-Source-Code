@@ -17,7 +17,7 @@ import net.minecraft.item.ItemSpade;
 
 public class ItemThaumiumShovel extends ItemSpade implements IThaumcraftItems
 {
-    public ItemThaumiumShovel(final Item.ToolMaterial enumtoolmaterial) {
+    public ItemThaumiumShovel(Item.ToolMaterial enumtoolmaterial) {
         super(enumtoolmaterial);
         setCreativeTab(ConfigItems.TABTC);
         setRegistryName("thaumium_shovel");
@@ -41,15 +41,15 @@ public class ItemThaumiumShovel extends ItemSpade implements IThaumcraftItems
         return null;
     }
     
-    public ModelResourceLocation getCustomModelResourceLocation(final String variant) {
+    public ModelResourceLocation getCustomModelResourceLocation(String variant) {
         return new ModelResourceLocation("thaumcraft:" + variant);
     }
     
-    public Set<String> getToolClasses(final ItemStack stack) {
+    public Set<String> getToolClasses(ItemStack stack) {
         return ImmutableSet.of("shovel");
     }
     
-    public boolean getIsRepairable(final ItemStack stack1, final ItemStack stack2) {
+    public boolean getIsRepairable(ItemStack stack1, ItemStack stack2) {
         return stack2.isItemEqual(new ItemStack(ItemsTC.ingots, 1, 0)) || super.getIsRepairable(stack1, stack2);
     }
 }

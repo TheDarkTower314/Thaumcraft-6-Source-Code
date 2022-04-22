@@ -40,8 +40,8 @@ public class FocusMediumMine extends FocusMedium
     }
     
     @Override
-    public boolean execute(final Trajectory trajectory) {
-        final EntityFocusMine projectile = new EntityFocusMine(getRemainingPackage(), trajectory, getSettingValue("target") == 1);
+    public boolean execute(Trajectory trajectory) {
+        EntityFocusMine projectile = new EntityFocusMine(getRemainingPackage(), trajectory, getSettingValue("target") == 1);
         return getPackage().getCaster().world.spawnEntity(projectile);
     }
     
@@ -52,8 +52,8 @@ public class FocusMediumMine extends FocusMedium
     
     @Override
     public NodeSetting[] createSettings() {
-        final int[] friend = { 0, 1 };
-        final String[] friendDesc = { "focus.common.enemy", "focus.common.friend" };
+        int[] friend = { 0, 1 };
+        String[] friendDesc = { "focus.common.enemy", "focus.common.friend" };
         return new NodeSetting[] { new NodeSetting("target", "focus.common.target", new NodeSetting.NodeSettingIntList(friend, friendDesc)) };
     }
 }

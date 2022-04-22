@@ -12,16 +12,16 @@ public class FXGenericP2E extends FXGeneric
 {
     private Entity target;
     
-    public FXGenericP2E(final World world, final double x, final double y, final double z, final Entity target) {
+    public FXGenericP2E(World world, double x, double y, double z, Entity target) {
         super(world, x, y, z, 0.0, 0.0, 0.0);
         setSize(0.1f, 0.1f);
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
         this.target = target;
-        final double dx = target.posX - posX;
-        final double dy = target.posY - posY;
-        final double dz = target.posZ - posZ;
+        double dx = target.posX - posX;
+        double dy = target.posY - posY;
+        double dz = target.posZ - posZ;
         int base = (int)(MathHelper.sqrt(dx * dx + dy * dy + dz * dz) * 5.0f);
         if (base < 1) {
             base = 1;
@@ -32,7 +32,7 @@ public class FXGenericP2E extends FXGeneric
         prevPosZ = z;
         particleTextureJitterX = 0.0f;
         particleTextureJitterY = 0.0f;
-        final float f3 = 0.01f;
+        float f3 = 0.01f;
         motionX = (float)world.rand.nextGaussian() * f3;
         motionY = (float)world.rand.nextGaussian() * f3;
         motionZ = (float)world.rand.nextGaussian() * f3;
@@ -46,7 +46,7 @@ public class FXGenericP2E extends FXGeneric
         double dy = target.posY - posY;
         double dz = target.posZ - posZ;
         double d13 = 0.3;
-        final double d14 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+        double d14 = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
         if (d14 < 4.0) {
             particleScale *= 0.9f;
             d13 = 0.6;

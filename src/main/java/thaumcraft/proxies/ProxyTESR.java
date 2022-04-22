@@ -71,7 +71,7 @@ public class ProxyTESR
         registerTESR(TileResearchTable.class, new TileResearchTableRenderer());
         registerTESR(TileThaumatorium.class, new TileThaumatoriumRenderer());
         registerTESR(TileCentrifuge.class, new TileCentrifugeRenderer());
-        final TileMirrorRenderer tmr = new TileMirrorRenderer();
+        TileMirrorRenderer tmr = new TileMirrorRenderer();
         registerTESR(TileMirror.class, tmr);
         registerTESR(TileMirrorEssentia.class, tmr);
         registerTESR(TileGolemBuilder.class, new TileGolemBuilderRenderer());
@@ -81,7 +81,7 @@ public class ProxyTESR
         registerTESR(TileHole.class, new TileHoleRenderer());
     }
     
-    private void registerTESR(final Class tile, final TileEntitySpecialRenderer renderer) {
+    private void registerTESR(Class tile, TileEntitySpecialRenderer renderer) {
         ClientRegistry.bindTileEntitySpecialRenderer(tile, renderer);
     }
 }

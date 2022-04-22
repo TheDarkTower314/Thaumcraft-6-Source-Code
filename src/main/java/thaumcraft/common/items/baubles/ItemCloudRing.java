@@ -34,17 +34,17 @@ public class ItemCloudRing extends ItemTCBase implements IBauble
         setMaxDamage(0);
     }
     
-    public EnumRarity getRarity(final ItemStack itemstack) {
+    public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.RARE;
     }
     
-    public BaubleType getBaubleType(final ItemStack itemstack) {
+    public BaubleType getBaubleType(ItemStack itemstack) {
         return BaubleType.RING;
     }
     
-    public void onWornTick(final ItemStack itemstack, final EntityLivingBase player) {
+    public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
         if (player.getEntityWorld().isRemote) {
-            final boolean spacePressed = Minecraft.getMinecraft().gameSettings.keyBindJump.isPressed();
+            boolean spacePressed = Minecraft.getMinecraft().gameSettings.keyBindJump.isPressed();
             if (spacePressed && !ItemCloudRing.jumpList.containsKey(player.getName())) {
                 ItemCloudRing.jumpList.put(player.getName(), true);
             }
@@ -57,7 +57,7 @@ public class ItemCloudRing extends ItemTCBase implements IBauble
                     player.motionY += (player.getActivePotionEffect(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1f;
                 }
                 if (player.isSprinting()) {
-                    final float f = player.rotationYaw * 0.017453292f;
+                    float f = player.rotationYaw * 0.017453292f;
                     player.motionX -= MathHelper.sin(f) * 0.2f;
                     player.motionZ += MathHelper.cos(f) * 0.2f;
                 }

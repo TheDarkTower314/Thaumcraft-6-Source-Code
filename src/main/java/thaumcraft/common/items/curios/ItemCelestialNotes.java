@@ -21,15 +21,15 @@ public class ItemCelestialNotes extends ItemTCBase
     }
     
     @Override
-    public String getUnlocalizedName(final ItemStack itemStack) {
+    public String getUnlocalizedName(ItemStack itemStack) {
         return "item.celestial_notes";
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack stack, final World worldIn, final List<String> tooltip, final ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         try {
             tooltip.add(TextFormatting.AQUA + I18n.translateToLocal("item.celestial_notes." + getVariantNames()[stack.getItemDamage()] + ".text"));
         }
-        catch (final Exception ex) {}
+        catch (Exception ex) {}
     }
 }

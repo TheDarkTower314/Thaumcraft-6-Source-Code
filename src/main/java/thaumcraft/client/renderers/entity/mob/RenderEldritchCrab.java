@@ -19,25 +19,25 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 @SideOnly(Side.CLIENT)
 public class RenderEldritchCrab extends RenderLiving
 {
-    private static final ResourceLocation skin;
+    private static ResourceLocation skin;
     
-    public RenderEldritchCrab(final RenderManager renderManager) {
+    public RenderEldritchCrab(RenderManager renderManager) {
         super(renderManager, new ModelEldritchCrab(), 0.5f);
     }
     
-    protected ResourceLocation getEntityTexture(final Entity entity) {
+    protected ResourceLocation getEntityTexture(Entity entity) {
         return RenderEldritchCrab.skin;
     }
     
-    public void renderCrab(final EntityLiving crab, final double par2, final double par4, final double par6, final float par8, final float par9) {
+    public void renderCrab(EntityLiving crab, double par2, double par4, double par6, float par8, float par9) {
         super.doRender(crab, par2, par4, par6, par8, par9);
     }
     
-    public void doRender(final EntityLiving par1Entity, final double par2, final double par4, final double par6, final float par8, final float par9) {
+    public void doRender(EntityLiving par1Entity, double par2, double par4, double par6, float par8, float par9) {
         renderCrab(par1Entity, par2, par4, par6, par8, par9);
     }
     
-    protected void preRenderCallback(final EntityLivingBase entitylivingbaseIn, final float partialTickTime) {
+    protected void preRenderCallback(EntityLivingBase entitylivingbaseIn, float partialTickTime) {
         GlStateManager.scale(0.8f, 0.8f, 0.8f);
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
     }

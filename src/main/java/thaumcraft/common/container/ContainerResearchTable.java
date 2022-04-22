@@ -29,7 +29,7 @@ public class ContainerResearchTable extends Container
     EntityPlayer player;
     static HashMap<Integer, Long> antiSpam;
     
-    public ContainerResearchTable(final InventoryPlayer iinventory, final TileResearchTable iinventory1) {
+    public ContainerResearchTable(InventoryPlayer iinventory, TileResearchTable iinventory1) {
         player = iinventory.player;
         tileEntity = iinventory1;
         aspects = Aspect.aspects.keySet().toArray(new String[0]);
@@ -38,7 +38,7 @@ public class ContainerResearchTable extends Container
         bindPlayerInventory(iinventory);
     }
     
-    protected void bindPlayerInventory(final InventoryPlayer inventoryPlayer) {
+    protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 77 + j * 18, 190 + i * 18));
@@ -51,12 +51,12 @@ public class ContainerResearchTable extends Container
         }
     }
     
-    public boolean enchantItem(final EntityPlayer playerIn, final int button) {
+    public boolean enchantItem(EntityPlayer playerIn, int button) {
         if (button == 1) {
             if (tileEntity.data.lastDraw != null) {
                 tileEntity.data.savedCards.add(tileEntity.data.lastDraw.card.getSeed());
             }
-            for (final ResearchTableData.CardChoice cc : tileEntity.data.cardChoices) {
+            for (ResearchTableData.CardChoice cc : tileEntity.data.cardChoices) {
                 if (cc.selected) {
                     tileEntity.data.lastDraw = cc;
                     break;
@@ -67,7 +67,7 @@ public class ContainerResearchTable extends Container
             return true;
         }
         if (button == 4 || button == 5 || button == 6) {
-            final long tn = System.currentTimeMillis();
+            long tn = System.currentTimeMillis();
             long to = 0L;
             if (ContainerResearchTable.antiSpam.containsKey(playerIn.getEntityId())) {
                 to = ContainerResearchTable.antiSpam.get(playerIn.getEntityId());
@@ -77,9 +77,9 @@ public class ContainerResearchTable extends Container
             }
             ContainerResearchTable.antiSpam.put(playerIn.getEntityId(), tn);
             try {
-                final TheorycraftCard card = tileEntity.data.cardChoices.get(button - 4).card;
+                TheorycraftCard card = tileEntity.data.cardChoices.get(button - 4).card;
                 if (card.getRequiredItems() != null) {
-                    for (final ItemStack stack : card.getRequiredItems()) {
+                    for (ItemStack stack : card.getRequiredItems()) {
                         if (stack != null && !stack.isEmpty() && !InventoryUtils.isPlayerCarryingAmount(player, stack, true)) {
                             return false;
                         }
@@ -100,7 +100,7 @@ public class ContainerResearchTable extends Container
                     return true;
                 }
             }
-            catch (final Exception e) {
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -124,11 +124,11 @@ public class ContainerResearchTable extends Container
         return false;
     }
     
-    public ItemStack transferStackInSlot(final EntityPlayer par1EntityPlayer, final int slot) {
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int slot) {
         ItemStack stack = ItemStack.EMPTY;
-        final Slot slotObject = inventorySlots.get(slot);
+        Slot slotObject = inventorySlots.get(slot);
         if (slotObject != null && slotObject.getHasStack()) {
-            final ItemStack stackInSlot = slotObject.getStack();
+            ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
             if (slot < 2) {
                 if (!tileEntity.isItemValidForSlot(slot, stackInSlot) || !mergeItemStack(stackInSlot, 2, inventorySlots.size(), true)) {
@@ -148,7 +148,7 @@ public class ContainerResearchTable extends Container
         return stack;
     }
     
-    public boolean canInteractWith(final EntityPlayer player) {
+    public boolean canInteractWith(EntityPlayer player) {
         return tileEntity.isUsableByPlayer(player);
     }
     

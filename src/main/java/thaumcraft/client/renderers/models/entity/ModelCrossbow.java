@@ -153,7 +153,7 @@ public class ModelCrossbow extends ModelBase
         crossbow.addChild(crossr3);
     }
     
-    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         crossbow.render(f5);
@@ -164,37 +164,37 @@ public class ModelCrossbow extends ModelBase
         leg1.render(f5);
     }
     
-    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;
     }
     
-    public void setRotationAngles(final float p_78087_1_, final float p_78087_2_, final float p_78087_3_, final float headpitch, final float headyaw, final float p_78087_6_, final Entity entity) {
+    public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float headpitch, float headyaw, float p_78087_6_, Entity entity) {
         crossbow.rotateAngleY = headpitch / 57.295776f;
         crossbow.rotateAngleX = headyaw / 57.295776f;
         if (swingProgress > -9990.0f) {
-            final float f6 = swingProgress;
-            final ModelRenderer crossl1 = this.crossl1;
-            final ModelRenderer crossl2 = this.crossl2;
-            final ModelRenderer crossl3 = this.crossl3;
-            final float rotateAngleY = -0.2f + MathHelper.sin(MathHelper.sqrt(f6) * 3.1415927f * 2.0f) * 0.2f;
+            float f6 = swingProgress;
+            ModelRenderer crossl1 = this.crossl1;
+            ModelRenderer crossl2 = this.crossl2;
+            ModelRenderer crossl3 = this.crossl3;
+            float rotateAngleY = -0.2f + MathHelper.sin(MathHelper.sqrt(f6) * 3.1415927f * 2.0f) * 0.2f;
             crossl3.rotateAngleY = rotateAngleY;
             crossl2.rotateAngleY = rotateAngleY;
             crossl1.rotateAngleY = rotateAngleY;
-            final ModelRenderer crossr1 = this.crossr1;
-            final ModelRenderer crossr2 = this.crossr2;
-            final ModelRenderer crossr3 = this.crossr3;
-            final float rotateAngleY2 = 0.2f - MathHelper.sin(MathHelper.sqrt(f6) * 3.1415927f * 2.0f) * 0.2f;
+            ModelRenderer crossr1 = this.crossr1;
+            ModelRenderer crossr2 = this.crossr2;
+            ModelRenderer crossr3 = this.crossr3;
+            float rotateAngleY2 = 0.2f - MathHelper.sin(MathHelper.sqrt(f6) * 3.1415927f * 2.0f) * 0.2f;
             crossr3.rotateAngleY = rotateAngleY2;
             crossr2.rotateAngleY = rotateAngleY2;
             crossr1.rotateAngleY = rotateAngleY2;
         }
-        final float lp = ((EntityTurretCrossbow)entity).loadProgressForRender;
-        final ModelRenderer loadbarcross = this.loadbarcross;
-        final ModelRenderer loadbarl = this.loadbarl;
-        final ModelRenderer loadbarr = this.loadbarr;
-        final float rotateAngleX = -0.5f + MathHelper.sin(MathHelper.sqrt(lp) * 3.1415927f * 2.0f) * 0.5f;
+        float lp = ((EntityTurretCrossbow)entity).loadProgressForRender;
+        ModelRenderer loadbarcross = this.loadbarcross;
+        ModelRenderer loadbarl = this.loadbarl;
+        ModelRenderer loadbarr = this.loadbarr;
+        float rotateAngleX = -0.5f + MathHelper.sin(MathHelper.sqrt(lp) * 3.1415927f * 2.0f) * 0.5f;
         loadbarr.rotateAngleX = rotateAngleX;
         loadbarl.rotateAngleX = rotateAngleX;
         loadbarcross.rotateAngleX = rotateAngleX;
