@@ -1,9 +1,9 @@
 package thaumcraft.common.golems.client;
-
 import net.minecraft.client.renderer.GlStateManager;
-import thaumcraft.api.golems.IGolemAPI;
 import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.golems.IGolemAPI;
 import thaumcraft.api.golems.parts.PartModel;
+
 
 public class PartModelClaws extends PartModel
 {

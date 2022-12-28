@@ -1,30 +1,30 @@
 package thaumcraft.common.tiles.essentia;
-
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.init.Items;
-import thaumcraft.api.aura.AuraHelper;
-import thaumcraft.common.tiles.devices.TileBellows;
-import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
-import net.minecraft.item.Item;
-import net.minecraft.block.state.IBlockState;
 import thaumcraft.api.aspects.Aspect;
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.ItemsTC;
-import thaumcraft.common.blocks.essentia.BlockSmelter;
-import thaumcraft.api.blocks.BlocksTC;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.nbt.NBTTagCompound;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.blocks.essentia.BlockSmelter;
+import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
+import thaumcraft.common.lib.utils.BlockStateUtils;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
+import thaumcraft.common.tiles.devices.TileBellows;
+
 
 public class TileSmelter extends TileThaumcraftInventory
 {

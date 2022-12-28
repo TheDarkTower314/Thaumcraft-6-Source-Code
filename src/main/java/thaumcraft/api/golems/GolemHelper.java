@@ -1,8 +1,6 @@
 package thaumcraft.api.golems;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -14,6 +12,8 @@ import thaumcraft.api.golems.seals.ISeal;
 import thaumcraft.api.golems.seals.ISealEntity;
 import thaumcraft.api.golems.seals.SealPos;
 import thaumcraft.api.golems.tasks.Task;
+
+
 
 public class GolemHelper {
 

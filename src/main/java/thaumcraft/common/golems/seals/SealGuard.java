@@ -1,37 +1,37 @@
 package thaumcraft.common.golems.seals;
-
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import thaumcraft.common.golems.client.gui.SealBaseGUI;
-import thaumcraft.common.golems.client.gui.SealBaseContainer;
-import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.api.golems.EnumGolemTrait;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.EntityLiving;
-import thaumcraft.api.golems.IGolemAPI;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraft.entity.passive.IAnimals;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.IMob;
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.util.math.AxisAlignedBB;
-import thaumcraft.common.golems.tasks.TaskHandler;
-import net.minecraft.entity.Entity;
-import thaumcraft.api.golems.tasks.Task;
-import net.minecraft.entity.EntityLivingBase;
-import thaumcraft.api.golems.GolemHelper;
-import thaumcraft.api.golems.seals.ISealEntity;
-import net.minecraft.world.World;
 import java.util.Random;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.IAnimals;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.api.golems.seals.ISealConfigToggles;
-import thaumcraft.api.golems.seals.ISealConfigArea;
-import thaumcraft.api.golems.seals.ISealGui;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.golems.EnumGolemTrait;
+import thaumcraft.api.golems.GolemHelper;
+import thaumcraft.api.golems.IGolemAPI;
 import thaumcraft.api.golems.seals.ISeal;
+import thaumcraft.api.golems.seals.ISealConfigArea;
+import thaumcraft.api.golems.seals.ISealConfigToggles;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.seals.ISealGui;
+import thaumcraft.api.golems.tasks.Task;
+import thaumcraft.common.golems.client.gui.SealBaseContainer;
+import thaumcraft.common.golems.client.gui.SealBaseGUI;
+import thaumcraft.common.golems.tasks.TaskHandler;
+
 
 public class SealGuard implements ISeal, ISealGui, ISealConfigArea
 {

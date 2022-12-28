@@ -1,29 +1,29 @@
 package thaumcraft.common.lib.crafting;
-
-import thaumcraft.api.aspects.Aspect;
+import baubles.api.IBauble;
+import com.google.common.collect.Multimap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagByte;
-import java.util.Random;
-import java.util.Iterator;
-import java.util.Set;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import com.google.common.collect.Multimap;
-import net.minecraftforge.common.util.RecipeMatcher;
-import thaumcraft.api.items.IRechargable;
-import baubles.api.IBauble;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemTool;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import java.util.List;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraftforge.common.util.RecipeMatcher;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.api.crafting.InfusionRecipe;
+import thaumcraft.api.items.IRechargable;
+import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;
+
 
 public class InfusionEnchantmentRecipe extends InfusionRecipe
 {

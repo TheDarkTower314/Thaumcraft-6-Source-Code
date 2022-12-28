@@ -1,12 +1,12 @@
 package thaumcraft.common.tiles.misc;
-
-import thaumcraft.common.blocks.basic.BlockBannerTC;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.AxisAlignedBB;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.common.blocks.basic.BlockBannerTC;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileBanner extends TileThaumcraft
 {

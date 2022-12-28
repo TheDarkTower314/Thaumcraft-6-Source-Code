@@ -1,35 +1,35 @@
 package thaumcraft.common.items.curios;
-
-import net.minecraft.item.EnumRarity;
-import java.util.Iterator;
 import java.util.Collection;
-import net.minecraft.util.EnumActionResult;
-import thaumcraft.Thaumcraft;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.entity.player.EntityPlayerMP;
-import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import thaumcraft.common.lib.CommandThaumcraft;
-import thaumcraft.api.research.ResearchEntry;
-import thaumcraft.api.research.ResearchCategory;
-import thaumcraft.api.research.ResearchCategories;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
+import java.util.Iterator;
+import java.util.List;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.client.util.ITooltipFlag;
-import java.util.List;
-import net.minecraft.world.World;
-import thaumcraft.common.config.ModConfig;
-import net.minecraft.item.Item;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategory;
+import thaumcraft.api.research.ResearchEntry;
 import thaumcraft.common.config.ConfigItems;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraft.creativetab.CreativeTabs;
+import thaumcraft.common.config.ModConfig;
 import thaumcraft.common.items.ItemTCBase;
+import thaumcraft.common.lib.CommandThaumcraft;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.research.ResearchManager;
+
 
 public class ItemThaumonomicon extends ItemTCBase
 {

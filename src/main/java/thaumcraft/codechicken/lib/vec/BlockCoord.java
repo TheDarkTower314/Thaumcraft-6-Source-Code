@@ -1,9 +1,9 @@
 package thaumcraft.codechicken.lib.vec;
-
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import thaumcraft.codechicken.lib.util.Copyable;
+
 
 public class BlockCoord implements Comparable<BlockCoord>, Copyable<BlockCoord>
 {

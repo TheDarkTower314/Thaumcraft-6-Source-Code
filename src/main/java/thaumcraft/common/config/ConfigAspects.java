@@ -1,32 +1,32 @@
 package thaumcraft.common.config;
-
-import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import java.util.HashSet;
+import java.util.Iterator;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import thaumcraft.api.blocks.BlocksTC;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.PotionType;
-import net.minecraftforge.common.ForgeModContainer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.item.Item;
-import net.minecraft.block.Block;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.init.Blocks;
-import java.util.Iterator;
+import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.common.MinecraftForge;
 import thaumcraft.api.aspects.AspectEventProxy;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.AspectRegistryEvent;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.api.internal.CommonInternals;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
+
 
 public class ConfigAspects
 {

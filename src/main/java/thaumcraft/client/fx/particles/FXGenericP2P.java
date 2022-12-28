@@ -1,7 +1,7 @@
 package thaumcraft.client.fx.particles;
-
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+
 
 public class FXGenericP2P extends FXGeneric
 {

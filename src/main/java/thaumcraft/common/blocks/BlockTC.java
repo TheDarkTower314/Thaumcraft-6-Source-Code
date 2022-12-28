@@ -1,15 +1,15 @@
 package thaumcraft.common.blocks;
-
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.block.SoundType;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.common.config.ConfigItems;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.Block;
+
 
 public class BlockTC extends Block
 {

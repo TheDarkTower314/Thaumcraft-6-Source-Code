@@ -1,29 +1,29 @@
 package thaumcraft.common.golems.ai;
-
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.BlockFenceGate;
-import net.minecraft.block.BlockWall;
-import net.minecraft.block.BlockFence;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.BlockRailBase;
+import com.google.common.collect.Sets;
 import java.util.EnumSet;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.EnumFacing;
 import java.util.Iterator;
 import java.util.Set;
 import net.minecraft.block.Block;
-import com.google.common.collect.Sets;
+import net.minecraft.block.BlockDoor;
+import net.minecraft.block.BlockFence;
+import net.minecraft.block.BlockFenceGate;
+import net.minecraft.block.BlockRailBase;
+import net.minecraft.block.BlockWall;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.Blocks;
+import net.minecraft.pathfinding.NodeProcessor;
+import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.pathfinding.PathPoint;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.pathfinding.NodeProcessor;
+
 
 public class GolemNodeProcessor extends NodeProcessor
 {

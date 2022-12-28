@@ -1,10 +1,10 @@
 package thaumcraft.client.lib;
-
-import net.minecraft.client.renderer.Tessellator;
 import java.awt.Color;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.model.PositionTextureVertex;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+
 
 public class TexturedQuadTC
 {

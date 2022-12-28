@@ -1,35 +1,35 @@
 package thaumcraft.common.items.tools;
-
-import thaumcraft.common.world.aura.AuraChunk;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import thaumcraft.common.lib.network.misc.PacketAuraToClient;
-import thaumcraft.common.lib.network.PacketHandler;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.util.text.TextFormatting;
-import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import thaumcraft.common.world.aura.AuraHandler;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.RayTraceResult;
-import thaumcraft.client.lib.events.RenderEventHandler;
-import thaumcraft.client.fx.FXDispatcher;
-import thaumcraft.api.research.ScanningManager;
-import thaumcraft.common.lib.utils.EntityUtils;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.research.ScanningManager;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.client.lib.events.RenderEventHandler;
 import thaumcraft.common.items.ItemTCBase;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.misc.PacketAuraToClient;
+import thaumcraft.common.lib.research.ResearchManager;
+import thaumcraft.common.lib.utils.EntityUtils;
+import thaumcraft.common.world.aura.AuraChunk;
+import thaumcraft.common.world.aura.AuraHandler;
+
 
 public class ItemThaumometer extends ItemTCBase
 {

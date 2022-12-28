@@ -1,9 +1,9 @@
 package thaumcraft.api.research;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+
 
 public class ScanBlock implements IScanThing {
 	

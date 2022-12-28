@@ -1,11 +1,11 @@
 package thaumcraft.common.lib.research.theorycraft;
-
-import thaumcraft.api.research.theorycraft.ResearchTableData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentTranslation;
+import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
+
 
 public class CardSculpting extends TheorycraftCard
 {

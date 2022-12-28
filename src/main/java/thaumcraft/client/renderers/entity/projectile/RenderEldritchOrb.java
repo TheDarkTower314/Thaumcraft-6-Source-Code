@@ -1,15 +1,15 @@
 package thaumcraft.client.renderers.entity.projectile;
-
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.fx.ParticleEngine;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.RenderHelper;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.entity.RenderManager;
 import java.util.Random;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.fx.ParticleEngine;
+
 
 public class RenderEldritchOrb extends Render
 {

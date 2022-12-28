@@ -1,5 +1,6 @@
 package thaumcraft.codechicken.lib.colour;
 
+
 public class ColourRGBA extends Colour
 {
     public ColourRGBA(int colour) {

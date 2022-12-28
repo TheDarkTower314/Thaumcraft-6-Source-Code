@@ -1,9 +1,9 @@
 package thaumcraft.common.golems.ai;
-
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
-import thaumcraft.common.entities.construct.EntityOwnedConstruct;
 import net.minecraft.entity.ai.EntityAITarget;
+import thaumcraft.common.entities.construct.EntityOwnedConstruct;
+
 
 public class AIOwnerHurtTarget extends EntityAITarget
 {

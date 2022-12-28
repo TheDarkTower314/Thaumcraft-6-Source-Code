@@ -1,9 +1,9 @@
 package thaumcraft.common.container;
-
 import java.util.ArrayList;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.inventory.InventoryBasic;
+
 
 public class InventoryFake extends InventoryBasic
 {

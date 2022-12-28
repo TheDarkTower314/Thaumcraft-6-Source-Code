@@ -1,11 +1,11 @@
 package thaumcraft.common.lib.research.theorycraft;
-
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentTranslation;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.theorycraft.ResearchTableData;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.text.TextComponentTranslation;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
+
 
 public class CardDragonEgg extends TheorycraftCard
 {

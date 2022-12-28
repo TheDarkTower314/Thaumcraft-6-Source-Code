@@ -1,7 +1,7 @@
 package thaumcraft.common.blocks.world.ore;
-
 import net.minecraft.block.Block;
 import thaumcraft.api.aspects.Aspect;
+
 
 public enum ShardType
 {

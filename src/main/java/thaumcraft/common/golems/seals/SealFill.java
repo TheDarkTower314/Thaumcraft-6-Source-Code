@@ -1,25 +1,25 @@
 package thaumcraft.common.golems.seals;
-
-import thaumcraft.api.golems.EnumGolemTrait;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraft.util.Tuple;
-import net.minecraft.init.SoundEvents;
-import net.minecraftforge.items.ItemHandlerHelper;
+import java.util.Random;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import thaumcraft.common.lib.utils.InventoryUtils;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Tuple;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import thaumcraft.api.ThaumcraftInvHelper;
+import thaumcraft.api.golems.EnumGolemTrait;
 import thaumcraft.api.golems.IGolemAPI;
+import thaumcraft.api.golems.seals.ISealConfigToggles;
+import thaumcraft.api.golems.seals.ISealEntity;
 import thaumcraft.api.golems.tasks.Task;
 import thaumcraft.common.golems.tasks.TaskHandler;
-import thaumcraft.api.golems.seals.ISealEntity;
-import net.minecraft.world.World;
-import java.util.Random;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.api.golems.seals.ISealConfigToggles;
+import thaumcraft.common.lib.utils.InventoryUtils;
+
 
 public class SealFill extends SealFiltered
 {

@@ -1,18 +1,18 @@
 package thaumcraft.client.renderers.entity.mob;
-
-import org.lwjgl.opengl.GL11;
-import net.minecraft.entity.EntityLiving;
-import thaumcraft.common.entities.monster.EntityPech;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.entity.ModelPech;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.entity.RenderLiving;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.renderers.models.entity.ModelPech;
+import thaumcraft.common.entities.monster.EntityPech;
+
 
 @SideOnly(Side.CLIENT)
 public class RenderPech extends RenderLiving

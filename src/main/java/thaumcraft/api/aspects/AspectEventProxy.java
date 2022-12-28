@@ -1,11 +1,11 @@
 package thaumcraft.api.aspects;
-
 import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.internal.CommonInternals;
+
+
 
 public class AspectEventProxy {
 	

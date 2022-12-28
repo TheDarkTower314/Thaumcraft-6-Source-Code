@@ -1,14 +1,14 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.tileentity.TileEntity;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.GlStateManager;
-import thaumcraft.common.tiles.devices.TileHungryChest;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.client.model.ModelChest;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.common.tiles.devices.TileHungryChest;
+
 
 @SideOnly(Side.CLIENT)
 public class TileHungryChestRenderer extends TileEntitySpecialRenderer

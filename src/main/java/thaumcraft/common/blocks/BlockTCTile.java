@@ -1,18 +1,18 @@
 package thaumcraft.common.blocks;
-
-import thaumcraft.api.aura.AuraHelper;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.api.aspects.IEssentiaTransport;
-import thaumcraft.common.lib.utils.InventoryUtils;
+import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import thaumcraft.Thaumcraft;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.world.World;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.common.lib.utils.InventoryUtils;
+
 
 public class BlockTCTile extends BlockTC implements ITileEntityProvider
 {

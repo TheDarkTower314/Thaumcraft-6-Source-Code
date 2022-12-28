@@ -1,28 +1,28 @@
 package thaumcraft.common.golems;
-
-import thaumcraft.common.lib.utils.InventoryUtils;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayerMP;
-import thaumcraft.common.lib.network.FakeNetHandlerPlayServer;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.EnumPacketDirection;
-import net.minecraftforge.common.util.FakePlayerFactory;
 import com.mojang.authlib.GameProfile;
 import java.util.UUID;
-import net.minecraft.world.WorldServer;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.EnumPacketDirection;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import thaumcraft.api.golems.IGolemAPI;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.FakePlayerFactory;
+import thaumcraft.api.golems.IGolemAPI;
+import thaumcraft.common.lib.network.FakeNetHandlerPlayServer;
+import thaumcraft.common.lib.utils.InventoryUtils;
+
 
 public class GolemInteractionHelper
 {

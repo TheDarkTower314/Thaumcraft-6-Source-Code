@@ -1,28 +1,28 @@
 package thaumcraft.common.items.tools;
-
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.api.items.RechargeHelper;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
+import javax.annotation.Nullable;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagByte;
-import thaumcraft.common.entities.projectile.EntityGrapple;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.entity.EntityLivingBase;
-import javax.annotation.Nullable;
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.items.IRechargable;
+import thaumcraft.api.items.RechargeHelper;
+import thaumcraft.common.entities.projectile.EntityGrapple;
 import thaumcraft.common.items.ItemTCBase;
+import thaumcraft.common.lib.SoundsTC;
+
 
 public class ItemGrappleGun extends ItemTCBase implements IRechargable
 {

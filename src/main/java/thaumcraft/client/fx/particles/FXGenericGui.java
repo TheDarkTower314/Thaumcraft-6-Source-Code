@@ -1,13 +1,13 @@
 package thaumcraft.client.fx.particles;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.Minecraft;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
+
 
 public class FXGenericGui extends FXGeneric
 {

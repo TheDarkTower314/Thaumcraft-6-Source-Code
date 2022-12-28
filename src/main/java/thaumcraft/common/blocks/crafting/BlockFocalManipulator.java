@@ -1,18 +1,18 @@
 package thaumcraft.common.blocks.crafting;
-
-import thaumcraft.Thaumcraft;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.crafting.TileFocalManipulator;
-import net.minecraft.block.material.Material;
+import net.minecraft.world.World;
+import thaumcraft.Thaumcraft;
 import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.tiles.crafting.TileFocalManipulator;
+
 
 public class BlockFocalManipulator extends BlockTCDevice
 {

@@ -1,14 +1,14 @@
 package thaumcraft.common.lib.crafting;
-
+import java.util.ArrayList;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.RecipesArmorDyes;
+import net.minecraft.world.World;
 import net.minecraftforge.oredict.DyeUtils;
 import thaumcraft.common.items.armor.ItemVoidRobeArmor;
-import net.minecraft.item.ItemArmor;
-import java.util.ArrayList;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.crafting.RecipesArmorDyes;
+
 
 public class RecipesVoidRobeArmorDyes extends RecipesArmorDyes
 {

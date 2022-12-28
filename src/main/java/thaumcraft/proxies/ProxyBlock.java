@@ -1,29 +1,29 @@
 package thaumcraft.proxies;
-
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import thaumcraft.client.renderers.block.CrystalModel;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.Mod;
 import java.util.Iterator;
-import net.minecraft.item.ItemStack;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraftforge.registries.IForgeRegistryEntry;
-import thaumcraft.common.blocks.world.ore.ShardType;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.item.Item;
-import thaumcraft.api.blocks.BlocksTC;
 import net.minecraft.block.Block;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.client.renderers.block.CrystalModel;
+import thaumcraft.common.blocks.world.ore.ShardType;
+
 
 public class ProxyBlock
 {

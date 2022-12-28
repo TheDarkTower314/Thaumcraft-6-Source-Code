@@ -1,25 +1,25 @@
 package thaumcraft.common.items.consumables;
-
-import thaumcraft.common.lib.SoundsTC;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.capabilities.IPlayerWarp;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.common.lib.potions.PotionWarpWard;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.capabilities.IPlayerWarp;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.client.fx.FXDispatcher;
 import thaumcraft.common.items.ItemTCBase;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.potions.PotionWarpWard;
+
 
 public class ItemSanitySoap extends ItemTCBase
 {

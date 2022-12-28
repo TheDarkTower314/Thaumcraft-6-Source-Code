@@ -1,39 +1,39 @@
 package thaumcraft.common.items.armor;
-
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.BlockCauldron;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.DamageSource;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.client.renderers.models.gear.ModelRobe;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.item.Item;
-import thaumcraft.common.config.ConfigItems;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.client.model.ModelBiped;
-import thaumcraft.common.items.IThaumcraftItems;
-import thaumcraft.api.items.IWarpingGear;
-import net.minecraftforge.common.ISpecialArmor;
-import thaumcraft.api.items.IRevealer;
 import thaumcraft.api.items.IGoggles;
+import thaumcraft.api.items.IRevealer;
 import thaumcraft.api.items.IVisDiscountGear;
-import net.minecraft.item.ItemArmor;
+import thaumcraft.api.items.IWarpingGear;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.client.renderers.models.gear.ModelRobe;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.IThaumcraftItems;
+
 
 public class ItemVoidRobeArmor extends ItemArmor implements IVisDiscountGear, IGoggles, IRevealer, ISpecialArmor, IWarpingGear, IThaumcraftItems
 {

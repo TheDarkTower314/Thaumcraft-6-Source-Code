@@ -1,28 +1,28 @@
 package thaumcraft.common.items.tools;
-
-import thaumcraft.api.aspects.Aspect;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.common.tiles.devices.TileCondenser;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.text.translation.I18n;
-import thaumcraft.api.aspects.IAspectContainer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
-import thaumcraft.common.tiles.essentia.TileTubeBuffer;
-import thaumcraft.codechicken.lib.raytracer.RayTracer;
-import thaumcraft.api.aspects.IEssentiaTransport;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.codechicken.lib.raytracer.RayTracer;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.ItemTCBase;
+import thaumcraft.common.tiles.devices.TileCondenser;
+import thaumcraft.common.tiles.essentia.TileTubeBuffer;
+
 
 public class ItemResonator extends ItemTCBase
 {

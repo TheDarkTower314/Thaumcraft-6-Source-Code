@@ -1,11 +1,11 @@
 package thaumcraft.common.lib;
-
-import thaumcraft.common.entities.projectile.EntityAlumentum;
+import net.minecraft.dispenser.BehaviorProjectileDispense;
+import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.item.ItemStack;
-import net.minecraft.dispenser.IPosition;
 import net.minecraft.world.World;
-import net.minecraft.dispenser.BehaviorProjectileDispense;
+import thaumcraft.common.entities.projectile.EntityAlumentum;
+
 
 public class BehaviorDispenseAlumetum extends BehaviorProjectileDispense
 {

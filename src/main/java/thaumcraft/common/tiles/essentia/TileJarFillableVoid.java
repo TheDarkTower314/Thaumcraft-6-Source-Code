@@ -1,8 +1,8 @@
 package thaumcraft.common.tiles.essentia;
-
 import net.minecraft.util.EnumFacing;
-import thaumcraft.api.aura.AuraHelper;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aura.AuraHelper;
+
 
 public class TileJarFillableVoid extends TileJarFillable
 {

@@ -1,9 +1,9 @@
 package thaumcraft.common.lib.research.theorycraft;
-
-import thaumcraft.common.entities.monster.cult.EntityCultistPortalLesser;
 import net.minecraft.init.Blocks;
-import thaumcraft.api.research.theorycraft.TheorycraftCard;
 import thaumcraft.api.research.theorycraft.ITheorycraftAid;
+import thaumcraft.api.research.theorycraft.TheorycraftCard;
+import thaumcraft.common.entities.monster.cult.EntityCultistPortalLesser;
+
 
 public class AidPortal implements ITheorycraftAid
 {

@@ -1,18 +1,18 @@
 package thaumcraft.api.aspects;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.ThaumcraftApi.EntityTagsNBT;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.internal.CommonInternals;
+
+
 
 public class AspectHelper {
 	

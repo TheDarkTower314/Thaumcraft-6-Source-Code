@@ -1,6 +1,6 @@
 package thaumcraft.api.aspects;
-
 import net.minecraft.util.EnumFacing;
+
 
 
 /**

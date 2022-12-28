@@ -1,35 +1,35 @@
 package thaumcraft.common.items.tools;
-
-import net.minecraft.init.SoundEvents;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.client.util.ITooltipFlag;
 import java.util.List;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.Thaumcraft;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraft.util.ActionResult;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.block.Block;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagInt;
-import thaumcraft.common.tiles.devices.TileMirror;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.common.items.ItemTCBase;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.tiles.devices.TileMirror;
+
 
 public class ItemHandMirror extends ItemTCBase
 {

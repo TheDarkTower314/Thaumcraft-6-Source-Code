@@ -1,14 +1,14 @@
 package thaumcraft.common.container;
-
-import net.minecraft.item.ItemStack;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import thaumcraft.common.container.slot.SlotLimitedByClass;
 import thaumcraft.common.items.consumables.ItemBathSalts;
-import net.minecraft.entity.player.InventoryPlayer;
 import thaumcraft.common.tiles.devices.TileSpa;
-import net.minecraft.inventory.Container;
+
 
 public class ContainerSpa extends Container
 {

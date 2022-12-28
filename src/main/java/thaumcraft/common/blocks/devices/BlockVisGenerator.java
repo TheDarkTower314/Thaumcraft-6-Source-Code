@@ -1,30 +1,30 @@
 package thaumcraft.common.blocks.devices;
-
-import thaumcraft.common.lib.utils.Utils;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import thaumcraft.client.fx.FXDispatcher;
-import thaumcraft.common.lib.utils.BlockStateUtils;
 import java.util.Random;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.World;
 import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.devices.TileVisGenerator;
-import net.minecraft.block.material.Material;
+import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.blocks.BlockTCDevice;
 import thaumcraft.common.blocks.IBlockEnabled;
 import thaumcraft.common.blocks.IBlockFacing;
-import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.lib.utils.Utils;
+import thaumcraft.common.tiles.devices.TileVisGenerator;
+
 
 public class BlockVisGenerator extends BlockTCDevice implements IBlockFacing, IBlockEnabled
 {

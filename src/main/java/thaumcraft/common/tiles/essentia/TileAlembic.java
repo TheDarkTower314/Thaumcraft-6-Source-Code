@@ -1,18 +1,18 @@
 package thaumcraft.common.tiles.essentia;
-
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.AxisAlignedBB;
-import thaumcraft.api.aspects.AspectList;
-import net.minecraft.util.EnumFacing;
 import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileAlembic extends TileThaumcraft implements IAspectContainer, IEssentiaTransport
 {

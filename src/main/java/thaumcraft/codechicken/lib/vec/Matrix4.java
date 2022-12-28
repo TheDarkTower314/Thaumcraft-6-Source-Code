@@ -1,15 +1,15 @@
 package thaumcraft.codechicken.lib.vec;
-
-import java.nio.ByteOrder;
-import java.nio.ByteBuffer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.DoubleBuffer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import thaumcraft.codechicken.lib.util.Copyable;
+
 
 public class Matrix4 extends Transformation implements Copyable<Matrix4>
 {

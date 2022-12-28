@@ -1,15 +1,15 @@
 package thaumcraft.client.renderers.models.gear;
-
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.item.EntityArmorStand;
 import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.model.ModelBiped;
+
 
 public class ModelCustomArmor extends ModelBiped
 {

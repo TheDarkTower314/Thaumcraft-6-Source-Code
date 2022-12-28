@@ -1,10 +1,10 @@
 package thaumcraft.common.entities.projectile;
-
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
-import net.minecraft.entity.projectile.EntityArrow;
+
 
 public class EntityGolemDart extends EntityArrow
 {

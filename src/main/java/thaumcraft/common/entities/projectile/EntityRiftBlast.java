@@ -1,22 +1,22 @@
 package thaumcraft.common.entities.projectile;
-
-import net.minecraft.util.math.Vec3d;
+import io.netty.buffer.ByteBuf;
+import java.util.ArrayList;
 import java.util.Iterator;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
-import thaumcraft.client.fx.FXDispatcher;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.RayTraceResult;
-import io.netty.buffer.ByteBuf;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import thaumcraft.codechicken.lib.vec.Quat;
-import java.util.ArrayList;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraft.entity.projectile.EntityThrowable;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.codechicken.lib.vec.Quat;
+import thaumcraft.common.lib.SoundsTC;
+
 
 public class EntityRiftBlast extends EntityThrowable implements IEntityAdditionalSpawnData
 {

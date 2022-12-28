@@ -1,12 +1,12 @@
 package thaumcraft.common.golems.client.gui;
-
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.api.golems.seals.ISealConfigFilter;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
+import thaumcraft.api.golems.seals.ISealConfigFilter;
+
 
 public class GuiGolemBWListButton extends GuiButton
 {

@@ -1,25 +1,25 @@
 package thaumcraft.common.blocks.devices;
-
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.entity.EntityLivingBase;
-import thaumcraft.api.blocks.BlocksTC;
-import thaumcraft.common.lib.utils.BlockStateUtils;
 import net.minecraft.block.Block;
-import net.minecraft.world.World;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.common.blocks.IBlockFacing;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import thaumcraft.common.blocks.IBlockEnabled;
-import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.common.blocks.BlockTC;
+import thaumcraft.common.blocks.IBlockEnabled;
+import thaumcraft.common.blocks.IBlockFacing;
+import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+
 
 public class BlockBrainBox extends BlockTC implements IBlockFacingHorizontal, IBlockEnabled
 {

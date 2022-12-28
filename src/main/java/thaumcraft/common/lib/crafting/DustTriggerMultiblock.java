@@ -1,27 +1,27 @@
 package thaumcraft.common.lib.crafting;
-
-import thaumcraft.common.lib.events.ServerEvents;
-import thaumcraft.common.lib.events.ToolEvents;
-import net.minecraft.block.properties.IProperty;
-import thaumcraft.common.blocks.IBlockFacingHorizontal;
-import net.minecraft.inventory.IInventory;
-import thaumcraft.common.container.InventoryFake;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import thaumcraft.common.lib.utils.BlockUtils;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.Block;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import thaumcraft.api.crafting.Part;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.api.crafting.IDustTrigger;
+import thaumcraft.api.crafting.Part;
+import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import thaumcraft.common.container.InventoryFake;
+import thaumcraft.common.lib.events.ServerEvents;
+import thaumcraft.common.lib.events.ToolEvents;
+import thaumcraft.common.lib.utils.BlockUtils;
+
 
 public class DustTriggerMultiblock implements IDustTrigger
 {

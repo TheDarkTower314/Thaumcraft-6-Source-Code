@@ -1,26 +1,26 @@
 package thaumcraft.client.gui;
-
-import thaumcraft.common.lib.SoundsTC;
-import java.io.IOException;
 import java.awt.Color;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraft.client.Minecraft;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import org.lwjgl.opengl.GL11;
-import net.minecraftforge.fluids.FluidStack;
-import java.util.List;
-import net.minecraft.util.text.translation.I18n;
+import java.io.IOException;
 import java.util.ArrayList;
-import net.minecraft.inventory.Container;
-import thaumcraft.common.container.ContainerSpa;
+import java.util.List;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.common.tiles.devices.TileSpa;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.common.container.ContainerSpa;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.tiles.devices.TileSpa;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiSpa extends GuiContainer

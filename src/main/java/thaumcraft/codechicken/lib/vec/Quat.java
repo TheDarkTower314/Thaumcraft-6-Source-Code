@@ -1,10 +1,10 @@
 package thaumcraft.codechicken.lib.vec;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import thaumcraft.codechicken.lib.math.MathHelper;
 import thaumcraft.codechicken.lib.util.Copyable;
+
 
 public class Quat implements Copyable<Quat>
 {

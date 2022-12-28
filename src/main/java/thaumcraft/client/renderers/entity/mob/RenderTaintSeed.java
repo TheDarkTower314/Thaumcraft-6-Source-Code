@@ -1,22 +1,22 @@
 package thaumcraft.client.renderers.entity.mob;
-
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraft.client.model.ModelBase;
-import thaumcraft.client.renderers.models.entity.ModelTaintSeed;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.client.renderers.models.entity.ModelTaintSeed;
 import thaumcraft.common.entities.monster.tainted.EntityTaintSeed;
-import net.minecraft.client.renderer.entity.RenderLiving;
+
 
 @SideOnly(Side.CLIENT)
 public class RenderTaintSeed extends RenderLiving<EntityTaintSeed>

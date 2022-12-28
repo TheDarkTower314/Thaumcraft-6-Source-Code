@@ -1,14 +1,14 @@
 package thaumcraft.common.golems.client;
-
-import net.minecraft.item.Item;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.golems.IGolemAPI;
 import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.golems.IGolemAPI;
 import thaumcraft.api.golems.parts.PartModel;
+
 
 public class PartModelHauler extends PartModel
 {

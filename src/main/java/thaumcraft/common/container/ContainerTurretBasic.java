@@ -1,16 +1,16 @@
 package thaumcraft.common.container;
-
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import thaumcraft.common.container.slot.SlotTurretBasic;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.common.container.slot.SlotTurretBasic;
 import thaumcraft.common.entities.construct.EntityTurretCrossbow;
-import net.minecraft.inventory.Container;
+
 
 public class ContainerTurretBasic extends Container
 {

@@ -1,12 +1,12 @@
 package thaumcraft.api.casters;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
+
+
 
 public class FocusEngine {	
 	

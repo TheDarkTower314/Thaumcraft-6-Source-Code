@@ -1,13 +1,13 @@
 package thaumcraft.common.lib.network.misc;
-
-import thaumcraft.client.lib.events.HudHandler;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import thaumcraft.common.world.aura.AuraChunk;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import thaumcraft.client.lib.events.HudHandler;
+import thaumcraft.common.world.aura.AuraChunk;
+
 
 public class PacketAuraToClient implements IMessage, IMessageHandler<PacketAuraToClient, IMessage>
 {

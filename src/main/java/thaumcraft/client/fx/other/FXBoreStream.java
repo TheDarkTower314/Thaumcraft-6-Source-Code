@@ -1,22 +1,22 @@
 package thaumcraft.client.fx.other;
-
-import java.util.Iterator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import thaumcraft.client.fx.ParticleEngine;
-import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
+import com.sasmaster.glelwjgl.java.CoreGLE;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Iterator;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.codechicken.lib.vec.Quat;
-import java.util.ArrayList;
-import net.minecraft.util.ResourceLocation;
-import com.sasmaster.glelwjgl.java.CoreGLE;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.particle.Particle;
+
 
 public class FXBoreStream extends Particle
 {

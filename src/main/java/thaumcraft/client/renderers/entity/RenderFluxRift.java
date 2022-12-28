@@ -1,21 +1,21 @@
 package thaumcraft.client.renderers.entity;
-
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.client.lib.ender.ShaderHelper;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.lib.utils.EntityUtils;
-import thaumcraft.common.entities.EntityFluxRift;
-import net.minecraft.entity.Entity;
-import org.lwjgl.opengl.ARBShaderObjects;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderManager;
 import com.sasmaster.glelwjgl.java.CoreGLE;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.lib.ender.ShaderCallback;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.ender.ShaderCallback;
+import thaumcraft.client.lib.ender.ShaderHelper;
+import thaumcraft.common.entities.EntityFluxRift;
+import thaumcraft.common.lib.utils.EntityUtils;
+
 
 public class RenderFluxRift extends Render
 {

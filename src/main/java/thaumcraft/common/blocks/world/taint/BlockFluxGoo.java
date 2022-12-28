@@ -1,31 +1,31 @@
 package thaumcraft.common.blocks.world.taint;
-
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.particle.Particle;
-import thaumcraft.client.fx.ParticleEngine;
-import thaumcraft.client.fx.particles.FXGeneric;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.api.blocks.BlocksTC;
-import thaumcraft.api.aura.AuraHelper;
 import java.util.Random;
-import net.minecraft.potion.PotionEffect;
-import thaumcraft.api.potions.PotionVisExhaust;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.common.entities.monster.EntityThaumicSlime;
-import net.minecraft.entity.Entity;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
-import thaumcraft.common.lib.SoundsTC;
-import thaumcraft.common.config.ConfigItems;
-import net.minecraftforge.fluids.Fluid;
-import thaumcraft.api.ThaumcraftMaterials;
-import thaumcraft.common.config.ConfigBlocks;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidFinite;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.ThaumcraftMaterials;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.potions.PotionVisExhaust;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.fx.particles.FXGeneric;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.entities.monster.EntityThaumicSlime;
+import thaumcraft.common.lib.SoundsTC;
+
 
 public class BlockFluxGoo extends BlockFluidFinite
 {

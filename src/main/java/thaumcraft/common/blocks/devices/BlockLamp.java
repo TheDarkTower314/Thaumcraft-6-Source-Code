@@ -1,25 +1,25 @@
 package thaumcraft.common.blocks.devices;
-
-import net.minecraft.util.math.AxisAlignedBB;
-import thaumcraft.common.tiles.devices.TileLampFertility;
-import thaumcraft.common.tiles.devices.TileLampGrowth;
 import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.common.tiles.devices.TileLampArcane;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.World;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import thaumcraft.common.blocks.BlockTCDevice;
 import thaumcraft.common.blocks.IBlockEnabled;
 import thaumcraft.common.blocks.IBlockFacing;
-import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.tiles.devices.TileLampArcane;
+import thaumcraft.common.tiles.devices.TileLampFertility;
+import thaumcraft.common.tiles.devices.TileLampGrowth;
+
 
 public class BlockLamp extends BlockTCDevice implements IBlockFacing, IBlockEnabled
 {

@@ -1,6 +1,6 @@
 package thaumcraft.api.casters;
-
 import net.minecraft.util.math.Vec3d;
+
 
 public class Trajectory {
 	

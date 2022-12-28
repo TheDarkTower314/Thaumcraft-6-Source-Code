@@ -1,14 +1,14 @@
 package thaumcraft.common.golems.parts;
-
-import net.minecraft.block.state.IBlockState;
+import java.util.HashMap;
 import net.minecraft.block.Block;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import thaumcraft.api.golems.IGolemAPI;
-import java.util.HashMap;
 import thaumcraft.api.golems.parts.GolemLeg;
+
 
 public class GolemLegWheels implements GolemLeg.ILegFunction
 {

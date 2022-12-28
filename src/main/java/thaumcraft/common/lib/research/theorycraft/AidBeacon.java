@@ -1,10 +1,10 @@
 package thaumcraft.common.lib.research.theorycraft;
-
-import thaumcraft.api.research.theorycraft.TheorycraftCard;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import thaumcraft.api.research.theorycraft.ITheorycraftAid;
+import thaumcraft.api.research.theorycraft.TheorycraftCard;
+
 
 public class AidBeacon implements ITheorycraftAid
 {

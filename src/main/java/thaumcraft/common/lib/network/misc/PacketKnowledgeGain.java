@@ -1,21 +1,21 @@
 package thaumcraft.common.lib.network.misc;
-
-import thaumcraft.api.research.ResearchCategory;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import thaumcraft.client.lib.events.HudHandler;
-import thaumcraft.client.lib.events.RenderEventHandler;
-import thaumcraft.api.research.ResearchCategories;
-import thaumcraft.api.capabilities.IPlayerKnowledge;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.api.capabilities.IPlayerKnowledge;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategory;
+import thaumcraft.client.lib.events.HudHandler;
+import thaumcraft.client.lib.events.RenderEventHandler;
+import thaumcraft.common.lib.SoundsTC;
+
 
 public class PacketKnowledgeGain implements IMessage, IMessageHandler<PacketKnowledgeGain, IMessage>
 {

@@ -1,30 +1,30 @@
 package thaumcraft.client.gui;
-
-import thaumcraft.common.lib.SoundsTC;
-import java.io.IOException;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import thaumcraft.common.lib.network.misc.PacketSelectThaumotoriumRecipeToServer;
-import thaumcraft.common.lib.network.PacketHandler;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.GlStateManager;
-import java.util.Iterator;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.client.lib.UtilsFX;
 import java.awt.Color;
-import thaumcraft.api.ThaumcraftApi;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
-import net.minecraft.entity.player.InventoryPlayer;
-import thaumcraft.api.crafting.CrucibleRecipe;
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.ArrayList;
-import net.minecraft.util.ResourceLocation;
+import java.util.HashMap;
+import java.util.Iterator;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.container.ContainerThaumatorium;
-import thaumcraft.common.tiles.crafting.TileThaumatorium;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.crafting.CrucibleRecipe;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.container.ContainerThaumatorium;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.misc.PacketSelectThaumotoriumRecipeToServer;
+import thaumcraft.common.tiles.crafting.TileThaumatorium;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiThaumatorium extends GuiContainer

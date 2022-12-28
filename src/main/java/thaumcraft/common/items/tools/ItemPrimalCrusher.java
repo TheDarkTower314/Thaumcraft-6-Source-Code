@@ -1,31 +1,31 @@
 package thaumcraft.common.items.tools;
-
-import com.google.common.collect.Sets;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.init.Blocks;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraftforge.common.util.EnumHelper;
-import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;
-import net.minecraft.util.NonNullList;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.World;
-import net.minecraft.entity.player.EntityPlayer;
-import java.util.Iterator;
-import net.minecraft.block.Block;
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.item.ItemStack;
+import com.google.common.collect.Sets;
+import java.util.Iterator;
+import java.util.Set;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import thaumcraft.common.config.ConfigItems;
-import java.util.Set;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import thaumcraft.common.items.IThaumcraftItems;
-import thaumcraft.api.items.IWarpingGear;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.EnumHelper;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.items.IWarpingGear;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.IThaumcraftItems;
+import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;
+
 
 public class ItemPrimalCrusher extends ItemTool implements IWarpingGear, IThaumcraftItems
 {

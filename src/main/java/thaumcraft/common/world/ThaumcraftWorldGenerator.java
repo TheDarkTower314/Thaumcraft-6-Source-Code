@@ -1,37 +1,37 @@
 package thaumcraft.common.world;
-
-import thaumcraft.common.world.objects.WorldGenSilverwoodTrees;
-import net.minecraftforge.common.BiomeDictionary;
-import thaumcraft.common.world.objects.WorldGenGreatwoodTrees;
-import thaumcraft.common.world.objects.WorldGenCustomFlowers;
+import com.google.common.base.Predicate;
+import java.util.Random;
 import net.minecraft.block.Block;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.common.lib.utils.BlockUtils;
-import thaumcraft.common.blocks.world.ore.ShardType;
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.structure.MapGenScatteredFeature;
-import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.Entity;
-import thaumcraft.common.entities.monster.cult.EntityCultistPortalLesser;
 import net.minecraft.block.material.Material;
-import thaumcraft.common.world.objects.WorldGenMound;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.pattern.BlockMatcher;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import thaumcraft.common.world.biomes.BiomeHandler;
-import thaumcraft.common.config.ModConfig;
-import thaumcraft.common.world.aura.AuraHandler;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.World;
-import java.util.Random;
-import net.minecraft.block.state.pattern.BlockMatcher;
-import net.minecraft.init.Blocks;
-import net.minecraft.block.state.IBlockState;
-import com.google.common.base.Predicate;
+import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.structure.MapGenScatteredFeature;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.common.blocks.world.ore.ShardType;
+import thaumcraft.common.config.ModConfig;
+import thaumcraft.common.entities.monster.cult.EntityCultistPortalLesser;
+import thaumcraft.common.lib.utils.BlockUtils;
+import thaumcraft.common.world.aura.AuraHandler;
+import thaumcraft.common.world.biomes.BiomeHandler;
+import thaumcraft.common.world.objects.WorldGenCustomFlowers;
+import thaumcraft.common.world.objects.WorldGenGreatwoodTrees;
+import thaumcraft.common.world.objects.WorldGenMound;
+import thaumcraft.common.world.objects.WorldGenSilverwoodTrees;
+
 
 public class ThaumcraftWorldGenerator implements IWorldGenerator
 {

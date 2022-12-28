@@ -1,8 +1,8 @@
 package thaumcraft.common.golems.seals;
-
+import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.golems.EnumGolemTrait;
 import thaumcraft.api.golems.seals.ISealConfigToggles;
-import net.minecraft.util.ResourceLocation;
+
 
 public class SealBreakerAdvanced extends SealBreaker
 {

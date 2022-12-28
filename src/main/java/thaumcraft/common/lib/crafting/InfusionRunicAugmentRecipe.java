@@ -1,24 +1,24 @@
 package thaumcraft.common.lib.crafting;
-
-import net.minecraft.util.NonNullList;
-import thaumcraft.api.aspects.Aspect;
+import baubles.api.IBauble;
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagByte;
-import net.minecraftforge.common.util.RecipeMatcher;
-import baubles.api.IBauble;
-import net.minecraft.item.ItemArmor;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import java.util.List;
+import net.minecraftforge.common.util.RecipeMatcher;
 import thaumcraft.api.ThaumcraftApiHelper;
-import java.util.ArrayList;
-import thaumcraft.common.lib.events.PlayerEvents;
-import net.minecraft.item.ItemStack;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.item.crafting.Ingredient;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.api.crafting.InfusionRecipe;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.lib.events.PlayerEvents;
+
 
 public class InfusionRunicAugmentRecipe extends InfusionRecipe
 {

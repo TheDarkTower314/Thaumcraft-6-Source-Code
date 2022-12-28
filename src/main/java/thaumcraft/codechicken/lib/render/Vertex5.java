@@ -1,13 +1,13 @@
 package thaumcraft.codechicken.lib.render;
-
-import thaumcraft.codechicken.lib.render.uv.UVTransformation;
-import thaumcraft.codechicken.lib.vec.Transformation;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import thaumcraft.codechicken.lib.render.uv.UV;
-import thaumcraft.codechicken.lib.vec.Vector3;
+import thaumcraft.codechicken.lib.render.uv.UVTransformation;
 import thaumcraft.codechicken.lib.util.Copyable;
+import thaumcraft.codechicken.lib.vec.Transformation;
+import thaumcraft.codechicken.lib.vec.Vector3;
+
 
 public class Vertex5 implements Copyable<Vertex5>
 {

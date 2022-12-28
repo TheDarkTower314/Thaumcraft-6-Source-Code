@@ -1,36 +1,36 @@
 package thaumcraft.client.lib;
-
-import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.OpenGlHelper;
-import java.util.Iterator;
+import java.awt.Color;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import org.lwjgl.input.Mouse;
-import net.minecraft.client.gui.ScaledResolution;
+import java.util.Iterator;
 import java.util.List;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
-import thaumcraft.client.fx.ParticleEngine;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.common.config.ModConfig;
-import thaumcraft.api.aspects.Aspect;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import java.awt.Color;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.PositionTextureVertex;
-import net.minecraft.util.math.Vec3d;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import java.text.DecimalFormat;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec3d;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.common.config.ModConfig;
+
 
 public class UtilsFX
 {

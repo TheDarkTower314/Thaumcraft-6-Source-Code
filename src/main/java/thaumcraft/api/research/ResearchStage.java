@@ -1,9 +1,9 @@
 package thaumcraft.api.research;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import thaumcraft.api.capabilities.IPlayerKnowledge.EnumKnowledgeType;
+
 
 public class ResearchStage {
 	String text;

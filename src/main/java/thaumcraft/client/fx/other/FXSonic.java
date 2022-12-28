@@ -1,18 +1,18 @@
 package thaumcraft.client.fx.other;
-
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.Minecraft;
-import thaumcraft.client.lib.obj.AdvancedModelLoader;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.world.World;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.lib.obj.IModelCustom;
-import net.minecraft.entity.Entity;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.obj.AdvancedModelLoader;
+import thaumcraft.client.lib.obj.IModelCustom;
+
 
 public class FXSonic extends Particle
 {

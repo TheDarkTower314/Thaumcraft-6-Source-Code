@@ -1,6 +1,6 @@
 package thaumcraft.api.casters;
-
 import thaumcraft.api.aspects.Aspect;
+
 
 public abstract class FocusMod extends FocusNode {
 

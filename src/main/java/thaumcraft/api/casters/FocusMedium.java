@@ -1,5 +1,6 @@
 package thaumcraft.api.casters;
 
+
 public abstract class FocusMedium extends FocusNode {
 	
 

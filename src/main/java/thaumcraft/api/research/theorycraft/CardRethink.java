@@ -1,8 +1,8 @@
 package thaumcraft.api.research.theorycraft;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
+
 
 public class CardRethink extends TheorycraftCard {
 	

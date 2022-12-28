@@ -1,16 +1,16 @@
 package thaumcraft.common.items.curios;
-
+import javax.annotation.Nullable;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.entity.EntityLivingBase;
-import javax.annotation.Nullable;
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.util.ResourceLocation;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemPrimordialPearl extends ItemTCBase
 {

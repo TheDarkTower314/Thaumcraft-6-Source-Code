@@ -1,8 +1,8 @@
 package thaumcraft.codechicken.lib.vec;
-
 import java.util.Iterator;
 import net.minecraft.util.math.AxisAlignedBB;
 import thaumcraft.codechicken.lib.util.Copyable;
+
 
 public class CuboidCoord implements Iterable<BlockCoord>, Copyable<CuboidCoord>
 {

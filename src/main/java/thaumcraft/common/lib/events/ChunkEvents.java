@@ -1,25 +1,25 @@
 package thaumcraft.common.lib.events;
-
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import thaumcraft.common.lib.network.misc.PacketSealToClient;
-import thaumcraft.common.lib.network.PacketHandler;
-import net.minecraftforge.event.world.ChunkWatchEvent;
 import java.util.ArrayList;
-import thaumcraft.Thaumcraft;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import thaumcraft.common.golems.seals.SealEntity;
 import java.util.Iterator;
-import thaumcraft.common.world.aura.AuraChunk;
-import net.minecraft.util.math.ChunkPos;
-import thaumcraft.api.golems.seals.ISealEntity;
-import thaumcraft.common.golems.seals.SealHandler;
-import net.minecraft.nbt.NBTTagList;
-import thaumcraft.common.world.aura.AuraHandler;
-import thaumcraft.common.config.ModConfig;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraftforge.event.world.ChunkDataEvent;
+import net.minecraftforge.event.world.ChunkWatchEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.common.config.ModConfig;
+import thaumcraft.common.golems.seals.SealEntity;
+import thaumcraft.common.golems.seals.SealHandler;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.misc.PacketSealToClient;
+import thaumcraft.common.world.aura.AuraChunk;
+import thaumcraft.common.world.aura.AuraHandler;
+
 
 @Mod.EventBusSubscriber
 public class ChunkEvents

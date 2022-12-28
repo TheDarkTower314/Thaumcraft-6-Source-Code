@@ -1,17 +1,17 @@
 package thaumcraft.common.world.biomes;
-
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.BlockPos;
-import thaumcraft.common.entities.monster.EntityEldritchGuardian;
-import thaumcraft.common.entities.monster.EntityWisp;
-import thaumcraft.common.entities.monster.EntityGiantBrainyZombie;
-import thaumcraft.common.entities.monster.EntityBrainyZombie;
-import thaumcraft.common.config.ModConfig;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.passive.EntityBat;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.common.config.ModConfig;
+import thaumcraft.common.entities.monster.EntityBrainyZombie;
+import thaumcraft.common.entities.monster.EntityEldritchGuardian;
+import thaumcraft.common.entities.monster.EntityGiantBrainyZombie;
+import thaumcraft.common.entities.monster.EntityWisp;
+
 
 public class BiomeGenEerie extends Biome
 {

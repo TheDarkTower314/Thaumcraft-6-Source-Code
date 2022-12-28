@@ -1,32 +1,32 @@
 package thaumcraft.common.blocks.essentia;
-
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.IEssentiaContainerItem;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.AxisAlignedBB;
 import thaumcraft.api.aura.AuraHelper;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.essentia.TileAlembic;
-import net.minecraft.block.material.Material;
 import thaumcraft.api.blocks.ILabelable;
+import thaumcraft.api.items.ItemsTC;
 import thaumcraft.common.blocks.BlockTCTile;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.tiles.essentia.TileAlembic;
+
 
 public class BlockAlembic extends BlockTCTile implements ILabelable
 {

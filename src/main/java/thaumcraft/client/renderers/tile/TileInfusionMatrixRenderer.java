@@ -1,24 +1,24 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.client.renderer.GlStateManager;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import java.util.Random;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.ModelCube;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.client.renderers.models.ModelCube;
 import thaumcraft.common.tiles.crafting.TileInfusionMatrix;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+
 
 @SideOnly(Side.CLIENT)
 public class TileInfusionMatrixRenderer extends TileEntitySpecialRenderer<TileInfusionMatrix>

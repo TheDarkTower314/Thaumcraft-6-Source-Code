@@ -1,13 +1,13 @@
 package thaumcraft.common.items.consumables;
-
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.item.Item;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
+import net.minecraft.potion.PotionEffect;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.IThaumcraftItems;
-import net.minecraft.item.ItemFood;
+
 
 public class ItemTripleMeatTreat extends ItemFood implements IThaumcraftItems
 {

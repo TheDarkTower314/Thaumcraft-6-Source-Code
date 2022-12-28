@@ -1,13 +1,13 @@
 package thaumcraft.api.casters;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-
 import net.minecraft.util.math.RayTraceResult;
 import thaumcraft.api.aspects.Aspect;
+
+
 
 public abstract class FocusNode implements IFocusElement { 
 	

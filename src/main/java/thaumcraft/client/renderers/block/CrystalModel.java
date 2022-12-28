@@ -1,28 +1,28 @@
 package thaumcraft.client.renderers.block;
-
-import net.minecraft.client.renderer.block.model.ItemOverrideList;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import com.google.common.collect.ImmutableList;
-import thaumcraft.codechicken.lib.vec.Vector3;
-import java.util.Collections;
-import java.util.Random;
-import java.util.Arrays;
-import net.minecraftforge.common.property.IUnlistedProperty;
-import thaumcraft.common.blocks.world.ore.BlockCrystal;
-import java.util.ArrayList;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import java.util.List;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.block.state.IBlockState;
-import java.util.Iterator;
 import java.io.IOException;
-import thaumcraft.client.lib.obj.MeshPart;
-import thaumcraft.client.lib.obj.MeshLoader;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import thaumcraft.client.lib.obj.MeshModel;
-import net.minecraft.util.ResourceLocation;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+import thaumcraft.client.lib.obj.MeshLoader;
+import thaumcraft.client.lib.obj.MeshModel;
+import thaumcraft.client.lib.obj.MeshPart;
+import thaumcraft.codechicken.lib.vec.Vector3;
+import thaumcraft.common.blocks.world.ore.BlockCrystal;
+
 
 public class CrystalModel implements IBakedModel
 {

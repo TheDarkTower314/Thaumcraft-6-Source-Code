@@ -1,36 +1,36 @@
 package thaumcraft.common.golems.client.gui;
-
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.inventory.Slot;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.Iterator;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.RenderHelper;
-import java.awt.Color;
-import net.minecraft.item.EnumDyeColor;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.api.golems.EnumGolemTrait;
-import net.minecraft.client.gui.GuiScreen;
-import thaumcraft.client.gui.plugins.GuiHoverButton;
-import net.minecraft.util.text.translation.I18n;
-import thaumcraft.api.golems.seals.ISealConfigToggles;
-import thaumcraft.api.golems.seals.ISealConfigFilter;
-import thaumcraft.client.gui.plugins.GuiPlusMinusButton;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.client.lib.CustomRenderItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.ModelManager;
-import thaumcraft.api.golems.seals.ISealGui;
-import net.minecraft.inventory.Container;
-import net.minecraft.world.World;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.api.golems.seals.ISealEntity;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.golems.EnumGolemTrait;
+import thaumcraft.api.golems.seals.ISealConfigFilter;
+import thaumcraft.api.golems.seals.ISealConfigToggles;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.seals.ISealGui;
+import thaumcraft.client.gui.plugins.GuiHoverButton;
+import thaumcraft.client.gui.plugins.GuiPlusMinusButton;
+import thaumcraft.client.lib.CustomRenderItem;
+
 
 @SideOnly(Side.CLIENT)
 public class SealBaseGUI extends GuiContainer

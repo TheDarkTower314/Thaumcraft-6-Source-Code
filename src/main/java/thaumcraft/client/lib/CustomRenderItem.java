@@ -1,20 +1,20 @@
 package thaumcraft.client.lib;
-
-import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.World;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.ItemModelMesher;
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
+
 
 public class CustomRenderItem extends RenderItem
 {

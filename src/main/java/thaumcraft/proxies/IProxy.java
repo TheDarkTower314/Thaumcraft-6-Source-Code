@@ -1,11 +1,11 @@
 package thaumcraft.proxies;
-
-import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
 
 public interface IProxy
 {

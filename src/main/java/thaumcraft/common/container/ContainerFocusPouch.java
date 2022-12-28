@@ -1,18 +1,18 @@
 package thaumcraft.common.container;
-
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
-import net.minecraft.util.NonNullList;
-import thaumcraft.common.items.casters.ItemFocusPouch;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import thaumcraft.common.container.slot.SlotLimitedByClass;
 import thaumcraft.common.items.casters.ItemFocus;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.world.World;
-import net.minecraft.inventory.IInventoryChangedListener;
-import net.minecraft.inventory.Container;
+import thaumcraft.common.items.casters.ItemFocusPouch;
+
 
 public class ContainerFocusPouch extends Container implements IInventoryChangedListener
 {

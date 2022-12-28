@@ -1,5 +1,6 @@
 package thaumcraft.codechicken.lib.vec;
 
+
 public class SwapYZ extends VariableTransformation
 {
     public SwapYZ() {

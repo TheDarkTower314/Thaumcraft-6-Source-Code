@@ -1,7 +1,7 @@
 package thaumcraft.api.research.theorycraft;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentTranslation;
+
 
 public class CardBalance extends TheorycraftCard {
 

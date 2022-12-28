@@ -1,18 +1,18 @@
 package thaumcraft.common.items.armor;
-
-import net.minecraft.item.EnumRarity;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.item.Item;
+import thaumcraft.api.items.ItemsTC;
 import thaumcraft.common.config.ConfigItems;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import thaumcraft.common.items.IThaumcraftItems;
-import net.minecraft.item.ItemArmor;
+
 
 public class ItemThaumiumArmor extends ItemArmor implements IThaumcraftItems
 {

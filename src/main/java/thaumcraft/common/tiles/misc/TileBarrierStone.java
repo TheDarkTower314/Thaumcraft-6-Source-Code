@@ -1,14 +1,14 @@
 package thaumcraft.common.tiles.misc;
-
 import java.util.Iterator;
 import java.util.List;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.ITickable;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
+import thaumcraft.api.blocks.BlocksTC;
+
 
 public class TileBarrierStone extends TileEntity implements ITickable
 {

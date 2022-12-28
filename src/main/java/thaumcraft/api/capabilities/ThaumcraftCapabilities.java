@@ -1,10 +1,10 @@
 package thaumcraft.api.capabilities;
-
 import javax.annotation.Nonnull;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+
+
 
 /**
  * 

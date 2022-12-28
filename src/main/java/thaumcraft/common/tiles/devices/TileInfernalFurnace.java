@@ -1,32 +1,32 @@
 package thaumcraft.common.tiles.devices;
-
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraftforge.oredict.OreDictionary;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.internal.CommonInternals;
+import java.util.ArrayList;
 import java.util.Iterator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.common.lib.utils.InventoryUtils;
-import java.util.ArrayList;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.init.SoundEvents;
-import thaumcraft.api.ThaumcraftInvHelper;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import thaumcraft.api.aura.AuraHelper;
-import thaumcraft.api.blocks.BlocksTC;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.ThaumcraftInvHelper;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.internal.CommonInternals;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
+
 
 public class TileInfernalFurnace extends TileThaumcraftInventory
 {

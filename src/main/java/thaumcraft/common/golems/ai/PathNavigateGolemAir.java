@@ -1,13 +1,13 @@
 package thaumcraft.common.golems.ai;
-
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.pathfinding.NodeProcessor;
 import net.minecraft.pathfinding.PathFinder;
-import net.minecraft.world.World;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+
 
 public class PathNavigateGolemAir extends PathNavigate
 {

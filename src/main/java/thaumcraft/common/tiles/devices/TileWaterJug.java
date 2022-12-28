@@ -1,31 +1,31 @@
 package thaumcraft.common.tiles.devices;
-
-import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import javax.annotation.Nullable;
-import javax.annotation.Nonnull;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.block.state.IBlockState;
-import thaumcraft.api.aura.AuraHelper;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.BlockCauldron;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import vazkii.botania.api.item.IPetalApothecary;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagInt;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidTank;
 import java.util.ArrayList;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import net.minecraft.block.BlockCauldron;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.client.fx.FXDispatcher;
 import thaumcraft.common.tiles.TileThaumcraft;
+import vazkii.botania.api.item.IPetalApothecary;
+
 
 public class TileWaterJug extends TileThaumcraft implements ITickable, IFluidHandler
 {

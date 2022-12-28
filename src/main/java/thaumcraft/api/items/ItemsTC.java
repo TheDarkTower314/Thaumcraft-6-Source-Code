@@ -1,6 +1,6 @@
 package thaumcraft.api.items;
-
 import net.minecraft.item.Item;
+
 
 public class ItemsTC {
 	

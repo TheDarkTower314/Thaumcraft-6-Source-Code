@@ -1,12 +1,12 @@
 package thaumcraft.common.tiles.misc;
-
-import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.client.fx.FXDispatcher;
-import thaumcraft.api.blocks.BlocksTC;
-import thaumcraft.common.items.casters.foci.FocusEffectRift;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.items.casters.foci.FocusEffectRift;
+
 
 public class TileHole extends TileMemory implements ITickable
 {

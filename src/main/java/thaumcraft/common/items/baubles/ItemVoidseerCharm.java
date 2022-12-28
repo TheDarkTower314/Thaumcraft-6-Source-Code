@@ -1,22 +1,22 @@
 package thaumcraft.common.items.baubles;
-
-import thaumcraft.api.capabilities.IPlayerWarp;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.client.util.ITooltipFlag;
-import java.util.List;
-import net.minecraft.world.World;
 import baubles.api.BaubleType;
+import baubles.api.IBauble;
+import java.util.List;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.IWarpingGear;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.capabilities.IPlayerWarp;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.api.items.IVisDiscountGear;
-import baubles.api.IBauble;
+import thaumcraft.api.items.IWarpingGear;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemVoidseerCharm extends ItemTCBase implements IBauble, IVisDiscountGear, IWarpingGear
 {

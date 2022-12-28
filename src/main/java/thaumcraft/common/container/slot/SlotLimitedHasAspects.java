@@ -1,10 +1,10 @@
 package thaumcraft.common.container.slot;
-
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
-import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
+
 
 public class SlotLimitedHasAspects extends Slot
 {

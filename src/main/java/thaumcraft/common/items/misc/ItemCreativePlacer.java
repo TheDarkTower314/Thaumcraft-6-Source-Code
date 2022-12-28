@@ -1,21 +1,21 @@
 package thaumcraft.common.items.misc;
-
-import net.minecraft.item.EnumRarity;
+import java.util.List;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.client.util.ITooltipFlag;
-import java.util.List;
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemCreativePlacer extends ItemTCBase
 {

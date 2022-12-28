@@ -1,22 +1,22 @@
 package thaumcraft.common.blocks.devices;
-
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.Thaumcraft;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.FluidUtil;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.devices.TileSpa;
-import net.minecraft.block.material.Material;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import thaumcraft.Thaumcraft;
 import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.tiles.devices.TileSpa;
+
 
 public class BlockSpa extends BlockTCDevice
 {

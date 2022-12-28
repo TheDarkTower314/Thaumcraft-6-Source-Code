@@ -1,21 +1,21 @@
 package thaumcraft.common.lib.capabilities;
-
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.lib.network.playerdata.PacketSyncWarp;
-import thaumcraft.common.lib.network.PacketHandler;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.math.MathHelper;
 import javax.annotation.Nonnull;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
-import thaumcraft.api.capabilities.IPlayerWarp;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.api.capabilities.IPlayerWarp;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.playerdata.PacketSyncWarp;
+
 
 public class PlayerWarp
 {

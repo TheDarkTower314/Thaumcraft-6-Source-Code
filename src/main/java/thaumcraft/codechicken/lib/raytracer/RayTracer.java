@@ -1,23 +1,23 @@
 package thaumcraft.codechicken.lib.raytracer;
-
+import java.util.Iterator;
+import java.util.List;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import java.util.Iterator;
-import net.minecraft.block.Block;
-import java.util.List;
-import net.minecraft.entity.Entity;
-import thaumcraft.codechicken.lib.vec.BlockCoord;
 import thaumcraft.codechicken.lib.math.MathHelper;
+import thaumcraft.codechicken.lib.vec.BlockCoord;
 import thaumcraft.codechicken.lib.vec.Cuboid6;
 import thaumcraft.codechicken.lib.vec.Vector3;
+
 
 public class RayTracer
 {

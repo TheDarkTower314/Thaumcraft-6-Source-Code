@@ -1,7 +1,7 @@
 package thaumcraft.api.golems;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
+
 
 public enum EnumGolemTrait {
 	SMART(new ResourceLocation("thaumcraft","textures/misc/golem/tag_smart.png")), 

@@ -1,14 +1,14 @@
 package thaumcraft.common.lib.potions;
-
-import thaumcraft.api.blocks.BlocksTC;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.potion.Potion;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.potion.Potion;
+import thaumcraft.api.blocks.BlocksTC;
+
 
 public class PotionThaumarhia extends Potion
 {

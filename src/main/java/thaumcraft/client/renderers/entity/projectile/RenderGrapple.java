@@ -1,24 +1,24 @@
 package thaumcraft.client.renderers.entity.projectile;
-
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.client.Minecraft;
-import thaumcraft.common.entities.projectile.EntityGrapple;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.client.fx.ParticleEngine;
-import net.minecraft.client.renderer.GlStateManager;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.util.math.Vec3d;
-import java.util.ArrayList;
 import com.sasmaster.glelwjgl.java.CoreGLE;
-import thaumcraft.client.renderers.models.entity.ModelGrappler;
-import net.minecraft.util.ResourceLocation;
+import java.util.ArrayList;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.models.entity.ModelGrappler;
+import thaumcraft.common.entities.projectile.EntityGrapple;
+
 
 public class RenderGrapple extends Render
 {

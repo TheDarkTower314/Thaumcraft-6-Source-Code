@@ -1,8 +1,6 @@
 package thaumcraft.api;
-
 import java.util.Arrays;
 import java.util.HashMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -19,6 +17,8 @@ import thaumcraft.api.internal.CommonInternals;
 import thaumcraft.api.internal.DummyInternalMethodHandler;
 import thaumcraft.api.internal.IInternalMethodHandler;
 import thaumcraft.api.internal.WeightedRandomLoot;
+
+
 
 
 /**

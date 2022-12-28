@@ -1,32 +1,32 @@
 package thaumcraft.common.entities.monster.boss;
-
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.datasync.DataSerializers;
+import java.util.List;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.MobEffects;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.init.MobEffects;
-import net.minecraft.util.DamageSource;
-import java.util.List;
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.entity.monster.EntityMob;
-import thaumcraft.common.lib.utils.EntityUtils;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.BossInfo;
-import net.minecraft.world.World;
-import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.world.BossInfoServer;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.World;
 import thaumcraft.api.entities.IEldritchMob;
 import thaumcraft.api.entities.ITaintedMob;
+import thaumcraft.api.items.ItemsTC;
 import thaumcraft.common.entities.monster.tainted.EntityTaintacle;
+import thaumcraft.common.lib.utils.EntityUtils;
+
 
 public class EntityTaintacleGiant extends EntityTaintacle implements ITaintedMob, IEldritchMob
 {

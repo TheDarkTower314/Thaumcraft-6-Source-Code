@@ -1,22 +1,22 @@
 package thaumcraft.common.tiles.devices;
-
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.block.state.IBlockState;
-import thaumcraft.common.blocks.devices.BlockCondenserLattice;
-import thaumcraft.api.blocks.BlocksTC;
-import thaumcraft.api.aura.AuraHelper;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.util.math.BlockPos;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.nbt.NBTTagCompound;
 import java.util.ArrayList;
-import thaumcraft.api.aspects.IEssentiaTransport;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.blocks.devices.BlockCondenserLattice;
+import thaumcraft.common.lib.utils.BlockStateUtils;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileCondenser extends TileThaumcraft implements ITickable, IEssentiaTransport
 {

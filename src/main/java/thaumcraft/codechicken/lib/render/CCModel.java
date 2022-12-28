@@ -1,36 +1,36 @@
 package thaumcraft.codechicken.lib.render;
-
 import io.netty.util.AttributeKey;
-import thaumcraft.codechicken.lib.vec.ITransformation;
-import java.util.LinkedList;
-import java.util.Collection;
-import thaumcraft.codechicken.lib.vec.TransformationList;
-import thaumcraft.codechicken.lib.vec.Rotation;
-import thaumcraft.codechicken.lib.render.uv.UV;
-import java.io.PrintWriter;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import java.io.IOException;
-import java.util.List;
-import java.io.Reader;
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import thaumcraft.codechicken.lib.vec.RedundantTransformation;
-import java.util.Map;
+import java.io.IOException;
 import java.io.InputStream;
-import thaumcraft.codechicken.lib.render.uv.UVTransformation;
-import thaumcraft.codechicken.lib.vec.Transformation;
-import java.util.Iterator;
-import thaumcraft.codechicken.lib.lighting.LC;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Arrays;
-import thaumcraft.codechicken.lib.lighting.LightModel;
-import thaumcraft.codechicken.lib.vec.Cuboid6;
-import thaumcraft.codechicken.lib.vec.Vector3;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.ArrayList;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
+import thaumcraft.codechicken.lib.lighting.LC;
+import thaumcraft.codechicken.lib.lighting.LightModel;
+import thaumcraft.codechicken.lib.render.uv.UV;
+import thaumcraft.codechicken.lib.render.uv.UVTransformation;
 import thaumcraft.codechicken.lib.util.Copyable;
+import thaumcraft.codechicken.lib.vec.Cuboid6;
+import thaumcraft.codechicken.lib.vec.ITransformation;
+import thaumcraft.codechicken.lib.vec.RedundantTransformation;
+import thaumcraft.codechicken.lib.vec.Rotation;
+import thaumcraft.codechicken.lib.vec.Transformation;
+import thaumcraft.codechicken.lib.vec.TransformationList;
+import thaumcraft.codechicken.lib.vec.Vector3;
+
 
 public class CCModel implements CCRenderState.IVertexSource, Copyable<CCModel>
 {

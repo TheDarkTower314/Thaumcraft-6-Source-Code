@@ -1,13 +1,13 @@
 package thaumcraft.common.lib.research;
-
 import java.util.Iterator;
 import java.util.Map;
-import net.minecraft.item.ItemStack;
-import net.minecraft.enchantment.EnchantmentHelper;
-import thaumcraft.api.research.ScanningManager;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import thaumcraft.api.research.IScanThing;
+import thaumcraft.api.research.ScanningManager;
+
 
 public class ScanEnchantment implements IScanThing
 {

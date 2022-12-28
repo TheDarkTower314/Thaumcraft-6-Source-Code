@@ -1,11 +1,11 @@
 package thaumcraft.client.gui.plugins;
-
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.client.renderer.GlStateManager;
-import thaumcraft.client.gui.GuiTurretAdvanced;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.text.translation.I18n;
+import thaumcraft.client.gui.GuiTurretAdvanced;
+
 
 public class GuiToggleButton extends GuiButton
 {

@@ -1,17 +1,17 @@
 package thaumcraft.common.world.biomes;
-
-import thaumcraft.Thaumcraft;
-import java.util.Random;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.Arrays;
 import java.util.ArrayList;
-import thaumcraft.api.aspects.Aspect;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-import net.minecraftforge.common.BiomeDictionary;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.aspects.Aspect;
+
 
 public class BiomeHandler
 {

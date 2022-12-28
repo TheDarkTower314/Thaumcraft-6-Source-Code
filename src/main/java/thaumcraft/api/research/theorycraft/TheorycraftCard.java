@@ -1,10 +1,10 @@
 package thaumcraft.api.research.theorycraft;
-
 import java.util.Arrays;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+
 
 /**
  * See CardAnalyze for an example

@@ -1,19 +1,19 @@
 package thaumcraft.common.golems.seals;
-
-import thaumcraft.api.golems.EnumGolemTrait;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import thaumcraft.api.golems.tasks.Task;
-import thaumcraft.api.golems.IGolemAPI;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import thaumcraft.api.golems.GolemHelper;
-import thaumcraft.api.ThaumcraftInvHelper;
-import thaumcraft.api.golems.seals.ISealEntity;
-import net.minecraft.world.World;
 import java.util.Random;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
+import thaumcraft.api.ThaumcraftInvHelper;
+import thaumcraft.api.golems.EnumGolemTrait;
+import thaumcraft.api.golems.GolemHelper;
+import thaumcraft.api.golems.IGolemAPI;
 import thaumcraft.api.golems.seals.ISealConfigToggles;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.tasks.Task;
+
 
 public class SealStock extends SealFiltered implements ISealConfigToggles
 {

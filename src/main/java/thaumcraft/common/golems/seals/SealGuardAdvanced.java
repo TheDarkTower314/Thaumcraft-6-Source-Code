@@ -1,8 +1,8 @@
 package thaumcraft.common.golems.seals;
-
-import thaumcraft.api.golems.EnumGolemTrait;
 import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.golems.EnumGolemTrait;
 import thaumcraft.api.golems.seals.ISealConfigToggles;
+
 
 public class SealGuardAdvanced extends SealGuard implements ISealConfigToggles
 {

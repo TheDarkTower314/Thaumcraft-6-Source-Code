@@ -1,10 +1,10 @@
 package thaumcraft.common.golems.ai;
-
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.util.math.Vec3d;
 import thaumcraft.common.golems.EntityThaumcraftGolem;
-import net.minecraft.entity.ai.EntityAIBase;
+
 
 public class AIGotoHome extends EntityAIBase
 {

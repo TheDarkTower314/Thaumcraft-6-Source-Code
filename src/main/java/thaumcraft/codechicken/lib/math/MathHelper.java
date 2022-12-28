@@ -1,5 +1,6 @@
 package thaumcraft.codechicken.lib.math;
 
+
 public class MathHelper
 {
     public static double phi = 1.618033988749894;

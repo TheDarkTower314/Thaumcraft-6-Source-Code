@@ -1,28 +1,28 @@
 package thaumcraft.common.container.slot;
-
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import net.minecraft.util.NonNullList;
-import thaumcraft.api.crafting.IArcaneRecipe;
-import thaumcraft.api.items.ItemsTC;
-import thaumcraft.api.ThaumcraftApiHelper;
-import thaumcraft.common.items.casters.CasterManager;
-import net.minecraft.inventory.Container;
-import thaumcraft.api.crafting.ContainerDummy;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraftforge.common.ForgeHooks;
-import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
-import java.util.List;
 import com.google.common.collect.Lists;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.inventory.InventoryCraftResult;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraft.item.ItemStack;
-import net.minecraft.inventory.IInventory;
-import thaumcraft.common.tiles.crafting.TileArcaneWorkbench;
+import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.crafting.ContainerDummy;
+import thaumcraft.api.crafting.IArcaneRecipe;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.items.casters.CasterManager;
+import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
+import thaumcraft.common.tiles.crafting.TileArcaneWorkbench;
+
 
 public class SlotCraftingArcaneWorkbench extends Slot
 {

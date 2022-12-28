@@ -1,22 +1,22 @@
 package thaumcraft.common.entities.monster;
-
-import thaumcraft.common.config.ConfigItems;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.item.Item;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.DamageSource;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.lib.SoundsTC;
 import net.minecraft.entity.Entity;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import thaumcraft.api.entities.ITaintedMob;
-import net.minecraft.entity.monster.EntitySlime;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.lib.SoundsTC;
+
 
 public class EntityThaumicSlime extends EntitySlime implements ITaintedMob
 {

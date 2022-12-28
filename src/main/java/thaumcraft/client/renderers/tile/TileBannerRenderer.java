@@ -1,18 +1,18 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.client.Minecraft;
 import java.awt.Color;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.tiles.misc.TileBanner;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.block.ModelBanner;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.models.block.ModelBanner;
+import thaumcraft.common.tiles.misc.TileBanner;
+
 
 @SideOnly(Side.CLIENT)
 public class TileBannerRenderer extends TileEntitySpecialRenderer

@@ -1,10 +1,10 @@
 package thaumcraft.codechicken.lib.raytracer;
-
+import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.RayTraceResult;
 import thaumcraft.codechicken.lib.vec.BlockCoord;
 import thaumcraft.codechicken.lib.vec.Vector3;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.RayTraceResult;
+
 
 public class ExtendedMOP extends RayTraceResult implements Comparable<ExtendedMOP>
 {

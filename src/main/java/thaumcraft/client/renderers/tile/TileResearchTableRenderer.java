@@ -1,17 +1,17 @@
 package thaumcraft.client.renderers.tile;
-
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.api.items.IScribeTools;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import org.lwjgl.opengl.GL11;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.block.ModelResearchTable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.items.IScribeTools;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.models.block.ModelResearchTable;
+import thaumcraft.common.lib.utils.BlockStateUtils;
 import thaumcraft.common.tiles.crafting.TileResearchTable;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+
 
 @SideOnly(Side.CLIENT)
 public class TileResearchTableRenderer extends TileEntitySpecialRenderer<TileResearchTable>

@@ -1,21 +1,21 @@
 package thaumcraft.common.lib.network.playerdata;
-
-import net.minecraft.util.NonNullList;
-import thaumcraft.api.research.ResearchStage;
-import thaumcraft.api.research.ResearchEntry;
-import thaumcraft.common.lib.utils.InventoryUtils;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.research.ResearchCategories;
-import net.minecraft.util.IThreadListener;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IThreadListener;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchEntry;
+import thaumcraft.api.research.ResearchStage;
+import thaumcraft.common.lib.research.ResearchManager;
+import thaumcraft.common.lib.utils.InventoryUtils;
+
 
 public class PacketSyncProgressToServer implements IMessage, IMessageHandler<PacketSyncProgressToServer, IMessage>
 {

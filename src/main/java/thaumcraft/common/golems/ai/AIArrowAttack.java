@@ -1,11 +1,11 @@
 package thaumcraft.common.golems.ai;
-
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIAttackRanged;
+import net.minecraft.util.math.MathHelper;
+
 
 public class AIArrowAttack extends EntityAIAttackRanged
 {

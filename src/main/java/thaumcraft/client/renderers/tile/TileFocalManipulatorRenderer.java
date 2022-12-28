@@ -1,27 +1,27 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.tileentity.TileEntity;
+import java.awt.Color;
+import java.util.Random;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import java.util.Random;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.client.renderer.GlStateManager;
-import thaumcraft.client.lib.UtilsFX;
-import java.awt.Color;
-import thaumcraft.client.fx.ParticleEngine;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.Minecraft;
-import thaumcraft.common.tiles.crafting.TileFocalManipulator;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.tiles.crafting.TileFocalManipulator;
+
 
 @SideOnly(Side.CLIENT)
 public class TileFocalManipulatorRenderer extends TileEntitySpecialRenderer

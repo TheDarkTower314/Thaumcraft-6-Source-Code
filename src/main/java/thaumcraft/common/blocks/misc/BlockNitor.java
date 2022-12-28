@@ -1,21 +1,21 @@
 package thaumcraft.common.blocks.misc;
-
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import thaumcraft.common.tiles.misc.TileNitor;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.block.ITileEntityProvider;
 import thaumcraft.common.blocks.BlockTC;
+import thaumcraft.common.tiles.misc.TileNitor;
+
 
 public class BlockNitor extends BlockTC implements ITileEntityProvider
 {

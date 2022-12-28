@@ -1,11 +1,11 @@
 package thaumcraft.client.renderers.models.entity;
-
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import thaumcraft.common.entities.monster.EntityPech;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.model.ModelBiped;
+
 
 public class ModelPech extends ModelBiped
 {

@@ -1,19 +1,19 @@
 package thaumcraft.common.tiles.crafting;
-
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.entity.Entity;
-import thaumcraft.common.lib.utils.EntityUtils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import thaumcraft.common.entities.EntityFluxRift;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Vec3d;
 import thaumcraft.api.items.ItemsTC;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.entities.EntityFluxRift;
 import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.lib.utils.EntityUtils;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
+
 
 public class TileVoidSiphon extends TileThaumcraftInventory
 {

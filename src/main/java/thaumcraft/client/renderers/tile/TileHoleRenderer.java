@@ -1,17 +1,17 @@
 package thaumcraft.client.renderers.tile;
-
 import net.minecraft.block.state.IBlockState;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.client.lib.ender.ShaderHelper;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.tileentity.TileEntity;
-import org.lwjgl.opengl.ARBShaderObjects;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.lib.ender.ShaderCallback;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.lib.ender.ShaderCallback;
+import thaumcraft.client.lib.ender.ShaderHelper;
+
 
 public class TileHoleRenderer extends TileEntitySpecialRenderer
 {

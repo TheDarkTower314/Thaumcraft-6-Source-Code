@@ -1,9 +1,9 @@
 package thaumcraft.common.container.slot;
-
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.entity.EntityLiving;
 import thaumcraft.common.entities.construct.EntityTurretCrossbow;
+
 
 public class SlotTurretBasic extends SlotMobEquipment
 {

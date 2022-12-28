@@ -1,31 +1,31 @@
 package thaumcraft.common.entities.monster;
-
 import java.util.List;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.init.SoundEvents;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import thaumcraft.common.entities.monster.cult.EntityCultist;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraft.entity.SharedMonsterAttributes;
 import thaumcraft.api.entities.IEldritchMob;
-import net.minecraft.entity.monster.EntityZombie;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.entities.monster.cult.EntityCultist;
+import thaumcraft.common.lib.SoundsTC;
+
 
 public class EntityInhabitedZombie extends EntityZombie implements IEldritchMob
 {

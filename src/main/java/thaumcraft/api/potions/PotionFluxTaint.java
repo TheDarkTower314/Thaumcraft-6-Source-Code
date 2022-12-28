@@ -1,5 +1,4 @@
 package thaumcraft.api.potions;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -11,6 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.damagesource.DamageSourceThaumcraft;
 import thaumcraft.api.entities.ITaintedMob;
+
 
 public class PotionFluxTaint extends Potion
 {

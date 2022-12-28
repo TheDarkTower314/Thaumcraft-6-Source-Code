@@ -1,10 +1,10 @@
 package thaumcraft.common.container.slot;
-
-import net.minecraft.util.EnumHand;
-import net.minecraft.item.ItemStack;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
+
 
 public class SlotMobEquipment extends Slot
 {

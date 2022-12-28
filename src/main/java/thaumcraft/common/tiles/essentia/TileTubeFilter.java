@@ -1,9 +1,9 @@
 package thaumcraft.common.tiles.essentia;
-
-import thaumcraft.api.aspects.AspectList;
 import net.minecraft.nbt.NBTTagCompound;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
+
 
 public class TileTubeFilter extends TileTube implements IAspectContainer
 {

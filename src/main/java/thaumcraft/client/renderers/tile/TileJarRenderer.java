@@ -1,30 +1,30 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.world.World;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.Minecraft;
 import java.awt.Color;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
-import thaumcraft.client.lib.RenderCubes;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.common.config.ModConfig;
-import thaumcraft.api.ThaumcraftApiHelper;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import thaumcraft.common.tiles.essentia.TileJarFillable;
-import thaumcraft.common.tiles.devices.TileJarBrain;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.tiles.essentia.TileJar;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.block.ModelBrain;
-import thaumcraft.client.renderers.models.block.ModelJar;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.client.lib.RenderCubes;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.models.block.ModelBrain;
+import thaumcraft.client.renderers.models.block.ModelJar;
+import thaumcraft.common.config.ModConfig;
+import thaumcraft.common.tiles.devices.TileJarBrain;
+import thaumcraft.common.tiles.essentia.TileJar;
+import thaumcraft.common.tiles.essentia.TileJarFillable;
+
 
 @SideOnly(Side.CLIENT)
 public class TileJarRenderer extends TileEntitySpecialRenderer

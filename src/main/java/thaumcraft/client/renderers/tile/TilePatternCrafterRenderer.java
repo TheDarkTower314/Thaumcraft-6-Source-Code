@@ -1,16 +1,16 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.client.Minecraft;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.world.IBlockAccess;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import thaumcraft.common.tiles.crafting.TilePatternCrafter;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.block.ModelBoreBase;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.models.block.ModelBoreBase;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.tiles.crafting.TilePatternCrafter;
+
 
 public class TilePatternCrafterRenderer extends TileEntitySpecialRenderer
 {

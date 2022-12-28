@@ -1,34 +1,34 @@
 package thaumcraft.client.fx;
-
-import java.util.Iterator;
-import java.util.concurrent.Callable;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ReportedException;
-import net.minecraft.crash.ICrashReportDetail;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.gui.ScaledResolution;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import java.util.Random;
-import net.minecraft.client.particle.Particle;
 import java.util.ArrayList;
 import java.util.HashMap;
-import net.minecraft.world.World;
+import java.util.Iterator;
+import java.util.Random;
+import java.util.concurrent.Callable;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.crash.CrashReport;
+import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.crash.ICrashReportDetail;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+
 
 @Mod.EventBusSubscriber({ Side.CLIENT })
 public class ParticleEngine

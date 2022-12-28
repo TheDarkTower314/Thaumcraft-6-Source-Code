@@ -1,19 +1,19 @@
 package thaumcraft.common.lib.research;
-
-import java.util.Iterator;
 import java.util.ArrayList;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.api.ThaumcraftApi;
+import java.util.Iterator;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import thaumcraft.common.lib.utils.InventoryUtils;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.ItemsTC;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import net.minecraft.world.DimensionType;
-import net.minecraft.entity.player.EntityPlayer;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.items.ItemsTC;
 import thaumcraft.api.research.IScanThing;
+import thaumcraft.common.lib.utils.InventoryUtils;
+
 
 public class ScanSky implements IScanThing
 {

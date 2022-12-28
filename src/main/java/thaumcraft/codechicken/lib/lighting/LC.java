@@ -1,9 +1,9 @@
 package thaumcraft.codechicken.lib.lighting;
-
-import thaumcraft.codechicken.lib.vec.Rotation;
 import thaumcraft.codechicken.lib.render.CCModel;
-import thaumcraft.codechicken.lib.vec.Vector3;
 import thaumcraft.codechicken.lib.util.Copyable;
+import thaumcraft.codechicken.lib.vec.Rotation;
+import thaumcraft.codechicken.lib.vec.Vector3;
+
 
 public class LC implements Copyable<LC>
 {

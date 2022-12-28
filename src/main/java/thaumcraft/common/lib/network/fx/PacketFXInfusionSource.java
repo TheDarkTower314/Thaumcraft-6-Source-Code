@@ -1,14 +1,14 @@
 package thaumcraft.common.lib.network.fx;
-
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.common.tiles.crafting.TilePedestal;
-import thaumcraft.common.tiles.crafting.TileInfusionMatrix;
-import thaumcraft.Thaumcraft;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import thaumcraft.Thaumcraft;
+import thaumcraft.common.tiles.crafting.TileInfusionMatrix;
+import thaumcraft.common.tiles.crafting.TilePedestal;
+
 
 public class PacketFXInfusionSource implements IMessage, IMessageHandler<PacketFXInfusionSource, IMessage>
 {

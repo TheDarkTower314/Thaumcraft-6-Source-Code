@@ -1,10 +1,10 @@
 package thaumcraft.codechicken.lib.vec;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import net.minecraft.util.math.AxisAlignedBB;
 import thaumcraft.codechicken.lib.util.Copyable;
+
 
 public class Cuboid6 implements Copyable<Cuboid6>
 {

@@ -1,31 +1,31 @@
 package thaumcraft.common.items.casters.foci;
-
-import net.minecraft.init.SoundEvents;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.particle.Particle;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.casters.FocusEffect;
+import thaumcraft.api.casters.NodeSetting;
+import thaumcraft.api.casters.Trajectory;
 import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.client.fx.particles.FXGeneric;
-import thaumcraft.api.casters.NodeSetting;
-import thaumcraft.common.tiles.misc.TileHole;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.World;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.init.Blocks;
-import thaumcraft.common.lib.utils.BlockUtils;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
 import thaumcraft.common.config.ModConfig;
-import thaumcraft.api.casters.Trajectory;
-import net.minecraft.util.math.RayTraceResult;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.casters.FocusEffect;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.utils.BlockUtils;
+import thaumcraft.common.tiles.misc.TileHole;
+
 
 public class FocusEffectRift extends FocusEffect
 {

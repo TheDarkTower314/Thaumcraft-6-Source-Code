@@ -1,4 +1,5 @@
 package thaumcraft.api.crafting;
+
 /**
  * 
  * @author Azanor

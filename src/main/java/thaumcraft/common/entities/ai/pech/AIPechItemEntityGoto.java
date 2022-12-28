@@ -1,18 +1,18 @@
 package thaumcraft.common.entities.ai.pech;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.nbt.NBTTagCompound;
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.Entity;
-import thaumcraft.common.entities.monster.EntityPech;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.pathfinding.PathPoint;
+import net.minecraft.util.SoundCategory;
+import thaumcraft.common.entities.monster.EntityPech;
+
 
 public class AIPechItemEntityGoto extends EntityAIBase
 {

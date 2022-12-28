@@ -1,18 +1,18 @@
 package thaumcraft.common.lib.research.theorycraft;
-
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.api.research.ResearchCategories;
-import java.util.Iterator;
-import thaumcraft.common.items.curios.ItemCurio;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
-import thaumcraft.api.research.theorycraft.ResearchTableData;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentTranslation;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
+import thaumcraft.common.items.curios.ItemCurio;
+
 
 public class CardCurio extends TheorycraftCard
 {

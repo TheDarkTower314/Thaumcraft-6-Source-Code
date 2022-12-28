@@ -1,8 +1,8 @@
 package thaumcraft.common.items.casters.foci;
-
-import thaumcraft.api.casters.Trajectory;
-import thaumcraft.api.casters.FocusNode;
 import thaumcraft.api.casters.FocusModSplit;
+import thaumcraft.api.casters.FocusNode;
+import thaumcraft.api.casters.Trajectory;
+
 
 public class FocusModSplitTrajectory extends FocusModSplit
 {

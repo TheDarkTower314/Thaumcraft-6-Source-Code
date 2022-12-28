@@ -1,27 +1,27 @@
 package thaumcraft.common.golems;
-
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import thaumcraft.api.golems.seals.SealPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import thaumcraft.api.golems.seals.ISealEntity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import net.minecraft.util.EnumActionResult;
-import thaumcraft.Thaumcraft;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import thaumcraft.common.golems.seals.SealHandler;
-import net.minecraft.util.math.RayTraceResult;
-import thaumcraft.codechicken.lib.raytracer.RayTracer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.api.golems.ISealDisplayer;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.seals.SealPos;
+import thaumcraft.codechicken.lib.raytracer.RayTracer;
+import thaumcraft.common.golems.seals.SealHandler;
 import thaumcraft.common.items.ItemTCBase;
+import thaumcraft.common.lib.SoundsTC;
+
 
 public class ItemGolemBell extends ItemTCBase implements ISealDisplayer
 {

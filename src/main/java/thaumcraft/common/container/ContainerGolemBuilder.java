@@ -1,17 +1,17 @@
 package thaumcraft.common.container;
-
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.ClickType;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.inventory.IContainerListener;
-import net.minecraft.item.ItemStack;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ClickType;
-import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.IInventory;
 import thaumcraft.common.container.slot.SlotOutput;
-import net.minecraft.entity.player.InventoryPlayer;
 import thaumcraft.common.tiles.crafting.TileGolemBuilder;
-import net.minecraft.inventory.Container;
+
 
 public class ContainerGolemBuilder extends Container
 {

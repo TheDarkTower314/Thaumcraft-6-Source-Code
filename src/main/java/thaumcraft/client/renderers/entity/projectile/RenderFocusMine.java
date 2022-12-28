@@ -1,15 +1,15 @@
 package thaumcraft.client.renderers.entity.projectile;
-
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import thaumcraft.common.entities.projectile.EntityFocusMine;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.entity.RenderManager;
-import thaumcraft.client.renderers.models.entity.ModelGrappler;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.renderers.models.entity.ModelGrappler;
+import thaumcraft.common.entities.projectile.EntityFocusMine;
+
 
 public class RenderFocusMine extends Render
 {

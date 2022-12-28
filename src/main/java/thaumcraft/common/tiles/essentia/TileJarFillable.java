@@ -1,13 +1,13 @@
 package thaumcraft.common.tiles.essentia;
-
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.api.aspects.AspectList;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectSource;
+import thaumcraft.api.aspects.IEssentiaTransport;
+
 
 public class TileJarFillable extends TileJar implements IAspectSource, IEssentiaTransport
 {

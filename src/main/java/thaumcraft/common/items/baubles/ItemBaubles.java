@@ -1,12 +1,12 @@
 package thaumcraft.common.items.baubles;
-
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
-import baubles.api.BaubleType;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.items.IVisDiscountGear;
-import baubles.api.IBauble;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemBaubles extends ItemTCBase implements IBauble, IVisDiscountGear
 {

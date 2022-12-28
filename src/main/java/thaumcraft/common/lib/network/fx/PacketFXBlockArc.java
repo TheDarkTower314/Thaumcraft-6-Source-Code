@@ -1,12 +1,12 @@
 package thaumcraft.common.lib.network.fx;
-
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import thaumcraft.client.fx.FXDispatcher;
+
 
 public class PacketFXBlockArc implements IMessage, IMessageHandler<PacketFXBlockArc, IMessage>
 {

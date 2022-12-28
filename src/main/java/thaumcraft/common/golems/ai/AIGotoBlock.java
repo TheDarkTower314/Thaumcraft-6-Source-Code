@@ -1,19 +1,19 @@
 package thaumcraft.common.golems.ai;
-
-import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.pathfinding.Path;
-import net.minecraft.util.math.MathHelper;
+import java.util.ArrayList;
+import java.util.Iterator;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.pathfinding.Path;
+import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import java.util.Iterator;
-import java.util.ArrayList;
-import thaumcraft.common.config.ModConfig;
+import net.minecraft.util.math.MathHelper;
 import thaumcraft.api.golems.IGolemAPI;
 import thaumcraft.api.golems.tasks.Task;
-import net.minecraft.entity.Entity;
-import thaumcraft.common.golems.tasks.TaskHandler;
+import thaumcraft.common.config.ModConfig;
 import thaumcraft.common.golems.EntityThaumcraftGolem;
+import thaumcraft.common.golems.tasks.TaskHandler;
+
 
 public class AIGotoBlock extends AIGoto
 {

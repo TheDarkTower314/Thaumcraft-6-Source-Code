@@ -1,17 +1,17 @@
 package thaumcraft.client.fx.other;
-
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.particle.Particle;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
+
 
 public class FXBlockWard extends Particle
 {

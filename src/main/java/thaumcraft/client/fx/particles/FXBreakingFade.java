@@ -1,14 +1,14 @@
 package thaumcraft.client.fx.particles;
-
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.particle.ParticleBreaking;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.particle.ParticleBreaking;
+
 
 @SideOnly(Side.CLIENT)
 public class FXBreakingFade extends ParticleBreaking

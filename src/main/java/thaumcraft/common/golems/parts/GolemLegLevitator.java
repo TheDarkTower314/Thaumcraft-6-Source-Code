@@ -1,8 +1,8 @@
 package thaumcraft.common.golems.parts;
-
-import thaumcraft.client.fx.FXDispatcher;
 import thaumcraft.api.golems.IGolemAPI;
 import thaumcraft.api.golems.parts.GolemLeg;
+import thaumcraft.client.fx.FXDispatcher;
+
 
 public class GolemLegLevitator implements GolemLeg.ILegFunction
 {

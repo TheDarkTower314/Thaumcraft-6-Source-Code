@@ -1,8 +1,8 @@
 package thaumcraft.common.items.consumables;
-
-import net.minecraft.world.World;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemBathSalts extends ItemTCBase
 {

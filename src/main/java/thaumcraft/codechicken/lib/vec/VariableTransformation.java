@@ -1,7 +1,7 @@
 package thaumcraft.codechicken.lib.vec;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 public abstract class VariableTransformation extends Transformation
 {

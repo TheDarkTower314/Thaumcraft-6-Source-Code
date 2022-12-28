@@ -1,10 +1,10 @@
 package thaumcraft.codechicken.lib.render.uv;
-
-import thaumcraft.codechicken.lib.vec.ITransformation;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import thaumcraft.codechicken.lib.math.MathHelper;
+import thaumcraft.codechicken.lib.vec.ITransformation;
+
 
 public class UVRotation extends UVTransformation
 {

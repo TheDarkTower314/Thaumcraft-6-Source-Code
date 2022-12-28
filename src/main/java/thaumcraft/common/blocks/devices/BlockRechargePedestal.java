@@ -1,24 +1,24 @@
 package thaumcraft.common.blocks.devices;
-
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import thaumcraft.common.lib.utils.InventoryUtils;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.IRechargable;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.devices.TileRechargePedestal;
-import net.minecraft.block.material.Material;
+import net.minecraft.world.World;
+import thaumcraft.api.items.IRechargable;
 import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.lib.utils.InventoryUtils;
+import thaumcraft.common.tiles.devices.TileRechargePedestal;
+
 
 public class BlockRechargePedestal extends BlockTCDevice
 {

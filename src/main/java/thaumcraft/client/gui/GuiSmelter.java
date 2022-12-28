@@ -1,14 +1,14 @@
 package thaumcraft.client.gui;
-
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
-import thaumcraft.common.container.ContainerSmelter;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.common.tiles.essentia.TileSmelter;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.common.container.ContainerSmelter;
+import thaumcraft.common.tiles.essentia.TileSmelter;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiSmelter extends GuiContainer

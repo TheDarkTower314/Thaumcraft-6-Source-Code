@@ -1,11 +1,11 @@
 package thaumcraft.api.crafting;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+
 
 public class CrucibleRecipe implements IThaumcraftRecipe  {
 

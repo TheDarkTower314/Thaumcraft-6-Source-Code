@@ -1,7 +1,5 @@
 package thaumcraft.api.crafting;
-
 import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -15,6 +13,8 @@ import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.items.ItemsTC;
+
+
 
 public class ShapelessArcaneRecipe extends ShapelessOreRecipe implements IArcaneRecipe
 {

@@ -1,29 +1,29 @@
 package thaumcraft.common.blocks.crafting;
-
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.block.Block;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.item.Item;
 import java.util.Random;
-import thaumcraft.Thaumcraft;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
-import thaumcraft.common.tiles.crafting.TileThaumatoriumTop;
-import thaumcraft.common.tiles.crafting.TileThaumatorium;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import thaumcraft.common.tiles.crafting.TileThaumatorium;
+import thaumcraft.common.tiles.crafting.TileThaumatoriumTop;
+
 
 public class BlockThaumatorium extends BlockTCDevice implements IBlockFacingHorizontal
 {

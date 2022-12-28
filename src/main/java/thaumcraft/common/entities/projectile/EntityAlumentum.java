@@ -1,11 +1,11 @@
 package thaumcraft.common.entities.projectile;
-
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.RayTraceResult;
-import thaumcraft.client.fx.FXDispatcher;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.World;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
+import thaumcraft.client.fx.FXDispatcher;
+
 
 public class EntityAlumentum extends EntityThrowable
 {

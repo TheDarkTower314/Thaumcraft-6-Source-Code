@@ -1,16 +1,16 @@
 package thaumcraft.api.casters;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+
+
 
 public class FocusPackage implements IFocusElement {
 	

@@ -1,6 +1,6 @@
 package thaumcraft.api.research.theorycraft;
-
 import net.minecraft.init.Blocks;
+
 
 public class AidBookshelf implements ITheorycraftAid {
 

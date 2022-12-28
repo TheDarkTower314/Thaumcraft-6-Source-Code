@@ -1,16 +1,16 @@
 package thaumcraft.common.container;
-
-import net.minecraft.inventory.ClickType;
-import net.minecraft.inventory.IContainerListener;
-import thaumcraft.common.items.tools.ItemHandMirror;
-import net.minecraft.inventory.Slot;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.world.World;
-import net.minecraft.inventory.IInventoryChangedListener;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.IInventoryChangedListener;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import thaumcraft.common.items.tools.ItemHandMirror;
+
 
 public class ContainerHandMirror extends Container implements IInventoryChangedListener
 {

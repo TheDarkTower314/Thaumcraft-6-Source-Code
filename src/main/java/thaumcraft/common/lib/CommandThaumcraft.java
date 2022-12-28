@@ -1,29 +1,29 @@
 package thaumcraft.common.lib;
-
-import thaumcraft.api.research.ResearchStage;
-import thaumcraft.api.capabilities.IPlayerKnowledge;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import thaumcraft.api.research.ResearchEntry;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import thaumcraft.common.lib.network.playerdata.PacketWarpMessage;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.api.capabilities.IPlayerWarp;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import net.minecraft.command.CommandException;
-import net.minecraft.entity.player.EntityPlayerMP;
 import java.util.Iterator;
-import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.api.research.ResearchCategory;
-import thaumcraft.api.research.ResearchCategories;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.command.ICommandSender;
-import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.api.capabilities.IPlayerKnowledge;
+import thaumcraft.api.capabilities.IPlayerWarp;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategory;
+import thaumcraft.api.research.ResearchEntry;
+import thaumcraft.api.research.ResearchStage;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.playerdata.PacketWarpMessage;
+import thaumcraft.common.lib.research.ResearchManager;
+
 
 public class CommandThaumcraft extends CommandBase
 {

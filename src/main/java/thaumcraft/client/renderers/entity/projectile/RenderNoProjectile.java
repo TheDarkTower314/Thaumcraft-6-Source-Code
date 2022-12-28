@@ -1,12 +1,12 @@
 package thaumcraft.client.renderers.entity.projectile;
-
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import thaumcraft.common.entities.projectile.EntityFocusProjectile;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.util.ResourceLocation;
+import thaumcraft.common.entities.projectile.EntityFocusProjectile;
+
 
 public class RenderNoProjectile extends Render
 {

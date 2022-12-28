@@ -1,16 +1,16 @@
 package thaumcraft.common.lib.network.tiles;
-
-import net.minecraft.util.IThreadListener;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IThreadListener;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import thaumcraft.common.tiles.TileThaumcraft;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import thaumcraft.common.lib.utils.Utils;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class PacketTileToServer implements IMessage, IMessageHandler<PacketTileToServer, IMessage>
 {

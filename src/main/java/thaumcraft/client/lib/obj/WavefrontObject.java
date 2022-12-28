@@ -1,22 +1,22 @@
 package thaumcraft.client.lib.obj;
-
-import net.minecraft.util.math.Vec3d;
-import java.util.Iterator;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.Tessellator;
-import java.io.Reader;
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.InputStream;
-import net.minecraft.client.resources.IResource;
 import java.io.IOException;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.IResource;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 public class WavefrontObject implements IModelCustom
 {

@@ -1,7 +1,7 @@
 package thaumcraft.client.lib.obj;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MeshPart
 {

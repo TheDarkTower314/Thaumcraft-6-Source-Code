@@ -1,17 +1,17 @@
 package thaumcraft.client.lib.obj;
-
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.block.model.FaceBakery;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ModelManager;
-import thaumcraft.codechicken.lib.vec.Rotation;
-import thaumcraft.codechicken.lib.vec.Vector3;
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3f;
-import java.util.List;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.FaceBakery;
+import net.minecraft.client.renderer.block.model.ModelManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import thaumcraft.codechicken.lib.vec.Rotation;
+import thaumcraft.codechicken.lib.vec.Vector3;
+
 
 public class MeshModel
 {

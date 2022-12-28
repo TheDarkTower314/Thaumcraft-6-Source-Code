@@ -1,16 +1,16 @@
 package thaumcraft.client.gui;
-
-import net.minecraft.init.Blocks;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
-import thaumcraft.common.container.ContainerArcaneBore;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.common.entities.construct.EntityArcaneBore;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.common.container.ContainerArcaneBore;
+import thaumcraft.common.entities.construct.EntityArcaneBore;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiArcaneBore extends GuiContainer

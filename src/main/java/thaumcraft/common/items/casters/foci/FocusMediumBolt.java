@@ -1,18 +1,18 @@
 package thaumcraft.common.items.casters.foci;
-
-import thaumcraft.api.casters.FocusEffect;
+import java.awt.Color;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import thaumcraft.common.lib.network.fx.PacketFXZap;
-import thaumcraft.common.lib.network.PacketHandler;
-import java.awt.Color;
-import thaumcraft.api.casters.FocusEngine;
-import net.minecraft.entity.Entity;
-import thaumcraft.common.lib.utils.EntityUtils;
-import thaumcraft.api.casters.Trajectory;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.casters.FocusEffect;
+import thaumcraft.api.casters.FocusEngine;
+import thaumcraft.api.casters.Trajectory;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.fx.PacketFXZap;
+import thaumcraft.common.lib.utils.EntityUtils;
+
 
 public class FocusMediumBolt extends FocusMediumTouch
 {

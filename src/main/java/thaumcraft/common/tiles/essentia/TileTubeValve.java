@@ -1,18 +1,18 @@
 package thaumcraft.common.tiles.essentia;
-
-import thaumcraft.api.aspects.Aspect;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.RayTraceResult;
-import thaumcraft.codechicken.lib.raytracer.RayTracer;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.codechicken.lib.raytracer.RayTracer;
 import thaumcraft.common.lib.SoundsTC;
+
 
 public class TileTubeValve extends TileTube
 {

@@ -1,9 +1,9 @@
 package thaumcraft.common.container.slot;
-
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.entity.EntityLiving;
 import thaumcraft.common.entities.construct.EntityArcaneBore;
+
 
 public class SlotArcaneBorePickaxe extends SlotMobEquipment
 {

@@ -1,33 +1,33 @@
 package thaumcraft.common.items.tools;
-
-import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;
-import net.minecraft.util.NonNullList;
-import net.minecraft.creativetab.CreativeTabs;
+import com.google.common.collect.ImmutableSet;
 import java.util.Iterator;
 import java.util.List;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.entity.Entity;
-import thaumcraft.common.lib.utils.EntityUtils;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import net.minecraft.item.EnumAction;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.item.EnumRarity;
-import com.google.common.collect.ImmutableSet;
 import java.util.Set;
-import net.minecraft.item.ItemStack;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import thaumcraft.common.config.ConfigItems;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
-import thaumcraft.common.items.IThaumcraftItems;
 import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.IThaumcraftItems;
+import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;
+import thaumcraft.common.lib.utils.EntityUtils;
+
 
 public class ItemElementalAxe extends ItemAxe implements IThaumcraftItems
 {

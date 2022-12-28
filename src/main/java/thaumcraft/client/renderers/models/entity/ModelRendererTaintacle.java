@@ -1,13 +1,13 @@
 package thaumcraft.client.renderers.models.entity;
-
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GLAllocation;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
+
 
 public class ModelRendererTaintacle extends ModelRenderer
 {

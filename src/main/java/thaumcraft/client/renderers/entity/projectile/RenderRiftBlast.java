@@ -1,19 +1,19 @@
 package thaumcraft.client.renderers.entity.projectile;
-
+import com.sasmaster.glelwjgl.java.CoreGLE;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import thaumcraft.client.lib.ender.ShaderHelper;
-import net.minecraft.client.renderer.GlStateManager;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
-import thaumcraft.common.entities.projectile.EntityRiftBlast;
-import org.lwjgl.opengl.ARBShaderObjects;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderManager;
-import com.sasmaster.glelwjgl.java.CoreGLE;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
 import thaumcraft.client.lib.ender.ShaderCallback;
-import net.minecraft.client.renderer.entity.Render;
+import thaumcraft.client.lib.ender.ShaderHelper;
+import thaumcraft.common.entities.projectile.EntityRiftBlast;
+
 
 public class RenderRiftBlast extends Render
 {

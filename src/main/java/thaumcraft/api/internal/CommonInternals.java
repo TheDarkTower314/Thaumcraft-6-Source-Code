@@ -1,15 +1,15 @@
 package thaumcraft.api.internal;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.ThaumcraftApi.SmeltBonus;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IThaumcraftRecipe;
+
+
 
 /**
  * @author Azanor

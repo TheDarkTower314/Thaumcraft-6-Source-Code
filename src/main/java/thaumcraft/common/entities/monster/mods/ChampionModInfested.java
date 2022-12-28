@@ -1,14 +1,14 @@
 package thaumcraft.common.entities.monster.mods;
-
 import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.client.fx.FXDispatcher;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.entity.Entity;
 import thaumcraft.common.entities.monster.tainted.EntityTaintCrawler;
-import net.minecraft.util.DamageSource;
-import net.minecraft.entity.EntityLivingBase;
+import thaumcraft.common.lib.SoundsTC;
+
 
 public class ChampionModInfested implements IChampionModifierEffect
 {

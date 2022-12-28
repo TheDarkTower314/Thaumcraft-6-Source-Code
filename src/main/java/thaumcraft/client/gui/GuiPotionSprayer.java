@@ -1,18 +1,18 @@
 package thaumcraft.client.gui;
-
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.client.lib.UtilsFX;
 import java.awt.Color;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.container.ContainerPotionSprayer;
-import thaumcraft.common.tiles.devices.TilePotionSprayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.container.ContainerPotionSprayer;
+import thaumcraft.common.tiles.devices.TilePotionSprayer;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiPotionSprayer extends GuiContainer

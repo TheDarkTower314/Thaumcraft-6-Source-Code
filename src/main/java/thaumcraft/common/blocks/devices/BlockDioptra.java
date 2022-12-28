@@ -1,19 +1,19 @@
 package thaumcraft.common.blocks.devices;
-
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.devices.TileDioptra;
-import net.minecraft.block.material.Material;
-import thaumcraft.common.blocks.IBlockEnabled;
 import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.blocks.IBlockEnabled;
+import thaumcraft.common.tiles.devices.TileDioptra;
+
 
 public class BlockDioptra extends BlockTCDevice implements IBlockEnabled
 {

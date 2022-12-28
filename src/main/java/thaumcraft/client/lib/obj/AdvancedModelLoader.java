@@ -1,12 +1,12 @@
 package thaumcraft.client.lib.obj;
-
 import com.google.common.collect.Maps;
 import java.util.Collection;
-import net.minecraftforge.fml.common.FMLLog;
-import net.minecraft.util.ResourceLocation;
 import java.util.Map;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 @SideOnly(Side.CLIENT)
 public class AdvancedModelLoader

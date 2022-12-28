@@ -1,16 +1,16 @@
 package thaumcraft.common.container;
-
-import thaumcraft.common.items.casters.ItemFocus;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.IInventory;
 import thaumcraft.common.container.slot.SlotFocus;
-import net.minecraft.entity.player.InventoryPlayer;
+import thaumcraft.common.items.casters.ItemFocus;
+import thaumcraft.common.lib.SoundsTC;
 import thaumcraft.common.tiles.crafting.TileFocalManipulator;
-import net.minecraft.inventory.Container;
+
 
 public class ContainerFocalManipulator extends Container
 {

@@ -1,13 +1,13 @@
 package thaumcraft.common.tiles.essentia;
-
 import net.minecraft.tileentity.TileEntity;
-import thaumcraft.common.lib.events.EssentiaHandler;
-import thaumcraft.api.ThaumcraftApiHelper;
-import thaumcraft.api.aspects.Aspect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.common.lib.events.EssentiaHandler;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileEssentiaInput extends TileThaumcraft implements IEssentiaTransport, ITickable
 {

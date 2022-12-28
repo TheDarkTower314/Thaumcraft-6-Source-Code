@@ -1,22 +1,22 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.init.Blocks;
 import net.minecraft.client.Minecraft;
-import thaumcraft.common.lib.utils.BlockStateUtils;
 import net.minecraft.client.renderer.GlStateManager;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.tiles.crafting.TileGolemBuilder;
-import thaumcraft.client.lib.obj.AdvancedModelLoader;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.lib.obj.IModelCustom;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.lib.obj.AdvancedModelLoader;
+import thaumcraft.client.lib.obj.IModelCustom;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.tiles.crafting.TileGolemBuilder;
+
 
 @SideOnly(Side.CLIENT)
 public class TileGolemBuilderRenderer extends TileEntitySpecialRenderer

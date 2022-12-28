@@ -1,11 +1,11 @@
 package thaumcraft.common.tiles.devices;
-
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import thaumcraft.common.blocks.devices.BlockHungryChest;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntityChest;
+
 
 public class TileHungryChest extends TileEntityChest
 {

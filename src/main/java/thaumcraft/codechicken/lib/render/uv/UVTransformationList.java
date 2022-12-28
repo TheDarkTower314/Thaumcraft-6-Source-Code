@@ -1,9 +1,9 @@
 package thaumcraft.codechicken.lib.render.uv;
-
-import thaumcraft.codechicken.lib.vec.ITransformation;
-import java.util.Iterator;
-import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import thaumcraft.codechicken.lib.vec.ITransformation;
+
 
 public class UVTransformationList extends UVTransformation
 {

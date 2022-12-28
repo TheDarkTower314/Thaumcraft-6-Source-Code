@@ -1,15 +1,15 @@
 package thaumcraft.client.gui;
-
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
-import thaumcraft.common.container.ContainerTurretBasic;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.common.entities.construct.EntityTurretCrossbow;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.common.container.ContainerTurretBasic;
+import thaumcraft.common.entities.construct.EntityTurretCrossbow;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiTurretBasic extends GuiContainer

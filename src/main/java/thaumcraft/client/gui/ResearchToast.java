@@ -1,11 +1,11 @@
 package thaumcraft.client.gui;
-
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.gui.toasts.GuiToast;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.api.research.ResearchEntry;
 import net.minecraft.client.gui.toasts.IToast;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
+import thaumcraft.api.research.ResearchEntry;
+
 
 public class ResearchToast implements IToast
 {

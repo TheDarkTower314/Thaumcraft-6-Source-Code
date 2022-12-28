@@ -1,10 +1,10 @@
 package thaumcraft.api.blocks;
-
 import java.util.HashMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.item.EnumDyeColor;
+
+
 
 public class BlocksTC {
 

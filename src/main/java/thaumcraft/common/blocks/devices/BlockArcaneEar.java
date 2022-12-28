@@ -1,30 +1,30 @@
 package thaumcraft.common.blocks.devices;
-
 import com.google.common.collect.Lists;
+import java.util.List;
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.World;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.devices.TileArcaneEar;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.SoundEvent;
-import java.util.List;
+import net.minecraft.world.World;
+import thaumcraft.common.blocks.BlockTCDevice;
 import thaumcraft.common.blocks.IBlockEnabled;
 import thaumcraft.common.blocks.IBlockFacing;
-import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.tiles.devices.TileArcaneEar;
+
 
 public class BlockArcaneEar extends BlockTCDevice implements IBlockFacing, IBlockEnabled
 {

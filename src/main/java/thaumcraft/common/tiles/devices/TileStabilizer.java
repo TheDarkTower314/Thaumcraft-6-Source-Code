@@ -1,17 +1,17 @@
 package thaumcraft.common.tiles.devices;
-
-import net.minecraft.nbt.NBTTagCompound;
 import java.util.Iterator;
 import java.util.List;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import thaumcraft.common.entities.EntityFluxRift;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import thaumcraft.api.aura.AuraHelper;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.ITickable;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.common.entities.EntityFluxRift;
+import thaumcraft.common.lib.utils.BlockStateUtils;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileStabilizer extends TileThaumcraft implements ITickable
 {

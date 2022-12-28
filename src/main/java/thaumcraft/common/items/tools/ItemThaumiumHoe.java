@@ -1,13 +1,13 @@
 package thaumcraft.common.items.tools;
-
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.item.ItemStack;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import thaumcraft.common.config.ConfigItems;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import thaumcraft.common.items.IThaumcraftItems;
 import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemStack;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.IThaumcraftItems;
+
 
 public class ItemThaumiumHoe extends ItemHoe implements IThaumcraftItems
 {

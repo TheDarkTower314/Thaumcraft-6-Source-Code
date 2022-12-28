@@ -1,19 +1,19 @@
 package thaumcraft.common.tiles.devices;
-
-import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.common.world.aura.AuraHandler;
-import net.minecraft.tileentity.TileEntity;
+import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.energy.CapabilityEnergy;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
+import thaumcraft.common.lib.utils.BlockStateUtils;
 import thaumcraft.common.tiles.TileThaumcraft;
+import thaumcraft.common.world.aura.AuraHandler;
+
 
 public class TileVisGenerator extends TileThaumcraft implements ITickable, IEnergyStorage
 {

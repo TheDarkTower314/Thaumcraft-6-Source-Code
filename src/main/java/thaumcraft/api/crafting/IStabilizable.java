@@ -1,5 +1,6 @@
 package thaumcraft.api.crafting;
 
+
 @Deprecated
 /**
  * This is no longer a thing and will be removed in the next major release.

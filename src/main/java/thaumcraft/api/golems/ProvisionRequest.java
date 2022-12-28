@@ -1,11 +1,11 @@
 package thaumcraft.api.golems;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import thaumcraft.api.golems.seals.ISealEntity;
 import thaumcraft.api.golems.tasks.Task;
+
 
 public class ProvisionRequest { 
 	private ISealEntity seal;

@@ -1,22 +1,22 @@
 package thaumcraft.common.items.tools;
-
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.init.MobEffects;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.World;
 import com.google.common.collect.ImmutableSet;
 import java.util.Set;
-import net.minecraft.item.ItemStack;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import thaumcraft.common.config.ConfigItems;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
-import thaumcraft.common.items.IThaumcraftItems;
-import thaumcraft.api.items.IWarpingGear;
 import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import thaumcraft.api.items.IWarpingGear;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.IThaumcraftItems;
+
 
 public class ItemVoidPickaxe extends ItemPickaxe implements IWarpingGear, IThaumcraftItems
 {

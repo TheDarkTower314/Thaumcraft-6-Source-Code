@@ -1,15 +1,15 @@
 package thaumcraft.common.golems.parts;
-
-import thaumcraft.common.golems.ai.AIArrowAttack;
-import net.minecraft.entity.ai.EntityAIAttackRanged;
-import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.entity.SharedMonsterAttributes;
-import thaumcraft.common.entities.projectile.EntityGolemDart;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
+import net.minecraft.init.SoundEvents;
 import thaumcraft.api.golems.IGolemAPI;
 import thaumcraft.api.golems.parts.GolemArm;
+import thaumcraft.common.entities.projectile.EntityGolemDart;
+import thaumcraft.common.golems.ai.AIArrowAttack;
+
 
 public class GolemArmDart implements GolemArm.IArmFunction
 {

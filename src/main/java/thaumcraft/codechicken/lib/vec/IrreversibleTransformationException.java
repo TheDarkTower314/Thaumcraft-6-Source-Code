@@ -1,5 +1,6 @@
 package thaumcraft.codechicken.lib.vec;
 
+
 public class IrreversibleTransformationException extends RuntimeException
 {
     public ITransformation t;

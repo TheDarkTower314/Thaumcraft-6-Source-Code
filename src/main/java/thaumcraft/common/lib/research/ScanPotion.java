@@ -1,14 +1,14 @@
 package thaumcraft.common.lib.research;
-
-import net.minecraft.item.ItemStack;
 import java.util.Iterator;
-import net.minecraft.potion.PotionUtils;
-import thaumcraft.api.research.ScanningManager;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionUtils;
 import thaumcraft.api.research.IScanThing;
+import thaumcraft.api.research.ScanningManager;
+
 
 public class ScanPotion implements IScanThing
 {

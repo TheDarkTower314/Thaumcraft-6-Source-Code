@@ -1,28 +1,28 @@
 package thaumcraft.common.tiles.devices;
-
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagList;
-import thaumcraft.api.aura.AuraHelper;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.entity.Entity;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.entity.item.EntityItem;
-import thaumcraft.common.lib.utils.Utils;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
-import net.minecraft.util.ITickable;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.lib.utils.Utils;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileMirror extends TileThaumcraft implements IInventory, ITickable
 {

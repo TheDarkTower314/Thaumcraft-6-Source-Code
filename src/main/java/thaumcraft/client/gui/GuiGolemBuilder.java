@@ -1,36 +1,36 @@
 package thaumcraft.client.gui;
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import net.minecraft.client.gui.GuiButton;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.common.lib.utils.InventoryUtils;
-import thaumcraft.api.golems.EnumGolemTrait;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.client.gui.GuiScreen;
-import thaumcraft.client.gui.plugins.GuiHoverButton;
-import thaumcraft.client.gui.plugins.GuiScrollButton;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import thaumcraft.common.golems.GolemProperties;
-import net.minecraft.inventory.Container;
-import thaumcraft.common.container.ContainerGolemBuilder;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import thaumcraft.common.golems.client.gui.GuiGolemCraftButton;
-import thaumcraft.api.golems.IGolemProperties;
-import thaumcraft.api.golems.parts.GolemAddon;
-import thaumcraft.api.golems.parts.GolemLeg;
-import thaumcraft.api.golems.parts.GolemArm;
-import thaumcraft.api.golems.parts.GolemMaterial;
-import thaumcraft.api.golems.parts.GolemHead;
-import java.util.ArrayList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.tiles.crafting.TileGolemBuilder;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.golems.EnumGolemTrait;
+import thaumcraft.api.golems.IGolemProperties;
+import thaumcraft.api.golems.parts.GolemAddon;
+import thaumcraft.api.golems.parts.GolemArm;
+import thaumcraft.api.golems.parts.GolemHead;
+import thaumcraft.api.golems.parts.GolemLeg;
+import thaumcraft.api.golems.parts.GolemMaterial;
+import thaumcraft.client.gui.plugins.GuiHoverButton;
+import thaumcraft.client.gui.plugins.GuiScrollButton;
+import thaumcraft.common.container.ContainerGolemBuilder;
+import thaumcraft.common.golems.GolemProperties;
+import thaumcraft.common.golems.client.gui.GuiGolemCraftButton;
+import thaumcraft.common.lib.utils.InventoryUtils;
+import thaumcraft.common.tiles.crafting.TileGolemBuilder;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiGolemBuilder extends GuiContainer

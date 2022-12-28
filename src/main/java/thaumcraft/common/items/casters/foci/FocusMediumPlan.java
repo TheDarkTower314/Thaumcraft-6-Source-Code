@@ -1,28 +1,28 @@
 package thaumcraft.common.items.casters.foci;
-
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.Vec3i;
-import thaumcraft.common.items.casters.CasterManager;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.World;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
-import thaumcraft.api.casters.Trajectory;
-import net.minecraft.util.math.Vec3d;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.Comparator;
-import thaumcraft.common.lib.utils.BlockUtils;
-import thaumcraft.api.casters.ICaster;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.RayTraceResult;
-import thaumcraft.api.casters.NodeSetting;
-import thaumcraft.api.aspects.Aspect;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import java.util.ArrayList;
-import thaumcraft.api.items.IArchitect;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.casters.FocusMedium;
+import thaumcraft.api.casters.ICaster;
+import thaumcraft.api.casters.NodeSetting;
+import thaumcraft.api.casters.Trajectory;
+import thaumcraft.api.items.IArchitect;
+import thaumcraft.common.items.casters.CasterManager;
+import thaumcraft.common.lib.utils.BlockUtils;
+
 
 public class FocusMediumPlan extends FocusMedium implements IArchitect
 {

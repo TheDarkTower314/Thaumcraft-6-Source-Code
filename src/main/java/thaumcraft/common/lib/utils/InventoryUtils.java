@@ -1,32 +1,32 @@
 package thaumcraft.common.lib.utils;
-
-import net.minecraftforge.common.crafting.IngredientNBT;
-import thaumcraft.api.crafting.IngredientNBTTC;
-import net.minecraft.item.crafting.Ingredient;
-import thaumcraft.common.entities.EntityFollowingItem;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraft.util.Tuple;
-import net.minecraft.util.NonNullList;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.IInventory;
-import java.util.Iterator;
-import java.util.List;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import thaumcraft.api.ThaumcraftInvHelper;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.crafting.IngredientNBT;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.ThaumcraftInvHelper;
+import thaumcraft.api.crafting.IngredientNBTTC;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.entities.EntityFollowingItem;
+
 
 public class InventoryUtils
 {

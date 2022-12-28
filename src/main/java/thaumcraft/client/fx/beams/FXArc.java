@@ -1,21 +1,21 @@
 package thaumcraft.client.fx.beams;
-
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import java.util.ArrayList;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.BufferBuilder;
-import thaumcraft.client.fx.ParticleEngine;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.client.fx.particles.FXGeneric;
 import thaumcraft.common.lib.utils.Utils;
-import net.minecraft.world.World;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
-import java.util.ArrayList;
-import net.minecraft.client.particle.Particle;
+
 
 public class FXArc extends Particle
 {

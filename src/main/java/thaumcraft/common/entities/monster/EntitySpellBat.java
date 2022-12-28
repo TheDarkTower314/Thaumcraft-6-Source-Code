@@ -1,40 +1,40 @@
 package thaumcraft.common.entities.monster;
-
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
+import io.netty.buffer.ByteBuf;
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
-import thaumcraft.common.lib.utils.EntityUtils;
-import thaumcraft.api.casters.Trajectory;
-import net.minecraft.util.math.RayTraceResult;
+import java.util.UUID;
+import javax.annotation.Nullable;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.MathHelper;
-import java.awt.Color;
-import thaumcraft.api.casters.FocusEngine;
-import net.minecraft.scoreboard.Team;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.scoreboard.Team;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.WorldServer;
-import javax.annotation.Nullable;
-import thaumcraft.common.lib.utils.Utils;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.world.World;
 import thaumcraft.api.casters.FocusEffect;
-import net.minecraft.network.datasync.DataParameter;
-import java.util.UUID;
+import thaumcraft.api.casters.FocusEngine;
 import thaumcraft.api.casters.FocusPackage;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraft.entity.monster.EntityMob;
+import thaumcraft.api.casters.Trajectory;
+import thaumcraft.common.lib.utils.EntityUtils;
+import thaumcraft.common.lib.utils.Utils;
+
 
 public class EntitySpellBat extends EntityMob implements IEntityAdditionalSpawnData
 {

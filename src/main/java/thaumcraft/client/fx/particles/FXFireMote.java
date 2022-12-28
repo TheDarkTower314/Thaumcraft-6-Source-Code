@@ -1,11 +1,11 @@
 package thaumcraft.client.fx.particles;
-
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.world.World;
-import net.minecraft.client.particle.Particle;
+
 
 public class FXFireMote extends Particle
 {

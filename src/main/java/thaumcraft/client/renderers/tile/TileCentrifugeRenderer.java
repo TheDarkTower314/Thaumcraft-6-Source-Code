@@ -1,12 +1,12 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.client.renderer.GlStateManager;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.tiles.essentia.TileCentrifuge;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.block.ModelCentrifuge;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.renderers.models.block.ModelCentrifuge;
+import thaumcraft.common.tiles.essentia.TileCentrifuge;
+
 
 public class TileCentrifugeRenderer extends TileEntitySpecialRenderer
 {

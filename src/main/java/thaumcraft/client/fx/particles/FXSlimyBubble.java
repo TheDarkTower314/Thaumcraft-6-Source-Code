@@ -1,10 +1,10 @@
 package thaumcraft.client.fx.particles;
-
-import org.lwjgl.opengl.GL11;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.world.World;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.entity.Entity;
+import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
+
 
 public class FXSlimyBubble extends Particle
 {

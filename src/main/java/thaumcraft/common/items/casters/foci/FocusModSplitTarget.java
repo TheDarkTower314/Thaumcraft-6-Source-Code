@@ -1,8 +1,8 @@
 package thaumcraft.common.items.casters.foci;
-
 import net.minecraft.util.math.RayTraceResult;
-import thaumcraft.api.casters.FocusNode;
 import thaumcraft.api.casters.FocusModSplit;
+import thaumcraft.api.casters.FocusNode;
+
 
 public class FocusModSplitTarget extends FocusModSplit
 {

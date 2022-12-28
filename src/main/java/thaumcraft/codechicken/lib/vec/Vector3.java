@@ -1,19 +1,19 @@
 package thaumcraft.codechicken.lib.vec;
-
-import thaumcraft.codechicken.lib.math.MathHelper;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Vector4f;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.util.vector.Vector3f;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
+import thaumcraft.codechicken.lib.math.MathHelper;
 import thaumcraft.codechicken.lib.util.Copyable;
+
 
 public class Vector3 implements Copyable<Vector3>
 {

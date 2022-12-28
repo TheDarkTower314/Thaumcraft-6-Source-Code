@@ -1,13 +1,13 @@
 package thaumcraft.common.lib.enchantment;
-
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTBase;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.item.ItemStack;
 import java.util.Set;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
 
 public enum EnumInfusionEnchantment
 {

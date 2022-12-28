@@ -1,7 +1,7 @@
 package thaumcraft.api.crafting;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 
 public interface IInfusionStabiliserExt extends IInfusionStabiliser {
 	

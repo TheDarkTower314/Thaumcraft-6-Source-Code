@@ -1,5 +1,6 @@
 package thaumcraft.api.casters;
 
+
 public interface IFocusElement {
 	
 	public String getKey();

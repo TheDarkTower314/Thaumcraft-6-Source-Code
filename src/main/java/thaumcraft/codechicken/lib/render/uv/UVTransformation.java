@@ -1,7 +1,7 @@
 package thaumcraft.codechicken.lib.render.uv;
-
 import thaumcraft.codechicken.lib.render.CCRenderState;
 import thaumcraft.codechicken.lib.vec.ITransformation;
+
 
 public abstract class UVTransformation extends ITransformation<UV, UVTransformation> implements CCRenderState.IVertexOperation
 {

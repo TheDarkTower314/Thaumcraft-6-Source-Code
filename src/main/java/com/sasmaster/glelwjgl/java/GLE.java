@@ -1,5 +1,6 @@
 package com.sasmaster.glelwjgl.java;
 
+
 public interface GLE
 {
     public static String VERSION = new String("$Id: GLE.java,v 1.3 1998/05/02 12:06:39 descarte Exp descarte $");

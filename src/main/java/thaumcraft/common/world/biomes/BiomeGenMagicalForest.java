@@ -1,36 +1,36 @@
 package thaumcraft.common.world.biomes;
-
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.block.BlockFlower;
-import thaumcraft.common.lib.utils.Utils;
-import net.minecraft.block.Block;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.gen.feature.WorldGenBigMushroom;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.feature.WorldGenTallGrass;
-import net.minecraft.block.BlockTallGrass;
-import net.minecraft.world.gen.feature.WorldGenerator;
-import thaumcraft.common.world.objects.WorldGenGreatwoodTrees;
-import thaumcraft.common.world.objects.WorldGenSilverwoodTrees;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import java.util.Random;
-import thaumcraft.common.entities.monster.EntityWisp;
-import thaumcraft.common.entities.monster.EntityPech;
-import thaumcraft.common.config.ModConfig;
-import net.minecraft.entity.monster.EntityVex;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockTallGrass;
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityVex;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
-import thaumcraft.common.world.objects.WorldGenBigMagicTree;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+import net.minecraft.world.gen.feature.WorldGenBigMushroom;
+import net.minecraft.world.gen.feature.WorldGenBlockBlob;
+import net.minecraft.world.gen.feature.WorldGenTallGrass;
+import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.common.config.ModConfig;
+import thaumcraft.common.entities.monster.EntityPech;
+import thaumcraft.common.entities.monster.EntityWisp;
+import thaumcraft.common.lib.utils.Utils;
+import thaumcraft.common.world.objects.WorldGenBigMagicTree;
+import thaumcraft.common.world.objects.WorldGenGreatwoodTrees;
+import thaumcraft.common.world.objects.WorldGenSilverwoodTrees;
+
 
 public class BiomeGenMagicalForest extends Biome
 {

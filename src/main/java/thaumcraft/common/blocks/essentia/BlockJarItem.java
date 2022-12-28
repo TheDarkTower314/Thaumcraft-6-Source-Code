@@ -1,34 +1,34 @@
 package thaumcraft.common.blocks.essentia;
-
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.client.util.ITooltipFlag;
 import java.util.List;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.common.tiles.essentia.TileJarFillable;
+import javax.annotation.Nullable;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import thaumcraft.api.aspects.Aspect;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import thaumcraft.common.tiles.essentia.TileAlembic;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.api.aspects.AspectList;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.entity.EntityLivingBase;
-import javax.annotation.Nullable;
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.block.Block;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IEssentiaContainerItem;
-import net.minecraft.item.ItemBlock;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.common.tiles.essentia.TileAlembic;
+import thaumcraft.common.tiles.essentia.TileJarFillable;
+
 
 public class BlockJarItem extends ItemBlock implements IEssentiaContainerItem
 {

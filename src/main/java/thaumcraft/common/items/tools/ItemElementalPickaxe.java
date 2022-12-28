@@ -1,22 +1,22 @@
 package thaumcraft.common.items.tools;
-
-import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;
-import net.minecraft.util.NonNullList;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.item.EnumRarity;
 import com.google.common.collect.ImmutableSet;
 import java.util.Set;
-import net.minecraft.item.ItemStack;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import thaumcraft.common.config.ConfigItems;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
-import thaumcraft.common.items.IThaumcraftItems;
 import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.IThaumcraftItems;
+import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;
+
 
 public class ItemElementalPickaxe extends ItemPickaxe implements IThaumcraftItems
 {

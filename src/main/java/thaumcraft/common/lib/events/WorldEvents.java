@@ -1,16 +1,16 @@
 package thaumcraft.common.lib.events;
-
 import java.util.ArrayList;
-import thaumcraft.common.tiles.devices.TileArcaneEar;
-import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
-import thaumcraft.common.golems.seals.SealHandler;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import thaumcraft.common.world.aura.AuraHandler;
+import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import thaumcraft.common.golems.seals.SealHandler;
+import thaumcraft.common.tiles.devices.TileArcaneEar;
+import thaumcraft.common.world.aura.AuraHandler;
+
 
 @Mod.EventBusSubscriber
 public class WorldEvents

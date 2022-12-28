@@ -1,8 +1,8 @@
 package thaumcraft.client.fx.particles;
-
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.World;
 import net.minecraft.client.particle.ParticleDigging;
+import net.minecraft.world.World;
+
 
 public class FXDigging extends ParticleDigging
 {

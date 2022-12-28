@@ -1,15 +1,15 @@
 package thaumcraft.common.tiles.devices;
-
+import java.util.Arrays;
 import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.common.world.aura.AuraChunk;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import thaumcraft.common.world.aura.AuraHandler;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.AxisAlignedBB;
-import java.util.Arrays;
-import net.minecraft.util.ITickable;
+import thaumcraft.common.lib.utils.BlockStateUtils;
 import thaumcraft.common.tiles.TileThaumcraft;
+import thaumcraft.common.world.aura.AuraChunk;
+import thaumcraft.common.world.aura.AuraHandler;
+
 
 public class TileDioptra extends TileThaumcraft implements ITickable
 {

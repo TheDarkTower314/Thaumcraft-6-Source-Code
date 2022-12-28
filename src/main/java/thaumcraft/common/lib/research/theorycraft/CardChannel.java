@@ -1,15 +1,15 @@
 package thaumcraft.common.lib.research.theorycraft;
-
-import thaumcraft.common.items.consumables.ItemPhial;
+import java.util.Random;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import java.util.Random;
-import thaumcraft.api.research.theorycraft.ResearchTableData;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
+import thaumcraft.common.items.consumables.ItemPhial;
+
 
 public class CardChannel extends TheorycraftCard
 {

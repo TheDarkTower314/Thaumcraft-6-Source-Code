@@ -1,20 +1,20 @@
 package thaumcraft.client.renderers.entity.projectile;
-
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.Entity;
 import java.util.Iterator;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.Minecraft;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.client.fx.ParticleEngine;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
-import thaumcraft.common.entities.projectile.EntityHomingShard;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.util.ResourceLocation;
 import java.util.Random;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.entities.projectile.EntityHomingShard;
+
 
 public class RenderHomingShard extends Render
 {

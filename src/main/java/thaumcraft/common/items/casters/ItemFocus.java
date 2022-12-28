@@ -1,28 +1,28 @@
 package thaumcraft.common.items.casters;
-
-import net.minecraft.item.EnumRarity;
-import thaumcraft.api.casters.NodeSetting;
-import thaumcraft.api.casters.FocusModSplit;
-import net.minecraft.util.text.TextFormatting;
+import java.awt.Color;
 import java.util.Iterator;
-import thaumcraft.api.casters.FocusMediumRoot;
-import thaumcraft.api.casters.FocusNode;
-import thaumcraft.api.casters.IFocusElement;
+import java.util.List;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.util.ITooltipFlag;
-import java.util.List;
-import net.minecraft.world.World;
-import net.minecraft.nbt.NBTTagCompound;
 import thaumcraft.api.casters.FocusEffect;
-import thaumcraft.api.casters.FocusPackage;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagInt;
-import java.awt.Color;
 import thaumcraft.api.casters.FocusEngine;
-import net.minecraft.item.ItemStack;
+import thaumcraft.api.casters.FocusMediumRoot;
+import thaumcraft.api.casters.FocusModSplit;
+import thaumcraft.api.casters.FocusNode;
+import thaumcraft.api.casters.FocusPackage;
+import thaumcraft.api.casters.IFocusElement;
+import thaumcraft.api.casters.NodeSetting;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemFocus extends ItemTCBase
 {

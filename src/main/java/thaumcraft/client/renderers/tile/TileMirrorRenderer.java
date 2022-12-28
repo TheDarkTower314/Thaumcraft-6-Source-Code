@@ -1,26 +1,26 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.common.tiles.devices.TileMirrorEssentia;
-import thaumcraft.common.tiles.devices.TileMirror;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import java.util.Random;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.util.ResourceLocation;
 import java.nio.FloatBuffer;
+import java.util.Random;
+import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.GLAllocation;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.tiles.devices.TileMirror;
+import thaumcraft.common.tiles.devices.TileMirrorEssentia;
+
 
 @SideOnly(Side.CLIENT)
 public class TileMirrorRenderer extends TileEntitySpecialRenderer

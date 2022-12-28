@@ -1,13 +1,13 @@
 package thaumcraft.api.golems.parts;
-
-import net.minecraft.entity.ai.EntityAIAttackRanged;
-import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.Entity;
-import thaumcraft.api.golems.IGolemAPI;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import thaumcraft.api.golems.EnumGolemTrait;
-import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.golems.IGolemAPI;
+
 
 public class GolemArm
 {

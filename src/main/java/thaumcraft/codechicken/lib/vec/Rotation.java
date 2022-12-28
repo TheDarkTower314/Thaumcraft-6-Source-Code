@@ -1,14 +1,14 @@
 package thaumcraft.codechicken.lib.vec;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import thaumcraft.codechicken.lib.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.codechicken.lib.math.MathHelper;
+
 
 public class Rotation extends Transformation
 {

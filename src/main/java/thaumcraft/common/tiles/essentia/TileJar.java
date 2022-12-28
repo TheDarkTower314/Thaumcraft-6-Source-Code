@@ -1,11 +1,11 @@
 package thaumcraft.common.tiles.essentia;
-
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.AxisAlignedBB;
 import java.util.Random;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileJar extends TileThaumcraft implements ITickable
 {

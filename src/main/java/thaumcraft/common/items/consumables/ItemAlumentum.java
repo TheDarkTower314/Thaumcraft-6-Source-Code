@@ -1,16 +1,16 @@
 package thaumcraft.common.items.consumables;
-
-import net.minecraft.util.EnumActionResult;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import thaumcraft.common.entities.projectile.EntityAlumentum;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import thaumcraft.common.entities.projectile.EntityAlumentum;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemAlumentum extends ItemTCBase
 {

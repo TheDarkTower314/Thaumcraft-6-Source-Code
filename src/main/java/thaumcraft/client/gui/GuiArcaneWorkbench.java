@@ -1,25 +1,25 @@
 package thaumcraft.client.gui;
-
+import java.awt.Color;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.util.text.translation.I18n;
-import java.awt.Color;
 import thaumcraft.common.blocks.world.ore.ShardType;
-import net.minecraft.client.renderer.GlStateManager;
-import thaumcraft.common.items.casters.CasterManager;
-import net.minecraft.inventory.InventoryCrafting;
-import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
 import thaumcraft.common.container.ContainerArcaneWorkbench;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.player.InventoryPlayer;
+import thaumcraft.common.items.casters.CasterManager;
+import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.crafting.TileArcaneWorkbench;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiArcaneWorkbench extends GuiContainer

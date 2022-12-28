@@ -1,7 +1,7 @@
 package thaumcraft.api.casters;
-
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
+
 
 public class NodeSetting {
 	

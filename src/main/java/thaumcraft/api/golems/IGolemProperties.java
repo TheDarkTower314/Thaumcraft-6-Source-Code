@@ -1,13 +1,13 @@
 package thaumcraft.api.golems;
-
 import java.util.Set;
-
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.golems.parts.GolemAddon;
 import thaumcraft.api.golems.parts.GolemArm;
 import thaumcraft.api.golems.parts.GolemHead;
 import thaumcraft.api.golems.parts.GolemLeg;
 import thaumcraft.api.golems.parts.GolemMaterial;
+
+
 
 public interface IGolemProperties {
 

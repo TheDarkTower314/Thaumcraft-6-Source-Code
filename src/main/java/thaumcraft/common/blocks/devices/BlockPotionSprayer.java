@@ -1,18 +1,18 @@
 package thaumcraft.common.blocks.devices;
-
-import thaumcraft.Thaumcraft;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.devices.TilePotionSprayer;
-import net.minecraft.block.material.Material;
+import thaumcraft.Thaumcraft;
+import thaumcraft.common.blocks.BlockTCDevice;
 import thaumcraft.common.blocks.IBlockEnabled;
 import thaumcraft.common.blocks.IBlockFacing;
-import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.tiles.devices.TilePotionSprayer;
+
 
 public class BlockPotionSprayer extends BlockTCDevice implements IBlockFacing, IBlockEnabled
 {

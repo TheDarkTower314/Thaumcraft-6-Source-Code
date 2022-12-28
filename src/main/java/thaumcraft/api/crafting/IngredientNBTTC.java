@@ -1,10 +1,10 @@
 package thaumcraft.api.crafting;
-
 import javax.annotation.Nullable;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import thaumcraft.api.ThaumcraftInvHelper;
+
+
 
 public class IngredientNBTTC extends Ingredient
 {

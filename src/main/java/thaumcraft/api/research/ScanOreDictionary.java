@@ -1,7 +1,5 @@
 package thaumcraft.api.research;
-
 import java.util.concurrent.ConcurrentHashMap;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.internal.CommonInternals;
+
+
 
 public class ScanOreDictionary implements IScanThing {
 	

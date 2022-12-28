@@ -1,5 +1,4 @@
 package thaumcraft.api.internal;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -12,6 +11,7 @@ import thaumcraft.api.golems.seals.ISealEntity;
 import thaumcraft.api.golems.seals.SealPos;
 import thaumcraft.api.golems.tasks.Task;
 import thaumcraft.api.research.ResearchCategory;
+
 
 public class DummyInternalMethodHandler implements IInternalMethodHandler {
 	

@@ -1,9 +1,9 @@
 package thaumcraft.common.container;
-
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.tileentity.TileEntity;
 import thaumcraft.api.crafting.IArcaneWorkbench;
-import net.minecraft.inventory.InventoryCrafting;
+
 
 public class InventoryArcaneWorkbench extends InventoryCrafting implements IArcaneWorkbench
 {

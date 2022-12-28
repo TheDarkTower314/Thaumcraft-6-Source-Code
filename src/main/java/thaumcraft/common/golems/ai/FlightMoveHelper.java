@@ -1,10 +1,10 @@
 package thaumcraft.common.golems.ai;
-
-import net.minecraft.entity.ai.EntityLookHelper;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.util.math.MathHelper;
+
 
 public class FlightMoveHelper extends EntityMoveHelper
 {

@@ -1,17 +1,17 @@
 package thaumcraft.common.lib.network.misc;
-
-import net.minecraft.util.IThreadListener;
-import net.minecraft.world.World;
-import net.minecraft.entity.Entity;
-import thaumcraft.api.golems.GolemHelper;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import thaumcraft.common.lib.utils.Utils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IThreadListener;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import thaumcraft.api.golems.GolemHelper;
+import thaumcraft.common.lib.utils.Utils;
+
 
 public class PacketLogisticsRequestToServer implements IMessage, IMessageHandler<PacketLogisticsRequestToServer, IMessage>
 {

@@ -1,19 +1,19 @@
 package thaumcraft.common.lib.network.misc;
-
-import net.minecraft.world.World;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import thaumcraft.common.lib.network.PacketHandler;
-import net.minecraftforge.common.DimensionManager;
-import thaumcraft.common.tiles.devices.TileArcaneEar;
 import net.minecraft.tileentity.TileEntityNote;
 import net.minecraft.util.math.BlockPos;
-import thaumcraft.Thaumcraft;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import thaumcraft.Thaumcraft;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.tiles.devices.TileArcaneEar;
+
 
 public class PacketNote implements IMessage, IMessageHandler<PacketNote, IMessage>
 {

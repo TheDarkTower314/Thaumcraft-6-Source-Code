@@ -1,6 +1,6 @@
 package thaumcraft.codechicken.lib.render;
-
 import java.util.ArrayList;
+
 
 public class CCRenderPipeline
 {

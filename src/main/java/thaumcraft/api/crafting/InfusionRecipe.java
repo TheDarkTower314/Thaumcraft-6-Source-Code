@@ -1,7 +1,5 @@
 package thaumcraft.api.crafting;
-
 import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -12,6 +10,8 @@ import net.minecraftforge.common.util.RecipeMatcher;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+
+
 
 public class InfusionRecipe implements IThaumcraftRecipe
 {

@@ -1,8 +1,8 @@
 package thaumcraft.common.items.tools;
-
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemSanityChecker extends ItemTCBase
 {

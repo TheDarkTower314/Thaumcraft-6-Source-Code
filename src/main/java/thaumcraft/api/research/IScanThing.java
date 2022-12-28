@@ -1,6 +1,6 @@
 package thaumcraft.api.research;
-
 import net.minecraft.entity.player.EntityPlayer;
+
 
 public interface IScanThing {
 	

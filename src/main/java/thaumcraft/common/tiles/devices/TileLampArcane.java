@@ -1,11 +1,11 @@
 package thaumcraft.common.tiles.devices;
-
-import thaumcraft.common.lib.utils.BlockUtils;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.ITickable;
+import thaumcraft.common.lib.utils.BlockUtils;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileLampArcane extends TileThaumcraft implements ITickable
 {

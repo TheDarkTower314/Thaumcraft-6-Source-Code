@@ -1,16 +1,16 @@
 package thaumcraft.client.lib.events;
-
+import com.google.gson.JsonSyntaxException;
+import java.io.IOException;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.shader.ShaderGroup;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import thaumcraft.common.lib.potions.PotionBlurredVision;
+import thaumcraft.common.lib.potions.PotionDeathGaze;
 import thaumcraft.common.lib.potions.PotionSunScorned;
 import thaumcraft.common.lib.potions.PotionUnnaturalHunger;
-import thaumcraft.common.lib.potions.PotionBlurredVision;
-import java.io.IOException;
-import com.google.gson.JsonSyntaxException;
-import net.minecraft.client.shader.ShaderGroup;
-import thaumcraft.common.lib.potions.PotionDeathGaze;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraft.util.ResourceLocation;
+
 
 public class ShaderHandler
 {

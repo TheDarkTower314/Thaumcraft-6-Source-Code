@@ -1,11 +1,11 @@
 package thaumcraft.client.gui.plugins;
-
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.casters.NodeSetting;
-import net.minecraft.client.gui.GuiButton;
+
 
 public class GuiFocusSettingSpinnerButton extends GuiButton
 {

@@ -1,18 +1,18 @@
 package thaumcraft.common.golems.ai;
-
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.entity.Entity;
-import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.world.World;
 import net.minecraft.entity.EntityLivingBase;
-import thaumcraft.common.entities.construct.EntityOwnedConstruct;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.init.Blocks;
+import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
+import thaumcraft.common.entities.construct.EntityOwnedConstruct;
+
 
 public class AIFollowOwner extends EntityAIBase
 {

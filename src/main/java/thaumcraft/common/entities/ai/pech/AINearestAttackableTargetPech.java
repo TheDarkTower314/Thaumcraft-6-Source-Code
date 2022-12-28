@@ -1,8 +1,8 @@
 package thaumcraft.common.entities.ai.pech;
-
-import thaumcraft.common.entities.monster.EntityPech;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import thaumcraft.common.entities.monster.EntityPech;
+
 
 public class AINearestAttackableTargetPech extends EntityAINearestAttackableTarget
 {

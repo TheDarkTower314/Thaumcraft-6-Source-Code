@@ -1,27 +1,27 @@
 package thaumcraft.common.entities.projectile;
-
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.datasync.DataSerializers;
+import io.netty.buffer.ByteBuf;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import thaumcraft.common.lib.utils.EntityUtils;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.client.fx.FXDispatcher;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.RayTraceResult;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 import thaumcraft.client.lib.UtilsFX;
-import java.util.ArrayList;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraft.entity.projectile.EntityThrowable;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.utils.EntityUtils;
+
 
 public class EntityHomingShard extends EntityThrowable implements IEntityAdditionalSpawnData
 {

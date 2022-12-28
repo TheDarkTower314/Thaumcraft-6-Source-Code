@@ -1,8 +1,8 @@
 package thaumcraft.api.damagesource;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+
 
 public class DamageSourceIndirectThaumcraftEntity extends EntityDamageSourceIndirect {
 

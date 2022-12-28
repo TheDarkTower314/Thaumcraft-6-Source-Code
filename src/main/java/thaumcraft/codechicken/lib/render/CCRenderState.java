@@ -1,17 +1,17 @@
 package thaumcraft.codechicken.lib.render;
-
-import thaumcraft.codechicken.lib.vec.Transformation;
-import thaumcraft.codechicken.lib.colour.ColourRGBA;
-import thaumcraft.codechicken.lib.vec.Rotation;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.renderer.OpenGlHelper;
-import thaumcraft.codechicken.lib.util.Copyable;
-import thaumcraft.codechicken.lib.lighting.LightMatrix;
-import thaumcraft.codechicken.lib.lighting.LC;
-import thaumcraft.codechicken.lib.vec.Vector3;
 import java.util.ArrayList;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.ResourceLocation;
+import thaumcraft.codechicken.lib.colour.ColourRGBA;
+import thaumcraft.codechicken.lib.lighting.LC;
+import thaumcraft.codechicken.lib.lighting.LightMatrix;
+import thaumcraft.codechicken.lib.util.Copyable;
+import thaumcraft.codechicken.lib.vec.Rotation;
+import thaumcraft.codechicken.lib.vec.Transformation;
+import thaumcraft.codechicken.lib.vec.Vector3;
+
 
 public class CCRenderState
 {

@@ -1,21 +1,21 @@
 package thaumcraft.common.blocks.basic;
-
-import net.minecraft.util.EnumParticleTypes;
 import java.util.Random;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.block.Block;
-import net.minecraft.world.World;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.world.World;
 import thaumcraft.api.crafting.IInfusionStabiliserExt;
 import thaumcraft.common.blocks.BlockTC;
+
 
 public class BlockCandle extends BlockTC implements IInfusionStabiliserExt
 {

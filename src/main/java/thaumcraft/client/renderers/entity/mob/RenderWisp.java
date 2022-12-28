@@ -1,16 +1,16 @@
 package thaumcraft.client.renderers.entity.mob;
-
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.client.fx.ParticleEngine;
 import org.lwjgl.opengl.GL11;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.entities.monster.EntityWisp;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.Render;
+
 
 public class RenderWisp extends Render
 {

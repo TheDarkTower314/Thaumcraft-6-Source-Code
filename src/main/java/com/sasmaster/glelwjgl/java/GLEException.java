@@ -1,5 +1,6 @@
 package com.sasmaster.glelwjgl.java;
 
+
 public class GLEException extends RuntimeException
 {
     private static String VERSION;

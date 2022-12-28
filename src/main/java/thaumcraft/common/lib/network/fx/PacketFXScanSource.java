@@ -1,27 +1,27 @@
 package thaumcraft.common.lib.network.fx;
-
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraft.item.ItemStack;
-import thaumcraft.common.lib.utils.BlockUtils;
-import net.minecraft.init.Blocks;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.Vec3i;
-import java.util.Iterator;
-import net.minecraft.client.particle.Particle;
-import thaumcraft.client.fx.ParticleEngine;
+import io.netty.buffer.ByteBuf;
 import java.awt.Color;
-import thaumcraft.client.fx.particles.FXGeneric;
-import thaumcraft.common.lib.utils.Utils;
 import java.util.ArrayList;
+import java.util.Iterator;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.fx.particles.FXGeneric;
+import thaumcraft.common.lib.utils.BlockUtils;
+import thaumcraft.common.lib.utils.Utils;
+
 
 public class PacketFXScanSource implements IMessage, IMessageHandler<PacketFXScanSource, IMessage>
 {

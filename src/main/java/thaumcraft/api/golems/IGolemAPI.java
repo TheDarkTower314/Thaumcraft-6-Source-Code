@@ -1,9 +1,9 @@
 package thaumcraft.api.golems;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+
 
 /**
  * Contains functions to allow addon devs to access golem internals

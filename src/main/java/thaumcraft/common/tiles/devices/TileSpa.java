@@ -1,28 +1,28 @@
 package thaumcraft.common.tiles.devices;
-
-import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraft.block.state.IBlockState;
-import thaumcraft.common.lib.utils.BlockUtils;
-import net.minecraft.init.Blocks;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fluids.BlockFluidBase;
-import net.minecraft.util.math.BlockPos;
+import javax.annotation.Nullable;
 import net.minecraft.block.Block;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.ITextComponent;
-import thaumcraft.common.items.consumables.ItemBathSalts;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.BlockFluidBase;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.common.items.consumables.ItemBathSalts;
+import thaumcraft.common.lib.utils.BlockUtils;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
+
 
 public class TileSpa extends TileThaumcraftInventory implements IFluidHandler
 {

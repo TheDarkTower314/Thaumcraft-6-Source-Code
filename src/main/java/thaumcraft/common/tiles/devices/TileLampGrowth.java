@@ -1,34 +1,34 @@
 package thaumcraft.common.tiles.devices;
-
-import net.minecraft.util.EnumFacing;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.lib.utils.CropUtils;
-import java.util.List;
-import java.util.Collections;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import thaumcraft.common.lib.network.fx.PacketFXBlockMist;
-import thaumcraft.common.lib.network.PacketHandler;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.IGrowable;
-import net.minecraft.block.properties.IProperty;
-import thaumcraft.common.blocks.IBlockEnabled;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import net.minecraft.block.Block;
+import net.minecraft.block.IGrowable;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.EnumSkyBlock;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.common.blocks.IBlockEnabled;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.fx.PacketFXBlockMist;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.lib.utils.CropUtils;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileLampGrowth extends TileThaumcraft implements IEssentiaTransport, ITickable
 {

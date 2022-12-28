@@ -1,31 +1,31 @@
 package thaumcraft.common.lib.capabilities;
-
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import java.util.Iterator;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.lib.network.playerdata.PacketSyncKnowledge;
-import thaumcraft.common.lib.network.PacketHandler;
-import net.minecraft.entity.player.EntityPlayerMP;
-import thaumcraft.api.research.ResearchCategory;
 import java.util.Collections;
-import java.util.Set;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.api.research.ResearchEntry;
-import thaumcraft.api.research.ResearchCategories;
-import javax.annotation.Nonnull;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import javax.annotation.Nonnull;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
-import thaumcraft.api.capabilities.IPlayerKnowledge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.api.capabilities.IPlayerKnowledge;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategory;
+import thaumcraft.api.research.ResearchEntry;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.playerdata.PacketSyncKnowledge;
+
 
 public class PlayerKnowledge
 {

@@ -1,24 +1,24 @@
 package thaumcraft.common.blocks.crafting;
-
-import thaumcraft.Thaumcraft;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.Entity;
 import java.util.List;
-import net.minecraft.world.World;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.crafting.TileVoidSiphon;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Mod;
-import thaumcraft.common.blocks.IBlockEnabled;
+import net.minecraftforge.fml.relauncher.Side;
+import thaumcraft.Thaumcraft;
 import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.blocks.IBlockEnabled;
+import thaumcraft.common.tiles.crafting.TileVoidSiphon;
+
 
 @Mod.EventBusSubscriber({ Side.CLIENT })
 public class BlockVoidSiphon extends BlockTCDevice implements IBlockEnabled

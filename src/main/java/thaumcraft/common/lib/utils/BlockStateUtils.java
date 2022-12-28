@@ -1,15 +1,15 @@
 package thaumcraft.common.lib.utils;
-
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import com.google.common.collect.UnmodifiableIterator;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.Collection;
-import com.google.common.collect.Sets;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.UnmodifiableIterator;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
+
 
 public class BlockStateUtils
 {

@@ -1,5 +1,6 @@
 package thaumcraft.common.golems.ai;
 
+
 public interface ITargets
 {
     boolean getTargetAnimal();

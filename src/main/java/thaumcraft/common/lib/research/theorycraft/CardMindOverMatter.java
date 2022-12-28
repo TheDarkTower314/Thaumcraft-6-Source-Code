@@ -1,19 +1,19 @@
 package thaumcraft.common.lib.research.theorycraft;
-
-import net.minecraft.item.Item;
-import net.minecraft.init.Items;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import thaumcraft.api.items.ItemsTC;
-import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
-import net.minecraft.util.text.TextComponentTranslation;
 import java.util.Random;
-import thaumcraft.api.research.theorycraft.ResearchTableData;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentTranslation;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
+import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
+
 
 public class CardMindOverMatter extends TheorycraftCard
 {

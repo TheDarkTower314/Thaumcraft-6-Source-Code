@@ -1,19 +1,19 @@
 package thaumcraft.common.lib.network.fx;
-
+import io.netty.buffer.ByteBuf;
+import java.awt.Color;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.entity.Entity;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.Minecraft;
-import thaumcraft.client.fx.FXDispatcher;
-import java.awt.Color;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.client.fx.FXDispatcher;
 import thaumcraft.common.entities.monster.EntityWisp;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+
 
 public class PacketFXWispZap implements IMessage, IMessageHandler<PacketFXWispZap, IMessage>
 {

@@ -1,5 +1,6 @@
 package thaumcraft.client.lib.obj;
 
+
 public class Vertex
 {
     public float x;

@@ -1,18 +1,17 @@
 package thaumcraft.common.world.aura;
-
-import java.util.concurrent.CopyOnWriteArrayList;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
-import java.util.List;
-import java.util.Collections;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import thaumcraft.common.lib.events.ServerEvents;
 import net.minecraftforge.common.DimensionManager;
 import thaumcraft.Thaumcraft;
-import java.util.Random;
+import thaumcraft.common.lib.events.ServerEvents;
+
 
 public class AuraThread implements Runnable
 {

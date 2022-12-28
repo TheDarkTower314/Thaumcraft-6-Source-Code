@@ -1,7 +1,5 @@
 package thaumcraft.api.research;
-
 import java.util.ArrayList;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -15,9 +13,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.items.IItemHandler;
-import thaumcraft.api.ThaumcraftInvHelper;
 import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.ThaumcraftInvHelper;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+
+
 
 public class ScanningManager {
 	

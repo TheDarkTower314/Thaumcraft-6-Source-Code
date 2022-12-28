@@ -1,26 +1,26 @@
 package thaumcraft.common.blocks.crafting;
-
-import thaumcraft.Thaumcraft;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.BlockPistonBase;
-import thaumcraft.api.blocks.BlocksTC;
+import java.util.Random;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPistonBase;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import java.util.Random;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.crafting.TileGolemBuilder;
-import net.minecraft.block.material.Material;
-import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import thaumcraft.common.tiles.crafting.TileGolemBuilder;
+
 
 public class BlockGolemBuilder extends BlockTCDevice implements IBlockFacingHorizontal
 {

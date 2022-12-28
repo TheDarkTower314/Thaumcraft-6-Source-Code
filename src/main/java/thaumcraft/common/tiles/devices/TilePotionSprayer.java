@@ -1,33 +1,33 @@
 package thaumcraft.common.tiles.devices;
-
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.potion.PotionType;
-import thaumcraft.api.aspects.AspectHelper;
-import thaumcraft.common.config.ConfigAspects;
-import thaumcraft.common.container.slot.SlotPotion;
+import java.util.Iterator;
+import java.util.List;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
-import java.util.Iterator;
-import net.minecraft.util.math.BlockPos;
-import java.util.List;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.entity.Entity;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
-import thaumcraft.common.lib.utils.BlockStateUtils;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectHelper;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.config.ConfigAspects;
+import thaumcraft.common.container.slot.SlotPotion;
+import thaumcraft.common.lib.utils.BlockStateUtils;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
+
 
 public class TilePotionSprayer extends TileThaumcraftInventory implements IAspectContainer, IEssentiaTransport
 {

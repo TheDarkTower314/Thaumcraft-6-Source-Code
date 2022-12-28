@@ -1,5 +1,6 @@
 package thaumcraft.api.golems.seals;
 
+
 public interface ISealGui {
 	int CAT_PRIORITY = 0;
 	int CAT_FILTER = 1;

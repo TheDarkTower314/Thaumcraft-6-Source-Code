@@ -1,23 +1,23 @@
 package thaumcraft.common.blocks.crafting;
-
-import thaumcraft.Thaumcraft;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.common.tiles.crafting.TileFocalManipulator;
-import thaumcraft.common.tiles.crafting.TileArcaneWorkbench;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.common.blocks.BlockTC;
+import thaumcraft.common.tiles.crafting.TileArcaneWorkbench;
+import thaumcraft.common.tiles.crafting.TileFocalManipulator;
+
 
 public class BlockArcaneWorkbenchCharger extends BlockTC
 {

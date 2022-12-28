@@ -1,24 +1,24 @@
 package thaumcraft.common.golems.seals;
-
+import java.util.Iterator;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import thaumcraft.common.golems.client.gui.SealBaseGUI;
-import thaumcraft.common.golems.client.gui.SealBaseContainer;
-import thaumcraft.api.golems.seals.ISealEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagList;
-import java.util.Iterator;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import thaumcraft.api.golems.seals.ISealConfigFilter;
-import thaumcraft.api.golems.seals.ISealGui;
 import thaumcraft.api.golems.seals.ISeal;
+import thaumcraft.api.golems.seals.ISealConfigFilter;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.seals.ISealGui;
+import thaumcraft.common.golems.client.gui.SealBaseContainer;
+import thaumcraft.common.golems.client.gui.SealBaseGUI;
+
 
 public abstract class SealFiltered implements ISeal, ISealGui, ISealConfigFilter
 {

@@ -1,22 +1,22 @@
 package thaumcraft.common.tiles.devices;
-
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.WeakHashMap;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.block.material.Material;
-import java.util.Iterator;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.common.blocks.devices.BlockArcaneEarToggle;
-import net.minecraft.block.properties.IProperty;
 import thaumcraft.common.blocks.IBlockEnabled;
+import thaumcraft.common.blocks.devices.BlockArcaneEarToggle;
 import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.nbt.NBTTagCompound;
-import java.util.ArrayList;
-import java.util.WeakHashMap;
-import net.minecraft.util.ITickable;
-import net.minecraft.tileentity.TileEntity;
+
 
 public class TileArcaneEar extends TileEntity implements ITickable
 {

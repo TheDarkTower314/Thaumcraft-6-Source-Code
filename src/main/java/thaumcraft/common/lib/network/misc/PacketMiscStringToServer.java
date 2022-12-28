@@ -1,13 +1,13 @@
 package thaumcraft.common.lib.network.misc;
-
-import net.minecraft.util.IThreadListener;
-import net.minecraft.entity.player.EntityPlayerMP;
-import thaumcraft.common.container.ContainerLogistics;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.IThreadListener;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import thaumcraft.common.container.ContainerLogistics;
+
 
 public class PacketMiscStringToServer implements IMessage, IMessageHandler<PacketMiscStringToServer, IMessage>
 {

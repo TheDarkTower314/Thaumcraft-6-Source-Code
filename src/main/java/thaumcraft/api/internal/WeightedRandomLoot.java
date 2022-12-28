@@ -1,9 +1,9 @@
 package thaumcraft.api.internal;
-
 import java.util.ArrayList;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
+
+
 
 
 public class WeightedRandomLoot extends WeightedRandom.Item {

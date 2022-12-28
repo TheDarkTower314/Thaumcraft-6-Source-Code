@@ -1,8 +1,8 @@
 package thaumcraft.api.research;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
+
 
 public class ScanMaterial implements IScanThing {
 	

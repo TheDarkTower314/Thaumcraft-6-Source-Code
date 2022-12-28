@@ -1,18 +1,18 @@
 package thaumcraft.client.renderers.tile;
-
 import java.awt.Color;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.client.renderer.GlStateManager;
-import thaumcraft.client.lib.TexturedQuadTC;
 import net.minecraft.client.model.PositionTextureVertex;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import thaumcraft.common.tiles.devices.TileDioptra;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.util.math.MathHelper;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.TexturedQuadTC;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.tiles.devices.TileDioptra;
+
 
 public class TileDioptraRenderer extends TileEntitySpecialRenderer
 {

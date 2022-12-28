@@ -1,6 +1,6 @@
 package thaumcraft.common.lib.crafting;
-
 import thaumcraft.api.crafting.Part;
+
 
 public class Matrix
 {

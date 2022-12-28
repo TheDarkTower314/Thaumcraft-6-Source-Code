@@ -1,17 +1,17 @@
 package thaumcraft.client.gui;
-
-import thaumcraft.common.lib.SoundsTC;
 import java.io.IOException;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
-import thaumcraft.common.container.ContainerPech;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.common.entities.monster.EntityPech;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.common.container.ContainerPech;
+import thaumcraft.common.entities.monster.EntityPech;
+import thaumcraft.common.lib.SoundsTC;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiPech extends GuiContainer

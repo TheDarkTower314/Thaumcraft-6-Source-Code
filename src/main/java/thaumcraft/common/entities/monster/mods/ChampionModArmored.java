@@ -1,9 +1,9 @@
 package thaumcraft.common.entities.monster.mods;
-
 import net.minecraft.client.renderer.entity.RenderLivingBase;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.util.DamageSource;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.DamageSource;
+import thaumcraft.client.fx.FXDispatcher;
+
 
 public class ChampionModArmored implements IChampionModifierEffect
 {

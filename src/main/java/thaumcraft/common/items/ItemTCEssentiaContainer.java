@@ -1,11 +1,11 @@
 package thaumcraft.common.items;
-
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import thaumcraft.common.config.ConfigItems;
 import thaumcraft.api.aspects.IEssentiaContainerItem;
 import thaumcraft.api.items.ItemGenericEssentiaContainer;
+import thaumcraft.common.config.ConfigItems;
+
 
 public class ItemTCEssentiaContainer extends ItemGenericEssentiaContainer implements IEssentiaContainerItem, IThaumcraftItems
 {

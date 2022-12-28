@@ -1,16 +1,16 @@
 package thaumcraft.common.lib.network.misc;
-
+import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import thaumcraft.common.lib.utils.Utils;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.util.math.BlockPos;
 import thaumcraft.Thaumcraft;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.common.lib.utils.Utils;
+
 
 public class PacketBiomeChange implements IMessage, IMessageHandler<PacketBiomeChange, IMessage>
 {

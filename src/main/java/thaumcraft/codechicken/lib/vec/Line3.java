@@ -1,5 +1,6 @@
 package thaumcraft.codechicken.lib.vec;
 
+
 public class Line3
 {
     public static double tol = 1.0E-4;

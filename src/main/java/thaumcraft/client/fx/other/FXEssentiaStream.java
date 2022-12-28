@@ -1,28 +1,28 @@
 package thaumcraft.client.fx.other;
-
-import java.util.Iterator;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import thaumcraft.client.fx.ParticleEngine;
-import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.block.state.IBlockState;
-import java.awt.Color;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import thaumcraft.common.blocks.essentia.BlockEssentiaTransport;
-import net.minecraft.world.World;
-import thaumcraft.codechicken.lib.vec.Quat;
-import java.util.ArrayList;
-import net.minecraft.util.ResourceLocation;
 import com.sasmaster.glelwjgl.java.CoreGLE;
+import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
-import net.minecraft.util.math.BlockPos;
+import java.util.Iterator;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.codechicken.lib.vec.Quat;
+import thaumcraft.common.blocks.essentia.BlockEssentiaTransport;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+
 
 public class FXEssentiaStream extends Particle
 {

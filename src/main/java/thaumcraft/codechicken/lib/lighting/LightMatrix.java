@@ -1,12 +1,12 @@
 package thaumcraft.codechicken.lib.lighting;
-
-import thaumcraft.codechicken.lib.colour.ColourRGBA;
-import net.minecraft.client.Minecraft;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
-import thaumcraft.codechicken.lib.vec.BlockCoord;
 import net.minecraft.world.IBlockAccess;
+import thaumcraft.codechicken.lib.colour.ColourRGBA;
 import thaumcraft.codechicken.lib.render.CCRenderState;
+import thaumcraft.codechicken.lib.vec.BlockCoord;
+
 
 public class LightMatrix implements CCRenderState.IVertexOperation
 {

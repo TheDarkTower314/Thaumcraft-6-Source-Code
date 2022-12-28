@@ -1,31 +1,31 @@
 package thaumcraft.common.blocks.essentia;
-
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.EnumParticleTypes;
 import java.util.Random;
-import thaumcraft.api.aura.AuraHelper;
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.Thaumcraft;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.essentia.TileSmelter;
-import net.minecraft.block.material.Material;
-import thaumcraft.common.blocks.IBlockFacingHorizontal;
-import thaumcraft.common.blocks.IBlockEnabled;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.aura.AuraHelper;
 import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.blocks.IBlockEnabled;
+import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.tiles.essentia.TileSmelter;
+
 
 public class BlockSmelter extends BlockTCDevice implements IBlockEnabled, IBlockFacingHorizontal
 {

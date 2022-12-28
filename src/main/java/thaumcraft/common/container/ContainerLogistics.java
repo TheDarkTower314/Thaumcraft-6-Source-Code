@@ -1,29 +1,29 @@
 package thaumcraft.common.container;
-
+import java.util.Iterator;
+import java.util.TreeMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.IInventoryChangedListener;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import thaumcraft.common.lib.network.misc.PacketItemToClientContainer;
-import thaumcraft.common.lib.network.PacketHandler;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.IContainerListener;
 import net.minecraftforge.items.IItemHandler;
-import java.util.Iterator;
-import java.util.concurrent.CopyOnWriteArrayList;
 import thaumcraft.api.ThaumcraftInvHelper;
-import thaumcraft.common.golems.seals.SealProvide;
+import thaumcraft.common.container.slot.SlotGhostFull;
 import thaumcraft.common.golems.seals.SealEntity;
 import thaumcraft.common.golems.seals.SealHandler;
-import net.minecraft.inventory.Slot;
-import thaumcraft.common.container.slot.SlotGhostFull;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import java.util.TreeMap;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import net.minecraft.inventory.IInventoryChangedListener;
-import net.minecraft.inventory.Container;
+import thaumcraft.common.golems.seals.SealProvide;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.misc.PacketItemToClientContainer;
+
 
 public class ContainerLogistics extends Container implements IInventoryChangedListener
 {

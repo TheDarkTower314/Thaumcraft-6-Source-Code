@@ -1,30 +1,30 @@
 package thaumcraft.common.blocks.world.taint;
-
-import net.minecraft.util.EnumFacing;
-import net.minecraft.block.state.IBlockState;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-import thaumcraft.api.ThaumcraftMaterials;
-import thaumcraft.common.lib.utils.Utils;
 import net.minecraft.block.properties.IProperty;
-import thaumcraft.common.blocks.IBlockFacing;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.common.IPlantable;
+import thaumcraft.api.ThaumcraftMaterials;
 import thaumcraft.api.aura.AuraHelper;
 import thaumcraft.api.blocks.BlocksTC;
-import thaumcraft.common.lib.utils.BlockUtils;
-import net.minecraftforge.common.IPlantable;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.common.world.aura.AuraHandler;
-import java.util.Iterator;
-import net.minecraft.entity.Entity;
-import thaumcraft.common.lib.utils.EntityUtils;
-import thaumcraft.common.entities.monster.tainted.EntityTaintSeed;
-import net.minecraft.util.math.Vec3i;
+import thaumcraft.common.blocks.IBlockFacing;
 import thaumcraft.common.config.ModConfig;
-import net.minecraft.world.World;
-import net.minecraft.util.math.BlockPos;
-import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
+import thaumcraft.common.entities.monster.tainted.EntityTaintSeed;
+import thaumcraft.common.lib.utils.BlockUtils;
+import thaumcraft.common.lib.utils.EntityUtils;
+import thaumcraft.common.lib.utils.Utils;
+import thaumcraft.common.world.aura.AuraHandler;
+
 
 public class TaintHelper
 {

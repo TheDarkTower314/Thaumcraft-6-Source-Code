@@ -1,12 +1,12 @@
 package thaumcraft.common.tiles.misc;
-
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.client.fx.FXDispatcher;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import thaumcraft.client.fx.FXDispatcher;
+
 
 public class TileNitor extends TileEntity implements ITickable
 {

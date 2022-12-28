@@ -1,5 +1,4 @@
 package thaumcraft.api.golems.seals;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -11,6 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.golems.EnumGolemTrait;
 import thaumcraft.api.golems.IGolemAPI;
 import thaumcraft.api.golems.tasks.Task;
+
 
 public interface ISeal {
 	

@@ -1,12 +1,12 @@
 package thaumcraft.common.items;
-
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.util.NonNullList;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import thaumcraft.common.config.ConfigItems;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import thaumcraft.common.config.ConfigItems;
+
 
 public class ItemTCBase extends Item implements IThaumcraftItems
 {

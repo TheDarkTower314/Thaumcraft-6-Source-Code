@@ -1,8 +1,8 @@
 package thaumcraft.common.entities.monster.tainted;
-
-import thaumcraft.common.config.ConfigItems;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
+import thaumcraft.common.config.ConfigItems;
+
 
 public class EntityTaintSeedPrime extends EntityTaintSeed
 {

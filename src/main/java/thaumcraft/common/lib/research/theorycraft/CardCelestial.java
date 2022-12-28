@@ -1,19 +1,19 @@
 package thaumcraft.common.lib.research.theorycraft;
-
-import thaumcraft.api.capabilities.IPlayerWarp;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TextComponentTranslation;
 import java.util.Iterator;
-import net.minecraft.util.math.MathHelper;
 import java.util.Random;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import thaumcraft.api.research.theorycraft.ResearchTableData;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.capabilities.IPlayerWarp;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
+
 
 public class CardCelestial extends TheorycraftCard
 {

@@ -1,11 +1,11 @@
 package thaumcraft.common.tiles.crafting;
-
-import java.util.Iterator;
-import thaumcraft.api.casters.IFocusElement;
-import thaumcraft.api.casters.FocusEngine;
-import net.minecraft.nbt.NBTTagCompound;
 import java.util.HashMap;
+import java.util.Iterator;
+import net.minecraft.nbt.NBTTagCompound;
+import thaumcraft.api.casters.FocusEngine;
 import thaumcraft.api.casters.FocusNode;
+import thaumcraft.api.casters.IFocusElement;
+
 
 public class FocusElementNode
 {

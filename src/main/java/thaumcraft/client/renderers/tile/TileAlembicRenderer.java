@@ -1,17 +1,17 @@
 package thaumcraft.client.renderers.tile;
-
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.aspects.IEssentiaTransport;
-import thaumcraft.api.ThaumcraftApiHelper;
 import net.minecraft.util.EnumFacing;
-import thaumcraft.client.lib.UtilsFX;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.tiles.essentia.TileAlembic;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.block.ModelBoreBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.models.block.ModelBoreBase;
+import thaumcraft.common.tiles.essentia.TileAlembic;
+
 
 @SideOnly(Side.CLIENT)
 public class TileAlembicRenderer extends TileEntitySpecialRenderer

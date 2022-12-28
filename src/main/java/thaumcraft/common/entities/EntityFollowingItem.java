@@ -1,13 +1,13 @@
 package thaumcraft.common.entities;
-
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import thaumcraft.client.fx.FXDispatcher;
+
 
 public class EntityFollowingItem extends EntitySpecialItem implements IEntityAdditionalSpawnData
 {

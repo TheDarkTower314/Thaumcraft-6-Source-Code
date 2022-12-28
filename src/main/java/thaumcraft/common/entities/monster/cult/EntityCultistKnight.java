@@ -1,30 +1,30 @@
 package thaumcraft.common.entities.monster.cult;
-
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.init.Items;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.monster.AbstractIllager;
-import thaumcraft.common.entities.monster.EntityEldritchGuardian;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import thaumcraft.common.entities.ai.combat.AICultistHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
-import net.minecraft.entity.ai.EntityAIOpenDoor;
-import net.minecraft.entity.ai.EntityAIRestrictOpenDoor;
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIOpenDoor;
+import net.minecraft.entity.ai.EntityAIRestrictOpenDoor;
 import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.AbstractIllager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.entities.ai.combat.AICultistHurtByTarget;
+import thaumcraft.common.entities.monster.EntityEldritchGuardian;
+
 
 public class EntityCultistKnight extends EntityCultist
 {

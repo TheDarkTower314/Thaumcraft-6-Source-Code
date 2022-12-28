@@ -1,31 +1,31 @@
 package thaumcraft.common.tiles.crafting;
-
-import thaumcraft.codechicken.lib.vec.Cuboid6;
-import thaumcraft.codechicken.lib.raytracer.IndexedCuboid6;
 import java.util.List;
+import java.util.Random;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.util.NonNullList;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.api.ThaumcraftInvHelper;
-import net.minecraft.util.EnumFacing;
 import thaumcraft.api.aura.AuraHelper;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.util.SoundCategory;
+import thaumcraft.codechicken.lib.raytracer.IndexedCuboid6;
+import thaumcraft.codechicken.lib.vec.Cuboid6;
 import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import java.util.Random;
-import net.minecraft.item.ItemStack;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.util.ITickable;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TilePatternCrafter extends TileThaumcraft implements ITickable
 {

@@ -1,26 +1,26 @@
 package thaumcraft.common.tiles.essentia;
-
-import thaumcraft.codechicken.lib.vec.Cuboid6;
-import thaumcraft.codechicken.lib.raytracer.IndexedCuboid6;
 import java.util.List;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import thaumcraft.codechicken.lib.raytracer.RayTracer;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import thaumcraft.common.tiles.devices.TileBellows;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.aspects.IEssentiaTransport;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.nbt.NBTTagCompound;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.codechicken.lib.raytracer.IndexedCuboid6;
+import thaumcraft.codechicken.lib.raytracer.RayTracer;
+import thaumcraft.codechicken.lib.vec.Cuboid6;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.tiles.devices.TileBellows;
+
 
 public class TileTubeBuffer extends TileTube implements IAspectContainer
 {

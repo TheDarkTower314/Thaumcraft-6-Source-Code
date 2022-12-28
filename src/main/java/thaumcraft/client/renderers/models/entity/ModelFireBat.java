@@ -1,12 +1,12 @@
 package thaumcraft.client.renderers.models.entity;
-
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.common.entities.monster.EntityFireBat;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.model.ModelBase;
+import thaumcraft.common.entities.monster.EntityFireBat;
+
 
 @SideOnly(Side.CLIENT)
 public class ModelFireBat extends ModelBase

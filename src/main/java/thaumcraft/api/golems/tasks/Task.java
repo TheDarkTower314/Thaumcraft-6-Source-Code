@@ -1,7 +1,5 @@
 package thaumcraft.api.golems.tasks;
-
 import java.util.UUID;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import thaumcraft.api.golems.GolemHelper;
@@ -9,6 +7,8 @@ import thaumcraft.api.golems.IGolemAPI;
 import thaumcraft.api.golems.ProvisionRequest;
 import thaumcraft.api.golems.seals.ISealEntity;
 import thaumcraft.api.golems.seals.SealPos;
+
+
 
 public class Task {
 

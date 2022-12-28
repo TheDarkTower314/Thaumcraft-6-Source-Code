@@ -1,8 +1,8 @@
 package com.sasmaster.glelwjgl.java;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.BufferUtils;
 import java.nio.DoubleBuffer;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
+
 
 public class matrix
 {

@@ -1,6 +1,6 @@
 package thaumcraft.common.tiles.crafting;
-
 import java.util.HashMap;
+
 
 public class FocalData
 {

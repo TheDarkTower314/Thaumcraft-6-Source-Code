@@ -1,8 +1,8 @@
 package thaumcraft.common.lib.utils;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.ArrayList;
+
 
 public class HexUtils
 {

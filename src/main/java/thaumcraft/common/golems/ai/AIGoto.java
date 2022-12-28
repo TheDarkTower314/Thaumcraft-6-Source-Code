@@ -1,23 +1,23 @@
 package thaumcraft.common.golems.ai;
-
-import thaumcraft.api.golems.EnumGolemTrait;
-import java.util.Collection;
 import java.util.Arrays;
-import thaumcraft.common.golems.seals.SealHandler;
-import thaumcraft.api.golems.tasks.Task;
-import net.minecraft.world.World;
+import java.util.Collection;
 import net.minecraft.entity.Entity;
-import thaumcraft.common.config.ModConfig;
-import thaumcraft.common.golems.tasks.TaskHandler;
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.util.math.Vec3d;
-import thaumcraft.api.golems.seals.ISealEntity;
-import thaumcraft.api.golems.IGolemAPI;
-import thaumcraft.api.golems.GolemHelper;
-import net.minecraft.util.math.BlockPos;
-import thaumcraft.common.golems.EntityThaumcraftGolem;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import thaumcraft.api.golems.EnumGolemTrait;
+import thaumcraft.api.golems.GolemHelper;
+import thaumcraft.api.golems.IGolemAPI;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.tasks.Task;
+import thaumcraft.common.config.ModConfig;
+import thaumcraft.common.golems.EntityThaumcraftGolem;
+import thaumcraft.common.golems.seals.SealHandler;
+import thaumcraft.common.golems.tasks.TaskHandler;
+
 
 public abstract class AIGoto extends EntityAIBase
 {

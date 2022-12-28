@@ -1,17 +1,17 @@
 package thaumcraft.common.tiles.essentia;
-
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.api.aspects.AspectList;
 import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.api.aspects.Aspect;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import thaumcraft.api.aspects.IEssentiaTransport;
+import net.minecraft.util.SoundCategory;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.common.lib.SoundsTC;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileCentrifuge extends TileThaumcraft implements IAspectContainer, IEssentiaTransport, ITickable
 {

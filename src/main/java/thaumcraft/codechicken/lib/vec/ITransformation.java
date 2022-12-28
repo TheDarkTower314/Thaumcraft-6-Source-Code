@@ -1,5 +1,6 @@
 package thaumcraft.codechicken.lib.vec;
 
+
 public abstract class ITransformation<Vector, Transformation extends ITransformation>
 {
     public abstract void apply(Vector p0);

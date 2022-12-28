@@ -1,18 +1,18 @@
 package thaumcraft.common.tiles.devices;
-
-import thaumcraft.codechicken.lib.vec.Transformation;
-import thaumcraft.codechicken.lib.vec.Vector3;
-import thaumcraft.codechicken.lib.vec.Rotation;
-import thaumcraft.codechicken.lib.vec.Cuboid6;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import thaumcraft.codechicken.lib.raytracer.IndexedCuboid6;
 import java.util.List;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.nbt.NBTTagCompound;
+import thaumcraft.codechicken.lib.raytracer.IndexedCuboid6;
+import thaumcraft.codechicken.lib.vec.Cuboid6;
+import thaumcraft.codechicken.lib.vec.Rotation;
+import thaumcraft.codechicken.lib.vec.Transformation;
+import thaumcraft.codechicken.lib.vec.Vector3;
+import thaumcraft.common.lib.utils.BlockStateUtils;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileRedstoneRelay extends TileThaumcraft
 {

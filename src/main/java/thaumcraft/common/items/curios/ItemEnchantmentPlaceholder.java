@@ -1,17 +1,17 @@
 package thaumcraft.common.items.curios;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.client.util.ITooltipFlag;
 import java.util.List;
-import net.minecraft.world.World;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.item.ItemStack;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemEnchantmentPlaceholder extends ItemTCBase
 {

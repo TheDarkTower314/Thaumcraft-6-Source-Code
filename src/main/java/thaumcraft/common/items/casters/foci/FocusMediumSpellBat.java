@@ -1,12 +1,12 @@
 package thaumcraft.common.items.casters.foci;
-
-import thaumcraft.api.casters.NodeSetting;
 import net.minecraft.entity.Entity;
-import thaumcraft.common.entities.monster.EntitySpellBat;
-import thaumcraft.api.casters.Trajectory;
-import thaumcraft.api.casters.FocusNode;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.casters.FocusMedium;
+import thaumcraft.api.casters.FocusNode;
+import thaumcraft.api.casters.NodeSetting;
+import thaumcraft.api.casters.Trajectory;
+import thaumcraft.common.entities.monster.EntitySpellBat;
+
 
 public class FocusMediumSpellBat extends FocusMedium
 {

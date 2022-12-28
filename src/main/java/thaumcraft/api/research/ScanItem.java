@@ -1,9 +1,9 @@
 package thaumcraft.api.research;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftInvHelper;
+
 
 public class ScanItem implements IScanThing {
 	

@@ -1,25 +1,25 @@
 package thaumcraft.common.blocks.basic;
-
+import java.util.ArrayList;
 import java.util.Iterator;
-import net.minecraft.init.Items;
-import thaumcraft.common.config.ModConfig;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.items.ItemGenericEssentiaContainer;
-import thaumcraft.api.items.ItemsTC;
-import thaumcraft.api.aspects.Aspect;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.WeightedRandom;
-import net.minecraft.item.ItemStack;
 import java.util.List;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import java.util.Random;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandom;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.internal.WeightedRandomLoot;
-import java.util.ArrayList;
-import java.util.Random;
+import thaumcraft.api.items.ItemGenericEssentiaContainer;
+import thaumcraft.api.items.ItemsTC;
 import thaumcraft.common.blocks.BlockTC;
+import thaumcraft.common.config.ModConfig;
+
 
 public class BlockStonePorous extends BlockTC
 {

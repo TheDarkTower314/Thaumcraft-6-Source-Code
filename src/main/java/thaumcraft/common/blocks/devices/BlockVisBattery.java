@@ -1,24 +1,24 @@
 package thaumcraft.common.blocks.devices;
-
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.api.aura.AuraHelper;
-import thaumcraft.common.world.aura.AuraHandler;
 import java.util.Random;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.properties.IProperty;
-import thaumcraft.common.config.ConfigItems;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.world.aura.AuraHandler;
+
 
 public class BlockVisBattery extends Block
 {

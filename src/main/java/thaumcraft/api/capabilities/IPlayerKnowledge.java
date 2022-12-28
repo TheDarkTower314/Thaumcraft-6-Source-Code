@@ -1,13 +1,13 @@
 package thaumcraft.api.capabilities;
-
 import java.util.Set;
-
 import javax.annotation.Nonnull;
-
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 import thaumcraft.api.research.ResearchCategory;
+
+
+
 
 /**
  * 

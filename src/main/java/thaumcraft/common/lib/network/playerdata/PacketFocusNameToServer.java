@@ -1,14 +1,14 @@
 package thaumcraft.common.lib.network.playerdata;
-
-import net.minecraft.util.IThreadListener;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.common.tiles.crafting.TileFocalManipulator;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IThreadListener;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import thaumcraft.common.tiles.crafting.TileFocalManipulator;
+
 
 public class PacketFocusNameToServer implements IMessage, IMessageHandler<PacketFocusNameToServer, IMessage>
 {

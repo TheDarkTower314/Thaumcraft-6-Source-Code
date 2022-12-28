@@ -1,9 +1,9 @@
 package thaumcraft.common.entities;
-
-import net.minecraft.util.DamageSource;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
+
 
 public class EntitySpecialItem extends EntityItem
 {

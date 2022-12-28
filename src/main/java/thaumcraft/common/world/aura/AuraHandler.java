@@ -1,20 +1,20 @@
 package thaumcraft.common.world.aura;
-
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.common.world.biomes.BiomeHandler;
-import net.minecraft.world.biome.Biome;
 import java.util.Random;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import thaumcraft.common.lib.utils.PosXY;
-import net.minecraft.world.chunk.Chunk;
-import thaumcraft.Thaumcraft;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ConcurrentHashMap;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.Chunk;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.common.lib.utils.PosXY;
+import thaumcraft.common.world.biomes.BiomeHandler;
+
 
 public class AuraHandler
 {

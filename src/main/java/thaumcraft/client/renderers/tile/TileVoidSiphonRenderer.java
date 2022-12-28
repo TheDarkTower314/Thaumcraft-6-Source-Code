@@ -1,17 +1,17 @@
 package thaumcraft.client.renderers.tile;
-
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.client.renderer.GlStateManager;
-import thaumcraft.client.lib.ender.ShaderHelper;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.tileentity.TileEntity;
-import org.lwjgl.opengl.ARBShaderObjects;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.lib.ender.ShaderCallback;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.lib.ender.ShaderCallback;
+import thaumcraft.client.lib.ender.ShaderHelper;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+
 
 public class TileVoidSiphonRenderer extends TileEntitySpecialRenderer
 {

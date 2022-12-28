@@ -1,15 +1,15 @@
 package thaumcraft.common.lib.research.theorycraft;
-
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TextComponentTranslation;
 import java.util.Random;
-import thaumcraft.api.research.theorycraft.ResearchTableData;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
+import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
+
 
 public class CardConcentrate extends TheorycraftCard
 {

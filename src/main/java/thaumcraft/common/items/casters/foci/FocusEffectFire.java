@@ -1,25 +1,25 @@
 package thaumcraft.common.items.casters.foci;
-
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.world.World;
-import thaumcraft.api.casters.NodeSetting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.init.Blocks;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.init.SoundEvents;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import thaumcraft.common.lib.network.fx.PacketFXFocusPartImpact;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.api.casters.Trajectory;
-import net.minecraft.util.math.RayTraceResult;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.casters.FocusEffect;
+import thaumcraft.api.casters.NodeSetting;
+import thaumcraft.api.casters.Trajectory;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.fx.PacketFXFocusPartImpact;
+
 
 public class FocusEffectFire extends FocusEffect
 {

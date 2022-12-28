@@ -1,15 +1,15 @@
 package thaumcraft.common.entities.monster;
-
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.init.Items;
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.world.World;
+import net.minecraft.init.Items;
 import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
+
 
 public class EntityGiantBrainyZombie extends EntityBrainyZombie
 {

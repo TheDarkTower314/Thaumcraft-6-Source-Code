@@ -1,13 +1,13 @@
 package thaumcraft.common.lib.crafting;
-
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.init.Items;
 import java.util.ArrayList;
-import net.minecraft.world.World;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import thaumcraft.api.items.ItemsTC;
+
 
 public class RecipeTripleMeatTreat extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe
 {

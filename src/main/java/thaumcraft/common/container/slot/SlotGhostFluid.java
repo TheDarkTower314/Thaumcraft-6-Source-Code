@@ -1,9 +1,9 @@
 package thaumcraft.common.container.slot;
-
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidUtil;
+
 
 public class SlotGhostFluid extends SlotGhost
 {

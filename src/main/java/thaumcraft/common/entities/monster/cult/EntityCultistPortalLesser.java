@@ -1,28 +1,28 @@
 package thaumcraft.common.entities.monster.cult;
-
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.item.Item;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.DamageSource;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.util.math.BlockPos;
-import thaumcraft.common.lib.utils.EntityUtils;
 import java.util.List;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.EnumDifficulty;
-import thaumcraft.common.lib.SoundsTC;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.MoverType;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.entity.MoverType;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.world.World;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.entity.monster.EntityMob;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.utils.EntityUtils;
+
 
 public class EntityCultistPortalLesser extends EntityMob
 {

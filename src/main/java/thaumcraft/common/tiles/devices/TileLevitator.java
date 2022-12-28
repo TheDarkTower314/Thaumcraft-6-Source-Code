@@ -1,28 +1,28 @@
 package thaumcraft.common.tiles.devices;
-
-import thaumcraft.codechicken.lib.vec.Cuboid6;
-import thaumcraft.codechicken.lib.vec.Vector3;
-import thaumcraft.codechicken.lib.raytracer.IndexedCuboid6;
+import java.util.Iterator;
+import java.util.List;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.client.fx.FXDispatcher;
-import java.util.Iterator;
-import java.util.List;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.World;
 import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.codechicken.lib.raytracer.IndexedCuboid6;
+import thaumcraft.codechicken.lib.vec.Cuboid6;
+import thaumcraft.codechicken.lib.vec.Vector3;
 import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.util.ITickable;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileLevitator extends TileThaumcraft implements ITickable
 {

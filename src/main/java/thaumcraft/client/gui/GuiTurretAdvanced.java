@@ -1,18 +1,18 @@
 package thaumcraft.client.gui;
-
 import java.io.IOException;
 import net.minecraft.client.gui.GuiButton;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.client.gui.plugins.GuiToggleButton;
-import net.minecraft.inventory.Container;
-import thaumcraft.common.container.ContainerTurretAdvanced;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.common.entities.construct.EntityTurretCrossbowAdvanced;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.gui.plugins.GuiToggleButton;
+import thaumcraft.common.container.ContainerTurretAdvanced;
+import thaumcraft.common.entities.construct.EntityTurretCrossbowAdvanced;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiTurretAdvanced extends GuiContainer

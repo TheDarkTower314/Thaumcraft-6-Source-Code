@@ -1,22 +1,22 @@
 package thaumcraft.common.items.casters;
-
-import net.minecraft.entity.EntityLivingBase;
-import thaumcraft.api.casters.FocusPackage;
-import thaumcraft.api.casters.FocusEngine;
-import java.util.Iterator;
-import net.minecraft.util.NonNullList;
-import thaumcraft.common.lib.SoundsTC;
-import java.util.TreeMap;
-import net.minecraft.world.World;
-import thaumcraft.api.casters.ICaster;
-import net.minecraft.inventory.IInventory;
-import thaumcraft.common.lib.potions.PotionInfectiousVisExhaust;
-import thaumcraft.api.potions.PotionVisExhaust;
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.IVisDiscountGear;
 import baubles.api.BaublesApi;
-import net.minecraft.entity.player.EntityPlayer;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.TreeMap;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
+import thaumcraft.api.casters.FocusEngine;
+import thaumcraft.api.casters.FocusPackage;
+import thaumcraft.api.casters.ICaster;
+import thaumcraft.api.items.IVisDiscountGear;
+import thaumcraft.api.potions.PotionVisExhaust;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.potions.PotionInfectiousVisExhaust;
+
 
 public class CasterManager
 {

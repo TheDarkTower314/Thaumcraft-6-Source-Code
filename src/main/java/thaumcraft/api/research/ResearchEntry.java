@@ -1,10 +1,10 @@
 package thaumcraft.api.research;
-
 import java.util.Arrays;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import thaumcraft.api.research.ResearchStage.Knowledge;
+
+
 
 public class ResearchEntry 
 {

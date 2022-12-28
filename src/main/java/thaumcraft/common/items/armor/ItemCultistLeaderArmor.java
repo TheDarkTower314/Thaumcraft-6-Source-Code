@@ -1,22 +1,22 @@
 package thaumcraft.common.items.armor;
-
-import thaumcraft.client.renderers.models.gear.ModelLeaderArmor;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.item.Item;
-import thaumcraft.common.config.ConfigItems;
 import thaumcraft.api.ThaumcraftMaterials;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.client.model.ModelBiped;
+import thaumcraft.client.renderers.models.gear.ModelLeaderArmor;
+import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.IThaumcraftItems;
-import net.minecraft.item.ItemArmor;
+
 
 public class ItemCultistLeaderArmor extends ItemArmor implements IThaumcraftItems
 {

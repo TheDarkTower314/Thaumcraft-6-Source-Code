@@ -1,16 +1,16 @@
 package thaumcraft.client.renderers.entity.mob;
-
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.Entity;
 import net.minecraft.client.model.ModelBase;
-import thaumcraft.client.renderers.models.entity.ModelEldritchCrab;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.entity.RenderLiving;
+import thaumcraft.client.renderers.models.entity.ModelEldritchCrab;
+
 
 @SideOnly(Side.CLIENT)
 public class RenderEldritchCrab extends RenderLiving

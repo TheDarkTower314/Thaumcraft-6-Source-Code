@@ -1,20 +1,20 @@
 package thaumcraft.common.tiles;
-
+import javax.annotation.Nullable;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.block.state.IBlockState;
-import thaumcraft.common.lib.network.tiles.PacketTileToServer;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import thaumcraft.common.lib.network.tiles.PacketTileToClient;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import thaumcraft.common.lib.network.PacketHandler;
-import javax.annotation.Nullable;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
+import thaumcraft.common.lib.network.tiles.PacketTileToClient;
+import thaumcraft.common.lib.network.tiles.PacketTileToServer;
+
 
 public class TileThaumcraft extends TileEntity
 {

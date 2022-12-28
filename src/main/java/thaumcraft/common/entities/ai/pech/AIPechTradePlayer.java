@@ -1,7 +1,7 @@
 package thaumcraft.common.entities.ai.pech;
-
-import thaumcraft.common.entities.monster.EntityPech;
 import net.minecraft.entity.ai.EntityAIBase;
+import thaumcraft.common.entities.monster.EntityPech;
+
 
 public class AIPechTradePlayer extends EntityAIBase
 {

@@ -1,8 +1,8 @@
 package thaumcraft.common.blocks;
-
-import net.minecraft.util.EnumFacing;
 import com.google.common.base.Predicate;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.util.EnumFacing;
+
 
 public interface IBlockFacing
 {

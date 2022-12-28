@@ -1,27 +1,27 @@
 package thaumcraft.common.blocks.basic;
-
 import com.google.common.base.Predicate;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.BlockStateContainer;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.item.Item;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.World;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.material.EnumPushReaction;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.common.blocks.BlockTC;
+
 
 public class BlockPillar extends BlockTC
 {

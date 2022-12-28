@@ -1,19 +1,19 @@
 package thaumcraft.common.tiles.devices;
-
-import thaumcraft.client.fx.FXDispatcher;
-import thaumcraft.api.aspects.AspectList;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.api.items.IRechargable;
-import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
-import thaumcraft.api.aspects.Aspect;
 import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.api.items.RechargeHelper;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.AxisAlignedBB;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.items.IRechargable;
+import thaumcraft.api.items.RechargeHelper;
+import thaumcraft.client.fx.FXDispatcher;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
+
 
 public class TileRechargePedestal extends TileThaumcraftInventory implements IAspectContainer
 {

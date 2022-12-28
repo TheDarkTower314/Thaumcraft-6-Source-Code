@@ -1,38 +1,38 @@
 package thaumcraft.client.lib.events;
-
-import net.minecraft.util.EnumFacing;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.world.World;
-import thaumcraft.api.items.IArchitect;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.client.lib.UtilsFX;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.input.Mouse;
-import thaumcraft.api.casters.ICaster;
-import net.minecraft.util.NonNullList;
-import net.minecraft.inventory.IInventory;
-import thaumcraft.common.items.casters.ItemFocus;
-import thaumcraft.common.items.casters.ItemFocusPouch;
-import net.minecraft.entity.player.EntityPlayer;
 import baubles.api.BaublesApi;
-import java.util.Iterator;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import thaumcraft.common.lib.network.misc.PacketFocusChangeToServer;
-import thaumcraft.common.lib.network.PacketHandler;
-import org.lwjgl.opengl.Display;
-import thaumcraft.common.lib.events.KeyHandler;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.math.BlockPos;
 import java.util.ArrayList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.item.ItemStack;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.TreeMap;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.casters.ICaster;
+import thaumcraft.api.items.IArchitect;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.items.casters.ItemFocus;
+import thaumcraft.common.items.casters.ItemFocusPouch;
+import thaumcraft.common.lib.events.KeyHandler;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.misc.PacketFocusChangeToServer;
+
 
 @SideOnly(Side.CLIENT)
 public class WandRenderingHandler

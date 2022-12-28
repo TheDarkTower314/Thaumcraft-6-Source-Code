@@ -1,16 +1,16 @@
 package thaumcraft.client.renderers.entity.mob;
-
-import net.minecraft.entity.Entity;
-import thaumcraft.common.entities.monster.EntityMindSpider;
-import net.minecraft.entity.EntityLiving;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderSpider;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerSpiderEyes;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.entity.RenderSpider;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.common.entities.monster.EntityMindSpider;
+
 
 @SideOnly(Side.CLIENT)
 public class RenderMindSpider extends RenderSpider

@@ -1,14 +1,14 @@
 package thaumcraft.common.items.resources;
-
 import java.util.Iterator;
-import thaumcraft.api.aspects.AspectList;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.common.config.ConfigItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.creativetab.CreativeTabs;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.ItemTCEssentiaContainer;
+
 
 public class ItemCrystalEssence extends ItemTCEssentiaContainer
 {

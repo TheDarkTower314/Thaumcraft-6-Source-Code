@@ -1,20 +1,20 @@
 package thaumcraft.common.items.casters;
-
-import net.minecraft.entity.EntityLivingBase;
 import baubles.api.BaubleType;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.Thaumcraft;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
+import baubles.api.IBauble;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import baubles.api.IBauble;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
+import thaumcraft.Thaumcraft;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemFocusPouch extends ItemTCBase implements IBauble
 {

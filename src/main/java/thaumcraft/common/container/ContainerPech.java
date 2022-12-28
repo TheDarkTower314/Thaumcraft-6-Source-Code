@@ -1,22 +1,22 @@
 package thaumcraft.common.container;
-
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.IInventoryChangedListener;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import java.util.List;
-import java.util.ArrayList;
-import thaumcraft.common.lib.SoundsTC;
-import java.util.Iterator;
-import net.minecraft.item.ItemStack;
 import thaumcraft.common.container.slot.SlotOutput;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.world.World;
-import net.minecraft.entity.player.EntityPlayer;
 import thaumcraft.common.entities.monster.EntityPech;
-import net.minecraft.inventory.IInventoryChangedListener;
-import net.minecraft.inventory.Container;
+import thaumcraft.common.lib.SoundsTC;
+
 
 public class ContainerPech extends Container implements IInventoryChangedListener
 {

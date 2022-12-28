@@ -1,33 +1,33 @@
 package thaumcraft.common.blocks.misc;
-
-import net.minecraft.item.Item;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.item.ItemStack;
+import java.util.Random;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.init.MobEffects;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import thaumcraft.client.fx.FXDispatcher;
-import java.util.Random;
-import thaumcraft.api.entities.IEldritchMob;
-import thaumcraft.common.lib.events.ServerEvents;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.init.MobEffects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.World;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.util.EnumFacing;
 import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.material.Material;
+import thaumcraft.api.entities.IEldritchMob;
+import thaumcraft.client.fx.FXDispatcher;
 import thaumcraft.common.blocks.BlockTC;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.events.ServerEvents;
+
 
 public class BlockEffect extends BlockTC
 {

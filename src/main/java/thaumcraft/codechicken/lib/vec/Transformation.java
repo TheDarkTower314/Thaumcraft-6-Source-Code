@@ -1,8 +1,8 @@
 package thaumcraft.codechicken.lib.vec;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.codechicken.lib.render.CCRenderState;
+
 
 public abstract class Transformation extends ITransformation<Vector3, Transformation> implements CCRenderState.IVertexOperation
 {

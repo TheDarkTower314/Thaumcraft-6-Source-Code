@@ -1,15 +1,15 @@
 package thaumcraft.common.tiles.devices;
-
 import java.util.Iterator;
 import java.util.List;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
+import thaumcraft.common.lib.SoundsTC;
 import thaumcraft.common.tiles.essentia.TileJar;
+
 
 public class TileJarBrain extends TileJar
 {

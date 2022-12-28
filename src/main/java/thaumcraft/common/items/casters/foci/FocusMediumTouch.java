@@ -1,21 +1,21 @@
 package thaumcraft.common.items.casters.foci;
-
-import thaumcraft.api.casters.FocusEffect;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import thaumcraft.common.lib.network.fx.PacketFXFocusEffect;
-import thaumcraft.common.lib.network.PacketHandler;
+import java.util.ArrayList;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.entity.Entity;
-import thaumcraft.common.lib.utils.EntityUtils;
-import thaumcraft.codechicken.lib.raytracer.RayTracer;
-import net.minecraft.entity.player.EntityPlayer;
-import java.util.ArrayList;
-import thaumcraft.api.casters.Trajectory;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.casters.FocusNode;
+import thaumcraft.api.casters.FocusEffect;
 import thaumcraft.api.casters.FocusMedium;
+import thaumcraft.api.casters.FocusNode;
+import thaumcraft.api.casters.Trajectory;
+import thaumcraft.codechicken.lib.raytracer.RayTracer;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.fx.PacketFXFocusEffect;
+import thaumcraft.common.lib.utils.EntityUtils;
+
 
 public class FocusMediumTouch extends FocusMedium
 {

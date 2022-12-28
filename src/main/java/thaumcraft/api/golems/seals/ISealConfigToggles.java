@@ -1,6 +1,7 @@
 package thaumcraft.api.golems.seals;
 
 
+
 public interface ISealConfigToggles {
 
 	

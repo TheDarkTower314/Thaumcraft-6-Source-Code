@@ -1,9 +1,9 @@
 package thaumcraft.common.entities.ai.misc;
-
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.world.World;
-import thaumcraft.common.entities.monster.cult.EntityCultistCleric;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.world.World;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.common.entities.monster.cult.EntityCultistCleric;
+
 
 public class AIAltarFocus extends EntityAIBase
 {

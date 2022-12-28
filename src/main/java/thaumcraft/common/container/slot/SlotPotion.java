@@ -1,12 +1,12 @@
 package thaumcraft.common.container.slot;
-
-import net.minecraft.potion.PotionType;
-import net.minecraft.init.PotionTypes;
-import net.minecraft.potion.PotionUtils;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
+
 
 public class SlotPotion extends Slot
 {

@@ -1,19 +1,19 @@
 package thaumcraft.client.gui;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.ARBShaderObjects;
-import net.minecraft.client.Minecraft;
-import net.minecraft.inventory.Container;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.lib.ender.ShaderCallback;
 import com.sasmaster.glelwjgl.java.CoreGLE;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.container.ContainerVoidSiphon;
-import thaumcraft.common.tiles.crafting.TileVoidSiphon;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.ender.ShaderCallback;
+import thaumcraft.common.container.ContainerVoidSiphon;
+import thaumcraft.common.tiles.crafting.TileVoidSiphon;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiVoidSiphon extends GuiContainer

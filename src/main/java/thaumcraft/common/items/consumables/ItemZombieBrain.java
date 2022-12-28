@@ -1,18 +1,18 @@
 package thaumcraft.common.items.consumables;
-
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.item.Item;
-import thaumcraft.api.capabilities.IPlayerWarp;
-import thaumcraft.api.ThaumcraftApi;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
-import thaumcraft.common.config.ConfigItems;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.init.MobEffects;
-import thaumcraft.common.items.IThaumcraftItems;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.capabilities.IPlayerWarp;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.IThaumcraftItems;
+
 
 public class ItemZombieBrain extends ItemFood implements IThaumcraftItems
 {

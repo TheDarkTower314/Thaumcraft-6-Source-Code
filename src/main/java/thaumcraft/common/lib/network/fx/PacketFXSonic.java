@@ -1,16 +1,16 @@
 package thaumcraft.common.lib.network.fx;
-
+import io.netty.buffer.ByteBuf;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.entity.Entity;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.particle.Particle;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import thaumcraft.client.fx.other.FXSonic;
 import thaumcraft.Thaumcraft;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.client.fx.other.FXSonic;
+
 
 public class PacketFXSonic implements IMessage, IMessageHandler<PacketFXSonic, IMessage>
 {

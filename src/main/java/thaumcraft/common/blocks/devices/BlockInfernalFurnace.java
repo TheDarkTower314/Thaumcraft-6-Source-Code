@@ -1,30 +1,30 @@
 package thaumcraft.common.blocks.devices;
-
-import net.minecraft.util.DamageSource;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
 import java.util.Random;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.init.Blocks;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.block.properties.IProperty;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.block.SoundType;
-import thaumcraft.common.tiles.devices.TileInfernalFurnace;
-import net.minecraft.block.material.Material;
-import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.tiles.devices.TileInfernalFurnace;
+
 
 public class BlockInfernalFurnace extends BlockTCDevice implements IBlockFacingHorizontal
 {

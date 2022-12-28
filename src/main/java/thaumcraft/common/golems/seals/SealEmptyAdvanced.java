@@ -1,12 +1,12 @@
 package thaumcraft.common.golems.seals;
-
-import thaumcraft.api.golems.EnumGolemTrait;
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Iterator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.golems.EnumGolemTrait;
 import thaumcraft.api.golems.seals.ISealConfigToggles;
+
 
 public class SealEmptyAdvanced extends SealEmpty implements ISealConfigToggles
 {

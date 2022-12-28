@@ -1,9 +1,9 @@
 package thaumcraft.common.blocks.misc;
-
-import thaumcraft.common.lib.SoundsTC;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import thaumcraft.common.blocks.BlockTC;
+import thaumcraft.common.lib.SoundsTC;
+
 
 public class BlockFlesh extends BlockTC
 {

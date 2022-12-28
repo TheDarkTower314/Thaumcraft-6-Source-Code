@@ -1,13 +1,13 @@
 package thaumcraft.client.lib.ender;
-
-import java.io.InputStream;
-import java.io.Reader;
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import net.minecraft.client.renderer.OpenGlHelper;
-import thaumcraft.common.config.ModConfig;
+import java.io.Reader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OpenGlHelper;
 import org.lwjgl.opengl.ARBShaderObjects;
+import thaumcraft.common.config.ModConfig;
+
 
 public class ShaderHelper
 {

@@ -1,20 +1,20 @@
 package thaumcraft.common.lib.network.misc;
-
-import net.minecraft.util.IThreadListener;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.World;
-import thaumcraft.common.tiles.crafting.TileResearchTable;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import java.util.Iterator;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.util.math.BlockPos;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IThreadListener;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import thaumcraft.common.tiles.crafting.TileResearchTable;
+
 
 public class PacketStartTheoryToServer implements IMessage, IMessageHandler<PacketStartTheoryToServer, IMessage>
 {

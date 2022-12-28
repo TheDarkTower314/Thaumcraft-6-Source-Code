@@ -1,8 +1,8 @@
 package thaumcraft.api.golems.parts;
-
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import thaumcraft.api.golems.EnumGolemTrait;
-import net.minecraft.util.ResourceLocation;
+
 
 public class GolemLeg
 {

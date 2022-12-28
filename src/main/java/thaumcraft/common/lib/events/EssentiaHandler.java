@@ -1,21 +1,21 @@
 package thaumcraft.common.lib.events;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import java.util.Iterator;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import thaumcraft.common.lib.network.fx.PacketFXEssentiaSource;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.common.tiles.devices.TileMirrorEssentia;
-import thaumcraft.api.aspects.IAspectSource;
-import net.minecraft.util.EnumFacing;
-import java.util.concurrent.ConcurrentHashMap;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import thaumcraft.api.aspects.Aspect;
-import net.minecraft.tileentity.TileEntity;
-import java.util.ArrayList;
+import thaumcraft.api.aspects.IAspectSource;
 import thaumcraft.api.internal.WorldCoordinates;
-import java.util.HashMap;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.fx.PacketFXEssentiaSource;
+import thaumcraft.common.tiles.devices.TileMirrorEssentia;
+
 
 public class EssentiaHandler
 {

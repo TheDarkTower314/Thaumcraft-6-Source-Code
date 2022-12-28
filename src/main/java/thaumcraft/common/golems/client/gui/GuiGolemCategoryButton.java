@@ -1,11 +1,11 @@
 package thaumcraft.common.golems.client.gui;
-
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
+
 
 class GuiGolemCategoryButton extends GuiButton
 {

@@ -1,11 +1,11 @@
 package thaumcraft.codechicken.lib.render;
-
-import thaumcraft.codechicken.lib.vec.Transformation;
-import thaumcraft.codechicken.lib.vec.Scale;
 import thaumcraft.codechicken.lib.vec.Matrix4;
-import thaumcraft.codechicken.lib.vec.Rotation;
 import thaumcraft.codechicken.lib.vec.Quat;
+import thaumcraft.codechicken.lib.vec.Rotation;
+import thaumcraft.codechicken.lib.vec.Scale;
+import thaumcraft.codechicken.lib.vec.Transformation;
 import thaumcraft.codechicken.lib.vec.Vector3;
+
 
 public class CCModelLibrary
 {

@@ -1,34 +1,34 @@
 package thaumcraft.common.golems;
-
-import thaumcraft.common.golems.client.PartModelHauler;
-import thaumcraft.common.golems.parts.GolemLegLevitator;
-import thaumcraft.common.golems.parts.GolemLegWheels;
-import thaumcraft.common.golems.client.PartModelWheel;
-import thaumcraft.common.golems.parts.GolemArmDart;
-import thaumcraft.common.golems.client.PartModelDarts;
-import net.minecraft.block.Block;
-import thaumcraft.common.golems.client.PartModelBreakers;
-import net.minecraft.item.Item;
-import net.minecraft.init.Items;
-import thaumcraft.common.golems.client.PartModelClaws;
-import thaumcraft.api.golems.parts.PartModel;
-import net.minecraft.init.Blocks;
-import thaumcraft.api.items.ItemsTC;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.util.ResourceLocation;
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.golems.EnumGolemTrait;
+import thaumcraft.api.golems.IGolemProperties;
 import thaumcraft.api.golems.parts.GolemAddon;
-import thaumcraft.api.golems.parts.GolemLeg;
 import thaumcraft.api.golems.parts.GolemArm;
 import thaumcraft.api.golems.parts.GolemHead;
-import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.golems.parts.GolemLeg;
 import thaumcraft.api.golems.parts.GolemMaterial;
-import java.util.HashSet;
-import thaumcraft.api.golems.EnumGolemTrait;
-import java.util.Set;
-import thaumcraft.api.golems.IGolemProperties;
+import thaumcraft.api.golems.parts.PartModel;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.golems.client.PartModelBreakers;
+import thaumcraft.common.golems.client.PartModelClaws;
+import thaumcraft.common.golems.client.PartModelDarts;
+import thaumcraft.common.golems.client.PartModelHauler;
+import thaumcraft.common.golems.client.PartModelWheel;
+import thaumcraft.common.golems.parts.GolemArmDart;
+import thaumcraft.common.golems.parts.GolemLegLevitator;
+import thaumcraft.common.golems.parts.GolemLegWheels;
+
 
 public class GolemProperties implements IGolemProperties
 {

@@ -1,14 +1,14 @@
 package thaumcraft.client.renderers.models.gear;
-
-import org.lwjgl.opengl.GL11;
-import net.minecraft.item.ItemStack;
-import thaumcraft.common.items.armor.ItemFortressArmor;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.model.ModelBase;
 import java.util.HashMap;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.common.items.armor.ItemFortressArmor;
+
 
 public class ModelFortressArmor extends ModelCustomArmor
 {

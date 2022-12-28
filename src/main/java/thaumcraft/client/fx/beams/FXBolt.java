@@ -1,20 +1,20 @@
 package thaumcraft.client.fx.beams;
-
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
-import java.util.Random;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 import com.sasmaster.glelwjgl.java.CoreGLE;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
+import java.util.Random;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
+
 
 public class FXBolt extends Particle
 {

@@ -1,19 +1,19 @@
 package thaumcraft.common.items.baubles;
-
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.Minecraft;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.entity.player.EntityPlayer;
 import baubles.api.BaubleType;
+import baubles.api.IBauble;
+import baubles.api.render.IRenderBauble;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import baubles.api.render.IRenderBauble;
-import baubles.api.IBauble;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemCuriosityBand extends ItemTCBase implements IBauble, IRenderBauble
 {

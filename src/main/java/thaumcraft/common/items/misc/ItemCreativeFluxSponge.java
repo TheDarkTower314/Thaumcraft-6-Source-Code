@@ -1,27 +1,27 @@
 package thaumcraft.common.items.misc;
-
 import java.util.Iterator;
-import net.minecraft.util.math.BlockPos;
+import java.util.List;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import thaumcraft.common.lib.utils.EntityUtils;
-import thaumcraft.common.entities.EntityFluxRift;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import thaumcraft.api.aura.AuraHelper;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.client.util.ITooltipFlag;
-import java.util.List;
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.common.entities.EntityFluxRift;
 import thaumcraft.common.items.ItemTCBase;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.utils.EntityUtils;
+
 
 public class ItemCreativeFluxSponge extends ItemTCBase
 {

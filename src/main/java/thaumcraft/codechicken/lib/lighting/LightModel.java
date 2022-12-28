@@ -1,8 +1,8 @@
 package thaumcraft.codechicken.lib.lighting;
-
+import thaumcraft.codechicken.lib.render.CCRenderState;
 import thaumcraft.codechicken.lib.vec.Rotation;
 import thaumcraft.codechicken.lib.vec.Vector3;
-import thaumcraft.codechicken.lib.render.CCRenderState;
+
 
 public class LightModel implements CCRenderState.IVertexOperation
 {

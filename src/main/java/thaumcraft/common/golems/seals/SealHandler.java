@@ -1,29 +1,29 @@
 package thaumcraft.common.golems.seals;
-
-import thaumcraft.common.world.aura.AuraHandler;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import thaumcraft.api.golems.seals.ISealEntity;
-import thaumcraft.common.lib.network.misc.PacketSealToClient;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.api.golems.tasks.Task;
-import thaumcraft.common.golems.tasks.TaskHandler;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.util.math.ChunkPos;
-import java.util.Iterator;
-import net.minecraft.util.math.Vec3i;
-import java.util.concurrent.CopyOnWriteArrayList;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import thaumcraft.Thaumcraft;
-import thaumcraft.api.golems.seals.SealPos;
-import java.util.concurrent.ConcurrentHashMap;
 import thaumcraft.api.golems.seals.ISeal;
-import java.util.LinkedHashMap;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.seals.SealPos;
+import thaumcraft.api.golems.tasks.Task;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.golems.tasks.TaskHandler;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.misc.PacketSealToClient;
+import thaumcraft.common.world.aura.AuraHandler;
+
 
 public class SealHandler
 {

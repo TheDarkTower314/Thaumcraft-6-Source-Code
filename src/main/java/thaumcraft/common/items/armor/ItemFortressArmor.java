@@ -1,31 +1,31 @@
 package thaumcraft.common.items.armor;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.DamageSource;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.client.util.ITooltipFlag;
 import java.util.List;
-import net.minecraft.world.World;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.entity.Entity;
-import thaumcraft.client.renderers.models.gear.ModelFortressArmor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.item.Item;
-import thaumcraft.common.config.ConfigItems;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.client.model.ModelBiped;
-import thaumcraft.common.items.IThaumcraftItems;
-import thaumcraft.api.items.IRevealer;
 import thaumcraft.api.items.IGoggles;
-import net.minecraftforge.common.ISpecialArmor;
-import net.minecraft.item.ItemArmor;
+import thaumcraft.api.items.IRevealer;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.client.renderers.models.gear.ModelFortressArmor;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.IThaumcraftItems;
+
 
 public class ItemFortressArmor extends ItemArmor implements ISpecialArmor, IGoggles, IRevealer, IThaumcraftItems
 {

@@ -1,18 +1,18 @@
 package thaumcraft.common.lib.network.misc;
-
-import net.minecraft.util.IThreadListener;
+import io.netty.buffer.ByteBuf;
 import java.util.Iterator;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IThreadListener;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import thaumcraft.api.crafting.CrucibleRecipe;
 import thaumcraft.common.tiles.crafting.TileThaumatorium;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+
 
 public class PacketSelectThaumotoriumRecipeToServer implements IMessage, IMessageHandler<PacketSelectThaumotoriumRecipeToServer, IMessage>
 {

@@ -1,11 +1,11 @@
 package thaumcraft.common.items.casters.foci;
-
-import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
-import thaumcraft.api.casters.Trajectory;
+import net.minecraft.util.math.Vec3d;
+import thaumcraft.api.casters.FocusMod;
 import thaumcraft.api.casters.FocusNode;
 import thaumcraft.api.casters.NodeSetting;
-import thaumcraft.api.casters.FocusMod;
+import thaumcraft.api.casters.Trajectory;
+
 
 public class FocusModScatter extends FocusMod
 {

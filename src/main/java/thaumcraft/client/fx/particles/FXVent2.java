@@ -1,13 +1,13 @@
 package thaumcraft.client.fx.particles;
-
-import org.lwjgl.opengl.GL11;
+import java.awt.Color;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
-import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraft.util.math.MathHelper;
-import java.awt.Color;
 import net.minecraft.world.World;
-import net.minecraft.client.particle.Particle;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import org.lwjgl.opengl.GL11;
+
 
 public class FXVent2 extends Particle
 {

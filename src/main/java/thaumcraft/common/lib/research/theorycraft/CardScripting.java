@@ -1,10 +1,10 @@
 package thaumcraft.common.lib.research.theorycraft;
-
-import thaumcraft.common.tiles.crafting.TileResearchTable;
-import thaumcraft.api.research.theorycraft.ResearchTableData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentTranslation;
+import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
+import thaumcraft.common.tiles.crafting.TileResearchTable;
+
 
 public class CardScripting extends TheorycraftCard
 {

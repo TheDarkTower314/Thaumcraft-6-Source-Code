@@ -1,30 +1,30 @@
 package thaumcraft.common.tiles.crafting;
-
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.common.golems.ItemGolemPlacer;
-import thaumcraft.common.lib.utils.InventoryUtils;
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagLong;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.AxisAlignedBB;
-import thaumcraft.common.golems.GolemProperties;
-import thaumcraft.common.container.ContainerGolemBuilder;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.golems.IGolemProperties;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagLong;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.api.golems.IGolemProperties;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.container.ContainerGolemBuilder;
+import thaumcraft.common.golems.GolemProperties;
+import thaumcraft.common.golems.ItemGolemPlacer;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
+
 
 public class TileGolemBuilder extends TileThaumcraftInventory implements IEssentiaTransport
 {

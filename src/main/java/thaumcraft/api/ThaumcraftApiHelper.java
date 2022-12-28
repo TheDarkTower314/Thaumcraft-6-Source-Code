@@ -1,9 +1,7 @@
 package thaumcraft.api;
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
@@ -28,6 +26,8 @@ import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.api.crafting.IngredientNBTTC;
 import thaumcraft.api.items.ItemGenericEssentiaContainer;
 import thaumcraft.api.items.ItemsTC;
+
+
 
 public class ThaumcraftApiHelper {
 	

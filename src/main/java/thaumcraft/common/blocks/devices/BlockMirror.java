@@ -1,32 +1,32 @@
 package thaumcraft.common.blocks.devices;
-
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagInt;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import thaumcraft.common.tiles.devices.TileMirrorEssentia;
-import thaumcraft.common.tiles.devices.TileMirror;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.World;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.block.material.Material;
-import thaumcraft.common.blocks.IBlockFacing;
+import net.minecraft.world.World;
 import thaumcraft.common.blocks.BlockTCDevice;
+import thaumcraft.common.blocks.IBlockFacing;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.tiles.devices.TileMirror;
+import thaumcraft.common.tiles.devices.TileMirrorEssentia;
+
 
 public class BlockMirror extends BlockTCDevice implements IBlockFacing
 {

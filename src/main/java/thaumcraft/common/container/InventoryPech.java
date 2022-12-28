@@ -1,10 +1,10 @@
 package thaumcraft.common.container;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.entities.monster.EntityPech;
+import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.inventory.InventoryBasic;
+import net.minecraft.item.ItemStack;
+import thaumcraft.common.entities.monster.EntityPech;
+
 
 public class InventoryPech extends InventoryBasic
 {

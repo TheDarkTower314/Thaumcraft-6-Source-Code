@@ -1,9 +1,9 @@
 package thaumcraft.api.casters;
-
 import java.util.ArrayList;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
+
 
 public abstract class FocusModSplit extends FocusMod {
 	

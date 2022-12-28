@@ -1,10 +1,10 @@
 package thaumcraft.api.casters;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import thaumcraft.api.aspects.Aspect;
+
 
 public class FocusMediumRoot extends FocusMedium {
 		

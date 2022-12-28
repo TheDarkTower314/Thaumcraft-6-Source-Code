@@ -1,22 +1,22 @@
 package thaumcraft.common.entities.projectile;
-
-import net.minecraft.util.math.BlockPos;
 import java.util.Iterator;
 import java.util.List;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.potion.PotionEffect;
-import thaumcraft.api.potions.PotionFluxTaint;
-import thaumcraft.api.entities.ITaintedMob;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.entity.Entity;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.entities.ITaintedMob;
+import thaumcraft.api.potions.PotionFluxTaint;
 import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.World;
-import net.minecraft.entity.projectile.EntityThrowable;
+
 
 public class EntityBottleTaint extends EntityThrowable
 {

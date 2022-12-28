@@ -1,18 +1,18 @@
 package thaumcraft.client.gui.plugins;
-
-import net.minecraft.client.renderer.RenderHelper;
-import java.util.List;
-import thaumcraft.client.lib.UtilsFX;
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 import org.lwjgl.opengl.GL11;
-import java.awt.Color;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiButton;
+import thaumcraft.client.lib.UtilsFX;
+
 
 public class GuiImageButton extends GuiButton
 {

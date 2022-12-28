@@ -1,17 +1,17 @@
 package thaumcraft.common.tiles.crafting;
-
-import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.common.blocks.devices.BlockInlay;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.AxisAlignedBB;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.blocks.devices.BlockInlay;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
+
 
 public class TilePedestal extends TileThaumcraftInventory
 {

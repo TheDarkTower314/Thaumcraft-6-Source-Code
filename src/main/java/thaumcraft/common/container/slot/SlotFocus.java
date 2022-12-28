@@ -1,9 +1,9 @@
 package thaumcraft.common.container.slot;
-
-import thaumcraft.common.items.casters.ItemFocus;
-import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import thaumcraft.common.items.casters.ItemFocus;
+
 
 public class SlotFocus extends Slot
 {

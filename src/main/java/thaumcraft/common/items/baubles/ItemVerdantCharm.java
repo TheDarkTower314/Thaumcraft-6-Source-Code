@@ -1,32 +1,32 @@
 package thaumcraft.common.items.baubles;
-
-import thaumcraft.api.potions.PotionFluxTaint;
-import thaumcraft.api.items.RechargeHelper;
-import net.minecraft.init.MobEffects;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.client.util.ITooltipFlag;
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import java.util.List;
+import javax.annotation.Nullable;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagByte;
-import net.minecraft.item.Item;
-import thaumcraft.common.config.ConfigItems;
 import net.minecraft.util.NonNullList;
-import net.minecraft.creativetab.CreativeTabs;
-import baubles.api.BaubleType;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.entity.EntityLivingBase;
-import javax.annotation.Nullable;
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.items.IRechargable;
-import baubles.api.IBauble;
+import thaumcraft.api.items.RechargeHelper;
+import thaumcraft.api.potions.PotionFluxTaint;
+import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemVerdantCharm extends ItemTCBase implements IBauble, IRechargable
 {

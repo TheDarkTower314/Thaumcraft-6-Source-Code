@@ -1,5 +1,6 @@
 package thaumcraft.codechicken.lib.vec;
 
+
 public class AxisCycle
 {
     public static Transformation[] cycles;

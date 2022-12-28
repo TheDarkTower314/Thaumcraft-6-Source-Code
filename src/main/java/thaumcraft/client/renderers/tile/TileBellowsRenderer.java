@@ -1,19 +1,19 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.client.renderer.GlStateManager;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.tiles.essentia.TileTubeBuffer;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.block.ModelBoreBase;
-import thaumcraft.client.renderers.models.block.ModelBellows;
-import thaumcraft.common.tiles.devices.TileBellows;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.renderers.models.block.ModelBellows;
+import thaumcraft.client.renderers.models.block.ModelBoreBase;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.tiles.devices.TileBellows;
+import thaumcraft.common.tiles.essentia.TileTubeBuffer;
+
 
 public class TileBellowsRenderer extends TileEntitySpecialRenderer<TileBellows>
 {

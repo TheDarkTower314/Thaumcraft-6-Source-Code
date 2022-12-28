@@ -1,21 +1,21 @@
 package thaumcraft.common.lib.events;
-
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.entity.player.EntityPlayer;
-import org.lwjgl.input.Keyboard;
-import thaumcraft.common.lib.network.misc.PacketItemKeyToServer;
-import thaumcraft.common.golems.ItemGolemBell;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import thaumcraft.common.lib.network.misc.PacketFocusChangeToServer;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.api.casters.ICaster;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
+import thaumcraft.api.casters.ICaster;
+import thaumcraft.common.golems.ItemGolemBell;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.misc.PacketFocusChangeToServer;
+import thaumcraft.common.lib.network.misc.PacketItemKeyToServer;
+
 
 @Mod.EventBusSubscriber({ Side.CLIENT })
 public class KeyHandler

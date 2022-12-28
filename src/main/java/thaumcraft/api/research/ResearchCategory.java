@@ -1,12 +1,12 @@
 package thaumcraft.api.research;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+
+
 
 public class ResearchCategory {
 	

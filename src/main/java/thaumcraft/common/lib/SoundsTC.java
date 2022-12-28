@@ -1,10 +1,10 @@
 package thaumcraft.common.lib;
-
-import net.minecraftforge.registries.IForgeRegistryEntry;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraft.block.SoundType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+
 
 public class SoundsTC
 {

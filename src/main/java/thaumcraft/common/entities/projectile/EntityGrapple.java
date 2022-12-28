@@ -1,18 +1,18 @@
 package thaumcraft.common.entities.projectile;
-
+import io.netty.buffer.ByteBuf;
+import java.util.HashMap;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.Entity;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.world.World;
-import java.util.HashMap;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EnumHand;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraft.entity.projectile.EntityThrowable;
+
 
 public class EntityGrapple extends EntityThrowable implements IEntityAdditionalSpawnData
 {

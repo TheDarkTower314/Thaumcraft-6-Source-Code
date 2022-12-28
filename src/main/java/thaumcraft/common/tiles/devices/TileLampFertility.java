@@ -1,26 +1,26 @@
 package thaumcraft.common.tiles.devices;
-
-import net.minecraft.util.EnumFacing;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.nbt.NBTTagCompound;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.EntityLivingBase;
-import java.util.ArrayList;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.EnumSkyBlock;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.common.blocks.IBlockEnabled;
 import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.util.ITickable;
-import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileLampFertility extends TileThaumcraft implements IEssentiaTransport, ITickable
 {

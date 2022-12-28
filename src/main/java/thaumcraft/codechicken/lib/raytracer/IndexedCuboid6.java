@@ -1,6 +1,6 @@
 package thaumcraft.codechicken.lib.raytracer;
-
 import thaumcraft.codechicken.lib.vec.Cuboid6;
+
 
 public class IndexedCuboid6 extends Cuboid6
 {

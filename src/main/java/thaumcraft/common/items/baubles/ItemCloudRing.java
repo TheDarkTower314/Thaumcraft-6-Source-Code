@@ -1,23 +1,23 @@
 package thaumcraft.common.items.baubles;
-
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import thaumcraft.common.lib.network.playerdata.PacketPlayerFlagToServer;
-import thaumcraft.common.lib.network.PacketHandler;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.init.MobEffects;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.EnumFacing;
-import thaumcraft.client.fx.FXDispatcher;
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
+import java.util.HashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import baubles.api.BaubleType;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import java.util.HashMap;
-import baubles.api.IBauble;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.client.fx.FXDispatcher;
 import thaumcraft.common.items.ItemTCBase;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.playerdata.PacketPlayerFlagToServer;
+
 
 public class ItemCloudRing extends ItemTCBase implements IBauble
 {

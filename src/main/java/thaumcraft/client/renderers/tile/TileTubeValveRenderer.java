@@ -1,11 +1,11 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.tileentity.TileEntity;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.tiles.essentia.TileTubeValve;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.block.ModelTubeValve;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.renderers.models.block.ModelTubeValve;
+import thaumcraft.common.tiles.essentia.TileTubeValve;
+
 
 public class TileTubeValveRenderer extends TileEntitySpecialRenderer
 {

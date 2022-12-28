@@ -1,11 +1,11 @@
 package com.sasmaster.glelwjgl.java;
-
-import org.lwjgl.util.glu.GLUtessellator;
-import org.lwjgl.util.glu.GLUtessellatorCallback;
 import java.nio.DoubleBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
+import org.lwjgl.util.glu.GLUtessellator;
+import org.lwjgl.util.glu.GLUtessellatorCallback;
+
 
 public class CoreGLE implements GLE
 {

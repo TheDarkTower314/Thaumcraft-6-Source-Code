@@ -1,15 +1,15 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.init.Blocks;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.tiles.crafting.TileCrucible;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.tiles.crafting.TileCrucible;
+
 
 public class TileCrucibleRenderer extends TileEntitySpecialRenderer
 {

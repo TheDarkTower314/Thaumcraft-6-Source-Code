@@ -1,33 +1,33 @@
 package thaumcraft.common.golems.seals;
-
-import thaumcraft.api.golems.EnumGolemTrait;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import java.util.ArrayList;
-import thaumcraft.common.config.ModConfig;
-import thaumcraft.common.golems.EntityThaumcraftGolem;
-import java.util.UUID;
-import net.minecraft.init.SoundEvents;
-import thaumcraft.api.golems.IGolemAPI;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.util.math.AxisAlignedBB;
-import thaumcraft.common.golems.tasks.TaskHandler;
-import net.minecraft.entity.Entity;
-import thaumcraft.api.golems.tasks.Task;
-import net.minecraft.item.ItemStack;
-import thaumcraft.common.lib.utils.InventoryUtils;
-import thaumcraft.api.ThaumcraftInvHelper;
-import net.minecraft.util.NonNullList;
-import net.minecraft.entity.item.EntityItem;
-import thaumcraft.api.golems.GolemHelper;
-import thaumcraft.api.golems.seals.ISealEntity;
-import net.minecraft.world.World;
 import java.util.Random;
-import thaumcraft.api.golems.seals.ISealConfigToggles;
+import java.util.UUID;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import java.util.HashMap;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import thaumcraft.api.ThaumcraftInvHelper;
+import thaumcraft.api.golems.EnumGolemTrait;
+import thaumcraft.api.golems.GolemHelper;
+import thaumcraft.api.golems.IGolemAPI;
 import thaumcraft.api.golems.seals.ISealConfigArea;
+import thaumcraft.api.golems.seals.ISealConfigToggles;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.tasks.Task;
+import thaumcraft.common.config.ModConfig;
+import thaumcraft.common.golems.EntityThaumcraftGolem;
+import thaumcraft.common.golems.tasks.TaskHandler;
+import thaumcraft.common.lib.utils.InventoryUtils;
+
 
 public class SealPickup extends SealFiltered implements ISealConfigArea
 {

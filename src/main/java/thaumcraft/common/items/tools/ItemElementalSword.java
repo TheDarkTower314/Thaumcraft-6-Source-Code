@@ -1,33 +1,33 @@
 package thaumcraft.common.items.tools;
-
 import java.util.List;
-import thaumcraft.common.lib.SoundsTC;
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import thaumcraft.client.fx.FXDispatcher;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.entity.Entity;
-import thaumcraft.common.lib.utils.EntityUtils;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import net.minecraft.item.EnumAction;
 import thaumcraft.api.items.ItemsTC;
-import net.minecraft.item.EnumRarity;
-import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.ItemMeshDefinition;
+import thaumcraft.client.fx.FXDispatcher;
 import thaumcraft.common.config.ConfigItems;
-import net.minecraft.item.Item;
 import thaumcraft.common.items.IThaumcraftItems;
-import net.minecraft.item.ItemSword;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.enchantment.EnumInfusionEnchantment;
+import thaumcraft.common.lib.utils.EntityUtils;
+
 
 public class ItemElementalSword extends ItemSword implements IThaumcraftItems
 {

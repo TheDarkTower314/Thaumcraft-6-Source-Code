@@ -1,13 +1,13 @@
 package thaumcraft.common.lib.crafting;
-
-import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.api.blocks.BlocksTC;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.aspects.AspectList;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
+
 
 public class ShapedArcaneVoidJar extends ShapedArcaneRecipe
 {

@@ -1,34 +1,34 @@
 package thaumcraft.common.entities.monster;
-
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.EnumSkyBlock;
-import java.util.List;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.item.Item;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.SoundEvent;
 import java.util.ArrayList;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import thaumcraft.common.lib.network.fx.PacketFXWispZap;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.MathHelper;
+import java.util.List;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityFlying;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.DamageSource;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.world.World;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.EntityFlying;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.fx.PacketFXWispZap;
+
 
 public class EntityWisp extends EntityFlying implements IMob
 {

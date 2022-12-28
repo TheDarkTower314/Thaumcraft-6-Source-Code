@@ -1,10 +1,10 @@
 package thaumcraft.common.lib;
-
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.items.ItemsTC;
-import net.minecraft.item.ItemStack;
-import net.minecraft.creativetab.CreativeTabs;
+
 
 public class CreativeTabThaumcraft extends CreativeTabs
 {

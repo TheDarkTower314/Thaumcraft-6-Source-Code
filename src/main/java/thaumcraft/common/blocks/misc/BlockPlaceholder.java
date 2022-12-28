@@ -1,26 +1,26 @@
 package thaumcraft.common.blocks.misc;
-
-import thaumcraft.common.blocks.crafting.BlockGolemBuilder;
-import thaumcraft.common.blocks.devices.BlockInfernalFurnace;
-import thaumcraft.Thaumcraft;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
+import java.util.Random;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumBlockRenderType;
-import thaumcraft.api.blocks.BlocksTC;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.material.EnumPushReaction;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import java.util.Random;
+import net.minecraft.world.World;
+import thaumcraft.Thaumcraft;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.common.blocks.BlockTC;
+import thaumcraft.common.blocks.crafting.BlockGolemBuilder;
+import thaumcraft.common.blocks.devices.BlockInfernalFurnace;
+
 
 public class BlockPlaceholder extends BlockTC
 {

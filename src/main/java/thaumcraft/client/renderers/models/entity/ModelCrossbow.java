@@ -1,11 +1,11 @@
 package thaumcraft.client.renderers.models.entity;
-
-import net.minecraft.entity.item.EntityMinecart;
-import thaumcraft.common.entities.construct.EntityTurretCrossbow;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.util.math.MathHelper;
+import thaumcraft.common.entities.construct.EntityTurretCrossbow;
+
 
 public class ModelCrossbow extends ModelBase
 {

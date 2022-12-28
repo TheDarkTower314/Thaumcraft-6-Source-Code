@@ -1,8 +1,8 @@
 package thaumcraft.common.world.aura;
-
-import net.minecraft.world.chunk.Chunk;
 import java.lang.ref.WeakReference;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.chunk.Chunk;
+
 
 public class AuraChunk
 {

@@ -1,20 +1,20 @@
 package thaumcraft.client.renderers.entity.construct;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
-import thaumcraft.client.lib.UtilsFX;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.common.entities.monster.boss.EntityCultistPortalGreater;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.entity.Render;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.entities.monster.boss.EntityCultistPortalGreater;
+
 
 @SideOnly(Side.CLIENT)
 public class RenderCultistPortalGreater extends Render

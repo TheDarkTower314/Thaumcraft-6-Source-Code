@@ -1,19 +1,19 @@
 package thaumcraft.common.lib.events;
-
-import net.minecraftforge.event.AnvilUpdateEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.oredict.OreDictionary;
-import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.common.items.consumables.ItemPhial;
-import thaumcraft.api.capabilities.IPlayerWarp;
-import thaumcraft.common.config.ModConfig;
-import thaumcraft.api.ThaumcraftApi;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import thaumcraft.api.blocks.BlocksTC;
-import thaumcraft.api.items.ItemsTC;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.fml.common.IFuelHandler;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.capabilities.IPlayerWarp;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.config.ModConfig;
+import thaumcraft.common.items.consumables.ItemPhial;
+import thaumcraft.common.lib.research.ResearchManager;
+
 
 @Mod.EventBusSubscriber
 public class CraftingEvents implements IFuelHandler

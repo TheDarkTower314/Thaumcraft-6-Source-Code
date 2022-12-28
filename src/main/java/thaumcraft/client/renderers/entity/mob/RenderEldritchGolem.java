@@ -1,16 +1,16 @@
 package thaumcraft.client.renderers.entity.mob;
-
-import net.minecraft.entity.EntityLiving;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.Entity;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.entity.ModelEldritchGolem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.entity.RenderLiving;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.renderers.models.entity.ModelEldritchGolem;
+
 
 @SideOnly(Side.CLIENT)
 public class RenderEldritchGolem extends RenderLiving

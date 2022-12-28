@@ -1,13 +1,13 @@
 package thaumcraft.api.research;
-
 import java.util.Collection;
 import java.util.LinkedHashMap;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+
+
 
 public class ResearchCategories {
 	

@@ -1,23 +1,23 @@
 package thaumcraft.common.blocks.world.plants;
-
-import java.util.Iterator;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import com.google.common.collect.UnmodifiableIterator;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.util.EnumFacing;
+import java.util.Iterator;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.common.blocks.BlockTC;
+
 
 public class BlockLogsTC extends BlockTC
 {

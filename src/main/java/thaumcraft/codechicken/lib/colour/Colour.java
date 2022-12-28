@@ -1,10 +1,10 @@
 package thaumcraft.codechicken.lib.colour;
-
-import thaumcraft.codechicken.lib.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
+import thaumcraft.codechicken.lib.math.MathHelper;
 import thaumcraft.codechicken.lib.util.Copyable;
+
 
 public abstract class Colour implements Copyable<Colour>
 {

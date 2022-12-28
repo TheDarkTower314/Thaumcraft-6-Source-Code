@@ -1,5 +1,6 @@
 package com.sasmaster.glelwjgl.java;
 
+
 public class GLEContext
 {
     public static String VERSION;

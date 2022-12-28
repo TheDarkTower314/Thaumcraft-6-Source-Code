@@ -1,9 +1,9 @@
 package thaumcraft.common.entities.ai.combat;
-
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIAttackRanged;
+
 
 public class AILongRangeAttack extends EntityAIAttackRanged
 {

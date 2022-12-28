@@ -1,18 +1,18 @@
 package thaumcraft.common.lib.crafting;
-
-import thaumcraft.common.lib.events.ServerEvents;
-import net.minecraft.inventory.IInventory;
-import thaumcraft.common.container.InventoryFake;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraft.block.state.IBlockState;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.api.crafting.IDustTrigger;
+import thaumcraft.common.container.InventoryFake;
+import thaumcraft.common.lib.events.ServerEvents;
+
 
 public class DustTriggerOre implements IDustTrigger
 {

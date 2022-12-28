@@ -1,22 +1,22 @@
 package thaumcraft.common.blocks.essentia;
-
-import net.minecraft.block.Block;
 import java.util.ArrayList;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.entity.EntityLivingBase;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import thaumcraft.common.blocks.BlockTC;
+import thaumcraft.common.blocks.IBlockFacingHorizontal;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+
 
 public class BlockSmelterAux extends BlockTC implements IBlockFacingHorizontal
 {

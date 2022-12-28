@@ -1,38 +1,38 @@
 package thaumcraft.client.gui;
-
-import thaumcraft.common.lib.network.misc.PacketMiscStringToServer;
-import org.lwjgl.input.Keyboard;
-import net.minecraft.client.gui.GuiScreen;
-import thaumcraft.client.gui.plugins.GuiScrollButton;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import thaumcraft.common.lib.network.misc.PacketLogisticsRequestToServer;
-import thaumcraft.common.lib.network.PacketHandler;
-import net.minecraft.client.gui.GuiButton;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.client.Minecraft;
-import net.minecraft.inventory.ClickType;
 import java.io.IOException;
-import org.lwjgl.input.Mouse;
-import net.minecraft.util.text.TextComponentTranslation;
 import java.util.Iterator;
-import net.minecraft.inventory.Slot;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
-import thaumcraft.client.gui.plugins.GuiImageButton;
-import thaumcraft.client.gui.plugins.GuiPlusMinusButton;
-import thaumcraft.client.gui.plugins.GuiSliderTC;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.ClickType;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import thaumcraft.common.container.ContainerLogistics;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.gui.plugins.GuiImageButton;
+import thaumcraft.client.gui.plugins.GuiPlusMinusButton;
+import thaumcraft.client.gui.plugins.GuiScrollButton;
+import thaumcraft.client.gui.plugins.GuiSliderTC;
+import thaumcraft.common.container.ContainerLogistics;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.misc.PacketLogisticsRequestToServer;
+import thaumcraft.common.lib.network.misc.PacketMiscStringToServer;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiLogistics extends GuiContainer

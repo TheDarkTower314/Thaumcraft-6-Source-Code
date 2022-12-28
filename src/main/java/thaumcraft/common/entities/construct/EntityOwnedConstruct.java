@@ -1,28 +1,28 @@
 package thaumcraft.common.entities.construct;
-
-import net.minecraft.network.datasync.EntityDataManager;
+import com.google.common.base.Optional;
+import java.util.UUID;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityOwnable;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemNameTag;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.scoreboard.Team;
+import net.minecraft.server.management.PreYggdrasilConverter;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.item.ItemNameTag;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.scoreboard.Team;
-import net.minecraft.server.management.PreYggdrasilConverter;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.DamageSource;
-import thaumcraft.common.lib.SoundsTC;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-import java.util.UUID;
-import com.google.common.base.Optional;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.entity.IEntityOwnable;
-import net.minecraft.entity.EntityCreature;
+import thaumcraft.common.lib.SoundsTC;
+
 
 public class EntityOwnedConstruct extends EntityCreature implements IEntityOwnable
 {

@@ -1,20 +1,20 @@
 package thaumcraft.common.entities.monster;
-
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
 import javax.annotation.Nullable;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraft.network.datasync.DataParameter;
-import thaumcraft.api.entities.IEldritchMob;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.World;
+import thaumcraft.api.entities.IEldritchMob;
+
 
 public class EntityMindSpider extends EntitySpider implements IEldritchMob
 {

@@ -1,24 +1,24 @@
 package thaumcraft.common.items.casters.foci;
-
-import net.minecraft.util.SoundCategory;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.particle.Particle;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.casters.FocusEffect;
+import thaumcraft.api.casters.IFocusBlockPicker;
+import thaumcraft.api.casters.NodeSetting;
+import thaumcraft.api.casters.Trajectory;
 import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.client.fx.particles.FXGeneric;
-import net.minecraft.world.World;
-import thaumcraft.api.casters.NodeSetting;
-import thaumcraft.common.lib.events.ServerEvents;
-import net.minecraft.entity.player.EntityPlayer;
 import thaumcraft.common.items.casters.ItemCaster;
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.casters.Trajectory;
-import net.minecraft.util.math.RayTraceResult;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.casters.IFocusBlockPicker;
-import thaumcraft.api.casters.FocusEffect;
+import thaumcraft.common.lib.events.ServerEvents;
+
 
 public class FocusEffectExchange extends FocusEffect implements IFocusBlockPicker
 {

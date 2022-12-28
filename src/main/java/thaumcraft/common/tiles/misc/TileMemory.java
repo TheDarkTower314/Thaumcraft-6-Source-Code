@@ -1,10 +1,10 @@
 package thaumcraft.common.tiles.misc;
-
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
+
 
 public class TileMemory extends TileEntity
 {

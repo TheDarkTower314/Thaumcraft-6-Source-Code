@@ -1,5 +1,6 @@
 package com.sasmaster.glelwjgl.java;
 
+
 public class intersect
 {
     public static String VERSION;

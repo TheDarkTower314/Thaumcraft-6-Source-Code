@@ -1,14 +1,14 @@
 package thaumcraft.client.renderers.models.entity;
-
-import thaumcraft.common.entities.monster.EntityEldritchGuardian;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.util.math.MathHelper;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.common.entities.monster.boss.EntityEldritchWarden;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.model.ModelBase;
+import net.minecraft.util.math.MathHelper;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.common.entities.monster.EntityEldritchGuardian;
+import thaumcraft.common.entities.monster.boss.EntityEldritchWarden;
+
 
 public class ModelEldritchGuardian extends ModelBase
 {

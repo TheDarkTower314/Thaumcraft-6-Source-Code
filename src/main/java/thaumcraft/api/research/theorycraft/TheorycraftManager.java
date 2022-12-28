@@ -1,6 +1,6 @@
 package thaumcraft.api.research.theorycraft;
-
 import java.util.HashMap;
+
 
 public class TheorycraftManager {
 	

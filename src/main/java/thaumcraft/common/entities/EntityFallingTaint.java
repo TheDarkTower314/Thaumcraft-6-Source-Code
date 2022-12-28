@@ -1,25 +1,25 @@
 package thaumcraft.common.entities;
-
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.SoundCategory;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.MoverType;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.client.fx.FXDispatcher;
 import thaumcraft.common.blocks.world.taint.BlockTaint;
 import thaumcraft.common.lib.SoundsTC;
-import thaumcraft.api.blocks.BlocksTC;
-import net.minecraft.entity.MoverType;
-import net.minecraft.init.Blocks;
-import net.minecraft.block.Block;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.world.World;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.block.state.IBlockState;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraft.entity.Entity;
+
 
 public class EntityFallingTaint extends Entity implements IEntityAdditionalSpawnData
 {

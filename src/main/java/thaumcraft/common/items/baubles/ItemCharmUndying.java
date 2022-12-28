@@ -1,10 +1,10 @@
 package thaumcraft.common.items.baubles;
-
 import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import baubles.api.IBauble;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemCharmUndying extends ItemTCBase implements IBauble
 {

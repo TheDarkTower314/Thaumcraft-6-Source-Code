@@ -1,7 +1,7 @@
 package thaumcraft.api.golems.parts;
-
-import thaumcraft.api.golems.IGolemAPI;
 import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.golems.IGolemAPI;
+
 
 public class PartModel
 {

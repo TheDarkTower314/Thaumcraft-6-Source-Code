@@ -1,8 +1,8 @@
 package thaumcraft.common.entities.monster.mods;
-
 import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.util.DamageSource;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.DamageSource;
+
 
 public class ChampionModDummy implements IChampionModifierEffect
 {

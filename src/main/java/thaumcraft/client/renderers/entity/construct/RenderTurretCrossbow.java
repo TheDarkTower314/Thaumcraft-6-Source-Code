@@ -1,13 +1,13 @@
 package thaumcraft.client.renderers.entity.construct;
-
-import net.minecraft.entity.Entity;
-import thaumcraft.common.entities.construct.EntityTurretCrossbow;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.client.model.ModelBase;
-import thaumcraft.client.renderers.models.entity.ModelCrossbow;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ResourceLocation;
+import thaumcraft.client.renderers.models.entity.ModelCrossbow;
+import thaumcraft.common.entities.construct.EntityTurretCrossbow;
+
 
 public class RenderTurretCrossbow extends RenderLiving
 {

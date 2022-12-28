@@ -1,14 +1,14 @@
 package thaumcraft.common.entities.monster;
-
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.items.ItemsTC;
-import net.minecraft.util.DamageSource;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.world.World;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
+import thaumcraft.api.items.ItemsTC;
+
 
 public class EntityBrainyZombie extends EntityZombie
 {

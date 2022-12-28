@@ -1,10 +1,10 @@
 package thaumcraft.api.casters;
-
 import javax.annotation.Nullable;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
+
 
 public abstract class FocusEffect extends FocusNode {
 	

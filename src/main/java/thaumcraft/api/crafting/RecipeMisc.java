@@ -1,6 +1,6 @@
 package thaumcraft.api.crafting;
-
 import net.minecraft.item.ItemStack;
+
 
 /**
  * 

@@ -1,31 +1,31 @@
 package thaumcraft.common.items.armor;
-
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.Minecraft;
 import baubles.api.BaubleType;
+import baubles.api.IBauble;
+import baubles.api.render.IRenderBauble;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.api.items.ItemsTC;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.item.Item;
-import thaumcraft.common.config.ConfigItems;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import thaumcraft.api.ThaumcraftMaterials;
-import net.minecraft.util.ResourceLocation;
-import baubles.api.render.IRenderBauble;
-import baubles.api.IBauble;
-import thaumcraft.common.items.IThaumcraftItems;
 import thaumcraft.api.items.IGoggles;
 import thaumcraft.api.items.IRevealer;
 import thaumcraft.api.items.IVisDiscountGear;
-import net.minecraft.item.ItemArmor;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.IThaumcraftItems;
+
 
 public class ItemGoggles extends ItemArmor implements IVisDiscountGear, IRevealer, IGoggles, IThaumcraftItems, IBauble, IRenderBauble
 {

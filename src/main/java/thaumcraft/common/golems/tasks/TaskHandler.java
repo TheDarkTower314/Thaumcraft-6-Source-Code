@@ -1,16 +1,16 @@
 package thaumcraft.common.golems.tasks;
-
-import net.minecraft.world.World;
-import thaumcraft.api.golems.seals.ISealEntity;
-import thaumcraft.api.golems.IGolemAPI;
-import thaumcraft.common.golems.seals.SealHandler;
-import thaumcraft.common.golems.EntityThaumcraftGolem;
 import java.util.ArrayList;
-import net.minecraft.entity.Entity;
-import java.util.UUID;
 import java.util.Iterator;
-import thaumcraft.api.golems.tasks.Task;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import net.minecraft.entity.Entity;
+import net.minecraft.world.World;
+import thaumcraft.api.golems.IGolemAPI;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.tasks.Task;
+import thaumcraft.common.golems.EntityThaumcraftGolem;
+import thaumcraft.common.golems.seals.SealHandler;
+
 
 public class TaskHandler
 {

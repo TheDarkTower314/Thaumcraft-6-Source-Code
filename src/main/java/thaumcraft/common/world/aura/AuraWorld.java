@@ -1,7 +1,7 @@
 package thaumcraft.common.world.aura;
-
-import thaumcraft.common.lib.utils.PosXY;
 import java.util.concurrent.ConcurrentHashMap;
+import thaumcraft.common.lib.utils.PosXY;
+
 
 public class AuraWorld
 {

@@ -1,12 +1,12 @@
 package thaumcraft.common.entities.monster.mods;
-
-import org.lwjgl.opengl.GL11;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.util.DamageSource;
-import net.minecraft.entity.EntityLivingBase;
+
 
 public class ChampionModVampire implements IChampionModifierEffect
 {

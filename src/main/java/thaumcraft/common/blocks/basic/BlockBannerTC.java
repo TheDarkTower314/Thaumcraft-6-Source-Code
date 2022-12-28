@@ -1,32 +1,32 @@
 package thaumcraft.common.blocks.basic;
-
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.init.SoundEvents;
-import thaumcraft.api.aspects.IEssentiaContainerItem;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.common.items.consumables.ItemPhial;
-import net.minecraft.util.EnumHand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.common.tiles.misc.TileBanner;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.block.material.MapColor;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.IEssentiaContainerItem;
 import thaumcraft.common.blocks.BlockTC;
+import thaumcraft.common.items.consumables.ItemPhial;
+import thaumcraft.common.tiles.misc.TileBanner;
+
 
 public class BlockBannerTC extends BlockTC implements ITileEntityProvider
 {

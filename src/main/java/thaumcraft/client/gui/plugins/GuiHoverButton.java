@@ -1,25 +1,25 @@
 package thaumcraft.client.gui.plugins;
-
-import java.util.Iterator;
-import net.minecraft.client.renderer.RenderHelper;
-import java.util.List;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.client.util.ITooltipFlag;
-import java.util.ArrayList;
-import net.minecraft.client.gui.FontRenderer;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.item.ItemStack;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.api.aspects.Aspect;
-import net.minecraft.client.renderer.GlStateManager;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.GuiButton;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.client.lib.UtilsFX;
+
 
 @SideOnly(Side.CLIENT)
 public class GuiHoverButton extends GuiButton

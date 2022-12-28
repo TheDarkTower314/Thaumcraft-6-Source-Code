@@ -1,10 +1,6 @@
 package thaumcraft.api;
-
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.lang3.tuple.Pair;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -19,7 +15,11 @@ import net.minecraftforge.items.VanillaInventoryCodeHooks;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.tuple.Pair;
 import thaumcraft.common.lib.utils.InventoryUtils;
+
+
+
 
 public class ThaumcraftInvHelper {
 

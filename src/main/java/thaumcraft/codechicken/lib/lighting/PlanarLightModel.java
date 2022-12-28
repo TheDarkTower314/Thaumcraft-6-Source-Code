@@ -1,7 +1,7 @@
 package thaumcraft.codechicken.lib.lighting;
-
 import thaumcraft.codechicken.lib.colour.ColourRGBA;
 import thaumcraft.codechicken.lib.render.CCRenderState;
+
 
 public class PlanarLightModel implements CCRenderState.IVertexOperation
 {

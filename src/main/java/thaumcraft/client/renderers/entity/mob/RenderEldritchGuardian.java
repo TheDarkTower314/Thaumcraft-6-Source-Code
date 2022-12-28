@@ -1,19 +1,19 @@
 package thaumcraft.client.renderers.entity.mob;
-
-import thaumcraft.common.config.ModConfig;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.entity.EntityLiving;
-import thaumcraft.common.entities.monster.boss.EntityEldritchWarden;
-import net.minecraft.entity.Entity;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.renderers.models.entity.ModelEldritchGuardian;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.entity.RenderLiving;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.renderers.models.entity.ModelEldritchGuardian;
+import thaumcraft.common.config.ModConfig;
+import thaumcraft.common.entities.monster.boss.EntityEldritchWarden;
+
 
 @SideOnly(Side.CLIENT)
 public class RenderEldritchGuardian extends RenderLiving

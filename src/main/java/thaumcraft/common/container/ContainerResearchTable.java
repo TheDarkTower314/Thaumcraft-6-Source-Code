@@ -1,22 +1,22 @@
 package thaumcraft.common.container;
-
-import thaumcraft.api.research.theorycraft.TheorycraftCard;
-import java.util.Iterator;
-import thaumcraft.common.lib.utils.InventoryUtils;
-import thaumcraft.api.research.theorycraft.ResearchTableData;
-import thaumcraft.common.container.slot.SlotLimitedByItemstack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.IInventory;
-import thaumcraft.common.container.slot.SlotLimitedByClass;
-import thaumcraft.api.items.IScribeTools;
-import thaumcraft.api.aspects.Aspect;
-import net.minecraft.entity.player.InventoryPlayer;
 import java.util.HashMap;
+import java.util.Iterator;
 import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.tiles.crafting.TileResearchTable;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.items.IScribeTools;
+import thaumcraft.api.research.theorycraft.ResearchTableData;
+import thaumcraft.api.research.theorycraft.TheorycraftCard;
+import thaumcraft.common.container.slot.SlotLimitedByClass;
+import thaumcraft.common.container.slot.SlotLimitedByItemstack;
+import thaumcraft.common.lib.utils.InventoryUtils;
+import thaumcraft.common.tiles.crafting.TileResearchTable;
+
 
 public class ContainerResearchTable extends Container
 {

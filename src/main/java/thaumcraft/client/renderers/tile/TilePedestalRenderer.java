@@ -1,17 +1,17 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.item.ItemStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.World;
-import net.minecraft.entity.item.EntityItem;
-import org.lwjgl.opengl.GL11;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import thaumcraft.common.tiles.crafting.TilePedestal;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+
 
 @SideOnly(Side.CLIENT)
 public class TilePedestalRenderer extends TileEntitySpecialRenderer<TilePedestal>

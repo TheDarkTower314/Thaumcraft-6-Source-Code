@@ -1,9 +1,7 @@
 package thaumcraft.api.research.theorycraft;
-
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -12,8 +10,10 @@ import thaumcraft.api.capabilities.IPlayerKnowledge;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategory;
-import thaumcraft.api.research.ResearchEntry;
 import thaumcraft.api.research.ResearchEntry.EnumResearchMeta; 
+import thaumcraft.api.research.ResearchEntry;
+
+
 
 public class ResearchTableData 
 {

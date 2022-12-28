@@ -1,22 +1,22 @@
 package thaumcraft.common.golems.ai;
-
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Collections;
-import com.google.common.base.Predicates;
-import net.minecraft.util.EntitySelectors;
-import org.apache.commons.lang3.StringUtils;
-import net.minecraft.entity.IEntityOwnable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.scoreboard.Team;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import com.google.common.base.Predicate;
+import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITarget;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.scoreboard.Team;
+import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.math.BlockPos;
+import org.apache.commons.lang3.StringUtils;
+
 
 public class AINearestValidTarget extends EntityAITarget
 {

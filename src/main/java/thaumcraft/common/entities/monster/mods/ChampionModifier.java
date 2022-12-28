@@ -1,8 +1,8 @@
 package thaumcraft.common.entities.monster.mods;
-
-import net.minecraft.util.text.translation.I18n;
 import java.util.UUID;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.util.text.translation.I18n;
+
 
 public class ChampionModifier
 {

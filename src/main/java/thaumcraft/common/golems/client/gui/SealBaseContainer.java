@@ -1,27 +1,27 @@
 package thaumcraft.common.golems.client.gui;
-
-import thaumcraft.Thaumcraft;
-import net.minecraft.item.ItemStack;
+import com.google.common.collect.Lists;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.inventory.IContainerListener;
+import thaumcraft.Thaumcraft;
 import thaumcraft.api.golems.seals.ISealConfigArea;
-import thaumcraft.api.golems.seals.ISealConfigToggles;
-import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.IInventory;
-import thaumcraft.common.container.slot.SlotGhost;
 import thaumcraft.api.golems.seals.ISealConfigFilter;
-import com.google.common.collect.Lists;
-import net.minecraft.util.NonNullList;
-import thaumcraft.api.golems.seals.ISealGui;
-import net.minecraft.entity.player.InventoryPlayer;
-import thaumcraft.common.container.InventoryFake;
-import net.minecraft.entity.player.EntityPlayer;
+import thaumcraft.api.golems.seals.ISealConfigToggles;
 import thaumcraft.api.golems.seals.ISealEntity;
-import net.minecraft.world.World;
-import net.minecraft.inventory.Container;
+import thaumcraft.api.golems.seals.ISealGui;
+import thaumcraft.common.container.InventoryFake;
+import thaumcraft.common.container.slot.SlotGhost;
+
 
 public class SealBaseContainer extends Container
 {

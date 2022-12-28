@@ -1,19 +1,19 @@
 package thaumcraft.client.renderers.entity.mob;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLiving;
 import java.awt.Color;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.model.ModelBat;
-import thaumcraft.common.entities.monster.EntitySpellBat;
 import net.minecraft.client.model.ModelBase;
-import thaumcraft.client.renderers.models.entity.ModelFireBat;
+import net.minecraft.client.model.ModelBat;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.entity.RenderLiving;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.renderers.models.entity.ModelFireBat;
+import thaumcraft.common.entities.monster.EntitySpellBat;
+
 
 @SideOnly(Side.CLIENT)
 public class RenderSpellBat extends RenderLiving

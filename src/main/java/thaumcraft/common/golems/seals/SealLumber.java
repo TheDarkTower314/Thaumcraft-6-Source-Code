@@ -1,36 +1,36 @@
 package thaumcraft.common.golems.seals;
-
-import thaumcraft.api.golems.EnumGolemTrait;
+import com.mojang.authlib.GameProfile;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Random;
+import java.util.UUID;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import thaumcraft.common.golems.client.gui.SealBaseGUI;
-import thaumcraft.common.golems.client.gui.SealBaseContainer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.block.state.IBlockState;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.lib.utils.BlockUtils;
-import net.minecraftforge.common.util.FakePlayerFactory;
-import com.mojang.authlib.GameProfile;
-import java.util.UUID;
-import net.minecraft.world.WorldServer;
-import thaumcraft.api.golems.IGolemAPI;
-import net.minecraft.util.math.BlockPos;
-import java.util.Iterator;
-import thaumcraft.api.golems.tasks.Task;
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.common.lib.utils.Utils;
+import thaumcraft.api.golems.EnumGolemTrait;
 import thaumcraft.api.golems.GolemHelper;
-import thaumcraft.common.golems.tasks.TaskHandler;
-import thaumcraft.api.golems.seals.ISealEntity;
-import net.minecraft.world.World;
-import java.util.Random;
-import net.minecraft.util.ResourceLocation;
-import java.util.HashMap;
-import thaumcraft.api.golems.seals.ISealConfigArea;
-import thaumcraft.api.golems.seals.ISealGui;
+import thaumcraft.api.golems.IGolemAPI;
 import thaumcraft.api.golems.seals.ISeal;
+import thaumcraft.api.golems.seals.ISealConfigArea;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.seals.ISealGui;
+import thaumcraft.api.golems.tasks.Task;
+import thaumcraft.common.golems.client.gui.SealBaseContainer;
+import thaumcraft.common.golems.client.gui.SealBaseGUI;
+import thaumcraft.common.golems.tasks.TaskHandler;
+import thaumcraft.common.lib.utils.BlockUtils;
+import thaumcraft.common.lib.utils.Utils;
+
 
 public class SealLumber implements ISeal, ISealGui, ISealConfigArea
 {

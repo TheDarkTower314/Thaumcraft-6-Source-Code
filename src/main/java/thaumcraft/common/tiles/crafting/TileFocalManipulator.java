@@ -1,31 +1,31 @@
 package thaumcraft.common.tiles.crafting;
-
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.common.lib.utils.InventoryUtils;
-import thaumcraft.api.ThaumcraftApiHelper;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import thaumcraft.api.casters.FocusModSplit;
-import thaumcraft.api.casters.IFocusElement;
-import thaumcraft.api.casters.FocusPackage;
-import thaumcraft.client.fx.FXDispatcher;
+import java.util.HashMap;
+import java.util.Iterator;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.SoundCategory;
-import thaumcraft.common.lib.SoundsTC;
-import thaumcraft.common.items.casters.ItemFocus;
-import thaumcraft.common.world.aura.AuraHandler;
-import thaumcraft.api.blocks.BlocksTC;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.util.math.AxisAlignedBB;
-import java.util.Iterator;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagCompound;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import java.util.HashMap;
+import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.casters.FocusModSplit;
+import thaumcraft.api.casters.FocusPackage;
+import thaumcraft.api.casters.IFocusElement;
+import thaumcraft.client.fx.FXDispatcher;
+import thaumcraft.common.items.casters.ItemFocus;
+import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
+import thaumcraft.common.world.aura.AuraHandler;
+
 
 public class TileFocalManipulator extends TileThaumcraftInventory
 {

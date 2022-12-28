@@ -1,33 +1,33 @@
 package thaumcraft.common.lib;
-
-import thaumcraft.common.golems.seals.ItemSealPlacer;
-import thaumcraft.common.golems.tasks.TaskHandler;
-import thaumcraft.api.golems.tasks.Task;
-import thaumcraft.api.golems.seals.ISealEntity;
-import thaumcraft.api.golems.seals.SealPos;
-import thaumcraft.common.golems.seals.SealHandler;
-import thaumcraft.api.golems.seals.ISeal;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import thaumcraft.common.lib.network.fx.PacketFXPollute;
-import thaumcraft.common.world.aura.AuraHandler;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
-import thaumcraft.api.aspects.AspectList;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraft.entity.player.EntityPlayerMP;
-import thaumcraft.common.lib.network.playerdata.PacketWarpMessage;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import thaumcraft.api.capabilities.IPlayerWarp;
-import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.api.research.ResearchCategory;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.capabilities.IPlayerKnowledge;
-import net.minecraft.entity.player.EntityPlayer;
+import thaumcraft.api.capabilities.IPlayerWarp;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.golems.seals.ISeal;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.seals.SealPos;
+import thaumcraft.api.golems.tasks.Task;
 import thaumcraft.api.internal.IInternalMethodHandler;
+import thaumcraft.api.research.ResearchCategory;
+import thaumcraft.common.golems.seals.ItemSealPlacer;
+import thaumcraft.common.golems.seals.SealHandler;
+import thaumcraft.common.golems.tasks.TaskHandler;
+import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.fx.PacketFXPollute;
+import thaumcraft.common.lib.network.playerdata.PacketWarpMessage;
+import thaumcraft.common.lib.research.ResearchManager;
+import thaumcraft.common.world.aura.AuraHandler;
+
 
 public class InternalMethodHandler implements IInternalMethodHandler
 {

@@ -1,22 +1,22 @@
 package thaumcraft.client.renderers.entity.construct;
-
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.common.lib.utils.Utils;
-import net.minecraft.util.math.Vec3d;
-import thaumcraft.client.lib.UtilsFX;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.Tessellator;
-import thaumcraft.common.entities.construct.EntityArcaneBore;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.model.ModelBase;
-import thaumcraft.client.renderers.models.entity.ModelArcaneBore;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.models.entity.ModelArcaneBore;
+import thaumcraft.common.entities.construct.EntityArcaneBore;
+import thaumcraft.common.lib.utils.Utils;
+
 
 public class RenderArcaneBore extends RenderLiving
 {

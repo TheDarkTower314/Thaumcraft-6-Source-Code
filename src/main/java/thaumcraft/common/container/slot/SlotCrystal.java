@@ -1,10 +1,10 @@
 package thaumcraft.common.container.slot;
-
-import thaumcraft.common.items.resources.ItemCrystalEssence;
-import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.IInventory;
-import thaumcraft.api.aspects.Aspect;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.common.items.resources.ItemCrystalEssence;
+
 
 public class SlotCrystal extends Slot
 {

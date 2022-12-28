@@ -1,5 +1,6 @@
 package thaumcraft.common.lib.utils;
 
+
 public class PosXY implements Comparable
 {
     public int x;

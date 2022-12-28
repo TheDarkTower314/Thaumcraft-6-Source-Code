@@ -1,34 +1,34 @@
 package thaumcraft.common.golems;
-
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Iterator;
-import net.minecraft.util.text.translation.I18n;
-import thaumcraft.api.golems.EnumGolemTrait;
-import net.minecraft.client.util.ITooltipFlag;
 import java.util.List;
-import net.minecraft.world.World;
-import thaumcraft.api.golems.IGolemProperties;
-import thaumcraft.api.golems.parts.GolemMaterial;
-import thaumcraft.api.golems.parts.GolemArm;
-import thaumcraft.api.golems.parts.GolemHead;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagLong;
-import net.minecraft.item.Item;
-import thaumcraft.common.config.ConfigItems;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.golems.EnumGolemTrait;
+import thaumcraft.api.golems.IGolemProperties;
 import thaumcraft.api.golems.ISealDisplayer;
+import thaumcraft.api.golems.parts.GolemArm;
+import thaumcraft.api.golems.parts.GolemHead;
+import thaumcraft.api.golems.parts.GolemMaterial;
+import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.ItemTCBase;
+
 
 public class ItemGolemPlacer extends ItemTCBase implements ISealDisplayer
 {

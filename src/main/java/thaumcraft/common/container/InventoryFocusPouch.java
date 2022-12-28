@@ -1,9 +1,9 @@
 package thaumcraft.common.container;
-
-import thaumcraft.common.items.casters.ItemFocus;
-import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.inventory.InventoryBasic;
+import net.minecraft.item.ItemStack;
+import thaumcraft.common.items.casters.ItemFocus;
+
 
 public class InventoryFocusPouch extends InventoryBasic
 {

@@ -1,33 +1,33 @@
 package thaumcraft.common.golems.seals;
-
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import thaumcraft.api.golems.EnumGolemTrait;
-import java.util.Collection;
-import java.util.Arrays;
-import net.minecraft.entity.IEntityOwnable;
-import thaumcraft.common.golems.EntityThaumcraftGolem;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.entity.Entity;
-import thaumcraft.api.golems.IGolemAPI;
-import net.minecraft.item.ItemStack;
-import java.util.ListIterator;
-import net.minecraftforge.items.IItemHandler;
-import java.util.Iterator;
-import thaumcraft.common.golems.tasks.TaskHandler;
-import thaumcraft.api.golems.tasks.Task;
-import thaumcraft.common.lib.utils.InventoryUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.Vec3i;
-import thaumcraft.api.ThaumcraftInvHelper;
-import thaumcraft.api.golems.ProvisionRequest;
 import java.util.ArrayList;
-import thaumcraft.api.golems.GolemHelper;
-import thaumcraft.api.golems.seals.ISealEntity;
-import net.minecraft.world.World;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Random;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.IEntityOwnable;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
+import thaumcraft.api.ThaumcraftInvHelper;
+import thaumcraft.api.golems.EnumGolemTrait;
+import thaumcraft.api.golems.GolemHelper;
+import thaumcraft.api.golems.IGolemAPI;
+import thaumcraft.api.golems.ProvisionRequest;
 import thaumcraft.api.golems.seals.ISealConfigToggles;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.tasks.Task;
+import thaumcraft.common.golems.EntityThaumcraftGolem;
+import thaumcraft.common.golems.tasks.TaskHandler;
+import thaumcraft.common.lib.utils.InventoryUtils;
+
 
 public class SealProvide extends SealFiltered implements ISealConfigToggles
 {

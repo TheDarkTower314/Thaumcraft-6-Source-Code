@@ -1,27 +1,27 @@
 package thaumcraft.common.entities.projectile;
-
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.datasync.DataSerializers;
+import io.netty.buffer.ByteBuf;
 import java.util.Iterator;
 import java.util.List;
-import thaumcraft.common.lib.events.ServerEvents;
-import thaumcraft.api.casters.FocusEngine;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.entity.Entity;
-import thaumcraft.common.lib.utils.EntityUtils;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.common.lib.utils.Utils;
-import io.netty.buffer.ByteBuf;
-import thaumcraft.api.casters.Trajectory;
-import net.minecraft.world.World;
-import thaumcraft.api.casters.FocusEffect;
 import net.minecraft.network.datasync.DataParameter;
-import thaumcraft.api.casters.FocusPackage;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraft.entity.projectile.EntityThrowable;
+import thaumcraft.api.casters.FocusEffect;
+import thaumcraft.api.casters.FocusEngine;
+import thaumcraft.api.casters.FocusPackage;
+import thaumcraft.api.casters.Trajectory;
+import thaumcraft.common.lib.events.ServerEvents;
+import thaumcraft.common.lib.utils.EntityUtils;
+import thaumcraft.common.lib.utils.Utils;
+
 
 public class EntityFocusMine extends EntityThrowable implements IEntityAdditionalSpawnData
 {

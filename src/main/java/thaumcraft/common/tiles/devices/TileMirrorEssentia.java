@@ -1,21 +1,21 @@
 package thaumcraft.common.tiles.devices;
-
-import thaumcraft.api.aura.AuraHelper;
-import thaumcraft.common.lib.events.EssentiaHandler;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.lib.utils.Utils;
-import net.minecraftforge.common.DimensionManager;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectSource;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.common.lib.events.EssentiaHandler;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.lib.utils.Utils;
 import thaumcraft.common.tiles.TileThaumcraft;
+
 
 public class TileMirrorEssentia extends TileThaumcraft implements IAspectSource, ITickable
 {

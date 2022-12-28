@@ -1,20 +1,20 @@
 package thaumcraft.client.renderers.tile;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.crafting.CrucibleRecipe;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.entity.Entity;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.api.ThaumcraftApi;
 import net.minecraft.client.Minecraft;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import thaumcraft.common.tiles.crafting.TileThaumatorium;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.crafting.CrucibleRecipe;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+import thaumcraft.common.tiles.crafting.TileThaumatorium;
+
 
 @SideOnly(Side.CLIENT)
 public class TileThaumatoriumRenderer extends TileEntitySpecialRenderer

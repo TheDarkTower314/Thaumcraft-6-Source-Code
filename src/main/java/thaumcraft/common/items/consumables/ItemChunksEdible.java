@@ -1,14 +1,14 @@
 package thaumcraft.common.items.consumables;
-
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.item.Item;
-import net.minecraft.util.NonNullList;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.IThaumcraftItems;
-import net.minecraft.item.ItemFood;
+
 
 public class ItemChunksEdible extends ItemFood implements IThaumcraftItems
 {

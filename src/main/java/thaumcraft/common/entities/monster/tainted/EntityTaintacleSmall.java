@@ -1,10 +1,10 @@
 package thaumcraft.common.entities.monster.tainted;
-
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
 import thaumcraft.api.entities.ITaintedMob;
+
 
 public class EntityTaintacleSmall extends EntityTaintacle implements ITaintedMob
 {

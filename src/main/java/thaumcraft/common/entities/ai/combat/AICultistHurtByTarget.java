@@ -1,13 +1,13 @@
 package thaumcraft.common.entities.ai.combat;
-
 import java.util.Iterator;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.util.math.AxisAlignedBB;
 import thaumcraft.common.entities.monster.cult.EntityCultist;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.ai.EntityAITarget;
+
 
 public class AICultistHurtByTarget extends EntityAITarget
 {

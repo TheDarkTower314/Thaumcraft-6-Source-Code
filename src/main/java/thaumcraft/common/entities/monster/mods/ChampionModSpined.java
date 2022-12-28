@@ -1,13 +1,13 @@
 package thaumcraft.common.entities.monster.mods;
-
 import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.client.fx.FXDispatcher;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.entity.EntityLivingBase;
+
 
 public class ChampionModSpined implements IChampionModifierEffect
 {

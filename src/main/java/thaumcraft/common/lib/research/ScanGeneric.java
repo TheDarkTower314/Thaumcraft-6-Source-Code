@@ -1,19 +1,19 @@
 package thaumcraft.common.lib.research;
-
-import net.minecraft.entity.EntityList;
 import java.util.Iterator;
-import thaumcraft.api.capabilities.IPlayerKnowledge;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.research.ResearchCategory;
-import thaumcraft.api.research.ResearchCategories;
-import net.minecraft.item.ItemStack;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.research.ScanningManager;
-import thaumcraft.api.aspects.AspectHelper;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.AspectHelper;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.capabilities.IPlayerKnowledge;
 import thaumcraft.api.research.IScanThing;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategory;
+import thaumcraft.api.research.ScanningManager;
+
 
 public class ScanGeneric implements IScanThing
 {

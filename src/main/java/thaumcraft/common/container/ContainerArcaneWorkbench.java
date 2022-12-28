@@ -1,36 +1,36 @@
 package thaumcraft.common.container;
-
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCraftResult;
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketSetSlot;
-import net.minecraft.item.crafting.CraftingManager;
-import thaumcraft.api.crafting.ContainerDummy;
-import thaumcraft.api.capabilities.ThaumcraftCapabilities;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.crafting.IArcaneRecipe;
-import thaumcraft.api.ThaumcraftApiHelper;
-import thaumcraft.api.ThaumcraftInvHelper;
 import net.minecraft.util.EnumFacing;
-import thaumcraft.common.items.casters.CasterManager;
-import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.inventory.IContainerListener;
-import thaumcraft.common.container.slot.SlotCrystal;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.ThaumcraftInvHelper;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.crafting.ContainerDummy;
+import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.common.blocks.world.ore.ShardType;
-import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
 import thaumcraft.common.container.slot.SlotCraftingArcaneWorkbench;
-import net.minecraft.inventory.InventoryCraftResult;
-import net.minecraft.entity.player.InventoryPlayer;
+import thaumcraft.common.container.slot.SlotCrystal;
+import thaumcraft.common.items.casters.CasterManager;
+import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.crafting.TileArcaneWorkbench;
-import net.minecraft.inventory.Container;
+
 
 public class ContainerArcaneWorkbench extends Container
 {

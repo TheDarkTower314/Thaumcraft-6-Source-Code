@@ -1,7 +1,7 @@
 package thaumcraft.api.golems.seals;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+
 
 public interface ISealConfigFilter {
 	

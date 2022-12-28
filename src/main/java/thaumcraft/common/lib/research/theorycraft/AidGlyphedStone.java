@@ -1,9 +1,9 @@
 package thaumcraft.common.lib.research.theorycraft;
-
-import thaumcraft.api.research.theorycraft.TheorycraftCard;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.api.research.theorycraft.ITheorycraftAid;
+import thaumcraft.api.research.theorycraft.TheorycraftCard;
+
 
 public class AidGlyphedStone implements ITheorycraftAid
 {

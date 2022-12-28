@@ -1,17 +1,17 @@
 package thaumcraft.common.tiles.crafting;
-
-import thaumcraft.common.world.aura.AuraChunk;
-import thaumcraft.common.world.aura.AuraHandler;
-import thaumcraft.api.blocks.BlocksTC;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.util.NonNullList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.api.crafting.ContainerDummy;
 import thaumcraft.common.container.InventoryArcaneWorkbench;
 import thaumcraft.common.tiles.TileThaumcraft;
+import thaumcraft.common.world.aura.AuraChunk;
+import thaumcraft.common.world.aura.AuraHandler;
+
 
 public class TileArcaneWorkbench extends TileThaumcraft
 {

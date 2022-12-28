@@ -1,8 +1,8 @@
 package thaumcraft.api.research;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import thaumcraft.api.capabilities.IPlayerKnowledge.EnumKnowledgeType;
+
 
 /**
  * These events trigger whenever a players gains knowledge or progresses research. 

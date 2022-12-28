@@ -1,20 +1,20 @@
 package thaumcraft.common.golems.seals;
-
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import thaumcraft.common.lib.network.misc.PacketSealToClient;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.api.golems.seals.ISealConfigToggles;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.nbt.NBTTagCompound;
 import java.util.Iterator;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import thaumcraft.api.golems.seals.ISeal;
+import thaumcraft.api.golems.seals.ISealConfigArea;
+import thaumcraft.api.golems.seals.ISealConfigToggles;
+import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.api.golems.seals.SealPos;
 import thaumcraft.api.golems.tasks.Task;
 import thaumcraft.common.golems.tasks.TaskHandler;
-import thaumcraft.api.golems.seals.ISealConfigArea;
-import net.minecraft.world.World;
-import net.minecraft.util.math.BlockPos;
-import thaumcraft.api.golems.seals.ISeal;
-import thaumcraft.api.golems.seals.SealPos;
-import thaumcraft.api.golems.seals.ISealEntity;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.misc.PacketSealToClient;
+
 
 public class SealEntity implements ISealEntity
 {

@@ -1,17 +1,17 @@
 package thaumcraft.client.renderers.entity.projectile;
-
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.util.math.MathHelper;
-import thaumcraft.common.entities.projectile.EntityGolemOrb;
-import thaumcraft.client.fx.ParticleEngine;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.entity.RenderManager;
 import java.util.Random;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.entities.projectile.EntityGolemOrb;
+
 
 public class RenderElectricOrb extends Render
 {

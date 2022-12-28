@@ -1,17 +1,17 @@
 package thaumcraft.common.blocks;
-
-import java.util.ArrayList;
-import net.minecraft.block.state.BlockStateContainer;
-import thaumcraft.common.lib.utils.BlockStateUtils;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.block.Block;
 import com.google.common.collect.UnmodifiableIterator;
+import java.util.ArrayList;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.block.material.Material;
+import thaumcraft.common.lib.utils.BlockStateUtils;
+
 
 public class BlockTCDevice extends BlockTCTile
 {
